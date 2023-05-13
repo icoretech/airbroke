@@ -2,8 +2,9 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
+import { SlMagnifier } from 'react-icons/sl';
 
-export default function Search() {
+export default function Search({ currentSearchTerm }: { currentSearchTerm?: string }) {
   const searchParams = useSearchParams();
   const { push } = useRouter();
   const pathname = usePathname();
@@ -31,18 +32,23 @@ export default function Search() {
   return (
     <form className="flex flex-1" onSubmit={handleSearch}>
       <label htmlFor="search" className="sr-only">
-        Search Project
+        Search
       </label>
-      <div className="relative flex items-center">
+      <div className="relative w-full">
+        <SlMagnifier
+          className="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-500"
+          aria-hidden="true"
+        />
         <input
           id="search-field"
-          className="block h-8 w-full rounded-md border-0 bg-gray-700 py-0 pr-14 text-white shadow-sm ring-0 ring-inset placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+          className="block h-full w-full border-0 bg-transparent py-0 pl-8 pr-0 text-white focus:ring-0 sm:text-sm"
           placeholder="Search..."
           type="search"
           name="searchQuery"
           autoComplete="off"
           disabled={isPending}
           autoFocus
+          defaultValue={currentSearchTerm}
         />
       </div>
     </form>

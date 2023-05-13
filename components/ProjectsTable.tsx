@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import CustomTimeAgo from './CustomTimeAgo';
 import NoData from './NoData';
-import ProjectDetail from './ProjectsDetail';
+import OccurrenceCounterLabel from './OccurrenceCounterLabel';
 
 export default function ProjectsTable({ projects, currentSort }: { projects: project[]; currentSort: 'asc' | 'desc' }) {
   const statuses = {
@@ -50,11 +50,12 @@ export default function ProjectsTable({ projects, currentSort }: { projects: pro
                   <span className="truncate">{project.organization.toLowerCase()}</span>
                   <span className="text-gray-400">/</span>
                   <span className="cursor-pointer whitespace-nowrap">{project.name}</span>
+                  <span className="absolute inset-0" />
                 </Link>
                 <Link
                   href={`/projects/${project.id.toString()}/notices`}
                   className={classNames(
-                    'absolute inset-0 flex gap-x-2 bg-gradient-to-r from-gray-100 bg-clip-text text-transparent opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100',
+                    'absolute inset-0 flex gap-x-2 bg-gradient-to-r from-gray-400 bg-clip-text text-transparent opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100',
                     project.notices_count === BigInt(0) ? 'to-green-600' : 'to-red-600'
                   )}
                 >
@@ -64,7 +65,7 @@ export default function ProjectsTable({ projects, currentSort }: { projects: pro
                 </Link>
               </h2>
             </div>
-            <div className="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-400">
+            <div className="ml-5 mt-1 flex items-center gap-x-2.5 text-xs leading-5 text-gray-400">
               <p className="truncate">
                 Created <CustomTimeAgo datetime={project.created_at} locale="en_US" />
               </p>
@@ -81,15 +82,10 @@ export default function ProjectsTable({ projects, currentSort }: { projects: pro
               </>
             </div>
           </div>
-          <div
-            className={classNames(
-              environments['production'],
-              'flex-none rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset'
-            )}
-          >
-            {project.notices_count.toString()}
-          </div>
-          <ProjectDetail project={project} />
+
+          <OccurrenceCounterLabel counter={project.notices_count} />
+
+          {/* <ProjectDetail project={project} /> */}
         </li>
       ))}
     </ul>
