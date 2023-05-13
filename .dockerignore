@@ -1,0 +1,13 @@
+Dockerfile
+.dockerignore
+node_modules
+npm-debug.log
+README.md
+.next
+.git
+.vscode
+.drone.jsonnet
+.env.dist
+Makefile
+prisma/pg-init-scripts
+prisma/seed.ts

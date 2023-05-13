@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@airbrake/node": "^2.1.8"
+  },
+  "scripts": {
+    "test": "node test.js"
+  }
+}
