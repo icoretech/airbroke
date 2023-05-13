@@ -1,0 +1,15 @@
+FROM node:20-alpine
+
+ENV NODE_ROOT /app
+
+ARG NODE_ENV=development
+ENV NODE_ENV=${NODE_ENV}
+ENV NEXT_TELEMETRY_DISABLED 1
+
+WORKDIR $NODE_ROOT
+
+RUN apk add --no-cache git
+
+EXPOSE 3000
+
+CMD ["yarn", "dev"]
