@@ -187,13 +187,15 @@ spec:
 
 ### Setup
 
-Aibroke requires two environment variables set at runtime, `DATABASE_URL` and `DIRECT_URL`, some examples:
+Airbroke requires two environment variables set at runtime, `DATABASE_URL` and `DIRECT_URL`, some examples:
 
 ```sh
-# Connection to Prisma Data Proxy
+# Example Connection to Prisma Data Proxy
 DATABASE_URL="prisma://__HOST__/?api_key=__KEY__"
-# Connection to pgBouncer or even direct db.
+# Example Connection to pgBouncer.
 DATABASE_URL="postgresql://__USER__:__PASSWORD__@__HOST__:__PORT__/__DATABASE__?pgbouncer=true&connection_limit=100&pool_timeout=10&application_name=airbroke&schema=public"
+# Example Connection to PostgreSQL.
+DATABASE_URL="postgresql://__USER__:__PASSWORD__@__HOST__:__PORT__/__DATABASE__?connection_limit=20&pool_timeout=10&application_name=airbroke&schema=public"
 
 # Direct connection to the database. Used for migrations.
 DIRECT_URL="postgresql://__USER__:__PASSWORD__@__HOST__:__PORT__/__DATABASE__"
@@ -218,12 +220,13 @@ Since `connection_limit` must be an integer, it should be rounded down to the ne
 
 This limit can be set in your connection strings
 
-After deployment, you should be able to access your ingress (preferably secured with HTTPS) and start adding projects. This process will generate an API key that you can use with your Airbrake-compatible clients. This key, along with other essential information, will be provided to you.
+After deployment, you should be able to access your ingress (preferably secured with HTTPS) and start adding projects.
+This process will generate an API key that you can use with your Airbrake-compatible clients.
+This key, along with other essential information, will be provided to you.
 
 ### About pgBouncer
 
-To optimize your experience with Airbroke, as well as with Postgres overall, we advise integrating pgBouncer into your tech stack in transaction mode. Don't forget to correctly set the connection flags in your DATABASE_URL. This ensures that the connection pooler will be utilized (for example, ?pgbouncer=true&connection_limit=10) and that the necessary DEALLOCATE commands are executed. For more comprehensive information, we recommend reviewing [Prisma's Connection Management documentation](https://www.prisma.io/docs/guides/performance-and-optimization/connection-management#external-connection-poolers), which provides
-insights on external connection poolers.
+To optimize your experience with Airbroke, as well as with Postgres overall, we advise integrating pgBouncer into your tech stack in transaction mode. Don't forget to correctly set the connection flags in your DATABASE_URL. This ensures that the connection pooler will be utilized (for example, `?pgbouncer=true&connection_limit=10`) and that the necessary `DEALLOCATE` commands will be executed by Prisma. For more comprehensive information, we recommend reviewing [Prisma's Connection Management documentation](https://www.prisma.io/docs/guides/performance-and-optimization/connection-management#external-connection-poolers), which provides insights on external connection poolers.
 
 ### About DIRECT_URL
 
@@ -242,7 +245,7 @@ It's important to keep the following points in mind:
 - Due to the nature of serverless functions, your database connections will need to pass through a data proxy.
 - When deploying with Vercel, migrations will need to be executed during the build step. Use the `prisma migrate deploy` command to apply migrations before Vercel proceeds with the deployment of serverless functions.
 
-Detailed instructions for this process can also be found in the [Prisma deployment guide for Vercel](https://www.prisma.io/docs/guides/deployment/deployment-guides/deploying-to-vercel#prisma-workflow)
+Detailed instructions for this process can also be found in the [Prisma deployment guide for Vercel](https://www.prisma.io/docs/guides/deployment/deployment-guides/deploying-to-vercel#prisma-workflow).
 
 ### Frontend Protection
 
