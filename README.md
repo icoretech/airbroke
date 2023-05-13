@@ -234,7 +234,15 @@ The DIRECT_URL should be configured to establish a direct connection to the data
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ficoretech%2Fairbroke%2Ftree%2Fmain&env=DATABASE_URL,DIRECT_URL&project-name=airbroke&repository-name=airbroke)
 
 While [testing on Vercel](https://nextjs.org/learn/basics/deploying-nextjs-app/platform-details) has not been conducted, Airbroke should be fully compatible.
-Please remember to keep your database in the same region for optimal performance and remember that Vercel might transform the collector `/api` endpoint in a serverless function with a certain cold boot time.
+
+It's important to keep the following points in mind:
+
+- For optimal performance, ensure your database is located in the same region.
+- The endpoints under `/api/*` will be converted into serverless functions, which may introduce potential cold boot time.
+- Due to the nature of serverless functions, your database connections will need to pass through a data proxy.
+- When deploying with Vercel, migrations will need to be executed during the build step. Use the `prisma migrate deploy` command to apply migrations before Vercel proceeds with the deployment of serverless functions.
+
+Detailed instructions for this process can also be found in the [Prisma deployment guide for Vercel](https://www.prisma.io/docs/guides/deployment/deployment-guides/deploying-to-vercel#prisma-workflow)
 
 ### Frontend Protection
 
