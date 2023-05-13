@@ -37,9 +37,8 @@ next-env.d.ts
 .DS_Store
 .env
 
-docker-compose.yml
-Dockerfile.dev
 scripts/*
+docker-compose.override.yml
 
 .pnp.*
 .yarn/*

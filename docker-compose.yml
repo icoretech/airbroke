@@ -1,0 +1,72 @@
+name: airbroke
+
+services:
+  db:
+    image: postgres:15-alpine
+    command: postgres -c 'max_connections=20' -c 'shared_buffers=128MB'
+    environment:
+      - POSTGRES_PASSWORD=airbroke
+      - POSTGRES_MULTIPLE_DATABASES="airbroke_development","airbroke_test"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./prisma/pg-init-scripts:/docker-entrypoint-initdb.d
+    ports:
+      - 5460:5432
+    networks:
+      - airbroke
+
+  nextbase:
+    build:
+      context: '.'
+      dockerfile: Dockerfile.dev
+    image: icoretech/airbroke:latest
+    command: yarn install
+    volumes:
+      - .:/app
+      - npm_cache:/root/.npm
+      - yarn_cache:/usr/local/share/.cache/yarn
+    networks:
+      - airbroke
+    depends_on:
+      db:
+        condition: service_started
+
+  web:
+    extends: nextbase
+    command: yarn dev
+    restart: 'always'
+    environment:
+      DATABASE_URL: 'postgresql://postgres:airbroke@db/airbroke_development?connection_limit=15'
+      DIRECT_URL: 'postgresql://postgres:airbroke@db/airbroke_development'
+    ports:
+      - 3000:3000
+    depends_on:
+      nextbase:
+        condition: service_completed_successfully
+      caddy:
+        condition: service_started
+    # healthcheck:
+    #   test: ['CMD', 'curl', '-f', 'http://localhost:3000/api/hc']
+    #   interval: 30s
+    #   timeout: 2s
+    #   retries: 3
+
+  test:
+    extends: nextbase
+    command: yarn test
+    restart: 'always'
+    environment:
+      DATABASE_URL: 'postgresql://postgres:airbroke@db/airbroke_test?connection_limit=5'
+      DIRECT_URL: 'postgresql://postgres:airbroke@db/airbroke_test?connection_limit=5'
+    depends_on:
+      nextbase:
+        condition: service_completed_successfully
+
+volumes:
+  db_data:
+  npm_cache:
+  yarn_cache:
+
+networks:
+  airbroke:
+    name: airbroke
