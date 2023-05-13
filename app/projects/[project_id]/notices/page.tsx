@@ -1,8 +1,8 @@
 import NoticesTable from '@/components/NoticesTable';
 import ProjectHeader from '@/components/ProjectHeader';
+import Search from '@/components/Search';
 import SidebarDesktop from '@/components/SidebarDesktop';
 import { prisma } from '@/lib/db';
-import Search from './Search';
 import Sort from './Sort';
 
 type SortAttribute = 'env' | 'kind' | 'updated_at' | 'occurrences_count';
