@@ -1160,9 +1160,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tremor/react@npm:2.4.1":
-  version: 2.4.1
-  resolution: "@tremor/react@npm:2.4.1"
+"@tremor/react@npm:2.5.0":
+  version: 2.5.0
+  resolution: "@tremor/react@npm:2.5.0"
   dependencies:
     "@floating-ui/react": ^0.19.1
     date-fns: ^2.28.0
@@ -1172,7 +1172,7 @@ __metadata:
   peerDependencies:
     react: ^18.0.0
     react-dom: ">=16.6.0"
-  checksum: ee3d79d32ba7299725393f161cf33846db5b5d00926862513592e8b2fca6c8b2e745936d0a4925b7cc91ec661e9f9003eb8d55783bffc93fbbae57c586acc410
+  checksum: 057ea8de71747a3faf698426e97c96366f695537a3e171179131e21babe641a497cb9db230726b239144997df6b22ec26d24aa96d3a84f192d65d8c2b1bf82da
   languageName: node
   linkType: hard
 
@@ -1674,7 +1674,7 @@ __metadata:
     "@tailwindcss/forms": ^0.5.3
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^14.0.0
-    "@tremor/react": 2.4.1
+    "@tremor/react": 2.5.0
     "@types/chance": ^1.1.3
     "@types/node": ^20.1.4
     "@types/numeral": ^2.0.2
