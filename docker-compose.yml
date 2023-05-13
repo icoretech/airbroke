@@ -43,8 +43,6 @@ services:
     depends_on:
       nextbase:
         condition: service_completed_successfully
-      caddy:
-        condition: service_started
     # healthcheck:
     #   test: ['CMD', 'curl', '-f', 'http://localhost:3000/api/hc']
     #   interval: 30s
