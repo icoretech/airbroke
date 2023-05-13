@@ -192,12 +192,12 @@ Airbroke requires two environment variables set at runtime, `DATABASE_URL` and `
 ```sh
 # Example Connection to Prisma Data Proxy
 DATABASE_URL="prisma://__HOST__/?api_key=__KEY__"
-# Example Connection to pgBouncer.
+# Example Connection to pgBouncer
 DATABASE_URL="postgresql://__USER__:__PASSWORD__@__HOST__:__PORT__/__DATABASE__?pgbouncer=true&connection_limit=100&pool_timeout=10&application_name=airbroke&schema=public"
-# Example Connection to PostgreSQL.
+# Example Connection to PostgreSQL
 DATABASE_URL="postgresql://__USER__:__PASSWORD__@__HOST__:__PORT__/__DATABASE__?connection_limit=20&pool_timeout=10&application_name=airbroke&schema=public"
 
-# Direct connection to the database. Used for migrations.
+# Direct connection to the database, used for migrations
 DIRECT_URL="postgresql://__USER__:__PASSWORD__@__HOST__:__PORT__/__DATABASE__"
 ```
 
