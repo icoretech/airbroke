@@ -1397,10 +1397,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^20.1.2":
+"@types/node@npm:*":
   version: 20.1.2
   resolution: "@types/node@npm:20.1.2"
   checksum: 9bb2cf0a846e60cc06c44a5622c1998d8373c8675b24d11c86845a29f32c60f5bca9627f2a2535640f902be3dbcc60f126a895abe8e10f12e1467ae3deaba56d
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^20.1.4":
+  version: 20.1.4
+  resolution: "@types/node@npm:20.1.4"
+  checksum: bffa6a6e92831cc805b13658c55be8e04abe3202d5e57ddd7fee4cfbe269656a1f475909a9f9514e1aff50310d0d90c516ac2c649cb6f1c77d4b1079c2fd1e88
   languageName: node
   linkType: hard
 
@@ -1669,7 +1676,7 @@ __metadata:
     "@testing-library/react": ^14.0.0
     "@tremor/react": 2.4.1
     "@types/chance": ^1.1.3
-    "@types/node": ^20.1.2
+    "@types/node": ^20.1.4
     "@types/numeral": ^2.0.2
     "@types/react": 18.2.6
     "@types/react-dom": 18.2.4
