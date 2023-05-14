@@ -5,13 +5,14 @@ import { prisma } from '@/lib/db';
 import { redirect } from 'next/navigation';
 
 export default async function Projects({ searchParams }: { searchParams: Record<string, string> }) {
+  const search = searchParams.q;
+
   const totalProjects = await prisma.project.count();
 
   if (totalProjects === 0) {
     redirect('/projects/new');
   }
 
-  const search = searchParams.q;
   const whereObject: any = {
     ...(search && { name: { contains: search, mode: 'insensitive' } }),
   };
