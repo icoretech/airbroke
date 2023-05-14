@@ -5,7 +5,8 @@ import { Menu, Transition } from '@headlessui/react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Fragment } from 'react';
-import { BsChevronBarExpand } from 'react-icons/bs';
+import { RxCaretSort } from 'react-icons/rx';
+import { TbArrowBadgeDown, TbArrowBadgeUp } from 'react-icons/tb';
 
 type SortAttribute = 'env' | 'kind' | 'updated_at' | 'seen_count';
 
@@ -13,14 +14,28 @@ export default function Sort({
   currentSortAttribute,
   currentSort,
 }: {
-  currentSortAttribute: 'env' | 'kind' | 'updated_at' | 'seen_count';
+  currentSortAttribute: SortAttribute;
   currentSort: 'asc' | 'desc';
 }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  function toggleSort(attribute: 'env' | 'kind' | 'updated_at' | 'seen_count') {
+  const sortOptions: { sortAttr: SortAttribute; label: string }[] = [
+    { sortAttr: 'kind', label: 'Exception' },
+    { sortAttr: 'seen_count', label: 'Seen Count' },
+    { sortAttr: 'env', label: 'Environment' },
+    { sortAttr: 'updated_at', label: 'Last Update' },
+  ];
+
+  function toggleSort(attribute: SortAttribute) {
     return currentSortAttribute === attribute && currentSort === 'asc' ? 'desc' : 'asc';
+  }
+
+  function getSortIcon(attribute: SortAttribute) {
+    const sortOrder = toggleSort(attribute);
+    const IconComponent = sortOrder === 'asc' ? TbArrowBadgeUp : TbArrowBadgeDown;
+
+    return <IconComponent className="mr-3 h-5 w-5 text-indigo-400 group-hover:text-indigo-500" aria-hidden="true" />;
   }
 
   function generateUpdatedURL(paramsToUpdate: Record<string, string>) {
@@ -36,7 +51,7 @@ export default function Sort({
     <Menu as="div" className="relative">
       <Menu.Button className="flex h-full items-center gap-x-1 text-sm font-medium leading-6 text-white">
         Sort by
-        <BsChevronBarExpand className="h-5 w-5 text-gray-500" aria-hidden="true" />
+        <RxCaretSort className="h-5 w-5 text-gray-500" aria-hidden="true" />
       </Menu.Button>
       <Transition
         as={Fragment}
@@ -47,37 +62,23 @@ export default function Sort({
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2.5 w-40 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
-          <Menu.Item>
-            {({ active }) => (
-              <Link
-                href={generateUpdatedURL({ sortBy: toggleSort('kind'), sortAttr: 'kind' })}
-                className={classNames(active ? 'bg-gray-50' : '', 'block px-3 py-1 text-sm leading-6 text-gray-900')}
-              >
-                Exception {toggleSort('kind')}
-              </Link>
-            )}
-          </Menu.Item>
-          <Menu.Item>
-            {({ active }) => (
-              <Link
-                href={generateUpdatedURL({ sortBy: toggleSort('seen_count'), sortAttr: 'seen_count' })}
-                className={classNames(active ? 'bg-gray-50' : '', 'block px-3 py-1 text-sm leading-6 text-gray-900')}
-              >
-                Occurrences {toggleSort('seen_count')}
-              </Link>
-            )}
-          </Menu.Item>
-          <Menu.Item>
-            {({ active }) => (
-              <Link
-                href="#"
-                className={classNames(active ? 'bg-gray-50' : '', 'block px-3 py-1 text-sm leading-6 text-gray-900')}
-              >
-                Environment
-              </Link>
-            )}
-          </Menu.Item>
+        <Menu.Items className="absolute right-0 z-10 w-56 origin-top-right divide-y divide-white/5  rounded-md  bg-airbroke-800  py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
+          {sortOptions.map((option) => (
+            <Menu.Item key={option.sortAttr}>
+              {({ active }) => (
+                <Link
+                  href={generateUpdatedURL({ sortBy: toggleSort(option.sortAttr), sortAttr: option.sortAttr })}
+                  className={classNames(
+                    active ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white',
+                    'group flex items-center px-4 py-2 text-sm'
+                  )}
+                >
+                  {getSortIcon(option.sortAttr)}
+                  {option.label} <span className="sr-only">{toggleSort(option.sortAttr).toUpperCase()}</span>
+                </Link>
+              )}
+            </Menu.Item>
+          ))}
         </Menu.Items>
       </Transition>
     </Menu>
