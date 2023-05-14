@@ -43,7 +43,7 @@ export default function NoData({ project }: { project: project }) {
         className="inline-flex items-center rounded-md bg-indigo-400/10 px-3 py-2 text-sm font-semibold text-indigo-400 shadow-sm ring-indigo-400/30 transition-colors duration-200 hover:bg-indigo-500 hover:text-indigo-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:bg-indigo-400"
       >
         {isPending ? (
-          <SlDisc className="-ml-0.5 h-5 w-5 animate-spin" aria-hidden="true" />
+          <SlDisc className="-ml-0.5 mr-1.5 h-5 w-5 animate-spin" aria-hidden="true" />
         ) : (
           <SlEnergy className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
         )}

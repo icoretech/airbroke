@@ -43,14 +43,7 @@ export async function createProject(data: FormData): Promise<CreateProjectRespon
 }
 
 export async function deleteProjectNotices(projectId: bigint): Promise<void> {
-  // Delete notices for the specified project ID
-  await prisma.notice.deleteMany({
-    where: {
-      project_id: projectId,
-    },
-  });
-
-  // Fetch all existing project IDs
+  await prisma.notice.deleteMany({ where: { project_id: projectId } });
   const projectIds = await prisma.project.findMany({
     select: { id: true },
   }).then((projects) => projects.map((project) => project.id));
@@ -59,8 +52,6 @@ export async function deleteProjectNotices(projectId: bigint): Promise<void> {
   await Promise.all(
     projectIds.map((id) => revalidatePath(`/projects/${id}`))
   );
-  // Revalidate the current project
-  revalidatePath(`/projects/${projectId}`);
 }
 
 export async function deleteProject(projectId: bigint): Promise<void> {

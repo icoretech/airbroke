@@ -55,6 +55,7 @@ function getServerHostname(request: NextRequest) {
 
   return null;
 }
+
 // POST /api/v3/projects/1/notices
 async function POST(request: NextRequest) {
   const { projectKey, requestType } = extractProjectKeyFromRequest(request);
