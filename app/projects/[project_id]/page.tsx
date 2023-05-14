@@ -17,7 +17,7 @@ export default async function Project({ params }: { params: { project_id: string
 
       <main className="xl:pl-72">
         <div className="sticky top-0 z-40 bg-airbroke-900">
-          <ProjectHeader project={project} />
+          <ProjectHeader project={project} showAllButtons={true} />
         </div>
 
         <header className="flex items-center justify-between border-white/5 px-4 py-4 sm:px-6 sm:py-6 lg:px-8">

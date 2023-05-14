@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/db';
 import generateUniqueProjectKey from '@/lib/keygen';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 interface CreateProjectResponse {
   project_id: bigint | null;
@@ -39,4 +40,31 @@ export async function createProject(data: FormData): Promise<CreateProjectRespon
       return { project_id: null, error: "An unknown error occurred" };
     }
   }
+}
+
+export async function deleteProjectNotices(projectId: bigint): Promise<void> {
+  // Delete notices for the specified project ID
+  await prisma.notice.deleteMany({
+    where: {
+      project_id: projectId,
+    },
+  });
+
+  // Fetch all existing project IDs
+  const projectIds = await prisma.project.findMany({
+    select: { id: true },
+  }).then((projects) => projects.map((project) => project.id));
+
+  // Run revalidatePath on each project ID in parallel
+  await Promise.all(
+    projectIds.map((id) => revalidatePath(`/projects/${id}`))
+  );
+  // Revalidate the current project
+  revalidatePath(`/projects/${projectId}`);
+}
+
+export async function deleteProject(projectId: bigint): Promise<void> {
+  await prisma.project.delete({ where: { id: projectId } });
+  revalidatePath('/projects');
+  redirect('/projects');
 }
