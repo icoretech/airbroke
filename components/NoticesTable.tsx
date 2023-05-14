@@ -1,34 +1,17 @@
-import classNames from '@/lib/classNames';
 import { notice, project } from '@prisma/client';
 import Link from 'next/link';
 import CustomTimeAgo from './CustomTimeAgo';
+import EnvironmentLabel from './EnvironmentLabel';
 import OccurrenceCounterLabel from './OccurrenceCounterLabel';
 
 export default function NoticesTable({ project, notices }: { project: project; notices: notice[] }) {
-  const environments = {
-    default: 'text-white bg-gray-900 ring-gray-700',
-    production: 'text-indigo-400 bg-indigo-400/10 ring-indigo-400/30',
-    staging: 'text-gray-400 bg-gray-400/10 ring-gray-400/20',
-  };
-
   return (
     <ul role="list" className="divide-y divide-white/5">
       {notices.map((notice) => (
         <li key={notice.id.toString()} className="relative flex items-center space-x-4 px-4 py-4 sm:px-6 lg:px-8">
           <div className="min-w-0 flex-auto">
             <div className="flex items-center gap-x-3">
-              <div
-                className={classNames(
-                  notice.env === 'production'
-                    ? environments.production
-                    : notice.env === 'staging'
-                    ? environments.staging
-                    : environments.default,
-                  'flex-none rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset'
-                )}
-              >
-                {notice.env}
-              </div>
+              <EnvironmentLabel env={notice.env} />
               <h2 className="min-w-0 text-sm font-semibold leading-6 text-white">
                 <Link
                   href={`/projects/${project.id.toString()}/notices/${notice.id.toString()}/occurrences`}
