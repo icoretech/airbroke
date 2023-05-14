@@ -1,7 +1,8 @@
-import { prisma } from '@/lib/db';
+import { PrismaClient } from '@prisma/client';
 import crypto from 'crypto';
 
-export default async function generateUniqueProjectKey(): Promise<string> {
+export default async function generateUniqueProjectKey(prisma: PrismaClient,
+): Promise<string> {
   let unique = false
   let projectKey = ''
 

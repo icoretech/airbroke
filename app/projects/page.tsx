@@ -2,18 +2,22 @@ import ProjectsTable from '@/components/ProjectsTable';
 import Search from '@/components/Search';
 import SidebarDesktop from '@/components/SidebarDesktop';
 import { prisma } from '@/lib/db';
+import { redirect } from 'next/navigation';
 
 export default async function Projects({ searchParams }: { searchParams: Record<string, string> }) {
-  const sort = searchParams.s === 'desc' ? 'desc' : 'asc';
+  const totalProjects = await prisma.project.count();
+
+  if (totalProjects === 0) {
+    redirect('/projects/new');
+  }
+
   const search = searchParams.q;
   const whereObject: any = {
-    ...(search && { name: { contains: search, mode: 'insensitive', gt: '' } }),
+    ...(search && { name: { contains: search, mode: 'insensitive' } }),
   };
   const projects = await prisma.project.findMany({
     where: whereObject,
-    orderBy: {
-      name: sort,
-    },
+    orderBy: { name: 'asc' },
   });
 
   return (
@@ -28,7 +32,7 @@ export default async function Projects({ searchParams }: { searchParams: Record<
           </div>
         </div>
 
-        <ProjectsTable projects={projects} currentSort={sort} />
+        <ProjectsTable projects={projects} />
       </main>
     </>
   );

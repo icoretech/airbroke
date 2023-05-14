@@ -6,7 +6,7 @@ import { VscEdit } from 'react-icons/vsc';
 
 export default function ProjectHeader({ project }: { project: project }) {
   return (
-    <div className="px-4 py-4 sm:px-6 sm:py-6 lg:flex lg:items-center lg:justify-between lg:px-8">
+    <div className="border-b border-white/5 px-4 py-4 sm:px-6 sm:py-6 lg:flex lg:items-center lg:justify-between lg:px-8">
       <div className="min-w-0 flex-1">
         <h2 className="text-2xl font-bold leading-7 text-white sm:truncate sm:text-3xl sm:tracking-tight">
           <Link href={`/projects/${project.id.toString()}/notices`}>{project.name}</Link>

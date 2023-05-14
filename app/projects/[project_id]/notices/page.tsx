@@ -1,3 +1,4 @@
+import NoData from '@/components/NoData';
 import NoticesTable from '@/components/NoticesTable';
 import ProjectHeader from '@/components/ProjectHeader';
 import Search from '@/components/Search';
@@ -5,7 +6,7 @@ import SidebarDesktop from '@/components/SidebarDesktop';
 import { prisma } from '@/lib/db';
 import Sort from './Sort';
 
-type SortAttribute = 'env' | 'kind' | 'updated_at' | 'occurrences_count';
+type SortAttribute = 'env' | 'kind' | 'updated_at' | 'seen_count';
 
 export const revalidate = 60;
 
@@ -32,7 +33,7 @@ export default async function ProjectNotices({
   const whereObject: any = {
     project_id: project.id,
     ...(filterByEnv && { env: filterByEnv }),
-    ...(search && { kind: { contains: search, mode: 'insensitive', gt: '' } }),
+    ...(search && { kind: { contains: search, mode: 'insensitive' } }),
   };
 
   const notices = await prisma.notice.findMany({
@@ -48,26 +49,16 @@ export default async function ProjectNotices({
       <main className="xl:pl-72">
         <div className="sticky top-0 z-40 bg-airbroke-900">
           <ProjectHeader project={project} />
-        </div>
 
-        <div className="sticky top-16 z-40 bg-airbroke-900 px-4 shadow-sm sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <div className="flex flex-1 items-center">
-              <Search />
-            </div>
-            <div className="flex flex-1 items-center justify-end">
+          <div className="flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5  px-4 shadow-sm sm:px-6 lg:px-8">
+            <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+              <Search currentSearchTerm={search} />
               <Sort currentSortAttribute={sortAttr} currentSort={sortBy} />
             </div>
           </div>
         </div>
 
-        <NoticesTable
-          notices={notices}
-          project={project}
-          currentSearchTerm={search}
-          currentSortAttribute={sortAttr}
-          currentSort={sortBy}
-        />
+        {notices.length === 0 ? <NoData /> : <NoticesTable notices={notices} project={project} />}
       </main>
     </>
   );
