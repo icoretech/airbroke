@@ -2,14 +2,16 @@ import { prisma } from '@/lib/db';
 import { NextRequest, NextResponse } from 'next/server';
 
 // GET /api/hc
-// health check
+// Health Check API Endpoint
 export async function GET(request: NextRequest) {
-  // just do something to check if the db is working
-  // and do something with request or this will be compiled as static
+  // Perform a check to ensure the database is working
+
+  // Extract the value of the 'source' query parameter from the URL
   const source = request.nextUrl.searchParams.get('source');
-  const project = await prisma.project.findFirst();
 
-  // console.log(`${request.method} ${request.nextUrl.pathname} ${source}`);
+  // Retrieve a project from the database using Prisma
+  await prisma.project.findFirst();
 
-  return new NextResponse(source);
+  // Create a response containing information about the request method, URL pathname, and 'source' query parameter
+  return new NextResponse(`${request.method} ${request.nextUrl.pathname} ${source}`);
 }
