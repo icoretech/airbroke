@@ -20,11 +20,11 @@ export default async function Project({ params }: { params: { project_id: string
           <ProjectHeader project={project} />
         </div>
 
-        <header className="flex items-center justify-between  border-white/5 px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
+        <header className="flex items-center justify-between border-white/5 px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
           <h1 className="text-base font-semibold leading-7 text-white">Edit Project</h1>
         </header>
 
-        <p className=" px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
+        <p className="px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
           Airbroke provides an Airbrake-compatible API, allowing you to seamlessly use existing clients. The following
           are some suggested configurations for your convenience.
         </p>

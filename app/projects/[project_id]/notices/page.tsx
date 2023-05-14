@@ -58,7 +58,7 @@ export default async function ProjectNotices({
           </div>
         </div>
 
-        {notices.length === 0 ? <NoData /> : <NoticesTable notices={notices} project={project} />}
+        {notices.length === 0 ? <NoData project={project} /> : <NoticesTable notices={notices} project={project} />}
       </main>
     </>
   );

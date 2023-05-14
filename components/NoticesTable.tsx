@@ -8,7 +8,10 @@ export default function NoticesTable({ project, notices }: { project: project; n
   return (
     <ul role="list" className="divide-y divide-white/5">
       {notices.map((notice) => (
-        <li key={notice.id.toString()} className="relative flex items-center space-x-4 px-4 py-4 sm:px-6 lg:px-8">
+        <li
+          key={notice.id.toString()}
+          className="relative flex items-center space-x-4 px-4 py-4 transition-colors duration-200 hover:bg-airbroke-800 sm:px-6 lg:px-8"
+        >
           <div className="min-w-0 flex-auto">
             <div className="flex items-center gap-x-3">
               <EnvironmentLabel env={notice.env} />
