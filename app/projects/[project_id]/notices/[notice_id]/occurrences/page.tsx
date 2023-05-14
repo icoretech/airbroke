@@ -49,7 +49,7 @@ export default async function Notice({
         </div>
 
         {occurrences.length === 0 ? (
-          <NoData />
+          <NoData project={project} />
         ) : (
           <OccurrencesTable notice={notice} project={project} occurrences={occurrences} />
         )}

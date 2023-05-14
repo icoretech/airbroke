@@ -41,7 +41,7 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
                         className={`group flex gap-x-3 rounded-md p-2 text-sm leading-6 ${
                           project.id === selectedProject?.id
                             ? 'bg-gray-800 text-white'
-                            : 'text-gray-400 hover:bg-gray-800 hover:text-white'
+                            : 'text-gray-400 transition-colors duration-100 hover:bg-gray-800 hover:text-white'
                         }`}
                       >
                         <div className="flex w-full justify-between">
@@ -67,9 +67,9 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
             <li className="mt-auto">
               <Link
                 href="/projects/new"
-                className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-indigo-200 hover:bg-indigo-700 hover:text-white"
+                className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-indigo-200 shadow-sm transition-colors duration-200 hover:bg-indigo-500 hover:text-white"
               >
-                <SlPlus className="h-6 w-6 shrink-0 text-indigo-200 group-hover:text-white" aria-hidden="true" />
+                <SlPlus className="h-6 w-6 shrink-0" aria-hidden="true" />
                 Create Project
               </Link>
             </li>
