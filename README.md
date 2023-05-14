@@ -30,6 +30,7 @@ Warning: alpha software, use at your own risk.
 - :arrow_forward: Replay HTTP exceptions
 - :clipboard: Provide cURL command to reproduce HTTP exceptions
 - :key: Potential integration of OAuth authentication
+- :bar_chart: Charting of error frequency over time
 - :recycle: Autodeletion of old errors
 - :bell: Implementation of notifications via webhooks
 - :lock: Support for issue creation through API for compatible providers
