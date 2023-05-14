@@ -44,6 +44,17 @@ async function parseRequestBody(request: NextRequest) {
   return whitelisted;
 }
 
+function getServerHostname(request: NextRequest) {
+  const host = request.headers.get('host');
+  const protocols = (request.headers.get('x-forwarded-proto') || 'https').split(',');
+  const protocol = protocols[0].trim();
+
+  if (host) {
+    return `${protocol}://${host}`;
+  }
+
+  return null;
+}
 // POST /api/v3/projects/1/notices
 async function POST(request: NextRequest) {
   const { projectKey, requestType } = extractProjectKeyFromRequest(request);
@@ -62,86 +73,19 @@ async function POST(request: NextRequest) {
 
   const whitelisted = await parseRequestBody(request);
 
-
   const errors = whitelisted.errors;
   const context = whitelisted.context;
   const environment = whitelisted.environment;
   const session = whitelisted.session;
   const requestParams = whitelisted.params;
-
-
   for (const error of errors) {
     await processError(prisma, project, error, context, environment, session, requestParams);
-    // const type = error.type;
-    // const message = error.message;
-    // const backtrace = error.backtrace;
-
-    // const env = context.environment || 'unknown';
-    // const current_notice = await prisma.notices.upsert({
-    //   where: {
-    //     project_id_env_kind: {
-    //       project_id: project.id,
-    //       env: env,
-    //       kind: type,
-    //     },
-    //   },
-    //   create: {
-    //     env: env,
-    //     kind: type,
-    //     project: {
-    //       connect: {
-    //         id: project.id,
-    //       },
-    //     },
-    //   },
-    //   update: {
-    //   },
-    //   select: {
-    //     id: true,
-    //   },
-    // });
-
-    // const existing_occurrence = await prisma.occurrences.findFirst({
-    //   where: {
-    //     notice_id: current_notice.id,
-    //     message: message,
-    //   },
-    // });
-
-    // if (existing_occurrence) {
-    //   await prisma.occurrences.update({
-    //     where: {
-    //       id: existing_occurrence.id,
-    //     },
-    //     data: {
-    //       seen_count: {
-    //         increment: 1,
-    //       },
-    //     },
-    //   });
-    // } else {
-    //   await prisma.occurrences.create({
-    //     data: {
-    //       message: message,
-    //       backtrace: JSON.parse(JSON.stringify(backtrace)),
-    //       context: JSON.parse(JSON.stringify(context)),
-    //       environment: JSON.parse(JSON.stringify(environment)),
-    //       session: JSON.parse(JSON.stringify(session)),
-    //       params: JSON.parse(JSON.stringify(requestParams)),
-    //       notice: {
-    //         connect: {
-    //           id: current_notice.id,
-    //         },
-    //       },
-    //     },
-    //   });
-    // }
   }
-
 
   const customNanoid = customAlphabet(urlAlphabet, 21);
   const jobId = customNanoid();
-  const responseJSON = { id: jobId, url: `https://example.com/projects/${project.id}/notices` };
+  // assuming airbroke frontend is deployed alongside collector
+  const responseJSON = { id: jobId, url: `${getServerHostname(request)}/projects/${project.id}/notices` };
   return NextResponse.json(responseJSON, { status: 201 });
 }
 

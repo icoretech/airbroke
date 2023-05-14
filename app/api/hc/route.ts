@@ -11,5 +11,5 @@ export async function GET(request: NextRequest) {
 
   // console.log(`${request.method} ${request.nextUrl.pathname} ${source}`);
 
-  return new NextResponse(source || 'OK');
+  return new NextResponse(source);
 }
