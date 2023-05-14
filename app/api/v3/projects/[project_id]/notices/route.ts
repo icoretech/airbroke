@@ -12,12 +12,15 @@ interface ProjectKeyInfo {
 function extractProjectKeyFromRequest(request: NextRequest): ProjectKeyInfo {
   const clientKey = request.nextUrl.searchParams.get('key');
   const authorization = request.headers.get('Authorization');
+  const airbrakeToken = request.headers.get('X-Airbrake-Token');
 
   if (clientKey) {
     return { projectKey: clientKey, requestType: 'params' };
   } else if (authorization) {
     const [_authType, token] = authorization.split(' ');
     return { projectKey: token, requestType: 'headers' };
+  } else if (airbrakeToken) {
+    return { projectKey: airbrakeToken, requestType: 'headers' };
   }
 
   return { projectKey: '', requestType: 'unauthenticated' };
