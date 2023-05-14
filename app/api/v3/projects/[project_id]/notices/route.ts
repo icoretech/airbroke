@@ -41,7 +41,8 @@ async function parseRequestBody(request: NextRequest) {
   return whitelisted;
 }
 
-export async function POST(request: NextRequest) {
+// POST /api/v3/projects/1/notices
+async function POST(request: NextRequest) {
   const { projectKey, requestType } = extractProjectKeyFromRequest(request);
 
   const project = await prisma.project.findFirst({ where: { api_key: projectKey } });
@@ -140,3 +141,20 @@ export async function POST(request: NextRequest) {
   const responseJSON = { id: jobId, url: `https://example.com/projects/${project.id}/notices` };
   return NextResponse.json(responseJSON, { status: 201 });
 }
+
+async function OPTIONS(request: NextRequest) {
+  const corsOrigins = process.env.CORS_ORIGINS?.split(',') || [];
+
+  const headers: { [key: string]: string } = {
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Origin, Accept, Content-Type, Authorization',
+    'Access-Control-Allow-Origin': corsOrigins.length > 0 ? corsOrigins.join(', ') : '*',
+  };
+
+  return new NextResponse('', {
+    status: 200,
+    headers,
+  });
+}
+
+export { POST, OPTIONS };

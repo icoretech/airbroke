@@ -2,14 +2,13 @@
 
 import { Notifier } from '@airbrake/browser';
 import { project } from '@prisma/client';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
 import { SlCheck, SlDisc, SlEnergy } from 'react-icons/sl';
 
 export default function NoData({ project }: { project: project }) {
   const [isPending, startTransition] = useTransition();
   const { refresh } = useRouter();
-  const pathname = usePathname();
   const [airbrake, setAirbrake] = useState<Notifier | null>(null);
 
   useEffect(() => {
@@ -23,9 +22,9 @@ export default function NoData({ project }: { project: project }) {
     );
   }, [project.api_key]);
 
-  const sendTestException = () => {
+  const sendTestException = async () => {
     if (airbrake) {
-      airbrake.notify(new Error('This is a test exception from Airbroke'));
+      await airbrake.notify(new Error('This is a test exception from Airbroke'));
       startTransition(() => {
         refresh();
       });
