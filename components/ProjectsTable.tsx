@@ -3,11 +3,9 @@ import { composeRepoUrl } from '@/lib/gitProvider';
 import { project } from '@prisma/client';
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
-import CustomTimeAgo from './CustomTimeAgo';
-import NoData from './NoData';
 import OccurrenceCounterLabel from './OccurrenceCounterLabel';
 
-export default function ProjectsTable({ projects, currentSort }: { projects: project[]; currentSort: 'asc' | 'desc' }) {
+export default function ProjectsTable({ projects }: { projects: project[] }) {
   const statuses = {
     offline: 'text-gray-500 bg-gray-100/50',
     online: 'text-green-400 bg-green-400/50',
@@ -18,10 +16,6 @@ export default function ProjectsTable({ projects, currentSort }: { projects: pro
     production: 'text-indigo-400 bg-indigo-400/10 ring-indigo-400/30',
     test: 'text-white bg-gray-900 ring-gray-700',
   };
-
-  if (projects.length === 0) {
-    return <NoData />;
-  }
 
   return (
     <ul role="list" className="divide-y divide-white/5">
@@ -66,26 +60,22 @@ export default function ProjectsTable({ projects, currentSort }: { projects: pro
               </h2>
             </div>
             <div className="ml-5 mt-1 flex items-center gap-x-2.5 text-xs leading-5 text-gray-400">
-              <p className="truncate">
-                Created <CustomTimeAgo datetime={project.created_at} locale="en_US" />
+              <p className="inline-flex items-center whitespace-nowrap">
+                <FaGithub className="h-1em w-1em mr-1 shrink-0" aria-hidden="true" />
+                <Link href={composeRepoUrl(project)} className="hover:text-white">
+                  {project.organization.toLowerCase()} / {project.name}
+                </Link>
               </p>
-              <>
-                <svg viewBox="0 0 2 2" className="h-0.5 w-0.5 flex-none fill-gray-300">
-                  <circle cx={1} cy={1} r={1} />
-                </svg>
-                <p className="inline-flex items-center whitespace-nowrap">
-                  <FaGithub className="h-1em w-1em mr-1 shrink-0" aria-hidden="true" />
-                  <Link href={composeRepoUrl(project)} className="hover:text-white">
-                    {project.organization.toLowerCase()} / {project.name}
-                  </Link>
-                </p>
-              </>
+              <svg viewBox="0 0 2 2" className="h-0.5 w-0.5 flex-none fill-gray-300">
+                <circle cx={1} cy={1} r={1} />
+              </svg>
+              <p className="truncate">{project.repo_branch}</p>
             </div>
           </div>
 
-          <OccurrenceCounterLabel counter={project.notices_count} />
-
-          {/* <ProjectDetail project={project} /> */}
+          <Link href={`/projects/${project.id.toString()}/notices`}>
+            <OccurrenceCounterLabel counter={project.notices_count} />
+          </Link>
         </li>
       ))}
     </ul>

@@ -28,7 +28,15 @@ export default function Search({ currentSearchTerm }: { currentSearchTerm?: stri
       push(updatedUrl);
     });
   }
-
+  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const searchQuery = event.target.value;
+    if (searchQuery === '') {
+      const updatedUrl = generateUpdatedURL({ q: searchQuery });
+      startTransition(() => {
+        push(updatedUrl);
+      });
+    }
+  }
   return (
     <form className="flex flex-1" onSubmit={handleSearch}>
       <label htmlFor="search" className="sr-only">
@@ -49,6 +57,7 @@ export default function Search({ currentSearchTerm }: { currentSearchTerm?: stri
           disabled={isPending}
           autoFocus
           defaultValue={currentSearchTerm}
+          onChange={handleInputChange}
         />
       </div>
     </form>

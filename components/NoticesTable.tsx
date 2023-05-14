@@ -2,18 +2,9 @@ import classNames from '@/lib/classNames';
 import { notice, project } from '@prisma/client';
 import Link from 'next/link';
 import CustomTimeAgo from './CustomTimeAgo';
-import NoData from './NoData';
 import OccurrenceCounterLabel from './OccurrenceCounterLabel';
-export default function NoticesTable({
-  project,
-  notices,
-}: {
-  project: project;
-  notices: notice[];
-  currentSortAttribute: 'env' | 'kind' | 'updated_at' | 'occurrences_count';
-  currentSort: 'asc' | 'desc';
-  currentSearchTerm: string;
-}) {
+
+export default function NoticesTable({ project, notices }: { project: project; notices: notice[] }) {
   const environments = {
     default: 'text-white bg-gray-900 ring-gray-700',
     production: 'text-indigo-400 bg-indigo-400/10 ring-indigo-400/30',
@@ -21,46 +12,41 @@ export default function NoticesTable({
   };
 
   return (
-    <>
-      {notices.length === 0 && <NoData />}
-      {notices.length > 0 && (
-        <ul role="list" className="divide-y divide-white/5">
-          {notices.map((notice) => (
-            <li key={notice.id.toString()} className="relative flex items-center space-x-4 px-4 py-4 sm:px-6 lg:px-8">
-              <div className="min-w-0 flex-auto">
-                <div className="flex items-center gap-x-3">
-                  <div
-                    className={classNames(
-                      notice.env === 'production'
-                        ? environments.production
-                        : notice.env === 'staging'
-                        ? environments.staging
-                        : environments.default,
-                      'flex-none rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset'
-                    )}
-                  >
-                    {notice.env}
-                  </div>
-                  <h2 className="min-w-0 text-sm font-semibold leading-6 text-white">
-                    <Link
-                      href={`/projects/${project.id.toString()}/notices/${notice.id.toString()}/occurrences`}
-                      className="flex gap-x-2"
-                    >
-                      <span className="truncate">{notice.kind}</span>
-                      <span className="absolute inset-0" />
-                    </Link>
-                  </h2>
-                </div>
+    <ul role="list" className="divide-y divide-white/5">
+      {notices.map((notice) => (
+        <li key={notice.id.toString()} className="relative flex items-center space-x-4 px-4 py-4 sm:px-6 lg:px-8">
+          <div className="min-w-0 flex-auto">
+            <div className="flex items-center gap-x-3">
+              <div
+                className={classNames(
+                  notice.env === 'production'
+                    ? environments.production
+                    : notice.env === 'staging'
+                    ? environments.staging
+                    : environments.default,
+                  'flex-none rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset'
+                )}
+              >
+                {notice.env}
               </div>
+              <h2 className="min-w-0 text-sm font-semibold leading-6 text-white">
+                <Link
+                  href={`/projects/${project.id.toString()}/notices/${notice.id.toString()}/occurrences`}
+                  className="flex gap-x-2"
+                >
+                  <span className="truncate">{notice.kind}</span>
+                  <span className="absolute inset-0" />
+                </Link>
+              </h2>
+            </div>
+          </div>
 
-              <p className="text-right text-xs text-white">
-                <CustomTimeAgo datetime={notice.updated_at} locale="en_US" />
-              </p>
-              <OccurrenceCounterLabel counter={notice.seen_count} />
-            </li>
-          ))}
-        </ul>
-      )}
-    </>
+          <p className="text-right text-xs text-white">
+            <CustomTimeAgo datetime={notice.updated_at} locale="en_US" />
+          </p>
+          <OccurrenceCounterLabel counter={notice.seen_count} />
+        </li>
+      ))}
+    </ul>
   );
 }

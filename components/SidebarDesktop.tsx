@@ -2,6 +2,7 @@ import { prisma } from '@/lib/db';
 import { project } from '@prisma/client';
 import Link from 'next/link';
 import { MdBrokenImage } from 'react-icons/md';
+import { SlPlus } from 'react-icons/sl';
 import { TbBrandGithub } from 'react-icons/tb';
 
 function groupBy<T>(array: T[], key: keyof T) {
@@ -21,7 +22,7 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
 
   return (
     <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
-      <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-airbroke-800 px-8 ring-1 ring-white/5 scrollbar-none">
+      <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-airbroke-800 px-8 pb-4 ring-1 ring-white/5 scrollbar-none">
         <div className="flex h-16 shrink-0 items-center">
           <Link href={`/projects`}>
             <MdBrokenImage className="h-8 w-auto text-indigo-500" aria-hidden="true" />
@@ -63,6 +64,15 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
                 </ul>
               </li>
             ))}
+            <li className="mt-auto">
+              <Link
+                href="/projects/new"
+                className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-indigo-200 hover:bg-indigo-700 hover:text-white"
+              >
+                <SlPlus className="h-6 w-6 shrink-0 text-indigo-200 group-hover:text-white" aria-hidden="true" />
+                Create Project
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>

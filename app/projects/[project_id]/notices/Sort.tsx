@@ -1,27 +1,25 @@
 'use client';
 
+import classNames from '@/lib/classNames';
 import { Menu, Transition } from '@headlessui/react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Fragment } from 'react';
 import { BsChevronBarExpand } from 'react-icons/bs';
 
-type SortAttribute = 'env' | 'kind' | 'updated_at' | 'occurrences_count';
+type SortAttribute = 'env' | 'kind' | 'updated_at' | 'seen_count';
 
 export default function Sort({
   currentSortAttribute,
   currentSort,
 }: {
-  currentSortAttribute: 'env' | 'kind' | 'updated_at' | 'occurrences_count';
+  currentSortAttribute: 'env' | 'kind' | 'updated_at' | 'seen_count';
   currentSort: 'asc' | 'desc';
 }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  function classNames(...classes: (string | false | undefined | null)[]): string {
-    return classes.filter(Boolean).join(' ');
-  }
-  function toggleSort(attribute: 'env' | 'kind' | 'updated_at' | 'occurrences_count') {
+  function toggleSort(attribute: 'env' | 'kind' | 'updated_at' | 'seen_count') {
     return currentSortAttribute === attribute && currentSort === 'asc' ? 'desc' : 'asc';
   }
 
@@ -36,7 +34,7 @@ export default function Sort({
 
   return (
     <Menu as="div" className="relative">
-      <Menu.Button className="flex items-center gap-x-1 text-sm font-medium leading-6 text-white">
+      <Menu.Button className="flex h-full items-center gap-x-1 text-sm font-medium leading-6 text-white">
         Sort by
         <BsChevronBarExpand className="h-5 w-5 text-gray-500" aria-hidden="true" />
       </Menu.Button>
@@ -63,21 +61,21 @@ export default function Sort({
           <Menu.Item>
             {({ active }) => (
               <Link
-                href={generateUpdatedURL({ sortBy: toggleSort('occurrences_count'), sortAttr: 'occurrences_count' })}
+                href={generateUpdatedURL({ sortBy: toggleSort('seen_count'), sortAttr: 'seen_count' })}
                 className={classNames(active ? 'bg-gray-50' : '', 'block px-3 py-1 text-sm leading-6 text-gray-900')}
               >
-                Occurrences {toggleSort('occurrences_count')}
+                Occurrences {toggleSort('seen_count')}
               </Link>
             )}
           </Menu.Item>
           <Menu.Item>
             {({ active }) => (
-              <a
+              <Link
                 href="#"
                 className={classNames(active ? 'bg-gray-50' : '', 'block px-3 py-1 text-sm leading-6 text-gray-900')}
               >
                 Environment
-              </a>
+              </Link>
             )}
           </Menu.Item>
         </Menu.Items>
