@@ -33,11 +33,48 @@ export default async function ProjectNotices({
   const whereObject: any = {
     project_id: project.id,
     ...(filterByEnv && { env: filterByEnv }),
-    ...(search && { kind: { contains: search, mode: 'insensitive' } }),
   };
 
+  const occurrenceNoticeIds = [];
+  if (search) {
+    // Fetch the notice IDs from the notice table where kind matches the search term
+    const noticeIdsFromNoticeTable = await prisma.notice.findMany({
+      where: {
+        ...whereObject,
+        kind: { contains: search, mode: 'insensitive' },
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    // Fetch the notice IDs from the occurrence table where the message matches the search term
+    const noticeIdsFromOccurrenceTable = await prisma.occurrence.findMany({
+      where: {
+        message: {
+          contains: search,
+          mode: 'insensitive',
+        },
+      },
+      select: {
+        notice_id: true,
+      },
+    });
+
+    // Combine the notice IDs from both searches
+    const combinedNoticeIds = [
+      ...noticeIdsFromNoticeTable.map((n) => n.id),
+      ...noticeIdsFromOccurrenceTable.map((o) => o.notice_id),
+    ];
+
+    occurrenceNoticeIds.push(...combinedNoticeIds);
+  }
+
   const notices = await prisma.notice.findMany({
-    where: whereObject,
+    where: {
+      ...whereObject,
+      id: { in: occurrenceNoticeIds },
+    },
     orderBy: orderByObject,
   });
 
