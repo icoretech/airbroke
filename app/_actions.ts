@@ -50,8 +50,9 @@ export async function deleteProjectNotices(projectId: bigint): Promise<void> {
 
   // Run revalidatePath on each project ID in parallel
   await Promise.all(
-    projectIds.map((id) => revalidatePath(`/projects/${id}`))
+    projectIds.map((id) => revalidatePath(`/projects/${id}/notices`))
   );
+  revalidatePath('/projects');
 }
 
 export async function deleteProject(projectId: bigint): Promise<void> {

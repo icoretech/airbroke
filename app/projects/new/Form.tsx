@@ -24,9 +24,7 @@ export default function Form() {
       setError(error);
     } else {
       setError(null);
-      startTransition(() => {
-        router.push(`/projects/${project_id}`);
-      });
+      startTransition(() => router.push(`/projects/${project_id}`));
     }
   }
 

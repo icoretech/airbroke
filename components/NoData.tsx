@@ -18,6 +18,10 @@ export default function NoData({ project }: { project: project }) {
         projectKey: project.api_key,
         environment: 'test',
         host: window.location.origin,
+        remoteConfig: false,
+        performanceStats: false,
+        queryStats: false,
+        queueStats: false,
       })
     );
   }, [project.api_key]);
@@ -25,9 +29,7 @@ export default function NoData({ project }: { project: project }) {
   const sendTestException = async () => {
     if (airbrake) {
       await airbrake.notify(new Error('This is a test exception from Airbroke'));
-      startTransition(() => {
-        refresh();
-      });
+      startTransition(() => refresh());
     }
   };
 
