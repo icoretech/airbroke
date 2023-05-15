@@ -77,9 +77,7 @@ export default function OccurrenceCard({
       params.delete('tab');
     }
 
-    startTransition(() => {
-      replace(`${pathname}?${params.toString()}`);
-    });
+    startTransition(() => replace(`${pathname}?${params.toString()}`));
   };
 
   return (

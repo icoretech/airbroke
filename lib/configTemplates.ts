@@ -6,7 +6,7 @@ Airbrake.configure do |config|
 
   config.error_host = 'https://airbroke.mydomain.com'
   config.project_id = 1 # any number will do
-  config.project_key = {REPLACE_PROJECT_KEY}
+  config.project_key = '{REPLACE_PROJECT_KEY}'
   config.environment = Rails.env
   config.ignore_environments = %w[development test]
 
@@ -37,10 +37,13 @@ export const jsclientTemplate = `
 import { Notifier } from '@airbrake/browser';
 
 const airbrake = new Notifier({
+  projectId: 1, // any number will do
   projectKey: '{REPLACE_PROJECT_KEY}',
+  environment: 'production',
   host: 'https://airbroke.mydomain.com',
   remoteConfig: false,
-  projectId: 1, // any number will do
-  environment: 'production',
+  performanceStats: false,
+  queryStats: false,
+  queueStats: false,
 });
 `;

@@ -22,19 +22,15 @@ export default function Search({ currentSearchTerm }: { currentSearchTerm?: stri
   function handleSearch(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const searchQuery = formData.get('searchQuery') as string;
-    const updatedUrl = generateUpdatedURL({ q: searchQuery });
-    startTransition(() => {
-      push(updatedUrl);
-    });
+    const q = formData.get('q') as string;
+    const updatedUrl = generateUpdatedURL({ q: q });
+    startTransition(() => push(updatedUrl));
   }
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const searchQuery = event.target.value;
-    if (searchQuery === '') {
-      const updatedUrl = generateUpdatedURL({ q: searchQuery });
-      startTransition(() => {
-        push(updatedUrl);
-      });
+    const q = event.target.value;
+    if (q === '') {
+      const updatedUrl = generateUpdatedURL({ q: q });
+      startTransition(() => push(updatedUrl));
     }
   }
   return (
@@ -59,7 +55,7 @@ export default function Search({ currentSearchTerm }: { currentSearchTerm?: stri
           className="block h-full w-full border-0 bg-transparent py-0 pl-8 pr-0 text-white focus:ring-0 sm:text-sm"
           placeholder="Search..."
           type="search"
-          name="searchQuery"
+          name="q"
           autoComplete="off"
           disabled={isPending}
           autoFocus
