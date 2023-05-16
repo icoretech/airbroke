@@ -51,16 +51,6 @@ export default async function Occurrence({
           <ProjectHeader project={project} />
         </div>
 
-        <header className="flex items-center justify-between border-b border-white/5 px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
-          <div className="-ml-2 -mt-2 flex flex-wrap items-baseline">
-            <h1 className="ml-2 mt-2 text-base font-semibold leading-7 text-gray-400">{notice.kind}</h1>
-            <h1 className="ml-2 mt-2 text-base font-semibold leading-7 text-gray-400">{occurrence.message}</h1>
-            <p className="ml-2 mt-1 truncate text-sm text-white">Occurrence#{occurrence.id.toString()}</p>
-          </div>
-
-          {/* Sort dropdown */}
-        </header>
-
         <OccurrenceCard notice={notice} occurrence={occurrence} project={project} currentTab={tab} />
       </main>
     </>

@@ -2,8 +2,12 @@ import classNames from '@/lib/classNames';
 import { BacktraceItem, OccurrenceTabKeys } from '@/types/airbroke';
 import { Prisma, notice, occurrence, project } from '@prisma/client';
 import Link from 'next/link';
-import { FaCarCrash } from 'react-icons/fa';
+import { FaCarCrash, FaRegAddressBook } from 'react-icons/fa';
+import { HiCubeTransparent } from 'react-icons/hi';
+import { MdOutlineWebhook } from 'react-icons/md';
 import { SiCodefactor } from 'react-icons/si';
+import { TbCubeUnfolded } from 'react-icons/tb';
+import EnvironmentLabel from './EnvironmentLabel';
 import LinkedBacktraceLine from './LinkedBacktraceLine';
 interface KeyValuePair {
   key: string;
@@ -38,10 +42,10 @@ export default function OccurrenceCard({
 
   const tabs = [
     { id: 'backtrace', name: 'Backtrace', current: currentTab === 'backtrace', icon: SiCodefactor },
-    { id: 'context', name: 'Context', current: currentTab === 'context', icon: SiCodefactor },
-    { id: 'environment', name: 'Environment', current: currentTab === 'environment', icon: SiCodefactor },
-    { id: 'session', name: 'Session', current: currentTab === 'session', icon: SiCodefactor },
-    { id: 'params', name: 'Params', current: currentTab === 'params', icon: SiCodefactor },
+    { id: 'context', name: 'Context', current: currentTab === 'context', icon: HiCubeTransparent },
+    { id: 'environment', name: 'Environment', current: currentTab === 'environment', icon: TbCubeUnfolded },
+    { id: 'session', name: 'Session', current: currentTab === 'session', icon: FaRegAddressBook },
+    { id: 'params', name: 'Params', current: currentTab === 'params', icon: MdOutlineWebhook },
   ].map((tab) => ({
     ...tab,
     href: `/projects/${project.id}/notices/${notice.id}/occurrences/${occurrence.id}?tab=${tab.id}`,
@@ -73,12 +77,13 @@ export default function OccurrenceCard({
                 href={tab.href}
                 className={classNames(
                   tab.current
-                    ? 'bg-indigo-500 text-indigo-200 ring-1 '
-                    : 'bg-indigo-400/10 text-indigo-500 ring-1  hover:bg-indigo-500 hover:text-indigo-200',
-                  'rounded-md px-3 py-2 text-sm font-medium ring-indigo-400/30 transition-colors duration-200  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500'
+                    ? 'bg-indigo-500 text-indigo-200 '
+                    : 'bg-indigo-400/10 text-indigo-400 hover:bg-indigo-500 hover:text-indigo-200',
+                  'inline-flex items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-medium ring-1 ring-indigo-400/30 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500'
                 )}
                 aria-current={tab.current ? 'page' : undefined}
               >
+                <tab.icon className="-ml-0.5 h-5 w-5 text-indigo-400" aria-hidden="true" />
                 {tab.name}
               </Link>
             ))}
@@ -86,13 +91,6 @@ export default function OccurrenceCard({
         </div>
       </div>
 
-      {/* <TabList value={selectedTab} onValueChange={setUrlForTab} className="mt-6">
-        <Tab value="backtrace" text="Backtrace" icon={SiCodefactor} />
-        <Tab value="context" text="Context" icon={HiCubeTransparent} />
-        <Tab value="environment" text="Environment" icon={TbCubeUnfolded} />
-        <Tab value="session" text="Session" icon={FaRegAddressBook} />
-        <Tab value="params" text="Params" icon={MdOutlineWebhook} />
-      </TabList> */}
       <div className="px-4 pb-4 sm:px-6 lg:px-8">
         <div className="rounded-md bg-gray-900 p-4 shadow-md">
           <div className="flex">
@@ -100,11 +98,17 @@ export default function OccurrenceCard({
               <FaCarCrash className="h-5 w-5 text-indigo-400" aria-hidden="true" />
             </div>
             <div className="ml-3">
-              <h3 className="text-sm font-semibold text-indigo-400">{notice.kind}</h3>
+              <div className="flex items-center">
+                <h3 className="mr-3 text-sm font-semibold text-indigo-400">
+                  <Link href={`/projects/${project.id}/notices/${notice.id}/occurrences`}>{notice.kind}</Link>
+                </h3>
+                <EnvironmentLabel env={notice.env} />
+              </div>
               <div className="mt-2 text-sm text-indigo-200">
                 <p>{occurrence.message}</p>
               </div>
             </div>
+            <div className="ml-3"></div>
           </div>
         </div>
       </div>
