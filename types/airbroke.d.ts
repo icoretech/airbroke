@@ -4,4 +4,4 @@ export interface BacktraceItem {
   function: string;
 }
 
-export type OccurrenceTabKeys = 'backtrace' | 'context' | 'environment' | 'session' | 'params';
+export type OccurrenceTabKeys = 'backtrace' | 'context' | 'environment' | 'session' | 'params' | 'toolbox';

@@ -11,7 +11,7 @@ export default async function Occurrence({
   params: { project_id: string; notice_id: string; occurrence_id: string };
   searchParams: Record<string, string>;
 }) {
-  const tabKeys: OccurrenceTabKeys[] = ['backtrace', 'context', 'environment', 'session', 'params'];
+  const tabKeys: OccurrenceTabKeys[] = ['backtrace', 'context', 'environment', 'session', 'params', 'toolbox'];
   const tab = tabKeys.includes(searchParams.tab as OccurrenceTabKeys)
     ? (searchParams.tab as OccurrenceTabKeys)
     : 'backtrace';

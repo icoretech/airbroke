@@ -2,18 +2,33 @@ import classNames from '@/lib/classNames';
 import { BacktraceItem, OccurrenceTabKeys } from '@/types/airbroke';
 import { Prisma, notice, occurrence, project } from '@prisma/client';
 import Link from 'next/link';
-import { FaCarCrash, FaRegAddressBook } from 'react-icons/fa';
+import { FaCarCrash, FaRegAddressBook, FaToolbox } from 'react-icons/fa';
 import { HiCubeTransparent } from 'react-icons/hi';
 import { MdOutlineWebhook } from 'react-icons/md';
 import { SiCodefactor } from 'react-icons/si';
 import { TbCubeUnfolded } from 'react-icons/tb';
 import EnvironmentLabel from './EnvironmentLabel';
 import LinkedBacktraceLine from './LinkedBacktraceLine';
+import OccurrenceAi from './OccurrenceAI';
+
 interface KeyValuePair {
   key: string;
   value: any;
 }
-
+function isBacktraceItem(item: any): item is BacktraceItem {
+  return item && typeof item.file === 'string' && typeof item.line === 'number' && typeof item.function === 'string';
+}
+function objectToArray(obj: Record<string, any>): KeyValuePair[] {
+  return Object.entries(obj).map(([key, value]) => ({ key, value }));
+}
+function isObjectWithKeys(item: any): item is Record<string, any> {
+  return (
+    item &&
+    typeof item === 'object' &&
+    !Array.isArray(item) &&
+    Object.keys(item).every((key) => typeof key === 'string')
+  );
+}
 export default function OccurrenceCard({
   project,
   notice,
@@ -25,27 +40,13 @@ export default function OccurrenceCard({
   occurrence: occurrence;
   currentTab?: OccurrenceTabKeys;
 }) {
-  function isBacktraceItem(item: any): item is BacktraceItem {
-    return item && typeof item.file === 'string' && typeof item.line === 'number' && typeof item.function === 'string';
-  }
-  function objectToArray(obj: Record<string, any>): KeyValuePair[] {
-    return Object.entries(obj).map(([key, value]) => ({ key, value }));
-  }
-  function isObjectWithKeys(item: any): item is Record<string, any> {
-    return (
-      item &&
-      typeof item === 'object' &&
-      !Array.isArray(item) &&
-      Object.keys(item).every((key) => typeof key === 'string')
-    );
-  }
-
   const tabs = [
     { id: 'backtrace', name: 'Backtrace', current: currentTab === 'backtrace', icon: SiCodefactor },
     { id: 'context', name: 'Context', current: currentTab === 'context', icon: HiCubeTransparent },
     { id: 'environment', name: 'Environment', current: currentTab === 'environment', icon: TbCubeUnfolded },
     { id: 'session', name: 'Session', current: currentTab === 'session', icon: FaRegAddressBook },
     { id: 'params', name: 'Params', current: currentTab === 'params', icon: MdOutlineWebhook },
+    { id: 'toolbox', name: 'Toolbox', current: currentTab === 'toolbox', icon: FaToolbox },
   ].map((tab) => ({
     ...tab,
     href: `/projects/${project.id}/notices/${notice.id}/occurrences/${occurrence.id}?tab=${tab.id}`,
@@ -59,7 +60,6 @@ export default function OccurrenceCard({
             Select a tab
           </label>
           <select
-            id="tabs"
             name="tabs"
             className="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
             defaultValue={currentTab}
@@ -73,7 +73,7 @@ export default function OccurrenceCard({
           <nav className="flex space-x-4" aria-label="Tabs">
             {tabs.map((tab) => (
               <Link
-                key={tab.name}
+                key={tab.id}
                 href={tab.href}
                 className={classNames(
                   tab.current
@@ -168,6 +168,15 @@ export default function OccurrenceCard({
       {currentTab === 'params' && (
         <div className="px-4 sm:px-6 lg:px-8">
           <h1>{JSON.stringify(occurrence.params)}</h1>
+        </div>
+      )}
+      {currentTab === 'toolbox' && (
+        <div className="px-4 sm:px-6 lg:px-8">
+          <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <li className="col-span-1 flex flex-col divide-y divide-indigo-400/30 rounded-lg text-center shadow">
+              <OccurrenceAi occurrenceId={occurrence.id} />
+            </li>
+          </ul>
         </div>
       )}
     </div>
