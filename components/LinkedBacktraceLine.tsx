@@ -8,7 +8,7 @@ export default function LinkedBacktraceLine({ file, line, project }: { file: str
     const fileUrl = composeFileUrl(project, filePath, line);
 
     return (
-      <Link href={fileUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-gray-700">
+      <Link href={fileUrl} target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-200">
         {file}
       </Link>
     );

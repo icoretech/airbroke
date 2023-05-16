@@ -16,7 +16,10 @@ export default function OccurrencesTable({
   return (
     <ul role="list" className="divide-y divide-white/5">
       {occurrences.map((occurrence) => (
-        <li key={occurrence.id.toString()} className="relative flex items-center space-x-4 px-4 py-4 sm:px-6 lg:px-8">
+        <li
+          key={occurrence.id.toString()}
+          className="relative flex items-center space-x-4 px-4 py-4 transition-colors duration-200 hover:bg-airbroke-800 sm:px-6 lg:px-8"
+        >
           <div className="min-w-0 flex-auto">
             <div className="flex items-center gap-x-3">
               <h2 className="min-w-0 text-sm font-semibold leading-6 text-white">
