@@ -22,11 +22,11 @@ Warning: alpha software, use at your own risk.
 - :computer: Modern, React-based frontend for error management
 - :rocket: Designed with simplicity at its core
 - :wrench: Maintains small database footprint even under heavy data ingestion
+- :robot: Ask AI about issues
 
 ## Roadmap
 
 - :pencil2: Logo
-- :robot: Ask AI about issues
 - :arrow_forward: Replay HTTP exceptions
 - :clipboard: Provide cURL command to reproduce HTTP exceptions
 - :key: Potential integration of OAuth authentication
