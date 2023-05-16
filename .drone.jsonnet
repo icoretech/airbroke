@@ -26,11 +26,13 @@
           no_cache: true,
           // platforms: ['linux/amd64', 'linux/arm64'],
           platforms: ['linux/amd64'],
-          repo: 'rg.fr-par.scw.cloud/icoretech/airbroke',
-          registry: 'rg.fr-par.scw.cloud/icoretech',
-          username: 'nologin',
+          repo: 'ghcr.io/icoretech/airbroke',
+          registry: 'ghcr.io/icoretech',
+          username: {
+            from_secret: 'github_packages_username',
+          },
           password: {
-            from_secret: 'scaleway_registry_secret_key',
+            from_secret: 'github_packages_pat',
           },
         },
         when: {
