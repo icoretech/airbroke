@@ -1,8 +1,10 @@
+import classNames from '@/lib/classNames';
 import { BacktraceItem, OccurrenceTabKeys } from '@/types/airbroke';
 import { Prisma, notice, occurrence, project } from '@prisma/client';
 import Link from 'next/link';
+import { FaCarCrash } from 'react-icons/fa';
+import { SiCodefactor } from 'react-icons/si';
 import LinkedBacktraceLine from './LinkedBacktraceLine';
-
 interface KeyValuePair {
   key: string;
   value: any;
@@ -35,32 +37,55 @@ export default function OccurrenceCard({
   }
 
   const tabs = [
-    { id: 'backtrace', name: 'Backtrace', current: currentTab === 'backtrace' },
-    { id: 'context', name: 'Context', current: currentTab === 'context' },
-    { id: 'environment', name: 'Environment', current: currentTab === 'environment' },
-    { id: 'session', name: 'Session', current: currentTab === 'session' },
-    { id: 'params', name: 'Params', current: currentTab === 'params' },
+    { id: 'backtrace', name: 'Backtrace', current: currentTab === 'backtrace', icon: SiCodefactor },
+    { id: 'context', name: 'Context', current: currentTab === 'context', icon: SiCodefactor },
+    { id: 'environment', name: 'Environment', current: currentTab === 'environment', icon: SiCodefactor },
+    { id: 'session', name: 'Session', current: currentTab === 'session', icon: SiCodefactor },
+    { id: 'params', name: 'Params', current: currentTab === 'params', icon: SiCodefactor },
   ].map((tab) => ({
     ...tab,
     href: `/projects/${project.id}/notices/${notice.id}/occurrences/${occurrence.id}?tab=${tab.id}`,
   }));
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8">
-      <nav className="flex overflow-x-auto border-b border-white/10 py-4">
-        <ul
-          role="list"
-          className="flex min-w-full flex-none gap-x-6 px-4 text-sm font-semibold leading-6 text-gray-400 sm:px-6 lg:px-8"
-        >
-          {tabs.map((item) => (
-            <li key={item.name}>
-              <Link href={item.href} className={item.current ? 'text-indigo-400' : ''}>
-                {item.name}
+    <div className="pb-8">
+      <div className="px-4 py-4 sm:px-6 lg:px-8">
+        <div className="sm:hidden">
+          <label htmlFor="tabs" className="sr-only">
+            Select a tab
+          </label>
+          {/* Use an "onChange" listener to redirect the user to the selected tab URL. */}
+          <select
+            id="tabs"
+            name="tabs"
+            className="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+            defaultValue={tabs.find((tab) => tab.current).name}
+          >
+            {tabs.map((tab) => (
+              <option key={tab.name}>{tab.name}</option>
+            ))}
+          </select>
+        </div>
+        <div className="hidden sm:block">
+          <nav className="flex space-x-4" aria-label="Tabs">
+            {tabs.map((tab) => (
+              <Link
+                key={tab.name}
+                href={tab.href}
+                className={classNames(
+                  tab.current
+                    ? 'bg-indigo-500 text-indigo-200 ring-1 '
+                    : 'bg-indigo-400/10 text-indigo-500 ring-1  hover:bg-indigo-500 hover:text-indigo-200',
+                  'rounded-md px-3 py-2 text-sm font-medium ring-indigo-400/30 transition-colors duration-200  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500'
+                )}
+                aria-current={tab.current ? 'page' : undefined}
+              >
+                {tab.name}
               </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+            ))}
+          </nav>
+        </div>
+      </div>
 
       {/* <TabList value={selectedTab} onValueChange={setUrlForTab} className="mt-6">
         <Tab value="backtrace" text="Backtrace" icon={SiCodefactor} />
@@ -69,24 +94,42 @@ export default function OccurrenceCard({
         <Tab value="session" text="Session" icon={FaRegAddressBook} />
         <Tab value="params" text="Params" icon={MdOutlineWebhook} />
       </TabList> */}
+      <div className="px-4 pb-4 sm:px-6 lg:px-8">
+        <div className="rounded-md bg-gray-900 p-4 shadow-md">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <FaCarCrash className="h-5 w-5 text-indigo-400" aria-hidden="true" />
+            </div>
+            <div className="ml-3">
+              <h3 className="text-sm font-semibold text-indigo-400">{notice.kind}</h3>
+              <div className="mt-2 text-sm text-indigo-200">
+                <p>{occurrence.message}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {currentTab === 'backtrace' &&
         occurrence.backtrace &&
         typeof occurrence.backtrace === 'object' &&
         Array.isArray(occurrence.backtrace) && (
-          <div className="mt-6">
+          <div className="px-4 sm:px-6 lg:px-8">
             {(occurrence.backtrace as Prisma.JsonArray).map(
               (trace, index) =>
                 isBacktraceItem(trace) && (
-                  <div key={index} className="flex  flex-row flex-wrap justify-start font-mono text-xs">
+                  <div key={index} className="flex flex-row flex-wrap justify-start pb-1 font-mono text-xs">
                     <p
-                      className={`text-xs text-slate-600 ${trace.file.includes('PROJECT_ROOT') ? 'font-semibold' : ''}`}
+                      className={classNames(
+                        trace.file.includes('PROJECT_ROOT') ? 'font-semibold' : '',
+                        'text-xs text-gray-400'
+                      )}
                     >
                       <LinkedBacktraceLine file={trace.file} line={trace.line} project={project} />
                     </p>
-                    <p className="mx-1">:</p>
-                    <p className="text-xs font-semibold text-fuchsia-800">{trace.line}</p>
-                    <p className="mx-1">→</p>
+                    <p className="mx-1 text-gray-400">:</p>
+                    <p className="text-xs font-semibold text-indigo-400">{trace.line}</p>
+                    <p className="mx-1 text-gray-400">→</p>
                     <p className="text-xs font-semibold text-red-600">{trace.function}</p>
                   </div>
                 )
@@ -95,7 +138,7 @@ export default function OccurrenceCard({
         )}
 
       {currentTab === 'context' && (
-        <div className="mt-6">
+        <div className="px-4 sm:px-6 lg:px-8">
           {isObjectWithKeys(occurrence.context) && (
             <ul>
               {objectToArray(occurrence.context).map((item: KeyValuePair) => (
@@ -110,17 +153,17 @@ export default function OccurrenceCard({
       )}
 
       {currentTab === 'environment' && (
-        <div className="mt-5">
+        <div className="px-4 sm:px-6 lg:px-8">
           <h1>{JSON.stringify(occurrence.environment)}</h1>
         </div>
       )}
       {currentTab === 'session' && (
-        <div className="mt-5">
+        <div className="px-4 sm:px-6 lg:px-8">
           <h1>{JSON.stringify(occurrence.session)}</h1>
         </div>
       )}
       {currentTab === 'params' && (
-        <div className="mt-5">
+        <div className="px-4 sm:px-6 lg:px-8">
           <h1>{JSON.stringify(occurrence.params)}</h1>
         </div>
       )}
