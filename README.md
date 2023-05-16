@@ -188,7 +188,7 @@ spec:
 
 ### Setup
 
-Airbroke requires two environment variables set at runtime, `DATABASE_URL` and `DIRECT_URL`, some examples:
+Airbroke requires some environment variables set at runtime, `DATABASE_URL` and `DIRECT_URL` are mandatory, some examples:
 
 ```sh
 # Example Connection to Prisma Data Proxy
@@ -224,6 +224,14 @@ This limit can be set in your connection strings
 After deployment, you should be able to access your ingress (preferably secured with HTTPS) and start adding projects.
 This process will generate an API key that you can use with your Airbrake-compatible clients.
 This key, along with other essential information, will be provided to you.
+
+Other options include:
+
+```sh
+CORS_ORIGINS="https://airbroke.mydomain.com" # comma separated list of origins, if missing '*' is used
+OPENAI_API_KEY="sk-xxxx" # OpenAI API Key
+OPENAI_ORGANIZATION="" # OpenAI Organization
+```
 
 ### About pgBouncer
 

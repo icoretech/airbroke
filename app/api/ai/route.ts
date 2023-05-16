@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
 
   const api = new ChatGPTAPI({
     apiKey: process.env.OPENAI_API_KEY,
-    debug: true,
+    debug: false,
   });
   const errorType = notice.kind;
   const errorMessage = occurrence.message;
