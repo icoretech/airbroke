@@ -456,13 +456,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dqbd/tiktoken@npm:^1.0.7":
-  version: 1.0.7
-  resolution: "@dqbd/tiktoken@npm:1.0.7"
-  checksum: 81049797dcffa101c57b68a78be19b11958edf6e6cfffab7ccd3ec2e5290e3b27bc25f1060a1c34e1cb94f22e0f46d9aafa925d383fb4559738b644aa01c0fb1
-  languageName: node
-  linkType: hard
-
 "@eslint-community/eslint-utils@npm:^4.2.0":
   version: 4.4.0
   resolution: "@eslint-community/eslint-utils@npm:4.4.0"
@@ -1609,7 +1602,7 @@ __metadata:
     "@types/react-dom": 18.2.4
     autoprefixer: 10.4.14
     chance: ^1.1.11
-    chatgpt: ^5.2.4
+    chatgpt: "file:vendor/chatgpt-5.2.4.tgz"
     eslint: 8.40.0
     eslint-config-next: 13.4.2
     eslint-config-prettier: 8.8.0
@@ -2011,7 +2004,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"base64-js@npm:^1.3.1":
+"base64-js@npm:^1.3.1, base64-js@npm:^1.5.1":
   version: 1.5.1
   resolution: "base64-js@npm:1.5.1"
   checksum: 669632eb3745404c2f822a18fc3a0122d2f9a7a13f7fb8b5823ee19d1d2ff9ee5b52c53367176ea4ad093c332fd5ab4bd0ebae5a8e27917a4105a4cfc86b1005
@@ -2275,22 +2268,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chatgpt@npm:^5.2.4":
+"chatgpt@file:vendor/chatgpt-5.2.4.tgz::locator=airbroke%40workspace%3A.":
   version: 5.2.4
-  resolution: "chatgpt@npm:5.2.4"
+  resolution: "chatgpt@file:vendor/chatgpt-5.2.4.tgz::locator=airbroke%40workspace%3A."
   dependencies:
-    "@dqbd/tiktoken": ^1.0.7
     cac: ^6.7.14
     conf: ^11.0.1
     eventsource-parser: ^1.0.0
+    js-tiktoken: ^1.0.5
     keyv: ^4.5.2
     p-timeout: ^6.1.1
     quick-lru: ^6.1.1
     read-pkg-up: ^9.1.0
     uuid: ^9.0.0
   bin:
-    chatgpt: bin/cli.js
-  checksum: 016f9267edfa663dfc0c65d538011354afd2f5cf2699078eea8006bba24fd8d64e9ae00db3ec475f9bb532ea98de0c28570faf7e598b27af5b4cb19a0b1cb947
+    chatgpt: ./bin/cli.js
+  checksum: 779a95d1ead7e6e5a942f653fe0d21acf39d9d882a4cad0fc01288c5e3bfac8a66c27d3c9095646e36906d8b23fadd2cebbcbc21dfbe5977fc4348369f5f9ae3
   languageName: node
   linkType: hard
 
@@ -5018,6 +5011,15 @@ __metadata:
   version: 4.4.0
   resolution: "js-sdsl@npm:4.4.0"
   checksum: 7bb08a2d746ab7ff742720339aa006c631afe05e77d11eda988c1c35fae8e03e492e4e347e883e786e3ce6170685d4780c125619111f0730c11fdb41b04059c7
+  languageName: node
+  linkType: hard
+
+"js-tiktoken@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "js-tiktoken@npm:1.0.5"
+  dependencies:
+    base64-js: ^1.5.1
+  checksum: 51139b9b5507a618a5094ea04302951a10f72a775f9732f8cbb0e51c62165af568ce2c4f591bf18aeb9004ffe08bbdabbcc9b827a64a40998e617b6485ee7aad
   languageName: node
   linkType: hard
 
