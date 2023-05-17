@@ -13,11 +13,12 @@ const nextConfig = {
       },
     ];
   },
-  webpack(config, { isServer, dev }) {
-    config.experiments = {
-      asyncWebAssembly: true,
-      layers: true,
-    };
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    config.module.rules.push({
+      test: /\.wasm$/,
+      use: ['wasm-loader'],
+      type: 'javascript/auto',
+    });
 
     return config;
   },
