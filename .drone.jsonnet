@@ -37,7 +37,7 @@
         },
         when: {
           branch: {
-            exclude: ['renovate/*'],
+            include: ['edge'],
           },
         },
       },
