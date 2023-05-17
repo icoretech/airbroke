@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/db';
-import { ChatGPTAPI } from '@icoretech/chatgpt';
+import { ChatGPTAPI } from 'chatgpt';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
