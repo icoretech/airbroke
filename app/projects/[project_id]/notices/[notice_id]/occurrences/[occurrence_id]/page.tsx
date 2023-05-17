@@ -1,8 +1,22 @@
-import OccurrenceCard from '@/components/OccurrenceCard';
+import EnvironmentLabel from '@/components/EnvironmentLabel';
 import ProjectHeader from '@/components/ProjectHeader';
 import SidebarDesktop from '@/components/SidebarDesktop';
+import classNames from '@/lib/classNames';
 import { prisma } from '@/lib/db';
 import { OccurrenceTabKeys } from '@/types/airbroke';
+import Link from 'next/link';
+import { FaCarCrash, FaRegAddressBook, FaToolbox } from 'react-icons/fa';
+import { HiCubeTransparent } from 'react-icons/hi';
+import { MdOutlineWebhook } from 'react-icons/md';
+import { SiCodefactor } from 'react-icons/si';
+import { TbCubeUnfolded } from 'react-icons/tb';
+
+import Backtrace from '@/components/occurrence/Backtrace';
+import Context from '@/components/occurrence/Context';
+import Environment from '@/components/occurrence/Environment';
+import Params from '@/components/occurrence/Params';
+import Session from '@/components/occurrence/Session';
+import Toolbox from '@/components/occurrence/Toolbox';
 
 export default async function Occurrence({
   params,
@@ -12,7 +26,7 @@ export default async function Occurrence({
   searchParams: Record<string, string>;
 }) {
   const tabKeys: OccurrenceTabKeys[] = ['backtrace', 'context', 'environment', 'session', 'params', 'toolbox'];
-  const tab = tabKeys.includes(searchParams.tab as OccurrenceTabKeys)
+  const currentTab = tabKeys.includes(searchParams.tab as OccurrenceTabKeys)
     ? (searchParams.tab as OccurrenceTabKeys)
     : 'backtrace';
 
@@ -41,6 +55,19 @@ export default async function Occurrence({
 
   const { notice, ...occurrence } = occurrenceWithRelations;
   const { project, ...noticeData } = notice;
+
+  const tabs = [
+    { id: 'backtrace', name: 'Backtrace', current: currentTab === 'backtrace', icon: SiCodefactor },
+    { id: 'context', name: 'Context', current: currentTab === 'context', icon: HiCubeTransparent },
+    { id: 'environment', name: 'Environment', current: currentTab === 'environment', icon: TbCubeUnfolded },
+    { id: 'session', name: 'Session', current: currentTab === 'session', icon: FaRegAddressBook },
+    { id: 'params', name: 'Params', current: currentTab === 'params', icon: MdOutlineWebhook },
+    { id: 'toolbox', name: 'Toolbox', current: currentTab === 'toolbox', icon: FaToolbox },
+  ].map((tab) => ({
+    ...tab,
+    href: `/projects/${project.id}/notices/${notice.id}/occurrences/${occurrence.id}?tab=${tab.id}`,
+  }));
+
   return (
     <>
       {/* @ts-expect-error Server Component */}
@@ -51,7 +78,73 @@ export default async function Occurrence({
           <ProjectHeader project={project} />
         </div>
 
-        <OccurrenceCard notice={notice} occurrence={occurrence} project={project} currentTab={tab} />
+        <div className="pb-8">
+          <div className="px-4 py-4 sm:px-6 lg:px-8">
+            <div className="sm:hidden">
+              <label htmlFor="tabs" className="sr-only">
+                Select a tab
+              </label>
+              <select
+                name="tabs"
+                className="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                defaultValue={currentTab}
+              >
+                {tabs.map((tab) => (
+                  <option key={tab.name}>{tab.name}</option>
+                ))}
+              </select>
+            </div>
+            <div className="hidden sm:block">
+              <nav className="flex space-x-4" aria-label="Tabs">
+                {tabs.map((tab) => (
+                  <Link
+                    key={tab.id}
+                    href={tab.href}
+                    className={classNames(
+                      tab.current
+                        ? 'bg-indigo-500 text-indigo-200 '
+                        : 'bg-indigo-400/10 text-indigo-400 hover:bg-indigo-500 hover:text-indigo-200',
+                      'inline-flex items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-medium ring-1 ring-indigo-400/30 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500'
+                    )}
+                    aria-current={tab.current ? 'page' : undefined}
+                  >
+                    <tab.icon className="-ml-0.5 h-5 w-5 text-indigo-400" aria-hidden="true" />
+                    {tab.name}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+          </div>
+
+          <div className="px-4 pb-4 sm:px-6 lg:px-8">
+            <div className="rounded-md bg-gray-900 p-4 shadow-md">
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <FaCarCrash className="h-5 w-5 text-indigo-400" aria-hidden="true" />
+                </div>
+                <div className="ml-3">
+                  <div className="flex items-center">
+                    <h3 className="mr-3 text-sm font-semibold text-indigo-400">
+                      <Link href={`/projects/${project.id}/notices/${notice.id}/occurrences`}>{notice.kind}</Link>
+                    </h3>
+                    <EnvironmentLabel env={notice.env} />
+                  </div>
+                  <div className="mt-2 text-sm text-indigo-200">
+                    <p>{occurrence.message}</p>
+                  </div>
+                </div>
+                <div className="ml-3"></div>
+              </div>
+            </div>
+          </div>
+
+          {currentTab === 'backtrace' && <Backtrace occurrence={occurrence} project={project} />}
+          {currentTab === 'context' && <Context occurrence={occurrence} />}
+          {currentTab === 'environment' && <Environment occurrence={occurrence} />}
+          {currentTab === 'session' && <Session occurrence={occurrence} />}
+          {currentTab === 'params' && <Params occurrence={occurrence} />}
+          {currentTab === 'toolbox' && <Toolbox occurrence={occurrence} />}
+        </div>
       </main>
     </>
   );

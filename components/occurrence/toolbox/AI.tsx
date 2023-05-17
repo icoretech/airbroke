@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { BsRobot } from 'react-icons/bs';
 import { SlDisc } from 'react-icons/sl';
 
-export default function OccurrenceAI({ occurrenceId }: { occurrenceId: bigint }) {
+export default function ToolboxAI({ occurrenceId }: { occurrenceId: bigint }) {
   const [data, setData] = useState('');
   const [isStarted, setIsStarted] = useState(false);
 

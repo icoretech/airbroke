@@ -3,7 +3,7 @@ import { composeRepoUrl } from '@/lib/gitProvider';
 import { project } from '@prisma/client';
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
-import OccurrenceCounterLabel from './OccurrenceCounterLabel';
+import OccurrenceCounterLabel from './CounterLabel';
 
 export default function ProjectsTable({ projects }: { projects: project[] }) {
   const statuses = {

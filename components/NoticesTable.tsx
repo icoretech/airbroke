@@ -1,8 +1,8 @@
 import { notice, project } from '@prisma/client';
 import Link from 'next/link';
+import OccurrenceCounterLabel from './CounterLabel';
 import CustomTimeAgo from './CustomTimeAgo';
 import EnvironmentLabel from './EnvironmentLabel';
-import OccurrenceCounterLabel from './OccurrenceCounterLabel';
 
 export default function NoticesTable({ project, notices }: { project: project; notices: notice[] }) {
   return (
