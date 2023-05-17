@@ -99,11 +99,10 @@ You can deploy Airbroke to Kubernetes using the Helm chart provided in the `helm
 You can install the chart with:
 
 ```sh
-helm install airbroke ./helm --set postgresql.enabled=false --set pgbouncer.enabled=false
+helm install airbroke oci://ghcr.io/icoretech/charts/airbroke --set pgbouncer.enabled=true
 ```
 
-You can also use the `helm` folder as a template for your own deployment.
-The Helm chart includes a `values.yaml` file with some default values that you can override with your own. It also includes PostgreSQL and pgBouncer charts as optional dependencies.
+The Helm chart includes a `values.yaml` file with some default values that you can override with your own. It also includes a pgBouncer chart as optional dependency.
 
 When using Helm we recommend using a GitOps approach to deploy your application(s), such as [Flux](https://fluxcd.io/).
 
