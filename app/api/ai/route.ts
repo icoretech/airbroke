@@ -50,13 +50,16 @@ export async function GET(request: NextRequest) {
     },
   });
 
-  responsePromise.catch(async (error) => {
-    // If an error occurs during sendMessage, write the error message to the stream
-    const errorMessage = `An error occurred: ${error.message}\n\n`;
-    const data = new TextEncoder().encode(`data: ${errorMessage}`);
-    await writer.write(data);
-    await writer.close();
-  });
+  responsePromise
+    .catch(async (error) => {
+      const errorMessage = `An error occurred: ${error.message}\n\n`;
+      const data = new TextEncoder().encode(`data: ${errorMessage}`);
+      await writer.write(data);
+    })
+    .finally(async () => {
+      await writer.close();
+    });
+
 
   return new Response(readable, {
     headers: {
