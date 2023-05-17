@@ -13,15 +13,6 @@ const nextConfig = {
       },
     ];
   },
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    config.module.rules.push({
-      test: /\.wasm$/,
-      use: ['wasm-loader'],
-      type: 'javascript/auto',
-    });
-
-    return config;
-  },
 };
 
 module.exports = nextConfig;

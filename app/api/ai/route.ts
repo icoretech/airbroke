@@ -1,8 +1,7 @@
 import { prisma } from '@/lib/db';
-import { ChatGPTAPI } from 'chatgpt';
+import { ChatGPTAPI } from '@icoretech/chatgpt';
 import { NextRequest, NextResponse } from 'next/server';
 
-export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
