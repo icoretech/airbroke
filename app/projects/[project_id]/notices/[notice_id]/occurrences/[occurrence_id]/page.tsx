@@ -1,6 +1,13 @@
+import OccurrenceCounterLabel from '@/components/CounterLabel';
 import EnvironmentLabel from '@/components/EnvironmentLabel';
 import ProjectHeader from '@/components/ProjectHeader';
 import SidebarDesktop from '@/components/SidebarDesktop';
+import Backtrace from '@/components/occurrence/Backtrace';
+import Context from '@/components/occurrence/Context';
+import Environment from '@/components/occurrence/Environment';
+import Params from '@/components/occurrence/Params';
+import Session from '@/components/occurrence/Session';
+import Toolbox from '@/components/occurrence/Toolbox';
 import classNames from '@/lib/classNames';
 import { prisma } from '@/lib/db';
 import { OccurrenceTabKeys } from '@/types/airbroke';
@@ -10,13 +17,6 @@ import { HiCubeTransparent } from 'react-icons/hi';
 import { MdOutlineWebhook } from 'react-icons/md';
 import { SiCodefactor } from 'react-icons/si';
 import { TbCubeUnfolded } from 'react-icons/tb';
-
-import Backtrace from '@/components/occurrence/Backtrace';
-import Context from '@/components/occurrence/Context';
-import Environment from '@/components/occurrence/Environment';
-import Params from '@/components/occurrence/Params';
-import Session from '@/components/occurrence/Session';
-import Toolbox from '@/components/occurrence/Toolbox';
 
 export default async function Occurrence({
   params,
@@ -118,13 +118,18 @@ export default async function Occurrence({
 
           <div className="px-4 pb-4 sm:px-6 lg:px-8">
             <div className="rounded-md bg-gray-900 p-4 shadow-md">
-              <div className="flex">
+              <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <FaCarCrash className="h-5 w-5 text-indigo-400" aria-hidden="true" />
+                  <div className="flex flex-col items-center">
+                    <FaCarCrash className="h-5 w-5 text-indigo-400" aria-hidden="true" />
+                    <div className="mt-2">
+                      <OccurrenceCounterLabel counter={occurrence.seen_count} />
+                    </div>
+                  </div>
                 </div>
                 <div className="ml-3">
-                  <div className="flex items-center">
-                    <h3 className="mr-3 text-sm font-semibold text-indigo-400">
+                  <div className="flex items-center space-x-3">
+                    <h3 className="text-sm font-semibold text-indigo-400">
                       <Link href={`/projects/${project.id}/notices/${notice.id}/occurrences`}>{notice.kind}</Link>
                     </h3>
                     <EnvironmentLabel env={notice.env} />
@@ -133,7 +138,6 @@ export default async function Occurrence({
                     <p>{occurrence.message}</p>
                   </div>
                 </div>
-                <div className="ml-3"></div>
               </div>
             </div>
           </div>
