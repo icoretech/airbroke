@@ -1,4 +1,5 @@
 import OccurrenceCounterLabel from '@/components/CounterLabel';
+import CustomTimeAgo from '@/components/CustomTimeAgo';
 import EnvironmentLabel from '@/components/EnvironmentLabel';
 import ProjectHeader from '@/components/ProjectHeader';
 import SidebarDesktop from '@/components/SidebarDesktop';
@@ -134,8 +135,18 @@ export default async function Occurrence({
                     </h3>
                     <EnvironmentLabel env={notice.env} />
                   </div>
-                  <div className="mt-2 text-sm text-indigo-200">
+
+                  <div className="mt-2 space-y-1 text-sm text-indigo-200">
                     <p>{occurrence.message}</p>
+                    <div className="flex items-center space-x-2 text-xs">
+                      <span>First seen:</span>
+                      <CustomTimeAgo datetime={occurrence.created_at} locale="en_US" />
+                      <svg viewBox="0 0 2 2" className="h-0.5 w-0.5 fill-gray-300">
+                        <circle cx={1} cy={1} r={1} />
+                      </svg>
+                      <span>Last seen:</span>
+                      <CustomTimeAgo datetime={occurrence.updated_at} locale="en_US" />
+                    </div>
                   </div>
                 </div>
               </div>
