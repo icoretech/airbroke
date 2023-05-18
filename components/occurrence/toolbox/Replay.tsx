@@ -12,7 +12,7 @@ interface Context {
 
 function ToolboxFetch({ occurrence }: { occurrence: occurrence }) {
   const context = occurrence.context as Context;
-  const [statusCode, setStatusCode] = useState<number | null>(null);
+  const [responseText, setResponseText] = useState<string>('');
 
   const handleFetch = async () => {
     const { headers, httpMethod, url } = context;
@@ -29,7 +29,12 @@ function ToolboxFetch({ occurrence }: { occurrence: occurrence }) {
       const response = await fetch(url, requestOptions);
       console.log('Response:', response);
 
-      setStatusCode(response.status);
+      const responseBody = await response.text();
+      if (response.ok) {
+        setResponseText('Response is OK (body not shown)');
+      } else {
+        setResponseText(`HTTP Status Code: ${response.status}\n${responseBody}`);
+      }
     } catch (error) {
       console.error('Error occurred during fetch:', error);
     }
@@ -44,7 +49,7 @@ function ToolboxFetch({ occurrence }: { occurrence: occurrence }) {
         <h3 className="my-6 text-sm font-medium text-white">Replay Request</h3>
         <textarea
           readOnly
-          value={statusCode !== null ? `HTTP Status Code: ${statusCode}` : ''}
+          value={responseText}
           className="h-60 w-full resize-none rounded-lg bg-gray-700 px-4 py-2 text-xs text-white"
         ></textarea>
       </div>
