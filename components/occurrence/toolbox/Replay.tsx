@@ -38,7 +38,7 @@ function ToolboxFetch({ occurrence }: { occurrence: occurrence }) {
   return (
     <>
       <div className="flex flex-1 flex-col rounded-t-md bg-airbroke-800 p-8 ring-1 ring-white/5">
-        <div className="mx-auto h-32 w-32 flex-shrink-0 rounded-full bg-gray-800">
+        <div className="mx-auto h-32 w-32 flex-shrink-0">
           <BsArrowRepeat className="h-32 w-32 text-white" aria-hidden="true" />
         </div>
         <h3 className="my-6 text-sm font-medium text-white">Replay Request</h3>

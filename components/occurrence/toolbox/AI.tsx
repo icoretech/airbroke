@@ -1,9 +1,8 @@
 'use client';
 
-import Image from 'next/image';
-import openai from 'public/openai.png';
 import { useEffect, useState } from 'react';
 import { BsRobot } from 'react-icons/bs';
+import { SiOpenai } from 'react-icons/si';
 import { SlDisc } from 'react-icons/sl';
 
 export default function ToolboxAI({ occurrenceId }: { occurrenceId: bigint }) {
@@ -41,7 +40,9 @@ export default function ToolboxAI({ occurrenceId }: { occurrenceId: bigint }) {
   return (
     <>
       <div className="flex flex-1 flex-col rounded-t-md bg-airbroke-800 p-8 ring-1 ring-white/5">
-        <Image className="mx-auto h-32 w-32 flex-shrink-0 rounded-full" src={openai} alt="OpenAI" />
+        <div className="mx-auto h-32 w-32 flex-shrink-0">
+          <SiOpenai className="h-32 w-32 text-white" aria-hidden="true" />
+        </div>
         <h3 className="my-6 text-sm font-medium text-white">Ask the AI</h3>
         <textarea
           readOnly
