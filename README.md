@@ -23,12 +23,12 @@ Warning: alpha software, use at your own risk.
 - :rocket: Designed with simplicity at its core
 - :wrench: Maintains small database footprint even under heavy data ingestion
 - :robot: Ask AI about issues
+- :clipboard: Provide cURL command to reproduce HTTP exceptions
 
 ## Roadmap
 
 - :pencil2: Logo
 - :arrow_forward: Replay HTTP exceptions
-- :clipboard: Provide cURL command to reproduce HTTP exceptions
 - :key: Potential integration of OAuth authentication
 - :bar_chart: Charting of error frequency over time
 - :recycle: Autodeletion of old errors
