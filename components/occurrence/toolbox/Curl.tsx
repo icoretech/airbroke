@@ -1,8 +1,6 @@
 'use client';
 
 import { occurrence } from '@prisma/client';
-import Image from 'next/image';
-import curl from 'public/curl.png';
 import { useState } from 'react';
 import { SiCurl } from 'react-icons/si';
 
@@ -44,7 +42,9 @@ function ToolboxCurl({ occurrence }: { occurrence: occurrence }) {
   return (
     <>
       <div className="flex flex-1 flex-col rounded-t-md bg-airbroke-800 p-8 ring-1 ring-white/5">
-        <Image className="mx-auto h-32 w-32 flex-shrink-0" src={curl} alt="cURL" />
+        <div className="mx-auto h-32 w-32 flex-shrink-0">
+          <SiCurl className="h-32 w-32 text-white" aria-hidden="true" />
+        </div>
         <h3 className="my-6 text-sm font-medium text-white">cURL Command</h3>
         <textarea
           readOnly
