@@ -24,11 +24,11 @@ Warning: alpha software, use at your own risk.
 - :wrench: Maintains small database footprint even under heavy data ingestion
 - :robot: Ask AI about issues
 - :clipboard: Provide cURL command to reproduce HTTP exceptions
+- :arrow_forward: Replay HTTP exceptions
 
 ## Roadmap
 
 - :pencil2: Logo
-- :arrow_forward: Replay HTTP exceptions
 - :key: Potential integration of OAuth authentication
 - :bar_chart: Charting of error frequency over time
 - :recycle: Autodeletion of old errors

@@ -1,6 +1,7 @@
 import { occurrence } from '@prisma/client';
 import ToolboxAI from './toolbox/AI';
 import ToolboxCurl from './toolbox/Curl';
+import ToolboxFetch from './toolbox/Replay';
 
 export default function Toolbox({ occurrence }: { occurrence: occurrence }) {
   return (
@@ -11,6 +12,9 @@ export default function Toolbox({ occurrence }: { occurrence: occurrence }) {
         </li>
         <li className="col-span-1 flex flex-col divide-y divide-indigo-400/30 rounded-lg text-center shadow">
           <ToolboxCurl occurrence={occurrence} />
+        </li>
+        <li className="col-span-1 flex flex-col divide-y divide-indigo-400/30 rounded-lg text-center shadow">
+          <ToolboxFetch occurrence={occurrence} />
         </li>
       </ul>
     </div>
