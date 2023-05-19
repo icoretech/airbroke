@@ -11,7 +11,7 @@ export default function ConfirmationDialog({
   title,
   body,
   btnTitle,
-  projectConfirmationAction,
+  projectConfirmationAction, // server action imported from _actions and passed down as prop
 }: {
   project: project;
   title?: string;
