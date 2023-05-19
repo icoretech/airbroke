@@ -86,7 +86,6 @@ async function POST(request: NextRequest) {
   const customNanoid = customAlphabet(urlAlphabet, 21);
   // assuming airbroke frontend is deployed alongside collector
   const responseJSON = { id: customNanoid(), url: `${getServerHostname(request)}/projects/${project.id}/notices` };
-  console.log(responseJSON); // Log the response JSON
   return NextResponse.json(responseJSON, { status: 201 });
 }
 
