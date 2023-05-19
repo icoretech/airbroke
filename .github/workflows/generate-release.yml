@@ -18,3 +18,4 @@ jobs:
           release-type: node
           package-name: airbroke
           changelog-notes-type: github
+          token: ${{ secrets.PACKAGES_PAT }}
