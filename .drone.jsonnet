@@ -3,6 +3,11 @@
     kind: 'pipeline',
     type: 'kubernetes',
     name: 'next',
+    trigger: {
+      branch: [
+        'edge',
+      ],
+    },
     steps: [
       {
         name: 'tag',
@@ -33,11 +38,6 @@
           },
           password: {
             from_secret: 'github_packages_pat',
-          },
-        },
-        when: {
-          branch: {
-            include: ['edge'],
           },
         },
       },
