@@ -42,17 +42,26 @@ export async function GET(request: NextRequest) {
     `I encountered an error of type "${errorType}" with the following message: "${errorMessage}". ` +
     `Could you please explain what this error means and suggest possible solutions?`;
 
+  let dataReceived = false;
+
   const responsePromise = api.sendMessage(prompt, {
     timeoutMs: 2 * 60 * 1000,
     onProgress: async (partialResponse) => {
-      console.log(partialResponse)
       const cleanText = partialResponse.text.replace(/\n/g, "\\n");
       const data = new TextEncoder().encode(`data: ${cleanText}\n\n`);
       await writer.write(data);
+
+      // Update flag if any data received
+      if (cleanText) {
+        dataReceived = true;
+      }
+
+      // If delta is undefined and some data has been received, close the writer
+      if (dataReceived && partialResponse.delta === undefined) {
+        await writer.close();
+      }
     },
   });
-
-
 
   responsePromise
     .catch(async (error) => {
@@ -61,8 +70,11 @@ export async function GET(request: NextRequest) {
       await writer.write(data);
     })
     .finally(async () => {
-      await writer.close();
+      if (!writer.closed) {
+        await writer.close();
+      }
     });
+
 
 
   return new Response(readable, {
