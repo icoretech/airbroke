@@ -4,9 +4,10 @@
     type: 'kubernetes',
     name: 'next',
     trigger: {
-      branch: [
-        'edge',
-      ],
+      branch: ['edge'],
+      event: {
+        include: ['push'],
+      },
     },
     steps: [
       {
