@@ -1,10 +1,6 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="public/screenshot.png">
-    <img src="public/screenshot.png" height="256">
-  </picture>
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="public/screenshot2.png">
     <img src="public/screenshot2.png" height="256">
   </picture>
   <h1 align="center">Airbroke</h1>
