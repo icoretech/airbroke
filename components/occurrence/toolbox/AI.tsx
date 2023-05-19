@@ -21,7 +21,7 @@ export default function ToolboxAI({ occurrenceId }: { occurrenceId: bigint }) {
     const eventSource = new EventSource(`/api/ai?occurrence=${occurrenceId}`);
 
     eventSource.onmessage = (event) => {
-      const newData = event.data.trim();
+      const newData = event.data.replace(/\\n/g, '\n').trim();
       setData(newData);
     };
 
