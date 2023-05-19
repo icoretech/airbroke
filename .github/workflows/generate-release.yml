@@ -3,7 +3,7 @@ name: release-please
 on:
   push:
     branches:
-      - edge
+      - main
 
 permissions:
   contents: write
@@ -17,5 +17,4 @@ jobs:
         with:
           release-type: node
           package-name: airbroke
-          default-branch: main
           changelog-notes-type: github
