@@ -4,7 +4,7 @@
     type: 'kubernetes',
     name: 'next',
     trigger: {
-      branch: ['edge'],
+      branch: ['main'],
       event: {
         include: ['push'],
       },
