@@ -1,6 +1,7 @@
 import CodeTemplate from '@/components/CodeTemplate';
 import ProjectHeader from '@/components/ProjectHeader';
 import SidebarDesktop from '@/components/SidebarDesktop';
+import Overview from '@/components/project/Overview';
 import { jsclientTemplate, rubyTemplate } from '@/lib/configTemplates';
 import { prisma } from '@/lib/db';
 import Link from 'next/link';
@@ -24,7 +25,7 @@ export default async function Project({
 
   const tabs = [
     { id: 'overview', name: 'Overview', current: tab === 'overview' },
-    { id: 'activity', name: 'Activity', current: tab === 'activity' },
+    { id: 'integrations', name: 'Integrations', current: tab === 'integrations' },
     { id: 'settings', name: 'Settings', current: tab === 'settings' },
     { id: 'collaborators', name: 'Collaborators', current: false },
     { id: 'notifications', name: 'Notifications', current: false },
@@ -57,10 +58,15 @@ export default async function Project({
             </ul>
           </nav>
 
-          <pre className="mt-2 block max-w-full overflow-x-auto rounded-md p-4 text-xs">
-            {tab === 'overview' && <CodeTemplate code={rubyTemplate} replacements={replacements} />}
-            {tab === 'activity' && <CodeTemplate code={jsclientTemplate} replacements={replacements} />}
-          </pre>
+          <div className="mt-2 block max-w-full overflow-x-auto rounded-md p-4 text-xs">
+            {tab === 'overview' && <Overview project={project} />}
+            {tab === 'integrations' && (
+              <>
+                <CodeTemplate code={rubyTemplate} replacements={replacements} />
+                <CodeTemplate code={jsclientTemplate} replacements={replacements} />
+              </>
+            )}
+          </div>
         </div>
 
         <div className="bg-airbroke-900 px-4 py-6 sm:px-6 lg:px-8">

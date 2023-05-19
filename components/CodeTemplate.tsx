@@ -19,6 +19,9 @@ export default function CodeTemplate({ code, replacements }: CodeProps) {
     .replace(/\s/g, '&nbsp;');
 
   return (
-    <pre className="whitespace-pre-wrap rounded bg-gray-200 p-4" dangerouslySetInnerHTML={{ __html: htmlString }} />
+    <pre
+      className="z-40 whitespace-pre-wrap rounded bg-gray-200 p-4"
+      dangerouslySetInnerHTML={{ __html: htmlString }}
+    />
   );
 }
