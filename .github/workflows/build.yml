@@ -16,12 +16,6 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Create tag
-        id: tag
-        run: |
-          TIMESTAMP=$(date +%s)
-          echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
-
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v4
@@ -32,7 +26,8 @@ jobs:
             org.opencontainers.image.vendor=iCoreTech, Inc.
             org.opencontainers.image.licenses=MIT
           tags: |
-            type=raw,value={{branch}}-{{sha}}-${{ steps.tag.outputs.timestamp }}
+            type=semver,pattern={{version}}
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
 
       - name: Login to GitHub Container Registry
         if: github.event_name != 'pull_request'
