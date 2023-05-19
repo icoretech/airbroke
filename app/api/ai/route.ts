@@ -45,10 +45,14 @@ export async function GET(request: NextRequest) {
   const responsePromise = api.sendMessage(prompt, {
     timeoutMs: 2 * 60 * 1000,
     onProgress: async (partialResponse) => {
-      const data = new TextEncoder().encode(`data: ${partialResponse.text}\n\n`);
+      console.log(partialResponse)
+      const cleanText = partialResponse.text.replace(/\n/g, "\\n");
+      const data = new TextEncoder().encode(`data: ${cleanText}\n\n`);
       await writer.write(data);
     },
   });
+
+
 
   responsePromise
     .catch(async (error) => {
