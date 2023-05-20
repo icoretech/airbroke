@@ -79,7 +79,7 @@ export const authOptions: NextAuthOptions = {
   debug: process.env.NEXTAUTH_DEBUG === "true",
   providers: getProviders(),
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn({ account, profile }) {
       const extendedProfile = profile as ExtendedProfile;
 
       if (account?.provider === "google" && process.env.GOOGLE_DOMAINS) {
