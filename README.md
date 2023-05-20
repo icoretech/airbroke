@@ -25,11 +25,11 @@ Warning: alpha software, use at your own risk.
 - :robot: Ask AI about issues
 - :clipboard: Provide cURL command to reproduce HTTP exceptions
 - :arrow_forward: Replay HTTP exceptions
+- :key: Authentication with differenrt OAuth providers
 
 ## Roadmap
 
 - :pencil2: Logo
-- :key: Potential integration of OAuth authentication
 - :bar_chart: Charting of error frequency over time
 - :recycle: Autodeletion of old errors
 - :bell: Implementation of notifications via webhooks
@@ -187,6 +187,8 @@ spec:
 
 ### Setup
 
+Please view all the available configuration variables in the [`.env.dist`](https://github.com/icoretech/airbroke/blob/main/.env.dist) file.
+
 Airbroke requires some environment variables set at runtime, `DATABASE_URL` and `DIRECT_URL` are mandatory, some examples:
 
 ```sh
@@ -224,14 +226,6 @@ After deployment, you should be able to access your ingress (preferably secured 
 This process will generate an API key that you can use with your Airbrake-compatible clients.
 This key, along with other essential information, will be provided to you.
 
-Other options include:
-
-```sh
-CORS_ORIGINS="https://airbroke.mydomain.com" # comma separated list of origins, if missing '*' is used
-OPENAI_API_KEY="sk-xxxx" # OpenAI API Key
-OPENAI_ORGANIZATION="" # OpenAI Organization
-```
-
 ### About pgBouncer
 
 To optimize your experience with Airbroke, as well as with Postgres overall, we advise integrating pgBouncer into your tech stack in transaction mode. Don't forget to correctly set the connection flags in your DATABASE_URL. This ensures that the connection pooler will be utilized (for example, `?pgbouncer=true&connection_limit=10`) and that the necessary `DEALLOCATE` commands will be executed by Prisma. For more comprehensive information, we recommend reviewing [Prisma's Connection Management documentation](https://www.prisma.io/docs/guides/performance-and-optimization/connection-management#external-connection-poolers), which provides insights on external connection poolers.
@@ -242,7 +236,7 @@ The DIRECT_URL should be configured to establish a direct connection to the data
 
 ### Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ficoretech%2Fairbroke%2Ftree%2Fmain&env=DATABASE_URL,DIRECT_URL&project-name=airbroke&repository-name=airbroke)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ficoretech%2Fairbroke%2Ftree%2Fmain&env=DATABASE_URL,DIRECT_URL,NEXTAUTH_SECRET,NEXTAUTH_URL&project-name=airbroke&repository-name=airbroke)
 
 While [testing on Vercel](https://nextjs.org/learn/basics/deploying-nextjs-app/platform-details) has not been conducted, Airbroke should be fully compatible.
 
