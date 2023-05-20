@@ -19,7 +19,7 @@ const getProviders = () => {
       clientSecret: process.env.GITHUB_SECRET,
       authorization: {
         url: "https://github.com/login/oauth/authorize",
-        params: { scope: "read:user user:email user read:org" },
+        params: { scope: "read:user user:email read:org" },
       },
     }));
   }
