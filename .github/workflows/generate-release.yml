@@ -17,6 +17,6 @@ jobs:
         with:
           release-type: node
           package-name: airbroke
-          # changelog-notes-type: github
+          changelog-notes-type: github
           token: ${{ secrets.PACKAGES_PAT }}
           versioning-strategy: always-bump-patch
