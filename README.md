@@ -25,16 +25,16 @@ Warning: alpha software, use at your own risk.
 - :robot: Ask AI about issues
 - :clipboard: Provide cURL command to reproduce HTTP exceptions
 - :arrow_forward: Replay HTTP exceptions
-- :key: Authentication with differenrt OAuth providers
+- :key: Supports multiple OAuth providers for secure user authentication
 
 ## Roadmap
 
-- :pencil2: Logo
-- :bar_chart: Charting of error frequency over time
-- :recycle: Autodeletion of old errors
-- :bell: Implementation of notifications via webhooks
-- :lock: Support for issue creation through API for compatible providers
-- :link: Support more git providers / issue trackers
+- [ ] Designing a representative logo
+- [ ] Developing time-series error charts
+- [ ] Auto-deletion feature for outdated errors
+- [ ] Addition of webhook-based notifications
+- [ ] Enabling issue reporting through APIs
+- [ ] Broadening support for more Git providers and issue trackers
 
 ## System Requirements
 
