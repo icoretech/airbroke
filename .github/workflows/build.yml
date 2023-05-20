@@ -32,7 +32,6 @@ jobs:
             org.opencontainers.image.source=https://github.com/icoretech/airbroke
             org.opencontainers.image.title=Airbroke
             org.opencontainers.image.vendor=iCoreTech, Inc.
-            anno
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
