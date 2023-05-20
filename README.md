@@ -44,16 +44,6 @@ Warning: alpha software, use at your own risk.
 - PostgreSQL 15+ database
 - 8+ free database connections slots per instance
 
-## Architecture
-
-### Data Collection API
-
-The core of Airbroke is an ingestion endpoint that is compatible with Airbrake. It's built using Next.js 13+ route handlers. In the interest of simplicity, we've sidestepped the use of queue systems. As a result, parsing and transactions currently occur in-band. Even with high traffic volumes, a single instance has demonstrated robust request-per-minute (RPM) performance.
-
-### Frontend
-
-The Airbroke user dashboard utilizes Tailwind CSS, creating a blend of server-rendered and client components for a fluid user experience. Some caching may be in effect to limit excessive database queries, but the emphasis for the frontend remains on maintaining a minimal resource footprint.
-
 ## Deployment Options
 
 Airbroke provides flexibility in deployment options. You can either deploy it from the built source code or use a multiarch Docker image. For Kubernetes deployments, a Helm chart is provided. As Airbroke is a Next.js 13 application, it can be deployed wherever a Node.js server is supported. This includes managed environments such as Vercel, Netlify, and Heroku.
@@ -95,95 +85,13 @@ docker run -p 3000:3000 icoretech/airbroke:latest
 
 ### Helm
 
-You can deploy Airbroke to Kubernetes using the Helm chart provided in the `helm` folder.
-You can install the chart with:
-
-```sh
-helm install airbroke oci://ghcr.io/icoretech/charts/airbroke --set pgbouncer.enabled=true
-```
+You can deploy Airbroke to Kubernetes using the dedicated Helm chart.
 
 The Helm chart includes a `values.yaml` file with some default values that you can override with your own. It also includes a pgBouncer chart as optional dependency.
 
 When using Helm we recommend using a GitOps approach to deploy your application(s), such as [Flux](https://fluxcd.io/).
 
-```yaml
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
-metadata:
-  name: airbroke
-  namespace: airbroke
-spec:
-  releaseName: airbroke
-  chart:
-    spec:
-      chart: ./charts/airbroke
-      sourceRef:
-        kind: GitRepository
-        name: flux-system
-        namespace: flux-system
-  interval: 10m0s
-  install:
-    remediation:
-      retries: 4
-  upgrade:
-    remediation:
-      retries: 4
-  values:
-    database:
-      url: 'postgresql://xxxx:xxxx@pgbouncer.default.svc.cluster.local:5432/airbroke_production?pgbouncer=true&connection_limit=100&pool_timeout=10&application_name=airbroke&schema=public'
-      migrations_url: 'postgresql://xxxx:xxxx@postgres-postgresql.postgres.svc.cluster.local:5432/airbroke_production?schema=public'
-    web:
-      image: ghcr.io/icoretech/airbroke:main-c5d425f-1683936478 # {"$imagepolicy": "flux-system:airbroke"}
-      replicaCount: 2
-      hpa:
-        enabled: true
-        maxReplicas: 5
-        cpu: 100
-      resources:
-        requests:
-          cpu: 1500m
-          memory: 500M
-        limits:
-          cpu: 1500m
-          memory: 500M
-      ingress:
-        enabled: true
-        ingressClassName: nginx
-        annotations:
-          cert-manager.io/cluster-issuer: letsencrypt
-          external-dns.alpha.kubernetes.io/cloudflare-proxied: 'false'
-          nginx.ingress.kubernetes.io/configuration-snippet: |
-            real_ip_header proxy_protocol;
-        hosts:
-          - host: airbroke.mydomain.com
-            paths:
-              - '/'
-        tls:
-          - hosts:
-              - airbroke.mydomain.com
-```
-
-Please be aware that the previous example serves as a basic template, and you'll likely need to adjust it to suit your specific requirements. For a comprehensive list of configurable options, please consult the values.yaml file. It's important to note that the image value included above is just a placeholder, and you should substitute it with your desired [image tag](https://github.com/icoretech/airbroke/pkgs/container/airbroke).
-
-For automated image updates, consider utilizing [Flux Image Automation](https://fluxcd.io/docs/guides/image-update/).
-Our images are deliberately tagged to facilitate Flux's automatic deployment updates whenever a new image becomes available.
-
-```yaml
-apiVersion: image.toolkit.fluxcd.io/v1beta2
-kind: ImagePolicy
-metadata:
-  name: airbroke
-  namespace: flux-system
-spec:
-  imageRepositoryRef:
-    name: airbroke
-  filterTags:
-    pattern: '^main-[a-fA-F0-9]+-(?P<ts>.*)'
-    extract: '$ts'
-  policy:
-    numerical:
-      order: asc
-```
+Please find more information about the Helm chart in the dedicated repository: [icoretech/charts](https://github.com/icoretech/helm/tree/main/charts/airbroke)
 
 ### Setup
 
@@ -249,9 +157,15 @@ It's important to keep the following points in mind:
 
 Detailed instructions for this process can also be found in the [Prisma deployment guide for Vercel](https://www.prisma.io/docs/guides/deployment/deployment-guides/deploying-to-vercel#prisma-workflow).
 
-### Frontend Protection
+## Architecture
 
-Similar to implementing SSL, or separating the collector path from the frontend one to allow scaling indipendently, we recommend setting up gating at the ingress level, at least until the authentication module is rolled out. If you're considering the implementation of OAuth2 proxies, HTTP Basic authentication, or other similar solutions, please ensure that you whitelist the `/api` endpoints.
+### Data Collection API
+
+The core of Airbroke is an ingestion endpoint that is compatible with Airbrake. It's built using Next.js 13+ route handlers. In the interest of simplicity, we've sidestepped the use of queue systems. As a result, parsing and transactions currently occur in-band. Even with high traffic volumes, a single instance has demonstrated robust request-per-minute (RPM) performance.
+
+### Frontend
+
+The Airbroke user dashboard utilizes Tailwind CSS, creating a blend of server-rendered and client components for a fluid user experience. Some caching may be in effect to limit excessive database queries, but the emphasis for the frontend remains on maintaining a minimal resource footprint.
 
 ## Best Practices for Efficient Error Collection and Storage
 
