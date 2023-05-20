@@ -22,6 +22,14 @@ jobs:
         with:
           images: ghcr.io/icoretech/airbroke
           labels: |
+            io.artifacthub.package.category=monitoring-logging
+            io.artifacthub.package.keywords=error,catcher,react,web,app,open,source,modern
+            io.artifacthub.package.license=MIT
+            io.artifacthub.package.logo-url=https://icoretech.github.io/helm/charts/airbroke/logo.png
+            io.artifacthub.package.maintainers=[{"name":"Claudio Poli","email":"claudio@icorete.ch"}]
+            io.artifacthub.package.readme-url=https://github.com/icoretech/airbroke/blob/main/README.md
+            org.opencontainers.image.description=Airbroke is a a modern, React-based open source error catcher web application
+            org.opencontainers.image.source=https://github.com/icoretech/airbroke
             org.opencontainers.image.title=Airbroke
             org.opencontainers.image.vendor=iCoreTech, Inc.
           tags: |
