@@ -1,10 +1,6 @@
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="public/screenshot.png">
-    <img src="public/screenshot2.png" height="256">
-  </picture>
-  <h1 align="center">Airbroke</h1>
-  <p align="center">Open Source Error Catcher</p>
+  <img src="public/logo-full.png" height="400">
+  <h1 align="center">Open Source Error Catcher</h1>
 </p>
 
 <p align="center">
@@ -29,7 +25,6 @@ Warning: alpha software, use at your own risk.
 
 ## Roadmap
 
-- [ ] Designing a representative logo
 - [ ] Developing time-series error charts
 - [ ] Auto-deletion feature for outdated errors
 - [ ] Addition of webhook-based notifications

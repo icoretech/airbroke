@@ -1,11 +1,11 @@
 import Background from '@/components/Background';
 import { authOptions } from '@/lib/auth';
+import logo from '@/public/logo.png';
 import screenshot from '@/public/screenshot.png';
 import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
-import { MdBrokenImage } from 'react-icons/md';
 
 export default async function HomePage() {
   const currentYear = new Date().getFullYear();
@@ -17,8 +17,7 @@ export default async function HomePage() {
         <Background />
         <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-40">
           <div className="mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
-            <MdBrokenImage className="h-11 w-11 text-indigo-600" aria-hidden="true" />
-
+            <Image src={logo} alt="Airbroke logo" className="h-11 w-auto" />
             <div className="mt-24 sm:mt-32 lg:mt-16">
               <Link href="https://github.com/icoretech/airbroke/releases" className="inline-flex space-x-6">
                 <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-sm font-semibold leading-6 text-indigo-400 ring-1 ring-inset ring-indigo-500/20">

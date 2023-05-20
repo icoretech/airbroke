@@ -1,7 +1,8 @@
 import { prisma } from '@/lib/db';
+import logo from '@/public/logo.png';
 import { project } from '@prisma/client';
+import Image from 'next/image';
 import Link from 'next/link';
-import { MdBrokenImage } from 'react-icons/md';
 import { SlPlus } from 'react-icons/sl';
 import { TbBrandGithub } from 'react-icons/tb';
 import { LogoutButton } from './HomeButton';
@@ -26,7 +27,7 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
       <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-airbroke-800 px-8 pb-4 ring-1 ring-white/5 scrollbar-none">
         <div className="flex h-16 shrink-0 items-center">
           <Link href={`/projects`}>
-            <MdBrokenImage className="h-8 w-auto text-indigo-500" aria-hidden="true" />
+            <Image src={logo} alt="Airbroke logo" className="h-8 w-auto" />
           </Link>
         </div>
         <nav className="flex flex-1 flex-col">
