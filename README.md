@@ -83,6 +83,21 @@ You can then run the image locally with:
 docker run -p 3000:3000 icoretech/airbroke:latest
 ```
 
+### Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ficoretech%2Fairbroke%2Ftree%2Fmain&env=DATABASE_URL,DIRECT_URL,NEXTAUTH_SECRET,NEXTAUTH_URL&project-name=airbroke&repository-name=airbroke)
+
+While [testing on Vercel](https://nextjs.org/learn/basics/deploying-nextjs-app/platform-details) has not been conducted, Airbroke should be fully compatible.
+
+It's important to keep the following points in mind:
+
+- For optimal performance, ensure your database is located in the same region.
+- The endpoints under `/api/*` will be converted into serverless functions, which may introduce potential cold boot time.
+- Due to the nature of serverless functions, your database connections will need to pass through a data proxy.
+- When deploying with Vercel, migrations will need to be executed during the build step. Use the `prisma migrate deploy` command to apply migrations before Vercel proceeds with the deployment of serverless functions.
+
+Detailed instructions for this process can also be found in the [Prisma deployment guide for Vercel](https://www.prisma.io/docs/guides/deployment/deployment-guides/deploying-to-vercel#prisma-workflow).
+
 ### Helm
 
 You can deploy Airbroke to Kubernetes using the dedicated Helm chart.
@@ -93,7 +108,7 @@ When using Helm we recommend using a GitOps approach to deploy your application(
 
 Please find more information about the Helm chart in the dedicated repository: [icoretech/charts](https://github.com/icoretech/helm/tree/main/charts/airbroke)
 
-### Setup
+## Setup
 
 Please view all the available configuration variables in the [`.env.dist`](https://github.com/icoretech/airbroke/blob/main/.env.dist) file.
 
@@ -128,7 +143,7 @@ connection_limit ≈ 5.67
 
 Since `connection_limit` must be an integer, it should be rounded down to the nearest whole number. In this scenario, each of the 3 application instances should have a `connection_limit` of `5`.
 
-This limit can be set in your connection strings
+This limit can be set in your connection strings.
 
 After deployment, you should be able to access your ingress (preferably secured with HTTPS) and start adding projects.
 This process will generate an API key that you can use with your Airbrake-compatible clients.
@@ -141,21 +156,6 @@ To optimize your experience with Airbroke, as well as with Postgres overall, we 
 ### About DIRECT_URL
 
 The DIRECT_URL should be configured to establish a direct connection to the database. This is particularly crucial when using pgBouncer, as it enables migrations that cannot be executed through a data proxy. You can find more detailed information about this subject in the [Prisma's guide on configuring pgBouncer](https://www.prisma.io/docs/guides/performance-and-optimization/connection-management/configure-pg-bouncer).
-
-### Vercel
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ficoretech%2Fairbroke%2Ftree%2Fmain&env=DATABASE_URL,DIRECT_URL,NEXTAUTH_SECRET,NEXTAUTH_URL&project-name=airbroke&repository-name=airbroke)
-
-While [testing on Vercel](https://nextjs.org/learn/basics/deploying-nextjs-app/platform-details) has not been conducted, Airbroke should be fully compatible.
-
-It's important to keep the following points in mind:
-
-- For optimal performance, ensure your database is located in the same region.
-- The endpoints under `/api/*` will be converted into serverless functions, which may introduce potential cold boot time.
-- Due to the nature of serverless functions, your database connections will need to pass through a data proxy.
-- When deploying with Vercel, migrations will need to be executed during the build step. Use the `prisma migrate deploy` command to apply migrations before Vercel proceeds with the deployment of serverless functions.
-
-Detailed instructions for this process can also be found in the [Prisma deployment guide for Vercel](https://www.prisma.io/docs/guides/deployment/deployment-guides/deploying-to-vercel#prisma-workflow).
 
 ## Architecture
 
