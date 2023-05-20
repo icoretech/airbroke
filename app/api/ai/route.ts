@@ -1,10 +1,20 @@
+import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import { ChatGPTAPI } from 'chatgpt';
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return new NextResponse(
+      JSON.stringify({ status: "fail", message: "You are not logged in" }),
+      { status: 401 }
+    );
+  }
+
   // const pass = request.nextUrl.searchParams.get('pass');
   const occurrenceId = request.nextUrl.searchParams.get('occurrence');
 

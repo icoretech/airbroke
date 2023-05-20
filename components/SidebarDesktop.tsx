@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { MdBrokenImage } from 'react-icons/md';
 import { SlPlus } from 'react-icons/sl';
 import { TbBrandGithub } from 'react-icons/tb';
+import { LogoutButton } from './HomeButton';
 
 function groupBy<T>(array: T[], key: keyof T) {
   return array.reduce((result: { [key: string]: T[] }, item) => {
@@ -64,7 +65,7 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
                 </ul>
               </li>
             ))}
-            <li className="mt-auto">
+            <li>
               <Link
                 href="/projects/new"
                 className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-indigo-200 shadow-sm transition-colors duration-200 hover:bg-indigo-500 hover:text-white"
@@ -75,6 +76,14 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
             </li>
           </ul>
         </nav>
+
+        {/* User Profile Section */}
+        <div className="flex flex-col items-center gap-y-5 px-4 py-4">
+          {/* User info can go here, e.g. avatar and username */}
+
+          {/* Logout Button */}
+          <LogoutButton />
+        </div>
       </div>
     </div>
   );

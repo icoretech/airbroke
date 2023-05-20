@@ -1,12 +1,15 @@
 import Background from '@/components/Background';
+import { authOptions } from '@/lib/auth';
 import screenshot from '@/public/screenshot.png';
+import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { MdBrokenImage } from 'react-icons/md';
 
-export default function HomePage() {
+export default async function HomePage() {
   const currentYear = new Date().getFullYear();
+  const session = await getServerSession(authOptions);
 
   return (
     <div className="h-full bg-gray-900">
@@ -19,7 +22,7 @@ export default function HomePage() {
             <div className="mt-24 sm:mt-32 lg:mt-16">
               <Link href="https://github.com/icoretech/airbroke/releases" className="inline-flex space-x-6">
                 <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-sm font-semibold leading-6 text-indigo-400 ring-1 ring-inset ring-indigo-500/20">
-                  Whats new
+                  Latest Releases
                 </span>
               </Link>
             </div>
@@ -30,12 +33,13 @@ export default function HomePage() {
               Self-hosted, Cost-effective, Open Source Error Tracking for a Sustainable Startup Journey.
             </p>
             <div className="mt-10 flex items-center gap-x-6">
-              <a
+              <Link
                 href="/projects"
                 className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
               >
                 Go to Projects
-              </a>
+              </Link>
+
               <Link href="https://github.com/icoretech/airbroke" className="text-sm font-semibold leading-6 text-white">
                 Learn more <span aria-hidden="true">→</span>
               </Link>

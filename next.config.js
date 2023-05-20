@@ -4,6 +4,7 @@ const nextConfig = {
   output: 'standalone',
   experimental: {
     serverActions: true,
+    serverComponentsExternalPackages: ['@prisma/client', 'bcryptjs', 'chatgpt', '@octokit'],
   },
   async rewrites() {
     return [
