@@ -30,8 +30,8 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
   return (
     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-airbroke-800 px-6 ring-1 ring-white/5 scrollbar-none">
       <div className="flex h-16 shrink-0 items-center">
-        <Link href={`/projects`}>
-          <Image src={logo} alt="Airbroke logo" className="h-8 w-auto" />
+        <Link href="/projects">
+          <Image src={logo} alt="Logo" className="h-8 w-auto" />
         </Link>
       </div>
       <nav className="flex flex-1 flex-col">

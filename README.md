@@ -103,6 +103,18 @@ When using Helm we recommend using a GitOps approach to deploy your application(
 
 Please find more information about the Helm chart in the dedicated repository: [icoretech/charts](https://github.com/icoretech/helm/tree/main/charts/airbroke)
 
+### Docker Compose
+
+For users who prefer Docker Compose for managing multi-container Docker applications, a `docker-compose.yml` file is provided at the root of the repository.
+
+To get started, make sure you have Docker and Docker Compose installed on your system. Then, you can start the application using the following command in the terminal:
+
+```sh
+docker compose up
+```
+
+You can override the default values in the `docker-compose.yml` file by creating a `docker-compose.override.yml` file in the same directory. This file is ignored by Git and will not be committed to the repository.
+
 ## Setup
 
 Please view all the available configuration variables in the [`.env.dist`](https://github.com/icoretech/airbroke/blob/main/.env.dist) file.
