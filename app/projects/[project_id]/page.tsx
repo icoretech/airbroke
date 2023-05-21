@@ -40,12 +40,12 @@ export default async function Project({
       <div>
         <SidebarMobile>
           {/* @ts-expect-error Server Component */}
-          <SidebarDesktop />
+          <SidebarDesktop selectedProject={project} />
         </SidebarMobile>
 
         <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
           {/* @ts-expect-error Server Component */}
-          <SidebarDesktop />
+          <SidebarDesktop selectedProject={project} />
         </div>
 
         <main className="xl:pl-72">
