@@ -5,7 +5,6 @@ import type { Config } from 'tailwindcss/types';
 /** @type {import('tailwindcss').Config} */
 const config: Config = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
@@ -24,13 +23,22 @@ const config: Config = {
           800: '#020304',
           900: '#000000',
         },
-      },
-      backgroundColor: {
-        'airbroke-800': '#192231',
-        'airbroke-900': '#1F2937',
+        airbroke: {
+          50: '#E5E7EB',
+          100: '#CBD5E1',
+          200: '#9AA5B1',
+          300: '#718096',
+          400: '#4A5568',
+          500: '#2D3748',
+          600: '#1A202C',
+          700: '#171923',
+          800: '#1F2937',
+          900: '#1A202C',
+        },
       },
     },
   },
+
   plugins: [
     plugin(function ({ addUtilities }) {
       addUtilities({

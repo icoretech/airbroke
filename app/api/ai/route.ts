@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
   // const pass = request.nextUrl.searchParams.get('pass');
   const occurrenceId = request.nextUrl.searchParams.get('occurrence');
 
-  if (!process.env.OPENAI_API_KEY) {
+  if (!process.env.AIRBROKE_OPENAI_API_KEY) {
     return new Response('Unauthorized', { status: 401, headers: { 'Content-Type': 'text/event-stream' } });
   }
 
@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
   const writer = writable.getWriter();
 
   const api = new ChatGPTAPI({
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: process.env.AIRBROKE_OPENAI_API_KEY,
     debug: false,
   });
   const errorType = notice.kind;
