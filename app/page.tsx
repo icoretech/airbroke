@@ -1,6 +1,6 @@
 import Background from '@/components/Background';
 import { authOptions } from '@/lib/auth';
-import logo from '@/public/logo.png';
+import logo from '@/public/logo.svg';
 import screenshot from '@/public/screenshot.png';
 import { getServerSession } from 'next-auth';
 import Image from 'next/image';

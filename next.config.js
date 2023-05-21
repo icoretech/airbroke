@@ -2,6 +2,14 @@
 const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.gravatar.com',
+      },
+    ],
+  },
   experimental: {
     serverActions: true,
     serverComponentsExternalPackages: ['@prisma/client', 'chatgpt', '@octokit'],
