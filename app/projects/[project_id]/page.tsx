@@ -1,6 +1,5 @@
 import CodeTemplate from '@/components/CodeTemplate';
 import ProjectHeader from '@/components/ProjectHeader';
-import { SidebarOpenButton } from '@/components/SidebarButtons';
 import SidebarDesktop from '@/components/SidebarDesktop';
 import SidebarMobile from '@/components/SidebarMobile';
 import Overview from '@/components/project/Overview';
@@ -51,8 +50,6 @@ export default async function Project({
 
         <main className="xl:pl-72">
           <div className="sticky top-0 z-40 bg-airbroke-900">
-            <SidebarOpenButton />
-
             <ProjectHeader project={project} showAllButtons={true} />
 
             <nav className="flex overflow-x-auto border-b border-white/10 py-4">
