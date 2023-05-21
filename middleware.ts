@@ -11,6 +11,6 @@ export const config = {
      * - robots.txt (robots file)
      * - the homepage ("/")
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|robots.txt).+)',
+    '/((?!api|_next/static|_next/image|icon|robots.txt).+)',
   ],
 };
