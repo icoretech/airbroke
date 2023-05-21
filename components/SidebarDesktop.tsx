@@ -1,11 +1,14 @@
+import { LogoutButton } from '@/components/SessionButtons';
+import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/db';
-import logo from '@/public/logo.png';
+import logo from '@/public/logo.svg';
 import { project } from '@prisma/client';
+import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SlPlus } from 'react-icons/sl';
 import { TbBrandGithub } from 'react-icons/tb';
-import { LogoutButton } from './HomeButton';
+import { Gravatar } from './Gravatar';
 
 function groupBy<T>(array: T[], key: keyof T) {
   return array.reduce((result: { [key: string]: T[] }, item) => {
@@ -15,6 +18,8 @@ function groupBy<T>(array: T[], key: keyof T) {
 }
 
 export default async function SidebarDesktop({ selectedProject }: { selectedProject?: project }) {
+  const session = await getServerSession(authOptions);
+
   const projects = await prisma.project.findMany({
     orderBy: {
       name: 'asc',
@@ -24,7 +29,7 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
 
   return (
     <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
-      <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-airbroke-800 px-8 pb-4 ring-1 ring-white/5 scrollbar-none">
+      <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-airbroke-800 px-6 ring-1 ring-white/5 scrollbar-none">
         <div className="flex h-16 shrink-0 items-center">
           <Link href={`/projects`}>
             <Image src={logo} alt="Airbroke logo" className="h-8 w-auto" />
@@ -66,7 +71,7 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
                 </ul>
               </li>
             ))}
-            <li>
+            <li className="">
               <Link
                 href="/projects/new"
                 className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-indigo-200 shadow-sm transition-colors duration-200 hover:bg-indigo-500 hover:text-white"
@@ -75,16 +80,13 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
                 Create Project
               </Link>
             </li>
+            <li className="-mx-6 mt-auto">
+              <LogoutButton username={session?.user?.name}>
+                <Gravatar email={session?.user?.email} className="h-8 w-8 rounded-full bg-gray-800" />
+              </LogoutButton>
+            </li>
           </ul>
         </nav>
-
-        {/* User Profile Section */}
-        <div className="flex flex-col items-center gap-y-5 px-4 py-4">
-          {/* User info can go here, e.g. avatar and username */}
-
-          {/* Logout Button */}
-          <LogoutButton />
-        </div>
       </div>
     </div>
   );
