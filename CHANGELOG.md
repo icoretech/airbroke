@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.7 (2023-05-21)
+
+**Full Changelog**: https://github.com/icoretech/airbroke/compare/v1.1.6...v1.1.7
+
 ## 1.1.6 (2023-05-21)
 
 **Full Changelog**: https://github.com/icoretech/airbroke/compare/v1.1.5...v1.1.6
