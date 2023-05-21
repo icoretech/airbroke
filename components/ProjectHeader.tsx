@@ -1,4 +1,5 @@
 import { deleteProject, deleteProjectNotices } from '@/app/_actions';
+import { SidebarOpenButton } from '@/components/SidebarButtons';
 import { project } from '@prisma/client';
 import Link from 'next/link';
 import { VscEdit } from 'react-icons/vsc';
@@ -13,6 +14,8 @@ export default function ProjectHeader({
 }) {
   return (
     <header className="flex items-center justify-between border-b border-white/5 px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
+      <SidebarOpenButton />
+
       <h1 className="text-base font-semibold leading-7 text-white">
         <Link href={`/projects/${project.id}/notices`} className="flex gap-x-2">
           <span className="truncate">{project.organization.toLowerCase()}</span>

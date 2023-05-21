@@ -1,15 +1,12 @@
 import Background from '@/components/Background';
-import { authOptions } from '@/lib/auth';
 import logo from '@/public/logo.svg';
 import screenshot from '@/public/screenshot.png';
-import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 
 export default async function HomePage() {
   const currentYear = new Date().getFullYear();
-  const session = await getServerSession(authOptions);
 
   return (
     <div className="h-full bg-gray-900">

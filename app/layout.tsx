@@ -1,4 +1,5 @@
 import { Inter } from 'next/font/google';
+import { SidebarProvider } from './SidebarProvider';
 import './globals.css';
 
 export const metadata = {
@@ -15,7 +16,9 @@ const inter = Inter({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="h-full bg-airbroke-900">
-      <body className={`h-full antialiased scrollbar-none ${inter.className}`}>{children}</body>
+      <body className={`h-full antialiased scrollbar-none ${inter.className}`}>
+        <SidebarProvider>{children}</SidebarProvider>
+      </body>
     </html>
   );
 }
