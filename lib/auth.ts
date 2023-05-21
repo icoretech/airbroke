@@ -104,7 +104,7 @@ export const authOptions: NextAuthOptions = {
   theme: {
     colorScheme: "dark", // "auto" | "dark" | "light"
     brandColor: "#192231", // Hex color code
-    logo: "", // Absolute URL to image
+    logo: "https://i.imgur.com/dPL9YEz.png", // Absolute URL to image
     buttonText: "" // Hex color code
   }
 };
