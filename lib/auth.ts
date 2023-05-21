@@ -13,10 +13,10 @@ type ExtendedProfile = Profile & { [key: string]: any; };
 const getProviders = () => {
   let providers = [];
 
-  if (process.env.GITHUB_ID && process.env.GITHUB_SECRET) {
+  if (process.env.AIRBROKE_GITHUB_ID && process.env.AIRBROKE_GITHUB_SECRET) {
     providers.push(GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
+      clientId: process.env.AIRBROKE_GITHUB_ID,
+      clientSecret: process.env.AIRBROKE_GITHUB_SECRET,
       authorization: {
         url: "https://github.com/login/oauth/authorize",
         params: { scope: "read:user user:email read:org" },
@@ -24,48 +24,48 @@ const getProviders = () => {
     }));
   }
 
-  if (process.env.ATLASSIAN_ID && process.env.ATLASSIAN_SECRET) {
+  if (process.env.AIRBROKE_ATLASSIAN_ID && process.env.AIRBROKE_ATLASSIAN_SECRET) {
     providers.push(AtlassianProvider({
-      clientId: process.env.ATLASSIAN_ID,
-      clientSecret: process.env.ATLASSIAN_SECRET,
+      clientId: process.env.AIRBROKE_ATLASSIAN_ID,
+      clientSecret: process.env.AIRBROKE_ATLASSIAN_SECRET,
     }));
   }
 
-  if (process.env.GOOGLE_ID && process.env.GOOGLE_SECRET) {
+  if (process.env.AIRBROKE_GOOGLE_ID && process.env.AIRBROKE_GOOGLE_SECRET) {
     providers.push(GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
+      clientId: process.env.AIRBROKE_GOOGLE_ID,
+      clientSecret: process.env.AIRBROKE_GOOGLE_SECRET,
     }));
   }
 
-  if (process.env.COGNITO_ID && process.env.COGNITO_SECRET) {
+  if (process.env.AIRBROKE_COGNITO_ID && process.env.AIRBROKE_COGNITO_SECRET) {
     providers.push(CognitoProvider({
-      clientId: process.env.COGNITO_ID,
-      clientSecret: process.env.COGNITO_SECRET,
-      issuer: process.env.COGNITO_ISSUER,
+      clientId: process.env.AIRBROKE_COGNITO_ID,
+      clientSecret: process.env.AIRBROKE_COGNITO_SECRET,
+      issuer: process.env.AIRBROKE_COGNITO_ISSUER,
     }));
   }
 
-  if (process.env.GITLAB_ID && process.env.GITLAB_SECRET) {
+  if (process.env.AIRBROKE_GITLAB_ID && process.env.AIRBROKE_GITLAB_SECRET) {
     providers.push(GitlabProvider({
-      clientId: process.env.GITLAB_ID,
-      clientSecret: process.env.GITLAB_SECRET,
+      clientId: process.env.AIRBROKE_GITLAB_ID,
+      clientSecret: process.env.AIRBROKE_GITLAB_SECRET,
     }));
   }
 
-  if (process.env.KEYCLOAK_ID && process.env.KEYCLOAK_SECRET) {
+  if (process.env.AIRBROKE_KEYCLOAK_ID && process.env.AIRBROKE_KEYCLOAK_SECRET) {
     providers.push(KeycloakProvider({
-      clientId: process.env.KEYCLOAK_ID,
-      clientSecret: process.env.KEYCLOAK_SECRET,
-      issuer: process.env.KEYCLOAK_ISSUER,
+      clientId: process.env.AIRBROKE_KEYCLOAK_ID,
+      clientSecret: process.env.AIRBROKE_KEYCLOAK_SECRET,
+      issuer: process.env.AIRBROKE_KEYCLOAK_ISSUER,
     }));
   }
 
-  if (process.env.AZURE_AD_CLIENT_ID && process.env.AZURE_AD_CLIENT_SECRET) {
+  if (process.env.AIRBROKE_AZURE_AD_CLIENT_ID && process.env.AIRBROKE_AZURE_AD_CLIENT_SECRET) {
     providers.push(AzureADProvider({
-      clientId: process.env.AZURE_AD_CLIENT_ID,
-      clientSecret: process.env.AZURE_AD_CLIENT_SECRET,
-      tenantId: process.env.AZURE_AD_TENANT_ID,
+      clientId: process.env.AIRBROKE_AZURE_AD_CLIENT_ID,
+      clientSecret: process.env.AIRBROKE_AZURE_AD_CLIENT_SECRET,
+      tenantId: process.env.AIRBROKE_AZURE_AD_TENANT_ID,
     }));
   }
 
@@ -82,14 +82,14 @@ export const authOptions: NextAuthOptions = {
     async signIn({ account, profile }) {
       const extendedProfile = profile as ExtendedProfile;
 
-      if (account?.provider === "google" && process.env.GOOGLE_DOMAINS) {
-        const domains = process.env.GOOGLE_DOMAINS.split(",");
+      if (account?.provider === "google" && process.env.AIRBROKE_GOOGLE_DOMAINS) {
+        const domains = process.env.AIRBROKE_GOOGLE_DOMAINS.split(",");
         const emailDomain = extendedProfile?.email?.split("@")[1];
         return extendedProfile?.email_verified && emailDomain && domains.includes(emailDomain);
       }
 
-      if (account?.provider === "github" && process.env.GITHUB_ORGS) {
-        const allowedOrgs = process.env.GITHUB_ORGS.split(",");
+      if (account?.provider === "github" && process.env.AIRBROKE_GITHUB_ORGS) {
+        const allowedOrgs = process.env.AIRBROKE_GITHUB_ORGS.split(",");
         const token = account.access_token;
         const octokit = new Octokit({ auth: token, userAgent: "airbroke" });
         const orgsResponse = await octokit.rest.orgs.listForAuthenticatedUser();

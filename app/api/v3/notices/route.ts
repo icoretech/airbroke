@@ -90,7 +90,7 @@ async function POST(request: NextRequest) {
 }
 
 async function OPTIONS(request: NextRequest) {
-  const corsOrigins = process.env.CORS_ORIGINS?.split(',') || [];
+  const corsOrigins = process.env.AIRBROKE_CORS_ORIGINS?.split(',') || [];
 
   const headers: { [key: string]: string } = {
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
