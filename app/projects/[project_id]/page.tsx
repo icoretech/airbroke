@@ -71,15 +71,11 @@ export default async function Project({
               {tab === 'overview' && <Overview project={project} />}
               {tab === 'integrations' && (
                 <>
-                  <CodeTemplate code={rubyTemplate} replacements={replacements} />
-                  <CodeTemplate code={jsclientTemplate} replacements={replacements} />
+                  <CodeTemplate code={rubyTemplate} replacements={replacements} name="Ruby / Rails" />
+                  <CodeTemplate code={jsclientTemplate} replacements={replacements} name="JavaScript (Browser)" />
                 </>
               )}
             </div>
-          </div>
-
-          <div className="bg-airbroke-900 px-4 py-6 sm:px-6 lg:px-8">
-            <p>{project.repo_provider}</p>
           </div>
         </main>
       </div>
