@@ -2,19 +2,14 @@ import classNames from '@/lib/classNames';
 import { composeRepoUrl } from '@/lib/gitProvider';
 import { project } from '@prisma/client';
 import Link from 'next/link';
-import { FaGithub } from 'react-icons/fa';
 import OccurrenceCounterLabel from './CounterLabel';
+import { ProviderIcon } from './ProviderIcon';
 
 export default function ProjectsTable({ projects }: { projects: project[] }) {
   const statuses = {
     offline: 'text-gray-500 bg-gray-100/50',
     online: 'text-green-400 bg-green-400/50',
     error: 'text-rose-400 bg-rose-400/50',
-  };
-  const environments = {
-    staging: 'text-gray-400 bg-gray-400/10 ring-gray-400/20',
-    production: 'text-indigo-400 bg-indigo-400/10 ring-indigo-400/30',
-    test: 'text-white bg-gray-900 ring-gray-700',
   };
 
   return (
@@ -61,9 +56,13 @@ export default function ProjectsTable({ projects }: { projects: project[] }) {
             </div>
             <div className="ml-5 mt-1 flex items-center gap-x-2.5 text-xs leading-5 text-gray-400">
               <p className="inline-flex items-center whitespace-nowrap">
-                <FaGithub className="h-1em w-1em mr-1 shrink-0" aria-hidden="true" />
+                <ProviderIcon
+                  provider={project.repo_provider}
+                  className="h-1em w-1em mr-1 shrink-0"
+                  aria-hidden="true"
+                />
                 <Link href={composeRepoUrl(project)} className="hover:text-white">
-                  {project.organization.toLowerCase()} / {project.name}
+                  {project.organization.toLowerCase()} / {project.name.toLowerCase()}
                 </Link>
               </p>
               <svg viewBox="0 0 2 2" className="h-0.5 w-0.5 flex-none fill-gray-300">

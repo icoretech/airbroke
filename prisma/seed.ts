@@ -1,5 +1,5 @@
+import generateUniqueProjectKey from '@/lib/keygen'
 import { PrismaClient } from '@prisma/client'
-import { randomBytes } from 'crypto'
 
 const prisma = new PrismaClient()
 
@@ -10,7 +10,7 @@ async function main() {
 
   for (let i = 1; i <= numberOfProjects; i++) {
     const projectName = `Project ${i}`
-    const projectKey = randomBytes(16).toString('hex')
+    const projectKey = await generateUniqueProjectKey(prisma)
 
     const project = await prisma.project.upsert({
       where: { name: projectName },

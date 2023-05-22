@@ -1,7 +1,5 @@
 import { project } from "@prisma/client";
 
-export type ProviderName = string | null;
-
 export function composeRepoUrl(project: project): string {
   let baseUrl: string;
 

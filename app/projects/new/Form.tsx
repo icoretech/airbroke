@@ -1,6 +1,7 @@
 'use client';
 
 import { createProject } from '@/app/_actions';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { startTransition, useState } from 'react';
 import AddButton from './AddButton';
@@ -27,56 +28,38 @@ export default function Form() {
       startTransition(() => router.push(`/projects/${project_id}`));
     }
   }
-
   return (
     <form action={handleSubmit}>
-      {error && (
-        <div className="relative mb-6 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700" role="alert">
-          <strong className="font-bold">Error!</strong>
-          <span className="block sm:inline">{error}</span>
-        </div>
-      )}
       <div className="space-y-12">
         <div className="border-b border-white/10 pb-12">
-          <h2 className="text-base font-semibold leading-7 text-white">Project Info</h2>
+          <h2 className="text-base font-semibold leading-7 text-white">Get Started Instantly</h2>
           <p className="mt-1 text-sm leading-6 text-gray-400">
-            This information will be displayed publicly so be careful what you share.
+            Start right away by providing your repository URL. No HTTP requests will be made to your git provider during
+            this process.
           </p>
 
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div className="sm:col-span-4">
-              <label htmlFor="organization" className="block text-sm font-medium leading-6 text-white">
-                Organization
-              </label>
-              <div className="mt-2">
-                <div className="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
-                  <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">github.com/</span>
-                  <input
-                    type="text"
-                    name="organization"
-                    id="organization"
-                    autoComplete="off"
-                    className="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="myorganization"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-6">
               <label htmlFor="name" className="block text-sm font-medium leading-6 text-white">
-                Name
+                Repository URL
               </label>
-              <div className="mt-2">
-                <div className="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
-                  <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    autoComplete="off"
-                    className="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"
-                  />
-                </div>
+              <div className="relative mt-2">
+                <input
+                  type="text"
+                  name="repository_url"
+                  id="repository_url"
+                  autoComplete="off"
+                  className={`block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 ${
+                    error ? 'border border-rose-500' : ''
+                  }`}
+                  placeholder="e.g., https://github.com/icoretech/airbroke"
+                />
+                {error && (
+                  <div className="mt-2 text-sm text-rose-500">
+                    <strong className="font-bold">Error: </strong>
+                    <span>{error}</span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -84,9 +67,9 @@ export default function Form() {
       </div>
 
       <div className="mt-6 flex items-center justify-end gap-x-6">
-        <button type="button" className="text-sm font-semibold leading-6 text-white">
+        <Link href="/" className="text-sm font-semibold leading-6 text-white">
           Cancel
-        </button>
+        </Link>
         <AddButton />
       </div>
     </form>
