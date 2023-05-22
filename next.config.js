@@ -12,7 +12,7 @@ const nextConfig = {
   },
   experimental: {
     serverActions: true,
-    serverComponentsExternalPackages: ['@prisma/client', 'chatgpt', '@octokit'],
+    serverComponentsExternalPackages: ['@prisma/client', 'chatgpt', '@octokit', '@airbrake/node'],
   },
   async rewrites() {
     return [

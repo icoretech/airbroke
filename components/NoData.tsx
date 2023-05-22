@@ -1,5 +1,6 @@
 'use client';
 
+import { sendAirbrakeNodeException } from '@/app/_actions';
 import { Notifier } from '@airbrake/browser';
 import { project } from '@prisma/client';
 import { useRouter } from 'next/navigation';
@@ -10,7 +11,7 @@ export default function NoData({ project }: { project: project }) {
   const [isPending, startTransition] = useTransition();
   const { refresh } = useRouter();
 
-  const sendTestException = async () => {
+  const sendAirbrakeJsException = async () => {
     const airbrake = new Notifier({
       projectId: 1,
       projectKey: project.api_key,
@@ -19,11 +20,10 @@ export default function NoData({ project }: { project: project }) {
       remoteConfig: false,
       performanceStats: false,
       queryStats: false,
-      queueStats: false,
     });
 
     await airbrake.notify(new Error('This is a test exception from Airbroke'));
-    startTransition(() => refresh());
+    refresh();
   };
 
   return (
@@ -32,19 +32,34 @@ export default function NoData({ project }: { project: project }) {
 
       <h3 className="my-5 text-sm font-semibold">{'No exceptions recorded'}</h3>
 
-      <button
-        onClick={sendTestException}
-        disabled={isPending}
-        className="inline-flex items-center rounded-md bg-indigo-400/10 px-3 py-2 text-sm font-semibold text-indigo-400 shadow-sm ring-indigo-400/30 transition-colors duration-200 hover:bg-indigo-500 hover:text-indigo-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:bg-indigo-400"
-      >
-        {isPending ? (
-          <SlDisc className="-ml-0.5 mr-1.5 h-5 w-5 animate-spin" aria-hidden="true" />
-        ) : (
-          <SlEnergy className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
-        )}
+      <div className="flex flex-col items-center">
+        <button
+          onClick={() => startTransition(() => sendAirbrakeJsException())}
+          disabled={isPending}
+          className="mb-4 inline-flex items-center rounded-md bg-indigo-400/10 px-3 py-2 text-sm font-semibold text-indigo-400 shadow-sm ring-indigo-400/30 transition-colors duration-200 hover:bg-indigo-500 hover:text-indigo-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:text-white"
+        >
+          {isPending ? (
+            <SlDisc className="-ml-0.5 mr-1.5 h-5 w-5 animate-spin" aria-hidden="true" />
+          ) : (
+            <SlEnergy className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
+          )}
 
-        <span>{isPending ? 'Sending...' : 'Send a test exception'}</span>
-      </button>
+          <span>{isPending ? 'Sending...' : 'Send a test exception (Airbrake JS)'}</span>
+        </button>
+        <button
+          onClick={() => startTransition(() => sendAirbrakeNodeException(project.id, window.location.origin))}
+          disabled={isPending}
+          className="inline-flex items-center rounded-md bg-indigo-400/10 px-3 py-2 text-sm font-semibold text-indigo-400 shadow-sm ring-indigo-400/30 transition-colors duration-200 hover:bg-indigo-500 hover:text-indigo-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:text-white"
+        >
+          {isPending ? (
+            <SlDisc className="-ml-0.5 mr-1.5 h-5 w-5 animate-spin" aria-hidden="true" />
+          ) : (
+            <SlEnergy className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
+          )}
+
+          <span>{isPending ? 'Sending...' : 'Send a test exception (Airbrake Node)'}</span>
+        </button>
+      </div>
     </div>
   );
 }
