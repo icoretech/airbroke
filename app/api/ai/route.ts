@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
   const occurrenceId = request.nextUrl.searchParams.get('occurrence');
 
   if (!process.env.AIRBROKE_OPENAI_API_KEY) {
-    return new Response('Unauthorized', { status: 401, headers: { 'Content-Type': 'text/event-stream' } });
+    return new Response('Unauthorized', { status: 401, headers: { 'content-type': 'text/event-stream' } });
   }
 
   if (!occurrenceId) {
@@ -88,7 +88,7 @@ export async function GET(request: NextRequest) {
 
   return new Response(readable, {
     headers: {
-      'Content-Type': 'text/event-stream',
+      'content-type': 'text/event-stream',
       Connection: 'keep-alive',
       'Cache-Control': 'no-cache, no-transform',
     },
