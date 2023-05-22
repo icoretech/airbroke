@@ -75,6 +75,7 @@ export async function GET(request: NextRequest) {
 
   responsePromise
     .catch(async (error) => {
+      console.error('An error occurred while processing the response:', error);
       const errorMessage = `An error occurred: ${error.message}\n\n`;
       const data = new TextEncoder().encode(`data: ${errorMessage}`);
       await writer.write(data);
@@ -84,8 +85,6 @@ export async function GET(request: NextRequest) {
         await writer.close();
       }
     });
-
-
 
   return new Response(readable, {
     headers: {
