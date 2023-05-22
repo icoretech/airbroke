@@ -103,6 +103,10 @@ export async function sendAirbrakeNodeException(projectId: bigint, host: string)
     await airbrake.notify(err);
   }
 
-  revalidatePath(`/projects/${project.id}/notices`) // mm, this sometimes fails, https://www.reddit.com/r/nextjs/comments/13ilupe/nextjs_134_error_invariant_static_generation/
-  redirect(`/projects/${project.id}/notices`);
+  try {
+    revalidatePath(`/projects`)
+    revalidatePath(`/projects/${project.id}/notices`)
+  } catch (err) {
+    console.warn(err);
+  }
 }
