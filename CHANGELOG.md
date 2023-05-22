@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.11 (2023-05-22)
+
+## What's Changed
+* build(deps-dev): bump @types/node from 20.2.2 to 20.2.3 by @dependabot in https://github.com/icoretech/airbroke/pull/27
+
+
+**Full Changelog**: https://github.com/icoretech/airbroke/compare/v1.1.10...v1.1.11
+
 ## 1.1.10 (2023-05-22)
 
 **Full Changelog**: https://github.com/icoretech/airbroke/compare/v1.1.9...v1.1.10
