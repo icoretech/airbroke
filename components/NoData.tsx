@@ -1,7 +1,7 @@
 'use client';
 
 import { sendAirbrakeNodeException } from '@/app/_actions';
-import { Notifier } from '@airbrake/browser';
+import { Notifier as AirbrakeJsNotifier } from '@airbrake/browser';
 import { project } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
@@ -12,7 +12,7 @@ export default function NoData({ project }: { project: project }) {
   const { refresh } = useRouter();
 
   const sendAirbrakeJsException = async () => {
-    const airbrake = new Notifier({
+    const airbrake = new AirbrakeJsNotifier({
       projectId: 1,
       projectKey: project.api_key,
       environment: 'test',
