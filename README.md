@@ -11,7 +11,7 @@
 
 ## Features
 
-Warning: alpha software, use at your own risk.
+Please keep in mind that Airbroke is currently in active development, and using it in production environments is at your own discretion. We appreciate your feedback and support as we work towards a stable release.
 
 - :floppy_disk: Based on PostgreSQL
 - :globe_with_meridians: Airbrake(tm)-compatible HTTP collector endpoint
@@ -110,7 +110,8 @@ For users who prefer Docker Compose for managing multi-container Docker applicat
 To get started, make sure you have Docker and Docker Compose installed on your system. Then, you can start the application using the following command in the terminal:
 
 ```sh
-docker compose up
+make build
+make run
 ```
 
 You can override the default values in the `docker-compose.yml` file by creating a `docker-compose.override.yml` file in the same directory. This file is ignored by Git and will not be committed to the repository.
