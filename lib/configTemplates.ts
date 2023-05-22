@@ -1,4 +1,5 @@
 export const rubyTemplate = `
+# config/initializers/airbroke.rb
 Airbrake.configure do |config|
   def set_if_responds_to(config, method_name, value)
     config.send("#{method_name}=", value) if config.respond_to?(method_name)
