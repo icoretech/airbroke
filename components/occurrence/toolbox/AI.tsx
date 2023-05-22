@@ -26,7 +26,7 @@ export default function ToolboxAI({ occurrenceId }: { occurrenceId: bigint }) {
     };
 
     eventSource.onerror = (event) => {
-      console.log('Connection was closed');
+      console.log('Connection was closed due to an error:', event);
       setIsStarted(false);
       eventSource.close();
     };
