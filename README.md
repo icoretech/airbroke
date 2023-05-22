@@ -93,6 +93,10 @@ It's important to keep the following points in mind:
 
 Detailed instructions for this process can also be found in the [Prisma deployment guide for Vercel](https://www.prisma.io/docs/guides/deployment/deployment-guides/deploying-to-vercel#prisma-workflow).
 
+### Render.com
+
+[![Deploy with Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/icoretech/airbroke)
+
 ### Helm
 
 You can deploy Airbroke to Kubernetes using the dedicated Helm chart.
@@ -193,3 +197,5 @@ end
 - If these exceptions are produced by libraries, consider collecting, then wrapping these exceptions and re-raise them with cleaned-up messages, as described in the point above.
 
 Adopting these practices will ensure that Airbroke can maintain an efficient database and effectively group and display related errors.
+
+![Alt](https://repobeats.axiom.co/api/embed/48f60fbfcf724565f4ef697ad425de802c52fd28.svg 'Repobeats analytics image')
