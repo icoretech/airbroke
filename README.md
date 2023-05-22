@@ -120,6 +120,10 @@ make run
 
 You can override the default values in the `docker-compose.yml` file by creating a `docker-compose.override.yml` file in the same directory. This file is ignored by Git and will not be committed to the repository.
 
+### OpenNext
+
+For deploying on AWS beside Amplify you might want to use [OpenNext](https://github.com/serverless-stack/open-next) which is a Serverless Framework plugin for deploying Next.js applications on AWS.
+
 ## Setup
 
 Please view all the available configuration variables in the [`.env.dist`](https://github.com/icoretech/airbroke/blob/main/.env.dist) file.

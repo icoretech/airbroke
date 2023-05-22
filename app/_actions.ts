@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/db';
 import generateUniqueProjectKey from '@/lib/keygen';
 import { parseGitURL } from '@/lib/parseGitUrl';
+import { Notifier as AirbrakeNodeNotifier } from '@airbrake/node';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -78,4 +79,30 @@ export async function deleteProject(projectId: bigint): Promise<void> {
   await prisma.project.delete({ where: { id: projectId } });
   revalidatePath('/projects');
   redirect('/projects');
+}
+
+export async function sendAirbrakeNodeException(projectId: bigint, host: string) {
+  const project = await prisma.project.findUnique({ where: { id: projectId } });
+  if (!project) {
+    throw new Error('Project not found');
+  }
+
+  const airbrake = new AirbrakeNodeNotifier({
+    projectId: 1,
+    projectKey: project.api_key,
+    environment: 'test',
+    host: host,
+    remoteConfig: false,
+    performanceStats: false,
+    queryStats: false,
+  });
+
+  try {
+    throw new Error('This is a test exception from Airbroke');
+  } catch (err) {
+    await airbrake.notify(err);
+  }
+
+  revalidatePath(`/projects/${project.id}/notices`) // mm, this sometimes fails, https://www.reddit.com/r/nextjs/comments/13ilupe/nextjs_134_error_invariant_static_generation/
+  redirect(`/projects/${project.id}/notices`);
 }

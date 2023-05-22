@@ -26,6 +26,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@airbrake/node@npm:^2.1.8":
+  version: 2.1.8
+  resolution: "@airbrake/node@npm:2.1.8"
+  dependencies:
+    "@airbrake/browser": ^2.1.8
+    cross-fetch: ^3.1.5
+    error-stack-parser: ^2.0.4
+    tdigest: ^0.1.1
+  checksum: 59dca142aee8b0efc0ff90438df27c6cd641307463e364f7b56e2bc48a9c19dc5c599fc1417443e00319bb5040d41456b34a4e139a6f47dcbacc14b5788fbf03
+  languageName: node
+  linkType: hard
+
 "@alloc/quick-lru@npm:^5.2.0":
   version: 5.2.0
   resolution: "@alloc/quick-lru@npm:5.2.0"
@@ -1907,6 +1919,7 @@ __metadata:
   resolution: "airbroke@workspace:."
   dependencies:
     "@airbrake/browser": ^2.1.8
+    "@airbrake/node": ^2.1.8
     "@headlessui/react": ^1.7.14
     "@jest/globals": ^29.5.0
     "@prisma/client": 4.14.1
