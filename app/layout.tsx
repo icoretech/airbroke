@@ -1,5 +1,5 @@
+import { SidebarProvider } from '@/components/SidebarProvider';
 import { Inter } from 'next/font/google';
-import { SidebarProvider } from './SidebarProvider';
 import './globals.css';
 
 export const metadata = {
