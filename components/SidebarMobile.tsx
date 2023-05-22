@@ -1,7 +1,7 @@
 'use client';
 
-import { useSidebar } from '@/app/SidebarProvider';
 import { SidebarCloseButton } from '@/components/SidebarButtons';
+import { useSidebar } from '@/components/SidebarProvider';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 

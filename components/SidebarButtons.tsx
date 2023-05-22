@@ -1,6 +1,6 @@
 'use client';
 
-import { useSidebar } from '@/app/SidebarProvider';
+import { useSidebar } from '@/components/SidebarProvider';
 import { SlClose, SlMenu } from 'react-icons/sl';
 
 export function SidebarOpenButton() {
