@@ -94,7 +94,7 @@ async function OPTIONS(request: NextRequest) {
 
   const headers: { [key: string]: string } = {
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Origin, Accept, Content-Type, Authorization',
+    'Access-Control-Allow-Headers': 'origin, accept, content-type, authorization',
     'Access-Control-Allow-Origin': corsOrigins.length > 0 ? corsOrigins.join(', ') : '*',
   };
 
