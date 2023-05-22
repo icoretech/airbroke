@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/db';
 import generateUniqueProjectKey from '@/lib/keygen';
+import { parseGitURL } from '@/lib/parseGitUrl';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -11,23 +12,41 @@ interface CreateProjectResponse {
 }
 
 function validateProjectName(name: string): boolean {
-  const nameRegex = /^[a-zA-Z0-9]{1,36}$/;
+  const nameRegex = /^[a-zA-Z0-9-_.]{1,36}$/;
   return nameRegex.test(name);
 }
 
 export async function createProject(data: FormData): Promise<CreateProjectResponse> {
-  const name = data.get('name') as string;
-  if (!validateProjectName(name)) {
-    return { project_id: null, error: "Invalid project name. It must be 1-36 characters long and can contain only alphanumeric characters without spaces." };
+  const repository_url = data.get('repository_url') as string;
+
+  const parsed = parseGitURL(repository_url);
+  if (!parsed) {
+    return {
+      project_id: null,
+      error: 'Invalid repository URL format.',
+    };
   }
 
+  const { provider, organization, repository } = parsed;
+
+  if (!validateProjectName(repository)) {
+    return { project_id: null, error: `Invalid project name "${repository}". It must be 1-36 characters long and can contain only alphanumeric characters without spaces.` };
+  }
+
+  const projectData = {
+    name: repository,
+    api_key: await generateUniqueProjectKey(prisma),
+    organization: organization,
+    repo_provider: provider,
+    repo_branch: 'main',
+    repo_issue_tracker: repository_url,
+    repo_url: repository_url,
+    // repo_provider_api_key: data.get('repo_provider_api_key') as string,
+    // repo_provider_api_secret: data.get('repo_provider_api_secret') as string,
+  };
+
   try {
-    const project = await prisma.project.create({
-      data: {
-        api_key: await generateUniqueProjectKey(prisma),
-        name,
-      },
-    });
+    const project = await prisma.project.create({ data: projectData });
     revalidatePath(`/projects/${project.id}`);
     return { project_id: project.id, error: null };
   } catch (e) {

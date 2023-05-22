@@ -7,8 +7,8 @@ import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SlPlus } from 'react-icons/sl';
-import { TbBrandGithub } from 'react-icons/tb';
 import { Gravatar } from './Gravatar';
+import { ProviderIcon } from './ProviderIcon';
 
 function groupBy<T>(array: T[], key: keyof T) {
   return array.reduce((result: { [key: string]: T[] }, item) => {
@@ -52,7 +52,11 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
                     >
                       <div className="flex w-full justify-between">
                         <div className="flex items-center gap-x-3 font-semibold ">
-                          <TbBrandGithub className="h-6 w-6 shrink-0" aria-hidden="true" />
+                          <ProviderIcon
+                            provider={project.repo_provider}
+                            className="h-6 w-6 shrink-0"
+                            aria-hidden="true"
+                          />
                           <span className="truncate">{project.name}</span>
                         </div>
                         {project.notices_count > 0 && (

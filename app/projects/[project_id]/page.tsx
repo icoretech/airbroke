@@ -79,8 +79,7 @@ export default async function Project({
           </div>
 
           <div className="bg-airbroke-900 px-4 py-6 sm:px-6 lg:px-8">
-            Airbroke provides an Airbrake-compatible API, allowing you to seamlessly use existing clients. The following
-            are some suggested configurations for your convenience.
+            <p>{project.repo_provider}</p>
           </div>
         </main>
       </div>

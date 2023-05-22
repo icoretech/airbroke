@@ -24,29 +24,27 @@ export default async function Projects({ searchParams }: { searchParams: Record<
   });
 
   return (
-    <>
-      <div>
-        <SidebarMobile>
-          {/* @ts-expect-error Server Component */}
-          <SidebarDesktop />
-        </SidebarMobile>
+    <div>
+      <SidebarMobile>
+        {/* @ts-expect-error Server Component */}
+        <SidebarDesktop />
+      </SidebarMobile>
 
-        <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
-          {/* @ts-expect-error Server Component */}
-          <SidebarDesktop />
+      <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
+        {/* @ts-expect-error Server Component */}
+        <SidebarDesktop />
+      </div>
+
+      <main className="xl:pl-72">
+        <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5 bg-airbroke-900 px-4 shadow-sm sm:px-6 lg:px-8">
+          <SidebarOpenButton />
+          <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+            <Search currentSearchTerm={search} />
+          </div>
         </div>
 
-        <main className="xl:pl-72">
-          <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5 bg-airbroke-900 px-4 shadow-sm sm:px-6 lg:px-8">
-            <SidebarOpenButton />
-            <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-              <Search currentSearchTerm={search} />
-            </div>
-          </div>
-
-          <ProjectsTable projects={projects} />
-        </main>
-      </div>
-    </>
+        <ProjectsTable projects={projects} />
+      </main>
+    </div>
   );
 }
