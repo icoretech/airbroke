@@ -18,10 +18,14 @@
     "@airbrake/browser": "^2.1.8",
     "@airbrake/node": "^2.1.8",
     "@headlessui/react": "^1.7.14",
+    "@pothos/core": "^3.30.0",
+    "@pothos/plugin-prisma": "^3.51.1",
     "@prisma/client": "4.14.1",
     "@tailwindcss/forms": "^0.5.3",
     "autoprefixer": "10.4.14",
     "chatgpt": "file:vendor/chatgpt-5.2.4.tgz",
+    "graphql": "16.6.0",
+    "graphql-yoga": "^3.9.1",
     "nanoid": "4.0.2",
     "next": "13.4.3",
     "next-auth": "^4.22.1",
@@ -56,10 +60,14 @@
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
     "prisma": "4.14.1",
+    "prisma-generator-pothos-codegen": "^0.5.7",
     "tsx": "^3.12.7"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
+  },
+  "resolutions": {
+    "graphql": "16.6.0"
   },
   "packageManager": "yarn@3.5.1"
 }

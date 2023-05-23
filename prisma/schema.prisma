@@ -3,6 +3,17 @@ generator client {
   previewFeatures = ["postgresqlExtensions"]
 }
 
+generator pothos {
+  provider     = "prisma-pothos-types"
+  clientOutput = "@prisma/client"
+  output       = "./pothos-types.ts"
+}
+
+generator pothosCrud {
+  provider            = "prisma-generator-pothos-codegen"
+  generatorConfigPath = "./pothos.config.js"
+}
+
 datasource db {
   provider   = "postgresql"
   url        = env("DATABASE_URL")
@@ -10,9 +21,11 @@ datasource db {
   extensions = [citext, pgcrypto]
 }
 
+/// Project details along with associated notices
 model project {
+  /// @Pothos.omit(create, update)
   id                       BigInt   @id @default(autoincrement())
-  name                     String   @unique() @db.Citext
+  name                     String   @unique() @db.Citext /// Unique name of the project
   api_key                  String   @unique()
   organization             String   @default("myorg")
   repo_provider            String   @default("github")
@@ -21,28 +34,37 @@ model project {
   repo_branch              String   @default("main")
   repo_issue_tracker       String?
   repo_url                 String?
+  /// @Pothos.omit(create, update)
   notices_count            BigInt   @default(0)
+  /// @Pothos.omit(create, update)
   created_at               DateTime @default(now()) @db.Timestamp(6)
+  /// @Pothos.omit(create, update)
   updated_at               DateTime @updatedAt @db.Timestamp(6)
-  notices                  notice[]
+  notices                  notice[] /// Relation to associated notices
 }
 
+/// Specific notices for projects
 model notice {
+  /// @Pothos.omit(create, update)
   id          BigInt       @id @default(autoincrement())
   project_id  BigInt
   env         String       @default("development") @db.Citext
   kind        String       @default("unknown") @db.Citext
+  /// @Pothos.omit(create, update)
   seen_count  BigInt       @default(1)
+  /// @Pothos.omit(create, update)
   created_at  DateTime     @default(now()) @db.Timestamp(6)
+  /// @Pothos.omit(create, update)
   updated_at  DateTime     @updatedAt @db.Timestamp(6)
-  project     project      @relation(fields: [project_id], references: [id], onDelete: Cascade)
-  occurrences occurrence[]
+  project     project      @relation(fields: [project_id], references: [id], onDelete: Cascade) /// Relation to the parent project
+  occurrences occurrence[] /// Relation to associated occurrences
 
   @@unique([project_id, env, kind])
   @@index([seen_count])
   @@index([updated_at])
 }
 
+/// Specific occurrences for a notice
 model occurrence {
   id                 BigInt              @id @default(autoincrement())
   notice_id          BigInt
@@ -55,21 +77,22 @@ model occurrence {
   params             Json                @default("{}")
   created_at         DateTime            @default(now()) @db.Timestamp(6)
   updated_at         DateTime            @updatedAt @db.Timestamp(6)
-  notice             notice              @relation(fields: [notice_id], references: [id], onDelete: Cascade)
-  hourly_occurrences hourly_occurrence[]
+  notice             notice              @relation(fields: [notice_id], references: [id], onDelete: Cascade) /// Relation to the parent notice
+  hourly_occurrences hourly_occurrence[] /// Relation to associated hourly occurrences
 
   @@unique([notice_id, message])
   @@index([seen_count])
   @@index([updated_at])
 }
 
+/// Hourly occurrences for an occurrence
 model hourly_occurrence {
   id             BigInt     @id @default(autoincrement())
   occurrence_id  BigInt
   interval_start DateTime   @db.Timestamp(6)
   interval_end   DateTime   @db.Timestamp(6)
   count          BigInt     @default(0)
-  occurrence     occurrence @relation(fields: [occurrence_id], references: [id], onDelete: Cascade)
+  occurrence     occurrence @relation(fields: [occurrence_id], references: [id], onDelete: Cascade) /// Relation to the parent occurrence
 
   @@index([occurrence_id, interval_start, interval_end])
 }

@@ -7,7 +7,16 @@ const nextConfig = {
   },
   experimental: {
     serverActions: true,
-    serverComponentsExternalPackages: ['@prisma/client', 'chatgpt', '@octokit', '@airbrake/node'],
+    serverComponentsExternalPackages: [
+      '@prisma/client',
+      'chatgpt',
+      // '@octokit',
+      '@airbrake/node',
+      // 'graphql-yoga',
+      // 'graphql',
+      // '@pothos/core',
+      // '@pothos/plugin-prisma',
+    ],
   },
   async rewrites() {
     return [
