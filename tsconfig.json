@@ -19,7 +19,6 @@
         "name": "next"
       }
     ],
-    "types": ["react/experimental"],
     "paths": {
       "@/*": ["./*"]
     }

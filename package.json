@@ -7,12 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prismag": "prisma generate",
-    "prismap": "prisma db pull",
-    "prismas": "prisma db seed",
     "test": "jest --watchAll",
-    "postinstall": "prisma generate",
-    "db:migrate": "prisma migrate deploy"
+    "db:generate": "prisma generate",
+    "db:pull": "prisma db pull",
+    "db:seed": "prisma db seed",
+    "db:migrate": "prisma migrate deploy",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@airbrake/browser": "^2.1.8",
