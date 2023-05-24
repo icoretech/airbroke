@@ -1,10 +1,10 @@
-import generateUniqueProjectKey from '@/lib/keygen'
 import { PrismaClient } from '@prisma/client'
+import generateUniqueProjectKey from '../lib/keygen'
 
 const prisma = new PrismaClient()
 
 async function main() {
-  const numberOfProjects = 10
+  const numberOfProjects = 3
   const numberOfNotices = 5
   const createdProjects = []
 
