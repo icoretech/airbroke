@@ -1,23 +1,22 @@
 'use client';
 
-import { occurrence } from '@prisma/client';
+import { Context } from '@/types/airbroke';
 import { useState } from 'react';
 import { SiCurl } from 'react-icons/si';
 
-interface Context {
-  headers?: Record<string, string>;
-  httpMethod?: string;
-  url?: string;
-}
-
-function ToolboxCurl({ occurrence }: { occurrence: occurrence }) {
-  const context = occurrence.context as Context;
-
+function ToolboxCurl({ context }: { context: Context }) {
   const toCurl = (): string => {
-    const { headers, httpMethod, url } = context;
-    if (!headers) return '';
+    const { headers = {}, httpMethod = 'GET', url } = context;
+    if (!url) return '';
 
-    let cmd = `curl -X ${httpMethod} '${url}'`;
+    let cmd = `curl -v `;
+
+    if (httpMethod.toUpperCase() !== 'GET') {
+      cmd += `-X ${httpMethod} `;
+    }
+
+    cmd += `'${url}'`;
+
     Object.entries(headers).forEach(([k, v]) => {
       cmd += ` -H '${k}: ${v}'`;
     });
