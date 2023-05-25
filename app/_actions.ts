@@ -36,7 +36,7 @@ export async function createProject(data: FormData): Promise<CreateProjectRespon
 
   const projectData = {
     name: repository,
-    api_key: await generateUniqueProjectKey(prisma),
+    api_key: await generateUniqueProjectKey(),
     organization: organization,
     repo_provider: provider,
     repo_branch: 'main',

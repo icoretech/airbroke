@@ -43,7 +43,6 @@ describe('processError', () => {
       // console.log(`Running processError ${i + 1} of ${sequentialRequests}`);
       await expect(
         processError(
-          prisma,
           project,
           errorData,
           contextData,

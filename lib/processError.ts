@@ -1,8 +1,8 @@
+import { prisma } from '@/lib/db';
 import { NoticeError } from '@/lib/parseNotice';
-import { Prisma, PrismaClient, project } from '@prisma/client';
+import { Prisma, project } from '@prisma/client';
 
 export async function processError(
-  prisma: PrismaClient,
   project: project,
   error: NoticeError,
   context: Record<string, any>,
