@@ -54,8 +54,8 @@ services:
     command: yarn test
     restart: 'always'
     environment:
-      DATABASE_URL: 'postgresql://postgres:airbroke@db/airbroke_test?connection_limit=5'
-      DIRECT_URL: 'postgresql://postgres:airbroke@db/airbroke_test?connection_limit=5'
+      DATABASE_URL: 'postgresql://postgres:airbroke@db/airbroke_test?connection_limit=15'
+      DIRECT_URL: 'postgresql://postgres:airbroke@db/airbroke_test?connection_limit=15'
     depends_on:
       nextbase:
         condition: service_completed_successfully

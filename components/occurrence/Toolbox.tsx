@@ -1,3 +1,4 @@
+import { Context } from '@/types/airbroke';
 import { occurrence } from '@prisma/client';
 import ToolboxAI from './toolbox/AI';
 import ToolboxCurl from './toolbox/Curl';
@@ -17,7 +18,7 @@ export default function Toolbox({ occurrence }: { occurrence: occurrence }) {
           <ToolboxCurl occurrence={occurrence} />
         </li>
         <li className="col-span-1 flex flex-col divide-y divide-indigo-400/30 rounded-lg text-center shadow">
-          <ToolboxFetch occurrence={occurrence} />
+          <ToolboxFetch context={occurrence.context as Context} />
         </li>
       </ul>
     </div>
