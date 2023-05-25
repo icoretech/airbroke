@@ -4,7 +4,7 @@ import { Context } from '@/types/airbroke';
 
 export async function performReplay(context: Context): Promise<string> {
   const { headers, httpMethod, url } = context;
-  if (!url) return 'This does not look like a valid HTTP request to replay, url property is missing.';
+  if (!url) return 'Invalid HTTP request for replay. The URL property is missing.';
 
   const requestOptions: RequestInit = {
     method: httpMethod,
@@ -12,11 +12,11 @@ export async function performReplay(context: Context): Promise<string> {
     cache: 'no-store'
   };
 
-  let responseText = 'Fetching...';
+  let responseText: string;
   try {
     const response = await fetch(url, requestOptions);
-
     const responseBody = await response.text();
+
     if (response.ok) {
       responseText = `HTTP Status Code: ${response.status}\nBody hidden`;
     } else {

@@ -15,7 +15,7 @@ export default function Toolbox({ occurrence }: { occurrence: occurrence }) {
           <ToolboxAI occurrenceId={occurrence.id} />
         </li>
         <li className="col-span-1 flex flex-col divide-y divide-indigo-400/30 rounded-lg text-center shadow">
-          <ToolboxCurl occurrence={occurrence} />
+          <ToolboxCurl context={occurrence.context as Context} />
         </li>
         <li className="col-span-1 flex flex-col divide-y divide-indigo-400/30 rounded-lg text-center shadow">
           <ToolboxFetch context={occurrence.context as Context} />
