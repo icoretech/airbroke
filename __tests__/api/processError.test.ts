@@ -54,39 +54,38 @@ describe('processError', () => {
     }
   });
 
-  // test('handles deadlocks', async () => {
+  test('handles deadlocks', async () => {
 
-  //   const project = await createProject(prisma);
+    const project = await createProject(prisma);
 
-  //   const errorData: NoticeError = {
-  //     type: 'Error',
-  //     message: 'Error: deadlock detected',
-  //     backtrace: [],
-  //   };
+    const errorData: NoticeError = {
+      type: 'Error',
+      message: 'Error: deadlock detected',
+      backtrace: [],
+    };
 
-  //   const contextData = { environment: 'test' };
-  //   const environmentData = {};
-  //   const sessionData = {};
-  //   const requestParamsData = {};
+    const contextData = { environment: 'test' };
+    const environmentData = {};
+    const sessionData = {};
+    const requestParamsData = {};
 
-  //   // Run processError in parallel
-  //   const parallelRequests = 14;
-  //   const promises = [];
+    // Run processError in parallel
+    const parallelRequests = 14;
+    const promises = [];
 
-  //   for (let i = 0; i < parallelRequests; i++) {
-  //     promises.push(
-  //       processError(
-  //         prisma,
-  //         project,
-  //         errorData,
-  //         contextData,
-  //         environmentData,
-  //         sessionData,
-  //         requestParamsData
-  //       )
-  //     );
-  //   }
+    for (let i = 0; i < parallelRequests; i++) {
+      promises.push(
+        processError(
+          project,
+          errorData,
+          contextData,
+          environmentData,
+          sessionData,
+          requestParamsData
+        )
+      );
+    }
 
-  //   await expect(Promise.all(promises)).resolves.not.toThrow();
-  // });
+    await expect(Promise.all(promises)).resolves.not.toThrow();
+  });
 });
