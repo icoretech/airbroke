@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
   images: {
-    domains: ['gravatar.com'],
+    domains: ['www.gravatar.com', 'i.imgur.com'],
   },
   experimental: {
     serverActions: true,
