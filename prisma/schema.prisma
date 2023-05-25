@@ -46,13 +46,13 @@ model notice {
 model occurrence {
   id                 BigInt              @id @default(autoincrement())
   notice_id          BigInt
-  message            String?             @db.Citext
+  message            String              @db.Citext
   seen_count         BigInt              @default(1)
-  backtrace          Json?               @default("{}")
-  context            Json?               @default("{}")
-  environment        Json?               @default("{}")
-  session            Json?               @default("{}")
-  params             Json?               @default("{}")
+  backtrace          Json                @default("{}")
+  context            Json                @default("{}")
+  environment        Json                @default("{}")
+  session            Json                @default("{}")
+  params             Json                @default("{}")
   created_at         DateTime            @default(now()) @db.Timestamp(6)
   updated_at         DateTime            @updatedAt @db.Timestamp(6)
   notice             notice              @relation(fields: [notice_id], references: [id], onDelete: Cascade)
