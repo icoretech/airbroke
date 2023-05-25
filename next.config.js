@@ -3,12 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**.gravatar.com',
-      },
-    ],
+    domains: ['gravatar.com'],
   },
   experimental: {
     serverActions: true,
