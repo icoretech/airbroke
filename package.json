@@ -56,10 +56,10 @@
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
     "prisma": "4.14.1",
-    "ts-node": "^10.9.1"
+    "tsx": "^3.12.7"
   },
   "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+    "seed": "tsx prisma/seed.ts"
   },
   "packageManager": "yarn@3.5.1"
 }
