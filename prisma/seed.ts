@@ -10,7 +10,7 @@ async function main() {
 
   for (let i = 1; i <= numberOfProjects; i++) {
     const projectName = `Project ${i}`
-    const projectKey = await generateUniqueProjectKey(prisma)
+    const projectKey = await generateUniqueProjectKey()
 
     const project = await prisma.project.upsert({
       where: { name: projectName },

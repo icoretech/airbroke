@@ -80,7 +80,7 @@ async function POST(request: NextRequest) {
   const session = whitelisted.session;
   const requestParams = whitelisted.params;
   for (const error of errors) {
-    await processError(prisma, project, error, context, environment, session, requestParams);
+    await processError(project, error, context, environment, session, requestParams);
   }
 
   const customNanoid = customAlphabet(urlAlphabet, 21);
