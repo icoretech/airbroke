@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/db';
 
 // TODO: charting
-export default async function OccurrenceChartWrapper({ occurrenceId }: { occurrenceId: bigint }) {
+export default async function OccurrenceChartWrapper({ occurrenceId }: { occurrenceId: string }) {
   // Calculate the start and end date for the past two weeks
   const endDate = new Date();
   const startDate = new Date();
