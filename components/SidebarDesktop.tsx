@@ -2,11 +2,11 @@ import { LogoutButton } from '@/components/SessionButtons';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import logo from '@/public/logo.svg';
-import { project } from '@prisma/client';
+import { Project } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SlPlus } from 'react-icons/sl';
+import { SlPin, SlPlus } from 'react-icons/sl';
 import { Gravatar } from './Gravatar';
 import { ProviderIcon } from './ProviderIcon';
 
@@ -17,7 +17,7 @@ function groupBy<T>(array: T[], key: keyof T) {
   }, {});
 }
 
-export default async function SidebarDesktop({ selectedProject }: { selectedProject?: project }) {
+export default async function SidebarDesktop({ selectedProject }: { selectedProject?: Project }) {
   const session = await getServerSession(authOptions);
 
   const projects = await prisma.project.findMany({
@@ -36,14 +36,31 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
       </div>
       <nav className="flex flex-1 flex-col">
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
+          <li>
+            <ul role="list" className="-mx-2 mt-2 space-y-1">
+              <li>
+                <Link
+                  href="/bookmarks"
+                  className="group flex gap-x-3 rounded-md p-2 text-sm leading-6 text-gray-400 transition-colors duration-100 hover:bg-gray-800 hover:text-white"
+                >
+                  <div className="flex w-full justify-between">
+                    <div className="flex items-center gap-x-3 font-semibold ">
+                      <SlPin className="h-6 w-6 shrink-0" aria-hidden="true" />
+                      <span className="truncate">Bookmarks</span>
+                    </div>
+                  </div>
+                </Link>
+              </li>
+            </ul>
+          </li>
           {Object.entries(groupedProjects).map(([organization, orgProjects]) => (
             <li key={organization}>
               <div className="text-xs font-semibold leading-6 text-gray-400">{organization}</div>
               <ul role="list" className="-mx-2 mt-2 space-y-1">
                 {orgProjects.map((project) => (
-                  <li key={project.id.toString()}>
+                  <li key={project.id}>
                     <Link
-                      href={`/projects/${project.id}/notices`}
+                      href={`/projects/${project.id}`}
                       className={`group flex gap-x-3 rounded-md p-2 text-sm leading-6 ${
                         project.id === selectedProject?.id
                           ? 'bg-gray-800 text-white'

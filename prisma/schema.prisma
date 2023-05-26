@@ -18,15 +18,15 @@ datasource db {
   provider   = "postgresql"
   url        = env("DATABASE_URL")
   directUrl  = env("DIRECT_URL")
-  extensions = [citext, pgcrypto]
+  extensions = [pgcrypto]
 }
 
 /// Project details along with associated notices
-model project {
+model Project {
   /// @Pothos.omit(create, update)
-  id                       BigInt   @id @default(autoincrement())
-  name                     String   @unique() @db.Citext /// Unique name of the project
-  api_key                  String   @unique()
+  id                       String   @id @default(cuid())
+  name                     String   @unique() @db.Text
+  api_key                  String   @unique() @default(cuid())
   organization             String   @default("myorg")
   repo_provider            String   @default("github")
   repo_provider_api_key    String?
@@ -40,59 +40,123 @@ model project {
   created_at               DateTime @default(now()) @db.Timestamp(6)
   /// @Pothos.omit(create, update)
   updated_at               DateTime @updatedAt @db.Timestamp(6)
-  notices                  notice[] /// Relation to associated notices
+  notices                  Notice[] /// Relation to associated notices
+
+  @@map("projects")
 }
 
-/// Specific notices for projects
-model notice {
-  /// @Pothos.omit(create, update)
-  id          BigInt       @id @default(autoincrement())
-  project_id  BigInt
-  env         String       @default("development") @db.Citext
-  kind        String       @default("unknown") @db.Citext
-  /// @Pothos.omit(create, update)
+model Notice {
+  id          String       @id @default(cuid())
+  project_id  String
+  env         String       @default("development") @db.Text
+  kind        String       @default("unknown") @db.Text
   seen_count  BigInt       @default(1)
   /// @Pothos.omit(create, update)
   created_at  DateTime     @default(now()) @db.Timestamp(6)
   /// @Pothos.omit(create, update)
   updated_at  DateTime     @updatedAt @db.Timestamp(6)
-  project     project      @relation(fields: [project_id], references: [id], onDelete: Cascade) /// Relation to the parent project
-  occurrences occurrence[] /// Relation to associated occurrences
+  project     Project      @relation(fields: [project_id], references: [id], onDelete: Cascade)
+  occurrences Occurrence[] 
 
   @@unique([project_id, env, kind])
   @@index([seen_count])
   @@index([updated_at])
+  @@map("notices")
 }
 
-/// Specific occurrences for a notice
-model occurrence {
-  id                 BigInt              @id @default(autoincrement())
-  notice_id          BigInt
-  message            String              @db.Citext
-  seen_count         BigInt              @default(1)
-  backtrace          Json                @default("{}")
-  context            Json                @default("{}")
-  environment        Json                @default("{}")
-  session            Json                @default("{}")
-  params             Json                @default("{}")
-  created_at         DateTime            @default(now()) @db.Timestamp(6)
-  updated_at         DateTime            @updatedAt @db.Timestamp(6)
-  notice             notice              @relation(fields: [notice_id], references: [id], onDelete: Cascade) /// Relation to the parent notice
-  hourly_occurrences hourly_occurrence[] /// Relation to associated hourly occurrences
+model Occurrence {
+  id                 String               @id @default(cuid())
+  notice_id          String
+  message            String               @db.Text
+  seen_count         BigInt               @default(1)
+  backtrace          Json                 @default("{}")
+  context            Json                 @default("{}")
+  environment        Json                 @default("{}")
+  session            Json                 @default("{}")
+  params             Json                 @default("{}")
+  created_at         DateTime             @default(now()) @db.Timestamp(6)
+  updated_at         DateTime             @updatedAt @db.Timestamp(6)
+  notice             Notice               @relation(fields: [notice_id], references: [id], onDelete: Cascade)
+  hourly_occurrences HourlyOccurrence[]
+  bookmarks          OccurrenceBookmark[]
 
   @@unique([notice_id, message])
   @@index([seen_count])
   @@index([updated_at])
+  @@map("occurrences")
 }
 
-/// Hourly occurrences for an occurrence
-model hourly_occurrence {
-  id             BigInt     @id @default(autoincrement())
-  occurrence_id  BigInt
+model HourlyOccurrence {
+  occurrence_id  String
   interval_start DateTime   @db.Timestamp(6)
   interval_end   DateTime   @db.Timestamp(6)
   count          BigInt     @default(0)
-  occurrence     occurrence @relation(fields: [occurrence_id], references: [id], onDelete: Cascade) /// Relation to the parent occurrence
+  occurrence     Occurrence @relation(fields: [occurrence_id], references: [id], onDelete: Cascade)
 
-  @@index([occurrence_id, interval_start, interval_end])
+  @@unique([occurrence_id, interval_start, interval_end])
+  @@map("hourly_occurrences")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model User {
+  id            String               @id @default(cuid())
+  name          String?
+  email         String?              @unique
+  emailVerified DateTime?            @map("email_verified")
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  bookmarks     OccurrenceBookmark[]
+
+  @@map("users")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model OccurrenceBookmark {
+  user_id       String
+  occurrence_id String
+  created_at    DateTime   @default(now()) @db.Timestamp(6)
+  updated_at    DateTime   @updatedAt @db.Timestamp(6)
+  user          User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  occurrence    Occurrence @relation(fields: [occurrence_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, occurrence_id])
+  @@map("occurrence_bookmarks")
 }

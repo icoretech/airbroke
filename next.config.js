@@ -17,6 +17,7 @@ const nextConfig = {
       // '@pothos/core',
       // '@pothos/plugin-prisma',
     ],
+    typedRoutes: true,
   },
   async rewrites() {
     return [
@@ -31,6 +32,14 @@ const nextConfig = {
       {
         source: '/notifier_api/v2/notices',
         destination: '/api/v3/notices',
+      },
+      {
+        source: '/projects/:project_id/notices/:notice_id/occurrences/:occurrence_id',
+        destination: '/occurrences/:occurrence_id',
+      },
+      {
+        source: '/projects/:project_id/notices/:notice_id',
+        destination: '/notices/:notice_id',
       },
     ];
   },

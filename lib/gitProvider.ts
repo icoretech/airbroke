@@ -1,6 +1,6 @@
-import { project } from "@prisma/client";
+import { Project } from "@prisma/client";
 
-export function composeRepoUrl(project: project): string {
+export function composeRepoUrl(project: Project): string {
   let baseUrl: string;
 
   switch (project.repo_provider) {
@@ -18,7 +18,7 @@ export function composeRepoUrl(project: project): string {
 }
 
 export function composeFileUrl(
-  project: project,
+  project: Project,
   filePath: string,
   lineNumber?: number
 ): string {

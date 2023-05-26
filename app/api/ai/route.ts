@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
   }
 
   const occurrenceWithRelations = await prisma.occurrence.findFirst({
-    where: { id: BigInt(occurrenceId) },
+    where: { id: occurrenceId },
     include: { notice: { include: { project: true } } }
   });
 

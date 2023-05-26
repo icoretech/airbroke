@@ -1,13 +1,12 @@
 'use server';
 
 import { prisma } from '@/lib/db';
-import generateUniqueProjectKey from '@/lib/keygen';
 import { parseGitURL } from '@/lib/parseGitUrl';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 interface CreateProjectResponse {
-  project_id: bigint | null;
+  project_id: string | null;
   error: string | null;
 }
 
@@ -36,7 +35,6 @@ export async function createProject(data: FormData): Promise<CreateProjectRespon
 
   const projectData = {
     name: repository,
-    api_key: await generateUniqueProjectKey(),
     organization: organization,
     repo_provider: provider,
     repo_branch: 'main',
@@ -61,7 +59,7 @@ export async function createProject(data: FormData): Promise<CreateProjectRespon
   }
 }
 
-export async function deleteProjectNotices(projectId: bigint): Promise<void> {
+export async function deleteProjectNotices(projectId: string): Promise<void> {
   await prisma.notice.deleteMany({ where: { project_id: projectId } });
   const projectIds = await prisma.project.findMany({
     select: { id: true },
@@ -69,12 +67,12 @@ export async function deleteProjectNotices(projectId: bigint): Promise<void> {
 
   // Run revalidatePath on each project ID in parallel
   await Promise.all(
-    projectIds.map((id) => revalidatePath(`/projects/${id}/notices`))
+    projectIds.map((id) => revalidatePath(`/projects/${id}`))
   );
   revalidatePath('/projects');
 }
 
-export async function deleteProject(projectId: bigint): Promise<void> {
+export async function deleteProject(projectId: string): Promise<void> {
   await prisma.project.delete({ where: { id: projectId } });
   revalidatePath('/projects');
   redirect('/projects');

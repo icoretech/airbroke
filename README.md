@@ -22,15 +22,8 @@ Please keep in mind that Airbroke is currently in active development, and using 
 - :clipboard: Provide cURL command to reproduce HTTP exceptions
 - :arrow_forward: Replay HTTP exceptions
 - :key: Supports multiple OAuth providers for secure user authentication
-- :zap: GraphQL API endpoint for flexible data querying
-
-## Roadmap
-
-- [ ] Developing time-series error charts
-- [ ] Auto-deletion feature for outdated errors
-- [ ] Addition of webhook-based notifications
-- [ ] Enabling issue reporting through APIs
-- [ ] Broadening support for more Git providers and issue trackers
+- :bar_chart: Occurrence charts
+- :globe_with_meridians: GraphQL API for advanced data querying
 
 ## System Requirements
 

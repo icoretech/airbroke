@@ -1,10 +1,10 @@
-import type { Prisma, PrismaClient, hourly_occurrence, notice, occurrence, project } from '@prisma/client';
+import type { HourlyOccurrence, Notice, Occurrence, Prisma, PrismaClient, Project } from '@prisma/client';
 import Chance from 'chance';
 
 const chance = new Chance();
 
-export const createProject = async (prismaInstance: PrismaClient, overrides?: Partial<Prisma.projectUncheckedCreateInput>): Promise<project> => {
-  const defaultProject: Prisma.projectCreateInput = {
+export const createProject = async (prismaInstance: PrismaClient, overrides?: Partial<Prisma.ProjectUncheckedCreateInput>): Promise<Project> => {
+  const defaultProject: Prisma.ProjectCreateInput = {
     name: chance.company(),
     api_key: chance.guid(),
     organization: chance.company(),
@@ -14,8 +14,8 @@ export const createProject = async (prismaInstance: PrismaClient, overrides?: Pa
   return await prismaInstance.project.create({ data: projectData });
 };
 
-export const projectAttributes = (overrides?: Partial<Prisma.projectUncheckedCreateInput>): Prisma.projectUncheckedCreateInput => {
-  const defaultProject: Prisma.projectUncheckedCreateInput = {
+export const projectAttributes = (overrides?: Partial<Prisma.ProjectUncheckedCreateInput>): Prisma.ProjectUncheckedCreateInput => {
+  const defaultProject: Prisma.ProjectUncheckedCreateInput = {
     name: chance.company(),
     api_key: chance.guid(),
     organization: chance.company(),
@@ -24,8 +24,8 @@ export const projectAttributes = (overrides?: Partial<Prisma.projectUncheckedCre
   return { ...defaultProject, ...overrides };
 };
 
-export const createNotice = async (prismaInstance: PrismaClient, project_id: bigint, overrides?: Partial<Prisma.noticeUncheckedCreateInput>): Promise<notice> => {
-  const defaultNotice: Prisma.noticeUncheckedCreateInput = {
+export const createNotice = async (prismaInstance: PrismaClient, project_id: string, overrides?: Partial<Prisma.NoticeUncheckedCreateInput>): Promise<Notice> => {
+  const defaultNotice: Prisma.NoticeUncheckedCreateInput = {
     project_id: project_id,
     env: chance.word(),
     kind: chance.word(),
@@ -35,8 +35,8 @@ export const createNotice = async (prismaInstance: PrismaClient, project_id: big
   return await prismaInstance.notice.create({ data: noticeData });
 };
 
-export const createOccurrence = async (prismaInstance: PrismaClient, notice_id: bigint, overrides?: Partial<Prisma.occurrenceUncheckedCreateInput>): Promise<occurrence> => {
-  const defaultOccurrence: Prisma.occurrenceUncheckedCreateInput = {
+export const createOccurrence = async (prismaInstance: PrismaClient, notice_id: string, overrides?: Partial<Prisma.OccurrenceUncheckedCreateInput>): Promise<Occurrence> => {
+  const defaultOccurrence: Prisma.OccurrenceUncheckedCreateInput = {
     notice_id: notice_id,
     message: chance.sentence({ words: 5 }),
   };
@@ -45,13 +45,13 @@ export const createOccurrence = async (prismaInstance: PrismaClient, notice_id: 
   return await prismaInstance.occurrence.create({ data: occurrenceData });
 };
 
-export const createOccurrenceSummary = async (prismaInstance: PrismaClient, occurrence_id: bigint, overrides?: Partial<Prisma.hourly_occurrenceUncheckedCreateInput>): Promise<hourly_occurrence> => {
-  const defaultOccurrenceSummary: Prisma.hourly_occurrenceUncheckedCreateInput = {
+export const createOccurrenceSummary = async (prismaInstance: PrismaClient, occurrence_id: string, overrides?: Partial<Prisma.HourlyOccurrenceUncheckedCreateInput>): Promise<HourlyOccurrence> => {
+  const defaultOccurrenceSummary: Prisma.HourlyOccurrenceUncheckedCreateInput = {
     occurrence_id: occurrence_id,
     interval_start: chance.date({ year: parseInt(chance.year({ min: 2000, max: 2022 })) }),
     interval_end: chance.date({ year: parseInt(chance.year({ min: 2023, max: 2030 })) }),
   };
 
   const occurrenceSummaryData = { ...defaultOccurrenceSummary, ...overrides };
-  return await prismaInstance.hourly_occurrence.create({ data: occurrenceSummaryData });
+  return await prismaInstance.hourlyOccurrence.create({ data: occurrenceSummaryData });
 };
