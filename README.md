@@ -22,10 +22,10 @@ Please keep in mind that Airbroke is currently in active development, and using 
 - :clipboard: Provide cURL command to reproduce HTTP exceptions
 - :arrow_forward: Replay HTTP exceptions
 - :key: Supports multiple OAuth providers for secure user authentication
+- :bar_chart: Occurrence charts
 
 ## Roadmap
 
-- [ ] Developing time-series error charts
 - [ ] Auto-deletion feature for outdated errors
 - [ ] Addition of webhook-based notifications
 - [ ] Enabling issue reporting through APIs
