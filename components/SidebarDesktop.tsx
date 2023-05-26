@@ -40,7 +40,7 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
             <ul role="list" className="-mx-2 mt-2 space-y-1">
               <li>
                 <Link
-                  href={`/bookmarks`}
+                  href="/bookmarks"
                   className="group flex gap-x-3 rounded-md p-2 text-sm leading-6 text-gray-400 transition-colors duration-100 hover:bg-gray-800 hover:text-white"
                 >
                   <div className="flex w-full justify-between">
