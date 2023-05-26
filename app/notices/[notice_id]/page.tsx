@@ -14,7 +14,7 @@ export default async function Notice({
   params,
   searchParams,
 }: {
-  params: { project_id: string; notice_id: string };
+  params: { notice_id: string };
   searchParams: Record<string, string>;
 }) {
   const notice = await prisma.notice.findFirst({

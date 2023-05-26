@@ -2,7 +2,7 @@ import classNames from '@/lib/classNames';
 import { BacktraceItem } from '@/types/airbroke';
 import { Occurrence, Prisma, Project } from '@prisma/client';
 import LinkedBacktraceLine from './BacktraceLine';
-import BookmarkButton from './BookmarkButton';
+// import BookmarkButton from './BookmarkButton';
 import ClipboardButton from './ClipboardButton';
 
 function isBacktraceItem(item: any): item is BacktraceItem {
@@ -13,9 +13,9 @@ export default function Backtrace({ occurrence, project }: { occurrence: Occurre
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-x-4">
+        <div className="mb-4 flex items-center gap-x-4">
           <ClipboardButton json={occurrence.backtrace} />
-          <BookmarkButton projectId={project.id} noticeId={occurrence.notice_id} occurrenceId={occurrence.id} />
+          {/* <BookmarkButton projectId={project.id} noticeId={occurrence.notice_id} occurrenceId={occurrence.id} /> */}
         </div>
       </div>
       {occurrence.backtrace && typeof occurrence.backtrace === 'object' && Array.isArray(occurrence.backtrace) && (
