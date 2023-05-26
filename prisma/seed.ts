@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client'
-import generateUniqueProjectKey from '../lib/keygen'
 
 const prisma = new PrismaClient()
 
@@ -10,14 +9,13 @@ async function main() {
 
   for (let i = 1; i <= numberOfProjects; i++) {
     const projectName = `Project ${i}`
-    const projectKey = await generateUniqueProjectKey()
+    // const projectKey = await generateUniqueProjectKey()
 
     const project = await prisma.project.upsert({
       where: { name: projectName },
       update: {},
       create: {
-        name: projectName,
-        api_key: projectKey
+        name: projectName
       },
     })
 

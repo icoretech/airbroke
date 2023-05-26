@@ -20,7 +20,7 @@ export default function ClipboardButton({ json }: { json: Prisma.JsonValue }) {
   return (
     <button
       onClick={handleCopy}
-      className="group flex items-center gap-x-1 rounded-lg border border-indigo-500 px-4 py-2 text-xs font-semibold text-indigo-500 shadow-sm transition-colors duration-200 hover:bg-indigo-500 hover:text-white md:gap-x-3 md:text-sm"
+      className="inline-flex items-center gap-x-1.5 rounded-md bg-indigo-900 px-3 py-2 text-sm font-semibold text-indigo-200 hover:bg-indigo-800 hover:text-white"
     >
       <HiClipboardCopy className="h-4 w-4 md:h-5 md:w-5" aria-hidden="true" />
       {isCopied ? 'Copied!' : 'Copy to Clipboard'}

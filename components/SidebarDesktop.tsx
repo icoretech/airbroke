@@ -2,7 +2,7 @@ import { LogoutButton } from '@/components/SessionButtons';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import logo from '@/public/logo.svg';
-import { project } from '@prisma/client';
+import { Project } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,7 +17,7 @@ function groupBy<T>(array: T[], key: keyof T) {
   }, {});
 }
 
-export default async function SidebarDesktop({ selectedProject }: { selectedProject?: project }) {
+export default async function SidebarDesktop({ selectedProject }: { selectedProject?: Project }) {
   const session = await getServerSession(authOptions);
 
   const projects = await prisma.project.findMany({
@@ -41,9 +41,9 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
               <div className="text-xs font-semibold leading-6 text-gray-400">{organization}</div>
               <ul role="list" className="-mx-2 mt-2 space-y-1">
                 {orgProjects.map((project) => (
-                  <li key={project.id.toString()}>
+                  <li key={project.id}>
                     <Link
-                      href={`/projects/${project.id}/notices`}
+                      href={`/projects/${project.id}`}
                       className={`group flex gap-x-3 rounded-md p-2 text-sm leading-6 ${
                         project.id === selectedProject?.id
                           ? 'bg-gray-800 text-white'

@@ -8,7 +8,7 @@ export default async function OccurrenceChartWrapper({ occurrenceId }: { occurre
   startDate.setDate(endDate.getDate() - 14);
 
   // Query the database for the occurrence summaries for the past two weeks
-  const occurrenceSummaries = await prisma.hourly_occurrence.findMany({
+  const occurrenceSummaries = await prisma.hourlyOccurrence.findMany({
     where: {
       occurrence_id: occurrenceId,
       interval_start: {

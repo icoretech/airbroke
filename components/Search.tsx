@@ -1,5 +1,6 @@
 'use client';
 
+import type { Route } from 'next';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
 import { SlDisc, SlMagnifier } from 'react-icons/sl';
@@ -16,7 +17,7 @@ export default function Search({ currentSearchTerm }: { currentSearchTerm?: stri
     for (const key in paramsToUpdate) {
       updatedParams.set(key, paramsToUpdate[key]);
     }
-    return `${pathname}?${updatedParams.toString()}`;
+    return `${pathname}?${updatedParams.toString()}` as Route;
   }
 
   function handleSearch(event: React.FormEvent<HTMLFormElement>) {

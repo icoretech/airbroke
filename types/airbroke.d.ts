@@ -1,3 +1,5 @@
+import type { Route } from 'next';
+
 export interface BacktraceItem {
   file: string;
   line: number;
@@ -11,3 +13,9 @@ export interface Context {
   httpMethod?: string;
   url?: string;
 }
+
+export type Breadcrumb = {
+  name: string;
+  href: Route<T>;
+  current: boolean;
+};
