@@ -24,13 +24,6 @@ Please keep in mind that Airbroke is currently in active development, and using 
 - :key: Supports multiple OAuth providers for secure user authentication
 - :bar_chart: Occurrence charts
 
-## Roadmap
-
-- [ ] Auto-deletion feature for outdated errors
-- [ ] Addition of webhook-based notifications
-- [ ] Enabling issue reporting through APIs
-- [ ] Broadening support for more Git providers and issue trackers
-
 ## System Requirements
 
 - Node.js 20+ compatible environment
