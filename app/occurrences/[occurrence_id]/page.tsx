@@ -65,7 +65,7 @@ export default async function Occurrence({
   const breadcrumbs = [
     {
       name: `${project.organization.toLowerCase()} / ${project.name.toLowerCase()}`,
-      href: `/projects/${project.id}/notices` as Route,
+      href: `/projects/${project.id}` as Route,
       current: false,
     },
     { name: notice.kind, href: `/notices/${notice.id}` as Route, current: false },
