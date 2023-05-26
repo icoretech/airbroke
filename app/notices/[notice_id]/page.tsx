@@ -36,6 +36,7 @@ export default async function Notice({
     where: whereObject,
     orderBy: { updated_at: 'desc' },
     take: 100,
+    select: { id: true },
   });
   const occurrencesIds = occurrences.map((occurrence) => occurrence.id);
 
@@ -77,7 +78,7 @@ export default async function Notice({
             </div>
           </div>
 
-          {occurrences.length === 0 ? (
+          {occurrencesIds.length === 0 ? (
             <NoData project={notice.project} />
           ) : (
             /* @ts-expect-error Server Component */
