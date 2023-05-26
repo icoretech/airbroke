@@ -15,11 +15,6 @@ import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-interface DataItem {
-  date: string;
-  count: number;
-}
-
 interface ChartDataType {
   labels: string[];
   datasets: {
@@ -28,6 +23,8 @@ interface ChartDataType {
     backgroundColor: string;
     borderColor: string;
     borderWidth: number;
+    hoverBackgroundColor: string;
+    hoverBorderColor: string;
   }[];
 }
 
@@ -42,9 +39,11 @@ export default function OccurrenceChart({ data }: { data: { date: string; count:
           {
             label: 'Occurrences',
             data: data.map((item) => item.count),
-            backgroundColor: 'rgba(86, 116, 185, 0.8)',
-            borderColor: 'rgba(86, 116, 185, 1)',
+            backgroundColor: '#c7d2fe',
+            borderColor: '#c7d2fe',
             borderWidth: 1,
+            hoverBackgroundColor: '#a5b4fc',
+            hoverBorderColor: '#a5b4fc',
           },
         ],
       });
@@ -52,13 +51,35 @@ export default function OccurrenceChart({ data }: { data: { date: string; count:
   }, [data]);
 
   const options: ChartOptions<'bar'> = {
-    responsive: true,
     scales: {
       x: {
         type: 'category',
+        ticks: {
+          color: '#ffffff', // labels
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.1)', // grid
+        },
       },
       y: {
         beginAtZero: true,
+        ticks: {
+          color: '#ffffff', // labels
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.1)', // grid
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        enabled: true,
+        backgroundColor: '#6366F1',
+        titleColor: '#F3F4F6',
+        bodyColor: '#F3F4F6',
       },
     },
   };

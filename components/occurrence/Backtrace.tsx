@@ -1,9 +1,14 @@
 import classNames from '@/lib/classNames';
-import { BacktraceItem } from '@/types/airbroke';
 import { Occurrence, Prisma, Project } from '@prisma/client';
 import LinkedBacktraceLine from './BacktraceLine';
 // import BookmarkButton from './BookmarkButton';
 import ClipboardButton from './ClipboardButton';
+
+interface BacktraceItem {
+  file: string;
+  line: number;
+  function: string;
+}
 
 function isBacktraceItem(item: any): item is BacktraceItem {
   return item && typeof item.file === 'string' && typeof item.line === 'number' && typeof item.function === 'string';
