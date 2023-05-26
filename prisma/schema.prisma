@@ -69,14 +69,13 @@ model Occurrence {
 }
 
 model HourlyOccurrence {
-  id             BigInt     @id @default(autoincrement())
   occurrence_id  String
   interval_start DateTime   @db.Timestamp(6)
   interval_end   DateTime   @db.Timestamp(6)
   count          BigInt     @default(0)
   occurrence     Occurrence @relation(fields: [occurrence_id], references: [id], onDelete: Cascade)
 
-  @@index([occurrence_id, interval_start, interval_end])
+  @@unique([occurrence_id, interval_start, interval_end])
   @@map("hourly_occurrences")
 }
 
