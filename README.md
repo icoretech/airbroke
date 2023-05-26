@@ -3,6 +3,10 @@
   <h1 align="center">Open Source Error Catcher</h1>
 </p>
 
+<div align="center">
+  <img src="public/aidemo.gif" alt="Demo" width="600" />
+</div>
+
 <p align="center">
   <a aria-label="Build Status" href="https://github.com/icoretech/airbroke/actions/workflows/build.yml">
     <img alt="" src="https://github.com/icoretech/airbroke/actions/workflows/build.yml/badge.svg">
@@ -23,10 +27,6 @@ Please keep in mind that Airbroke is currently in active development, and using 
 - :arrow_forward: Replay HTTP exceptions
 - :key: Supports multiple OAuth providers for secure user authentication
 - :bar_chart: Occurrence charts
-
-<div align="center">
-  <img src="public/aidemo.gif" alt="Demo" width="600" />
-</div>
 
 ## System Requirements
 
