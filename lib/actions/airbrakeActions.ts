@@ -28,7 +28,7 @@ export async function sendAirbrakeNodeException(projectId: string, host: string)
 
   try {
     revalidatePath(`/projects`)
-    revalidatePath(`/projects/${project.id}/notices`)
+    revalidatePath(`/projects/${project.id}`)
   } catch (err) {
     console.warn(err);
   }
