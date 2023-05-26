@@ -1,6 +1,7 @@
 import Breadcrumbs from '@/components/Breadcrumbs';
 import OccurrenceCounterLabel from '@/components/CounterLabel';
 import EnvironmentLabel from '@/components/EnvironmentLabel';
+import OccurrenceChartWrapper from '@/components/OccurrenceChartWrapper';
 import SidebarDesktop from '@/components/SidebarDesktop';
 import SidebarMobile from '@/components/SidebarMobile';
 import Backtrace from '@/components/occurrence/Backtrace';
@@ -16,7 +17,7 @@ import { OccurrenceTabKeys } from '@/types/airbroke';
 import type { Route } from 'next';
 import Link from 'next/link';
 import { FaCarCrash } from 'react-icons/fa';
-import { SlCompass, SlGlobe, SlLink, SlList, SlUser, SlWrench } from 'react-icons/sl';
+import { SlCompass, SlGlobe, SlGraph, SlLink, SlList, SlUser, SlWrench } from 'react-icons/sl';
 
 export default async function Occurrence({
   params,
@@ -25,7 +26,7 @@ export default async function Occurrence({
   params: { occurrence_id: string };
   searchParams: Record<string, string>;
 }) {
-  const tabKeys: OccurrenceTabKeys[] = ['backtrace', 'context', 'environment', 'session', 'params', 'toolbox'];
+  const tabKeys: OccurrenceTabKeys[] = ['backtrace', 'context', 'environment', 'session', 'params', 'chart', 'toolbox'];
   const currentTab = tabKeys.includes(searchParams.tab as OccurrenceTabKeys)
     ? (searchParams.tab as OccurrenceTabKeys)
     : 'backtrace';
@@ -56,6 +57,7 @@ export default async function Occurrence({
     { id: 'environment', name: 'Environment', current: currentTab === 'environment', icon: SlGlobe },
     { id: 'session', name: 'Session', current: currentTab === 'session', icon: SlUser },
     { id: 'params', name: 'Params', current: currentTab === 'params', icon: SlLink },
+    { id: 'chart', name: 'Chart', current: currentTab === 'chart', icon: SlGraph },
     { id: 'toolbox', name: 'Toolbox', current: currentTab === 'toolbox', icon: SlWrench },
   ].map((tab) => ({
     ...tab,
@@ -183,6 +185,8 @@ export default async function Occurrence({
             {currentTab === 'environment' && <Environment occurrence={occurrence} />}
             {currentTab === 'session' && <Session occurrence={occurrence} />}
             {currentTab === 'params' && <Params occurrence={occurrence} />}
+            {/* @ts-expect-error Server Component */}
+            {currentTab === 'chart' && <OccurrenceChartWrapper occurrenceId={occurrence.id} />}
             {currentTab === 'toolbox' && <Toolbox occurrence={occurrence} />}
           </div>
         </main>
