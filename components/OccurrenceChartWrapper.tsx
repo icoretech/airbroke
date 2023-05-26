@@ -33,7 +33,9 @@ export default async function OccurrenceChartWrapper({ occurrenceId }: { occurre
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
-      <h2 className="min-w-0 text-sm font-semibold leading-6 text-white">Hourly Occurrences in the past 14 days</h2>
+      <h2 className="mb-6 min-w-0 text-sm font-semibold leading-6 text-white">
+        Hourly Occurrences in the past 14 days
+      </h2>
 
       <OccurrenceChart data={chartData} />
     </div>
