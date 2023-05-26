@@ -13,11 +13,12 @@ import Toolbox from '@/components/occurrence/Toolbox';
 import ProjectActionsMenu from '@/components/project/ActionsMenu';
 import classNames from '@/lib/classNames';
 import { prisma } from '@/lib/db';
-import { OccurrenceTabKeys } from '@/types/airbroke';
 import type { Route } from 'next';
 import Link from 'next/link';
 import { FaCarCrash } from 'react-icons/fa';
 import { SlCompass, SlGlobe, SlGraph, SlLink, SlList, SlUser, SlWrench } from 'react-icons/sl';
+
+type OccurrenceTabKeys = 'backtrace' | 'context' | 'environment' | 'session' | 'params' | 'chart' | 'toolbox';
 
 export default async function Occurrence({
   params,
