@@ -4,7 +4,7 @@ import { prisma } from '@/lib/db';
 import { Notifier as AirbrakeNodeNotifier } from '@airbrake/node';
 import { revalidatePath } from 'next/cache';
 
-export async function sendAirbrakeNodeException(projectId: bigint, host: string) {
+export async function sendAirbrakeNodeException(projectId: string, host: string) {
   const project = await prisma.project.findUnique({ where: { id: projectId } });
   if (!project) {
     throw new Error('Project not found');

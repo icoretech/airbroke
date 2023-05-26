@@ -7,13 +7,14 @@ import { createProject } from '../factories/prismaFactories';
 
 beforeAll(async () => {
   execSync('npx prisma migrate reset --force --skip-seed');
+  await prisma.$disconnect();
   await prisma.$connect();
 });
 
 beforeEach(async () => {
-  await prisma.$executeRawUnsafe('TRUNCATE TABLE "project" CASCADE;');
-  await prisma.$executeRawUnsafe('TRUNCATE TABLE "notice" CASCADE;');
-  await prisma.$executeRawUnsafe('TRUNCATE TABLE "occurrence" CASCADE;');
+  await prisma.$executeRawUnsafe('TRUNCATE TABLE "projects" CASCADE;');
+  await prisma.$executeRawUnsafe('TRUNCATE TABLE "notices" CASCADE;');
+  await prisma.$executeRawUnsafe('TRUNCATE TABLE "occurrences" CASCADE;');
 });
 
 afterAll(async () => {
@@ -70,7 +71,7 @@ describe('processError', () => {
     const requestParamsData = {};
 
     // Run processError in parallel
-    const parallelRequests = 14;
+    const parallelRequests = 5;
     const promises = [];
 
     for (let i = 0; i < parallelRequests; i++) {

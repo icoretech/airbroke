@@ -36,7 +36,7 @@ services:
     command: yarn dev
     restart: 'always'
     environment:
-      DATABASE_URL: 'postgresql://postgres:airbroke@db/airbroke_development?connection_limit=15&connection_timeout=5'
+      DATABASE_URL: 'postgresql://postgres:airbroke@db/airbroke_development?connection_limit=8&connection_timeout=5'
       DIRECT_URL: 'postgresql://postgres:airbroke@db/airbroke_development'
     ports:
       - 3000:3000

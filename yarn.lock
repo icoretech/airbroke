@@ -1028,6 +1028,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@next-auth/prisma-adapter@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "@next-auth/prisma-adapter@npm:1.0.6"
+  peerDependencies:
+    "@prisma/client": ">=2.26.0 || >=3"
+    next-auth: ^4
+  checksum: 353036805c60be595a83f7fcced49298c7efee41b38f75c0f691c4982c920f49d3e42a9d85d83dd8ceda8a3609b9fa89fcf0435d60bcf6a73161528edfebcdd7
+  languageName: node
+  linkType: hard
+
 "@next/env@npm:13.4.3":
   version: 13.4.3
   resolution: "@next/env@npm:13.4.3"
@@ -2063,6 +2073,7 @@ __metadata:
     "@airbrake/node": ^2.1.8
     "@headlessui/react": ^1.7.14
     "@jest/globals": ^29.5.0
+    "@next-auth/prisma-adapter": ^1.0.6
     "@prisma/client": 4.14.1
     "@tailwindcss/forms": ^0.5.3
     "@testing-library/jest-dom": ^5.16.5

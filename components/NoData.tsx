@@ -2,12 +2,12 @@
 
 import { sendAirbrakeNodeException } from '@/app/_actions';
 import { Notifier as AirbrakeJsNotifier } from '@airbrake/browser';
-import { project } from '@prisma/client';
+import { Project } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { SlCheck, SlDisc, SlEnergy } from 'react-icons/sl';
 
-export default function NoData({ project }: { project: project }) {
+export default function NoData({ project }: { project: Project }) {
   const [isPending, startTransition] = useTransition();
   const { refresh } = useRouter();
 

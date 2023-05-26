@@ -1,7 +1,7 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
-import { project } from '@prisma/client';
+import { Project } from '@prisma/client';
 import { Fragment, useRef, useState, useTransition } from 'react';
 import { SlDisc, SlFire } from 'react-icons/sl';
 import { VscTrash } from 'react-icons/vsc';
@@ -13,17 +13,17 @@ export default function ConfirmationDialog({
   btnTitle,
   projectConfirmationAction, // server action imported from _actions and passed down as prop
 }: {
-  project: project;
+  project: Project;
   title?: string;
   body?: string;
   btnTitle?: string;
-  projectConfirmationAction: (projectId: bigint) => Promise<void>;
+  projectConfirmationAction: (projectId: string) => Promise<void>;
 }) {
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const cancelButtonRef = useRef(null);
 
-  async function handleDeleteProjectConfirm(project_id: bigint) {
+  async function handleDeleteProjectConfirm(project_id: string) {
     startTransition(async () => {
       await projectConfirmationAction(project_id);
       setOpen(false);

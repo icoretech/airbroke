@@ -1,7 +1,7 @@
 import { KeyValuePair, flattenObject, isObjectWithKeys } from '@/lib/occurrenceUtils';
-import { occurrence } from '@prisma/client';
+import { Occurrence } from '@prisma/client';
 
-export default function Session({ occurrence }: { occurrence: occurrence }) {
+export default function Session({ occurrence }: { occurrence: Occurrence }) {
   return (
     <div className="px-4 text-white sm:px-6 lg:px-8">
       <div className="mt-6 border-t border-white/10">

@@ -1,39 +1,57 @@
-import CodeTemplate from '@/components/CodeTemplate';
-import ProjectHeader from '@/components/ProjectHeader';
+import Breadcrumbs from '@/components/Breadcrumbs';
+import NoData from '@/components/NoData';
+import NoticesTable from '@/components/NoticesTable';
+import Search from '@/components/Search';
 import SidebarDesktop from '@/components/SidebarDesktop';
 import SidebarMobile from '@/components/SidebarMobile';
-import Overview from '@/components/project/Overview';
-import { jsclientTemplate, rubyTemplate } from '@/lib/configTemplates';
+import ProjectActionsMenu from '@/components/project/ActionsMenu';
 import { prisma } from '@/lib/db';
-import Link from 'next/link';
+import type { Route } from 'next';
+import Sort from './Sort';
 
-export default async function Project({
+type SortAttribute = 'env' | 'kind' | 'updated_at' | 'seen_count';
+
+export const revalidate = 60;
+
+// /projects/15
+export default async function ProjectNotices({
   params,
   searchParams,
 }: {
   params: { project_id: string };
   searchParams: Record<string, string>;
 }) {
-  const tab = searchParams.tab ?? 'overview';
-
-  const project = await prisma.project.findFirst({ where: { id: BigInt(params.project_id) } });
+  const project = await prisma.project.findFirst({ where: { id: params.project_id } });
   if (!project) {
     throw new Error('Project not found');
   }
-  const replacements = {
-    REPLACE_PROJECT_KEY: project.api_key,
+  const sortBy = searchParams.sortBy === 'asc' ? 'asc' : 'desc';
+  const sortAttr = (searchParams.sortAttr ?? 'updated_at') as SortAttribute;
+  const filterByEnv = searchParams.filterByEnv;
+  const search = searchParams.q;
+
+  const orderByObject = {
+    [sortAttr]: sortBy,
   };
 
-  const tabs = [
-    { id: 'overview', name: 'Overview', current: tab === 'overview' },
-    { id: 'integrations', name: 'Integrations', current: tab === 'integrations' },
-    { id: 'settings', name: 'Settings', current: tab === 'settings' },
-    { id: 'collaborators', name: 'Collaborators', current: false },
-    { id: 'notifications', name: 'Notifications', current: false },
-  ].map((tab) => ({
-    ...tab,
-    href: `/projects/${project.id}?tab=${tab.id}`,
-  }));
+  const whereObject: any = {
+    project_id: project.id,
+    ...(filterByEnv && { env: filterByEnv }),
+    ...(search && { kind: { contains: search, mode: 'insensitive' } }),
+  };
+
+  const notices = await prisma.notice.findMany({
+    where: whereObject,
+    orderBy: orderByObject,
+  });
+
+  const breadcrumbs = [
+    {
+      name: `${project.organization.toLowerCase()} / ${project.name.toLowerCase()}`,
+      href: `/projects/${project.id}/notices` as Route,
+      current: true,
+    },
+  ];
 
   return (
     <>
@@ -50,33 +68,22 @@ export default async function Project({
 
         <main className="xl:pl-72">
           <div className="sticky top-0 z-40 bg-airbroke-900">
-            <ProjectHeader project={project} showAllButtons={true} />
-
-            <nav className="flex overflow-x-auto border-b border-white/10 py-4">
-              <ul
-                role="list"
-                className="flex min-w-full flex-none gap-x-6 px-4 text-sm font-semibold leading-6 text-gray-400 sm:px-6 lg:px-8"
-              >
-                {tabs.map((item) => (
-                  <li key={item.name}>
-                    <Link href={item.href} className={item.current ? 'text-indigo-400' : ''}>
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+            <nav className="border-b border-white border-opacity-10 bg-gradient-to-r from-airbroke-800 to-airbroke-900">
+              <div className="flex justify-between pr-4 sm:pr-6 lg:pr-6">
+                <Breadcrumbs breadcrumbs={breadcrumbs} />
+                <ProjectActionsMenu project={project} />
+              </div>
             </nav>
 
-            <div className="mt-2 block max-w-full overflow-x-auto rounded-md p-4 text-xs">
-              {tab === 'overview' && <Overview project={project} />}
-              {tab === 'integrations' && (
-                <>
-                  <CodeTemplate code={rubyTemplate} replacements={replacements} name="Ruby / Rails" />
-                  <CodeTemplate code={jsclientTemplate} replacements={replacements} name="JavaScript (Browser)" />
-                </>
-              )}
+            <div className="flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5 px-4 shadow-sm sm:px-6 lg:px-8">
+              <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+                <Search currentSearchTerm={search} />
+                <Sort currentSortAttribute={sortAttr} currentSort={sortBy} />
+              </div>
             </div>
           </div>
+
+          {notices.length === 0 ? <NoData project={project} /> : <NoticesTable notices={notices} project={project} />}
         </main>
       </div>
     </>

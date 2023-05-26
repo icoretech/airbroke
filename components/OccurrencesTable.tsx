@@ -1,4 +1,4 @@
-import { notice, occurrence, project } from '@prisma/client';
+import { Notice, Occurrence, Project } from '@prisma/client';
 import Link from 'next/link';
 import OccurrenceCounterLabel from './CounterLabel';
 import CustomTimeAgo from './CustomTimeAgo';
@@ -9,26 +9,21 @@ export default function OccurrencesTable({
   notice,
   occurrences,
 }: {
-  project: project;
-  notice: notice;
-  occurrences: occurrence[];
+  project: Project;
+  notice: Notice;
+  occurrences: Occurrence[];
 }) {
   return (
     <ul role="list" className="divide-y divide-white/5">
       {occurrences.map((occurrence) => (
         <li
-          key={occurrence.id.toString()}
+          key={occurrence.id}
           className="relative flex items-center space-x-4 px-4 py-4 transition-colors duration-200 hover:bg-airbroke-800 sm:px-6 lg:px-8"
         >
           <div className="min-w-0 flex-auto">
             <div className="flex items-center gap-x-3">
               <h2 className="min-w-0 text-sm font-semibold leading-6 text-white">
-                <Link
-                  href={`/projects/${project.id.toString()}/notices/${notice.id.toString()}/occurrences/${
-                    occurrence.id
-                  }`}
-                  className="flex gap-x-2"
-                >
+                <Link href={`/occurrences/${occurrence.id}`} className="flex gap-x-2">
                   <span className="truncate">{occurrence.message}</span>
                   <span className="absolute inset-0" />
                 </Link>

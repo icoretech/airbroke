@@ -2,6 +2,7 @@
 
 import classNames from '@/lib/classNames';
 import { Menu, Transition } from '@headlessui/react';
+import type { Route } from 'next';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Fragment } from 'react';
@@ -44,7 +45,7 @@ export default function Sort({
     for (const key in paramsToUpdate) {
       updatedParams.set(key, paramsToUpdate[key]);
     }
-    return `${pathname}?${updatedParams.toString()}`;
+    return `${pathname}?${updatedParams.toString()}` as Route;
   }
 
   return (

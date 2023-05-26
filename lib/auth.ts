@@ -1,3 +1,4 @@
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import type { NextAuthOptions, Profile } from "next-auth";
 import AtlassianProvider from "next-auth/providers/atlassian";
 import AzureADProvider from "next-auth/providers/azure-ad";
@@ -7,6 +8,7 @@ import GitlabProvider from "next-auth/providers/gitlab";
 import GoogleProvider from "next-auth/providers/google";
 import KeycloakProvider from "next-auth/providers/keycloak";
 import { Octokit } from "octokit";
+import { prisma } from "./db";
 
 type ExtendedProfile = Profile & { [key: string]: any; };
 
@@ -78,6 +80,8 @@ export const authOptions: NextAuthOptions = {
   },
   debug: process.env.NEXTAUTH_DEBUG === "true",
   providers: getProviders(),
+  adapter: PrismaAdapter(prisma),
+
   callbacks: {
     async signIn({ account, profile }) {
       const extendedProfile = profile as ExtendedProfile;
