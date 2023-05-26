@@ -4,7 +4,7 @@ import { SlLayers } from 'react-icons/sl';
 
 export default function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
   return (
-    <ol role="list" className="mx-auto flex w-full space-x-4 px-4 sm:px-6 lg:px-6">
+    <ol role="list" className="mx-auto flex w-full space-x-4 px-4 sm:px-6 lg:px-8">
       <li className="flex">
         <div className="flex items-center">
           <Link href="/projects" className="text-indigo-400 hover:text-indigo-200">
@@ -27,10 +27,12 @@ export default function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[]
             </svg>
             <Link
               href={breadcrumb.href}
-              className="ml-4 truncate text-xs font-medium text-indigo-200 hover:text-indigo-400"
+              className="ml-4 text-xs font-medium text-indigo-200 hover:text-indigo-400"
               aria-current={breadcrumb.current ? 'page' : undefined}
             >
-              {breadcrumb.name}
+              <span className="inline-flex max-w-[50px] items-center truncate sm:max-w-[100px] md:max-w-[200px] lg:max-w-lg">
+                <span className="truncate">{breadcrumb.name}</span>
+              </span>
             </Link>
           </div>
         </li>
