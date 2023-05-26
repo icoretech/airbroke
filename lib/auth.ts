@@ -83,6 +83,19 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
 
   callbacks: {
+    async jwt({ token, account, user }) {
+      // Persist the user id to the token right after signin
+      if (user?.id) {
+        token.id = user.id
+      }
+      return token
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string
+      }
+      return session;
+    },
     async signIn({ account, profile }) {
       const extendedProfile = profile as ExtendedProfile;
 

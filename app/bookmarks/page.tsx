@@ -1,51 +1,38 @@
 import Breadcrumbs from '@/components/Breadcrumbs';
-import NoData from '@/components/NoData';
 import OccurrencesTable from '@/components/OccurrencesTable';
 import Search from '@/components/Search';
 import SidebarDesktop from '@/components/SidebarDesktop';
 import SidebarMobile from '@/components/SidebarMobile';
-import ProjectActionsMenu from '@/components/project/ActionsMenu';
+import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import type { Route } from 'next';
+import { getServerSession } from 'next-auth';
 
 export const revalidate = 60;
 
-export default async function Notice({
-  params,
-  searchParams,
-}: {
-  params: { notice_id: string };
-  searchParams: Record<string, string>;
-}) {
-  const notice = await prisma.notice.findFirst({
-    where: { id: params.notice_id },
-    include: {
-      project: true,
-    },
-  });
-  if (!notice) {
-    throw new Error('Notice not found');
-  }
+export default async function Bookmarks({ searchParams }: { searchParams: Record<string, string> }) {
+  const session = await getServerSession(authOptions);
+
   const search = searchParams.q;
+
   const whereObject: any = {
-    notice_id: notice.id,
+    user_id: session?.user?.id,
     ...(search && { message: { contains: search, mode: 'insensitive' } }),
   };
 
-  const occurrences = await prisma.occurrence.findMany({
+  const occurrenceBookmarks = await prisma.occurrenceBookmark.findMany({
     where: whereObject,
-    orderBy: { updated_at: 'desc' },
-    take: 100,
+    select: { occurrence_id: true },
+    orderBy: { created_at: 'asc' },
   });
-  const occurrencesIds = occurrences.map((occurrence) => occurrence.id);
+  const occurrencesIds = occurrenceBookmarks.map((bookmark) => bookmark.occurrence_id);
 
   const breadcrumbs = [
     {
-      name: `${notice.project.organization.toLowerCase()} / ${notice.project.name.toLowerCase()}`,
-      href: `/projects/${notice.project.id}` as Route,
-      current: false,
+      name: 'My Bookmarks',
+      href: `/bookmarks` as Route,
+      current: true,
     },
-    { name: notice.kind, href: `/notices/${notice.id}` as Route, current: true },
   ];
 
   return (
@@ -53,12 +40,12 @@ export default async function Notice({
       <div>
         <SidebarMobile>
           {/* @ts-expect-error Server Component */}
-          <SidebarDesktop selectedProject={notice.project} />
+          <SidebarDesktop />
         </SidebarMobile>
 
         <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
           {/* @ts-expect-error Server Component */}
-          <SidebarDesktop selectedProject={notice.project} />
+          <SidebarDesktop />
         </div>
 
         <main className="xl:pl-72">
@@ -66,7 +53,6 @@ export default async function Notice({
             <nav className="border-b border-white border-opacity-10 bg-gradient-to-r from-airbroke-800 to-airbroke-900">
               <div className="flex justify-between pr-4 sm:pr-6 lg:pr-6">
                 <Breadcrumbs breadcrumbs={breadcrumbs} />
-                <ProjectActionsMenu project={notice.project} />
               </div>
             </nav>
 
@@ -77,12 +63,8 @@ export default async function Notice({
             </div>
           </div>
 
-          {occurrences.length === 0 ? (
-            <NoData project={notice.project} />
-          ) : (
-            /* @ts-expect-error Server Component */
-            <OccurrencesTable occurrencesIds={occurrencesIds} />
-          )}
+          {/* @ts-expect-error Server Component */}
+          <OccurrencesTable occurrencesIds={occurrencesIds} />
         </main>
       </div>
     </>
