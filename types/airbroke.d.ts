@@ -6,7 +6,7 @@ export interface BacktraceItem {
   function: string;
 }
 
-export type OccurrenceTabKeys = 'backtrace' | 'context' | 'environment' | 'session' | 'params' | 'toolbox';
+export type OccurrenceTabKeys = 'backtrace' | 'context' | 'environment' | 'session' | 'params' | 'chart' | 'toolbox';
 
 export interface Context {
   headers?: Record<string, string>;

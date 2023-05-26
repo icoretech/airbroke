@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/db';
+import OccurrenceChart from './OccurrenceChart';
 
-// TODO: charting
 export default async function OccurrenceChartWrapper({ occurrenceId }: { occurrenceId: string }) {
   // Calculate the start and end date for the past two weeks
   const endDate = new Date();
@@ -26,10 +26,16 @@ export default async function OccurrenceChartWrapper({ occurrenceId }: { occurre
   // Map the occurrence summaries to the format expected by the chart component
   const chartData = occurrenceSummaries.map((summary) => {
     return {
-      date: summary.interval_start.toDateString(),
+      date: summary.interval_start.toISOString().slice(0, 13), // Get date and hour only
       count: Number(summary.count),
     };
   });
 
-  return <></>;
+  return (
+    <div className="px-4 sm:px-6 lg:px-8">
+      <h2 className="min-w-0 text-sm font-semibold leading-6 text-white">Hourly Occurrences in the past 14 days</h2>
+
+      <OccurrenceChart data={chartData} />
+    </div>
+  );
 }
