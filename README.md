@@ -24,6 +24,8 @@ Please keep in mind that Airbroke is currently in active development, and using 
 - :key: Supports multiple OAuth providers for secure user authentication
 - :bar_chart: Occurrence charts
 
+![Demo](public/aidemo.gif)
+
 ## System Requirements
 
 - Node.js 20+ compatible environment
