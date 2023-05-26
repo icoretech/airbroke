@@ -24,7 +24,7 @@ export const projectAttributes = (overrides?: Partial<Prisma.ProjectUncheckedCre
   return { ...defaultProject, ...overrides };
 };
 
-export const createNotice = async (prismaInstance: PrismaClient, project_id: bigint, overrides?: Partial<Prisma.NoticeUncheckedCreateInput>): Promise<Notice> => {
+export const createNotice = async (prismaInstance: PrismaClient, project_id: string, overrides?: Partial<Prisma.NoticeUncheckedCreateInput>): Promise<Notice> => {
   const defaultNotice: Prisma.NoticeUncheckedCreateInput = {
     project_id: project_id,
     env: chance.word(),
@@ -35,7 +35,7 @@ export const createNotice = async (prismaInstance: PrismaClient, project_id: big
   return await prismaInstance.notice.create({ data: noticeData });
 };
 
-export const createOccurrence = async (prismaInstance: PrismaClient, notice_id: bigint, overrides?: Partial<Prisma.OccurrenceUncheckedCreateInput>): Promise<Occurrence> => {
+export const createOccurrence = async (prismaInstance: PrismaClient, notice_id: string, overrides?: Partial<Prisma.OccurrenceUncheckedCreateInput>): Promise<Occurrence> => {
   const defaultOccurrence: Prisma.OccurrenceUncheckedCreateInput = {
     notice_id: notice_id,
     message: chance.sentence({ words: 5 }),
@@ -45,7 +45,7 @@ export const createOccurrence = async (prismaInstance: PrismaClient, notice_id: 
   return await prismaInstance.occurrence.create({ data: occurrenceData });
 };
 
-export const createOccurrenceSummary = async (prismaInstance: PrismaClient, occurrence_id: bigint, overrides?: Partial<Prisma.HourlyOccurrenceUncheckedCreateInput>): Promise<HourlyOccurrence> => {
+export const createOccurrenceSummary = async (prismaInstance: PrismaClient, occurrence_id: string, overrides?: Partial<Prisma.HourlyOccurrenceUncheckedCreateInput>): Promise<HourlyOccurrence> => {
   const defaultOccurrenceSummary: Prisma.HourlyOccurrenceUncheckedCreateInput = {
     occurrence_id: occurrence_id,
     interval_start: chance.date({ year: parseInt(chance.year({ min: 2000, max: 2022 })) }),
