@@ -1,18 +1,21 @@
-import { Notice, Occurrence, Project } from '@prisma/client';
+import { prisma } from '@/lib/db';
 import Link from 'next/link';
 import OccurrenceCounterLabel from './CounterLabel';
 import CustomTimeAgo from './CustomTimeAgo';
 import EnvironmentLabel from './EnvironmentLabel';
 
-export default function OccurrencesTable({
-  project,
-  notice,
-  occurrences,
-}: {
-  project: Project;
-  notice: Notice;
-  occurrences: Occurrence[];
-}) {
+export default async function OccurrencesTable({ occurrencesIds }: { occurrencesIds: string[] }) {
+  const occurrences = await prisma.occurrence.findMany({
+    where: {
+      id: {
+        in: occurrencesIds,
+      },
+    },
+    include: {
+      notice: true,
+    },
+  });
+
   return (
     <ul role="list" className="divide-y divide-white/5">
       {occurrences.map((occurrence) => (
@@ -31,9 +34,9 @@ export default function OccurrencesTable({
             </div>
             <div className="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-400">
               <div className="flex-none rounded-md bg-gray-900 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-gray-700">
-                {notice.kind}
+                {occurrence.notice.kind}
               </div>
-              <EnvironmentLabel env={notice.env} />
+              <EnvironmentLabel env={occurrence.notice.env} />
 
               <p className="truncate">
                 First seen: <CustomTimeAgo datetime={occurrence.created_at} locale="en_US" />
