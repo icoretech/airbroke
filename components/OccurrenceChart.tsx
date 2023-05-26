@@ -23,7 +23,7 @@ export default function OccurrenceChart({ data }: OccurrenceChartProps) {
         padding={0.3}
         valueScale={{ type: 'linear' }}
         indexScale={{ type: 'band', round: true }}
-        colors={{ scheme: 'nivo' }}
+        colors={['#9cbbf2']} // Custom color for the bars, adjust as needed
         borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
         axisTop={null}
         axisRight={null}
@@ -34,6 +34,7 @@ export default function OccurrenceChart({ data }: OccurrenceChartProps) {
           tickValues: [], // hides all tick values
           legendPosition: 'middle',
           legendOffset: 32,
+          tickTextColor: '#FFFFFF', // white color for tick text
         }}
         axisLeft={{
           tickSize: 5,
@@ -41,21 +42,28 @@ export default function OccurrenceChart({ data }: OccurrenceChartProps) {
           tickRotation: 0,
           legendPosition: 'middle',
           legendOffset: -40,
+          legendTextColor: '#FFFFFF', // white color for legend text
+          tickTextColor: '#FFFFFF', // white color for tick text
         }}
         theme={{
           axis: {
             ticks: {
-              text: { fill: '#FFFFFF' }, // white color for the Y axis labels
+              line: {
+                stroke: '#192231', // Custom color for axis lines
+              },
+              text: {
+                fill: '#FFFFFF', // white color for the axis labels
+              },
             },
             domain: {
               line: {
-                stroke: '#192231',
+                stroke: '#192231', // Custom color for domain line
               },
             },
           },
           grid: {
             line: {
-              stroke: '#192231',
+              stroke: '#192231', // Custom color for grid lines
             },
           },
         }}
