@@ -24,7 +24,9 @@ Please keep in mind that Airbroke is currently in active development, and using 
 - :key: Supports multiple OAuth providers for secure user authentication
 - :bar_chart: Occurrence charts
 
-![Demo](public/aidemo.gif)
+<div align="center">
+  <img src="public/aidemo.gif" alt="Demo" width="600" />
+</div>
 
 ## System Requirements
 
