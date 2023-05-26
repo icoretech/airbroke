@@ -168,19 +168,61 @@ The DIRECT_URL should be configured to establish a direct connection to the data
 
 ## Architecture
 
-### Data Collection API
-
-The core of Airbroke is an ingestion endpoint that is compatible with Airbrake. It's built using Next.js 13+ route handlers. In the interest of simplicity, we've sidestepped the use of queue systems. As a result, parsing and transactions currently occur in-band. Even with high traffic volumes, a single instance has demonstrated robust request-per-minute (RPM) performance.
-
 ### Frontend
 
-The Airbroke user dashboard utilizes Tailwind CSS, creating a blend of server-rendered and client components for a fluid user experience. Some caching may be in effect to limit excessive database queries, but the emphasis for the frontend remains on maintaining a minimal resource footprint.
+The Airbroke frontend provides a user-friendly interface for managing and analyzing error reports. It utilizes a modern tech stack, including React, Tailwind CSS, and Next.js, to deliver a seamless user experience. The frontend leverages server-rendering capabilities to optimize initial page load times and ensure fast and responsive navigation.
+
+To optimize performance, the frontend may implement caching strategies to reduce the number of database queries and enhance overall responsiveness. This ensures that you can efficiently navigate through error reports and analyze critical information without experiencing unnecessary delays.
+
+### Data Collection API
+
+The Data Collection API is a core component of Airbroke responsible for handling the ingestion of error reports. It serves as the endpoint where clients can send error reports, enabling efficient data collection for error management.
+
+To ensure simplicity and performance, the Data Collection API sidesteps the use of queue systems and performs parsing and transactions in-band. This means that parsing and processing of error reports happen synchronously within the API request cycle. Despite this approach, the Data Collection API demonstrates robust request-per-minute (RPM) performance even under high traffic volumes.
+
+## Authentication Layer
+
+Airbroke includes an authentication layer that allows you to secure access to the application by enabling user authentication. It supports various authentication providers, including:
+
+- GitHub
+- Atlassian
+- Google
+- Cognito
+- GitLab
+- Keycloak
+- Azure AD
+
+To configure the authentication layer, you need to set the necessary environment variables corresponding to the authentication providers you want to use. These environment variables typically include client IDs, client secrets, and other provider-specific configuration details. Make sure to keep these environment variables secure, as they contain sensitive information.
+
+To complete the configuration, you also need to set the callback path in your OAuth applications for each provider. The callback path should be set to `https://<myhostname>/api/auth/callback/<provider>`. This path is where the authentication provider will redirect the user after successful authentication.
+
+You can find a list of available authentication providers and their documentation on the [NextAuth.js Providers page](https://next-auth.js.org/providers/). Each provider has its own specific configuration requirements and authentication flow, so refer to their documentation for more details.
+
+To configure the authentication providers, you'll need to set specific environment variables. You can find the list of required environment variables and their descriptions in the [`.env.dist`](https://github.com/icoretech/airbroke/blob/main/.env.dist) file in the Airbroke repository.
+
+To enable authentication in Airbroke and allow users to authenticate using third-party providers, follow these steps:
+
+1. Configure the necessary environment variables for the desired authentication providers. You can refer to the [`.env.dist`](https://github.com/icoretech/airbroke/blob/main/.env.dist) file in the Airbroke repository for a list of required environment variables and their descriptions. Copy this file as `.env` and fill in the necessary values for your authentication providers.
+
+2. Create OAuth applications with the respective authentication providers. Each provider will have its own developer console or settings page where you can create an OAuth application. During the application setup, configure the callback url to match the Airbroke authentication callback path: `https://myairbroke.xyz/api/auth/callback/<provider>`. Save the settings.
+
+3. Start the Airbroke application, ensuring that the environment variables are properly configured.
+
+4. Users can now authenticate with Airbroke by clicking on the login button and selecting their desired authentication provider. They will be redirected to the provider's authentication page to enter their credentials. Upon successful authentication, users will be logged in to Airbroke.
+
+Note: The callback path in step 2 is essential for the authentication flow to work correctly. It ensures that the authentication provider can redirect the user back to the Airbroke application after authentication is complete.
+
+Please refer to the documentation of the respective authentication providers to obtain the necessary configuration details and understand their authentication flows.
 
 ## Best Practices for Efficient Error Collection and Storage
 
-In situations where your exceptions include dynamic information as part of the exception itself (e.g., `raise(NotFound, 'no record 1234')`), consider the following strategies:
+Airbroke provides error grouping mechanisms that analyze the incoming error data and automatically group similar errors based on their attributes, stack traces, and other relevant information. This feature allows you to observe the collected data, identify patterns, and make adjustments to address error collection over time.
 
-- If these exceptions are generated within your own code, consider using a more generic error message and provide detailed reporting by sending the exception data in `params` instead:
+However when working with exceptions that include dynamic information as part of the exception itself (e.g., `raise(NotFound, 'no record 1234')`), it is important to consider efficient error collection and storage strategies. By following these practices, you can ensure that Airbroke maintains an efficient database and effectively groups and displays related errors without much overhead.
+
+### Strategy 1: Use Generic Error Messages and Provide Detailed Reporting in `params`
+
+If the exceptions are generated within your own code, consider using more generic error messages and providing detailed reporting using the `params` field. Here's an example:
 
 ```ruby
 begin
@@ -191,8 +233,36 @@ rescue => e
 end
 ```
 
-- If these exceptions are produced by libraries, consider collecting, then wrapping these exceptions and re-raise them with cleaned-up messages, as described in the point above.
+### Strategy 2: Collect and Wrap Exceptions Produced by Libraries
 
-Adopting these practices will ensure that Airbroke can maintain an efficient database and effectively group and display related errors.
+If the exceptions are produced by libraries, consider collecting the necessary information, wrapping the exceptions, and re-raising them with cleaned-up messages. This approach allows you to provide more meaningful and informative error messages to Airbroke. Here's an example:
+
+```ruby
+begin
+  # Your code that interacts with a library
+rescue SomeLibraryError => e
+  # Collect necessary information
+  error_data = { library_error_message: e.message, library_error_code: e.code }
+
+  # Wrap and re-raise the exception with a cleaned-up message
+  wrapped_exception = RuntimeError.new("An error occurred in the library.")
+  Airbrake.notify(wrapped_exception, error_data)
+  raise wrapped_exception
+end
+```
+
+By wrapping the library exception with a customized error message and including the relevant information in the `params` field, you can ensure that Airbroke receives clean and consistent error messages while retaining the necessary context.
+
+By adopting these best practices, you can enhance the efficiency and effectiveness of error collection and storage in Airbroke. These strategies allow for better grouping and analysis of related errors, providing you with the insights needed to identify and address issues more effectively.
+
+### Limitations
+
+When working with error collection in Airbroke, you may come across situations where you find an error occurrence with a high count, but upon opening it, you discover that it only has one document to consult. This happens because Airbroke groups errors based on their "kind" and "message". If any of these attributes differ, Airbroke will create a new error group.
+
+As a result, you may encounter repeated errors that don't expose the specific parameter or stack trace after the first occurrence, or they may have originated from a different part of the application. This tradeoff is made to ensure a compact database size and high performance. The underlying idea is to encourage you to address and resolve errors, so maintaining a clean and organized error slate will yield better insights and improvements over time.
+
+By understanding these limitations and keeping your error collection streamlined, you can effectively utilize Airbroke's features to identify and resolve issues in your application.
+
+## Analytics
 
 ![Alt](https://repobeats.axiom.co/api/embed/48f60fbfcf724565f4ef697ad425de802c52fd28.svg 'Repobeats analytics image')
