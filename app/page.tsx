@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 
-export default async function HomePage() {
+export default function HomePage() {
   const currentYear = new Date().getFullYear();
 
   return (
