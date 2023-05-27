@@ -1,3 +1,4 @@
+import { createOccurrenceBookmark, removeOccurrenceBookmark } from '@/app/_actions';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import OccurrenceCounterLabel from '@/components/CounterLabel';
 import EnvironmentLabel from '@/components/EnvironmentLabel';
@@ -5,15 +6,19 @@ import OccurrenceChartWrapper from '@/components/OccurrenceChartWrapper';
 import SidebarDesktop from '@/components/SidebarDesktop';
 import SidebarMobile from '@/components/SidebarMobile';
 import Backtrace from '@/components/occurrence/Backtrace';
+import BookmarkButton from '@/components/occurrence/BookmarkButton';
 import Context from '@/components/occurrence/Context';
 import Environment from '@/components/occurrence/Environment';
 import Params from '@/components/occurrence/Params';
 import Session from '@/components/occurrence/Session';
 import Toolbox from '@/components/occurrence/Toolbox';
 import ProjectActionsMenu from '@/components/project/ActionsMenu';
+import { authOptions } from '@/lib/auth';
 import classNames from '@/lib/classNames';
+import { checkOccurrenceBookmarkExistence } from '@/lib/queries/occurrenceBookmarks';
 import { getOccurrenceById } from '@/lib/queries/occurrences';
 import type { Route } from 'next';
+import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import { FaCarCrash } from 'react-icons/fa';
 import { SlCompass, SlGlobe, SlGraph, SlLink, SlList, SlUser, SlWrench } from 'react-icons/sl';
@@ -27,15 +32,18 @@ export default async function Occurrence({
   params: { occurrence_id: string };
   searchParams: Record<string, string>;
 }) {
-  const tabKeys: OccurrenceTabKeys[] = ['backtrace', 'context', 'environment', 'session', 'params', 'chart', 'toolbox'];
-  const currentTab = tabKeys.includes(searchParams.tab as OccurrenceTabKeys)
-    ? (searchParams.tab as OccurrenceTabKeys)
-    : 'backtrace';
-
+  const session = await getServerSession(authOptions);
+  const userId = session?.user?.id;
   const occurrence = await getOccurrenceById(params.occurrence_id);
   if (!occurrence) {
     throw new Error('Occurrence not found');
   }
+  const isBookmarked = await checkOccurrenceBookmarkExistence(userId, occurrence.id);
+
+  const tabKeys: OccurrenceTabKeys[] = ['backtrace', 'context', 'environment', 'session', 'params', 'chart', 'toolbox'];
+  const currentTab = tabKeys.includes(searchParams.tab as OccurrenceTabKeys)
+    ? (searchParams.tab as OccurrenceTabKeys)
+    : 'backtrace';
 
   const tabs = [
     { id: 'backtrace', name: 'Backtrace', current: currentTab === 'backtrace', icon: SlList },
@@ -97,6 +105,12 @@ export default async function Occurrence({
                 </div>
                 <div className="ml-3">
                   <div className="flex items-center space-x-3">
+                    <BookmarkButton
+                      serverAction={isBookmarked ? removeOccurrenceBookmark : createOccurrenceBookmark}
+                      isBookmarked={isBookmarked}
+                      occurrenceId={occurrence.id}
+                    />
+
                     <h3 className="text-sm font-semibold text-indigo-400">
                       <Link href={`/notices/${occurrence.notice_id}`}>{occurrence.notice.kind}</Link>
                     </h3>
