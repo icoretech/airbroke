@@ -41,12 +41,10 @@ export default async function ProjectNotices({ params, searchParams }: Component
     <>
       <div>
         <SidebarMobile>
-          {/* @ts-expect-error Server Component */}
           <SidebarDesktop selectedProjectId={project.id} />
         </SidebarMobile>
 
         <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
-          {/* @ts-expect-error Server Component */}
           <SidebarDesktop selectedProjectId={project.id} />
         </div>
 
@@ -66,7 +64,7 @@ export default async function ProjectNotices({ params, searchParams }: Component
               </div>
             </div>
           </div>
-          {/* @ts-expect-error Server Component */}
+
           <NoticesTable
             projectId={project.id}
             sortDir={sortDir as SortDirection}

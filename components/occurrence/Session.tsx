@@ -1,7 +1,11 @@
 import { KeyValuePair, flattenObject, isObjectWithKeys } from '@/lib/occurrenceUtils';
 import { getOccurrenceById } from '@/lib/queries/occurrences';
 
-export default async function Session({ occurrenceId }: { occurrenceId: string }) {
+interface SessionProps {
+  occurrenceId: string;
+}
+
+async function Session({ occurrenceId }: SessionProps) {
   const occurrence = await getOccurrenceById(occurrenceId);
   if (!occurrence) {
     throw new Error('Occurrence not found');
@@ -26,3 +30,5 @@ export default async function Session({ occurrenceId }: { occurrenceId: string }
     </div>
   );
 }
+
+export default Session as unknown as (props: SessionProps) => JSX.Element;

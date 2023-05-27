@@ -1,7 +1,11 @@
 import { KeyValuePair, flattenObject, isObjectWithKeys } from '@/lib/occurrenceUtils';
 import { getOccurrenceById } from '@/lib/queries/occurrences';
 
-export default async function Environment({ occurrenceId }: { occurrenceId: string }) {
+interface EnvironmentProps {
+  occurrenceId: string;
+}
+
+async function Environment({ occurrenceId }: EnvironmentProps) {
   const occurrence = await getOccurrenceById(occurrenceId);
   if (!occurrence) {
     throw new Error('Occurrence not found');
@@ -26,3 +30,4 @@ export default async function Environment({ occurrenceId }: { occurrenceId: stri
     </div>
   );
 }
+export default Environment as unknown as (props: EnvironmentProps) => JSX.Element;

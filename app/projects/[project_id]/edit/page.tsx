@@ -53,12 +53,10 @@ export default async function Project({
     <>
       <div>
         <SidebarMobile>
-          {/* @ts-expect-error Server Component */}
           <SidebarDesktop selectedProjectId={project.id} />
         </SidebarMobile>
 
         <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
-          {/* @ts-expect-error Server Component */}
           <SidebarDesktop selectedProjectId={project.id} />
         </div>
 
@@ -118,7 +116,6 @@ export default async function Project({
               </div>
             </div>
 
-            {/* @ts-expect-error Server Component */}
             {currentTab === 'overview' && <Overview projectId={project.id} />}
             {currentTab === 'integrations' && (
               <>

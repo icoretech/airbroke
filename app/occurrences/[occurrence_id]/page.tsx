@@ -68,12 +68,10 @@ export default async function Occurrence({
     <>
       <div>
         <SidebarMobile>
-          {/* @ts-expect-error Server Component */}
           <SidebarDesktop selectedProjectId={occurrence.notice.project_id} />
         </SidebarMobile>
 
         <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
-          {/* @ts-expect-error Server Component */}
           <SidebarDesktop selectedProjectId={occurrence.notice.project_id} />
         </div>
         <main className="xl:pl-72">
@@ -166,19 +164,12 @@ export default async function Occurrence({
               </div>
             </div>
 
-            {/* @ts-expect-error Server Component */}
             {currentTab === 'backtrace' && <Backtrace occurrenceId={occurrence.id} />}
-            {/* @ts-expect-error Server Component */}
             {currentTab === 'context' && <Context occurrenceId={occurrence.id} />}
-            {/* @ts-expect-error Server Component */}
             {currentTab === 'environment' && <Environment occurrenceId={occurrence.id} />}
-            {/* @ts-expect-error Server Component */}
             {currentTab === 'session' && <Session occurrenceId={occurrence.id} />}
-            {/* @ts-expect-error Server Component */}
             {currentTab === 'params' && <Params occurrenceId={occurrence.id} />}
-            {/* @ts-expect-error Server Component */}
             {currentTab === 'chart' && <OccurrenceChartWrapper occurrenceId={occurrence.id} />}
-            {/* @ts-expect-error Server Component */}
             {currentTab === 'toolbox' && <Toolbox occurrenceId={occurrence.id} />}
           </div>
         </main>

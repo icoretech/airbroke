@@ -1,7 +1,11 @@
 import { KeyValuePair, flattenObject, isObjectWithKeys } from '@/lib/occurrenceUtils';
 import { getOccurrenceById } from '@/lib/queries/occurrences';
 
-export default async function Context({ occurrenceId }: { occurrenceId: string }) {
+interface ContextProps {
+  occurrenceId: string;
+}
+
+async function Context({ occurrenceId }: ContextProps) {
   const occurrence = await getOccurrenceById(occurrenceId);
   if (!occurrence) {
     throw new Error('Occurrence not found');
@@ -26,3 +30,5 @@ export default async function Context({ occurrenceId }: { occurrenceId: string }
     </div>
   );
 }
+
+export default Context as unknown as (props: ContextProps) => JSX.Element;
