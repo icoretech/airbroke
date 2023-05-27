@@ -1,17 +1,14 @@
 import Breadcrumbs from '@/components/Breadcrumbs';
-import NoData from '@/components/NoData';
 import NoticesTable from '@/components/NoticesTable';
 import Search from '@/components/Search';
 import SidebarDesktop from '@/components/SidebarDesktop';
 import SidebarMobile from '@/components/SidebarMobile';
 import ProjectActionsMenu from '@/components/project/ActionsMenu';
-import { prisma } from '@/lib/db';
+import { SortAttribute, SortDirection } from '@/lib/queries/notices';
 import { getProjectById } from '@/lib/queries/projects';
 import type { Route } from 'next';
 import { Metadata } from 'next';
 import Sort from './Sort';
-
-type SortAttribute = 'env' | 'kind' | 'updated_at' | 'seen_count';
 
 type ComponentProps = {
   params: { project_id: string };
@@ -31,25 +28,7 @@ export default async function ProjectNotices({ params, searchParams }: Component
   if (!project) {
     throw new Error('Project not found');
   }
-  const sortBy = searchParams.sortBy === 'asc' ? 'asc' : 'desc';
-  const sortAttr = (searchParams.sortAttr ?? 'updated_at') as SortAttribute;
-  const filterByEnv = searchParams.filterByEnv;
-  const search = searchParams.q;
-
-  const orderByObject = {
-    [sortAttr]: sortBy,
-  };
-
-  const whereObject: any = {
-    project_id: project.id,
-    ...(filterByEnv && { env: filterByEnv }),
-    ...(search && { kind: { contains: search, mode: 'insensitive' } }),
-  };
-
-  const notices = await prisma.notice.findMany({
-    where: whereObject,
-    orderBy: orderByObject,
-  });
+  const { sortDir, sortAttr, filterByEnv, searchQuery } = searchParams;
 
   const breadcrumbs = [
     {
@@ -83,13 +62,19 @@ export default async function ProjectNotices({ params, searchParams }: Component
 
             <div className="flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5 px-4 shadow-sm sm:px-6 lg:px-8">
               <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-                <Search currentSearchTerm={search} />
-                <Sort currentSortAttribute={sortAttr} currentSort={sortBy} />
+                <Search currentSearchTerm={searchQuery} />
+                <Sort sortAttr={sortAttr as SortAttribute} sortDir={sortDir as SortDirection} />
               </div>
             </div>
           </div>
-
-          {notices.length === 0 ? <NoData project={project} /> : <NoticesTable notices={notices} project={project} />}
+          {/* @ts-expect-error Server Component */}
+          <NoticesTable
+            projectId={project.id}
+            sortDir={sortDir as SortDirection}
+            sortAttr={sortAttr as SortAttribute}
+            filterByEnv={filterByEnv}
+            searchQuery={searchQuery}
+          />
         </main>
       </div>
     </>
