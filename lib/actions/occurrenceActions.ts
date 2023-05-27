@@ -62,6 +62,7 @@ export async function createOccurrenceBookmark(occurrenceId: string) {
   });
 
   revalidatePath('/bookmarks')
+  revalidatePath(`/occurrences/${occurrenceId}`)
 }
 
 export async function removeOccurrenceBookmark(occurrenceId: string) {
@@ -77,4 +78,5 @@ export async function removeOccurrenceBookmark(occurrenceId: string) {
   });
 
   revalidatePath('/bookmarks')
+  revalidatePath(`/occurrences/${occurrenceId}`)
 }

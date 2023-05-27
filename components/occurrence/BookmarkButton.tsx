@@ -1,16 +1,17 @@
 'use client';
 
+import { createOccurrenceBookmark, removeOccurrenceBookmark } from '@/app/_actions';
 import { useState } from 'react';
 import { BsBookmarkPlus, BsBookmarkStarFill } from 'react-icons/bs';
 
 interface BookmarkButtonProps {
   occurrenceId: string;
   isBookmarked: boolean;
-  serverAction: (occurrenceId: string) => Promise<void>;
 }
 
-export default function BookmarkButton({ occurrenceId, isBookmarked, serverAction }: BookmarkButtonProps) {
+export default function BookmarkButton({ occurrenceId, isBookmarked }: BookmarkButtonProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const serverAction = isBookmarked ? removeOccurrenceBookmark : createOccurrenceBookmark;
 
   const handleToggleBookmark = () => {
     serverAction(occurrenceId);
@@ -35,7 +36,7 @@ export default function BookmarkButton({ occurrenceId, isBookmarked, serverActio
       {isBookmarked ? (
         <>
           {isHovered ? (
-            <BsBookmarkPlus className="h-5 w-5 text-indigo-400" aria-hidden="true" />
+            <BsBookmarkPlus className="h-5 w-5 text-indigo-200" aria-hidden="true" />
           ) : (
             <BsBookmarkStarFill className="h-5 w-5 text-indigo-400" aria-hidden="true" />
           )}
@@ -45,7 +46,7 @@ export default function BookmarkButton({ occurrenceId, isBookmarked, serverActio
           {isHovered ? (
             <BsBookmarkStarFill className="h-5 w-5 text-indigo-400" aria-hidden="true" />
           ) : (
-            <BsBookmarkPlus className="h-5 w-5 text-indigo-400" aria-hidden="true" />
+            <BsBookmarkPlus className="h-5 w-5 text-indigo-200" aria-hidden="true" />
           )}
         </>
       )}
