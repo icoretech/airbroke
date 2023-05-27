@@ -17,9 +17,7 @@ type ComponentProps = {
 
 export async function generateMetadata({ params }: ComponentProps): Promise<Metadata> {
   const project = await getProjectById(params.project_id);
-  return {
-    title: project?.name,
-  };
+  return { title: project?.name };
 }
 
 // /projects/15
@@ -28,6 +26,7 @@ export default async function ProjectNotices({ params, searchParams }: Component
   if (!project) {
     throw new Error('Project not found');
   }
+
   const { sortDir, sortAttr, filterByEnv, searchQuery } = searchParams;
 
   const breadcrumbs = [
