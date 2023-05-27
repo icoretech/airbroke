@@ -1,11 +1,12 @@
 import { deleteProject, deleteProjectNotices } from '@/app/_actions';
 import ConfirmationDialog from '@/components/ConfirmationDialog';
+import NoData from '@/components/NoData';
 import { Project } from '@prisma/client';
 
 export default function Overview({ project }: { project: Project }) {
   return (
     <div className="px-4 text-white sm:px-6 lg:px-8">
-      <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+      <div className="px-4 py-6 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-0">
         <div>
           <div className="px-4 sm:px-0">
             <h3 className="text-base font-semibold leading-7 text-white">Project Information</h3>
@@ -73,6 +74,14 @@ export default function Overview({ project }: { project: Project }) {
               </div>
             </dl>
           </div>
+        </div>
+
+        <div>
+          <div className="px-4 sm:px-0">
+            <h3 className="text-base font-semibold leading-7 text-green-500">Test Zone</h3>
+            <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-400">Send test exceptions</p>
+          </div>
+          <NoData project={project} showHeader={false} />
         </div>
 
         <div>

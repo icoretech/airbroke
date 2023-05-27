@@ -8,7 +8,7 @@ const nextConfig = {
   experimental: {
     serverActions: true,
     serverComponentsExternalPackages: ['@prisma/client', 'chatgpt', '@octokit', '@airbrake/node'],
-    typedRoutes: true,
+    // typedRoutes: true,
   },
   async rewrites() {
     return [
