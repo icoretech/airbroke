@@ -1,6 +1,7 @@
 import classNames from '@/lib/classNames';
-import { Project } from '@prisma/client';
+import { getProjects } from '@/lib/queries/projects';
 import Link from 'next/link';
+import 'server-only';
 import OccurrenceCounterLabel from './CounterLabel';
 
 const statusClasses = {
@@ -9,7 +10,9 @@ const statusClasses = {
   red: 'text-rose-400 bg-rose-400/50',
 };
 
-export default function ProjectsTable({ projects }: { projects: Project[] }) {
+export default async function ProjectsTable({ currentSearchTerm }: { currentSearchTerm: string }) {
+  const projects = await getProjects(currentSearchTerm);
+
   return (
     <ul role="list" className="divide-y divide-white/5">
       {projects.map((project) => (

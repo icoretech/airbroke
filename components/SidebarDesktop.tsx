@@ -1,6 +1,6 @@
 import { LogoutButton } from '@/components/SessionButtons';
 import { authOptions } from '@/lib/auth';
-import { prisma } from '@/lib/db';
+import { getProjectsGroupedByOrganization } from '@/lib/queries/projects';
 import logo from '@/public/logo.svg';
 import { Project } from '@prisma/client';
 import { getServerSession } from 'next-auth';
@@ -10,22 +10,9 @@ import { SlPin, SlPlus } from 'react-icons/sl';
 import { Gravatar } from './Gravatar';
 import { ProviderIcon } from './ProviderIcon';
 
-function groupBy<T>(array: T[], key: keyof T) {
-  return array.reduce((result: { [key: string]: T[] }, item) => {
-    (result[item[key] as unknown as string] = result[item[key] as unknown as string] || []).push(item);
-    return result;
-  }, {});
-}
-
 export default async function SidebarDesktop({ selectedProject }: { selectedProject?: Project }) {
   const session = await getServerSession(authOptions);
-
-  const projects = await prisma.project.findMany({
-    orderBy: {
-      name: 'asc',
-    },
-  });
-  const groupedProjects = groupBy(projects, 'organization');
+  const groupedProjects = await getProjectsGroupedByOrganization();
 
   return (
     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-airbroke-800 px-6 ring-1 ring-white/5 scrollbar-none">
