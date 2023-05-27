@@ -16,10 +16,7 @@ type ComponentProps = {
 
 export async function generateMetadata({ params }: ComponentProps): Promise<Metadata> {
   const notice = await getNoticeById(params.notice_id);
-  if (!notice) {
-    throw new Error('Notice not found');
-  }
-  return { title: `(${notice.project?.name}) ${notice?.kind}` };
+  return { title: `(${notice?.project?.name}) ${notice?.kind}` };
 }
 
 // /notices/:notice_id
