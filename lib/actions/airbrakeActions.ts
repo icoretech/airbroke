@@ -1,11 +1,11 @@
 'use server';
 
-import { prisma } from '@/lib/db';
+import { getProjectById } from '@/lib/queries/projects';
 import { Notifier as AirbrakeNodeNotifier } from '@airbrake/node';
 import { revalidatePath } from 'next/cache';
 
 export async function sendAirbrakeNodeException(projectId: string, host: string) {
-  const project = await prisma.project.findUnique({ where: { id: projectId } });
+  const project = await getProjectById(projectId)
   if (!project) {
     throw new Error('Project not found');
   }
@@ -21,7 +21,7 @@ export async function sendAirbrakeNodeException(projectId: string, host: string)
   });
 
   try {
-    throw new Error('This is a test exception from Airbroke');
+    throw new Error('[AirbrakeNode] This is a test exception from Airbroke');
   } catch (err) {
     await airbrake.notify(err);
   }

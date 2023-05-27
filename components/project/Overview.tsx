@@ -1,9 +1,14 @@
 import { deleteProject, deleteProjectNotices } from '@/app/_actions';
 import ConfirmationDialog from '@/components/ConfirmationDialog';
 import NoData from '@/components/NoData';
-import { Project } from '@prisma/client';
+import { getProjectById } from '@/lib/queries/projects';
 
-export default function Overview({ project }: { project: Project }) {
+export default async function Overview({ projectId }: { projectId: string }) {
+  const project = await getProjectById(projectId);
+  if (!project) {
+    throw new Error('Project not found');
+  }
+
   return (
     <div className="px-4 text-white sm:px-6 lg:px-8">
       <div className="px-4 py-6 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-0">

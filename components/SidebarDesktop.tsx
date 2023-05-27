@@ -2,7 +2,6 @@ import { LogoutButton } from '@/components/SessionButtons';
 import { authOptions } from '@/lib/auth';
 import { getProjectsGroupedByOrganization } from '@/lib/queries/projects';
 import logo from '@/public/logo.svg';
-import { Project } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,7 +9,7 @@ import { SlPin, SlPlus } from 'react-icons/sl';
 import { Gravatar } from './Gravatar';
 import { ProviderIcon } from './ProviderIcon';
 
-export default async function SidebarDesktop({ selectedProject }: { selectedProject?: Project }) {
+export default async function SidebarDesktop({ selectedProjectId }: { selectedProjectId?: string }) {
   const session = await getServerSession(authOptions);
   const groupedProjects = await getProjectsGroupedByOrganization();
 
@@ -49,7 +48,7 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
                     <Link
                       href={`/projects/${project.id}`}
                       className={`group flex gap-x-3 rounded-md p-2 text-sm leading-6 ${
-                        project.id === selectedProject?.id
+                        project.id === selectedProjectId
                           ? 'bg-gray-800 text-white'
                           : 'text-gray-400 transition-colors duration-100 hover:bg-gray-800 hover:text-white'
                       }`}

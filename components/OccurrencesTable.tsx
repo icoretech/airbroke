@@ -1,19 +1,19 @@
-import { prisma } from '@/lib/db';
+import { OccurrenceSearchParams, getOccurrences } from '@/lib/queries/occurrences';
 import Link from 'next/link';
 import OccurrenceCounterLabel from './CounterLabel';
 import CustomTimeAgo from './CustomTimeAgo';
 import EnvironmentLabel from './EnvironmentLabel';
 
-export default async function OccurrencesTable({ occurrencesIds }: { occurrencesIds: string[] }) {
-  const occurrences = await prisma.occurrence.findMany({
-    where: {
-      id: {
-        in: occurrencesIds,
-      },
-    },
-    include: {
-      notice: true,
-    },
+type OccurrencesTableProps = {
+  noticeId: string;
+} & OccurrenceSearchParams;
+
+export default async function OccurrencesTable({ noticeId, sortDir, sortAttr, searchQuery }: OccurrencesTableProps) {
+  const occurrences = await getOccurrences(noticeId, {
+    sortDir: sortDir,
+    sortAttr: sortAttr,
+    searchQuery: searchQuery,
+    limit: 100,
   });
 
   return (

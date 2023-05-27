@@ -84,12 +84,12 @@ export default async function Occurrence({
       <div>
         <SidebarMobile>
           {/* @ts-expect-error Server Component */}
-          <SidebarDesktop selectedProject={project} />
+          <SidebarDesktop selectedProjectId={project.id} />
         </SidebarMobile>
 
         <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
           {/* @ts-expect-error Server Component */}
-          <SidebarDesktop selectedProject={project} />
+          <SidebarDesktop selectedProjectId={project.id} />
         </div>
         <main className="xl:pl-72">
           <div className="sticky top-0 z-40 bg-airbroke-900">

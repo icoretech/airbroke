@@ -1,7 +1,6 @@
 import { prisma } from '@/lib/db';
 import { Project } from '@prisma/client';
 import { cache } from 'react';
-import 'server-only';
 
 // Define the type for the grouped projects
 type GroupedProjects = { [key: string]: Project[] };
