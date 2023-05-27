@@ -1,4 +1,3 @@
-import { createOccurrenceBookmark, removeOccurrenceBookmark } from '@/app/_actions';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import OccurrenceCounterLabel from '@/components/CounterLabel';
 import EnvironmentLabel from '@/components/EnvironmentLabel';
@@ -105,11 +104,7 @@ export default async function Occurrence({
                 </div>
                 <div className="ml-3">
                   <div className="flex items-center space-x-3">
-                    <BookmarkButton
-                      serverAction={isBookmarked ? removeOccurrenceBookmark : createOccurrenceBookmark}
-                      isBookmarked={isBookmarked}
-                      occurrenceId={occurrence.id}
-                    />
+                    <BookmarkButton isBookmarked={isBookmarked} occurrenceId={occurrence.id} />
 
                     <h3 className="text-sm font-semibold text-indigo-400">
                       <Link href={`/notices/${occurrence.notice_id}`}>{occurrence.notice.kind}</Link>
