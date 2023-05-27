@@ -1,7 +1,8 @@
 import { prisma } from '@/lib/db';
 import type { Notice } from '@prisma/client';
-import { Occurrence } from '@prisma/client';
+import { Occurrence, Project } from '@prisma/client';
 import { cache } from 'react';
+
 export type SortAttribute = 'seen_count' | 'updated_at' | undefined;
 export type SortDirection = 'asc' | 'desc' | undefined;
 
@@ -14,6 +15,10 @@ export type OccurrenceSearchParams = {
 
 interface OccurrenceWithNotice extends Occurrence {
   notice: Notice;
+}
+
+interface OccurrenceWithNoticeAndProject extends Occurrence {
+  notice: Notice & { project: Project };
 }
 
 // Cached function to fetch occurrences from the database
@@ -53,14 +58,21 @@ export async function getOccurrences(noticeId: string, params: OccurrenceSearchP
 }
 
 // Cached function to fetch a single occurrence by ID
-const fetchOccurrenceById = cache(async (occurrenceId: string) => {
+const fetchOccurrenceById = cache(async (occurrenceId: string): Promise<OccurrenceWithNoticeAndProject | null> => {
   const occurrence = await prisma.occurrence.findUnique({
-    where: { id: occurrenceId }
+    where: { id: occurrenceId },
+    include: {
+      notice: {
+        include: {
+          project: true,
+        },
+      },
+    },
   });
   return occurrence;
 });
 
 // Function to fetch a single occurrence by ID
-export const getOccurrenceById = async (occurrenceId: string): Promise<Occurrence | null> => {
+export const getOccurrenceById = async (occurrenceId: string): Promise<OccurrenceWithNoticeAndProject | null> => {
   return fetchOccurrenceById(occurrenceId);
 };

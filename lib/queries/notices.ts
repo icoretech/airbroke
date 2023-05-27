@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/db';
+import type { Project } from '@prisma/client';
 import { Notice } from '@prisma/client';
 import { cache } from 'react';
 
@@ -11,6 +12,10 @@ export type NoticeSearchParams = {
   filterByEnv?: string | undefined;
   searchQuery?: string | undefined;
 };
+
+interface NoticeWithProject extends Notice {
+  project: Project;
+}
 
 // Cached function to fetch notices from the database
 const fetchNotices = cache(async (whereObject?: any, orderByObject?: any) => {
@@ -46,14 +51,15 @@ export async function getNotices(projectId: string, params: NoticeSearchParams):
 }
 
 // Cached function to fetch a single notice by ID
-const fetchNoticeById = cache(async (noticeId: string) => {
+const fetchNoticeById = cache(async (noticeId: string): Promise<NoticeWithProject | null> => {
   const notice = await prisma.notice.findUnique({
-    where: { id: noticeId }
+    where: { id: noticeId },
+    include: { project: true },
   });
   return notice;
 });
 
 // Function to fetch a single notice by ID
-export const getNoticeById = async (noticeId: string): Promise<Notice | null> => {
+export const getNoticeById = async (noticeId: string): Promise<NoticeWithProject | null> => {
   return fetchNoticeById(noticeId);
 };

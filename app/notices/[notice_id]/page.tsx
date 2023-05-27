@@ -6,7 +6,6 @@ import SidebarMobile from '@/components/SidebarMobile';
 import ProjectActionsMenu from '@/components/project/ActionsMenu';
 import { getNoticeById } from '@/lib/queries/notices';
 import type { SortAttribute, SortDirection } from '@/lib/queries/occurrences';
-import { getProjectById } from '@/lib/queries/projects';
 import type { Route } from 'next';
 import { Metadata } from 'next';
 
@@ -16,14 +15,11 @@ type ComponentProps = {
 };
 
 export async function generateMetadata({ params }: ComponentProps): Promise<Metadata> {
-  try {
-    const notice = await getNoticeById(params.notice_id);
-    const project = notice && (await getProjectById(notice.project_id));
-    return { title: `(${project?.name}) ${notice?.kind}` };
-  } catch (error) {
-    console.error(error);
-    return { title: '' };
+  const notice = await getNoticeById(params.notice_id);
+  if (!notice) {
+    throw new Error('Notice not found');
   }
+  return { title: `(${notice.project?.name}) ${notice?.kind}` };
 }
 
 // /notices/:notice_id
@@ -33,17 +29,12 @@ export default async function Notice({ params, searchParams }: ComponentProps) {
     throw new Error('Notice not found');
   }
 
-  const project = await getProjectById(notice.project_id);
-  if (!project) {
-    throw new Error('Project not found');
-  }
-
   const { sortDir, sortAttr, searchQuery } = searchParams;
 
   const breadcrumbs = [
     {
-      name: `${project.organization.toLowerCase()} / ${project.name.toLowerCase()}`,
-      href: `/projects/${project.id}` as Route,
+      name: `${notice.project.organization.toLowerCase()} / ${notice.project.name.toLowerCase()}`,
+      href: `/projects/${notice.project_id}` as Route,
       current: false,
     },
     { name: notice.kind, href: `/notices/${notice.id}` as Route, current: true },
@@ -54,12 +45,12 @@ export default async function Notice({ params, searchParams }: ComponentProps) {
       <div>
         <SidebarMobile>
           {/* @ts-expect-error Server Component */}
-          <SidebarDesktop selectedProjectId={project.id} />
+          <SidebarDesktop selectedProjectId={notice.project_id} />
         </SidebarMobile>
 
         <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
           {/* @ts-expect-error Server Component */}
-          <SidebarDesktop selectedProjectId={project.id} />
+          <SidebarDesktop selectedProjectId={notice.project_id} />
         </div>
 
         <main className="xl:pl-72">
@@ -67,7 +58,7 @@ export default async function Notice({ params, searchParams }: ComponentProps) {
             <nav className="border-b border-white border-opacity-10 bg-gradient-to-r from-airbroke-800 to-airbroke-900">
               <div className="flex justify-between pr-4 sm:pr-6 lg:pr-6">
                 <Breadcrumbs breadcrumbs={breadcrumbs} />
-                <ProjectActionsMenu project={project} />
+                <ProjectActionsMenu project={notice.project} />
               </div>
             </nav>
 
