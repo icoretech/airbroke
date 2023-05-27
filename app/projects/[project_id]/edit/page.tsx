@@ -5,7 +5,7 @@ import SidebarMobile from '@/components/SidebarMobile';
 import ProjectActionsMenu from '@/components/project/ActionsMenu';
 import Overview from '@/components/project/Overview';
 import { jsclientTemplate, rubyTemplate } from '@/lib/configTemplates';
-import { prisma } from '@/lib/db';
+import { getProjectById } from '@/lib/queries/projects';
 import type { Route } from 'next';
 import Link from 'next/link';
 
@@ -18,7 +18,7 @@ export default async function Project({
 }) {
   const tab = searchParams.tab ?? 'overview';
 
-  const project = await prisma.project.findFirst({ where: { id: params.project_id } });
+  const project = await getProjectById(params.project_id);
   if (!project) {
     throw new Error('Project not found');
   }

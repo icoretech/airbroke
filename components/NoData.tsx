@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { SlCheck, SlDisc, SlEnergy } from 'react-icons/sl';
 
-export default function NoData({ project }: { project: Project }) {
+export default function NoData({ project, showHeader = true }: { project: Project; showHeader?: boolean }) {
   const [isPending, startTransition] = useTransition();
   const { refresh } = useRouter();
 
@@ -28,9 +28,12 @@ export default function NoData({ project }: { project: Project }) {
 
   return (
     <div className="mt-10 text-center text-gray-400">
-      <SlCheck className="mx-auto h-12 w-12" aria-hidden="true" />
-
-      <h3 className="my-5 text-sm font-semibold">{'No exceptions recorded'}</h3>
+      {showHeader && (
+        <>
+          <SlCheck className="mx-auto h-12 w-12" aria-hidden="true" />
+          <h3 className="my-5 text-sm font-semibold">No exceptions recorded</h3>
+        </>
+      )}
 
       <div className="flex flex-col items-center">
         <button
