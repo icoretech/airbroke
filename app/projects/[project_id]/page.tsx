@@ -6,22 +6,28 @@ import SidebarDesktop from '@/components/SidebarDesktop';
 import SidebarMobile from '@/components/SidebarMobile';
 import ProjectActionsMenu from '@/components/project/ActionsMenu';
 import { prisma } from '@/lib/db';
+import { getProjectById } from '@/lib/queries/projects';
 import type { Route } from 'next';
+import { Metadata } from 'next';
 import Sort from './Sort';
 
 type SortAttribute = 'env' | 'kind' | 'updated_at' | 'seen_count';
 
-export const revalidate = 60;
+type ComponentProps = {
+  params: { project_id: string };
+  searchParams: { [key: string]: string | undefined };
+};
+
+export async function generateMetadata({ params }: ComponentProps): Promise<Metadata> {
+  const project = await getProjectById(params.project_id);
+  return {
+    title: project?.name,
+  };
+}
 
 // /projects/15
-export default async function ProjectNotices({
-  params,
-  searchParams,
-}: {
-  params: { project_id: string };
-  searchParams: Record<string, string>;
-}) {
-  const project = await prisma.project.findFirst({ where: { id: params.project_id } });
+export default async function ProjectNotices({ params, searchParams }: ComponentProps) {
+  const project = await getProjectById(params.project_id);
   if (!project) {
     throw new Error('Project not found');
   }
