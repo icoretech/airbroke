@@ -2,12 +2,12 @@ import { prisma } from '@/lib/db';
 import type { Notice, Occurrence, OccurrenceBookmark, Project } from '@prisma/client';
 import { cache } from 'react';
 
-interface OccurrenceBookmarkWithOccurrenceAndProject extends OccurrenceBookmark {
+export interface OccurrenceBookmarkWithAssociations extends OccurrenceBookmark {
   occurrence: Occurrence & { notice: Notice & { project: Project } };
 }
 // Cached function to fetch occurrence bookmarks from the database
-const fetchOccurrenceBookmarks = cache(async (whereObject?: any, orderByObject?: any): Promise<OccurrenceBookmarkWithOccurrenceAndProject[]> => {
-  const results: OccurrenceBookmarkWithOccurrenceAndProject[] = await prisma.occurrenceBookmark.findMany({
+const fetchOccurrenceBookmarks = cache(async (whereObject?: any, orderByObject?: any): Promise<OccurrenceBookmarkWithAssociations[]> => {
+  const results: OccurrenceBookmarkWithAssociations[] = await prisma.occurrenceBookmark.findMany({
     where: whereObject,
     orderBy: orderByObject,
     include: {
@@ -26,7 +26,7 @@ const fetchOccurrenceBookmarks = cache(async (whereObject?: any, orderByObject?:
 });
 
 // Function to get occurrence bookmarks based on provided search parameters
-export async function getOccurrenceBookmarks(userId?: string, searchQuery?: string): Promise<OccurrenceBookmarkWithOccurrenceAndProject[]> {
+export async function getOccurrenceBookmarks(userId?: string, searchQuery?: string): Promise<OccurrenceBookmarkWithAssociations[]> {
   if (!userId) {
     return [];
   }
@@ -63,3 +63,19 @@ export async function getOccurrenceBookmarks(userId?: string, searchQuery?: stri
 
   return occurrenceBookmarks;
 }
+
+// Function to get a single occurrence bookmark by user ID and occurrence ID
+export const checkOccurrenceBookmarkExistence = async (
+  userId: string | undefined,
+  occurrenceId: string
+): Promise<boolean> => {
+  if (!userId || !occurrenceId) {
+    return false;
+  }
+
+  const bookmark = await prisma.occurrenceBookmark.findFirst({
+    where: { user_id: userId, occurrence_id: occurrenceId },
+  });
+
+  return Boolean(bookmark);
+};

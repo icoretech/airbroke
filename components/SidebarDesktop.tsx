@@ -5,7 +5,8 @@ import logo from '@/public/logo.svg';
 import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SlPin, SlPlus } from 'react-icons/sl';
+import { BsBookmarksFill } from 'react-icons/bs';
+import { SlPlus } from 'react-icons/sl';
 import { Gravatar } from './Gravatar';
 import { ProviderIcon } from './ProviderIcon';
 
@@ -35,7 +36,7 @@ async function SidebarDesktop({ selectedProjectId }: SidebarDesktopProps) {
                 >
                   <div className="flex w-full justify-between">
                     <div className="flex items-center gap-x-3 font-semibold ">
-                      <SlPin className="h-6 w-6 shrink-0" aria-hidden="true" />
+                      <BsBookmarksFill className="h-6 w-6 shrink-0" aria-hidden="true" />
                       <span className="truncate">Bookmarks</span>
                     </div>
                   </div>
