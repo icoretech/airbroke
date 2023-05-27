@@ -1,7 +1,8 @@
 import classNames from '@/lib/classNames';
-import { Occurrence, Prisma, Project } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import LinkedBacktraceLine from './BacktraceLine';
 // import BookmarkButton from './BookmarkButton';
+import { getOccurrenceById } from '@/lib/queries/occurrences';
 import ClipboardButton from './ClipboardButton';
 
 interface BacktraceItem {
@@ -14,7 +15,12 @@ function isBacktraceItem(item: any): item is BacktraceItem {
   return item && typeof item.file === 'string' && typeof item.line === 'number' && typeof item.function === 'string';
 }
 
-export default function Backtrace({ occurrence, project }: { occurrence: Occurrence; project: Project }) {
+export default async function Backtrace({ occurrenceId }: { occurrenceId: string }) {
+  const occurrence = await getOccurrenceById(occurrenceId);
+  if (!occurrence) {
+    throw new Error('Occurrence not found');
+  }
+
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between">
@@ -36,7 +42,7 @@ export default function Backtrace({ occurrence, project }: { occurrence: Occurre
                         'text-xs text-gray-400'
                       )}
                     >
-                      <LinkedBacktraceLine file={trace.file} line={trace.line} project={project} />
+                      <LinkedBacktraceLine file={trace.file} line={trace.line} project={occurrence.notice.project} />
                     </p>
                     <p className="mx-1 text-gray-400">:</p>
                     <p className="text-xs font-semibold text-indigo-200">{trace.line}</p>

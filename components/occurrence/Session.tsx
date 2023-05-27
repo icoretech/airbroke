@@ -1,7 +1,12 @@
 import { KeyValuePair, flattenObject, isObjectWithKeys } from '@/lib/occurrenceUtils';
-import { Occurrence } from '@prisma/client';
+import { getOccurrenceById } from '@/lib/queries/occurrences';
 
-export default function Session({ occurrence }: { occurrence: Occurrence }) {
+export default async function Session({ occurrenceId }: { occurrenceId: string }) {
+  const occurrence = await getOccurrenceById(occurrenceId);
+  if (!occurrence) {
+    throw new Error('Occurrence not found');
+  }
+
   return (
     <div className="px-4 text-white sm:px-6 lg:px-8">
       <div className="mt-6 border-t border-white/10">

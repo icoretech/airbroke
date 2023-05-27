@@ -12,7 +12,7 @@ import Session from '@/components/occurrence/Session';
 import Toolbox from '@/components/occurrence/Toolbox';
 import ProjectActionsMenu from '@/components/project/ActionsMenu';
 import classNames from '@/lib/classNames';
-import { prisma } from '@/lib/db';
+import { getOccurrenceById } from '@/lib/queries/occurrences';
 import type { Route } from 'next';
 import Link from 'next/link';
 import { FaCarCrash } from 'react-icons/fa';
@@ -32,25 +32,10 @@ export default async function Occurrence({
     ? (searchParams.tab as OccurrenceTabKeys)
     : 'backtrace';
 
-  const occurrenceWithRelations = await prisma.occurrence.findFirst({
-    where: {
-      id: params.occurrence_id,
-    },
-    include: {
-      notice: {
-        include: {
-          project: true,
-        },
-      },
-    },
-  });
-
-  if (!occurrenceWithRelations) {
+  const occurrence = await getOccurrenceById(params.occurrence_id);
+  if (!occurrence) {
     throw new Error('Occurrence not found');
   }
-
-  const { notice, ...occurrence } = occurrenceWithRelations;
-  const { project, ...noticeData } = notice;
 
   const tabs = [
     { id: 'backtrace', name: 'Backtrace', current: currentTab === 'backtrace', icon: SlList },
@@ -67,11 +52,11 @@ export default async function Occurrence({
 
   const breadcrumbs = [
     {
-      name: `${project.organization.toLowerCase()} / ${project.name.toLowerCase()}`,
-      href: `/projects/${project.id}` as Route,
+      name: `${occurrence.notice.project.organization.toLowerCase()} / ${occurrence.notice.project.name.toLowerCase()}`,
+      href: `/projects/${occurrence.notice.project.id}` as Route,
       current: false,
     },
-    { name: notice.kind, href: `/notices/${notice.id}` as Route, current: false },
+    { name: occurrence.notice.kind, href: `/notices/${occurrence.notice_id}` as Route, current: false },
     {
       name: occurrence.message,
       href: `/occurrences/${occurrence.id}` as Route,
@@ -84,19 +69,19 @@ export default async function Occurrence({
       <div>
         <SidebarMobile>
           {/* @ts-expect-error Server Component */}
-          <SidebarDesktop selectedProjectId={project.id} />
+          <SidebarDesktop selectedProjectId={occurrence.notice.project_id} />
         </SidebarMobile>
 
         <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
           {/* @ts-expect-error Server Component */}
-          <SidebarDesktop selectedProjectId={project.id} />
+          <SidebarDesktop selectedProjectId={occurrence.notice.project_id} />
         </div>
         <main className="xl:pl-72">
           <div className="sticky top-0 z-40 bg-airbroke-900">
             <nav className="border-b border-white border-opacity-10 bg-gradient-to-r from-airbroke-800 to-airbroke-900">
               <div className="flex justify-between pr-4 sm:pr-6 lg:pr-6">
                 <Breadcrumbs breadcrumbs={breadcrumbs} />
-                <ProjectActionsMenu project={project} />
+                <ProjectActionsMenu project={occurrence.notice.project} />
               </div>
             </nav>
           </div>
@@ -115,9 +100,9 @@ export default async function Occurrence({
                 <div className="ml-3">
                   <div className="flex items-center space-x-3">
                     <h3 className="text-sm font-semibold text-indigo-400">
-                      <Link href={`/notices/${notice.id}`}>{notice.kind}</Link>
+                      <Link href={`/notices/${occurrence.notice_id}`}>{occurrence.notice.kind}</Link>
                     </h3>
-                    <EnvironmentLabel env={notice.env} />
+                    <EnvironmentLabel env={occurrence.notice.env} />
                   </div>
 
                   <div className="mt-2 space-y-1 text-sm text-indigo-200">
@@ -181,14 +166,20 @@ export default async function Occurrence({
               </div>
             </div>
 
-            {currentTab === 'backtrace' && <Backtrace occurrence={occurrence} project={project} />}
-            {currentTab === 'context' && <Context occurrence={occurrence} />}
-            {currentTab === 'environment' && <Environment occurrence={occurrence} />}
-            {currentTab === 'session' && <Session occurrence={occurrence} />}
-            {currentTab === 'params' && <Params occurrence={occurrence} />}
+            {/* @ts-expect-error Server Component */}
+            {currentTab === 'backtrace' && <Backtrace occurrenceId={occurrence.id} />}
+            {/* @ts-expect-error Server Component */}
+            {currentTab === 'context' && <Context occurrenceId={occurrence.id} />}
+            {/* @ts-expect-error Server Component */}
+            {currentTab === 'environment' && <Environment occurrenceId={occurrence.id} />}
+            {/* @ts-expect-error Server Component */}
+            {currentTab === 'session' && <Session occurrenceId={occurrence.id} />}
+            {/* @ts-expect-error Server Component */}
+            {currentTab === 'params' && <Params occurrenceId={occurrence.id} />}
             {/* @ts-expect-error Server Component */}
             {currentTab === 'chart' && <OccurrenceChartWrapper occurrenceId={occurrence.id} />}
-            {currentTab === 'toolbox' && <Toolbox occurrence={occurrence} />}
+            {/* @ts-expect-error Server Component */}
+            {currentTab === 'toolbox' && <Toolbox occurrenceId={occurrence.id} />}
           </div>
         </main>
       </div>
