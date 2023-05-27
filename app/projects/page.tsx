@@ -16,14 +16,6 @@ export default async function Projects({ searchParams }: { searchParams: Record<
     redirect('/projects/new');
   }
 
-  const whereObject: any = {
-    ...(search && { name: { contains: search, mode: 'insensitive' } }),
-  };
-  const projects = await prisma.project.findMany({
-    where: whereObject,
-    orderBy: { name: 'asc' },
-  });
-
   return (
     <div>
       <SidebarMobile>
@@ -43,8 +35,8 @@ export default async function Projects({ searchParams }: { searchParams: Record<
             <Search currentSearchTerm={search} />
           </div>
         </div>
-
-        <ProjectsTable projects={projects} />
+        {/* @ts-expect-error Server Component */}
+        <ProjectsTable currentSearchTerm={search} />
       </main>
     </div>
   );
