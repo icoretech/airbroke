@@ -27,6 +27,7 @@ Please keep in mind that Airbroke is currently in active development, and using 
 - :arrow_forward: Replay HTTP exceptions
 - :key: Supports multiple OAuth providers for secure user authentication
 - :bar_chart: Occurrence charts
+- :bookmark: Save and manage bookmarks for important occurrences
 
 ## System Requirements
 
