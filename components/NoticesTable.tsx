@@ -1,4 +1,5 @@
-import { NoticeSearchParams, getNotices } from '@/lib/queries/notices';
+import type { NoticeSearchParams } from '@/lib/queries/notices';
+import { getNotices } from '@/lib/queries/notices';
 import Link from 'next/link';
 import OccurrenceCounterLabel from './CounterLabel';
 import CustomTimeAgo from './CustomTimeAgo';

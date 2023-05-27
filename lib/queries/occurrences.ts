@@ -1,6 +1,5 @@
 import { prisma } from '@/lib/db';
-import type { Notice } from '@prisma/client';
-import { Occurrence, Project } from '@prisma/client';
+import type { Notice, Occurrence, Project } from '@prisma/client';
 import { cache } from 'react';
 
 export type SortAttribute = 'seen_count' | 'updated_at' | undefined;

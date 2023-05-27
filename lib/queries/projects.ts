@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/db';
-import { Project } from '@prisma/client';
+import type { Project } from '@prisma/client';
 import { cache } from 'react';
 
 // Define the type for the grouped projects
