@@ -37,3 +37,16 @@ export const getProjectsGroupedByOrganization = async (): Promise<GroupedProject
   }, {});
   return groupedProjects;
 };
+
+// Cached function to fetch a single project by ID
+const fetchProjectById = cache(async (projectId: string) => {
+  const project = await prisma.project.findUnique({
+    where: { id: projectId },
+  });
+  return project;
+});
+
+// Function to fetch a single project by ID
+export const getProjectById = async (projectId: string): Promise<Project | null> => {
+  return fetchProjectById(projectId);
+};
