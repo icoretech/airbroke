@@ -1,7 +1,6 @@
 import { prisma } from '@/lib/db';
 import { Notice } from '@prisma/client';
 import { cache } from 'react';
-import 'server-only';
 
 export type SortAttribute = 'env' | 'kind' | 'updated_at' | 'seen_count' | undefined;
 export type SortDirection = 'asc' | 'desc' | undefined;
@@ -49,7 +48,7 @@ export async function getNotices(projectId: string, params: NoticeSearchParams):
 // Cached function to fetch a single notice by ID
 const fetchNoticeById = cache(async (noticeId: string) => {
   const notice = await prisma.notice.findUnique({
-    where: { id: noticeId },
+    where: { id: noticeId }
   });
   return notice;
 });

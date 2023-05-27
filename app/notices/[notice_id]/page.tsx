@@ -1,49 +1,49 @@
 import Breadcrumbs from '@/components/Breadcrumbs';
-import NoData from '@/components/NoData';
 import OccurrencesTable from '@/components/OccurrencesTable';
 import Search from '@/components/Search';
 import SidebarDesktop from '@/components/SidebarDesktop';
 import SidebarMobile from '@/components/SidebarMobile';
 import ProjectActionsMenu from '@/components/project/ActionsMenu';
-import { prisma } from '@/lib/db';
+import { getNoticeById } from '@/lib/queries/notices';
+import type { SortAttribute, SortDirection } from '@/lib/queries/occurrences';
+import { getProjectById } from '@/lib/queries/projects';
 import type { Route } from 'next';
+import { Metadata } from 'next';
 
-export const revalidate = 60;
-
-export default async function Notice({
-  params,
-  searchParams,
-}: {
+type ComponentProps = {
   params: { notice_id: string };
-  searchParams: Record<string, string>;
-}) {
-  const notice = await prisma.notice.findFirst({
-    where: { id: params.notice_id },
-    include: {
-      project: true,
-    },
-  });
+  searchParams: { [key: string]: string | undefined };
+};
+
+export async function generateMetadata({ params }: ComponentProps): Promise<Metadata> {
+  try {
+    const notice = await getNoticeById(params.notice_id);
+    const project = notice && (await getProjectById(notice.project_id));
+    return { title: `(${project?.name}) ${notice?.kind}` };
+  } catch (error) {
+    console.error(error);
+    return { title: '' };
+  }
+}
+
+// /notices/:notice_id
+export default async function Notice({ params, searchParams }: ComponentProps) {
+  const notice = await getNoticeById(params.notice_id);
   if (!notice) {
     throw new Error('Notice not found');
   }
-  const search = searchParams.q;
-  const whereObject: any = {
-    notice_id: notice.id,
-    ...(search && { message: { contains: search, mode: 'insensitive' } }),
-  };
 
-  const occurrences = await prisma.occurrence.findMany({
-    where: whereObject,
-    orderBy: { updated_at: 'desc' },
-    take: 100,
-    select: { id: true },
-  });
-  const occurrencesIds = occurrences.map((occurrence) => occurrence.id);
+  const project = await getProjectById(notice.project_id);
+  if (!project) {
+    throw new Error('Project not found');
+  }
+
+  const { sortDir, sortAttr, searchQuery } = searchParams;
 
   const breadcrumbs = [
     {
-      name: `${notice.project.organization.toLowerCase()} / ${notice.project.name.toLowerCase()}`,
-      href: `/projects/${notice.project.id}` as Route,
+      name: `${project.organization.toLowerCase()} / ${project.name.toLowerCase()}`,
+      href: `/projects/${project.id}` as Route,
       current: false,
     },
     { name: notice.kind, href: `/notices/${notice.id}` as Route, current: true },
@@ -54,12 +54,12 @@ export default async function Notice({
       <div>
         <SidebarMobile>
           {/* @ts-expect-error Server Component */}
-          <SidebarDesktop selectedProject={notice.project} />
+          <SidebarDesktop selectedProjectId={project.id} />
         </SidebarMobile>
 
         <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
           {/* @ts-expect-error Server Component */}
-          <SidebarDesktop selectedProject={notice.project} />
+          <SidebarDesktop selectedProjectId={project.id} />
         </div>
 
         <main className="xl:pl-72">
@@ -67,23 +67,24 @@ export default async function Notice({
             <nav className="border-b border-white border-opacity-10 bg-gradient-to-r from-airbroke-800 to-airbroke-900">
               <div className="flex justify-between pr-4 sm:pr-6 lg:pr-6">
                 <Breadcrumbs breadcrumbs={breadcrumbs} />
-                <ProjectActionsMenu project={notice.project} />
+                <ProjectActionsMenu project={project} />
               </div>
             </nav>
 
             <div className="flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5  px-4 shadow-sm sm:px-6 lg:px-8">
               <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-                <Search currentSearchTerm={search} />
+                <Search currentSearchTerm={searchQuery} />
               </div>
             </div>
           </div>
 
-          {occurrencesIds.length === 0 ? (
-            <NoData project={notice.project} />
-          ) : (
-            /* @ts-expect-error Server Component */
-            <OccurrencesTable occurrencesIds={occurrencesIds} />
-          )}
+          {/* @ts-expect-error Server Component */}
+          <OccurrencesTable
+            noticeId={notice.id}
+            sortDir={sortDir as SortDirection}
+            sortAttr={sortAttr as SortAttribute}
+            searchQuery={searchQuery}
+          />
         </main>
       </div>
     </>

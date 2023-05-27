@@ -1,7 +1,6 @@
 import classNames from '@/lib/classNames';
 import { getProjects } from '@/lib/queries/projects';
 import Link from 'next/link';
-import 'server-only';
 import OccurrenceCounterLabel from './CounterLabel';
 
 const statusClasses = {

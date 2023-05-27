@@ -4,7 +4,7 @@ import Search from '@/components/Search';
 import SidebarDesktop from '@/components/SidebarDesktop';
 import SidebarMobile from '@/components/SidebarMobile';
 import ProjectActionsMenu from '@/components/project/ActionsMenu';
-import { SortAttribute, SortDirection } from '@/lib/queries/notices';
+import type { SortAttribute, SortDirection } from '@/lib/queries/notices';
 import { getProjectById } from '@/lib/queries/projects';
 import type { Route } from 'next';
 import { Metadata } from 'next';
@@ -43,12 +43,12 @@ export default async function ProjectNotices({ params, searchParams }: Component
       <div>
         <SidebarMobile>
           {/* @ts-expect-error Server Component */}
-          <SidebarDesktop selectedProject={project} />
+          <SidebarDesktop selectedProjectId={project.id} />
         </SidebarMobile>
 
         <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
           {/* @ts-expect-error Server Component */}
-          <SidebarDesktop selectedProject={project} />
+          <SidebarDesktop selectedProjectId={project.id} />
         </div>
 
         <main className="xl:pl-72">
