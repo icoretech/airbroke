@@ -9,7 +9,11 @@ import { SlPin, SlPlus } from 'react-icons/sl';
 import { Gravatar } from './Gravatar';
 import { ProviderIcon } from './ProviderIcon';
 
-export default async function SidebarDesktop({ selectedProjectId }: { selectedProjectId?: string }) {
+type SidebarDesktopProps = {
+  selectedProjectId?: string;
+};
+
+async function SidebarDesktop({ selectedProjectId }: SidebarDesktopProps) {
   const session = await getServerSession(authOptions);
   const groupedProjects = await getProjectsGroupedByOrganization();
 
@@ -96,3 +100,5 @@ export default async function SidebarDesktop({ selectedProjectId }: { selectedPr
     </div>
   );
 }
+
+export default SidebarDesktop as unknown as (props: SidebarDesktopProps) => JSX.Element;

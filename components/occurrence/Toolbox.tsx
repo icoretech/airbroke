@@ -4,7 +4,11 @@ import ToolboxAI from './toolbox/AI';
 import ToolboxCurl from './toolbox/Curl';
 import ToolboxFetch from './toolbox/Replay';
 
-export default async function Toolbox({ occurrenceId }: { occurrenceId: string }) {
+interface ToolboxProps {
+  occurrenceId: string;
+}
+
+async function Toolbox({ occurrenceId }: { occurrenceId: string }) {
   const occurrence = await getOccurrenceById(occurrenceId);
   if (!occurrence) {
     throw new Error('Occurrence not found');
@@ -26,3 +30,5 @@ export default async function Toolbox({ occurrenceId }: { occurrenceId: string }
     </div>
   );
 }
+
+export default Toolbox as unknown as (props: ToolboxProps) => JSX.Element;

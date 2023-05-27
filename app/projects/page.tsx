@@ -19,12 +19,10 @@ export default async function Projects({ searchParams }: { searchParams: Record<
   return (
     <div>
       <SidebarMobile>
-        {/* @ts-expect-error Server Component */}
         <SidebarDesktop />
       </SidebarMobile>
 
       <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
-        {/* @ts-expect-error Server Component */}
         <SidebarDesktop />
       </div>
 
@@ -35,7 +33,7 @@ export default async function Projects({ searchParams }: { searchParams: Record<
             <Search currentSearchTerm={search} />
           </div>
         </div>
-        {/* @ts-expect-error Server Component */}
+
         <ProjectsTable currentSearchTerm={search} />
       </main>
     </div>

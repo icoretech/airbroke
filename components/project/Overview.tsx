@@ -3,7 +3,11 @@ import ConfirmationDialog from '@/components/ConfirmationDialog';
 import NoData from '@/components/NoData';
 import { getProjectById } from '@/lib/queries/projects';
 
-export default async function Overview({ projectId }: { projectId: string }) {
+type OverviewProps = {
+  projectId: string;
+};
+
+async function Overview({ projectId }: OverviewProps) {
   const project = await getProjectById(projectId);
   if (!project) {
     throw new Error('Project not found');
@@ -115,3 +119,5 @@ export default async function Overview({ projectId }: { projectId: string }) {
     </div>
   );
 }
+
+export default Overview as unknown as (props: OverviewProps) => JSX.Element;

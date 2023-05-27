@@ -1,7 +1,11 @@
 import { KeyValuePair, flattenObject, isObjectWithKeys } from '@/lib/occurrenceUtils';
 import { getOccurrenceById } from '@/lib/queries/occurrences';
 
-export default async function Params({ occurrenceId }: { occurrenceId: string }) {
+interface ParamsProps {
+  occurrenceId: string;
+}
+
+async function Params({ occurrenceId }: ParamsProps) {
   const occurrence = await getOccurrenceById(occurrenceId);
   if (!occurrence) {
     throw new Error('Occurrence not found');
@@ -26,3 +30,5 @@ export default async function Params({ occurrenceId }: { occurrenceId: string })
     </div>
   );
 }
+
+export default Params as unknown as (props: ParamsProps) => JSX.Element;

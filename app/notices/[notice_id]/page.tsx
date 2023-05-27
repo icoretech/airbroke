@@ -41,12 +41,10 @@ export default async function Notice({ params, searchParams }: ComponentProps) {
     <>
       <div>
         <SidebarMobile>
-          {/* @ts-expect-error Server Component */}
           <SidebarDesktop selectedProjectId={notice.project_id} />
         </SidebarMobile>
 
         <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
-          {/* @ts-expect-error Server Component */}
           <SidebarDesktop selectedProjectId={notice.project_id} />
         </div>
 
@@ -66,7 +64,6 @@ export default async function Notice({ params, searchParams }: ComponentProps) {
             </div>
           </div>
 
-          {/* @ts-expect-error Server Component */}
           <OccurrencesTable
             noticeId={notice.id}
             sortDir={sortDir as SortDirection}

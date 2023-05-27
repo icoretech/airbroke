@@ -11,11 +11,15 @@ interface BacktraceItem {
   function: string;
 }
 
+interface BacktraceProps {
+  occurrenceId: string;
+}
+
 function isBacktraceItem(item: any): item is BacktraceItem {
   return item && typeof item.file === 'string' && typeof item.line === 'number' && typeof item.function === 'string';
 }
 
-export default async function Backtrace({ occurrenceId }: { occurrenceId: string }) {
+async function Backtrace({ occurrenceId }: BacktraceProps) {
   const occurrence = await getOccurrenceById(occurrenceId);
   if (!occurrence) {
     throw new Error('Occurrence not found');
@@ -57,3 +61,5 @@ export default async function Backtrace({ occurrenceId }: { occurrenceId: string
     </div>
   );
 }
+
+export default Backtrace as unknown as (props: BacktraceProps) => JSX.Element;

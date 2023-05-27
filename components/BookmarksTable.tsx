@@ -6,7 +6,11 @@ import OccurrenceCounterLabel from './CounterLabel';
 import CustomTimeAgo from './CustomTimeAgo';
 import EnvironmentLabel from './EnvironmentLabel';
 
-export default async function BookmarksTable({ searchQuery }: { searchQuery?: string | undefined }) {
+type BookmarksTableProps = {
+  searchQuery?: string | undefined;
+};
+
+async function BookmarksTable({ searchQuery }: BookmarksTableProps) {
   const session = await getServerSession(authOptions);
 
   const occurrenceBookmarks = await getOccurrenceBookmarks(session?.user?.id, searchQuery);
@@ -51,3 +55,5 @@ export default async function BookmarksTable({ searchQuery }: { searchQuery?: st
     </ul>
   );
 }
+
+export default BookmarksTable as unknown as (props: BookmarksTableProps) => JSX.Element;

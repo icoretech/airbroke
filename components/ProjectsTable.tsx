@@ -3,13 +3,17 @@ import { getProjects } from '@/lib/queries/projects';
 import Link from 'next/link';
 import OccurrenceCounterLabel from './CounterLabel';
 
+type ProjectsTableProps = {
+  currentSearchTerm: string;
+};
+
 const statusClasses = {
   dark: 'text-gray-500 bg-gray-100/50',
   green: 'text-green-400 bg-green-400/50',
   red: 'text-rose-400 bg-rose-400/50',
 };
 
-export default async function ProjectsTable({ currentSearchTerm }: { currentSearchTerm: string }) {
+async function ProjectsTable({ currentSearchTerm }: ProjectsTableProps) {
   const projects = await getProjects(currentSearchTerm);
 
   return (
@@ -67,3 +71,5 @@ export default async function ProjectsTable({ currentSearchTerm }: { currentSear
     </ul>
   );
 }
+
+export default ProjectsTable as unknown as (props: ProjectsTableProps) => JSX.Element;

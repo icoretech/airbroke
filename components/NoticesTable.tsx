@@ -9,13 +9,7 @@ type NoticesTableProps = {
   projectId: string;
 } & NoticeSearchParams;
 
-export default async function NoticesTable({
-  projectId,
-  sortDir,
-  sortAttr,
-  filterByEnv,
-  searchQuery,
-}: NoticesTableProps) {
+async function NoticesTable({ projectId, sortDir, sortAttr, filterByEnv, searchQuery }: NoticesTableProps) {
   const notices = await getNotices(projectId, {
     sortDir: sortDir,
     sortAttr: sortAttr,
@@ -51,3 +45,5 @@ export default async function NoticesTable({
     </ul>
   );
 }
+
+export default NoticesTable as unknown as (props: NoticesTableProps) => JSX.Element;
