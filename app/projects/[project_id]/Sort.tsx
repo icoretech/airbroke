@@ -1,35 +1,28 @@
 'use client';
 
 import classNames from '@/lib/classNames';
+import { generateUpdatedURL } from '@/lib/generateUpdatedUrl';
+import type { SortAttribute, SortDirection } from '@/lib/queries/notices';
 import { Menu, Transition } from '@headlessui/react';
-import type { Route } from 'next';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Fragment } from 'react';
 import { RxCaretSort } from 'react-icons/rx';
 import { TbArrowBadgeDown, TbArrowBadgeUp } from 'react-icons/tb';
 
-type SortAttribute = 'env' | 'kind' | 'updated_at' | 'seen_count';
+const sortOptions = [
+  { sortAttr: 'kind' as const, label: 'Exception' },
+  { sortAttr: 'seen_count' as const, label: 'Seen Count' },
+  { sortAttr: 'env' as const, label: 'Environment' },
+  { sortAttr: 'updated_at' as const, label: 'Last Update' },
+] as const;
 
-export default function Sort({
-  currentSortAttribute,
-  currentSort,
-}: {
-  currentSortAttribute: SortAttribute;
-  currentSort: 'asc' | 'desc';
-}) {
+export default function Sort({ sortAttr, sortDir }: { sortAttr?: SortAttribute; sortDir?: SortDirection }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const sortOptions: { sortAttr: SortAttribute; label: string }[] = [
-    { sortAttr: 'kind', label: 'Exception' },
-    { sortAttr: 'seen_count', label: 'Seen Count' },
-    { sortAttr: 'env', label: 'Environment' },
-    { sortAttr: 'updated_at', label: 'Last Update' },
-  ];
-
   function toggleSort(attribute: SortAttribute) {
-    return currentSortAttribute === attribute && currentSort === 'asc' ? 'desc' : 'asc';
+    return sortAttr === attribute && sortDir === 'asc' ? 'desc' : 'asc';
   }
 
   function getSortIcon(attribute: SortAttribute) {
@@ -37,15 +30,6 @@ export default function Sort({
     const IconComponent = sortOrder === 'asc' ? TbArrowBadgeUp : TbArrowBadgeDown;
 
     return <IconComponent className="mr-3 h-5 w-5 text-indigo-400 group-hover:text-indigo-500" aria-hidden="true" />;
-  }
-
-  function generateUpdatedURL(paramsToUpdate: Record<string, string>) {
-    const updatedParams = new URLSearchParams(searchParams.toString());
-
-    for (const key in paramsToUpdate) {
-      updatedParams.set(key, paramsToUpdate[key]);
-    }
-    return `${pathname}?${updatedParams.toString()}` as Route;
   }
 
   return (
@@ -68,7 +52,10 @@ export default function Sort({
             <Menu.Item key={option.sortAttr}>
               {({ active }) => (
                 <Link
-                  href={generateUpdatedURL({ sortBy: toggleSort(option.sortAttr), sortAttr: option.sortAttr })}
+                  href={generateUpdatedURL(pathname, searchParams, {
+                    sortDir: toggleSort(option.sortAttr),
+                    sortAttr: option.sortAttr,
+                  })}
                   className={classNames(
                     active ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white',
                     'group flex items-center px-4 py-2 text-sm'
