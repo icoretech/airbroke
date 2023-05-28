@@ -5,7 +5,6 @@ import SidebarDesktop from '@/components/SidebarDesktop';
 import SidebarMobile from '@/components/SidebarMobile';
 import ProjectActionsMenu from '@/components/project/ActionsMenu';
 import { getNoticeById } from '@/lib/queries/notices';
-import type { SortAttribute, SortDirection } from '@/lib/queries/occurrences';
 import type { Route } from 'next';
 import { Metadata } from 'next';
 
@@ -27,8 +26,6 @@ export default async function Notice({ params, searchParams }: ComponentProps) {
   if (!notice) {
     throw new Error('Notice not found');
   }
-
-  const { sortDir, sortAttr, searchQuery } = searchParams;
 
   const breadcrumbs = [
     {
@@ -65,12 +62,7 @@ export default async function Notice({ params, searchParams }: ComponentProps) {
           </div>
         </div>
 
-        <OccurrencesTable
-          noticeId={notice.id}
-          sortDir={sortDir as SortDirection}
-          sortAttr={sortAttr as SortAttribute}
-          searchQuery={searchQuery}
-        />
+        <OccurrencesTable noticeId={notice.id} searchParams={searchParams} />
       </main>
     </div>
   );

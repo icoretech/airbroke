@@ -20,7 +20,7 @@ const sortOptions = [
 export default function Sort() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const { sortDir, sortAttr, filterByEnv, searchQuery } = Object.fromEntries(searchParams);
+  const { sortDir, sortAttr } = Object.fromEntries(searchParams);
 
   function toggleSort(attribute: SortAttribute) {
     return sortAttr === attribute && sortDir === 'asc' ? 'desc' : 'asc';
