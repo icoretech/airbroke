@@ -32,7 +32,7 @@ export default async function Projects({ searchParams }: { searchParams: Record<
         <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5 bg-airbroke-900 px-4 shadow-sm sm:px-6 lg:px-8">
           <SidebarOpenButton />
           <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-            <Search currentSearchTerm={search} />
+            <Search />
           </div>
         </div>
 

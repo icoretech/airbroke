@@ -39,7 +39,7 @@ export default async function Bookmarks({ searchParams }: { searchParams: Record
 
             <div className="flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5  px-4 shadow-sm sm:px-6 lg:px-8">
               <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-                <Search currentSearchTerm={searchQuery} />
+                <Search />
               </div>
             </div>
           </div>
