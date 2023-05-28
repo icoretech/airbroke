@@ -72,3 +72,20 @@ export const getNoticeIdsByProjectId = async (projectId: string): Promise<string
   });
   return notices.map((notice) => notice.id);
 };
+
+export async function getNoticeEnvs(projectId: string): Promise<string[]> {
+  const notices = await prisma.notice.findMany({
+    where: {
+      project_id: projectId,
+    },
+    select: {
+      env: true
+    },
+    orderBy: {
+      env: 'asc',
+    },
+    distinct: ['env']
+  });
+
+  return notices.map((notice) => notice.env);
+}

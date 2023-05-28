@@ -4,7 +4,7 @@ import Search from '@/components/Search';
 import SidebarDesktop from '@/components/SidebarDesktop';
 import SidebarMobile from '@/components/SidebarMobile';
 import ProjectActionsMenu from '@/components/project/ActionsMenu';
-import { getNotices } from '@/lib/queries/notices';
+import { getNoticeEnvs } from '@/lib/queries/notices';
 import { getProjectById } from '@/lib/queries/projects';
 import type { Route } from 'next';
 import { Metadata } from 'next';
@@ -30,9 +30,7 @@ export default async function ProjectNotices({ params, searchParams }: Component
     throw new Error('Project not found');
   }
 
-  const notices = await getNotices(project.id, {});
-  const envArray = notices.map((notice) => notice.env);
-  const uniqueEnvArray = Array.from(new Set(envArray));
+  const uniqueEnvArray = await getNoticeEnvs(project.id);
 
   const breadcrumbs = [
     {
