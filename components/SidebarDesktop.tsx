@@ -35,7 +35,7 @@ async function SidebarDesktop({ selectedProjectId }: SidebarDesktopProps) {
                   className="group flex gap-x-3 rounded-md p-2 text-sm leading-6 text-gray-400 transition-colors duration-100 hover:bg-gray-800 hover:text-white"
                 >
                   <div className="flex w-full justify-between">
-                    <div className="flex items-center gap-x-3 font-semibold ">
+                    <div className="flex transform items-center gap-x-3 font-semibold transition-transform hover:scale-105">
                       <BsBookmarksFill className="h-6 w-6 shrink-0" aria-hidden="true" />
                       <span className="truncate">Bookmarks</span>
                     </div>
@@ -59,7 +59,7 @@ async function SidebarDesktop({ selectedProjectId }: SidebarDesktopProps) {
                       }`}
                     >
                       <div className="flex w-full justify-between">
-                        <div className="flex items-center gap-x-3 font-semibold ">
+                        <div className="flex transform items-center gap-x-3 font-semibold transition-transform hover:scale-105">
                           <ProviderIcon
                             provider={project.repo_provider}
                             className="h-6 w-6 shrink-0"
@@ -87,7 +87,7 @@ async function SidebarDesktop({ selectedProjectId }: SidebarDesktopProps) {
               href="/projects/new"
               className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-indigo-200 shadow-sm transition-colors duration-200 hover:bg-indigo-500 hover:text-white"
             >
-              <SlPlus className="h-6 w-6 shrink-0" aria-hidden="true" />
+              <SlPlus className="h-6 w-6 shrink-0 transform transition-transform hover:scale-105" aria-hidden="true" />
               Create Project
             </Link>
           </li>
