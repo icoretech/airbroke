@@ -12,22 +12,24 @@ async function Environment({ occurrenceId }: EnvironmentProps) {
   }
 
   return (
-    <div className="px-4 text-white sm:px-6 lg:px-8">
-      <div className="mt-6 border-t border-white/10">
-        {isObjectWithKeys(occurrence.environment) && (
-          <dl className="divide-y divide-white/10">
-            {flattenObject(occurrence.environment).map((item: KeyValuePair) => (
-              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0" key={item.key}>
-                <dt className="text-sm font-medium leading-6 text-white">{item.key}</dt>
-                <dd className="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0">
-                  {JSON.stringify(item.value)}
-                </dd>
+    <div className="overflow-x-auto px-4  sm:px-6 lg:px-8">
+      {isObjectWithKeys(occurrence.environment) && (
+        <div className="space-y-4 text-xs ">
+          {flattenObject(occurrence.environment).map((item: KeyValuePair) => (
+            <div
+              className="flex items-start space-x-2 rounded border border-airbroke-800 bg-gradient-to-r from-gray-900 to-airbroke-900 p-2 shadow-md"
+              key={item.key}
+            >
+              <div className="flex-shrink-0 font-semibold text-indigo-200">{item.key}:</div>
+              <div className="flex-grow break-all rounded px-2 font-mono text-gray-300">
+                {JSON.stringify(item.value)}
               </div>
-            ))}
-          </dl>
-        )}
-      </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
+
 export default Environment as unknown as (props: EnvironmentProps) => JSX.Element;

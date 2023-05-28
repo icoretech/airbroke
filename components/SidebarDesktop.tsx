@@ -32,7 +32,7 @@ async function SidebarDesktop({ selectedProjectId }: SidebarDesktopProps) {
               <li>
                 <Link
                   href="/bookmarks"
-                  className="group flex transform gap-x-3 rounded-md p-2 text-sm leading-6 text-gray-400 transition-colors transition-transform duration-100 hover:scale-105 hover:bg-gray-800 hover:text-white"
+                  className="group flex transform gap-x-3 rounded-md p-2 text-sm leading-6 text-gray-400 transition-transform duration-100 hover:scale-105 hover:bg-gray-800 hover:text-white"
                 >
                   <div className="flex w-full justify-between">
                     <div className="flex items-center gap-x-3 font-semibold">
