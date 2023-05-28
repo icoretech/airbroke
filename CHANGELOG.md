@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.22](https://github.com/icoretech/airbroke/compare/v1.1.21...v1.1.22) (2023-05-28)
+
+
+### Features
+
+* **page.tsx:** add support for rendering environment, session and params tabs only if occurrence has respective properties ([2a8eadd](https://github.com/icoretech/airbroke/commit/2a8eaddb2a8504547f0ee9b66be2461100328d8a))
+
+
+### Bug Fixes
+
+* **occurrenceUtils.ts:** flattenObject function now returns single string values in arrays as is to improve readability of occurrence data ([4494628](https://github.com/icoretech/airbroke/commit/4494628bdf39ad2f92a2cee3ec410c3c6ce35c74))
+
 ## [1.1.21](https://github.com/icoretech/airbroke/compare/v1.1.20...v1.1.21) (2023-05-28)
 
 
