@@ -17,6 +17,7 @@ import classNames from '@/lib/classNames';
 import { checkOccurrenceBookmarkExistence } from '@/lib/queries/occurrenceBookmarks';
 import { getOccurrenceById } from '@/lib/queries/occurrences';
 import type { Route } from 'next';
+import { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import { FaCarCrash } from 'react-icons/fa';
@@ -24,13 +25,16 @@ import { SlCompass, SlGlobe, SlGraph, SlLink, SlList, SlUser, SlWrench } from 'r
 
 type OccurrenceTabKeys = 'backtrace' | 'context' | 'environment' | 'session' | 'params' | 'chart' | 'toolbox';
 
-export default async function Occurrence({
-  params,
-  searchParams,
-}: {
+type ComponentProps = {
   params: { occurrence_id: string };
-  searchParams: Record<string, string>;
-}) {
+  searchParams: { [key: string]: string | undefined };
+};
+export async function generateMetadata({ params }: ComponentProps): Promise<Metadata> {
+  const occurrence = await getOccurrenceById(params.occurrence_id);
+  return { title: occurrence?.message };
+}
+
+export default async function Occurrence({ params, searchParams }: ComponentProps) {
   const session = await getServerSession(authOptions);
   const userId = session?.user?.id;
   const occurrence = await getOccurrenceById(params.occurrence_id);
@@ -65,7 +69,7 @@ export default async function Occurrence({
     },
     { name: occurrence.notice.kind, href: `/notices/${occurrence.notice_id}` as Route, current: false },
     {
-      name: occurrence.message,
+      name: `${occurrence.message} (${occurrence.id})`,
       href: `/occurrences/${occurrence.id}` as Route,
       current: true,
     },

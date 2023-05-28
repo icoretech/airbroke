@@ -53,30 +53,36 @@ export async function performReplay(context: Context): Promise<string> {
 // Function to create a bookmark for a user
 export async function createOccurrenceBookmark(occurrenceId: string) {
   const session = await getServerSession();
+  if (!session) {
+    throw new Error('Session not found');
+  }
 
   await prisma.occurrenceBookmark.create({
     data: {
-      user_id: session?.user?.id!,
+      user_id: session.user?.id!,
       occurrence_id: occurrenceId,
     },
   });
 
-  revalidatePath('/bookmarks')
   revalidatePath(`/occurrences/${occurrenceId}`)
+  revalidatePath('/bookmarks')
 }
 
 export async function removeOccurrenceBookmark(occurrenceId: string) {
   const session = await getServerSession();
+  if (!session) {
+    throw new Error('Session not found');
+  }
 
   await prisma.occurrenceBookmark.delete({
     where: {
       user_id_occurrence_id: {
-        user_id: session?.user?.id!,
+        user_id: session.user?.id!,
         occurrence_id: occurrenceId,
       },
     },
   });
 
-  revalidatePath('/bookmarks')
   revalidatePath(`/occurrences/${occurrenceId}`)
+  revalidatePath('/bookmarks')
 }

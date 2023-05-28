@@ -44,7 +44,7 @@ async function BookmarksTable({ searchQuery }: BookmarksTableProps) {
                 <div className="min-w-0 flex-auto">
                   <div className="flex items-center gap-x-3">
                     <h2 className="min-w-0 text-sm font-semibold leading-6 text-white">
-                      <Link href={`/occurrences/${bookmark.occurrence.id}`} className="flex gap-x-2">
+                      <Link href={`/occurrences/${bookmark.occurrence_id}`} className="flex gap-x-2">
                         <span className="truncate">{bookmark.occurrence.message}</span>
                         <span className="absolute inset-0" />
                       </Link>
