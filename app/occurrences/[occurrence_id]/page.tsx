@@ -24,8 +24,6 @@ import { SlCompass, SlGlobe, SlGraph, SlLink, SlList, SlUser, SlWrench } from 'r
 
 type OccurrenceTabKeys = 'backtrace' | 'context' | 'environment' | 'session' | 'params' | 'chart' | 'toolbox';
 
-export const revalidate = 10;
-
 export default async function Occurrence({
   params,
   searchParams,
