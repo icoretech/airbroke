@@ -22,7 +22,7 @@ async function SidebarDesktop({ selectedProjectId }: SidebarDesktopProps) {
     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-airbroke-800 px-6 ring-1 ring-white/5 scrollbar-none">
       <div className="flex h-16 shrink-0 items-center">
         <Link href="/projects">
-          <Image src={logo} alt="Logo" className="h-8 w-auto" />
+          <Image src={logo} alt="Logo" className="h-8 w-auto transform transition-transform hover:scale-105" />
         </Link>
       </div>
       <nav className="flex flex-1 flex-col">
