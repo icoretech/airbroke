@@ -1,26 +1,32 @@
 import OccurrenceChart from '@/components/OccurrenceChart';
 import { prisma } from '@/lib/db';
 
-interface OccurrenceChartWrapperProps {
-  occurrenceId: string;
+interface OccurrencesChartWrapperProps {
+  occurrenceIds: string[];
 }
 
-async function OccurrenceChartWrapper({ occurrenceId }: OccurrenceChartWrapperProps) {
+async function OccurrencesChartWrapper({ occurrenceIds }: OccurrencesChartWrapperProps) {
   // Calculate the start and end date for the past two weeks
   const endDate = new Date();
   const startDate = new Date();
   startDate.setDate(endDate.getDate() - 14);
 
   // Query the database for the occurrence summaries for the past two weeks
-  const occurrenceSummaries = await prisma.hourlyOccurrence.findMany({
+  const occurrenceSummaries = await prisma.hourlyOccurrence.groupBy({
+    by: ['interval_start'],
     where: {
-      occurrence_id: occurrenceId,
+      occurrence_id: {
+        in: occurrenceIds,
+      },
       interval_start: {
         gte: startDate.toISOString(),
       },
       interval_end: {
         lte: endDate.toISOString(),
       },
+    },
+    _sum: {
+      count: true,
     },
     orderBy: {
       interval_start: 'asc',
@@ -31,7 +37,7 @@ async function OccurrenceChartWrapper({ occurrenceId }: OccurrenceChartWrapperPr
   const chartData = occurrenceSummaries.map((summary) => {
     return {
       date: summary.interval_start.toISOString().slice(0, 13), // Get date and hour only
-      count: Number(summary.count),
+      count: Number(summary._sum.count),
     };
   });
 
@@ -46,4 +52,4 @@ async function OccurrenceChartWrapper({ occurrenceId }: OccurrenceChartWrapperPr
   );
 }
 
-export default OccurrenceChartWrapper as unknown as (props: OccurrenceChartWrapperProps) => JSX.Element;
+export default OccurrencesChartWrapper as unknown as (props: OccurrencesChartWrapperProps) => JSX.Element;

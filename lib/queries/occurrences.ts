@@ -75,3 +75,12 @@ const fetchOccurrenceById = cache(async (occurrenceId: string): Promise<Occurren
 export const getOccurrenceById = async (occurrenceId: string): Promise<OccurrenceWithNoticeAndProject | null> => {
   return fetchOccurrenceById(occurrenceId);
 };
+
+// Function to extract all occurrence IDs for an array of notice IDs
+export const getOccurrenceIdsByNoticeIds = async (noticeIds: string[]): Promise<string[]> => {
+  const occurrences = await prisma.occurrence.findMany({
+    where: { notice_id: { in: noticeIds } },
+    select: { id: true },
+  });
+  return occurrences.map((occurrence) => occurrence.id);
+};
