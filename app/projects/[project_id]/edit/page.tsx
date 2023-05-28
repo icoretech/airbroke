@@ -9,6 +9,7 @@ import { jsclientTemplate, rubyTemplate } from '@/lib/configTemplates';
 import { getProjectById } from '@/lib/queries/projects';
 import type { Route } from 'next';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { SlSettings, SlWrench } from 'react-icons/sl';
 
 export default async function Project({
@@ -22,7 +23,7 @@ export default async function Project({
 
   const project = await getProjectById(params.project_id);
   if (!project) {
-    throw new Error('Project not found');
+    redirect('/projects');
   }
   const replacements = {
     REPLACE_PROJECT_KEY: project.api_key,
