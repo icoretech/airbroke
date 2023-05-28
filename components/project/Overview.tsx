@@ -29,7 +29,7 @@ async function Overview({ projectId }: OverviewProps) {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-4">
         <div className="rounded-lg bg-gray-900 p-6">
           <h3 className="text-base font-semibold leading-6 text-white">Project Information</h3>
-          <p className="mt-1 text-sm leading-6 text-gray-400">Overview</p>
+
           <dl className="mt-6 divide-y divide-white/10">
             <div className="py-3">
               <dt className="text-sm font-medium leading-6 text-white">Name</dt>
@@ -47,7 +47,7 @@ async function Overview({ projectId }: OverviewProps) {
         </div>
         <div className="rounded-lg bg-gray-900 p-6">
           <h3 className="text-base font-semibold leading-6 text-white">Repository Information</h3>
-          <p className="mt-1 text-sm leading-6 text-gray-400">Overview</p>
+
           <dl className="mt-6 divide-y divide-white/10">
             <div className="py-3">
               <dt className="text-sm font-medium leading-6 text-white">URL</dt>
@@ -69,10 +69,7 @@ async function Overview({ projectId }: OverviewProps) {
         </div>
 
         <div className="rounded-lg bg-gray-900 p-6">
-          <div className="flex items-center justify-between">
-            <h3 className="text-base font-semibold leading-6 text-white">Stats</h3>
-            <div className="text-sm text-gray-400">Last 24 hours</div>
-          </div>
+          <h3 className="text-base font-semibold leading-6 text-white">Stats</h3>
           <div className="mt-6 grid grid-cols-1 gap-6">
             {stats.map((stat) => (
               <div key={stat.name} className="rounded-lg bg-gray-800 p-4">
@@ -87,15 +84,14 @@ async function Overview({ projectId }: OverviewProps) {
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-1">
           <div className="rounded-lg bg-gray-900 p-6">
-            <div className="flex h-full flex-col">
-              <div>
-                <h3 className="text-base font-semibold leading-6 text-green-500">Test Zone</h3>
-              </div>
-              <div className="mt-6 flex-1">
-                <NoData project={project} showHeader={false} />
-              </div>
+            <h3 className="text-base font-semibold leading-6 text-white">Test Zone</h3>
+            <p className="mt-1 text-sm leading-6 text-gray-400">Send test exceptions</p>
+
+            <div className="mt-6 flex-1">
+              <NoData project={project} showHeader={false} />
             </div>
           </div>
+
           <div className="rounded-lg bg-gray-900 p-6">
             <h3 className="text-base font-semibold leading-6 text-rose-500">Danger Zone</h3>
             <div className="mt-6 space-y-4">
