@@ -5,11 +5,11 @@ import { cache } from 'react';
 export interface OccurrenceBookmarkWithAssociations extends OccurrenceBookmark {
   occurrence: Occurrence & { notice: Notice & { project: Project } };
 }
+
 // Cached function to fetch occurrence bookmarks from the database
-const fetchOccurrenceBookmarks = cache(async (whereObject?: any, orderByObject?: any): Promise<OccurrenceBookmarkWithAssociations[]> => {
+const fetchOccurrenceBookmarks = cache(async (whereObject?: any): Promise<OccurrenceBookmarkWithAssociations[]> => {
   const results: OccurrenceBookmarkWithAssociations[] = await prisma.occurrenceBookmark.findMany({
     where: whereObject,
-    orderBy: orderByObject,
     include: {
       occurrence: {
         include: {
@@ -57,9 +57,7 @@ export async function getOccurrenceBookmarks(userId?: string, searchQuery?: stri
     })
   };
 
-  const orderByObject = { created_at: 'asc' };
-
-  const occurrenceBookmarks = await fetchOccurrenceBookmarks(whereObject, orderByObject);
+  const occurrenceBookmarks = await fetchOccurrenceBookmarks(whereObject);
 
   return occurrenceBookmarks;
 }

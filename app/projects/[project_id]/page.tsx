@@ -10,6 +10,8 @@ import type { Route } from 'next';
 import { Metadata } from 'next';
 import Sort from './Sort';
 
+export const revalidate = 10;
+
 type ComponentProps = {
   params: { project_id: string };
   searchParams: { [key: string]: string | undefined };

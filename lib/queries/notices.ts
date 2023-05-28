@@ -63,3 +63,12 @@ const fetchNoticeById = cache(async (noticeId: string): Promise<NoticeWithProjec
 export const getNoticeById = async (noticeId: string): Promise<NoticeWithProject | null> => {
   return fetchNoticeById(noticeId);
 };
+
+// Function to get all notice IDs for a given projectId
+export const getNoticeIdsByProjectId = async (projectId: string): Promise<string[]> => {
+  const notices = await prisma.notice.findMany({
+    where: { project_id: projectId },
+    select: { id: true },
+  });
+  return notices.map((notice) => notice.id);
+};
