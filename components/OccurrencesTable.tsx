@@ -7,15 +7,11 @@ import EnvironmentLabel from './EnvironmentLabel';
 
 type OccurrencesTableProps = {
   noticeId: string;
+  searchParams: OccurrenceSearchParams;
 } & OccurrenceSearchParams;
 
-async function OccurrencesTable({ noticeId, sortDir, sortAttr, searchQuery }: OccurrencesTableProps) {
-  const occurrences = await getOccurrences(noticeId, {
-    sortDir: sortDir,
-    sortAttr: sortAttr,
-    searchQuery: searchQuery,
-    limit: 100,
-  });
+async function OccurrencesTable({ noticeId, searchParams }: OccurrencesTableProps) {
+  const occurrences = await getOccurrences(noticeId, searchParams);
 
   return (
     <ul role="list" className="divide-y divide-white/5">
