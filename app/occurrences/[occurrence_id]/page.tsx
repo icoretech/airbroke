@@ -42,6 +42,9 @@ export default async function Occurrence({ params, searchParams }: ComponentProp
     throw new Error('Occurrence not found');
   }
   const isBookmarked = await checkOccurrenceBookmarkExistence(userId, occurrence.id);
+  const hasSession = occurrence.session && Object.keys(occurrence.session).length > 0;
+  const hasParams = occurrence.params && Object.keys(occurrence.params).length > 0;
+  const hasEnvironment = occurrence.environment && Object.keys(occurrence.environment).length > 0;
 
   const tabKeys: OccurrenceTabKeys[] = ['backtrace', 'context', 'environment', 'session', 'params', 'chart', 'toolbox'];
   const currentTab = tabKeys.includes(searchParams.tab as OccurrenceTabKeys)
@@ -51,9 +54,11 @@ export default async function Occurrence({ params, searchParams }: ComponentProp
   const tabs = [
     { id: 'backtrace', name: 'Backtrace', current: currentTab === 'backtrace', icon: SlList },
     { id: 'context', name: 'Context', current: currentTab === 'context', icon: SlCompass },
-    { id: 'environment', name: 'Environment', current: currentTab === 'environment', icon: SlGlobe },
-    { id: 'session', name: 'Session', current: currentTab === 'session', icon: SlUser },
-    { id: 'params', name: 'Params', current: currentTab === 'params', icon: SlLink },
+    ...(hasEnvironment
+      ? [{ id: 'environment', name: 'Environment', current: currentTab === 'environment', icon: SlGlobe }]
+      : []),
+    ...(hasSession ? [{ id: 'session', name: 'Session', current: currentTab === 'session', icon: SlUser }] : []),
+    ...(hasParams ? [{ id: 'params', name: 'Params', current: currentTab === 'params', icon: SlLink }] : []),
     { id: 'chart', name: 'Chart', current: currentTab === 'chart', icon: SlGraph },
     { id: 'toolbox', name: 'Toolbox', current: currentTab === 'toolbox', icon: SlWrench },
   ].map((tab) => ({
