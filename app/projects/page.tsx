@@ -10,7 +10,7 @@ export const revalidate = 0;
 
 // /projects
 export default async function Projects({ searchParams }: { searchParams: Record<string, string> }) {
-  const search = searchParams.q;
+  const searchQuery = searchParams.searchQuery;
 
   const totalProjects = await prisma.project.count();
 
@@ -36,7 +36,7 @@ export default async function Projects({ searchParams }: { searchParams: Record<
           </div>
         </div>
 
-        <ProjectsTable currentSearchTerm={search} />
+        <ProjectsTable currentSearchTerm={searchQuery} />
       </main>
     </div>
   );

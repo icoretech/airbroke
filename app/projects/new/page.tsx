@@ -1,6 +1,6 @@
 import Form from './Form';
 
-export default async function NewProject({ searchParams }: { searchParams: Record<string, string> }) {
+export default async function NewProject() {
   return (
     <>
       <main>
