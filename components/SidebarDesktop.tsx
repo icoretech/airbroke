@@ -32,12 +32,12 @@ async function SidebarDesktop({ selectedProjectId }: SidebarDesktopProps) {
               <li>
                 <Link
                   href="/bookmarks"
-                  className="group flex gap-x-3 rounded-md p-2 text-sm leading-6 text-gray-400 transition-colors duration-100 hover:bg-gray-800 hover:text-white"
+                  className="group flex transform gap-x-3 rounded-md p-2 text-sm leading-6 text-gray-400 transition-colors transition-transform duration-100 hover:scale-105 hover:bg-gray-800 hover:text-white"
                 >
                   <div className="flex w-full justify-between">
-                    <div className="flex transform items-center gap-x-3 font-semibold transition-transform hover:scale-105">
+                    <div className="flex items-center gap-x-3 font-semibold">
                       <BsBookmarksFill className="h-6 w-6 shrink-0" aria-hidden="true" />
-                      <span className="truncate">Bookmarks</span>
+                      <span>Bookmarks</span>
                     </div>
                   </div>
                 </Link>
@@ -52,14 +52,14 @@ async function SidebarDesktop({ selectedProjectId }: SidebarDesktopProps) {
                   <li key={project.id}>
                     <Link
                       href={`/projects/${project.id}`}
-                      className={`group flex gap-x-3 rounded-md p-2 text-sm leading-6 ${
+                      className={`group flex transform gap-x-3 rounded-md p-2 text-sm leading-6 transition-transform hover:scale-105 ${
                         project.id === selectedProjectId
                           ? 'bg-gray-800 text-white'
                           : 'text-gray-400 transition-colors duration-100 hover:bg-gray-800 hover:text-white'
                       }`}
                     >
                       <div className="flex w-full justify-between">
-                        <div className="flex transform items-center gap-x-3 font-semibold transition-transform hover:scale-105">
+                        <div className="flex items-center gap-x-3 font-semibold">
                           <ProviderIcon
                             provider={project.repo_provider}
                             className="h-6 w-6 shrink-0"
