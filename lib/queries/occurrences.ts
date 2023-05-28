@@ -84,3 +84,45 @@ export const getOccurrenceIdsByNoticeIds = async (noticeIds: string[]): Promise<
   });
   return occurrences.map((occurrence) => occurrence.id);
 };
+
+export const getHourlyOccurrenceRateForLast14Days = async (projectId: string): Promise<number> => {
+  const endDate = new Date();
+  const startDate = new Date();
+  startDate.setDate(startDate.getDate() - 14);
+
+  const occurrences = await prisma.hourlyOccurrence.aggregate({
+    _sum: {
+      count: true,
+    },
+    where: {
+      AND: [
+        {
+          occurrence: {
+            notice: {
+              project_id: projectId,
+            },
+          },
+        },
+        {
+          interval_start: {
+            gte: startDate,
+          },
+        },
+        {
+          interval_end: {
+            lte: endDate,
+          },
+        },
+      ],
+    },
+  });
+
+  const totalOccurrences = occurrences._sum.count ?? 0;
+  const totalHours = 14 * 24; // 14 days times 24 hours/day
+
+  // Convert BigInt to Number before division operation
+  const rate = Number(totalOccurrences) / totalHours;
+
+  // Round to the nearest integer
+  return Math.round(rate);
+};
