@@ -1,36 +1,28 @@
 'use client';
 
-import type { Route } from 'next';
+import { generateUpdatedURL } from '@/lib/generateUpdatedUrl';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
 import { SlDisc, SlMagnifier } from 'react-icons/sl';
 
-export default function Search({ currentSearchTerm }: { currentSearchTerm?: string }) {
+export default function Search() {
   const searchParams = useSearchParams();
   const { push } = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
-
-  function generateUpdatedURL(paramsToUpdate: Record<string, string>) {
-    const updatedParams = new URLSearchParams(searchParams.toString());
-
-    for (const key in paramsToUpdate) {
-      updatedParams.set(key, paramsToUpdate[key]);
-    }
-    return `${pathname}?${updatedParams.toString()}` as Route;
-  }
+  const { searchQuery } = Object.fromEntries(searchParams);
 
   function handleSearch(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const q = formData.get('searchQuery') as string;
-    const updatedUrl = generateUpdatedURL({ searchQuery: q });
+    const updatedUrl = generateUpdatedURL(pathname, searchParams, { searchQuery: q });
     startTransition(() => push(updatedUrl));
   }
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const q = event.target.value;
     if (q === '') {
-      const updatedUrl = generateUpdatedURL({ searchQuery: q });
+      const updatedUrl = generateUpdatedURL(pathname, searchParams, { searchQuery: q });
       startTransition(() => push(updatedUrl));
     }
   }
@@ -60,7 +52,7 @@ export default function Search({ currentSearchTerm }: { currentSearchTerm?: stri
           autoComplete="off"
           disabled={isPending}
           autoFocus
-          defaultValue={currentSearchTerm}
+          defaultValue={searchQuery}
           onChange={handleInputChange}
         />
       </div>

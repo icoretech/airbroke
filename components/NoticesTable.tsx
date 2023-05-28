@@ -7,15 +7,11 @@ import EnvironmentLabel from './EnvironmentLabel';
 
 type NoticesTableProps = {
   projectId: string;
-} & NoticeSearchParams;
+  searchParams: NoticeSearchParams;
+};
 
-async function NoticesTable({ projectId, sortDir, sortAttr, filterByEnv, searchQuery }: NoticesTableProps) {
-  const notices = await getNotices(projectId, {
-    sortDir: sortDir,
-    sortAttr: sortAttr,
-    filterByEnv: filterByEnv,
-    searchQuery: searchQuery,
-  });
+async function NoticesTable({ projectId, searchParams }: NoticesTableProps) {
+  const notices = await getNotices(projectId, searchParams);
 
   return (
     <ul role="list" className="divide-y divide-white/5">

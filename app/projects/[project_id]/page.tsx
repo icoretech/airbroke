@@ -4,10 +4,11 @@ import Search from '@/components/Search';
 import SidebarDesktop from '@/components/SidebarDesktop';
 import SidebarMobile from '@/components/SidebarMobile';
 import ProjectActionsMenu from '@/components/project/ActionsMenu';
-import type { SortAttribute, SortDirection } from '@/lib/queries/notices';
+import { getNotices } from '@/lib/queries/notices';
 import { getProjectById } from '@/lib/queries/projects';
 import type { Route } from 'next';
 import { Metadata } from 'next';
+import Filter from './Filter';
 import Sort from './Sort';
 
 export const revalidate = 0;
@@ -29,7 +30,9 @@ export default async function ProjectNotices({ params, searchParams }: Component
     throw new Error('Project not found');
   }
 
-  const { sortDir, sortAttr, filterByEnv, searchQuery } = searchParams;
+  const notices = await getNotices(project.id, {});
+  const envArray = notices.map((notice) => notice.env);
+  const uniqueEnvArray = Array.from(new Set(envArray));
 
   const breadcrumbs = [
     {
@@ -60,19 +63,14 @@ export default async function ProjectNotices({ params, searchParams }: Component
 
           <div className="flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5 px-4 shadow-sm sm:px-6 lg:px-8">
             <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-              <Search currentSearchTerm={searchQuery} />
-              <Sort sortAttr={sortAttr as SortAttribute} sortDir={sortDir as SortDirection} />
+              <Search />
+              <Filter environments={uniqueEnvArray} />
+              <Sort />
             </div>
           </div>
         </div>
 
-        <NoticesTable
-          projectId={project.id}
-          sortDir={sortDir as SortDirection}
-          sortAttr={sortAttr as SortAttribute}
-          filterByEnv={filterByEnv}
-          searchQuery={searchQuery}
-        />
+        <NoticesTable searchParams={searchParams} projectId={project.id} />
       </main>
     </div>
   );
