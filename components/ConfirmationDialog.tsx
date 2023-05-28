@@ -46,7 +46,7 @@ export default function ConfirmationDialog({
 
   return (
     <>
-      <button type="button" onClick={() => setOpen(true)} className="text-indigo-500 hover:text-indigo-700">
+      <button type="button" onClick={() => setOpen(true)} className="text-rose-500 hover:text-rose-700">
         {btnId === 'deleteProject' ? 'Delete Project' : 'Delete All Errors'}
       </button>
 

@@ -27,15 +27,15 @@ export default function NoData({ project, showHeader = true }: { project: Projec
   };
 
   return (
-    <div className="mt-10 text-center text-gray-400">
+    <div className="text-center text-gray-400">
       {showHeader && (
-        <>
+        <div className="mt-10">
           <SlCheck className="mx-auto h-12 w-12" aria-hidden="true" />
           <h3 className="my-5 text-sm font-semibold">No exceptions recorded</h3>
-        </>
+        </div>
       )}
 
-      <div className="grid grid-cols-2 justify-items-center gap-4">
+      <div className="grid grid-cols-1 justify-items-center gap-4">
         <div className="rounded-lg bg-gray-900 p-6 shadow-lg">
           <h2 className="mb-2 text-lg font-bold text-indigo-500">Airbrake JS</h2>
           <button
