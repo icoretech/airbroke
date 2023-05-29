@@ -61,12 +61,12 @@ async function POST(request: NextRequest) {
   const { projectKey, requestType } = extractProjectKeyFromRequest(request);
 
   const project = await prisma.project.findFirst({ where: { api_key: projectKey } });
-  if (!project) {
+  if (!project || project.paused) {
     if (requestType === 'params') {
-      const json_response = { error: '**Airbroke: Project not found' };
+      const json_response = { error: '**Airbroke: Project not found or paused' };
       return NextResponse.json(json_response, { status: 404 });
     } else {
-      const json_response = { error: '**Airbroke: Project not found' };
+      const json_response = { error: '**Airbroke: Project not found or paused' };
       const headers = { 'WWW-Authenticate': `Bearer realm="Airbroke"` };
       return NextResponse.json(json_response, { status: 404, headers });
     }
