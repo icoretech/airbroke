@@ -1,13 +1,10 @@
-import { prisma } from '@/lib/db';
 import { composeFileUrl } from '@/lib/gitProvider';
 import { describe, expect, test } from '@jest/globals';
-import { Project } from '@prisma/client';
-
 import { createProject } from '../factories/prismaFactories';
 
 describe('composeFileUrl', () => {
   test('should return the correct URL for GitHub', async () => {
-    const project: Project = await createProject(prisma, {
+    const project = await createProject({
       repo_provider: 'github',
       repo_url: 'https://github.com/org/repo',
       repo_branch: 'main',
@@ -22,7 +19,7 @@ describe('composeFileUrl', () => {
   });
 
   test('should return the correct URL for Bitbucket', async () => {
-    const project: Project = await createProject(prisma, {
+    const project = await createProject({
       repo_provider: 'bitbucket',
       repo_url: 'https://bitbucket.org/org/repo',
       repo_branch: 'branch',
@@ -37,7 +34,7 @@ describe('composeFileUrl', () => {
   });
 
   test('should return the correct URL for GitLab', async () => {
-    const project: Project = await createProject(prisma, {
+    const project = await createProject({
       repo_provider: 'gitlab',
       repo_url: 'https://gitlab.com/org/repo',
       repo_branch: 'branch',
@@ -52,7 +49,7 @@ describe('composeFileUrl', () => {
   });
 
   test('should return the correct URL without line number', async () => {
-    const project: Project = await createProject(prisma, {
+    const project = await createProject({
       repo_provider: 'github',
       repo_url: 'https://github.com/org/repo',
       repo_branch: 'main',
@@ -66,7 +63,7 @@ describe('composeFileUrl', () => {
   });
 
   test('should return an empty string for unknown repository provider', async () => {
-    const project: Project = await createProject(prisma, {
+    const project = await createProject({
       repo_provider: 'unknown',
       repo_url: 'https://example.com/repo',
       repo_branch: 'main',

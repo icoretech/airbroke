@@ -1,19 +1,20 @@
-import type { HourlyOccurrence, Notice, Occurrence, Prisma, PrismaClient, Project } from '@prisma/client';
+import type { HourlyOccurrence, Notice, Occurrence, Prisma, Project } from '@prisma/client';
 import Chance from 'chance';
+import prisma from '../testSetup';
 
 const chance = new Chance();
 
-export const createProject = async (prismaInstance: PrismaClient, overrides?: Partial<Prisma.ProjectUncheckedCreateInput>): Promise<Project> => {
+export const createProject = async (overrides?: Partial<Prisma.ProjectUncheckedCreateInput>): Promise<Project> => {
   const defaultProject: Prisma.ProjectCreateInput = {
     name: chance.company(),
     organization: chance.company(),
   };
 
   const projectData = { ...defaultProject, ...overrides };
-  return await prismaInstance.project.create({ data: projectData });
+  return await prisma.project.create({ data: projectData });
 };
 
-export const createNotice = async (prismaInstance: PrismaClient, project_id: string, overrides?: Partial<Prisma.NoticeUncheckedCreateInput>): Promise<Notice> => {
+export const createNotice = async (project_id: string, overrides?: Partial<Prisma.NoticeUncheckedCreateInput>): Promise<Notice> => {
   const defaultNotice: Prisma.NoticeUncheckedCreateInput = {
     project_id: project_id,
     env: chance.word(),
@@ -21,20 +22,20 @@ export const createNotice = async (prismaInstance: PrismaClient, project_id: str
   };
 
   const noticeData = { ...defaultNotice, ...overrides };
-  return await prismaInstance.notice.create({ data: noticeData });
+  return await prisma.notice.create({ data: noticeData });
 };
 
-export const createOccurrence = async (prismaInstance: PrismaClient, notice_id: string, overrides?: Partial<Prisma.OccurrenceUncheckedCreateInput>): Promise<Occurrence> => {
+export const createOccurrence = async (notice_id: string, overrides?: Partial<Prisma.OccurrenceUncheckedCreateInput>): Promise<Occurrence> => {
   const defaultOccurrence: Prisma.OccurrenceUncheckedCreateInput = {
     notice_id: notice_id,
     message: chance.sentence({ words: 5 }),
   };
 
   const occurrenceData = { ...defaultOccurrence, ...overrides };
-  return await prismaInstance.occurrence.create({ data: occurrenceData });
+  return await prisma.occurrence.create({ data: occurrenceData });
 };
 
-export const createOccurrenceSummary = async (prismaInstance: PrismaClient, occurrence_id: string, overrides?: Partial<Prisma.HourlyOccurrenceUncheckedCreateInput>): Promise<HourlyOccurrence> => {
+export const createOccurrenceSummary = async (occurrence_id: string, overrides?: Partial<Prisma.HourlyOccurrenceUncheckedCreateInput>): Promise<HourlyOccurrence> => {
   const defaultOccurrenceSummary: Prisma.HourlyOccurrenceUncheckedCreateInput = {
     occurrence_id: occurrence_id,
     interval_start: chance.date({ year: parseInt(chance.year({ min: 2000, max: 2022 })) }),
@@ -42,5 +43,5 @@ export const createOccurrenceSummary = async (prismaInstance: PrismaClient, occu
   };
 
   const occurrenceSummaryData = { ...defaultOccurrenceSummary, ...overrides };
-  return await prismaInstance.hourlyOccurrence.create({ data: occurrenceSummaryData });
+  return await prisma.hourlyOccurrence.create({ data: occurrenceSummaryData });
 };

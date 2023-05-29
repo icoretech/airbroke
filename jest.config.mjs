@@ -8,6 +8,8 @@ const config = {
   // setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testEnvironment: 'jest-environment-jsdom',
   testMatch: ['<rootDir>/__tests__/api/**/*.test.ts', '<rootDir>/__tests__/lib/**/*.test.ts'],
+  setupFilesAfterEnv: ['<rootDir>/__tests__/testSetup.ts'],
+  maxWorkers: 1,
 };
 
 export default createJestConfig(config);
