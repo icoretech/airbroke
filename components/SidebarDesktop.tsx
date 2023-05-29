@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { BsBookmarksFill } from 'react-icons/bs';
 import { SlPlus } from 'react-icons/sl';
+import { TbClockPause } from 'react-icons/tb';
 import { Gravatar } from './Gravatar';
 import { ProviderIcon } from './ProviderIcon';
 
@@ -60,11 +61,15 @@ async function SidebarDesktop({ selectedProjectId }: SidebarDesktopProps) {
                     >
                       <div className="flex w-full justify-between">
                         <div className="flex items-center gap-x-3 font-semibold">
-                          <ProviderIcon
-                            provider={project.repo_provider}
-                            className="h-6 w-6 shrink-0"
-                            aria-hidden="true"
-                          />
+                          {project.paused ? (
+                            <TbClockPause className="h-6 w-6 shrink-0" aria-hidden="true" />
+                          ) : (
+                            <ProviderIcon
+                              provider={project.repo_provider}
+                              className="h-6 w-6 shrink-0"
+                              aria-hidden="true"
+                            />
+                          )}
                           <span className="truncate">{project.name}</span>
                         </div>
                         {project.notices_count > 0 && (
