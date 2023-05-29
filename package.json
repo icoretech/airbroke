@@ -29,7 +29,7 @@
     "next-auth": "^4.22.1",
     "numeral": "^2.0.6",
     "octokit": "^2.0.19",
-    "postcss": "8.4.23",
+    "postcss": "8.4.24",
     "prettier": "2.8.8",
     "prettier-plugin-tailwindcss": "0.3.0",
     "react": "18.2.0",
