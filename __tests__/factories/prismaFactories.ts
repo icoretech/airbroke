@@ -6,22 +6,11 @@ const chance = new Chance();
 export const createProject = async (prismaInstance: PrismaClient, overrides?: Partial<Prisma.ProjectUncheckedCreateInput>): Promise<Project> => {
   const defaultProject: Prisma.ProjectCreateInput = {
     name: chance.company(),
-    api_key: chance.guid(),
     organization: chance.company(),
   };
 
   const projectData = { ...defaultProject, ...overrides };
   return await prismaInstance.project.create({ data: projectData });
-};
-
-export const projectAttributes = (overrides?: Partial<Prisma.ProjectUncheckedCreateInput>): Prisma.ProjectUncheckedCreateInput => {
-  const defaultProject: Prisma.ProjectUncheckedCreateInput = {
-    name: chance.company(),
-    api_key: chance.guid(),
-    organization: chance.company(),
-  };
-
-  return { ...defaultProject, ...overrides };
 };
 
 export const createNotice = async (prismaInstance: PrismaClient, project_id: string, overrides?: Partial<Prisma.NoticeUncheckedCreateInput>): Promise<Notice> => {
