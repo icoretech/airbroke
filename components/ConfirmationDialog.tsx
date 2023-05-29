@@ -2,18 +2,17 @@
 
 import { deleteProject, deleteProjectNotices } from '@/app/_actions';
 import { Dialog, Transition } from '@headlessui/react';
-import { Project } from '@prisma/client';
 import { Fragment, useRef, useState, useTransition } from 'react';
 import { SlDisc, SlFire } from 'react-icons/sl';
 import { VscTrash } from 'react-icons/vsc';
 
 export default function ConfirmationDialog({
-  project,
+  projectId,
   title,
   body,
   btnId,
 }: {
-  project: Project;
+  projectId: string;
   title?: string;
   body?: string;
   btnId?: string;
@@ -22,14 +21,14 @@ export default function ConfirmationDialog({
   const [isPending, startTransition] = useTransition();
   const cancelButtonRef = useRef(null);
 
-  const handleDeleteProjectConfirm = async (projectId: string) => {
+  const handleDeleteProjectConfirm = async () => {
     startTransition(async () => {
       await deleteProject(projectId);
       setOpen(false);
     });
   };
 
-  const handleDeleteProjectNoticesConfirm = async (projectId: string) => {
+  const handleDeleteProjectNoticesConfirm = async () => {
     startTransition(async () => {
       await deleteProjectNotices(projectId);
       setOpen(false);
@@ -38,9 +37,9 @@ export default function ConfirmationDialog({
 
   const handleConfirmAction = () => {
     if (btnId === 'deleteProject') {
-      handleDeleteProjectConfirm(project.id);
+      handleDeleteProjectConfirm();
     } else if (btnId === 'deleteAllErrors') {
-      handleDeleteProjectNoticesConfirm(project.id);
+      handleDeleteProjectNoticesConfirm();
     }
   };
 

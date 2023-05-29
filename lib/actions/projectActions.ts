@@ -16,6 +16,24 @@ function validateProjectName(name: string): boolean {
   return nameRegex.test(name);
 }
 
+function invalidateProjectsCache(): void {
+  revalidatePath('/projects');
+}
+
+function invalidateProjectCache(projectId: string): void {
+  revalidatePath(`/projects/${projectId}`);
+}
+
+async function invalidateAllProjectCache(): Promise<void> {
+  const projects = await prisma.project.findMany({ select: { id: true } });
+  const projectIds = projects.map((project) => project.id);
+
+  await Promise.all([
+    ...projectIds.map((id) => invalidateProjectCache(id)),
+    invalidateProjectsCache(),
+  ]);
+}
+
 export async function createProject(data: FormData): Promise<CreateProjectResponse> {
   const repository_url = data.get('repository_url') as string;
 
@@ -61,19 +79,25 @@ export async function createProject(data: FormData): Promise<CreateProjectRespon
 
 export async function deleteProjectNotices(projectId: string): Promise<void> {
   await prisma.notice.deleteMany({ where: { project_id: projectId } });
-  const projectIds = await prisma.project.findMany({
-    select: { id: true },
-  }).then((projects) => projects.map((project) => project.id));
-
-  // Run revalidatePath on each project ID in parallel
-  await Promise.all(
-    projectIds.map((id) => revalidatePath(`/projects/${id}`))
-  );
-  revalidatePath('/projects');
+  await invalidateAllProjectCache();
 }
 
 export async function deleteProject(projectId: string): Promise<void> {
   await prisma.project.delete({ where: { id: projectId } });
-  revalidatePath('/projects');
+  invalidateProjectsCache();
   redirect('/projects');
+}
+
+export async function toggleProjectPausedStatus(projectId: string): Promise<void> {
+  const project = await prisma.project.findUnique({ where: { id: projectId } });
+  if (!project) {
+    throw new Error('Project not found.');
+  }
+
+  await prisma.project.update({
+    where: { id: projectId },
+    data: { paused: !project.paused },
+  });
+
+  invalidateAllProjectCache();
 }
