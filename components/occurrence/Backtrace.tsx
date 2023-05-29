@@ -1,7 +1,7 @@
 import classNames from '@/lib/classNames';
-import { Occurrence, Prisma, Project } from '@prisma/client';
+import { getOccurrenceById } from '@/lib/queries/occurrences';
+import { Prisma } from '@prisma/client';
 import LinkedBacktraceLine from './BacktraceLine';
-// import BookmarkButton from './BookmarkButton';
 import ClipboardButton from './ClipboardButton';
 
 interface BacktraceItem {
@@ -10,17 +10,25 @@ interface BacktraceItem {
   function: string;
 }
 
+interface BacktraceProps {
+  occurrenceId: string;
+}
+
 function isBacktraceItem(item: any): item is BacktraceItem {
   return item && typeof item.file === 'string' && typeof item.line === 'number' && typeof item.function === 'string';
 }
 
-export default function Backtrace({ occurrence, project }: { occurrence: Occurrence; project: Project }) {
+async function Backtrace({ occurrenceId }: BacktraceProps) {
+  const occurrence = await getOccurrenceById(occurrenceId);
+  if (!occurrence) {
+    throw new Error('Occurrence not found');
+  }
+
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between">
         <div className="mb-4 flex items-center gap-x-4">
           <ClipboardButton json={occurrence.backtrace} />
-          {/* <BookmarkButton projectId={project.id} noticeId={occurrence.notice_id} occurrenceId={occurrence.id} /> */}
         </div>
       </div>
       {occurrence.backtrace && typeof occurrence.backtrace === 'object' && Array.isArray(occurrence.backtrace) && (
@@ -36,7 +44,7 @@ export default function Backtrace({ occurrence, project }: { occurrence: Occurre
                         'text-xs text-gray-400'
                       )}
                     >
-                      <LinkedBacktraceLine file={trace.file} line={trace.line} project={project} />
+                      <LinkedBacktraceLine file={trace.file} line={trace.line} project={occurrence.notice.project} />
                     </p>
                     <p className="mx-1 text-gray-400">:</p>
                     <p className="text-xs font-semibold text-indigo-200">{trace.line}</p>
@@ -51,3 +59,5 @@ export default function Backtrace({ occurrence, project }: { occurrence: Occurre
     </div>
   );
 }
+
+export default Backtrace as unknown as (props: BacktraceProps) => JSX.Element;

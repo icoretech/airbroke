@@ -17,7 +17,7 @@ const nextConfig = {
       // '@pothos/core',
       // '@pothos/plugin-prisma',
     ],
-    typedRoutes: true,
+    // typedRoutes: true,
   },
   async rewrites() {
     return [

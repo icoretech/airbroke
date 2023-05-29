@@ -1,20 +1,17 @@
-import { prisma } from '@/lib/db';
+import type { OccurrenceSearchParams } from '@/lib/queries/occurrences';
+import { getOccurrences } from '@/lib/queries/occurrences';
 import Link from 'next/link';
 import OccurrenceCounterLabel from './CounterLabel';
 import CustomTimeAgo from './CustomTimeAgo';
 import EnvironmentLabel from './EnvironmentLabel';
 
-export default async function OccurrencesTable({ occurrencesIds }: { occurrencesIds: string[] }) {
-  const occurrences = await prisma.occurrence.findMany({
-    where: {
-      id: {
-        in: occurrencesIds,
-      },
-    },
-    include: {
-      notice: true,
-    },
-  });
+type OccurrencesTableProps = {
+  noticeId: string;
+  searchParams: OccurrenceSearchParams;
+} & OccurrenceSearchParams;
+
+async function OccurrencesTable({ noticeId, searchParams }: OccurrencesTableProps) {
+  const occurrences = await getOccurrences(noticeId, searchParams);
 
   return (
     <ul role="list" className="divide-y divide-white/5">
@@ -56,3 +53,5 @@ export default async function OccurrencesTable({ occurrencesIds }: { occurrences
     </ul>
   );
 }
+
+export default OccurrencesTable as unknown as (props: OccurrencesTableProps) => JSX.Element;

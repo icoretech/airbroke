@@ -1,5 +1,6 @@
 'use client';
 
+import { deleteProject, deleteProjectNotices } from '@/app/_actions';
 import { Dialog, Transition } from '@headlessui/react';
 import { Project } from '@prisma/client';
 import { Fragment, useRef, useState, useTransition } from 'react';
@@ -10,38 +11,54 @@ export default function ConfirmationDialog({
   project,
   title,
   body,
-  btnTitle,
-  projectConfirmationAction, // server action imported from _actions and passed down as prop
+  btnId,
 }: {
   project: Project;
   title?: string;
   body?: string;
-  btnTitle?: string;
-  projectConfirmationAction: (projectId: string) => Promise<void>;
+  btnId?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const cancelButtonRef = useRef(null);
 
-  async function handleDeleteProjectConfirm(project_id: string) {
+  const handleDeleteProjectConfirm = async (projectId: string) => {
     startTransition(async () => {
-      await projectConfirmationAction(project_id);
+      await deleteProject(projectId);
       setOpen(false);
     });
-  }
+  };
+
+  const handleDeleteProjectNoticesConfirm = async (projectId: string) => {
+    startTransition(async () => {
+      await deleteProjectNotices(projectId);
+      setOpen(false);
+    });
+  };
+
+  const handleConfirmAction = () => {
+    if (btnId === 'deleteProject') {
+      handleDeleteProjectConfirm(project.id);
+    } else if (btnId === 'deleteAllErrors') {
+      handleDeleteProjectNoticesConfirm(project.id);
+    }
+  };
 
   return (
     <>
-      <button
-        onClick={() => setOpen(true)}
-        className={`inline-flex items-center rounded-md bg-red-400/10 px-3 py-2 text-sm font-semibold text-red-400 shadow-sm ring-1 ring-red-400/30 transition-colors duration-200 hover:bg-red-500 hover:text-red-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500`}
-      >
-        <VscTrash className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
-        {btnTitle || 'Delete All Errs'}
+      <button type="button" onClick={() => setOpen(true)} className="text-rose-500 hover:text-rose-700">
+        {btnId === 'deleteProject' ? 'Delete Project' : 'Delete All Errors'}
       </button>
 
       <Transition.Root show={open} as={Fragment}>
-        <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={setOpen}>
+        <Dialog
+          as="div"
+          static
+          className="fixed inset-0 overflow-y-auto"
+          initialFocus={cancelButtonRef}
+          open={open}
+          onClose={setOpen}
+        >
           <div className="fixed inset-0 z-10 overflow-y-auto">
             <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
               <Transition.Child
@@ -56,36 +73,39 @@ export default function ConfirmationDialog({
                 <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-gray-900 px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                   <div className="sm:flex sm:items-start">
                     <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-rose-600 sm:mx-0 sm:h-10 sm:w-10">
-                      <SlFire className="h-6 w-6 text-red-200" aria-hidden="true" />
+                      <SlFire className="h-6 w-6 text-rose-200" aria-hidden="true" />
                     </div>
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                       <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-white">
-                        {title || 'Are you sure?'}
+                        {title}
                       </Dialog.Title>
                       <div className="mt-2">
-                        <p className="text-sm text-gray-300">
-                          {body || 'All data will be erased, are you sure you want to continue?'}
-                        </p>
+                        <p className="text-sm text-gray-300">{body}</p>
                       </div>
                     </div>
                   </div>
                   <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                     <button
                       type="button"
+                      className="inline-flex w-full justify-center rounded-md border border-transparent bg-rose-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
+                      onClick={handleConfirmAction}
                       disabled={isPending}
-                      className="inline-flex w-full justify-center rounded-md bg-rose-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-rose-500 sm:ml-3 sm:w-auto"
-                      onClick={() => handleDeleteProjectConfirm(project.id)}
                     >
-                      {isPending ? (
-                        <SlDisc className="-ml-0.5 mr-1.5 h-5 w-5 animate-spin" aria-hidden="true" />
+                      {btnId === 'deleteProject' ? (
+                        <>
+                          <VscTrash className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+                          Delete Project
+                        </>
                       ) : (
-                        <VscTrash className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
+                        <>
+                          <SlDisc className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+                          Delete All Errors
+                        </>
                       )}
-                      <span>{isPending ? 'Deleting...' : 'Proceed'}</span>
                     </button>
                     <button
                       type="button"
-                      className="mt-3 inline-flex w-full justify-center rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-700 hover:bg-gray-700 sm:mt-0 sm:w-auto"
+                      className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm"
                       onClick={() => setOpen(false)}
                       ref={cancelButtonRef}
                     >

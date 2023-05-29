@@ -1,37 +1,28 @@
 import { LogoutButton } from '@/components/SessionButtons';
 import { authOptions } from '@/lib/auth';
-import { prisma } from '@/lib/db';
+import { getProjectsGroupedByOrganization } from '@/lib/queries/projects';
 import logo from '@/public/logo.svg';
-import { Project } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SlPin, SlPlus } from 'react-icons/sl';
+import { BsBookmarksFill } from 'react-icons/bs';
+import { SlPlus } from 'react-icons/sl';
 import { Gravatar } from './Gravatar';
 import { ProviderIcon } from './ProviderIcon';
 
-function groupBy<T>(array: T[], key: keyof T) {
-  return array.reduce((result: { [key: string]: T[] }, item) => {
-    (result[item[key] as unknown as string] = result[item[key] as unknown as string] || []).push(item);
-    return result;
-  }, {});
-}
+type SidebarDesktopProps = {
+  selectedProjectId?: string;
+};
 
-export default async function SidebarDesktop({ selectedProject }: { selectedProject?: Project }) {
+async function SidebarDesktop({ selectedProjectId }: SidebarDesktopProps) {
   const session = await getServerSession(authOptions);
-
-  const projects = await prisma.project.findMany({
-    orderBy: {
-      name: 'asc',
-    },
-  });
-  const groupedProjects = groupBy(projects, 'organization');
+  const groupedProjects = await getProjectsGroupedByOrganization();
 
   return (
     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-airbroke-800 px-6 ring-1 ring-white/5 scrollbar-none">
       <div className="flex h-16 shrink-0 items-center">
         <Link href="/projects">
-          <Image src={logo} alt="Logo" className="h-8 w-auto" />
+          <Image src={logo} alt="Logo" className="h-8 w-auto transform transition-transform hover:scale-105" />
         </Link>
       </div>
       <nav className="flex flex-1 flex-col">
@@ -41,12 +32,12 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
               <li>
                 <Link
                   href="/bookmarks"
-                  className="group flex gap-x-3 rounded-md p-2 text-sm leading-6 text-gray-400 transition-colors duration-100 hover:bg-gray-800 hover:text-white"
+                  className="group flex transform gap-x-3 rounded-md p-2 text-sm leading-6 text-gray-400 transition-transform duration-100 hover:scale-105 hover:bg-gray-800 hover:text-white"
                 >
                   <div className="flex w-full justify-between">
-                    <div className="flex items-center gap-x-3 font-semibold ">
-                      <SlPin className="h-6 w-6 shrink-0" aria-hidden="true" />
-                      <span className="truncate">Bookmarks</span>
+                    <div className="flex items-center gap-x-3 font-semibold">
+                      <BsBookmarksFill className="h-6 w-6 shrink-0" aria-hidden="true" />
+                      <span>Bookmarks</span>
                     </div>
                   </div>
                 </Link>
@@ -61,14 +52,14 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
                   <li key={project.id}>
                     <Link
                       href={`/projects/${project.id}`}
-                      className={`group flex gap-x-3 rounded-md p-2 text-sm leading-6 ${
-                        project.id === selectedProject?.id
+                      className={`group flex transform gap-x-3 rounded-md p-2 text-sm leading-6 transition-transform hover:scale-105 ${
+                        project.id === selectedProjectId
                           ? 'bg-gray-800 text-white'
                           : 'text-gray-400 transition-colors duration-100 hover:bg-gray-800 hover:text-white'
                       }`}
                     >
                       <div className="flex w-full justify-between">
-                        <div className="flex items-center gap-x-3 font-semibold ">
+                        <div className="flex items-center gap-x-3 font-semibold">
                           <ProviderIcon
                             provider={project.repo_provider}
                             className="h-6 w-6 shrink-0"
@@ -96,7 +87,7 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
               href="/projects/new"
               className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-indigo-200 shadow-sm transition-colors duration-200 hover:bg-indigo-500 hover:text-white"
             >
-              <SlPlus className="h-6 w-6 shrink-0" aria-hidden="true" />
+              <SlPlus className="h-6 w-6 shrink-0 transform transition-transform hover:scale-105" aria-hidden="true" />
               Create Project
             </Link>
           </li>
@@ -110,3 +101,5 @@ export default async function SidebarDesktop({ selectedProject }: { selectedProj
     </div>
   );
 }
+
+export default SidebarDesktop as unknown as (props: SidebarDesktopProps) => JSX.Element;

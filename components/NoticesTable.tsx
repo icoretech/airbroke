@@ -1,10 +1,18 @@
-import { Notice, Project } from '@prisma/client';
+import type { NoticeSearchParams } from '@/lib/queries/notices';
+import { getNotices } from '@/lib/queries/notices';
 import Link from 'next/link';
 import OccurrenceCounterLabel from './CounterLabel';
 import CustomTimeAgo from './CustomTimeAgo';
 import EnvironmentLabel from './EnvironmentLabel';
 
-export default function NoticesTable({ project, notices }: { project: Project; notices: Notice[] }) {
+type NoticesTableProps = {
+  projectId: string;
+  searchParams: NoticeSearchParams;
+};
+
+async function NoticesTable({ projectId, searchParams }: NoticesTableProps) {
+  const notices = await getNotices(projectId, searchParams);
+
   return (
     <ul role="list" className="divide-y divide-white/5">
       {notices.map((notice) => (
@@ -33,3 +41,5 @@ export default function NoticesTable({ project, notices }: { project: Project; n
     </ul>
   );
 }
+
+export default NoticesTable as unknown as (props: NoticesTableProps) => JSX.Element;
