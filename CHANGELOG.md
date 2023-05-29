@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.1.23](https://github.com/icoretech/airbroke/compare/v1.1.22...v1.1.23) (2023-05-29)
+
+
+### Features
+
+* add DangerZone component to Overview page to handle project deletion and notice deletion ([366ba8f](https://github.com/icoretech/airbroke/commit/366ba8fa8c00523e790c326bb27afa04308c35c5))
+* add support for pausing and resuming projects, refs https://github.com/icoretech/airbroke/issues/52 ([366ba8f](https://github.com/icoretech/airbroke/commit/366ba8fa8c00523e790c326bb27afa04308c35c5))
+* **notices:** experimental revalidation of project path after creating a new notice ([44901da](https://github.com/icoretech/airbroke/commit/44901da5ba8ec6a6d87d168446cdcbb71b6ba770))
+* **page.tsx:** add first seen and last seen timestamps to occurrence page to provide more information to users ([e38a74d](https://github.com/icoretech/airbroke/commit/e38a74d0ead5035171b9e418308b64c37e128f33))
+* **route.ts:** add check for paused project, refs https://github.com/icoretech/airbroke/issues/52 ([b819e04](https://github.com/icoretech/airbroke/commit/b819e04f5b954b1607a544090519758bbbf05092))
+* **SidebarDesktop.tsx:** add TbClockPause icon to show when a project is paused in the sidebar, refs https://github.com/icoretech/airbroke/issues/52 ([eb6755d](https://github.com/icoretech/airbroke/commit/eb6755d65b2f43e7363608b5b5c8dcca6e71ecc9))
+
+
+### Bug Fixes
+
+* add invalidateProjectsCache, invalidateProjectCache and invalidateAllProjectCache functions to invalidate cache when a project is deleted or paused ([366ba8f](https://github.com/icoretech/airbroke/commit/366ba8fa8c00523e790c326bb27afa04308c35c5))
+* add paused column to projects table in migration file ([366ba8f](https://github.com/icoretech/airbroke/commit/366ba8fa8c00523e790c326bb27afa04308c35c5))
+* add paused field to Project model in Prisma schema ([366ba8f](https://github.com/icoretech/airbroke/commit/366ba8fa8c00523e790c326bb27afa04308c35c5))
+* change handleDeleteProjectConfirm and handleDeleteProjectNoticesConfirm to not receive projectId as parameter ([366ba8f](https://github.com/icoretech/airbroke/commit/366ba8fa8c00523e790c326bb27afa04308c35c5))
+* change project prop to projectId in ConfirmationDialog component ([366ba8f](https://github.com/icoretech/airbroke/commit/366ba8fa8c00523e790c326bb27afa04308c35c5))
+* toggleProjectPausedStatus function to toggle paused status of a project ([366ba8f](https://github.com/icoretech/airbroke/commit/366ba8fa8c00523e790c326bb27afa04308c35c5))
+
 ## [1.1.22](https://github.com/icoretech/airbroke/compare/v1.1.21...v1.1.22) (2023-05-28)
 
 
