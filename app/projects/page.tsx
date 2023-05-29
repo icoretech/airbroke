@@ -6,7 +6,7 @@ import SidebarMobile from '@/components/SidebarMobile';
 import { prisma } from '@/lib/db';
 import { redirect } from 'next/navigation';
 
-export const revalidate = 0;
+export const revalidate = 30;
 
 // /projects
 export default async function Projects({ searchParams }: { searchParams: Record<string, string> }) {
