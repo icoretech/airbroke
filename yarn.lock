@@ -2105,7 +2105,7 @@ __metadata:
     next-auth: ^4.22.1
     numeral: ^2.0.6
     octokit: ^2.0.19
-    postcss: 8.4.23
+    postcss: 8.4.24
     prettier: 2.8.8
     prettier-plugin-tailwindcss: 0.3.0
     prisma: 4.14.1
@@ -6989,7 +6989,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.23, postcss@npm:^8.4.23":
+"postcss@npm:8.4.24":
+  version: 8.4.24
+  resolution: "postcss@npm:8.4.24"
+  dependencies:
+    nanoid: ^3.3.6
+    picocolors: ^1.0.0
+    source-map-js: ^1.0.2
+  checksum: 814e2126dacfea313588eda09cc99a9b4c26ec55c059188aa7a916d20d26d483483106dc5ff9e560731b59f45c5bb91b945dfadc670aed875cc90ddbbf4e787d
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.4.23":
   version: 8.4.23
   resolution: "postcss@npm:8.4.23"
   dependencies:
