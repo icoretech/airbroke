@@ -71,7 +71,7 @@ describe('composeFileUrl', () => {
     const filePath = 'path/to/file';
     const lineNumber = 5;
 
-    const expectedUrl = '#';
+    const expectedUrl = '';
     const url = composeFileUrl(project, filePath, lineNumber);
 
     expect(url).toBe(expectedUrl);
