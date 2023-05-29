@@ -100,37 +100,24 @@ export default async function Occurrence({ params, searchParams }: ComponentProp
           </div>
 
           <div className="px-4 py-4 sm:px-6 lg:px-8">
-            <div className="rounded-md bg-gray-900 p-4 shadow-md">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <div className="flex flex-col items-center">
-                    <FaCarCrash className="h-5 w-5 text-indigo-400" aria-hidden="true" />
-                    <div className="mt-4">
-                      <OccurrenceCounterLabel counter={occurrence.seen_count} />
-                    </div>
-                  </div>
+            <div className="flex flex-col items-start justify-between space-y-4 rounded-md bg-gray-900 p-4 shadow-md sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0">
+              <div className="flex items-center space-x-4">
+                <FaCarCrash className="h-6 w-6 text-indigo-400" aria-hidden="true" />
+                <div>
+                  <h3 className="text-sm font-semibold text-indigo-400">
+                    <Link href={`/notices/${occurrence.notice_id}`}>{occurrence.notice.kind}</Link>
+                  </h3>
+                  <p className="text-xs text-indigo-200">{occurrence.message}</p>
                 </div>
-                <div className="ml-3">
-                  <div className="flex items-center space-x-3">
-                    <BookmarkButton isBookmarked={isBookmarked} occurrenceId={occurrence.id} />
-
-                    <h3 className="text-sm font-semibold text-indigo-400">
-                      <Link href={`/notices/${occurrence.notice_id}`}>{occurrence.notice.kind}</Link>
-                    </h3>
-                    <EnvironmentLabel env={occurrence.notice.env} />
-                  </div>
-
-                  <div className="mt-2 space-y-1 text-sm text-indigo-200">
-                    <p>{occurrence.message}</p>
-                    <div className="flex items-center space-x-2 text-xs text-gray-300">
-                      <span>First seen: {occurrence.created_at.toUTCString()}</span>
-                      <svg viewBox="0 0 2 2" className="h-0.5 w-0.5 fill-gray-300">
-                        <circle cx={1} cy={1} r={1} />
-                      </svg>
-                      <span>Last seen: {occurrence.updated_at.toUTCString()}</span>
-                    </div>
-                  </div>
+              </div>
+              <div className="flex flex-col items-start space-y-2 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0">
+                <OccurrenceCounterLabel counter={occurrence.seen_count} />
+                <div className="text-xs text-gray-300">
+                  <p>First seen: {occurrence.created_at.toUTCString()}</p>
+                  <p>Last seen: {occurrence.updated_at.toUTCString()}</p>
                 </div>
+                <BookmarkButton isBookmarked={isBookmarked} occurrenceId={occurrence.id} />
+                <EnvironmentLabel env={occurrence.notice.env} className="self-start sm:self-auto" />
               </div>
             </div>
           </div>
