@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.24](https://github.com/icoretech/airbroke/compare/v1.1.23...v1.1.24) (2023-05-29)
+
+
+### Features
+
+* **gitProvider.ts:** add support for more Git repository providers and refactor composeFileUrl function to use the new fields in the Project model ([62147cf](https://github.com/icoretech/airbroke/commit/62147cfdd0bdf091f1fe8bf021bc6db32dbcc6be))
+
+
+### Bug Fixes
+
+* **BacktraceLine.tsx:** handle case where fileUrl is null or undefined by rendering a span instead of a link ([18da703](https://github.com/icoretech/airbroke/commit/18da70345feabd38c05ae026e4cda75f35140c8a))
+* **gitProvider.ts:** return empty string instead of '#' when url is not defined in default case of switch statement ([18da703](https://github.com/icoretech/airbroke/commit/18da70345feabd38c05ae026e4cda75f35140c8a))
+
 ## [1.1.23](https://github.com/icoretech/airbroke/compare/v1.1.22...v1.1.23) (2023-05-29)
 
 
