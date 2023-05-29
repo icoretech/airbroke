@@ -8,6 +8,9 @@ export function composeFileUrl(
   const repoUrl = project.repo_url?.toLowerCase() || '';
   const repoBranch = project.repo_branch?.toLowerCase() || '';
   const filePathLower = filePath.toLowerCase();
+  if (!repoUrl || !repoBranch || !filePathLower) {
+    return '';
+  }
 
   let url: string;
 
@@ -55,7 +58,7 @@ export function composeFileUrl(
       }
       break;
     default:
-      url = '#';
+      url = '';
       break;
   }
 

@@ -6,10 +6,12 @@ export default function LinkedBacktraceLine({ file, line, project }: { file: str
     const filePath = file.replace('/PROJECT_ROOT/', '');
     const fileUrl = composeFileUrl(project, filePath, line);
 
-    return (
+    return fileUrl ? (
       <a href={fileUrl} target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-200">
         {file}
       </a>
+    ) : (
+      <span className="text-indigo-400">{file}</span>
     );
   } else {
     return <>{file}</>;
