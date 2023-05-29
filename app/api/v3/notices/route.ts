@@ -2,6 +2,7 @@ import { prisma } from '@/lib/db';
 import parseNotice, { NoticeData } from '@/lib/parseNotice';
 import { processError } from '@/lib/processError';
 import { customAlphabet, urlAlphabet } from 'nanoid';
+import { revalidatePath } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
 interface ProjectKeyInfo {
@@ -86,6 +87,9 @@ async function POST(request: NextRequest) {
   const customNanoid = customAlphabet(urlAlphabet, 21);
   // assuming airbroke frontend is deployed alongside collector
   const responseJSON = { id: customNanoid(), url: `${getServerHostname(request)}/projects/${project.id}/notices` };
+
+  revalidatePath(`/projects/${project.id}`);
+
   return NextResponse.json(responseJSON, { status: 201 });
 }
 
