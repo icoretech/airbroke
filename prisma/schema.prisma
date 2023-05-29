@@ -22,6 +22,7 @@ model Project {
   repo_issue_tracker       String?
   repo_url                 String?
   notices_count            BigInt   @default(0)
+  paused                   Boolean  @default(false)
   created_at               DateTime @default(now()) @db.Timestamp(6)
   updated_at               DateTime @updatedAt @db.Timestamp(6)
   notices                  Notice[]

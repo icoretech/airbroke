@@ -2,8 +2,8 @@ import NoData from '@/components/NoData';
 import { getNoticeIdsByProjectId } from '@/lib/queries/notices';
 import { getHourlyOccurrenceRateForLast14Days, getOccurrenceIdsByNoticeIds } from '@/lib/queries/occurrences';
 import { getProjectById } from '@/lib/queries/projects';
-import ConfirmationDialog from '../ConfirmationDialog';
 import OccurrencesChartWrapper from './OccurrencesChartWrapper';
+import DangerZone from './cards/DangerZone';
 
 type OverviewProps = {
   projectId: string;
@@ -82,7 +82,7 @@ async function Overview({ projectId }: OverviewProps) {
             ))}
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-1">
+        <div className="grid grid-cols-1 gap-6">
           <div className="rounded-lg bg-gray-900 p-6">
             <h3 className="text-base font-semibold leading-6 text-white">Test Zone</h3>
             <p className="mt-1 text-sm leading-6 text-gray-400">Send test exceptions</p>
@@ -93,24 +93,7 @@ async function Overview({ projectId }: OverviewProps) {
           </div>
 
           <div className="rounded-lg bg-gray-900 p-6">
-            <h3 className="text-base font-semibold leading-6 text-rose-500">Danger Zone</h3>
-            <div className="mt-6 space-y-4">
-              <div className="grid grid-cols-1 justify-items-center gap-4">
-                <ConfirmationDialog
-                  project={project}
-                  title="Delete All Errors"
-                  body={`Are you sure you want to delete all exceptions for the project "${project.name}"? This action cannot be undone.`}
-                  btnId="deleteAllErrors"
-                />
-
-                <ConfirmationDialog
-                  project={project}
-                  title="Delete Project"
-                  body={`Are you sure you want to delete the project "${project.name}"? This action cannot be undone.`}
-                  btnId="deleteProject"
-                />
-              </div>
-            </div>
+            <DangerZone projectId={project.id} />
           </div>
         </div>
       </div>
