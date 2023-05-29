@@ -1,31 +1,12 @@
-import { prisma } from '@/lib/db';
 import { NoticeError } from '@/lib/parseNotice';
 import { processError } from '@/lib/processError';
-import { afterAll, beforeAll, beforeEach, describe, expect, test } from '@jest/globals';
-import { execSync } from 'child_process';
+import { describe, expect, test } from '@jest/globals';
 import { createProject } from '../factories/prismaFactories';
-
-beforeAll(async () => {
-  execSync('npx prisma migrate reset --force --skip-seed');
-  await prisma.$disconnect();
-  await prisma.$connect();
-});
-
-beforeEach(async () => {
-  await prisma.$executeRawUnsafe('TRUNCATE TABLE "projects" CASCADE;');
-  await prisma.$executeRawUnsafe('TRUNCATE TABLE "notices" CASCADE;');
-  await prisma.$executeRawUnsafe('TRUNCATE TABLE "occurrences" CASCADE;');
-});
-
-afterAll(async () => {
-  await prisma.$disconnect();
-});
 
 describe('processError', () => {
   test('updates', async () => {
 
-    const project = await createProject(prisma);
-
+    const project = await createProject();
     const errorData: NoticeError = {
       type: 'Error',
       message: 'Error: deadlock detected',
@@ -57,7 +38,7 @@ describe('processError', () => {
 
   test('handles deadlocks', async () => {
 
-    const project = await createProject(prisma);
+    const project = await createProject();
 
     const errorData: NoticeError = {
       type: 'Error',
