@@ -6,8 +6,7 @@ import SidebarMobile from '@/components/SidebarMobile';
 import ProjectActionsMenu from '@/components/project/ActionsMenu';
 import { getNoticeEnvs } from '@/lib/queries/notices';
 import { getProjectById } from '@/lib/queries/projects';
-import type { Route } from 'next';
-import { Metadata } from 'next';
+import type { Metadata, Route } from 'next';
 import Filter from './Filter';
 import Sort from './Sort';
 

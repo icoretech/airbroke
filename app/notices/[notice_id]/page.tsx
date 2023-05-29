@@ -5,8 +5,7 @@ import SidebarDesktop from '@/components/SidebarDesktop';
 import SidebarMobile from '@/components/SidebarMobile';
 import ProjectActionsMenu from '@/components/project/ActionsMenu';
 import { getNoticeById } from '@/lib/queries/notices';
-import type { Route } from 'next';
-import { Metadata } from 'next';
+import type { Metadata, Route } from 'next';
 
 type ComponentProps = {
   params: { notice_id: string };
