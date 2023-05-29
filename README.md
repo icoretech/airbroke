@@ -3,15 +3,23 @@
   <h1 align="center">Open Source Error Catcher</h1>
 </p>
 
+<p align="center">
+  <a aria-label="Build Status" href="https://github.com/icoretech/airbroke/actions/workflows/build.yml">
+    <img alt="" src="https://img.shields.io/github/actions/workflow/status/icoretech/airbroke/build.yml?style=for-the-badge">
+  </a>
+  <a href="https://github.com/icoretech/airbroke/blob/main/LICENSE">
+    <img alt="License" src="https://img.shields.io/github/license/icoretech/airbroke?style=for-the-badge" />
+  </a>
+  <a href="https://github.com/icoretech/airbroke/blob/main/package.json">
+    <img alt="Version" src="https://img.shields.io/github/package-json/v/icoretech/airbroke?style=for-the-badge" />
+  </a>
+</p>
+
 <div align="center">
   <img src="public/aidemo.gif" alt="Demo" width="600" />
 </div>
 
-<p align="center">
-  <a aria-label="Build Status" href="https://github.com/icoretech/airbroke/actions/workflows/build.yml">
-    <img alt="" src="https://github.com/icoretech/airbroke/actions/workflows/build.yml/badge.svg">
-  </a>
-</p>
+
 
 ## Features
 
