@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/db';
 import { parseGitURL } from '@/lib/parseGitUrl';
+import Chance from 'chance';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -34,7 +35,23 @@ async function invalidateAllProjectCache(): Promise<void> {
   ]);
 }
 
-export async function createProject(data: FormData): Promise<CreateProjectResponse> {
+export async function createProject(data?: FormData): Promise<CreateProjectResponse> {
+  if (!data) {
+    // Handle the case when no data is provided
+    const chance = new Chance();
+
+    try {
+      const project = await prisma.project.create({ data: { name: chance.company() } });
+      return { project_id: project.id, error: null };
+    } catch (e) {
+      if (e instanceof Error) {
+        return { project_id: null, error: e.message };
+      } else {
+        return { project_id: null, error: "An unknown error occurred" };
+      }
+    }
+  }
+
   const repository_url = data.get('repository_url') as string;
 
   const parsed = parseGitURL(repository_url);
@@ -76,6 +93,7 @@ export async function createProject(data: FormData): Promise<CreateProjectRespon
     }
   }
 }
+
 
 export async function deleteProjectNotices(projectId: string): Promise<void> {
   await prisma.notice.deleteMany({ where: { project_id: projectId } });
