@@ -43,6 +43,7 @@ export async function GET(request: NextRequest) {
 
   const api = new ChatGPTAPI({
     apiKey: process.env.AIRBROKE_OPENAI_API_KEY,
+    apiOrg: process.env.AIRBROKE_OPENAI_ORGANIZATION,
     debug: false,
   });
   const errorType = notice.kind;
