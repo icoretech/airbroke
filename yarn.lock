@@ -2093,7 +2093,7 @@ __metadata:
     autoprefixer: 10.4.14
     chance: ^1.1.11
     chart.js: ^4.3.0
-    chatgpt: "file:vendor/chatgpt-5.2.4.tgz"
+    chatgpt: ^5.2.5
     eslint: 8.41.0
     eslint-config-next: 13.4.5-canary.2
     eslint-config-prettier: 8.8.0
@@ -2776,9 +2776,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chatgpt@file:vendor/chatgpt-5.2.4.tgz::locator=airbroke%40workspace%3A.":
-  version: 5.2.4
-  resolution: "chatgpt@file:vendor/chatgpt-5.2.4.tgz::locator=airbroke%40workspace%3A."
+"chatgpt@npm:^5.2.5":
+  version: 5.2.5
+  resolution: "chatgpt@npm:5.2.5"
   dependencies:
     cac: ^6.7.14
     conf: ^11.0.1
@@ -2790,8 +2790,8 @@ __metadata:
     read-pkg-up: ^9.1.0
     uuid: ^9.0.0
   bin:
-    chatgpt: ./bin/cli.js
-  checksum: 779a95d1ead7e6e5a942f653fe0d21acf39d9d882a4cad0fc01288c5e3bfac8a66c27d3c9095646e36906d8b23fadd2cebbcbc21dfbe5977fc4348369f5f9ae3
+    chatgpt: bin/cli.js
+  checksum: cd62ad91b97700938c1fa7f431a84e6987fc7af9d8b5511c1e3a8feab4534ef810fc62e13414baeb27cf9bae96b91832d0d7d259c079a6e4552bb08f75f0792a
   languageName: node
   linkType: hard
 
