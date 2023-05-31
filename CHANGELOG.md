@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.26](https://github.com/icoretech/airbroke/compare/v1.1.25...v1.1.26) (2023-05-31)
+
+
+### Features
+
+* **Form.tsx:** add button to create a project without a repository and handle form submission when no repository is provided ([00073de](https://github.com/icoretech/airbroke/commit/00073de29b10966d35d900a6c309cbd23de91483))
+* **projectActions.ts:** add functionality to create a project without a repository when no data is provided ([00073de](https://github.com/icoretech/airbroke/commit/00073de29b10966d35d900a6c309cbd23de91483))
+
 ## [1.1.25](https://github.com/icoretech/airbroke/compare/v1.1.24...v1.1.25) (2023-05-31)
 
 
