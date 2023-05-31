@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.25](https://github.com/icoretech/airbroke/compare/v1.1.24...v1.1.25) (2023-05-31)
+
+
+### Features
+
+* **ai/route.ts:** add support for AIRBROKE_OPENAI_ORGANIZATION environment variable to be able to use OpenAI API with organization key ([7543903](https://github.com/icoretech/airbroke/commit/7543903f90f658acb336c6f3eaa2945aab1aac62))
+
 ## [1.1.24](https://github.com/icoretech/airbroke/compare/v1.1.23...v1.1.24) (2023-05-29)
 
 
