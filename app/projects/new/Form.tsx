@@ -28,6 +28,18 @@ export default function Form() {
       startTransition(() => router.push(`/projects/${project_id}`));
     }
   }
+
+  async function handleSubmitNoRepo() {
+    // Handle form submission when the user doesn't have a repo yet
+    const { project_id, error } = await createProject();
+    if (error) {
+      setError(error);
+    } else {
+      setError(null);
+      startTransition(() => router.push(`/projects/${project_id}`));
+    }
+  }
+
   return (
     <form action={handleSubmit}>
       <div className="space-y-12">
@@ -63,13 +75,26 @@ export default function Form() {
               </div>
             </div>
           </div>
+
+          <div className="mt-4 flex items-center space-x-2">
+            <span className="text-xs text-gray-400">or</span>
+            <button
+              id="no_repo"
+              name="no_repo"
+              formAction={handleSubmitNoRepo}
+              className="rounded border-gray-300 text-xs text-indigo-200 hover:text-indigo-400 focus:ring-indigo-200"
+            >
+              Create a project without a repository
+            </button>
+          </div>
         </div>
       </div>
 
-      <div className="mt-6 flex items-center justify-end gap-x-6">
+      <div className="mt-6 flex items-center justify-end space-x-6">
         <Link href="/" className="text-sm font-semibold leading-6 text-white">
           Cancel
         </Link>
+
         <AddButton />
       </div>
     </form>
