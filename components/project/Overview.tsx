@@ -9,7 +9,7 @@ type OverviewProps = {
   projectId: string;
 };
 
-async function Overview({ projectId }: OverviewProps) {
+export default async function Overview({ projectId }: OverviewProps) {
   const project = await getProjectById(projectId);
   if (!project) {
     throw new Error('Project not found');
@@ -104,5 +104,3 @@ async function Overview({ projectId }: OverviewProps) {
     </div>
   );
 }
-
-export default Overview as unknown as (props: OverviewProps) => JSX.Element;

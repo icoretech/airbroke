@@ -5,7 +5,7 @@ interface ParamsProps {
   occurrenceId: string;
 }
 
-async function Params({ occurrenceId }: ParamsProps) {
+export default async function Params({ occurrenceId }: ParamsProps) {
   const occurrence = await getOccurrenceById(occurrenceId);
   if (!occurrence) {
     throw new Error('Occurrence not found');
@@ -31,5 +31,3 @@ async function Params({ occurrenceId }: ParamsProps) {
     </div>
   );
 }
-
-export default Params as unknown as (props: ParamsProps) => JSX.Element;

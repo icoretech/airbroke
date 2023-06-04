@@ -5,7 +5,7 @@ type DangerZoneProps = {
   projectId: string;
 };
 
-async function DangerZone({ projectId }: DangerZoneProps) {
+export default async function DangerZone({ projectId }: DangerZoneProps) {
   const project = await getProjectById(projectId);
   if (!project) {
     throw new Error('Project not found');
@@ -34,5 +34,3 @@ async function DangerZone({ projectId }: DangerZoneProps) {
     </>
   );
 }
-
-export default DangerZone as unknown as (props: DangerZoneProps) => JSX.Element;

@@ -13,7 +13,7 @@ const statusClasses = {
   red: 'text-rose-400 bg-rose-400/50',
 };
 
-async function ProjectsTable({ currentSearchTerm }: ProjectsTableProps) {
+export default async function ProjectsTable({ currentSearchTerm }: ProjectsTableProps) {
   const projects = await getProjects(currentSearchTerm);
 
   return (
@@ -71,5 +71,3 @@ async function ProjectsTable({ currentSearchTerm }: ProjectsTableProps) {
     </ul>
   );
 }
-
-export default ProjectsTable as unknown as (props: ProjectsTableProps) => JSX.Element;

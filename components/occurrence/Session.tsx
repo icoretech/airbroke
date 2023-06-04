@@ -5,7 +5,7 @@ interface SessionProps {
   occurrenceId: string;
 }
 
-async function Session({ occurrenceId }: SessionProps) {
+export default async function Session({ occurrenceId }: SessionProps) {
   const occurrence = await getOccurrenceById(occurrenceId);
   if (!occurrence) {
     throw new Error('Occurrence not found');
@@ -31,5 +31,3 @@ async function Session({ occurrenceId }: SessionProps) {
     </div>
   );
 }
-
-export default Session as unknown as (props: SessionProps) => JSX.Element;
