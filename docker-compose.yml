@@ -49,16 +49,16 @@ services:
     #   timeout: 2s
     #   retries: 3
 
-  test:
-    extends: nextbase
-    command: yarn test
-    restart: 'always'
-    environment:
-      DATABASE_URL: 'postgresql://postgres:airbroke@db/airbroke_test?connection_limit=15'
-      DIRECT_URL: 'postgresql://postgres:airbroke@db/airbroke_test?connection_limit=15'
-    depends_on:
-      nextbase:
-        condition: service_completed_successfully
+  # test:
+  #   extends: nextbase
+  #   command: yarn test
+  #   restart: 'always'
+  #   environment:
+  #     DATABASE_URL: 'postgresql://postgres:airbroke@db/airbroke_test?connection_limit=15'
+  #     DIRECT_URL: 'postgresql://postgres:airbroke@db/airbroke_test?connection_limit=15'
+  #   depends_on:
+  #     nextbase:
+  #       condition: service_completed_successfully
 
 volumes:
   db_data:

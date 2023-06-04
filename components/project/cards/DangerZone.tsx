@@ -1,5 +1,6 @@
 import ConfirmationDialog from '@/components/ConfirmationDialog';
 import { getProjectById } from '@/lib/queries/projects';
+import ToggleIntake from './ToggleIntake';
 
 type DangerZoneProps = {
   projectId: string;
@@ -12,17 +13,22 @@ export default async function DangerZone({ projectId }: DangerZoneProps) {
   }
 
   return (
-    <>
-      <h3 className="text-base font-semibold leading-6 text-rose-500">Danger Zone</h3>
-      <div className="mt-6 space-y-4">
-        <div className="grid grid-cols-1 justify-items-center gap-4">
+    <div className="space-y-4">
+      <header>
+        <h3 className="text-sm font-semibold text-rose-500">Danger Zone</h3>
+      </header>
+
+      <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
+        <div className="md:flex-1">
           <ConfirmationDialog
             projectId={project.id}
             title="Delete All Errors"
             body={`Are you sure you want to delete all exceptions for the project "${project.name}"? This action cannot be undone.`}
             btnId="deleteAllErrors"
           />
+        </div>
 
+        <div className="md:flex-1">
           <ConfirmationDialog
             projectId={project.id}
             title="Delete Project"
@@ -31,6 +37,8 @@ export default async function DangerZone({ projectId }: DangerZoneProps) {
           />
         </div>
       </div>
-    </>
+
+      <ToggleIntake projectId={project.id} isPaused={project.paused} />
+    </div>
   );
 }
