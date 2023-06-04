@@ -25,6 +25,7 @@ services:
       - .:/app
       - npm_cache:/root/.npm
       - yarn_cache:/usr/local/share/.cache/yarn
+      - next_data:/app/.next
     networks:
       - airbroke
     depends_on:
@@ -64,6 +65,7 @@ volumes:
   db_data:
   npm_cache:
   yarn_cache:
+  next_data:
 
 networks:
   airbroke:

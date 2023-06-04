@@ -12,7 +12,9 @@
     "db:pull": "prisma db pull",
     "db:seed": "prisma db seed",
     "db:migrate": "prisma migrate deploy",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "dep:check": "npx npm-check-updates",
+    "dep:set": "npx npm-check-updates -u"
   },
   "dependencies": {
     "@airbrake/browser": "^2.1.8",
@@ -53,7 +55,7 @@
     "@types/react": "18.2.8",
     "@types/react-dom": "18.2.4",
     "eslint": "8.42.0",
-    "eslint-config-next": "13.4.5-canary.2",
+    "eslint-config-next": "13.4.5-canary.4",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-testing-library": "^5.11.0",
     "jest": "^29.5.0",
