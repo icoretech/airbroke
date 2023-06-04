@@ -10,7 +10,7 @@ type OccurrencesTableProps = {
   searchParams: OccurrenceSearchParams;
 } & OccurrenceSearchParams;
 
-async function OccurrencesTable({ noticeId, searchParams }: OccurrencesTableProps) {
+export default async function OccurrencesTable({ noticeId, searchParams }: OccurrencesTableProps) {
   const occurrences = await getOccurrences(noticeId, searchParams);
 
   return (
@@ -53,5 +53,3 @@ async function OccurrencesTable({ noticeId, searchParams }: OccurrencesTableProp
     </ul>
   );
 }
-
-export default OccurrencesTable as unknown as (props: OccurrencesTableProps) => JSX.Element;

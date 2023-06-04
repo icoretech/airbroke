@@ -8,7 +8,7 @@ interface ToolboxProps {
   occurrenceId: string;
 }
 
-async function Toolbox({ occurrenceId }: { occurrenceId: string }) {
+export default async function Toolbox({ occurrenceId }: { occurrenceId: string }) {
   const occurrence = await getOccurrenceById(occurrenceId);
   if (!occurrence) {
     throw new Error('Occurrence not found');
@@ -30,5 +30,3 @@ async function Toolbox({ occurrenceId }: { occurrenceId: string }) {
     </div>
   );
 }
-
-export default Toolbox as unknown as (props: ToolboxProps) => JSX.Element;

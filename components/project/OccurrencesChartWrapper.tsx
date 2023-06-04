@@ -5,7 +5,7 @@ interface OccurrencesChartWrapperProps {
   occurrenceIds: string[];
 }
 
-async function OccurrencesChartWrapper({ occurrenceIds }: OccurrencesChartWrapperProps) {
+export default async function OccurrencesChartWrapper({ occurrenceIds }: OccurrencesChartWrapperProps) {
   // Calculate the start and end date for the past two weeks
   const endDate = new Date();
   const startDate = new Date();
@@ -51,5 +51,3 @@ async function OccurrencesChartWrapper({ occurrenceIds }: OccurrencesChartWrappe
     </div>
   );
 }
-
-export default OccurrencesChartWrapper as unknown as (props: OccurrencesChartWrapperProps) => JSX.Element;

@@ -10,7 +10,7 @@ type NoticesTableProps = {
   searchParams: NoticeSearchParams;
 };
 
-async function NoticesTable({ projectId, searchParams }: NoticesTableProps) {
+export default async function NoticesTable({ projectId, searchParams }: NoticesTableProps) {
   const notices = await getNotices(projectId, searchParams);
 
   return (
@@ -41,5 +41,3 @@ async function NoticesTable({ projectId, searchParams }: NoticesTableProps) {
     </ul>
   );
 }
-
-export default NoticesTable as unknown as (props: NoticesTableProps) => JSX.Element;

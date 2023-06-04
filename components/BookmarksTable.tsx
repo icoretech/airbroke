@@ -10,7 +10,7 @@ type BookmarksTableProps = {
   searchQuery?: string | undefined;
 };
 
-async function BookmarksTable({ searchQuery }: BookmarksTableProps) {
+export default async function BookmarksTable({ searchQuery }: BookmarksTableProps) {
   const session = await getServerSession(authOptions);
 
   const occurrenceBookmarks = await getOccurrenceBookmarks(session?.user?.id, searchQuery);
@@ -77,5 +77,3 @@ async function BookmarksTable({ searchQuery }: BookmarksTableProps) {
     </div>
   );
 }
-
-export default BookmarksTable as unknown as (props: BookmarksTableProps) => JSX.Element;

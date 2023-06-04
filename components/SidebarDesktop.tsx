@@ -15,7 +15,7 @@ type SidebarDesktopProps = {
   selectedProjectId?: string;
 };
 
-async function SidebarDesktop({ selectedProjectId }: SidebarDesktopProps) {
+export default async function SidebarDesktop({ selectedProjectId }: SidebarDesktopProps) {
   const session = await getServerSession(authOptions);
   const groupedProjects = await getProjectsGroupedByOrganization();
 
@@ -106,5 +106,3 @@ async function SidebarDesktop({ selectedProjectId }: SidebarDesktopProps) {
     </div>
   );
 }
-
-export default SidebarDesktop as unknown as (props: SidebarDesktopProps) => JSX.Element;

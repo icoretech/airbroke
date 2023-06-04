@@ -5,7 +5,7 @@ interface ContextProps {
   occurrenceId: string;
 }
 
-async function Context({ occurrenceId }: ContextProps) {
+export default async function Context({ occurrenceId }: ContextProps) {
   const occurrence = await getOccurrenceById(occurrenceId);
   if (!occurrence) {
     throw new Error('Occurrence not found');
@@ -31,5 +31,3 @@ async function Context({ occurrenceId }: ContextProps) {
     </div>
   );
 }
-
-export default Context as unknown as (props: ContextProps) => JSX.Element;

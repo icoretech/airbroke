@@ -5,7 +5,7 @@ interface EnvironmentProps {
   occurrenceId: string;
 }
 
-async function Environment({ occurrenceId }: EnvironmentProps) {
+export default async function Environment({ occurrenceId }: EnvironmentProps) {
   const occurrence = await getOccurrenceById(occurrenceId);
   if (!occurrence) {
     throw new Error('Occurrence not found');
@@ -31,5 +31,3 @@ async function Environment({ occurrenceId }: EnvironmentProps) {
     </div>
   );
 }
-
-export default Environment as unknown as (props: EnvironmentProps) => JSX.Element;
