@@ -21,18 +21,8 @@ function invalidateProjectsCache(): void {
   revalidatePath('/projects');
 }
 
-function invalidateProjectCache(projectId: string): void {
-  revalidatePath(`/projects/${projectId}`);
-}
-
 async function invalidateAllProjectCache(): Promise<void> {
-  const projects = await prisma.project.findMany({ select: { id: true } });
-  const projectIds = projects.map((project) => project.id);
-
-  await Promise.all([
-    ...projectIds.map((id) => invalidateProjectCache(id)),
-    invalidateProjectsCache(),
-  ]);
+  revalidatePath('/projects/[project_id]');
 }
 
 export async function createProject(data?: FormData): Promise<CreateProjectResponse> {
@@ -117,5 +107,7 @@ export async function toggleProjectPausedStatus(projectId: string): Promise<void
     data: { paused: !project.paused },
   });
 
+  revalidatePath(`/projects/[project_id]/edit`);
   invalidateAllProjectCache();
+
 }

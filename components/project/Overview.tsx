@@ -43,6 +43,10 @@ export default async function Overview({ projectId }: OverviewProps) {
               <dt className="text-sm font-medium leading-6 text-white">API Key</dt>
               <dd className="mt-1 text-sm leading-6 text-gray-400">{project.api_key}</dd>
             </div>
+            <div className="py-3">
+              <dt className="text-sm font-medium leading-6 text-white">Status</dt>
+              <dd className="mt-1 text-sm leading-6 text-gray-400">{project.paused ? 'Paused' : 'Accepting data'}</dd>
+            </div>
           </dl>
         </div>
         <div className="rounded-lg bg-gray-900 p-6">
