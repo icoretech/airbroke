@@ -49,7 +49,7 @@ export default function CodeTemplate({ code, replacements, name }: CodeProps) {
           <HiClipboardCopy className="ml-1 h-4 w-4" />
         </button>
       </div>
-      <div className="px-4 text-xs sm:px-6">
+      <div className="px-4 pb-5 text-xs sm:px-6">
         <pre className="z-40 whitespace-pre-wrap text-white" dangerouslySetInnerHTML={{ __html: htmlString }} />
       </div>
     </div>
