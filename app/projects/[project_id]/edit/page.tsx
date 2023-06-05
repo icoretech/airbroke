@@ -119,10 +119,10 @@ export default async function Project({
 
             {currentTab === 'overview' && <Overview projectId={project.id} />}
             {currentTab === 'integrations' && (
-              <>
+              <div className="px-4 py-6 text-white sm:px-6 lg:px-8">
                 <CodeTemplate code={rubyTemplate} replacements={replacements} name="Ruby / Rails" />
                 <CodeTemplate code={jsclientTemplate} replacements={replacements} name="JavaScript (Browser)" />
-              </>
+              </div>
             )}
           </div>
         </main>
