@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.1.27](https://github.com/icoretech/airbroke/compare/v1.1.26...v1.1.27) (2023-06-05)
+
+
+### Features
+
+* add npm-check-updates scripts to package.json to check and update dependencies ([44cb9ee](https://github.com/icoretech/airbroke/commit/44cb9ee228ebec66cb491beaf94d45601cf95aeb))
+* **Backtrace.tsx:** add plain text copy button to backtrace component ([92c2345](https://github.com/icoretech/airbroke/commit/92c2345cb84d14f3cfb2982542b94a45bf90bec5))
+* **DangerZone.tsx:** add toggle intake component to danger zone card, closes https://github.com/icoretech/airbroke/issues/52 ([9fe283a](https://github.com/icoretech/airbroke/commit/9fe283ab7aaac16736e861b245ae3fdef5c8caca))
+* **Overview.tsx:** add project status to project overview ([9fe283a](https://github.com/icoretech/airbroke/commit/9fe283ab7aaac16736e861b245ae3fdef5c8caca))
+* **ToggleIntake.tsx:** add toggle intake component to allow pausing and resuming of project data intake ([9fe283a](https://github.com/icoretech/airbroke/commit/9fe283ab7aaac16736e861b245ae3fdef5c8caca))
+
 ## [1.1.26](https://github.com/icoretech/airbroke/compare/v1.1.25...v1.1.26) (2023-05-31)
 
 
