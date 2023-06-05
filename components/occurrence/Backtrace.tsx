@@ -18,6 +18,17 @@ function isBacktraceItem(item: any): item is BacktraceItem {
   return item && typeof item.file === 'string' && typeof item.line === 'number' && typeof item.function === 'string';
 }
 
+function generatePlainTextFromJson(backtrace: Prisma.JsonArray): string {
+  return backtrace
+    .filter(isBacktraceItem)
+    .map((trace: any) => {
+      // change type here to 'any'
+      const backtraceItem = trace as BacktraceItem; // assert type here
+      return `${backtraceItem.file} : ${backtraceItem.line} → ${backtraceItem.function}`;
+    })
+    .join('\n');
+}
+
 export default async function Backtrace({ occurrenceId }: BacktraceProps) {
   const occurrence = await getOccurrenceById(occurrenceId);
   if (!occurrence) {
@@ -29,6 +40,7 @@ export default async function Backtrace({ occurrenceId }: BacktraceProps) {
       <div className="flex items-center justify-between">
         <div className="mb-4 flex items-center gap-x-4">
           <ClipboardButton json={occurrence.backtrace} />
+          <ClipboardButton json={generatePlainTextFromJson(occurrence.backtrace as Prisma.JsonArray)} text />
         </div>
       </div>
       {occurrence.backtrace && typeof occurrence.backtrace === 'object' && Array.isArray(occurrence.backtrace) && (
