@@ -21,7 +21,7 @@ function invalidateProjectsCache(): void {
   revalidatePath('/projects');
 }
 
-async function invalidateAllProjectCache(): Promise<void> {
+function invalidateAllProjectCache(): void {
   revalidatePath('/projects/[project_id]');
 }
 
@@ -87,7 +87,7 @@ export async function createProject(data?: FormData): Promise<CreateProjectRespo
 
 export async function deleteProjectNotices(projectId: string): Promise<void> {
   await prisma.notice.deleteMany({ where: { project_id: projectId } });
-  await invalidateAllProjectCache();
+  invalidateAllProjectCache();
 }
 
 export async function deleteProject(projectId: string): Promise<void> {
@@ -107,7 +107,6 @@ export async function toggleProjectPausedStatus(projectId: string): Promise<void
     data: { paused: !project.paused },
   });
 
-  revalidatePath(`/projects/[project_id]/edit`);
+  revalidatePath('/projects/[project_id]/edit');
   invalidateAllProjectCache();
-
 }
