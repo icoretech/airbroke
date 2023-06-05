@@ -107,7 +107,9 @@ export default async function Occurrence({ params, searchParams }: ComponentProp
                   <h3 className="text-sm font-semibold text-indigo-400">
                     <Link href={`/notices/${occurrence.notice_id}`}>{occurrence.notice.kind}</Link>
                   </h3>
-                  <p className="text-xs text-indigo-200">{occurrence.message}</p>
+                  <p className="max-w-full text-xs text-indigo-200 sm:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl">
+                    {occurrence.message}
+                  </p>
                 </div>
               </div>
               <div className="flex w-full flex-wrap items-center justify-between space-y-2 sm:w-auto sm:flex-nowrap sm:justify-start sm:space-x-4 sm:space-y-0">
