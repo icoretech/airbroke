@@ -16,7 +16,7 @@ import { authOptions } from '@/lib/auth';
 import classNames from '@/lib/classNames';
 import { checkOccurrenceBookmarkExistence } from '@/lib/queries/occurrenceBookmarks';
 import { getOccurrenceById } from '@/lib/queries/occurrences';
-import type { OccurrenceTabKeys, OccurrenceTabsArray } from '@/types/airbroke';
+import type { OccurrenceTabKeys, OccurrenceTabs } from '@/types/airbroke';
 import type { Metadata, Route } from 'next';
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
@@ -50,7 +50,7 @@ export default async function Occurrence({ params, searchParams }: ComponentProp
     ? (searchParams.tab as OccurrenceTabKeys)
     : 'backtrace';
 
-  const tabs: OccurrenceTabsArray = {
+  const tabs: OccurrenceTabs = {
     backtrace: {
       id: 'backtrace',
       name: 'Backtrace',

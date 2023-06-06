@@ -21,8 +21,13 @@ export type Tab = {
   href: Route;
 };
 
-export type OccurrenceTabsArray = {
+
+export type OccurrenceTabKeys = 'backtrace' | 'context' | 'environment' | 'session' | 'params' | 'chart' | 'toolbox';
+export type OccurrenceTabs = {
   [K in OccurrenceTabKeys]: Tab | undefined;
 };
 
-export type OccurrenceTabKeys = 'backtrace' | 'context' | 'environment' | 'session' | 'params' | 'chart' | 'toolbox';
+export type ProjectTabKeys = 'overview' | 'integrations' | 'edit';
+export type ProjectTabs = {
+  [K in ProjectTabKeys]: Tab;
+};
