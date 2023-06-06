@@ -3,7 +3,7 @@ name: airbroke
 services:
   db:
     image: postgres:15-alpine
-    command: postgres -c 'max_connections=20' -c 'shared_buffers=128MB'
+    command: postgres -c 'max_connections=23' -c 'shared_buffers=128MB'
     environment:
       - POSTGRES_PASSWORD=airbroke
       - POSTGRES_MULTIPLE_DATABASES="airbroke_development","airbroke_test"
@@ -50,22 +50,28 @@ services:
     #   timeout: 2s
     #   retries: 3
 
-  # test:
-  #   extends: nextbase
-  #   command: yarn test
-  #   restart: 'always'
-  #   environment:
-  #     DATABASE_URL: 'postgresql://postgres:airbroke@db/airbroke_test?connection_limit=15'
-  #     DIRECT_URL: 'postgresql://postgres:airbroke@db/airbroke_test?connection_limit=15'
-  #   depends_on:
-  #     nextbase:
-  #       condition: service_completed_successfully
+  test:
+    extends: nextbase
+    command: yarn test
+    restart: 'always'
+    environment:
+      DATABASE_URL: 'postgresql://postgres:airbroke@db/airbroke_test?connection_limit=15'
+      DIRECT_URL: 'postgresql://postgres:airbroke@db/airbroke_test?connection_limit=15'
+    volumes:
+      - .:/app
+      - npm_cache:/root/.npm
+      - yarn_cache:/usr/local/share/.cache/yarn
+      - test_next_data:/app/.next
+    depends_on:
+      nextbase:
+        condition: service_completed_successfully
 
 volumes:
   db_data:
   npm_cache:
   yarn_cache:
   next_data:
+  test_next_data:
 
 networks:
   airbroke:
