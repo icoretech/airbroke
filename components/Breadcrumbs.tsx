@@ -5,8 +5,8 @@ import { SlLayers } from 'react-icons/sl';
 
 export default function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
   return (
-    <ol role="list" className="mx-auto flex w-full space-x-4 px-4 sm:px-6 lg:px-8">
-      <li className="flex items-center">
+    <ol role="list" className="mx-auto flex w-full space-x-4 px-4 sm:px-2 lg:px-4">
+      <li className="flex items-center xl:hidden">
         <SidebarOpenButton />
       </li>
       <li className="hidden items-center xl:flex">
