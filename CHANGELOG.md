@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.1.28](https://github.com/icoretech/airbroke/compare/v1.1.27...v1.1.28) (2023-06-06)
+
+
+### Features
+
+* add @testing-library/jest-dom/extend-expect import to testSetup.ts to extend jest-dom matchers ([1a5793a](https://github.com/icoretech/airbroke/commit/1a5793a21a718ff19a6f5494996f7a33965a7ab8))
+* add test_next_data volume to docker-compose.yml to persist .next folder between test runs ([1a5793a](https://github.com/icoretech/airbroke/commit/1a5793a21a718ff19a6f5494996f7a33965a7ab8))
+* **migration.sql:** add migration to make repo_branch field optional in projects table ([ae4eea2](https://github.com/icoretech/airbroke/commit/ae4eea2ce4eb84ae17cbabf1cfc1eb3ae41fba34))
+* **page.tsx:** mobile tabs, refs https://github.com/icoretech/airbroke/issues/24 ([8a3d7a1](https://github.com/icoretech/airbroke/commit/8a3d7a1f57add1ee5d035b8e5f59cd6346cc40db))
+* **project:** add Edit component to allow users to edit project information, closes https://github.com/icoretech/airbroke/issues/14 ([ae4eea2](https://github.com/icoretech/airbroke/commit/ae4eea2ce4eb84ae17cbabf1cfc1eb3ae41fba34))
+* **projects.ts:** add updateProject function to update project data with form data ([ae4eea2](https://github.com/icoretech/airbroke/commit/ae4eea2ce4eb84ae17cbabf1cfc1eb3ae41fba34))
+* **projects.ts:** add zod, zod-error, and zod-form-data dependencies to validate form data ([ae4eea2](https://github.com/icoretech/airbroke/commit/ae4eea2ce4eb84ae17cbabf1cfc1eb3ae41fba34))
+* **schema.prisma:** make repo_branch field optional ([ae4eea2](https://github.com/icoretech/airbroke/commit/ae4eea2ce4eb84ae17cbabf1cfc1eb3ae41fba34))
+
+
+### Bug Fixes
+
+* increase max_connections to 23 in db service command in docker-compose.yml to avoid connection errors ([1a5793a](https://github.com/icoretech/airbroke/commit/1a5793a21a718ff19a6f5494996f7a33965a7ab8))
+* **project:** display 'Not set' for repository URL and main branch if they are not set ([ae4eea2](https://github.com/icoretech/airbroke/commit/ae4eea2ce4eb84ae17cbabf1cfc1eb3ae41fba34))
+
 ## [1.1.27](https://github.com/icoretech/airbroke/compare/v1.1.26...v1.1.27) (2023-06-05)
 
 
