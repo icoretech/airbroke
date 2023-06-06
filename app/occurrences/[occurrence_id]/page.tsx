@@ -16,18 +16,18 @@ import { authOptions } from '@/lib/auth';
 import classNames from '@/lib/classNames';
 import { checkOccurrenceBookmarkExistence } from '@/lib/queries/occurrenceBookmarks';
 import { getOccurrenceById } from '@/lib/queries/occurrences';
+import type { OccurrenceTabKeys, OccurrenceTabsArray } from '@/types/airbroke';
 import type { Metadata, Route } from 'next';
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import { FaCarCrash } from 'react-icons/fa';
 import { SlCompass, SlGlobe, SlGraph, SlLink, SlList, SlUser, SlWrench } from 'react-icons/sl';
 
-type OccurrenceTabKeys = 'backtrace' | 'context' | 'environment' | 'session' | 'params' | 'chart' | 'toolbox';
-
 type ComponentProps = {
   params: { occurrence_id: string };
   searchParams: { [key: string]: string | undefined };
 };
+
 export async function generateMetadata({ params }: ComponentProps): Promise<Metadata> {
   const occurrence = await getOccurrenceById(params.occurrence_id);
   return { title: occurrence?.message };
@@ -44,26 +44,69 @@ export default async function Occurrence({ params, searchParams }: ComponentProp
   const hasSession = occurrence.session && Object.keys(occurrence.session).length > 0;
   const hasParams = occurrence.params && Object.keys(occurrence.params).length > 0;
   const hasEnvironment = occurrence.environment && Object.keys(occurrence.environment).length > 0;
-
   const tabKeys: OccurrenceTabKeys[] = ['backtrace', 'context', 'environment', 'session', 'params', 'chart', 'toolbox'];
-  const currentTab = tabKeys.includes(searchParams.tab as OccurrenceTabKeys)
+
+  const currentTab: OccurrenceTabKeys = tabKeys.includes(searchParams.tab as OccurrenceTabKeys)
     ? (searchParams.tab as OccurrenceTabKeys)
     : 'backtrace';
 
-  const tabs = [
-    { id: 'backtrace', name: 'Backtrace', current: currentTab === 'backtrace', icon: SlList },
-    { id: 'context', name: 'Context', current: currentTab === 'context', icon: SlCompass },
-    ...(hasEnvironment
-      ? [{ id: 'environment', name: 'Environment', current: currentTab === 'environment', icon: SlGlobe }]
-      : []),
-    ...(hasSession ? [{ id: 'session', name: 'Session', current: currentTab === 'session', icon: SlUser }] : []),
-    ...(hasParams ? [{ id: 'params', name: 'Params', current: currentTab === 'params', icon: SlLink }] : []),
-    { id: 'chart', name: 'Chart', current: currentTab === 'chart', icon: SlGraph },
-    { id: 'toolbox', name: 'Toolbox', current: currentTab === 'toolbox', icon: SlWrench },
-  ].map((tab) => ({
-    ...tab,
-    href: `/occurrences/${occurrence.id}?tab=${tab.id}` as Route,
-  }));
+  const tabs: OccurrenceTabsArray = {
+    backtrace: {
+      id: 'backtrace',
+      name: 'Backtrace',
+      current: currentTab === 'backtrace',
+      icon: SlList,
+      href: `/occurrences/${occurrence.id}?tab=backtrace` as Route,
+    },
+    context: {
+      id: 'context',
+      name: 'Context',
+      current: currentTab === 'context',
+      icon: SlCompass,
+      href: `/occurrences/${occurrence.id}?tab=context` as Route,
+    },
+    environment: hasEnvironment
+      ? {
+          id: 'environment',
+          name: 'Environment',
+          current: currentTab === 'environment',
+          icon: SlGlobe,
+          href: `/occurrences/${occurrence.id}?tab=environment` as Route,
+        }
+      : undefined,
+    session: hasSession
+      ? {
+          id: 'session',
+          name: 'Session',
+          current: currentTab === 'session',
+          icon: SlUser,
+          href: `/occurrences/${occurrence.id}?tab=session` as Route,
+        }
+      : undefined,
+    params: hasParams
+      ? {
+          id: 'params',
+          name: 'Params',
+          current: currentTab === 'params',
+          icon: SlLink,
+          href: `/occurrences/${occurrence.id}?tab=params` as Route,
+        }
+      : undefined,
+    chart: {
+      id: 'chart',
+      name: 'Chart',
+      current: currentTab === 'chart',
+      icon: SlGraph,
+      href: `/occurrences/${occurrence.id}?tab=chart` as Route,
+    },
+    toolbox: {
+      id: 'toolbox',
+      name: 'Toolbox',
+      current: currentTab === 'toolbox',
+      icon: SlWrench,
+      href: `/occurrences/${occurrence.id}?tab=toolbox` as Route,
+    },
+  };
 
   const breadcrumbs = [
     {
@@ -128,24 +171,10 @@ export default async function Occurrence({ params, searchParams }: ComponentProp
 
           <div className="pb-8">
             <div className="px-4 pb-4 sm:px-6 lg:px-8">
-              <div className="sm:hidden">
-                <label htmlFor="tabs" className="sr-only">
-                  Select a tab
-                </label>
-                <select
-                  name="tabs"
-                  className="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-                  defaultValue={currentTab}
-                >
-                  {tabs.map((tab) => (
-                    <option key={tab.name}>{tab.name}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="hidden sm:block">
-                <div className="border-b border-white/10">
-                  <nav className="-mb-px flex space-x-8" aria-label="Tabs">
-                    {tabs.map((tab) => (
+              <div className="border-b border-white/10">
+                <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+                  {Object.values(tabs).map((tab) =>
+                    tab ? (
                       <Link
                         key={tab.id}
                         href={tab.href}
@@ -164,11 +193,11 @@ export default async function Occurrence({ params, searchParams }: ComponentProp
                           )}
                           aria-hidden="true"
                         />
-                        <span>{tab.name}</span>
+                        <span className="hidden md:block">{tab.name}</span>
                       </Link>
-                    ))}
-                  </nav>
-                </div>
+                    ) : null
+                  )}
+                </nav>
               </div>
             </div>
 
