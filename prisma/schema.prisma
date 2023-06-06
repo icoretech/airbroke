@@ -18,7 +18,7 @@ model Project {
   repo_provider            String   @default("github")
   repo_provider_api_key    String?
   repo_provider_api_secret String?
-  repo_branch              String   @default("main")
+  repo_branch              String?  @default("main")
   repo_issue_tracker       String?
   repo_url                 String?
   notices_count            BigInt   @default(0)

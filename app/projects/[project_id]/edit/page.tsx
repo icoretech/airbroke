@@ -3,6 +3,7 @@ import CodeTemplate from '@/components/CodeTemplate';
 import SidebarDesktop from '@/components/SidebarDesktop';
 import SidebarMobile from '@/components/SidebarMobile';
 import ProjectActionsMenu from '@/components/project/ActionsMenu';
+import Edit from '@/components/project/Edit';
 import Overview from '@/components/project/Overview';
 import classNames from '@/lib/classNames';
 import { jsclientTemplate, rubyTemplate } from '@/lib/configTemplates';
@@ -10,7 +11,7 @@ import { getProjectById } from '@/lib/queries/projects';
 import type { Route } from 'next';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { SlSettings, SlWrench } from 'react-icons/sl';
+import { SlPencil, SlSettings, SlWrench } from 'react-icons/sl';
 
 export default async function Project({
   params,
@@ -20,6 +21,7 @@ export default async function Project({
   searchParams: Record<string, string>;
 }) {
   const currentTab = searchParams.tab ?? 'overview';
+  const currentErrorMessage = searchParams.errorMessage;
 
   const project = await getProjectById(params.project_id);
   if (!project) {
@@ -32,6 +34,7 @@ export default async function Project({
   const tabs = [
     { id: 'overview', name: 'Overview', current: currentTab === 'overview', icon: SlSettings },
     { id: 'integrations', name: 'Integrations', current: currentTab === 'integrations', icon: SlWrench },
+    { id: 'edit', name: 'Edit', current: currentTab === 'edit', icon: SlPencil },
   ].map((tab) => ({
     ...tab,
     href: `/projects/${project.id}/edit?tab=${tab.id}` as Route,
@@ -124,6 +127,7 @@ export default async function Project({
                 <CodeTemplate code={jsclientTemplate} replacements={replacements} name="JavaScript (Browser)" />
               </div>
             )}
+            {currentTab === 'edit' && <Edit projectId={project.id} currentErrorMessage={currentErrorMessage} />}
           </div>
         </main>
       </div>
