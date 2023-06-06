@@ -54,16 +54,16 @@ export default async function Overview({ projectId }: OverviewProps) {
 
           <dl className="mt-6 divide-y divide-white/10">
             <div className="py-3">
-              <dt className="text-sm font-medium leading-6 text-white">URL</dt>
-              <dd className="mt-1 text-sm leading-6 text-gray-400">{project.repo_url || 'Not set'}</dd>
-            </div>
-            <div className="py-3">
               <dt className="text-sm font-medium leading-6 text-white">Provider</dt>
               <dd className="mt-1 text-sm leading-6 text-gray-400">{project.repo_provider}</dd>
             </div>
             <div className="py-3">
+              <dt className="text-sm font-medium leading-6 text-white">URL</dt>
+              <dd className="mt-1 text-sm leading-6 text-gray-400">{project.repo_url || 'Not set'}</dd>
+            </div>
+            <div className="py-3">
               <dt className="text-sm font-medium leading-6 text-white">Main Branch</dt>
-              <dd className="mt-1 text-sm leading-6 text-gray-400">{project.repo_branch}</dd>
+              <dd className="mt-1 text-sm leading-6 text-gray-400">{project.repo_branch || 'Not set'}</dd>
             </div>
             <div className="py-3">
               <dt className="text-sm font-medium leading-6 text-white">Issue Tracker</dt>
