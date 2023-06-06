@@ -8,18 +8,18 @@ import Overview from '@/components/project/Overview';
 import classNames from '@/lib/classNames';
 import { jsclientTemplate, rubyTemplate } from '@/lib/configTemplates';
 import { getProjectById } from '@/lib/queries/projects';
+import type { ProjectTabs } from '@/types/airbroke';
 import type { Route } from 'next';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { SlPencil, SlSettings, SlWrench } from 'react-icons/sl';
 
-export default async function Project({
-  params,
-  searchParams,
-}: {
+type ComponentProps = {
   params: { project_id: string };
   searchParams: Record<string, string>;
-}) {
+};
+
+export default async function Project({ params, searchParams }: ComponentProps) {
   const currentTab = searchParams.tab ?? 'overview';
   const currentErrorMessage = searchParams.errorMessage;
 
@@ -31,14 +31,29 @@ export default async function Project({
     REPLACE_PROJECT_KEY: project.api_key,
   };
 
-  const tabs = [
-    { id: 'overview', name: 'Overview', current: currentTab === 'overview', icon: SlSettings },
-    { id: 'integrations', name: 'Integrations', current: currentTab === 'integrations', icon: SlWrench },
-    { id: 'edit', name: 'Edit', current: currentTab === 'edit', icon: SlPencil },
-  ].map((tab) => ({
-    ...tab,
-    href: `/projects/${project.id}/edit?tab=${tab.id}` as Route,
-  }));
+  const tabs: ProjectTabs = {
+    overview: {
+      id: 'overview',
+      name: 'Overview',
+      current: currentTab === 'overview',
+      icon: SlSettings,
+      href: `/projects/${project.id}/edit?tab=overview` as Route,
+    },
+    integrations: {
+      id: 'integrations',
+      name: 'Integrations',
+      current: currentTab === 'integrations',
+      icon: SlWrench,
+      href: `/projects/${project.id}/edit?tab=integrations` as Route,
+    },
+    edit: {
+      id: 'edit',
+      name: 'Edit',
+      current: currentTab === 'edit',
+      icon: SlPencil,
+      href: `/projects/${project.id}/edit?tab=edit` as Route,
+    },
+  };
 
   const breadcrumbs = [
     {
@@ -47,7 +62,7 @@ export default async function Project({
       current: false,
     },
     {
-      name: tabs.find((tab) => tab.current)?.name || 'Overview',
+      name: Object.values(tabs).find((tab) => tab.current)?.name || 'Overview',
       href: `/projects/${project.id}/edit` as Route,
       current: true,
     },
@@ -76,24 +91,10 @@ export default async function Project({
 
           <div className="pb-8">
             <div className="px-4 pb-4 sm:px-6 lg:px-8">
-              <div className="sm:hidden">
-                <label htmlFor="tabs" className="sr-only">
-                  Select a tab
-                </label>
-                <select
-                  name="tabs"
-                  className="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-                  defaultValue={currentTab}
-                >
-                  {tabs.map((tab) => (
-                    <option key={tab.name}>{tab.name}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="hidden sm:block">
-                <div className="border-b border-white/10">
-                  <nav className="-mb-px flex space-x-8" aria-label="Tabs">
-                    {tabs.map((tab) => (
+              <div className="border-b border-white/10">
+                <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+                  {Object.values(tabs).map((tab) =>
+                    tab ? (
                       <Link
                         key={tab.id}
                         href={tab.href}
@@ -112,11 +113,11 @@ export default async function Project({
                           )}
                           aria-hidden="true"
                         />
-                        <span>{tab.name}</span>
+                        <span className="hidden md:block">{tab.name}</span>
                       </Link>
-                    ))}
-                  </nav>
-                </div>
+                    ) : null
+                  )}
+                </nav>
               </div>
             </div>
 
