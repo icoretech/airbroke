@@ -229,7 +229,7 @@ Please refer to the documentation of the respective authentication providers to 
 
 ## Best Practices for Efficient Error Collection and Storage
 
-Airbroke provides error grouping mechanisms that analyze the incoming error data and automatically group similar errors based on their attributes, stack traces, and other relevant information. This feature allows you to observe the collected data, identify patterns, and make adjustments to address error collection over time.
+Airbroke provides error grouping mechanisms that analyze the incoming error data and automatically group similar errors based on their attributes.
 
 However when working with exceptions that include dynamic information as part of the exception itself (e.g., `raise(NotFound, 'no record 1234')`), it is important to consider efficient error collection and storage strategies. By following these practices, you can ensure that Airbroke maintains an efficient database and effectively groups and displays related errors without much overhead.
 
