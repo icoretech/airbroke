@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.29](https://github.com/icoretech/airbroke/compare/v1.1.28...v1.1.29) (2023-06-06)
+
+
+### Features
+
+* **page.tsx:** responsive tabs in project edit, closes https://github.com/icoretech/airbroke/issues/24 ([8c24e9a](https://github.com/icoretech/airbroke/commit/8c24e9a92d94416dc347ef56f1630b868a0195a2))
+
 ## [1.1.28](https://github.com/icoretech/airbroke/compare/v1.1.27...v1.1.28) (2023-06-06)
 
 

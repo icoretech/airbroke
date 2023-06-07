@@ -3,6 +3,9 @@
     kind: 'pipeline',
     type: 'kubernetes',
     name: 'next',
+    clone: {
+      depth: 1,
+    },
     trigger: {
       branch: ['main'],
       event: {
