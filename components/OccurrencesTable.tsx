@@ -35,6 +35,12 @@ export default async function OccurrencesTable({ noticeId, searchParams }: Occur
               </div>
               <EnvironmentLabel env={occurrence.notice.env} />
 
+              {occurrence.resolved_at && (
+                <div className="flex-none rounded-md bg-green-900 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-green-700">
+                  resolved
+                </div>
+              )}
+
               <p className="truncate">
                 First seen: <CustomTimeAgo datetime={occurrence.created_at} locale="en_US" />
               </p>

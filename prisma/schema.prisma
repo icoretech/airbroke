@@ -59,6 +59,7 @@ model Occurrence {
   params             Json                 @default("{}")
   created_at         DateTime             @default(now()) @db.Timestamp(6)
   updated_at         DateTime             @updatedAt @db.Timestamp(6)
+  resolved_at        DateTime?            @db.Timestamp(6)
   notice             Notice               @relation(fields: [notice_id], references: [id], onDelete: Cascade)
   hourly_occurrences HourlyOccurrence[]
   bookmarks          OccurrenceBookmark[]

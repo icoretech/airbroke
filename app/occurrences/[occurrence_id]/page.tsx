@@ -9,6 +9,7 @@ import BookmarkButton from '@/components/occurrence/BookmarkButton';
 import Context from '@/components/occurrence/Context';
 import Environment from '@/components/occurrence/Environment';
 import Params from '@/components/occurrence/Params';
+import ResolveButton from '@/components/occurrence/ResolveButton';
 import Session from '@/components/occurrence/Session';
 import Toolbox from '@/components/occurrence/Toolbox';
 import ProjectActionsMenu from '@/components/project/ActionsMenu';
@@ -164,6 +165,7 @@ export default async function Occurrence({ params, searchParams }: ComponentProp
                   <p>Last seen: {occurrence.updated_at.toUTCString()}</p>
                 </div>
                 <BookmarkButton isBookmarked={isBookmarked} occurrenceId={occurrence.id} />
+                <ResolveButton occurrenceId={occurrence.id} resolvedAt={occurrence.resolved_at} />
                 <EnvironmentLabel env={occurrence.notice.env} className="self-start sm:self-auto" />
               </div>
             </div>

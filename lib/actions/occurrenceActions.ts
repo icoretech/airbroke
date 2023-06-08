@@ -86,3 +86,21 @@ export async function removeOccurrenceBookmark(occurrenceId: string) {
   revalidatePath(`/occurrences/${occurrenceId}`)
   revalidatePath('/bookmarks')
 }
+
+export async function resolveOccurrence(occurrenceId: string) {
+  await prisma.occurrence.update({
+    where: { id: occurrenceId },
+    data: { resolved_at: new Date() },
+  });
+
+  revalidatePath(`/occurrences/${occurrenceId}`);
+}
+
+export async function reinstateOccurrence(occurrenceId: string) {
+  await prisma.occurrence.update({
+    where: { id: occurrenceId },
+    data: { resolved_at: null },
+  });
+
+  revalidatePath(`/occurrences/${occurrenceId}`);
+}

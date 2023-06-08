@@ -86,6 +86,7 @@ export async function processError(
         },
       },
       update: {
+        resolved_at: null, // auto reinstate
         // we've seen updated_at work here
         seen_count: {
           increment: 1,
