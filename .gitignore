@@ -42,7 +42,6 @@ docker-compose.override.yml
 
 .pnp.*
 .yarn/*
-!.yarn/cache
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
