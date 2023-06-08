@@ -20,4 +20,4 @@ jobs:
           # changelog-notes-type: github
           token: ${{ secrets.PACKAGES_PAT }}
           versioning-strategy: always-bump-patch
-          release-as: '1.1.30'
+          # release-as: '1.1.30'
