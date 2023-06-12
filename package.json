@@ -28,7 +28,7 @@
     "chart.js": "^4.3.0",
     "chatgpt": "^5.2.5",
     "nanoid": "4.0.2",
-    "next": "13.4.5-canary.8",
+    "next": "13.4.5",
     "next-auth": "^4.22.1",
     "numeral": "^2.0.6",
     "octokit": "^2.0.19",
