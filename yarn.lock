@@ -1052,12 +1052,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/eslint-plugin-next@npm:13.4.5-canary.8":
-  version: 13.4.5-canary.8
-  resolution: "@next/eslint-plugin-next@npm:13.4.5-canary.8"
+"@next/eslint-plugin-next@npm:13.4.5":
+  version: 13.4.5
+  resolution: "@next/eslint-plugin-next@npm:13.4.5"
   dependencies:
     glob: 7.1.7
-  checksum: 2d31d0e4557557805908173e9dd3707ec9213ec1b194018a047248daa152bbbe9bd5830289b800581c7add722093032dd8708839df17f3369b85a5b35a162715
+  checksum: cf41158026c6dac8673346f9580875f0a8c77ad2d98b3f62ff66e28fa065aac8558f24276d8f2af93102375dfc2784b3731f9aa4357a817e970db154e0f16b2b
   languageName: node
   linkType: hard
 
@@ -2088,7 +2088,7 @@ __metadata:
     chart.js: ^4.3.0
     chatgpt: ^5.2.5
     eslint: 8.42.0
-    eslint-config-next: 13.4.5-canary.8
+    eslint-config-next: 13.4.5
     eslint-config-prettier: 8.8.0
     eslint-plugin-testing-library: ^5.11.0
     jest: ^29.5.0
@@ -3668,11 +3668,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-next@npm:13.4.5-canary.8":
-  version: 13.4.5-canary.8
-  resolution: "eslint-config-next@npm:13.4.5-canary.8"
+"eslint-config-next@npm:13.4.5":
+  version: 13.4.5
+  resolution: "eslint-config-next@npm:13.4.5"
   dependencies:
-    "@next/eslint-plugin-next": 13.4.5-canary.8
+    "@next/eslint-plugin-next": 13.4.5
     "@rushstack/eslint-patch": ^1.1.3
     "@typescript-eslint/parser": ^5.42.0
     eslint-import-resolver-node: ^0.3.6
@@ -3687,7 +3687,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: aacd0c290ae34ccb4d155498dc448452524101fd4e8b1d1a67893a527ad607fe71e358936effbcd93efd7c90ad5f671961f3ced3f32db707433e98c7bf8c3dbf
+  checksum: 71647757dfeaa9aa67ed60c9a2a764eb323cee18966df606b37900eeca8759504a29c5b02941264a1a8f9f67293107a77a856d4253acdafd245b357ff6873b02
   languageName: node
   linkType: hard
 
