@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.31](https://github.com/icoretech/airbroke/compare/v1.1.30...v1.1.31) (2023-06-12)
+
+
+### Features
+
+* **package.json:** update next.js and related packages to stable version 13.4.5 ([ace107a](https://github.com/icoretech/airbroke/commit/ace107a3686021e1c86bcbbd0a614b9c4d798841))
+
 ## 1.1.30 (2023-06-08)
 
 
