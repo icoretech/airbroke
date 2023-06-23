@@ -1045,81 +1045,81 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/env@npm:13.4.5":
-  version: 13.4.5
-  resolution: "@next/env@npm:13.4.5"
-  checksum: bdde73b6f1304fe2f275cbe26d8c447f66701f89afbe6b6a0c489f2dfaa8decc18a1728720c239f6c5dd3bf63a77a324e11105ff9a6cebf72c16ed478dffa9f0
+"@next/env@npm:13.4.8-canary.0":
+  version: 13.4.8-canary.0
+  resolution: "@next/env@npm:13.4.8-canary.0"
+  checksum: eacb39db4db5a340649d33bd4b17cfbd7458af527f2d766632b0b2781e27ecf66a6f1ae8a26c6592111417c3fe10901361e5ebf0515e18afd39bd8a6a64bcd9c
   languageName: node
   linkType: hard
 
-"@next/eslint-plugin-next@npm:13.4.5":
-  version: 13.4.5
-  resolution: "@next/eslint-plugin-next@npm:13.4.5"
+"@next/eslint-plugin-next@npm:13.4.8-canary.0":
+  version: 13.4.8-canary.0
+  resolution: "@next/eslint-plugin-next@npm:13.4.8-canary.0"
   dependencies:
     glob: 7.1.7
-  checksum: cf41158026c6dac8673346f9580875f0a8c77ad2d98b3f62ff66e28fa065aac8558f24276d8f2af93102375dfc2784b3731f9aa4357a817e970db154e0f16b2b
+  checksum: 1aba5a88400df3d085ebdca954311f3a62d4243282f044fae2d18165aa5a5465514f848ee31c10e992908fdb64de076c79d133dfd9141187853ab9ac2b264850
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-arm64@npm:13.4.5":
-  version: 13.4.5
-  resolution: "@next/swc-darwin-arm64@npm:13.4.5"
+"@next/swc-darwin-arm64@npm:13.4.8-canary.0":
+  version: 13.4.8-canary.0
+  resolution: "@next/swc-darwin-arm64@npm:13.4.8-canary.0"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-x64@npm:13.4.5":
-  version: 13.4.5
-  resolution: "@next/swc-darwin-x64@npm:13.4.5"
+"@next/swc-darwin-x64@npm:13.4.8-canary.0":
+  version: 13.4.8-canary.0
+  resolution: "@next/swc-darwin-x64@npm:13.4.8-canary.0"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@next/swc-linux-arm64-gnu@npm:13.4.5":
-  version: 13.4.5
-  resolution: "@next/swc-linux-arm64-gnu@npm:13.4.5"
+"@next/swc-linux-arm64-gnu@npm:13.4.8-canary.0":
+  version: 13.4.8-canary.0
+  resolution: "@next/swc-linux-arm64-gnu@npm:13.4.8-canary.0"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@next/swc-linux-arm64-musl@npm:13.4.5":
-  version: 13.4.5
-  resolution: "@next/swc-linux-arm64-musl@npm:13.4.5"
+"@next/swc-linux-arm64-musl@npm:13.4.8-canary.0":
+  version: 13.4.8-canary.0
+  resolution: "@next/swc-linux-arm64-musl@npm:13.4.8-canary.0"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@next/swc-linux-x64-gnu@npm:13.4.5":
-  version: 13.4.5
-  resolution: "@next/swc-linux-x64-gnu@npm:13.4.5"
+"@next/swc-linux-x64-gnu@npm:13.4.8-canary.0":
+  version: 13.4.8-canary.0
+  resolution: "@next/swc-linux-x64-gnu@npm:13.4.8-canary.0"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@next/swc-linux-x64-musl@npm:13.4.5":
-  version: 13.4.5
-  resolution: "@next/swc-linux-x64-musl@npm:13.4.5"
+"@next/swc-linux-x64-musl@npm:13.4.8-canary.0":
+  version: 13.4.8-canary.0
+  resolution: "@next/swc-linux-x64-musl@npm:13.4.8-canary.0"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@next/swc-win32-arm64-msvc@npm:13.4.5":
-  version: 13.4.5
-  resolution: "@next/swc-win32-arm64-msvc@npm:13.4.5"
+"@next/swc-win32-arm64-msvc@npm:13.4.8-canary.0":
+  version: 13.4.8-canary.0
+  resolution: "@next/swc-win32-arm64-msvc@npm:13.4.8-canary.0"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@next/swc-win32-ia32-msvc@npm:13.4.5":
-  version: 13.4.5
-  resolution: "@next/swc-win32-ia32-msvc@npm:13.4.5"
+"@next/swc-win32-ia32-msvc@npm:13.4.8-canary.0":
+  version: 13.4.8-canary.0
+  resolution: "@next/swc-win32-ia32-msvc@npm:13.4.8-canary.0"
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
 
-"@next/swc-win32-x64-msvc@npm:13.4.5":
-  version: 13.4.5
-  resolution: "@next/swc-win32-x64-msvc@npm:13.4.5"
+"@next/swc-win32-x64-msvc@npm:13.4.8-canary.0":
+  version: 13.4.8-canary.0
+  resolution: "@next/swc-win32-x64-msvc@npm:13.4.8-canary.0"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -1392,7 +1392,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/request-error@npm:^3.0.0, @octokit/request-error@npm:^3.0.3":
+"@octokit/request-error@npm:^3.0.0, @octokit/request-error@npm:^3.0.3, @octokit/request-error@npm:^v3.0.3":
   version: 3.0.3
   resolution: "@octokit/request-error@npm:3.0.3"
   dependencies:
@@ -1480,31 +1480,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:4.15.0":
-  version: 4.15.0
-  resolution: "@prisma/client@npm:4.15.0"
+"@prisma/client@npm:4.16.1":
+  version: 4.16.1
+  resolution: "@prisma/client@npm:4.16.1"
   dependencies:
-    "@prisma/engines-version": 4.15.0-28.8fbc245156db7124f997f4cecdd8d1219e360944
+    "@prisma/engines-version": 4.16.0-66.b20ead4d3ab9e78ac112966e242ded703f4a052c
   peerDependencies:
     prisma: "*"
   peerDependenciesMeta:
     prisma:
       optional: true
-  checksum: 875eb31e702e16a50188f4762d9689a930aeb4f18a158a0a5270feefc80dc9a30935890df65d98fc9c6655d5f4f65d9943997bb86a51dd904577e7d19c6a2a7c
+  checksum: da715b6e930f56493cb7c6232b179250a4e93bbc2b5fe42a84cb9511d127b6fd89e1271f83e1d531bd4fdd7e87f6ac0701b30174cf89212ae7da88097de31026
   languageName: node
   linkType: hard
 
-"@prisma/engines-version@npm:4.15.0-28.8fbc245156db7124f997f4cecdd8d1219e360944":
-  version: 4.15.0-28.8fbc245156db7124f997f4cecdd8d1219e360944
-  resolution: "@prisma/engines-version@npm:4.15.0-28.8fbc245156db7124f997f4cecdd8d1219e360944"
-  checksum: 6da6f076746aac2db043a9f15790f51c6d0e86139e1ebd83e6e046e799c0dbfa0d2df14cd7c70cc9583ce85b4bfc02e48fe1461077b79ed31ba83ad9440bb90f
+"@prisma/engines-version@npm:4.16.0-66.b20ead4d3ab9e78ac112966e242ded703f4a052c":
+  version: 4.16.0-66.b20ead4d3ab9e78ac112966e242ded703f4a052c
+  resolution: "@prisma/engines-version@npm:4.16.0-66.b20ead4d3ab9e78ac112966e242ded703f4a052c"
+  checksum: 23183cab33f95e0711cd6cee7642f4beeeb77b8b0aa54b419f55097bfb96863a11a28f6509ab27fef0ea794522e188044ce850993a25c341333f8305711a255f
   languageName: node
   linkType: hard
 
-"@prisma/engines@npm:4.15.0":
-  version: 4.15.0
-  resolution: "@prisma/engines@npm:4.15.0"
-  checksum: 61b53fe5ad7b0927de9aa4f51027e281788258d3fb5e389c3ae940829fdc5428a7108ce0cae5b329ddac0ee3206b0b9f8e8adae401c456f77d912c96368cfa5f
+"@prisma/engines@npm:4.16.1":
+  version: 4.16.1
+  resolution: "@prisma/engines@npm:4.16.1"
+  checksum: 7b8c1a9e20434edaa919fb24585ebff573c4ace787ea5a135dfefde3571ae31d3f0b0347397774c38be6d2e3fc0087d4e21a2720fe9f7a66ffd870e34377040f
   languageName: node
   linkType: hard
 
@@ -1817,7 +1817,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.2.4, @types/react-dom@npm:^18.0.0":
+"@types/react-dom@npm:18.2.6":
+  version: 18.2.6
+  resolution: "@types/react-dom@npm:18.2.6"
+  dependencies:
+    "@types/react": "*"
+  checksum: b56e42efab121a3a8013d2eb8c1688e6028a25ea6d33c4362d2846f0af3760b164b4d7c34846614024cfb8956cca70dd1743487f152e32ff89a00fe6fbd2be54
+  languageName: node
+  linkType: hard
+
+"@types/react-dom@npm:^18.0.0":
   version: 18.2.4
   resolution: "@types/react-dom@npm:18.2.4"
   dependencies:
@@ -1837,14 +1846,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.12":
-  version: 18.2.12
-  resolution: "@types/react@npm:18.2.12"
+"@types/react@npm:18.2.13":
+  version: 18.2.13
+  resolution: "@types/react@npm:18.2.13"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: ad85a7eadaf1b35cfeee9f715b39311420ff46d46e0650377d918b3f888c2e47416037da4a765e1dccd3d1916abd54c105a3bee803c971ba56c955a7768ce976
+  checksum: f7c15f19c164a29262993ea2aae2085fa38cddd9b8359fd8fefabfced91010b515a3abe2042b2b7f2f86e6b38a25b191415aa9313a9027175e3a000883c858cc
   languageName: node
   linkType: hard
 
@@ -2081,38 +2090,38 @@ __metadata:
     "@headlessui/react": ^1.7.15
     "@jest/globals": ^29.5.0
     "@next-auth/prisma-adapter": ^1.0.7
-    "@prisma/client": 4.15.0
+    "@prisma/client": 4.16.1
     "@tailwindcss/forms": ^0.5.3
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^14.0.0
     "@types/chance": ^1.1.3
     "@types/node": ^20.3.1
     "@types/numeral": ^2.0.2
-    "@types/react": 18.2.12
-    "@types/react-dom": 18.2.4
+    "@types/react": 18.2.13
+    "@types/react-dom": 18.2.6
     autoprefixer: 10.4.14
     chance: ^1.1.11
     chart.js: ^4.3.0
     chatgpt: ^5.2.5
     eslint: 8.43.0
-    eslint-config-next: 13.4.5
+    eslint-config-next: 13.4.8-canary.0
     eslint-config-prettier: 8.8.0
     eslint-plugin-testing-library: ^5.11.0
     jest: ^29.5.0
     jest-environment-jsdom: ^29.5.0
     nanoid: 4.0.2
-    next: 13.4.5
+    next: 13.4.8-canary.0
     next-auth: ^4.22.1
     numeral: ^2.0.6
-    octokit: ^2.0.19
+    octokit: ^2.1.0
     postcss: 8.4.24
     prettier: 2.8.8
     prettier-plugin-tailwindcss: 0.3.0
-    prisma: 4.15.0
+    prisma: 4.16.1
     react: 18.2.0
     react-chartjs-2: ^5.2.0
     react-dom: 18.2.0
-    react-icons: ^4.9.0
+    react-icons: ^4.10.1
     server-only: ^0.0.1
     sharp: ^0.32.1
     tailwindcss: 3.3.2
@@ -3675,11 +3684,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-next@npm:13.4.5":
-  version: 13.4.5
-  resolution: "eslint-config-next@npm:13.4.5"
+"eslint-config-next@npm:13.4.8-canary.0":
+  version: 13.4.8-canary.0
+  resolution: "eslint-config-next@npm:13.4.8-canary.0"
   dependencies:
-    "@next/eslint-plugin-next": 13.4.5
+    "@next/eslint-plugin-next": 13.4.8-canary.0
     "@rushstack/eslint-patch": ^1.1.3
     "@typescript-eslint/parser": ^5.42.0
     eslint-import-resolver-node: ^0.3.6
@@ -3694,7 +3703,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 71647757dfeaa9aa67ed60c9a2a764eb323cee18966df606b37900eeca8759504a29c5b02941264a1a8f9f67293107a77a856d4253acdafd245b357ff6873b02
+  checksum: 2c0a4b05d4abb48f2413d1dc5d7eeae338686e8cb6ffd523b350046d9af92644c70f4e676db53f79c65382046928ee1a13ef9a7378dddbf201a9ba1ac7582b59
   languageName: node
   linkType: hard
 
@@ -6311,20 +6320,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:13.4.5":
-  version: 13.4.5
-  resolution: "next@npm:13.4.5"
+"next@npm:13.4.8-canary.0":
+  version: 13.4.8-canary.0
+  resolution: "next@npm:13.4.8-canary.0"
   dependencies:
-    "@next/env": 13.4.5
-    "@next/swc-darwin-arm64": 13.4.5
-    "@next/swc-darwin-x64": 13.4.5
-    "@next/swc-linux-arm64-gnu": 13.4.5
-    "@next/swc-linux-arm64-musl": 13.4.5
-    "@next/swc-linux-x64-gnu": 13.4.5
-    "@next/swc-linux-x64-musl": 13.4.5
-    "@next/swc-win32-arm64-msvc": 13.4.5
-    "@next/swc-win32-ia32-msvc": 13.4.5
-    "@next/swc-win32-x64-msvc": 13.4.5
+    "@next/env": 13.4.8-canary.0
+    "@next/swc-darwin-arm64": 13.4.8-canary.0
+    "@next/swc-darwin-x64": 13.4.8-canary.0
+    "@next/swc-linux-arm64-gnu": 13.4.8-canary.0
+    "@next/swc-linux-arm64-musl": 13.4.8-canary.0
+    "@next/swc-linux-x64-gnu": 13.4.8-canary.0
+    "@next/swc-linux-x64-musl": 13.4.8-canary.0
+    "@next/swc-win32-arm64-msvc": 13.4.8-canary.0
+    "@next/swc-win32-ia32-msvc": 13.4.8-canary.0
+    "@next/swc-win32-x64-msvc": 13.4.8-canary.0
     "@swc/helpers": 0.5.1
     busboy: 1.6.0
     caniuse-lite: ^1.0.30001406
@@ -6366,7 +6375,7 @@ __metadata:
       optional: true
   bin:
     next: dist/bin/next
-  checksum: 428bf846dc2465be9b5dcd0788e6bfc162393ddad01a3b45c40f7baf58fd10e5004c18aa2f2eebe6aa7bd8ed8baaae08c0f6d54c6f735bb9af87b87d01f17622
+  checksum: f164f9fee5067a5537795be56383b3a9bbd749fc0cf6cb51db4734e5795d6a07780636142940d4f987ee41c42e2989ba790a667b9d8e3966ce599270abca9de3
   languageName: node
   linkType: hard
 
@@ -6624,9 +6633,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"octokit@npm:^2.0.19":
-  version: 2.0.19
-  resolution: "octokit@npm:2.0.19"
+"octokit@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "octokit@npm:2.1.0"
   dependencies:
     "@octokit/app": ^13.1.5
     "@octokit/core": ^4.2.1
@@ -6635,8 +6644,9 @@ __metadata:
     "@octokit/plugin-rest-endpoint-methods": ^7.1.1
     "@octokit/plugin-retry": ^4.1.3
     "@octokit/plugin-throttling": ^5.2.2
+    "@octokit/request-error": ^v3.0.3
     "@octokit/types": ^9.2.2
-  checksum: cc0acd5427a3dc25f70ca0ffd2e828cc7bcd51c7e4586caf06e40353f87084addd4ed6df59d441b087b9cf597540069d21bc75c27b2836e78a59e5f9f3fbec38
+  checksum: 612f3c40c0d8d330793476066fcf2a6ed77ad52690201d7c2df11044c4b3dfbefefbe13443ac4037a2128c6f13d59a2f481bc0b315b1bc650e5ff6da9a811e61
   languageName: node
   linkType: hard
 
@@ -7158,15 +7168,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prisma@npm:4.15.0":
-  version: 4.15.0
-  resolution: "prisma@npm:4.15.0"
+"prisma@npm:4.16.1":
+  version: 4.16.1
+  resolution: "prisma@npm:4.16.1"
   dependencies:
-    "@prisma/engines": 4.15.0
+    "@prisma/engines": 4.16.1
   bin:
     prisma: build/index.js
     prisma2: build/index.js
-  checksum: a42b940396f5f101d44effad9bfccca4b062ae80a369dc44961cbc074326239340f05c5af49981b1cddb08d9155c4bcc93c4d69ed2ae4a634e1742159204cb89
+  checksum: eb0f43970464fbaa6ba190a714f23d00acd39dcc14fd8a7183dffc51a548cc32040cc5360415787578749862af7501a7bedcf9f2a0e64a3f82e3af402e9439d7
   languageName: node
   linkType: hard
 
@@ -7303,12 +7313,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-icons@npm:^4.9.0":
-  version: 4.9.0
-  resolution: "react-icons@npm:4.9.0"
+"react-icons@npm:^4.10.1":
+  version: 4.10.1
+  resolution: "react-icons@npm:4.10.1"
   peerDependencies:
     react: "*"
-  checksum: 69d1000d02349cf4baa78a0882aff09723d348d910256ea7489dea777abf10f158b27c1b5d3b1d2ec030e21320eae0afcc13f9c9d11afb85a8809c59a23a923c
+  checksum: b6c8d4fe482b112e1041515d93ef7670a0af128855c926052a076b64d0b991cdd4391394b26467100f8da3859db1ebd8f9c6b7614fa5969fde83de45c71031a3
   languageName: node
   linkType: hard
 
