@@ -48,17 +48,6 @@ export default async function ProjectsTable({ currentSearchTerm }: ProjectsTable
                   <span className="cursor-pointer whitespace-nowrap">{project.name}</span>
                   <span className="absolute inset-0" />
                 </Link>
-                <Link
-                  href={`/projects/${project.id}`}
-                  className={classNames(
-                    'absolute inset-0 flex gap-x-2 bg-gradient-to-r from-gray-400 bg-clip-text text-transparent opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100',
-                    project.notices_count === BigInt(0) ? 'to-green-600' : 'to-red-600'
-                  )}
-                >
-                  <span className="truncate">{project.organization.toLowerCase()}</span>
-                  <span className="text-gray-400">/</span>
-                  <span className="cursor-pointer whitespace-nowrap">{project.name}</span>
-                </Link>
               </h2>
             </div>
           </div>
