@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.32](https://github.com/icoretech/airbroke/compare/v1.1.31...v1.1.32) (2023-06-26)
+
+
+### Features
+
+* **notices.ts:** add support for limiting the number of notices returned by getNotices function ([8d09776](https://github.com/icoretech/airbroke/commit/8d09776002d27459919d452ca581c272a7bffa5c))
+
+
+### Bug Fixes
+
+* **occurrences.ts:** unlimited data can crash prisma, default to 100 for now ([9d25777](https://github.com/icoretech/airbroke/commit/9d25777b8d20b4db4b289c0a45271c1fc7ddbae4))
+
 ## [1.1.31](https://github.com/icoretech/airbroke/compare/v1.1.30...v1.1.31) (2023-06-12)
 
 
