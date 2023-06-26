@@ -18,16 +18,17 @@ interface NoticeWithProject extends Notice {
 }
 
 // Cached function to fetch notices from the database
-const fetchNotices = cache(async (whereObject?: any, orderByObject?: any) => {
+const fetchNotices = cache(async (whereObject?: any, orderByObject?: any, limit?: number) => {
   const results = await prisma.notice.findMany({
     where: whereObject,
     orderBy: orderByObject,
+    take: limit,
   });
   return results;
 });
 
 // Function to get notices based on provided search parameters
-export async function getNotices(projectId: string, params: NoticeSearchParams): Promise<Notice[]> {
+export async function getNotices(projectId: string, params: NoticeSearchParams, limit?: number): Promise<Notice[]> {
   const { sortDir, sortAttr, filterByEnv, searchQuery } = params;
 
   const whereObject = {
@@ -45,7 +46,7 @@ export async function getNotices(projectId: string, params: NoticeSearchParams):
     [sortAttr || 'updated_at']: sortDir || 'desc',
   };
 
-  const notices = await fetchNotices(whereObject, orderByObject);
+  const notices = await fetchNotices(whereObject, orderByObject, limit);
 
   return notices;
 }
