@@ -25,7 +25,7 @@ const fetchOccurrences = cache(async (whereObject?: any, orderByObject?: any, li
   const results: OccurrenceWithNotice[] = await prisma.occurrence.findMany({
     where: whereObject,
     orderBy: orderByObject,
-    take: limit,
+    take: limit || 100,
     include: {
       notice: true,
     },
