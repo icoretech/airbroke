@@ -1,15 +1,20 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:base"
   ],
-  "semanticCommits": true,
-  "stabilityDays": 2,
-  "prCreation": "not-pending",
-  "labels": [
-    "type: dependencies"
-  ],
-  "group": true,
+  "prHourlyLimit": 0,
+  "ignoreTests": true,
   "packageRules": [
+    {
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
+      "automerge": true
+    },
     {
       "packageNames": [
         "node"
