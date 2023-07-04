@@ -80,7 +80,6 @@ export default function Form() {
             <span className="text-xs text-gray-400">or</span>
             <button
               id="no_repo"
-              name="no_repo"
               formAction={handleSubmitNoRepo}
               className="rounded border-gray-300 text-xs text-indigo-200 hover:text-indigo-400 focus:ring-indigo-200"
             >
