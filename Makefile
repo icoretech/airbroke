@@ -9,6 +9,7 @@ build:
 
 resetdb: stop
 	docker compose run --rm web npx prisma migrate reset --force
+
 # dummy rule that prevents make from printing an error message for
 # any targets that were not defined
 %:

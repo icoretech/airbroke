@@ -6,12 +6,6 @@
     clone: {
       depth: 1,
     },
-    trigger: {
-      branch: ['main'],
-      event: {
-        include: ['push'],
-      },
-    },
     steps: [
       {
         name: 'tag',
@@ -25,7 +19,7 @@
         },
       },
       {
-        name: 'build',
+        name: 'build-and-push',
         image: 'thegeeklab/drone-docker-buildx',
         privileged: true,
         depends_on: ['tag'],
@@ -33,7 +27,6 @@
           debug: true,
           purge: true,
           no_cache: true,
-          // platforms: ['linux/amd64', 'linux/arm64'],
           platforms: ['linux/amd64'],
           repo: 'ghcr.io/icoretech/airbroke',
           registry: 'ghcr.io/icoretech',
@@ -42,6 +35,35 @@
           },
           password: {
             from_secret: 'github_packages_pat',
+          },
+          when: {
+            branch: ['main'],
+          },
+        },
+      },
+      {
+        name: 'build-no-push',
+        image: 'thegeeklab/drone-docker-buildx',
+        privileged: true,
+        depends_on: ['tag'],
+        settings: {
+          dry_run: true,
+          debug: true,
+          purge: true,
+          no_cache: true,
+          platforms: ['linux/amd64'],
+          repo: 'ghcr.io/icoretech/airbroke',
+          registry: 'ghcr.io/icoretech',
+          username: {
+            from_secret: 'github_packages_username',
+          },
+          password: {
+            from_secret: 'github_packages_pat',
+          },
+          when: {
+            branch: {
+              exclude: ['main'],
+            },
           },
         },
       },
