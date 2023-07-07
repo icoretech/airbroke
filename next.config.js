@@ -7,7 +7,7 @@ const nextConfig = {
   },
   experimental: {
     serverActions: true,
-    serverComponentsExternalPackages: ['@prisma/client', 'chatgpt', '@octokit', '@airbrake/node'],
+    serverComponentsExternalPackages: ['chatgpt', '@octokit', '@airbrake/node'],
     // typedRoutes: true,
   },
   async rewrites() {
@@ -24,6 +24,7 @@ const nextConfig = {
         source: '/notifier_api/v2/notices',
         destination: '/api/v3/notices',
       },
+      // old api routing compat
       {
         source: '/projects/:project_id/notices/:notice_id/occurrences/:occurrence_id',
         destination: '/occurrences/:occurrence_id',
