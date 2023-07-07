@@ -19,11 +19,9 @@
   <img src="public/aidemo.gif" alt="Demo" width="600" />
 </div>
 
-
-
 ## Features
 
-> Please keep in mind that Airbroke is currently in active development, and using it in production environments is at your own discretion. We appreciate your feedback and support as we work towards a stable release.
+> Airbroke is currently in active development! Using it in production environments is at your own discretion. We appreciate your feedback and support as we work towards a stable release.
 
 - :floppy_disk: Based on PostgreSQL
 - :globe_with_meridians: Airbrake(tm)-compatible HTTP collector endpoint
