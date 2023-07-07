@@ -3,7 +3,7 @@ import Search from '@/components/Search';
 import { SidebarOpenButton } from '@/components/SidebarButtons';
 import SidebarDesktop from '@/components/SidebarDesktop';
 import SidebarMobile from '@/components/SidebarMobile';
-import { prisma } from '@/lib/db';
+import prisma from '@/lib/db';
 import { redirect } from 'next/navigation';
 
 export const revalidate = 30;

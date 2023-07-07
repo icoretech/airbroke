@@ -1,6 +1,6 @@
 'use server';
 
-import { prisma } from '@/lib/db';
+import prisma from '@/lib/db';
 import { parseGitURL } from '@/lib/parseGitUrl';
 import Chance from 'chance';
 import { revalidatePath } from 'next/cache';

@@ -1,7 +1,7 @@
 'use server';
 
 import { authOptions } from '@/lib/auth';
-import { prisma } from '@/lib/db';
+import prisma from '@/lib/db';
 import { Context } from '@/types/airbroke';
 import { getServerSession as originalGetServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';

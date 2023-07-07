@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db';
+import prisma from '@/lib/db';
 import parseNotice, { NoticeData } from '@/lib/parseNotice';
 import { processError } from '@/lib/processError';
 import { customAlphabet, urlAlphabet } from 'nanoid';
@@ -104,4 +104,4 @@ async function OPTIONS(request: NextRequest) {
   });
 }
 
-export { POST, OPTIONS };
+export { OPTIONS, POST };

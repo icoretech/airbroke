@@ -1,5 +1,5 @@
 import { authOptions } from '@/lib/auth';
-import { prisma } from '@/lib/db';
+import prisma from '@/lib/db';
 import { ChatGPTAPI } from 'chatgpt';
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from 'next/server';

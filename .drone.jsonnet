@@ -6,6 +6,11 @@
     clone: {
       depth: 1,
     },
+    trigger: {
+      event: {
+        include: ['push'],
+      },
+    },
     steps: [
       {
         name: 'tag',
@@ -36,9 +41,9 @@
           password: {
             from_secret: 'github_packages_pat',
           },
-          when: {
-            branch: ['main'],
-          },
+        },
+        when: {
+          branch: ['main'],
         },
       },
       {
@@ -60,12 +65,13 @@
           password: {
             from_secret: 'github_packages_pat',
           },
-          when: {
-            branch: {
-              exclude: ['main'],
-            },
+        },
+        when: {
+          branch: {
+            exclude: ['main'],
           },
         },
+
       },
     ],
   },

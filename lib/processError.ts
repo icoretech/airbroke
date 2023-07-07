@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db';
+import prisma from '@/lib/db';
 import { NoticeError } from '@/lib/parseNotice';
 import { Prisma, Project } from '@prisma/client';
 

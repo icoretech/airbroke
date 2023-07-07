@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db';
+import prisma from '@/lib/db';
 import '@testing-library/jest-dom/extend-expect';
 import { execSync } from 'child_process';
 

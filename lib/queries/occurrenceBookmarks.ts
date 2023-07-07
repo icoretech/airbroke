@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db';
+import prisma from '@/lib/db';
 import type { Notice, Occurrence, OccurrenceBookmark, Project } from '@prisma/client';
 import { cache } from 'react';
 
