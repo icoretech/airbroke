@@ -7,6 +7,9 @@
       depth: 1,
     },
     trigger: {
+      branch: {
+        exclude: ['release-please--branches--main--components--airbroke'],
+      },
       event: {
         include: ['push'],
       },
