@@ -5,7 +5,7 @@ import { Notifier as AirbrakeNodeNotifier } from '@airbrake/node';
 import { revalidatePath } from 'next/cache';
 
 export async function sendAirbrakeNodeException(projectId: string, host: string) {
-  const project = await getProjectById(projectId)
+  const project = await getProjectById(projectId);
   if (!project) {
     throw new Error('Project not found');
   }
@@ -27,8 +27,8 @@ export async function sendAirbrakeNodeException(projectId: string, host: string)
   }
 
   try {
-    revalidatePath(`/projects`)
-    revalidatePath(`/projects/${project.id}`)
+    revalidatePath(`/projects`);
+    revalidatePath(`/projects/${project.id}`);
   } catch (err) {
     console.warn(err);
   }

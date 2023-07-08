@@ -21,20 +21,25 @@ interface OccurrenceWithNoticeAndProject extends Occurrence {
 }
 
 // Cached function to fetch occurrences from the database
-const fetchOccurrences = cache(async (whereObject?: any, orderByObject?: any, limit?: number): Promise<OccurrenceWithNotice[]> => {
-  const results: OccurrenceWithNotice[] = await prisma.occurrence.findMany({
-    where: whereObject,
-    orderBy: orderByObject,
-    take: limit || 100,
-    include: {
-      notice: true,
-    },
-  });
-  return results;
-});
+const fetchOccurrences = cache(
+  async (whereObject?: any, orderByObject?: any, limit?: number): Promise<OccurrenceWithNotice[]> => {
+    const results: OccurrenceWithNotice[] = await prisma.occurrence.findMany({
+      where: whereObject,
+      orderBy: orderByObject,
+      take: limit || 100,
+      include: {
+        notice: true,
+      },
+    });
+    return results;
+  }
+);
 
 // Function to get occurrences based on provided search parameters
-export async function getOccurrences(noticeId: string, params: OccurrenceSearchParams): Promise<OccurrenceWithNotice[]> {
+export async function getOccurrences(
+  noticeId: string,
+  params: OccurrenceSearchParams
+): Promise<OccurrenceWithNotice[]> {
   const { sortDir, sortAttr, searchQuery, limit } = params;
 
   const whereObject = {
@@ -42,9 +47,9 @@ export async function getOccurrences(noticeId: string, params: OccurrenceSearchP
     ...(searchQuery && {
       message: {
         contains: searchQuery,
-        mode: 'insensitive'
-      }
-    })
+        mode: 'insensitive',
+      },
+    }),
   };
 
   const orderByObject = {

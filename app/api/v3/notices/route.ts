@@ -37,7 +37,7 @@ async function parseRequestBody(request: NextRequest) {
     const parsedBody = JSON.parse(rawBody) as NoticeData;
     whitelisted = parseNotice(parsedBody);
   } else {
-    const jsonBody = await request.json() as NoticeData;
+    const jsonBody = (await request.json()) as NoticeData;
     whitelisted = parseNotice(jsonBody);
   }
 

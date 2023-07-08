@@ -1,7 +1,7 @@
 import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/db';
 import { ChatGPTAPI } from 'chatgpt';
-import { getServerSession } from "next-auth";
+import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
@@ -9,10 +9,7 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: NextRequest) {
   const session = await getServerSession(authOptions);
   if (!session) {
-    return new NextResponse(
-      JSON.stringify({ status: "fail", message: "You are not logged in" }),
-      { status: 401 }
-    );
+    return new NextResponse(JSON.stringify({ status: 'fail', message: 'You are not logged in' }), { status: 401 });
   }
 
   // const pass = request.nextUrl.searchParams.get('pass');
@@ -28,7 +25,7 @@ export async function GET(request: NextRequest) {
 
   const occurrenceWithRelations = await prisma.occurrence.findFirst({
     where: { id: occurrenceId },
-    include: { notice: { include: { project: true } } }
+    include: { notice: { include: { project: true } } },
   });
 
   if (!occurrenceWithRelations) {
@@ -51,14 +48,14 @@ export async function GET(request: NextRequest) {
 
   const prompt =
     `I encountered an error of type "${errorType}" with the following message: "${errorMessage}". ` +
-    `Could you please explain what this error means and suggest possible solutions?`;
+    `Explain what this error means and suggest possible solutions.`;
 
   let dataReceived = false;
 
   const responsePromise = api.sendMessage(prompt, {
     timeoutMs: 2 * 60 * 1000,
     onProgress: async (partialResponse) => {
-      const cleanText = partialResponse.text.replace(/\n/g, "\\n");
+      const cleanText = partialResponse.text.replace(/\n/g, '\\n');
       const data = new TextEncoder().encode(`data: ${cleanText}\n\n`);
       await writer.write(data);
 

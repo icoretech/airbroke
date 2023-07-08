@@ -25,7 +25,7 @@ services:
       - .:/app
       - npm_cache:/root/.npm
       - yarn_cache:/usr/local/share/.cache/yarn
-      - next_data:/app/.next
+      # - next_cache:/app/.next/cache
     networks:
       - airbroke
     depends_on:
@@ -61,7 +61,7 @@ services:
   #     - .:/app
   #     - npm_cache:/root/.npm
   #     - yarn_cache:/usr/local/share/.cache/yarn
-  #     - test_next_data:/app/.next
+  #     - test_next_cache:/app/.next
   #   depends_on:
   #     nextbase:
   #       condition: service_completed_successfully
@@ -70,7 +70,7 @@ volumes:
   db_data:
   npm_cache:
   yarn_cache:
-  next_data:
+  next_cache:
   test_next_data:
 
 networks:

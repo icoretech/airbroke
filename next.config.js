@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+  openAnalyzer: false,
+});
+
 const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
@@ -8,6 +13,7 @@ const nextConfig = {
   experimental: {
     serverActions: true,
     serverComponentsExternalPackages: ['chatgpt', '@octokit', '@airbrake/node'],
+    instrumentationHook: true,
     // typedRoutes: true,
   },
   async rewrites() {
@@ -37,4 +43,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withBundleAnalyzer(nextConfig);

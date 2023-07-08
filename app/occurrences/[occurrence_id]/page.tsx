@@ -24,6 +24,8 @@ import Link from 'next/link';
 import { FaCarCrash } from 'react-icons/fa';
 import { SlCompass, SlGlobe, SlGraph, SlLink, SlList, SlUser, SlWrench } from 'react-icons/sl';
 
+export const revalidate = 0;
+
 type ComponentProps = {
   params: { occurrence_id: string };
   searchParams: { [key: string]: string | undefined };
@@ -35,12 +37,12 @@ export async function generateMetadata({ params }: ComponentProps): Promise<Meta
 }
 
 export default async function Occurrence({ params, searchParams }: ComponentProps) {
-  const session = await getServerSession(authOptions);
-  const userId = session?.user?.id;
   const occurrence = await getOccurrenceById(params.occurrence_id);
   if (!occurrence) {
     throw new Error('Occurrence not found');
   }
+  const session = await getServerSession(authOptions);
+  const userId = session?.user?.id;
   const isBookmarked = await checkOccurrenceBookmarkExistence(userId, occurrence.id);
   const hasSession = occurrence.session && Object.keys(occurrence.session).length > 0;
   const hasParams = occurrence.params && Object.keys(occurrence.params).length > 0;

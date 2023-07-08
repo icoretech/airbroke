@@ -1,10 +1,6 @@
-import { Project } from "@prisma/client";
+import { Project } from '@prisma/client';
 
-export function composeFileUrl(
-  project: Project,
-  filePath: string,
-  lineNumber?: number
-): string {
+export function composeFileUrl(project: Project, filePath: string, lineNumber?: number): string {
   const repoUrl = project.repo_url?.toLowerCase() || '';
   const repoBranch = project.repo_branch?.toLowerCase() || '';
   const filePathLower = filePath.toLowerCase();

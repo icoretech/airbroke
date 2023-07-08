@@ -15,7 +15,7 @@ export async function processError(
   const backtrace = error.backtrace;
 
   const env = context.environment || 'unknown';
-  let attempts = 3;  // Number of retry attempts
+  let attempts = 3; // Number of retry attempts
   let success = false;
   let current_notice_id = null;
 
@@ -51,7 +51,7 @@ export async function processError(
         },
       });
       current_notice_id = current_notice.id;
-      success = true;  // If upsert succeeded, break the loop
+      success = true; // If upsert succeeded, break the loop
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
         // If the error is a P2002, retry the operation

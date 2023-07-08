@@ -16,8 +16,8 @@ type SidebarDesktopProps = {
 };
 
 export default async function SidebarDesktop({ selectedProjectId }: SidebarDesktopProps) {
-  const session = await getServerSession(authOptions);
   const groupedProjects = await getProjectsGroupedByOrganization();
+  const session = await getServerSession(authOptions);
 
   return (
     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-airbroke-800 px-6 ring-1 ring-white/5 scrollbar-none">

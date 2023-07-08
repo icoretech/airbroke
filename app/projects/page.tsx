@@ -4,9 +4,14 @@ import { SidebarOpenButton } from '@/components/SidebarButtons';
 import SidebarDesktop from '@/components/SidebarDesktop';
 import SidebarMobile from '@/components/SidebarMobile';
 import prisma from '@/lib/db';
+import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
-export const revalidate = 30;
+export const revalidate = 0;
+
+export async function generateMetadata(): Promise<Metadata> {
+  return { title: 'Projects' };
+}
 
 // /projects
 export default async function Projects({ searchParams }: { searchParams: Record<string, string> }) {

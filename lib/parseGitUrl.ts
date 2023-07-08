@@ -1,7 +1,7 @@
 export type GitInfo = {
-  provider: string,
-  organization: string,
-  repository: string
+  provider: string;
+  organization: string;
+  repository: string;
 };
 
 export function parseGitURL(url: string): GitInfo | null {
@@ -23,6 +23,6 @@ export function parseGitURL(url: string): GitInfo | null {
   return {
     provider: matches[2],
     organization: matches[3],
-    repository: matches[4]
+    repository: matches[4],
   };
 }

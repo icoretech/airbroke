@@ -15,18 +15,21 @@ const fetchOccurrenceBookmarks = cache(async (whereObject?: any): Promise<Occurr
         include: {
           notice: {
             include: {
-              project: true
-            }
-          }
-        }
-      }
-    }
+              project: true,
+            },
+          },
+        },
+      },
+    },
   });
   return results;
 });
 
 // Function to get occurrence bookmarks based on provided search parameters
-export async function getOccurrenceBookmarks(userId?: string, searchQuery?: string): Promise<OccurrenceBookmarkWithAssociations[]> {
+export async function getOccurrenceBookmarks(
+  userId?: string,
+  searchQuery?: string
+): Promise<OccurrenceBookmarkWithAssociations[]> {
   if (!userId) {
     return [];
   }
@@ -39,22 +42,22 @@ export async function getOccurrenceBookmarks(userId?: string, searchQuery?: stri
           occurrence: {
             message: {
               contains: searchQuery,
-              mode: 'insensitive'
-            }
-          }
+              mode: 'insensitive',
+            },
+          },
         },
         {
           occurrence: {
             notice: {
               kind: {
                 contains: searchQuery,
-                mode: 'insensitive'
-              }
-            }
-          }
-        }
-      ]
-    })
+                mode: 'insensitive',
+              },
+            },
+          },
+        },
+      ],
+    }),
   };
 
   const occurrenceBookmarks = await fetchOccurrenceBookmarks(whereObject);

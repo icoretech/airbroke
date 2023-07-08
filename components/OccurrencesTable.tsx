@@ -47,7 +47,7 @@ export default async function OccurrencesTable({ noticeId, searchParams }: Occur
             </div>
           </div>
 
-          <div className="text-right text-xs">
+          <div className="min-w-[200px] text-right text-xs">
             <p className="text-white">
               <CustomTimeAgo datetime={occurrence.updated_at} locale="en_US" />
             </p>

@@ -32,7 +32,7 @@ export default async function NoticesTable({ projectId, searchParams }: NoticesT
             </div>
           </div>
 
-          <p className="text-right text-xs text-white">
+          <p className="min-w-[200px] text-right text-xs text-white">
             <CustomTimeAgo datetime={notice.updated_at} locale="en_US" />
           </p>
           <OccurrenceCounterLabel counter={notice.seen_count} />
