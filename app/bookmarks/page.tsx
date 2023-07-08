@@ -5,8 +5,6 @@ import SidebarDesktop from '@/components/SidebarDesktop';
 import SidebarMobile from '@/components/SidebarMobile';
 import type { Route } from 'next';
 
-export const revalidate = 5;
-
 export default async function Bookmarks({ searchParams }: { searchParams: Record<string, string> }) {
   const searchQuery = searchParams.searchQuery;
 

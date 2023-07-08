@@ -35,7 +35,7 @@ services:
   web:
     extends: nextbase
     command: yarn dev
-    restart: 'always'
+    restart: always
     environment:
       DATABASE_URL: 'postgresql://postgres:airbroke@db/airbroke_development?connection_limit=8&connection_timeout=5'
       DIRECT_URL: 'postgresql://postgres:airbroke@db/airbroke_development'
@@ -53,7 +53,7 @@ services:
   # test:
   #   extends: nextbase
   #   command: yarn test
-  #   restart: 'always'
+  #   restart: always
   #   environment:
   #     DATABASE_URL: 'postgresql://postgres:airbroke@db/airbroke_test?connection_limit=15'
   #     DIRECT_URL: 'postgresql://postgres:airbroke@db/airbroke_test?connection_limit=15'

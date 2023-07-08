@@ -1,7 +1,7 @@
+import { customCache } from '@/lib/cache';
 import prisma from '@/lib/db';
 import type { Project } from '@prisma/client';
 import { Notice } from '@prisma/client';
-import { unstable_cache } from 'next/cache';
 
 export type SortAttribute = 'env' | 'kind' | 'updated_at' | 'seen_count' | undefined;
 export type SortDirection = 'asc' | 'desc' | undefined;
@@ -36,23 +36,21 @@ export async function getNotices(projectId: string, params: NoticeSearchParams, 
     [sortAttr || 'updated_at']: sortDir || 'desc',
   };
 
-  const cachedFetchNotices = unstable_cache(
+  const cachedData = await customCache(
     () => _fetchNotices(whereObject, orderByObject, limit),
-    [projectId, JSON.stringify(whereObject), JSON.stringify(orderByObject), JSON.stringify(limit)],
+    ['notices', JSON.stringify(whereObject), JSON.stringify(orderByObject), JSON.stringify(limit)],
     { revalidate: 60, tags: [`project_${projectId}_notices`] }
   );
-  const cachedData = await cachedFetchNotices();
 
   return cachedData;
 }
 
 // Function to fetch a single notice by ID
 export async function getNoticeById(noticeId: string): Promise<NoticeWithProject | null> {
-  const cachedFetchNotice = unstable_cache(() => _fetchNoticeById(noticeId), [noticeId], {
+  const cachedData = await customCache(() => _fetchNoticeById(noticeId), ['notice', noticeId], {
     revalidate: 60,
     tags: [`notice_${noticeId}`],
   });
-  const cachedData = await cachedFetchNotice();
 
   return cachedData;
 }
@@ -68,7 +66,7 @@ export async function getNoticeIdsByProjectId(projectId: string): Promise<string
 }
 
 export async function getNoticeEnvs(projectId: string): Promise<string[]> {
-  const notices = await prisma.notice.findMany({
+  const result = await prisma.notice.findMany({
     where: {
       project_id: projectId,
     },
@@ -81,20 +79,22 @@ export async function getNoticeEnvs(projectId: string): Promise<string[]> {
     distinct: ['env'],
   });
 
-  return notices.map((notice) => notice.env);
+  return result.map((notice) => notice.env);
 }
 
 async function _fetchNotices(whereObject?: any, orderByObject?: any, limit?: number): Promise<Notice[]> {
-  return prisma.notice.findMany({
+  const result = await prisma.notice.findMany({
     where: whereObject,
     orderBy: orderByObject,
     take: limit,
   });
+  return result;
 }
 
 async function _fetchNoticeById(noticeId: string): Promise<NoticeWithProject | null> {
-  return prisma.notice.findUnique({
+  const result = await prisma.notice.findUnique({
     where: { id: noticeId },
     include: { project: true },
   });
+  return result;
 }

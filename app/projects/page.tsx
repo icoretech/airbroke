@@ -7,8 +7,6 @@ import prisma from '@/lib/db';
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
-export const revalidate = 0;
-
 export async function generateMetadata(): Promise<Metadata> {
   return { title: 'Projects' };
 }

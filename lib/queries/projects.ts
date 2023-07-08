@@ -1,6 +1,6 @@
+import { customCache } from '@/lib/cache';
 import prisma from '@/lib/db';
 import type { Project } from '@prisma/client';
-import { unstable_cache } from 'next/cache';
 
 // Define the type for the grouped projects
 type GroupedProjects = { [key: string]: Project[] };
@@ -11,12 +11,12 @@ export async function getProjects(currentSearchTerm?: string): Promise<Project[]
     ...(currentSearchTerm && { name: { contains: currentSearchTerm, mode: 'insensitive' } }),
   };
 
-  const cachedFetchProjects = unstable_cache(() => _fetchProjects(whereObject), [JSON.stringify(whereObject)], {
+  const cachedData = await customCache(() => _fetchProjects(whereObject), ['projects', JSON.stringify(whereObject)], {
     revalidate: 60,
     tags: ['projects'],
   });
 
-  return cachedFetchProjects();
+  return cachedData;
 }
 
 // Function to get projects grouped by organization
@@ -40,26 +40,23 @@ export async function getProjectsGroupedByOrganization(): Promise<GroupedProject
 
 // Function to fetch a single project by ID
 export async function getProjectById(projectId: string): Promise<Project | null> {
-  const cachedProject = unstable_cache(
-    async () => {
-      return _fetchProjectById(projectId);
-    },
-    [projectId],
-    { revalidate: 60, tags: [`project_${projectId}`] }
-  );
-
-  const cachedData = await cachedProject();
+  const cachedData = await customCache(() => _fetchProjectById(projectId), ['project', projectId], {
+    revalidate: 60,
+    tags: [`project_${projectId}`],
+  });
 
   return cachedData;
 }
 
 async function _fetchProjects(whereObject?: any): Promise<Project[]> {
-  return prisma.project.findMany({
+  const result = await prisma.project.findMany({
     where: whereObject,
     orderBy: { name: 'asc' },
   });
+  return result;
 }
 
 async function _fetchProjectById(projectId: string): Promise<Project | null> {
-  return prisma.project.findUnique({ where: { id: projectId } });
+  const result = await prisma.project.findUnique({ where: { id: projectId } });
+  return result;
 }

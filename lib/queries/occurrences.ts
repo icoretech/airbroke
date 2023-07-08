@@ -1,6 +1,6 @@
+import { customCache } from '@/lib/cache';
 import prisma from '@/lib/db';
 import type { Notice, Occurrence, Project } from '@prisma/client';
-import { cache } from 'react';
 
 export type SortAttribute = 'seen_count' | 'updated_at' | undefined;
 export type SortDirection = 'asc' | 'desc' | undefined;
@@ -19,21 +19,6 @@ interface OccurrenceWithNotice extends Occurrence {
 interface OccurrenceWithNoticeAndProject extends Occurrence {
   notice: Notice & { project: Project };
 }
-
-// Cached function to fetch occurrences from the database
-const fetchOccurrences = cache(
-  async (whereObject?: any, orderByObject?: any, limit?: number): Promise<OccurrenceWithNotice[]> => {
-    const results: OccurrenceWithNotice[] = await prisma.occurrence.findMany({
-      where: whereObject,
-      orderBy: orderByObject,
-      take: limit || 100,
-      include: {
-        notice: true,
-      },
-    });
-    return results;
-  }
-);
 
 // Function to get occurrences based on provided search parameters
 export async function getOccurrences(
@@ -56,41 +41,38 @@ export async function getOccurrences(
     [sortAttr || 'updated_at']: sortDir || 'desc',
   };
 
-  const occurrences = await fetchOccurrences(whereObject, orderByObject, limit);
+  const cachedData = await customCache(
+    () => _fetchOccurrences(whereObject, orderByObject, limit),
+    ['occurrences', JSON.stringify(whereObject), JSON.stringify(orderByObject), limit ? limit.toString() : '100'],
+    {
+      revalidate: 60,
+      tags: [`occurrences_${noticeId}`, 'occurrences'],
+    }
+  );
 
-  return occurrences;
+  return cachedData;
 }
 
-// Cached function to fetch a single occurrence by ID
-const fetchOccurrenceById = cache(async (occurrenceId: string): Promise<OccurrenceWithNoticeAndProject | null> => {
-  const occurrence = await prisma.occurrence.findUnique({
-    where: { id: occurrenceId },
-    include: {
-      notice: {
-        include: {
-          project: true,
-        },
-      },
-    },
-  });
-  return occurrence;
-});
-
 // Function to fetch a single occurrence by ID
-export const getOccurrenceById = async (occurrenceId: string): Promise<OccurrenceWithNoticeAndProject | null> => {
-  return fetchOccurrenceById(occurrenceId);
-};
+export async function getOccurrenceById(occurrenceId: string): Promise<OccurrenceWithNoticeAndProject | null> {
+  const cachedData = await customCache(() => _fetchOccurrenceById(occurrenceId), ['occurrence', occurrenceId], {
+    revalidate: 60,
+    tags: [`occurrence_${occurrenceId}`],
+  });
+
+  return cachedData;
+}
 
 // Function to extract all occurrence IDs for an array of notice IDs
-export const getOccurrenceIdsByNoticeIds = async (noticeIds: string[]): Promise<string[]> => {
-  const occurrences = await prisma.occurrence.findMany({
+export async function getOccurrenceIdsByNoticeIds(noticeIds: string[]): Promise<string[]> {
+  const result = await prisma.occurrence.findMany({
     where: { notice_id: { in: noticeIds } },
     select: { id: true },
   });
-  return occurrences.map((occurrence) => occurrence.id);
-};
+  return result.map((occurrence) => occurrence.id);
+}
 
-export const getHourlyOccurrenceRateForLast14Days = async (projectId: string): Promise<number> => {
+export async function getHourlyOccurrenceRateForLast14Days(projectId: string): Promise<number> {
   const endDate = new Date();
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - 14);
@@ -130,4 +112,34 @@ export const getHourlyOccurrenceRateForLast14Days = async (projectId: string): P
 
   // Round to the nearest integer
   return Math.round(rate);
-};
+}
+
+async function _fetchOccurrences(
+  whereObject?: any,
+  orderByObject?: any,
+  limit?: number
+): Promise<OccurrenceWithNotice[]> {
+  const result = await prisma.occurrence.findMany({
+    where: whereObject,
+    orderBy: orderByObject,
+    take: limit || 100,
+    include: {
+      notice: true,
+    },
+  });
+  return result;
+}
+
+async function _fetchOccurrenceById(occurrenceId: string): Promise<OccurrenceWithNoticeAndProject | null> {
+  const result = await prisma.occurrence.findUnique({
+    where: { id: occurrenceId },
+    include: {
+      notice: {
+        include: {
+          project: true,
+        },
+      },
+    },
+  });
+  return result;
+}

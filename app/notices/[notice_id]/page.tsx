@@ -12,8 +12,6 @@ type ComponentProps = {
   searchParams: { [key: string]: string | undefined };
 };
 
-export const revalidate = 30;
-
 export async function generateMetadata({ params }: ComponentProps): Promise<Metadata> {
   const notice = await getNoticeById(params.notice_id);
   return { title: `(${notice?.project?.name}) ${notice?.kind}` };

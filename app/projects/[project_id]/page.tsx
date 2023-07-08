@@ -10,8 +10,6 @@ import type { Metadata, Route } from 'next';
 import Filter from './Filter';
 import Sort from './Sort';
 
-export const revalidate = 0;
-
 type ComponentProps = {
   params: { project_id: string };
   searchParams: { [key: string]: string | undefined };
