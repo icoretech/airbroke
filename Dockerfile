@@ -1,7 +1,7 @@
 # docker build --no-cache -t icoretech/airbroke:latest .
 # docker run -p 3000:3000 icoretech/airbroke:latest
 
-FROM --platform=$BUILDPLATFORM node:20-alpine AS builder
+FROM --platform=$BUILDPLATFORM node:20.2-alpine AS builder
 ENV NEXT_TELEMETRY_DISABLED 1
 
 WORKDIR /app
@@ -12,7 +12,7 @@ COPY . .
 RUN yarn install --immutable
 RUN yarn build
 
-FROM --platform=$BUILDPLATFORM node:20-alpine AS runner
+FROM --platform=$BUILDPLATFORM node:20.2-alpine AS runner
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 
