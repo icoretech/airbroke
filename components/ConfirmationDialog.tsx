@@ -3,8 +3,8 @@
 import { deleteProject, deleteProjectNotices } from '@/app/_actions';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useRef, useState, useTransition } from 'react';
-import { SlDisc, SlFire } from 'react-icons/sl';
-import { VscTrash } from 'react-icons/vsc';
+import { SlDisc, SlFire } from 'react-icons-ng/sl';
+import { VscTrash } from 'react-icons-ng/vsc';
 
 export default function ConfirmationDialog({
   projectId,

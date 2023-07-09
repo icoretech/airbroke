@@ -1,7 +1,7 @@
 import { SidebarOpenButton } from '@/components/SidebarButtons';
 import type { Breadcrumb } from '@/types/airbroke';
 import Link from 'next/link';
-import { SlLayers } from 'react-icons/sl';
+import { SlLayers } from 'react-icons-ng/sl';
 
 export default function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
   return (

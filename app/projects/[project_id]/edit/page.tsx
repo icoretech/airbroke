@@ -12,7 +12,7 @@ import type { ProjectTabs } from '@/types/airbroke';
 import type { Route } from 'next';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { SlPencil, SlSettings, SlWrench } from 'react-icons/sl';
+import { SlPencil, SlSettings, SlWrench } from 'react-icons-ng/sl';
 
 export const revalidate = 0;
 

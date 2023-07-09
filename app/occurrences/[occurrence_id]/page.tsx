@@ -21,8 +21,8 @@ import type { OccurrenceTabKeys, OccurrenceTabs } from '@/types/airbroke';
 import type { Metadata, Route } from 'next';
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
-import { FaCarCrash } from 'react-icons/fa';
-import { SlCompass, SlGlobe, SlGraph, SlLink, SlList, SlUser, SlWrench } from 'react-icons/sl';
+import { FaCarCrash } from 'react-icons-ng/fa';
+import { SlCompass, SlGlobe, SlGraph, SlLink, SlList, SlUser, SlWrench } from 'react-icons-ng/sl';
 
 export const revalidate = 0;
 

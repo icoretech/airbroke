@@ -5,8 +5,8 @@ import { Menu, Transition } from '@headlessui/react';
 import { Project } from '@prisma/client';
 import Link from 'next/link';
 import { Fragment } from 'react';
-import { RxCaretDown } from 'react-icons/rx';
-import { SlInfo, SlKey } from 'react-icons/sl';
+import { RxCaretDown } from 'react-icons-ng/rx';
+import { SlInfo, SlKey } from 'react-icons-ng/sl';
 
 export default function ProjectActionsMenu({ project }: { project: Project }) {
   return (

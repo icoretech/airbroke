@@ -1,5 +1,5 @@
 import type { Route } from 'next';
-import type { IconType } from 'react-icons';
+import type { IconType } from 'react-icons-ng';
 
 export interface Context {
   headers?: Record<string, string>;
@@ -20,7 +20,6 @@ export type Tab = {
   icon: IconType;
   href: Route;
 };
-
 
 export type OccurrenceTabKeys = 'backtrace' | 'context' | 'environment' | 'session' | 'params' | 'chart' | 'toolbox';
 export type OccurrenceTabs = {

@@ -5,7 +5,7 @@ import { Notifier as AirbrakeJsNotifier } from '@airbrake/browser';
 import { Project } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
-import { SlCheck, SlDisc, SlEnergy } from 'react-icons/sl';
+import { SlCheck, SlDisc, SlEnergy } from 'react-icons-ng/sl';
 
 export default function NoData({ project, showHeader = true }: { project: Project; showHeader?: boolean }) {
   const [isPending, startTransition] = useTransition();

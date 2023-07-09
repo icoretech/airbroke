@@ -2,7 +2,7 @@
 
 import { Context } from '@/types/airbroke';
 import { useState } from 'react';
-import { SiCurl } from 'react-icons/si';
+import { SiCurl } from 'react-icons-ng/si';
 
 function ToolboxCurl({ context }: { context: Context }) {
   const toCurl = (): string => {

@@ -3,7 +3,7 @@
 import { performReplay } from '@/app/_actions';
 import { Context } from '@/types/airbroke';
 import { useState } from 'react';
-import { BsArrowRepeat } from 'react-icons/bs';
+import { BsArrowRepeat } from 'react-icons-ng/bs';
 
 function ToolboxFetch({ context }: { context: Context }) {
   const [responseText, setResponseText] = useState<string>('');

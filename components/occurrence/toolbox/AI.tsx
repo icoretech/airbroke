@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { BsRobot } from 'react-icons/bs';
-import { SiOpenai } from 'react-icons/si';
-import { SlDisc } from 'react-icons/sl';
+import { BsRobot } from 'react-icons-ng/bs';
+import { SiOpenai } from 'react-icons-ng/si';
+import { SlDisc } from 'react-icons-ng/sl';
 
 export default function ToolboxAI({ occurrenceId }: { occurrenceId: string }) {
   const [data, setData] = useState('');

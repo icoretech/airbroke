@@ -1,6 +1,6 @@
-import { IconType } from 'react-icons';
-import { FaBitbucket, FaCode, FaGithub, FaGitkraken, FaGitlab, FaGitter } from 'react-icons/fa';
-import { SiGitea } from 'react-icons/si';
+import type { IconType } from 'react-icons-ng';
+import { FaBitbucket, FaCode, FaGithub, FaGitkraken, FaGitlab, FaGitter } from 'react-icons-ng/fa';
+import { SiGitea } from 'react-icons-ng/si';
 
 export const providerIcons: { [key: string]: IconType } = {
   github: FaGithub,

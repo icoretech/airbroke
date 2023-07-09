@@ -3,7 +3,7 @@ import logo from '@/public/logo.svg';
 import screenshot from '@/public/screenshot.png';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaGithub } from 'react-icons/fa';
+import { FaGithub } from 'react-icons-ng/fa';
 
 export default function HomePage() {
   const currentYear = new Date().getFullYear();

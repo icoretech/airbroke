@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { HiClipboardCopy } from 'react-icons/hi';
+import { HiClipboard } from 'react-icons-ng/hi';
 
 interface CodeProps {
   code: string;
@@ -46,7 +46,7 @@ export default function CodeTemplate({ code, replacements, name }: CodeProps) {
           onClick={handleCopy}
         >
           {isCopied ? 'Copied!' : 'Copy'}
-          <HiClipboardCopy className="ml-1 h-4 w-4" />
+          <HiClipboard className="ml-1 h-4 w-4" />
         </button>
       </div>
       <div className="px-4 pb-5 text-xs sm:px-6">

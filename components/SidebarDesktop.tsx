@@ -5,9 +5,9 @@ import logo from '@/public/logo.svg';
 import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
-import { BsBookmarksFill } from 'react-icons/bs';
-import { SlPlus } from 'react-icons/sl';
-import { TbClockPause } from 'react-icons/tb';
+import { BsBookmarksFill } from 'react-icons-ng/bs';
+import { SlPlus } from 'react-icons-ng/sl';
+import { TbClockPause } from 'react-icons-ng/tb';
 import { Gravatar } from './Gravatar';
 import { ProviderIcon } from './ProviderIcon';
 

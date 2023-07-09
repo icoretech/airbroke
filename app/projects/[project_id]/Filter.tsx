@@ -6,7 +6,7 @@ import { Menu, Transition } from '@headlessui/react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Fragment } from 'react';
-import { CiFilter } from 'react-icons/ci';
+import { CiFilter } from 'react-icons-ng/ci';
 
 export default function Filter({ environments }: { environments: string[] }) {
   const searchParams = useSearchParams();

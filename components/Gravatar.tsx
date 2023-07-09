@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import Image from 'next/image';
-import { FaUser } from 'react-icons/fa';
+import { FaUser } from 'react-icons-ng/fa';
 import 'server-only';
 
 interface GravatarProps {

@@ -2,7 +2,7 @@
 
 import { createOccurrenceBookmark, removeOccurrenceBookmark } from '@/app/_actions';
 import { useState } from 'react';
-import { BsBookmarkPlus, BsBookmarkStarFill } from 'react-icons/bs';
+import { BsBookmarkPlus, BsBookmarkStarFill } from 'react-icons-ng/bs';
 
 interface BookmarkButtonProps {
   occurrenceId: string;

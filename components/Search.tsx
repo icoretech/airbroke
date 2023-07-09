@@ -3,7 +3,7 @@
 import { generateUpdatedURL } from '@/lib/generateUpdatedUrl';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
-import { SlDisc, SlMagnifier } from 'react-icons/sl';
+import { SlDisc, SlMagnifier } from 'react-icons-ng/sl';
 
 export default function Search() {
   const searchParams = useSearchParams();

@@ -7,8 +7,8 @@ import { Menu, Transition } from '@headlessui/react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Fragment } from 'react';
-import { RxCaretSort } from 'react-icons/rx';
-import { TbArrowBadgeDown, TbArrowBadgeUp } from 'react-icons/tb';
+import { RxCaretSort } from 'react-icons-ng/rx';
+import { TbArrowBadgeDown, TbArrowBadgeUp } from 'react-icons-ng/tb';
 
 const sortOptions = [
   { sortAttr: 'kind' as const, label: 'Exception' },

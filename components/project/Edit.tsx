@@ -1,7 +1,7 @@
 import { updateProject } from '@/lib/actions';
 import { getProjectById } from '@/lib/queries/projects';
 import { redirect } from 'next/navigation';
-import { SlFire } from 'react-icons/sl';
+import { SlFire } from 'react-icons-ng/sl';
 
 type EditProps = {
   projectId: string;

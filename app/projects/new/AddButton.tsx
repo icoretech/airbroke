@@ -1,7 +1,7 @@
 'use client';
 
 import { experimental_useFormStatus as useFormStatus } from 'react-dom';
-import { SlDisc } from 'react-icons/sl';
+import { SlDisc } from 'react-icons-ng/sl';
 
 export default function AddButton() {
   const { pending } = useFormStatus();
