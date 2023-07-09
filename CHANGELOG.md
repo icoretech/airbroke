@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.1.35](https://github.com/icoretech/airbroke/compare/v1.1.34...v1.1.35) (2023-07-09)
+
+
+### Features
+
+* **AI.tsx:** add buttons to toggle between regular and detailed completion requests ([d5f7968](https://github.com/icoretech/airbroke/commit/d5f7968a93c9548205a30c7849d97e5dfd0d745c))
+* **AI.tsx:** add support for 'isDetailMode' state to determine whether to include extra data in the completion request, closes https://github.com/icoretech/airbroke/issues/74 ([d5f7968](https://github.com/icoretech/airbroke/commit/d5f7968a93c9548205a30c7849d97e5dfd0d745c))
+* **completion/route.ts:** use vercel/ai instead of chatgpt, closes https://github.com/icoretech/airbroke/issues/101 ([b7c487b](https://github.com/icoretech/airbroke/commit/b7c487be68ffeae09e7d9d6eeb1d7d7a6465f288))
+* **route.ts:** add support for 'sendExtraData' query parameter to include extra data in the prompt for error handling ([d5f7968](https://github.com/icoretech/airbroke/commit/d5f7968a93c9548205a30c7849d97e5dfd0d745c))
+* **route.ts:** truncate the prompt to fit within the OpenAI token limit of 4096 tokens ([d5f7968](https://github.com/icoretech/airbroke/commit/d5f7968a93c9548205a30c7849d97e5dfd0d745c))
+* **route.ts:** use configurable OpenAI engine from environment variable AIRBROKE_OPENAI_ENGINE ([a3a695f](https://github.com/icoretech/airbroke/commit/a3a695fa82a8f81a008bf5a9caf83375ec79ecbd))
+
+
+### Bug Fixes
+
+* **AI.tsx:** scroll textarea to bottom when completion or error changes ([a3a695f](https://github.com/icoretech/airbroke/commit/a3a695fa82a8f81a008bf5a9caf83375ec79ecbd))
+* **route.ts:** remove unused code related to notice data ([a3a695f](https://github.com/icoretech/airbroke/commit/a3a695fa82a8f81a008bf5a9caf83375ec79ecbd))
+* **route.ts:** simplify error response message when user is not logged in ([a3a695f](https://github.com/icoretech/airbroke/commit/a3a695fa82a8f81a008bf5a9caf83375ec79ecbd))
+
 ## [1.1.34](https://github.com/icoretech/airbroke/compare/v1.1.33...v1.1.34) (2023-07-09)
 
 
