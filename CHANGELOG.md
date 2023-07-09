@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.34](https://github.com/icoretech/airbroke/compare/v1.1.33...v1.1.34) (2023-07-09)
+
+
+### Features
+
+* switch to fork of react-icons ([64b8d49](https://github.com/icoretech/airbroke/commit/64b8d49a04c4e8965628f0b7caf0f806b8d3c645))
+
+
+### Bug Fixes
+
+* hide open sidebar button when not necessary ([64b8d49](https://github.com/icoretech/airbroke/commit/64b8d49a04c4e8965628f0b7caf0f806b8d3c645))
+
 ## [1.1.33](https://github.com/icoretech/airbroke/compare/v1.1.32...v1.1.33) (2023-07-09)
 
 
