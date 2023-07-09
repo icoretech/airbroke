@@ -16,6 +16,9 @@ FROM --platform=$BUILDPLATFORM node:20.2-alpine AS runner
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 
+# debug cache filesystem in a live env, to be removed
+RUN apk add --no-cache inotify-tools
+
 WORKDIR /app
 
 RUN addgroup --system --gid 1001 nodejs
