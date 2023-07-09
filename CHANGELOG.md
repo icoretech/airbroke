@@ -1,5 +1,49 @@
 # Changelog
 
+## [1.1.33](https://github.com/icoretech/airbroke/compare/v1.1.32...v1.1.33) (2023-07-09)
+
+
+### Features
+
+* **.drone.jsonnet:** add support for building and pushing Docker images only when on the main branch ([adf3d4a](https://github.com/icoretech/airbroke/commit/adf3d4ab6e910fc23866cbe99429a93526db3c63))
+* **.drone.jsonnet:** add support for building Docker images without pushing when on any branch other than main ([adf3d4a](https://github.com/icoretech/airbroke/commit/adf3d4ab6e910fc23866cbe99429a93526db3c63))
+* **.env.dist:** add AIRBROKE_CACHE environment variable to enable resource caching (experimental) ([9daf70b](https://github.com/icoretech/airbroke/commit/9daf70bb4a40b3e3e08ca6713895cf5b7067ddf9))
+* **db.ts:** refactor prisma initialization ([a513e31](https://github.com/icoretech/airbroke/commit/a513e31921133efa5316be1bb02a6f8150063007))
+* **db.ts:** update PrismaClient initialization to include query logging in development environment ([6e0c4d7](https://github.com/icoretech/airbroke/commit/6e0c4d7a87f12ad8904d80addaef74cb653d03aa))
+* disable caching on individual pages, make use of our customCache ([2e17c20](https://github.com/icoretech/airbroke/commit/2e17c2090a2211cc995da70f4a7fd24bb449c430))
+* **lib/cache.ts:** add customCache function to enable caching of function results ([9daf70b](https://github.com/icoretech/airbroke/commit/9daf70bb4a40b3e3e08ca6713895cf5b7067ddf9))
+* **notices.ts:** add _fetchNoticeIdsByProjectId and _fetchNoticeEnvs helper functions to encapsulate database queries for fetching notice IDs and environments by project ID ([334dfee](https://github.com/icoretech/airbroke/commit/334dfeeb7f4b14980bba9c52816ab776251da756))
+* **projects.ts:** add caching to the getProjectById function ([6e0c4d7](https://github.com/icoretech/airbroke/commit/6e0c4d7a87f12ad8904d80addaef74cb653d03aa))
+* **projects.ts:** add caching to the getProjects function ([6e0c4d7](https://github.com/icoretech/airbroke/commit/6e0c4d7a87f12ad8904d80addaef74cb653d03aa))
+* **projects.ts:** add caching to the getProjectsGroupedByOrganization function ([6e0c4d7](https://github.com/icoretech/airbroke/commit/6e0c4d7a87f12ad8904d80addaef74cb653d03aa))
+* **queries/notices.ts:** add caching to fetchNotices and fetchNoticeById functions ([6e0c4d7](https://github.com/icoretech/airbroke/commit/6e0c4d7a87f12ad8904d80addaef74cb653d03aa))
+* **queries/occurrenceBookmarks.ts:** add caching to fetchOccurrenceBookmarks function ([6e0c4d7](https://github.com/icoretech/airbroke/commit/6e0c4d7a87f12ad8904d80addaef74cb653d03aa))
+* **queries/occurrences.ts:** add caching to fetchOccurrences function ([6e0c4d7](https://github.com/icoretech/airbroke/commit/6e0c4d7a87f12ad8904d80addaef74cb653d03aa))
+
+
+### Bug Fixes
+
+* **api/ai/route.ts:** change import statement for prisma to use default import ([0e14177](https://github.com/icoretech/airbroke/commit/0e141777cecc5129f294b5e4e1560b2ea5a11fdc))
+* **api/hc/route.ts:** change import statement for prisma to use default import ([0e14177](https://github.com/icoretech/airbroke/commit/0e141777cecc5129f294b5e4e1560b2ea5a11fdc))
+* **api/v3/notices/route.ts:** change import statement for prisma to use default import ([0e14177](https://github.com/icoretech/airbroke/commit/0e141777cecc5129f294b5e4e1560b2ea5a11fdc))
+* **auth.ts:** update import statement for prisma from "./db" to "@/lib/db" ([930dbc0](https://github.com/icoretech/airbroke/commit/930dbc06717edbd2c44effdedb514441050e698a))
+* **components/OccurrenceChartWrapper.tsx:** change import statement for prisma to use default import ([0e14177](https://github.com/icoretech/airbroke/commit/0e141777cecc5129f294b5e4e1560b2ea5a11fdc))
+* **components/project/OccurrencesChartWrapper.tsx:** change import statement for prisma to use default import ([0e14177](https://github.com/icoretech/airbroke/commit/0e141777cecc5129f294b5e4e1560b2ea5a11fdc))
+* **db.ts:** update PrismaClient initialization to conditionally log queries and warnings based on NODE_ENV environment variable ([7bd6e6d](https://github.com/icoretech/airbroke/commit/7bd6e6dc31cd6d6d499200171dc8b377768d9f04))
+* **deps:** update dependency postcss to v8.4.25 ([4dacb8d](https://github.com/icoretech/airbroke/commit/4dacb8d15314f617c816f8d67b4c640a8291d8f6))
+* **deps:** update dependency prettier to v3 ([#98](https://github.com/icoretech/airbroke/issues/98)) ([7e31a4c](https://github.com/icoretech/airbroke/commit/7e31a4c9fa01c9cc3985289dae9e3fc522aecc79))
+* **Form.tsx:** resolves warning: Cannot specify a "name" prop for a button that specifies a function as a formAction ([9711a11](https://github.com/icoretech/airbroke/commit/9711a1157891a2b740ab3399c7cef6d8b36d850a))
+* **lib/actions/occurrenceActions.ts:** change import statement for prisma to use default import ([0e14177](https://github.com/icoretech/airbroke/commit/0e141777cecc5129f294b5e4e1560b2ea5a11fdc))
+* **lib/actions/projectActions.ts:** change import statement for prisma to use default import ([0e14177](https://github.com/icoretech/airbroke/commit/0e141777cecc5129f294b5e4e1560b2ea5a11fdc))
+* **lib/processError.ts:** change import statement for prisma to use default import ([0e14177](https://github.com/icoretech/airbroke/commit/0e141777cecc5129f294b5e4e1560b2ea5a11fdc))
+* **lib/queries/notices.ts:** change import statement for prisma to use default import ([0e14177](https://github.com/icoretech/airbroke/commit/0e141777cecc5129f294b5e4e1560b2ea5a11fdc))
+* **lib/queries/occurrenceBookmarks.ts:** change import statement for prisma to use default import ([0e14177](https://github.com/icoretech/airbroke/commit/0e141777cecc5129f294b5e4e1560b2ea5a11fdc))
+* **lib/queries/occurrences.ts:** change import statement for prisma to use default import ([0e14177](https://github.com/icoretech/airbroke/commit/0e141777cecc5129f294b5e4e1560b2ea5a11fdc))
+* **lib/queries/projects.ts:** change import statement for prisma to use default import ([0e14177](https://github.com/icoretech/airbroke/commit/0e141777cecc5129f294b5e4e1560b2ea5a11fdc))
+* **middleware.ts:** update the matcher regular expression to exclude the _vercel directory from being matched ([e8cbcaa](https://github.com/icoretech/airbroke/commit/e8cbcaab00355e11eccedc8179d52a6450a99cbb))
+* **projects/page.tsx:** change import statement for prisma to use default import ([0e14177](https://github.com/icoretech/airbroke/commit/0e141777cecc5129f294b5e4e1560b2ea5a11fdc))
+* **testSetup.ts:** change import statement for prisma to use default import ([0e14177](https://github.com/icoretech/airbroke/commit/0e141777cecc5129f294b5e4e1560b2ea5a11fdc))
+
 ## [1.1.32](https://github.com/icoretech/airbroke/compare/v1.1.31...v1.1.32) (2023-06-26)
 
 
