@@ -9,7 +9,7 @@ import { Configuration, OpenAIApi } from 'openai-edge';
 // export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 
-export async function handler(request: NextRequest) {
+export async function POST(request: NextRequest) {
   const session = await getServerSession(authOptions);
   if (!session) {
     return new NextResponse(JSON.stringify({ status: 'fail', message: 'You are not logged in' }), { status: 401 });
@@ -64,5 +64,3 @@ export async function handler(request: NextRequest) {
 
   return new StreamingTextResponse(stream);
 }
-
-export { handler as GET, handler as POST };
