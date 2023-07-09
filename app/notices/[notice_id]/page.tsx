@@ -7,6 +7,8 @@ import ProjectActionsMenu from '@/components/project/ActionsMenu';
 import { getNoticeById } from '@/lib/queries/notices';
 import type { Metadata, Route } from 'next';
 
+export const revalidate = 0;
+
 type ComponentProps = {
   params: { notice_id: string };
   searchParams: { [key: string]: string | undefined };

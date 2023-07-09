@@ -14,6 +14,8 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { SlPencil, SlSettings, SlWrench } from 'react-icons/sl';
 
+export const revalidate = 0;
+
 type ComponentProps = {
   params: { project_id: string };
   searchParams: Record<string, string>;

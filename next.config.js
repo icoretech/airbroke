@@ -13,6 +13,7 @@ const nextConfig = {
   experimental: {
     serverActions: true,
     serverComponentsExternalPackages: ['chatgpt', '@octokit', '@airbrake/node'],
+    isrMemoryCacheSize: 0,
     // typedRoutes: true,
   },
   async rewrites() {

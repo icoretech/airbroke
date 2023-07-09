@@ -24,6 +24,8 @@ import Link from 'next/link';
 import { FaCarCrash } from 'react-icons/fa';
 import { SlCompass, SlGlobe, SlGraph, SlLink, SlList, SlUser, SlWrench } from 'react-icons/sl';
 
+export const revalidate = 0;
+
 type ComponentProps = {
   params: { occurrence_id: string };
   searchParams: { [key: string]: string | undefined };
