@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
   }
 
   // const pass = request.nextUrl.searchParams.get('pass');
+  const extraData = request.nextUrl.searchParams.get('sendExtraData');
   const occurrenceId = request.nextUrl.searchParams.get('occurrence');
 
   if (!process.env.AIRBROKE_OPENAI_API_KEY) {
@@ -43,9 +44,18 @@ export async function POST(request: NextRequest) {
   const errorType = notice.kind;
   const errorMessage = occurrence.message;
 
-  const prompt =
+  let prompt =
     `I encountered an error of type "${errorType}" with the following message: "${errorMessage}". ` +
     `Explain what this error means and suggest possible solutions.`;
+
+  if (extraData) {
+    const backtraceString = JSON.stringify(occurrence.backtrace, null, 2);
+    prompt += ` The backtrace of the error is as follows: ${backtraceString}`;
+  }
+
+  // Truncate the prompt to fit within the OpenAI token limit
+  const maxTokens = 4096;
+  const promptTruncated = prompt.slice(0, maxTokens);
 
   // createCompletion at the moment results in a 404.
   const response = await openai.createChatCompletion({
@@ -55,7 +65,7 @@ export async function POST(request: NextRequest) {
     messages: [
       {
         role: 'system',
-        content: prompt,
+        content: promptTruncated,
       },
     ],
   });

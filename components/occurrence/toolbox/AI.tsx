@@ -1,14 +1,15 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { BsRobot } from 'react-icons-ng/bs';
 import { SiOpenai } from 'react-icons-ng/si';
 
 import { useCompletion } from 'ai/react';
 
 export default function ToolboxAI({ occurrenceId }: { occurrenceId: string }) {
+  const [isDetailMode, setIsDetailMode] = useState(false);
   const { complete, completion, stop, isLoading, error } = useCompletion({
-    api: `/api/completion?occurrence=${occurrenceId}`,
+    api: `/api/completion?occurrence=${occurrenceId}${isDetailMode ? '&sendExtraData=true' : ''}`,
   });
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -18,10 +19,11 @@ export default function ToolboxAI({ occurrenceId }: { occurrenceId: string }) {
     }
   }, [completion, error]);
 
-  const handleRequest = () => {
+  const handleRequest = (detailMode: boolean) => {
     if (isLoading) {
       stop();
     } else {
+      setIsDetailMode(detailMode);
       complete(occurrenceId);
     }
   };
@@ -43,15 +45,32 @@ export default function ToolboxAI({ occurrenceId }: { occurrenceId: string }) {
       <div>
         <div className="-mt-px flex divide-x divide-indigo-400/30">
           <div className="flex w-0 flex-1">
-            <button
-              onClick={handleRequest}
-              className={`relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-b-lg border border-transparent bg-indigo-400/10 py-4 text-sm font-semibold text-indigo-400 shadow-sm ring-1 ring-indigo-400/30 transition-colors duration-200 hover:bg-indigo-500 hover:text-indigo-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 ${
-                isLoading ? 'hover:bg-red-500 hover:text-red-200' : 'hover:bg-indigo-500'
-              }`}
-            >
-              <BsRobot className="h-5 w-5" aria-hidden="true" />
-              {isLoading ? 'Stop' : 'Start'}
-            </button>
+            {isLoading ? (
+              <button
+                onClick={() => handleRequest(isDetailMode)}
+                className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-b-lg border border-transparent bg-red-400/10 py-4 text-sm font-semibold text-red-400 shadow-sm ring-1 ring-red-400/30 transition-colors duration-200 hover:bg-red-500 hover:text-red-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
+              >
+                <BsRobot className="h-5 w-5" aria-hidden="true" />
+                Stop
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={() => handleRequest(false)}
+                  className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border-r border-transparent bg-indigo-400/10 py-4 text-sm font-semibold text-indigo-400 shadow-sm ring-1 ring-indigo-400/30 transition-colors duration-200 hover:bg-indigo-500 hover:text-indigo-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                >
+                  <BsRobot className="h-5 w-5" aria-hidden="true" />
+                  Ask
+                </button>
+                <button
+                  onClick={() => handleRequest(true)}
+                  className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border-l border-indigo-400/30 bg-indigo-400/10 py-4 text-sm font-semibold text-indigo-400 shadow-sm ring-1 ring-indigo-400/30 transition-colors duration-200 hover:bg-indigo-500 hover:text-indigo-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                >
+                  <BsRobot className="h-5 w-5" aria-hidden="true" />
+                  Ask with details
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>
