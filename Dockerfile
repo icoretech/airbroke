@@ -17,7 +17,8 @@ ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 
 # debug cache filesystem in a live env, to be removed
-RUN apk add --no-cache inotify-tools
+# inotifywait -m -r -e create,modify,delete /app
+# RUN apk add --no-cache inotify-tools
 
 WORKDIR /app
 
