@@ -57,29 +57,21 @@ export async function getNoticeById(noticeId: string): Promise<NoticeWithProject
 
 // Function to get all notice IDs for a given projectId
 export async function getNoticeIdsByProjectId(projectId: string): Promise<string[]> {
-  const notices = await prisma.notice.findMany({
-    where: { project_id: projectId },
-    select: { id: true },
+  const cachedData = await customCache(() => _fetchNoticeIdsByProjectId(projectId), ['noticeIds', projectId], {
+    revalidate: 60,
+    tags: ['notices', `project_${projectId}_noticeIds`],
   });
 
-  return notices.map((notice) => notice.id);
+  return cachedData;
 }
 
 export async function getNoticeEnvs(projectId: string): Promise<string[]> {
-  const result = await prisma.notice.findMany({
-    where: {
-      project_id: projectId,
-    },
-    select: {
-      env: true,
-    },
-    orderBy: {
-      env: 'asc',
-    },
-    distinct: ['env'],
+  const cachedData = await customCache(() => _fetchNoticeEnvs(projectId), ['noticeEnvs', projectId], {
+    revalidate: 60,
+    tags: ['notices', `project_${projectId}_noticeEnvs`],
   });
 
-  return result.map((notice) => notice.env);
+  return cachedData;
 }
 
 async function _fetchNotices(whereObject?: any, orderByObject?: any, limit?: number): Promise<Notice[]> {
@@ -97,4 +89,30 @@ async function _fetchNoticeById(noticeId: string): Promise<NoticeWithProject | n
     include: { project: true },
   });
   return result;
+}
+
+async function _fetchNoticeIdsByProjectId(projectId: string): Promise<string[]> {
+  const notices = await prisma.notice.findMany({
+    where: { project_id: projectId },
+    select: { id: true },
+  });
+
+  return notices.map((notice) => notice.id);
+}
+
+async function _fetchNoticeEnvs(projectId: string): Promise<string[]> {
+  const result = await prisma.notice.findMany({
+    where: {
+      project_id: projectId,
+    },
+    select: {
+      env: true,
+    },
+    orderBy: {
+      env: 'asc',
+    },
+    distinct: ['env'],
+  });
+
+  return result.map((notice) => notice.env);
 }
