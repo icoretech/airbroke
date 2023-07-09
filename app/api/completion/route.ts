@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic';
 export async function POST(request: NextRequest) {
   const session = await getServerSession(authOptions);
   if (!session) {
-    return new NextResponse(JSON.stringify({ status: 'fail', message: 'You are not logged in' }), { status: 401 });
+    return new NextResponse('You are not logged in', { status: 401 });
   }
 
   // const pass = request.nextUrl.searchParams.get('pass');
@@ -36,7 +36,6 @@ export async function POST(request: NextRequest) {
   }
 
   const { notice, ...occurrence } = occurrenceWithRelations;
-  const { project, ...noticeData } = notice;
 
   const config = new Configuration({ apiKey: process.env.AIRBROKE_OPENAI_API_KEY });
   const openai = new OpenAIApi(config);
@@ -48,8 +47,9 @@ export async function POST(request: NextRequest) {
     `I encountered an error of type "${errorType}" with the following message: "${errorMessage}". ` +
     `Explain what this error means and suggest possible solutions.`;
 
+  // createCompletion at the moment results in a 404.
   const response = await openai.createChatCompletion({
-    model: 'gpt-4',
+    model: process.env.AIRBROKE_OPENAI_ENGINE || 'gpt-4',
     stream: true,
     temperature: 0.6,
     messages: [

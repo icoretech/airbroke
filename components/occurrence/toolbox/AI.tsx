@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { BsRobot } from 'react-icons-ng/bs';
 import { SiOpenai } from 'react-icons-ng/si';
 
@@ -9,6 +10,13 @@ export default function ToolboxAI({ occurrenceId }: { occurrenceId: string }) {
   const { complete, completion, stop, isLoading, error } = useCompletion({
     api: `/api/completion?occurrence=${occurrenceId}`,
   });
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.scrollTop = textareaRef.current.scrollHeight;
+    }
+  }, [completion, error]);
 
   const handleRequest = () => {
     if (isLoading) {
@@ -27,6 +35,7 @@ export default function ToolboxAI({ occurrenceId }: { occurrenceId: string }) {
         <h3 className="my-6 text-sm font-medium text-white">Ask the AI</h3>
         <textarea
           readOnly
+          ref={textareaRef}
           value={error ? error.message : completion}
           className="h-60 w-full resize-none rounded-lg bg-gray-700 px-4 py-2 text-xs text-white  scrollbar-none"
         ></textarea>
