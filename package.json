@@ -31,7 +31,7 @@
     "next": "^13.4.9",
     "next-auth": "^4.22.1",
     "numeral": "^2.0.6",
-    "octokit": "^2.1.0",
+    "octokit": "^3.0.0",
     "openai-edge": "^1.2.0",
     "postcss": "^8.4.25",
     "prettier": "2.8.8",
