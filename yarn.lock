@@ -2089,8 +2089,8 @@ __metadata:
   linkType: hard
 
 "ai@npm:^2.1.17":
-  version: 2.1.17
-  resolution: "ai@npm:2.1.17"
+  version: 2.1.18
+  resolution: "ai@npm:2.1.18"
   dependencies:
     eventsource-parser: 1.0.0
     nanoid: ^3.3.6
@@ -2108,7 +2108,7 @@ __metadata:
       optional: true
     vue:
       optional: true
-  checksum: 5762c6c27a3ea4faac764cfa54a2fd49818a2d9804960a86fd4dfc9029d0ecb6d88237c3889518e7d113eaf3d8f7a4a62605fe832362d4fcef8c1361295867c2
+  checksum: a6a9b2550ab7b32ed72a67dc7aaec1ec2dbfcfc855ceedb7591dc53f0ac71048ad6db0f0440dd4a3a66062fccb385065273615f2a91aaacd845677b25a3ff354
   languageName: node
   linkType: hard
 
