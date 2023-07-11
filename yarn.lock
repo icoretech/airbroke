@@ -2149,7 +2149,7 @@ __metadata:
     openai-edge: ^1.2.0
     postcss: ^8.4.25
     prettier: 2.8.8
-    prettier-plugin-tailwindcss: ^0.3.0
+    prettier-plugin-tailwindcss: ^0.4.0
     prisma: 4.16.2
     react: ^18.2.0
     react-chartjs-2: ^5.2.0
@@ -7015,16 +7015,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-tailwindcss@npm:^0.3.0":
-  version: 0.3.0
-  resolution: "prettier-plugin-tailwindcss@npm:0.3.0"
+"prettier-plugin-tailwindcss@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "prettier-plugin-tailwindcss@npm:0.4.0"
   peerDependencies:
     "@ianvs/prettier-plugin-sort-imports": "*"
     "@prettier/plugin-pug": "*"
     "@shopify/prettier-plugin-liquid": "*"
     "@shufo/prettier-plugin-blade": "*"
     "@trivago/prettier-plugin-sort-imports": "*"
-    prettier: ">=2.2.0"
+    prettier: ^2.2 || ^3.0
     prettier-plugin-astro: "*"
     prettier-plugin-css-order: "*"
     prettier-plugin-import-sort: "*"
@@ -7066,7 +7066,7 @@ __metadata:
       optional: true
     prettier-plugin-twig-melody:
       optional: true
-  checksum: 007c09558433dac0c81d42fd9695f8ed17be56be2e446a03e2557f01ae8e26bb11945780f9afa4e6e90b861aad3fbfac6a65d381804273d5539e7d26b0a270c9
+  checksum: 900558ea1593d9ea7723bcc2c2e391f844decb5bdd712a55dd335652f2a05418cef779b8346eabfacbfbd4ea2a13d0cf637570e804db5e22550c63a836a5eb22
   languageName: node
   linkType: hard
 
