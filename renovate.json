@@ -6,7 +6,6 @@
   "prHourlyLimit": 0,
   "packageRules": [
     {
-      "matchCurrentVersion": "^.*",
       "matchUpdateTypes": [
         "minor",
         "patch",

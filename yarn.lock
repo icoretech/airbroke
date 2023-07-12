@@ -2130,7 +2130,7 @@ __metadata:
     octokit: ^3.0.0
     openai-edge: ^1.2.0
     postcss: ^8.4.25
-    prettier: 3.0.0
+    prettier: ^3.0.0
     prettier-plugin-tailwindcss: ^0.4.0
     prisma: ^5.0.0
     react: ^18.2.0
@@ -7052,7 +7052,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.0.0":
+"prettier@npm:^3.0.0":
   version: 3.0.0
   resolution: "prettier@npm:3.0.0"
   bin:
