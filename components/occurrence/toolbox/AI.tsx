@@ -1,10 +1,9 @@
 'use client';
 
+import { useCompletion } from 'ai/react';
 import { useEffect, useRef, useState } from 'react';
 import { BsRobot } from 'react-icons-ng/bs';
 import { SiOpenai } from 'react-icons-ng/si';
-
-import { useCompletion } from 'ai/react';
 
 export default function ToolboxAI({ occurrenceId }: { occurrenceId: string }) {
   const [isDetailMode, setIsDetailMode] = useState(false);

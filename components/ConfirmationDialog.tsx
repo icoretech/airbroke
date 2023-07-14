@@ -2,6 +2,7 @@
 
 import { deleteProject, deleteProjectNotices } from '@/app/_actions';
 import { Dialog, Transition } from '@headlessui/react';
+import { useRouter } from 'next/navigation';
 import { Fragment, useRef, useState, useTransition } from 'react';
 import { SlDisc, SlFire } from 'react-icons-ng/sl';
 import { VscTrash } from 'react-icons-ng/vsc';
@@ -20,28 +21,20 @@ export default function ConfirmationDialog({
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const cancelButtonRef = useRef(null);
+  const { push } = useRouter();
 
-  async function handleDeleteProjectConfirm() {
-    await deleteProject(projectId);
+  async function handleConfirmAction() {
     startTransition(() => {
-      setOpen(false);
+      if (btnId === 'deleteProject') {
+        deleteProject(projectId);
+        setOpen(false);
+        push('/projects');
+      } else if (btnId === 'deleteAllErrors') {
+        deleteProjectNotices(projectId);
+        setOpen(false);
+      }
     });
   }
-
-  async function handleDeleteProjectNoticesConfirm() {
-    await deleteProjectNotices(projectId);
-    startTransition(() => {
-      setOpen(false);
-    });
-  }
-
-  const handleConfirmAction = () => {
-    if (btnId === 'deleteProject') {
-      handleDeleteProjectConfirm();
-    } else if (btnId === 'deleteAllErrors') {
-      handleDeleteProjectNoticesConfirm();
-    }
-  };
 
   return (
     <>
@@ -69,7 +62,7 @@ export default function ConfirmationDialog({
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-gray-900 px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                <Dialog.Panel className="relative transform overflow-hidden rounded-lg border border-rose-600 bg-gray-900 px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                   <div className="sm:flex sm:items-start">
                     <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-rose-600 sm:mx-0 sm:h-10 sm:w-10">
                       <SlFire className="h-6 w-6 text-rose-200" aria-hidden="true" />
@@ -93,12 +86,12 @@ export default function ConfirmationDialog({
                       {btnId === 'deleteProject' ? (
                         <>
                           <VscTrash className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-                          Delete Project
+                          <span>{isPending ? 'Deleting...' : 'Delete Project'}</span>
                         </>
                       ) : (
                         <>
-                          <SlDisc className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-                          Delete All Errors
+                          {isPending && <SlDisc className="-ml-1 mr-2 h-5 w-5 animate-spin" aria-hidden="true" />}
+                          <span>{isPending ? 'Deleting...' : 'Delete All Errors'}</span>
                         </>
                       )}
                     </button>
@@ -107,6 +100,7 @@ export default function ConfirmationDialog({
                       className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm"
                       onClick={() => setOpen(false)}
                       ref={cancelButtonRef}
+                      disabled={isPending}
                     >
                       Cancel
                     </button>

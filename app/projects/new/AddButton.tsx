@@ -5,6 +5,7 @@ import { SlDisc } from 'react-icons-ng/sl';
 
 export default function AddButton() {
   const { pending } = useFormStatus();
+
   return (
     <button
       type="submit"

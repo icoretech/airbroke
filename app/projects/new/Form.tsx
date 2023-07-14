@@ -25,9 +25,7 @@ export default function Form() {
       setError(error);
     } else {
       setError(null);
-      startTransition(() => {
-        push(`/projects/${project_id}`);
-      });
+      push(`/projects/${project_id}`);
     }
   }
 
@@ -38,9 +36,7 @@ export default function Form() {
       setError(error);
     } else {
       setError(null);
-      startTransition(() => {
-        push(`/projects/${project_id}`);
-      });
+      push(`/projects/${project_id}`);
     }
   }
 

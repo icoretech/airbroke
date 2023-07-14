@@ -3,7 +3,6 @@
 import prisma from '@/lib/db';
 import { parseGitURL } from '@/lib/parseGitUrl';
 import { revalidateTag } from 'next/cache';
-import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { generateErrorMessage } from 'zod-error';
 import { zfd } from 'zod-form-data';
@@ -178,6 +177,6 @@ export async function deleteProjectNotices(projectId: string): Promise<void> {
 
 export async function deleteProject(projectId: string): Promise<void> {
   await prisma.project.delete({ where: { id: projectId } });
+
   revalidateTag('projects');
-  redirect('/projects');
 }
