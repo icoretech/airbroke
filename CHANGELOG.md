@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.36](https://github.com/icoretech/airbroke/compare/v1.1.35...v1.1.36) (2023-07-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @tailwindcss/forms to v0.5.4 ([0dfd302](https://github.com/icoretech/airbroke/commit/0dfd302fba7a43a7662f103722d2d49b8a94face))
+* **deps:** update dependency ai to v2.1.18 ([#115](https://github.com/icoretech/airbroke/issues/115)) ([23af4ea](https://github.com/icoretech/airbroke/commit/23af4ea070d2ff3f1d0afb33d7857a900360efaa))
+* **deps:** update dependency ai to v2.1.19 ([0ba5d9d](https://github.com/icoretech/airbroke/commit/0ba5d9d86829aac16aaa07bd3081c1bff9ffe170))
+* **deps:** update dependency ai to v2.1.20 ([#123](https://github.com/icoretech/airbroke/issues/123)) ([6efd275](https://github.com/icoretech/airbroke/commit/6efd275746050c1eea0218816e9869acdc65a2e3))
+* **deps:** update dependency postcss to v8.4.26 ([#124](https://github.com/icoretech/airbroke/issues/124)) ([60dfa5c](https://github.com/icoretech/airbroke/commit/60dfa5cebc98b991ad20e1d0a508d14a97c09c04))
+* **deps:** update dependency tailwindcss to v3.3.3 ([#125](https://github.com/icoretech/airbroke/issues/125)) ([67569b0](https://github.com/icoretech/airbroke/commit/67569b0043f94238b37c9735fad62c97e01e531f))
+
 ## [1.1.35](https://github.com/icoretech/airbroke/compare/v1.1.34...v1.1.35) (2023-07-09)
 
 
