@@ -19,6 +19,7 @@ export default function Search() {
     const updatedUrl = generateUpdatedURL(pathname, searchParams, { searchQuery: q });
     startTransition(() => push(updatedUrl));
   }
+
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const q = event.target.value;
     if (q === '') {
@@ -26,6 +27,7 @@ export default function Search() {
       startTransition(() => push(updatedUrl));
     }
   }
+
   return (
     <form className="flex flex-1" onSubmit={handleSearch}>
       <label htmlFor="search" className="sr-only">

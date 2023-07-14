@@ -21,19 +21,19 @@ export default function ConfirmationDialog({
   const [isPending, startTransition] = useTransition();
   const cancelButtonRef = useRef(null);
 
-  const handleDeleteProjectConfirm = async () => {
-    startTransition(async () => {
-      await deleteProject(projectId);
+  async function handleDeleteProjectConfirm() {
+    await deleteProject(projectId);
+    startTransition(() => {
       setOpen(false);
     });
-  };
+  }
 
-  const handleDeleteProjectNoticesConfirm = async () => {
-    startTransition(async () => {
-      await deleteProjectNotices(projectId);
+  async function handleDeleteProjectNoticesConfirm() {
+    await deleteProjectNotices(projectId);
+    startTransition(() => {
       setOpen(false);
     });
-  };
+  }
 
   const handleConfirmAction = () => {
     if (btnId === 'deleteProject') {

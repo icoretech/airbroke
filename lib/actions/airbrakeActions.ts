@@ -2,7 +2,7 @@
 
 import { getProjectById } from '@/lib/queries/projects';
 import { Notifier as AirbrakeNodeNotifier } from '@airbrake/node';
-import { revalidatePath } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 
 export async function sendAirbrakeNodeException(projectId: string, host: string) {
   const project = await getProjectById(projectId);
@@ -27,8 +27,8 @@ export async function sendAirbrakeNodeException(projectId: string, host: string)
   }
 
   try {
-    revalidatePath(`/projects`);
-    revalidatePath(`/projects/${project.id}`);
+    revalidateTag('projects');
+    revalidateTag(`project_${projectId}`);
   } catch (err) {
     console.warn(err);
   }

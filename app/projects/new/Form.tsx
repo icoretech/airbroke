@@ -3,12 +3,13 @@
 import { createProject } from '@/app/_actions';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { startTransition, useState } from 'react';
+import { useState, useTransition } from 'react';
 import AddButton from './AddButton';
 
 export default function Form() {
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
+  const { push } = useRouter();
+  const [isPending, startTransition] = useTransition();
 
   // TODO: wire createProject instead of handleSubmit when server
   // actions will have form status api. this will also make
@@ -19,13 +20,14 @@ export default function Form() {
   // https://github.com/vercel/next.js/discussions/49426#discussioncomment-5860713
   // https://twitter.com/dan_abramov/status/1655536195558862849
   async function handleSubmit(formData: FormData) {
-    // await new Promise((resolve) => setTimeout(resolve, 5000));
     const { project_id, error } = await createProject(formData);
     if (error) {
       setError(error);
     } else {
       setError(null);
-      startTransition(() => router.push(`/projects/${project_id}`));
+      startTransition(() => {
+        push(`/projects/${project_id}`);
+      });
     }
   }
 
@@ -36,7 +38,9 @@ export default function Form() {
       setError(error);
     } else {
       setError(null);
-      startTransition(() => router.push(`/projects/${project_id}`));
+      startTransition(() => {
+        push(`/projects/${project_id}`);
+      });
     }
   }
 
