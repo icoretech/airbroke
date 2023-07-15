@@ -1,11 +1,7 @@
 import OccurrenceChart from '@/components/OccurrenceChart';
 import prisma from '@/lib/db';
 
-interface OccurrencesChartWrapperProps {
-  occurrenceId: string;
-}
-
-export default async function OccurrencesChartWrapper({ occurrenceId }: OccurrencesChartWrapperProps) {
+export default async function OccurrenceChartWrapper({ occurrenceId }: { occurrenceId: string }) {
   // Calculate the start and end date for the past two weeks
   const endDate = new Date();
   const startDate = new Date();
