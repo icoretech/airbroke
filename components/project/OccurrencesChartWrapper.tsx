@@ -33,12 +33,18 @@ export default async function OccurrencesChartWrapper({ occurrenceIds }: Occurre
     },
   });
 
-  // Map the occurrence summaries to the format expected by the chart component
-  const chartData = occurrenceSummaries.map((summary) => {
-    return {
-      date: summary.interval_start.toISOString().slice(0, 13), // Get date and hour only
-      count: Number(summary._sum.count),
-    };
+  // Create a map for fast lookup of occurrence count by date
+  const occurrenceCountByDate: Record<string, number> = {};
+  occurrenceSummaries.forEach((summary) => {
+    occurrenceCountByDate[summary.interval_start.toISOString().slice(0, 13)] = Number(summary._sum.count);
+  });
+
+  // Generate a complete list of hourly intervals for the past 14 days
+  const chartData = Array.from({ length: 14 * 24 }).map((_, i) => {
+    const date = new Date(startDate.getTime() + i * 60 * 60 * 1000); // Add i hours to startDate
+    const dateStr = date.toISOString().slice(0, 13); // Get date and hour only
+    const count = occurrenceCountByDate[dateStr] || 0; // Get occurrence count or 0 if not found
+    return { date: dateStr, count };
   });
 
   return (

@@ -1,11 +1,11 @@
 import OccurrenceChart from '@/components/OccurrenceChart';
 import prisma from '@/lib/db';
 
-interface OccurrenceChartWrapperProps {
+interface OccurrencesChartWrapperProps {
   occurrenceId: string;
 }
 
-export default async function OccurrenceChartWrapper({ occurrenceId }: OccurrenceChartWrapperProps) {
+export default async function OccurrencesChartWrapper({ occurrenceId }: OccurrencesChartWrapperProps) {
   // Calculate the start and end date for the past two weeks
   const endDate = new Date();
   const startDate = new Date();
@@ -27,12 +27,18 @@ export default async function OccurrenceChartWrapper({ occurrenceId }: Occurrenc
     },
   });
 
-  // Map the occurrence summaries to the format expected by the chart component
-  const chartData = occurrenceSummaries.map((summary) => {
-    return {
-      date: summary.interval_start.toISOString().slice(0, 13), // Get date and hour only
-      count: Number(summary.count),
-    };
+  // Create a map for fast lookup of occurrence count by date
+  const occurrenceCountByDate: Record<string, number> = {};
+  occurrenceSummaries.forEach((summary) => {
+    occurrenceCountByDate[summary.interval_start.toISOString().slice(0, 13)] = Number(summary.count);
+  });
+
+  // Generate a complete list of hourly intervals for the past 14 days
+  const chartData = Array.from({ length: 14 * 24 }).map((_, i) => {
+    const date = new Date(startDate.getTime() + i * 60 * 60 * 1000); // Add i hours to startDate
+    const dateStr = date.toISOString().slice(0, 13); // Get date and hour only
+    const count = occurrenceCountByDate[dateStr] || 0; // Get occurrence count or 0 if not found
+    return { date: dateStr, count };
   });
 
   return (
