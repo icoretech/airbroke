@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.1.36](https://github.com/icoretech/airbroke/compare/v1.1.35...v1.1.36) (2023-07-15)
+
+
+### Features
+
+* **SparkLine.tsx:** add Sparkline component to render a line chart based on provided data, to be used later ([859fb84](https://github.com/icoretech/airbroke/commit/859fb8454c489f746269493c7e41db609398361a))
+
+
+### Bug Fixes
+
+* **airbrakeActions.ts:** change import statement for revalidatePath from 'next/cache' to 'next/cache' to fix import error ([71b819d](https://github.com/icoretech/airbroke/commit/71b819dc851200166c352c9ea611c02009f37fd5))
+* **airbrakeActions.ts:** change revalidatePath calls to revalidateTag to fix deprecated method call and improve caching ([71b819d](https://github.com/icoretech/airbroke/commit/71b819dc851200166c352c9ea611c02009f37fd5))
+* **deps:** update dependency @tailwindcss/forms to v0.5.4 ([0dfd302](https://github.com/icoretech/airbroke/commit/0dfd302fba7a43a7662f103722d2d49b8a94face))
+* **deps:** update dependency ai to v2.1.18 ([#115](https://github.com/icoretech/airbroke/issues/115)) ([23af4ea](https://github.com/icoretech/airbroke/commit/23af4ea070d2ff3f1d0afb33d7857a900360efaa))
+* **deps:** update dependency ai to v2.1.19 ([0ba5d9d](https://github.com/icoretech/airbroke/commit/0ba5d9d86829aac16aaa07bd3081c1bff9ffe170))
+* **deps:** update dependency ai to v2.1.20 ([#123](https://github.com/icoretech/airbroke/issues/123)) ([6efd275](https://github.com/icoretech/airbroke/commit/6efd275746050c1eea0218816e9869acdc65a2e3))
+* **deps:** update dependency postcss to v8.4.26 ([#124](https://github.com/icoretech/airbroke/issues/124)) ([60dfa5c](https://github.com/icoretech/airbroke/commit/60dfa5cebc98b991ad20e1d0a508d14a97c09c04))
+* **deps:** update dependency sharp to v0.32.3 ([#111](https://github.com/icoretech/airbroke/issues/111)) ([6bb08df](https://github.com/icoretech/airbroke/commit/6bb08dfc24400ee4f5fc5b4f51afa63faf7c4b61))
+* **deps:** update dependency tailwindcss to v3.3.3 ([#125](https://github.com/icoretech/airbroke/issues/125)) ([67569b0](https://github.com/icoretech/airbroke/commit/67569b0043f94238b37c9735fad62c97e01e531f))
+* **Form.tsx:** change import statement for useRouter from 'next/navigation' to 'next/router' to fix import error ([71b819d](https://github.com/icoretech/airbroke/commit/71b819dc851200166c352c9ea611c02009f37fd5))
+* **Form.tsx:** change import statement for useTransition from 'react' to 'react' to fix import error ([71b819d](https://github.com/icoretech/airbroke/commit/71b819dc851200166c352c9ea611c02009f37fd5))
+* **OccurrenceChartWrapper.tsx:** update the `OccurrencesChartWrapper` components to generate a complete list of hourly intervals for the past 14 days and fill in the occurrence counts. If there were no occurrences for a certain hour, it now displays zero on the chart, rather than skipping that hour ([0b42ae2](https://github.com/icoretech/airbroke/commit/0b42ae21c34a383c6b8e77083657072330a324bd))
+* **route.ts:** change the URL in the responseJSON to remove "/notices" from the URL ([e9f4ec6](https://github.com/icoretech/airbroke/commit/e9f4ec693306789afbde04dbec4eb35a33b862b2))
+
 ## [1.1.35](https://github.com/icoretech/airbroke/compare/v1.1.34...v1.1.35) (2023-07-09)
 
 
