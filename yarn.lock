@@ -8006,11 +8006,11 @@ __metadata:
   linkType: hard
 
 "superjson@npm:^1.12.4":
-  version: 1.12.4
-  resolution: "superjson@npm:1.12.4"
+  version: 1.13.1
+  resolution: "superjson@npm:1.13.1"
   dependencies:
     copy-anything: ^3.0.2
-  checksum: fcf37714f734cd51af018b78fd7f630952a0682fc3cb060d00b824e5d0cd49f0206b8e23829469c99972fd7fcd6e468b9492abb1c4e258ea5ec7f45c345a56f2
+  checksum: 9c8c664a924ce097250112428805ccc8b500018b31a91042e953d955108b8481c156005d836b413940c9fa5f124a3195f55f3a518fe76510a254a59f9151a204
   languageName: node
   linkType: hard
 
