@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.37](https://github.com/icoretech/airbroke/compare/v1.1.36...v1.1.37) (2023-07-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ai to v2.1.21 ([7379260](https://github.com/icoretech/airbroke/commit/73792609aafab6c9ae8592fc8cfcc7a816d293b3))
+* **deps:** update dependency ai to v2.1.22 ([#133](https://github.com/icoretech/airbroke/issues/133)) ([5032204](https://github.com/icoretech/airbroke/commit/5032204f7d58119822bd12c233d34c29816680cc))
+* **deps:** update dependency next-auth to v4.22.3 ([19c8961](https://github.com/icoretech/airbroke/commit/19c896102fa8ed216ed7891124674289982eefd3))
+* **deps:** update dependency superjson to v1.13.1 ([#132](https://github.com/icoretech/airbroke/issues/132)) ([a823e8a](https://github.com/icoretech/airbroke/commit/a823e8a27bdeb5d96fd1b29da93e9f6abcad150a))
+
 ## [1.1.36](https://github.com/icoretech/airbroke/compare/v1.1.35...v1.1.36) (2023-07-15)
 
 
