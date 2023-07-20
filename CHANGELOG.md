@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.38](https://github.com/icoretech/airbroke/compare/v1.1.37...v1.1.38) (2023-07-20)
+
+
+### Features
+
+* **db.ts:** add support for excluding logging when running in a testing environment by checking the value of TESTING environment variable ([6123d12](https://github.com/icoretech/airbroke/commit/6123d12f3891199bd429792b9626e5bbf9299c50))
+
+
+### Bug Fixes
+
+* **Dockerfile:** update COPY commands to use --link flag ([00f957c](https://github.com/icoretech/airbroke/commit/00f957c094b071895efe1e0dd0af8a0a76f5d103))
+* **route.ts:** include CORS headers in error responses to allow cross-origin requests ([08f997d](https://github.com/icoretech/airbroke/commit/08f997d25175ff32406253e25bb0a7cde8ba63d5))
+* **route.ts:** include CORS headers in successful responses to allow cross-origin requests ([08f997d](https://github.com/icoretech/airbroke/commit/08f997d25175ff32406253e25bb0a7cde8ba63d5))
+
 ## [1.1.37](https://github.com/icoretech/airbroke/compare/v1.1.36...v1.1.37) (2023-07-19)
 
 
