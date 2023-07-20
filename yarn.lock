@@ -6664,9 +6664,9 @@ __metadata:
   linkType: hard
 
 "openai-edge@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "openai-edge@npm:1.2.0"
-  checksum: 5fa7962527b4001fe3beb29cb983014b1f7a1051199b4b1df60dc5638b8d31d9f8f8924b7795b997f609cc15cd19f93a64d5e55cd99e5d52a9970acd267e97c9
+  version: 1.2.1
+  resolution: "openai-edge@npm:1.2.1"
+  checksum: 30df0794d55b28548bcee1e284c0a66c21f64ca8b1287348c589e8cd08d7f3722daf69267e2cd006afee88f4ca24824da7a11228e25602e92b018b383c2538cd
   languageName: node
   linkType: hard
 
