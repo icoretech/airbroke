@@ -1,3 +1,5 @@
+#syntax=docker/dockerfile:1.4
+
 # docker build --no-cache -t icoretech/airbroke:latest .
 # docker run -p 3000:3000 icoretech/airbroke:latest
 
@@ -25,9 +27,9 @@ WORKDIR /app
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
+COPY --from=builder --link --chown=1001:1001 /app/.next/standalone ./
+COPY --from=builder --link --chown=1001:1001 /app/.next/static ./.next/static
+COPY --from=builder --link --chown=1001:1001 /app/prisma ./prisma
 
 USER nextjs
 
