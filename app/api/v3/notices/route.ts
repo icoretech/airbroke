@@ -44,6 +44,16 @@ async function parseRequestBody(request: NextRequest) {
   return whitelisted;
 }
 
+function generateCorsHeaders() {
+  const corsOrigins = process.env.AIRBROKE_CORS_ORIGINS?.split(',') || [];
+
+  return {
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'origin, accept, content-type, authorization',
+    'Access-Control-Allow-Origin': corsOrigins.length > 0 ? corsOrigins.join(', ') : '*',
+  };
+}
+
 function getServerHostname(request: NextRequest) {
   const host = request.headers.get('host');
   const protocols = (request.headers.get('x-forwarded-proto') || 'https').split(',');
@@ -64,10 +74,10 @@ async function POST(request: NextRequest) {
   if (!project || project.paused) {
     if (requestType === 'params') {
       const json_response = { error: '**Airbroke: Project not found or paused' };
-      return NextResponse.json(json_response, { status: 404 });
+      return NextResponse.json(json_response, { status: 404, headers: generateCorsHeaders() });
     } else {
       const json_response = { error: '**Airbroke: Project not found or paused' };
-      const headers = { 'WWW-Authenticate': `Bearer realm="Airbroke"` };
+      const headers = { ...generateCorsHeaders(), 'WWW-Authenticate': `Bearer realm="Airbroke"` };
       return NextResponse.json(json_response, { status: 404, headers });
     }
   }
@@ -86,22 +96,11 @@ async function POST(request: NextRequest) {
   const customNanoid = customAlphabet(urlAlphabet, 21);
   // assuming airbroke frontend is deployed alongside collector
   const responseJSON = { id: customNanoid(), url: `${getServerHostname(request)}/projects/${project.id}` };
-  return NextResponse.json(responseJSON, { status: 201 });
+  return NextResponse.json(responseJSON, { status: 201, headers: generateCorsHeaders() });
 }
 
 async function OPTIONS(request: NextRequest) {
-  const corsOrigins = process.env.AIRBROKE_CORS_ORIGINS?.split(',') || [];
-
-  const headers: { [key: string]: string } = {
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'origin, accept, content-type, authorization',
-    'Access-Control-Allow-Origin': corsOrigins.length > 0 ? corsOrigins.join(', ') : '*',
-  };
-
-  return new NextResponse('', {
-    status: 200,
-    headers,
-  });
+  return new NextResponse('', { status: 200, headers: generateCorsHeaders() });
 }
 
 export { OPTIONS, POST };
