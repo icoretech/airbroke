@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.39](https://github.com/icoretech/airbroke/compare/v1.1.38...v1.1.39) (2023-07-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency openai-edge to v1.2.1 ([#140](https://github.com/icoretech/airbroke/issues/140)) ([919bc7a](https://github.com/icoretech/airbroke/commit/919bc7aeb756697d788027ceed1e363e4ebb72cd))
+
 ## [1.1.38](https://github.com/icoretech/airbroke/compare/v1.1.37...v1.1.38) (2023-07-20)
 
 
