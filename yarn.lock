@@ -1059,7 +1059,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/bundle-analyzer@npm:^13.4.10":
+"@next/bundle-analyzer@npm:^13.4.11":
   version: 13.4.11
   resolution: "@next/bundle-analyzer@npm:13.4.11"
   dependencies:
@@ -1599,7 +1599,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/jest-dom@npm:^5.16.5":
+"@testing-library/jest-dom@npm:^5.17.0":
   version: 5.17.0
   resolution: "@testing-library/jest-dom@npm:5.17.0"
   dependencies:
@@ -2090,7 +2090,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:^2.1.20":
+"ai@npm:^2.1.22":
   version: 2.1.22
   resolution: "ai@npm:2.1.22"
   dependencies:
@@ -2123,17 +2123,17 @@ __metadata:
     "@headlessui/react": ^1.7.15
     "@jest/globals": ^29.6.1
     "@next-auth/prisma-adapter": ^1.0.7
-    "@next/bundle-analyzer": ^13.4.10
+    "@next/bundle-analyzer": ^13.4.11
     "@prisma/client": ^5.0.0
     "@tailwindcss/forms": ^0.5.4
-    "@testing-library/jest-dom": ^5.16.5
+    "@testing-library/jest-dom": ^5.17.0
     "@testing-library/react": ^14.0.0
     "@types/chance": ^1.1.3
     "@types/node": ^20.4.2
     "@types/numeral": ^2.0.2
     "@types/react": 18.2.15
     "@types/react-dom": 18.2.7
-    ai: ^2.1.20
+    ai: ^2.1.22
     autoprefixer: ^10.4.14
     chance: ^1.1.11
     chart.js: ^4.3.0
@@ -2144,14 +2144,14 @@ __metadata:
     jest: ^29.6.1
     jest-environment-jsdom: ^29.6.1
     nanoid: 4.0.2
-    next: ^13.4.10
-    next-auth: ^4.22.1
+    next: ^13.4.11
+    next-auth: ^4.22.3
     numeral: ^2.0.6
     octokit: ^3.0.0
-    openai-edge: ^1.2.0
+    openai-edge: ^1.2.1
     postcss: ^8.4.26
     prettier: ^3.0.0
-    prettier-plugin-tailwindcss: ^0.4.0
+    prettier-plugin-tailwindcss: ^0.4.1
     prisma: ^5.0.0
     react: ^18.2.0
     react-chartjs-2: ^5.2.0
@@ -2159,7 +2159,7 @@ __metadata:
     react-icons-ng: ^4.8.5
     server-only: ^0.0.1
     sharp: ^0.32.3
-    superjson: ^1.12.4
+    superjson: ^1.13.1
     tailwindcss: ^3.3.3
     timeago-react: ^3.0.6
     tsx: ^3.12.7
@@ -6273,7 +6273,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-auth@npm:^4.22.1":
+"next-auth@npm:^4.22.3":
   version: 4.22.3
   resolution: "next-auth@npm:4.22.3"
   dependencies:
@@ -6298,7 +6298,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:^13.4.10":
+"next@npm:^13.4.11":
   version: 13.4.11
   resolution: "next@npm:13.4.11"
   dependencies:
@@ -6663,7 +6663,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai-edge@npm:^1.2.0":
+"openai-edge@npm:^1.2.1":
   version: 1.2.1
   resolution: "openai-edge@npm:1.2.1"
   checksum: 30df0794d55b28548bcee1e284c0a66c21f64ca8b1287348c589e8cd08d7f3722daf69267e2cd006afee88f4ca24824da7a11228e25602e92b018b383c2538cd
@@ -7015,7 +7015,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-tailwindcss@npm:^0.4.0":
+"prettier-plugin-tailwindcss@npm:^0.4.1":
   version: 0.4.1
   resolution: "prettier-plugin-tailwindcss@npm:0.4.1"
   peerDependencies:
@@ -8005,7 +8005,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"superjson@npm:^1.12.4":
+"superjson@npm:^1.13.1":
   version: 1.13.1
   resolution: "superjson@npm:1.13.1"
   dependencies:
