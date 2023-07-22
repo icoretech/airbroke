@@ -2061,26 +2061,31 @@ __metadata:
   linkType: hard
 
 "ai@npm:^2.1.23":
-  version: 2.1.23
-  resolution: "ai@npm:2.1.23"
+  version: 2.1.25
+  resolution: "ai@npm:2.1.25"
   dependencies:
     eventsource-parser: 1.0.0
-    nanoid: ^3.3.6
-    sswr: ^1.10.0
-    swr: 2.1.5
-    swrv: 1.0.3
+    nanoid: 3.3.6
+    solid-swr-store: 0.10.7
+    sswr: 2.0.0
+    swr: 2.2.0
+    swr-store: 0.10.6
+    swrv: 1.0.4
   peerDependencies:
     react: ^18.2.0
+    solid-js: ^1.7.7
     svelte: ^3.0.0 || ^4.0.0
     vue: ^3.3.4
   peerDependenciesMeta:
     react:
       optional: true
+    solid-js:
+      optional: true
     svelte:
       optional: true
     vue:
       optional: true
-  checksum: 952a7678e20c2b104dfd52b7803752ea23b794d015af29050ad2153240c9a4c8f9bc9fad41b813a7be9f19e77745da181a6064e14193617cec7524e79c72d3f6
+  checksum: e7690a0d7964298f148a109ebcd64d1aeb3807ae2ce911e814be4ddff6d73aa90c6100c439c5c4e3fa9083f6e94a3e59f4f30d1671dae7444e2083527846e34f
   languageName: node
   linkType: hard
 
@@ -6219,21 +6224,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nanoid@npm:3.3.6, nanoid@npm:^3.3.4, nanoid@npm:^3.3.6":
+  version: 3.3.6
+  resolution: "nanoid@npm:3.3.6"
+  bin:
+    nanoid: bin/nanoid.cjs
+  checksum: 7d0eda657002738aa5206107bd0580aead6c95c460ef1bdd0b1a87a9c7ae6277ac2e9b945306aaa5b32c6dcb7feaf462d0f552e7f8b5718abfc6ead5c94a71b3
+  languageName: node
+  linkType: hard
+
 "nanoid@npm:4.0.2":
   version: 4.0.2
   resolution: "nanoid@npm:4.0.2"
   bin:
     nanoid: bin/nanoid.js
   checksum: 747c399cea4664dd0be1d0ec498ffd1ef8f1f5221676fc8b577e3f46f66d9afcddb9595d63d19a2e78d0bc6cc33984f65e66bf1682c850b9e26288883d96b53f
-  languageName: node
-  linkType: hard
-
-"nanoid@npm:^3.3.4, nanoid@npm:^3.3.6":
-  version: 3.3.6
-  resolution: "nanoid@npm:3.3.6"
-  bin:
-    nanoid: bin/nanoid.cjs
-  checksum: 7d0eda657002738aa5206107bd0580aead6c95c460ef1bdd0b1a87a9c7ae6277ac2e9b945306aaa5b32c6dcb7feaf462d0f552e7f8b5718abfc6ead5c94a71b3
   languageName: node
   linkType: hard
 
@@ -7706,6 +7711,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"solid-swr-store@npm:0.10.7":
+  version: 0.10.7
+  resolution: "solid-swr-store@npm:0.10.7"
+  peerDependencies:
+    solid-js: ^1.2
+    swr-store: ^0.10
+  checksum: c2b51b64ae70659382b1679125367c4c541393c3e5078aa7f9616f2f4897d69a387ce26d6335048b5cc52a4fc3e55d69e21524493509ddfbd1b981903204940a
+  languageName: node
+  linkType: hard
+
 "source-map-js@npm:^1.0.2":
   version: 1.0.2
   resolution: "source-map-js@npm:1.0.2"
@@ -7756,14 +7771,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sswr@npm:^1.10.0":
-  version: 1.11.0
-  resolution: "sswr@npm:1.11.0"
+"sswr@npm:2.0.0":
+  version: 2.0.0
+  resolution: "sswr@npm:2.0.0"
   dependencies:
-    swrev: ^3.0.0
+    swrev: ^4.0.0
   peerDependencies:
     svelte: ^4.0.0
-  checksum: 1b9c220f051aff72769b53480f5dd460dccc78edb1add7979c26ba785e2c737e1fdf6d5ca64be8cafe5c462adb48e20abc4ae09437fecfe00521a22d5a6ccb26
+  checksum: 792f2e24109966261065c9ede781d441fa39f145c028a187bba8e9ad93cd0a540adcb03eb12dff635f8a2f40f80ee7193c57955b6363860a09ea0dc27b7c110d
   languageName: node
   linkType: hard
 
@@ -8045,30 +8060,39 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swr@npm:2.1.5":
-  version: 2.1.5
-  resolution: "swr@npm:2.1.5"
+"swr-store@npm:0.10.6":
+  version: 0.10.6
+  resolution: "swr-store@npm:0.10.6"
+  dependencies:
+    dequal: ^2.0.3
+  checksum: 81a0df8ed705f2ef19fddf10a76d53e478367b811d29a36b91ae116a964ebb2cdfdedca569d7740d94004ac608dde5831ab1c0087373d33562a3467185832880
+  languageName: node
+  linkType: hard
+
+"swr@npm:2.2.0":
+  version: 2.2.0
+  resolution: "swr@npm:2.2.0"
   dependencies:
     use-sync-external-store: ^1.2.0
   peerDependencies:
     react: ^16.11.0 || ^17.0.0 || ^18.0.0
-  checksum: f2ef9b83ec4b2ebf4d520578ab847307700db01ffcab64b3aec6ea94feaf96ca10e38e8b08bc8adfab8eaa6ec1bdfd64f82b6f5c14cc4cb5cf11e6fd22b405a4
+  checksum: 1f04795ff9dff54987cbf8a544afc9e42d1350a99e899be8a7cdc4885f561e3ee464f78245ee2ebc8ced262b04023d134f731e276227319dc2d6e1843389ddd8
   languageName: node
   linkType: hard
 
-"swrev@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "swrev@npm:3.0.0"
-  checksum: 1dfc42916649059919ae2c2e4e7ff0f206a30e09a0dd4bb61ffad19bb05f0aa66fa0ab389f24c125d04ee497579f91a14e9124aa43406fda7d3fd636e5f42a00
+"swrev@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "swrev@npm:4.0.0"
+  checksum: 454aed0e0367ef8faabfbe46e83e088199874beaa24c6a0e3aa58e10ec4464e33514d559f0e7be5adcbadffd3323c1b096c0625aaa13f029cbcc03ad40590a2f
   languageName: node
   linkType: hard
 
-"swrv@npm:1.0.3":
-  version: 1.0.3
-  resolution: "swrv@npm:1.0.3"
+"swrv@npm:1.0.4":
+  version: 1.0.4
+  resolution: "swrv@npm:1.0.4"
   peerDependencies:
     vue: ">=3.2.26 < 4"
-  checksum: fe2e7c46d76419cfd9dda1b17018f284d54f216c1129c396892947b47ea4b6dc007cfea56bba1b414543824e0c0ae9521ee2beebf10ff6ea92056aa13d65f0e3
+  checksum: 6de43116e19ea22a8b76bd54c5b18571b84a32b0d4d1bfe80e9e562bd67d4464c1da73b3f60e6bf2b2f88e6e4576e596408dfb22a5af13c8186254395c466e91
   languageName: node
   linkType: hard
 
