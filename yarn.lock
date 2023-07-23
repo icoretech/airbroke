@@ -2130,7 +2130,7 @@ __metadata:
     next-auth: 4.22.3
     numeral: 2.0.6
     octokit: 3.0.0
-    openai-edge: 1.2.1
+    openai-edge: 1.2.2
     postcss: 8.4.27
     prettier: 3.0.0
     prettier-plugin-tailwindcss: 0.4.1
@@ -6660,10 +6660,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai-edge@npm:1.2.1":
-  version: 1.2.1
-  resolution: "openai-edge@npm:1.2.1"
-  checksum: 30df0794d55b28548bcee1e284c0a66c21f64ca8b1287348c589e8cd08d7f3722daf69267e2cd006afee88f4ca24824da7a11228e25602e92b018b383c2538cd
+"openai-edge@npm:1.2.2":
+  version: 1.2.2
+  resolution: "openai-edge@npm:1.2.2"
+  checksum: 9d6ff6e79fbad5a0f2b6dd5db75abeb489dfa530f3e14a664500856497c1e19f6ec24036c2988cd3194f3ce38325214112d6f4c9766743497a7e1c69bf2f5f39
   languageName: node
   linkType: hard
 
