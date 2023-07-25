@@ -26,7 +26,7 @@
     "ai": "2.1.26",
     "autoprefixer": "10.4.14",
     "chance": "1.1.11",
-    "chart.js": "4.3.0",
+    "chart.js": "4.3.1",
     "nanoid": "4.0.2",
     "next": "13.4.12",
     "next-auth": "4.22.3",
