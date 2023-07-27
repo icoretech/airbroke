@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.1.40](https://github.com/icoretech/airbroke/compare/v1.1.39...v1.1.40) (2023-07-27)
+
+
+### Features
+
+* **not-found.tsx:** add NotFound component, this might allow next.js to skip a whole renderer process at runtime, because at the moment the 404 page is recognized as a pages app ([98a2a1c](https://github.com/icoretech/airbroke/commit/98a2a1c04187222482ec741ebcea0d290176cf00))
+
+
+### Bug Fixes
+
+* **deps:** update dependency ai to v2.1.25 ([03692c8](https://github.com/icoretech/airbroke/commit/03692c80ad18600ff5f9577864f89553ebd2ae02))
+* **deps:** update dependency ai to v2.1.26 ([c036dd7](https://github.com/icoretech/airbroke/commit/c036dd7b8366c126a8305a933874697ab9183ecf))
+* **deps:** update dependency chart.js to v4.3.1 ([3f190a5](https://github.com/icoretech/airbroke/commit/3f190a50a05f7650a8876a46527f2bddea130fc0))
+* **deps:** update dependency chart.js to v4.3.2 ([#155](https://github.com/icoretech/airbroke/issues/155)) ([79070de](https://github.com/icoretech/airbroke/commit/79070de0755b43f68e5ccab2c691090ed82849d2))
+* **deps:** update dependency octokit to v3.1.0 ([#157](https://github.com/icoretech/airbroke/issues/157)) ([1b5d24e](https://github.com/icoretech/airbroke/commit/1b5d24e2406d84b589ea0d7b5fc70db1b41d7eb7))
+* **deps:** update dependency openai-edge to v1.2.2 ([#150](https://github.com/icoretech/airbroke/issues/150)) ([9b4bca3](https://github.com/icoretech/airbroke/commit/9b4bca395801624db551901b63d1aea95aa00036))
+
 ## [1.1.39](https://github.com/icoretech/airbroke/compare/v1.1.38...v1.1.39) (2023-07-21)
 
 
