@@ -1352,6 +1352,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@octokit/plugin-paginate-graphql@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@octokit/plugin-paginate-graphql@npm:4.0.0"
+  peerDependencies:
+    "@octokit/core": ">=5"
+  checksum: 368121d74fc40a4cee96f2febc29ae43abd8f6b7d0b06d3520847827675128028c4fa10d0534c5f0466658e81257d103092154778625c886a9fcdd01c302e50e
+  languageName: node
+  linkType: hard
+
 "@octokit/plugin-paginate-rest@npm:^8.0.0":
   version: 8.0.0
   resolution: "@octokit/plugin-paginate-rest@npm:8.0.0"
@@ -2140,7 +2149,7 @@ __metadata:
     next: 13.4.12
     next-auth: 4.22.3
     numeral: 2.0.6
-    octokit: 3.0.0
+    octokit: 3.1.0
     openai-edge: 1.2.2
     postcss: 8.4.27
     prettier: 3.0.0
@@ -6608,20 +6617,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"octokit@npm:3.0.0":
-  version: 3.0.0
-  resolution: "octokit@npm:3.0.0"
+"octokit@npm:3.1.0":
+  version: 3.1.0
+  resolution: "octokit@npm:3.1.0"
   dependencies:
     "@octokit/app": ^14.0.0
     "@octokit/core": ^5.0.0
     "@octokit/oauth-app": ^6.0.0
+    "@octokit/plugin-paginate-graphql": ^4.0.0
     "@octokit/plugin-paginate-rest": ^8.0.0
     "@octokit/plugin-rest-endpoint-methods": ^9.0.0
     "@octokit/plugin-retry": ^6.0.0
     "@octokit/plugin-throttling": ^7.0.0
     "@octokit/request-error": ^5.0.0
     "@octokit/types": ^11.1.0
-  checksum: 058572e20f5f08ea4b10069295b153a37f35a0ff16e76d0dbd697b29716cc3445823a0cd344de9a2fa31e8fd6744745c214f8b1b184ae20490e07008dfd3436e
+  checksum: 148c9dcf3a65a824f69802a950bdc5dae6fd70e16024d08b1fdd65a7b080bccc037326e0145a8a4aa6b041f1ceefe1d04a7228750de8256d55e82beaa1f2df37
   languageName: node
   linkType: hard
 
