@@ -691,15 +691,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@headlessui/react@npm:1.7.15":
-  version: 1.7.15
-  resolution: "@headlessui/react@npm:1.7.15"
+"@headlessui/react@npm:1.7.16":
+  version: 1.7.16
+  resolution: "@headlessui/react@npm:1.7.16"
   dependencies:
     client-only: ^0.0.1
   peerDependencies:
     react: ^16 || ^17 || ^18
     react-dom: ^16 || ^17 || ^18
-  checksum: f2d11d58499ddf1362a40d84d92b7db932adaccc3596f44f1eead642258280f124497f2b329cee6e04801818bb2e66c42d752ee05f40f8b5239c2f692128e568
+  checksum: 85844c96c79796236fa7dec2f1c2f0332d7554d9b785d7b37d9762bb4133088a0cf1334653d6f91c1fe4619960eb569f14ba5f6a962c3305e03f7b362acbabbe
   languageName: node
   linkType: hard
 
@@ -2124,7 +2124,7 @@ __metadata:
   dependencies:
     "@airbrake/browser": 2.1.8
     "@airbrake/node": 2.1.8
-    "@headlessui/react": 1.7.15
+    "@headlessui/react": 1.7.16
     "@jest/globals": 29.6.2
     "@next-auth/prisma-adapter": 1.0.7
     "@next/bundle-analyzer": 13.4.12
