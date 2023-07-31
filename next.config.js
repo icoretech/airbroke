@@ -14,6 +14,7 @@ const nextConfig = {
     serverActions: true,
     serverComponentsExternalPackages: ['@octokit', '@airbrake/node'],
     isrMemoryCacheSize: 0,
+    logging: process.env.AIRBROKE_LOG_LEVEL === 'verbose' ? 'verbose' : undefined,
     // typedRoutes: true,
   },
   async rewrites() {
