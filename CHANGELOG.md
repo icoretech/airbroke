@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.1.41](https://github.com/icoretech/airbroke/compare/v1.1.40...v1.1.41) (2023-07-31)
+
+
+### Features
+
+* **next.config.js:** add logging configuration based on AIRBROKE_LOG_LEVEL environment variable to enable verbose logging if set to 'verbose' ([264015c](https://github.com/icoretech/airbroke/commit/264015c8b6c3df355696fe1fdc93a439f8d3728e))
+* **route.ts:** update default OpenAI engine model from 'gpt-4' to 'gpt-3.5-turbo' if nothing is set ([07d4f9f](https://github.com/icoretech/airbroke/commit/07d4f9fa301227cd734dcf1fc5e5b580b739d739))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @headlessui/react to v1.7.16 ([#160](https://github.com/icoretech/airbroke/issues/160)) ([44d7fa7](https://github.com/icoretech/airbroke/commit/44d7fa76daf99bf9a8b46c0ff1bebccc8f9a7111))
+* **deps:** update dependency ai to v2.1.27 ([#161](https://github.com/icoretech/airbroke/issues/161)) ([3521094](https://github.com/icoretech/airbroke/commit/352109495afbd6b3d512846541408f74c4e93165))
+* **deps:** update dependency ai to v2.1.28 ([9879eea](https://github.com/icoretech/airbroke/commit/9879eea1b3a05399ce0dcc62487443ac59df54a4))
+
 ## [1.1.40](https://github.com/icoretech/airbroke/compare/v1.1.39...v1.1.40) (2023-07-27)
 
 
