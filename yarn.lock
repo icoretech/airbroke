@@ -2089,9 +2089,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:2.1.29":
-  version: 2.1.29
-  resolution: "ai@npm:2.1.29"
+"ai@npm:2.1.31":
+  version: 2.1.31
+  resolution: "ai@npm:2.1.31"
   dependencies:
     eventsource-parser: 1.0.0
     nanoid: 3.3.6
@@ -2114,7 +2114,7 @@ __metadata:
       optional: true
     vue:
       optional: true
-  checksum: 9762d3b5927beb17f656acd75a661553559fab948f988012e952af0520202346a8df3cde07f34b6d3416c9d705344ad0b77264e61913153451e74b663f8527b0
+  checksum: 16447a74a2cc062d44433691f1b4f6ee0ec2ea8afcd5bee43641cb4ad77a9b0bde5c73e1e00b6851057da04cb87ccb1fa314f58f1b2331eb7a88b67a8fcccca8
   languageName: node
   linkType: hard
 
@@ -2137,7 +2137,7 @@ __metadata:
     "@types/numeral": 2.0.2
     "@types/react": 18.2.18
     "@types/react-dom": 18.2.7
-    ai: 2.1.29
+    ai: 2.1.31
     autoprefixer: 10.4.14
     chance: 1.1.11
     chart.js: 4.3.2
