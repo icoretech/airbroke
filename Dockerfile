@@ -27,9 +27,9 @@ WORKDIR /app
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder --link --chown=1001:1001 /app/.next/standalone ./
-COPY --from=builder --link --chown=1001:1001 /app/.next/static ./.next/static
-COPY --from=builder --link --chown=1001:1001 /app/prisma ./prisma
+COPY --from=builder --chown=1001:1001 /app/.next/standalone ./
+COPY --from=builder --chown=1001:1001 /app/.next/static ./.next/static
+COPY --from=builder --chown=1001:1001 /app/prisma ./prisma
 
 USER nextjs
 
