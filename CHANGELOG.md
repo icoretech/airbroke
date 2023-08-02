@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.42](https://github.com/icoretech/airbroke/compare/v1.1.41...v1.1.42) (2023-08-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ai to v2.1.29 ([65d4f63](https://github.com/icoretech/airbroke/commit/65d4f637f7ae31e06976deaa6800b56646e73300))
+* **deps:** update dependency ai to v2.1.31 ([e523954](https://github.com/icoretech/airbroke/commit/e52395416a219086670c3f3b2a38dbe9087fe04b))
+* **deps:** update prisma monorepo to v5.1.0 ([adb80ab](https://github.com/icoretech/airbroke/commit/adb80abecd34ac73f262a85e8ab0f8b80265bca6))
+
 ## [1.1.41](https://github.com/icoretech/airbroke/compare/v1.1.40...v1.1.41) (2023-07-31)
 
 
