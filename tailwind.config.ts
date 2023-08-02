@@ -1,8 +1,7 @@
 import forms from '@tailwindcss/forms';
 import plugin from 'tailwindcss/plugin';
-import type { Config } from 'tailwindcss/types';
+import type { Config } from 'tailwindcss';
 
-/** @type {import('tailwindcss').Config} */
 const config: Config = {
   content: [
     './components/**/*.{js,ts,jsx,tsx,mdx}',
