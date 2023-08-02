@@ -1,5 +1,3 @@
-#syntax=docker/dockerfile:1.4
-
 # docker build --no-cache -t icoretech/airbroke:latest .
 # docker run -p 3000:3000 icoretech/airbroke:latest
 
