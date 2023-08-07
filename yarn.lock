@@ -1058,12 +1058,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/bundle-analyzer@npm:13.4.12":
-  version: 13.4.12
-  resolution: "@next/bundle-analyzer@npm:13.4.12"
+"@next/bundle-analyzer@npm:13.4.13":
+  version: 13.4.13
+  resolution: "@next/bundle-analyzer@npm:13.4.13"
   dependencies:
     webpack-bundle-analyzer: 4.7.0
-  checksum: 4fdd226df19e830537f460d019af9d17e2e2c70b516100f1ab31d86de21b7753630f7ccc7d37d44dd6abdc4823ed4a502e10747140d5de7a40e9e7832cf5fcc0
+  checksum: 2e6f32410fbb98c497a6b52dbd201e35f35c3fc2cbbe935e04559f8dfc9011ccc6bf08608e40a115ac06562a0d14212b347b527729db228ff6db9daa3b238d71
   languageName: node
   linkType: hard
 
@@ -2107,7 +2107,7 @@ __metadata:
     "@headlessui/react": 1.7.16
     "@jest/globals": 29.6.2
     "@next-auth/prisma-adapter": 1.0.7
-    "@next/bundle-analyzer": 13.4.12
+    "@next/bundle-analyzer": 13.4.13
     "@prisma/client": 5.1.1
     "@tailwindcss/forms": 0.5.4
     "@testing-library/jest-dom": 5.17.0
