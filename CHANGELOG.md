@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.44](https://github.com/icoretech/airbroke/compare/v1.1.43...v1.1.44) (2023-08-07)
+
+
+### Features
+
+* **.env.dist:** update AIRBROKE_CORS_ORIGINS value to use a more generic domain name for the example browser app deployment ([36b0050](https://github.com/icoretech/airbroke/commit/36b0050bd238a3b17b912b3e9e6714dc061b7c5b))
+
 ## [1.1.43](https://github.com/icoretech/airbroke/compare/v1.1.42...v1.1.43) (2023-08-07)
 
 
