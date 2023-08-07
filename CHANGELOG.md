@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.43](https://github.com/icoretech/airbroke/compare/v1.1.42...v1.1.43) (2023-08-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ai to v2.1.32 ([5efda25](https://github.com/icoretech/airbroke/commit/5efda2583fc884e4b4dfcb19d47f17c7160cf341))
+* **deps:** update dependency chart.js to v4.3.3 ([e52e727](https://github.com/icoretech/airbroke/commit/e52e7275dabbd2acc277e4a87e39daf65a3158db))
+* **deps:** update dependency next-auth to v4.22.4 ([8988322](https://github.com/icoretech/airbroke/commit/898832213f47e85b3dabe4eb8ab22d7779859482))
+* **deps:** update prisma monorepo to v5.1.1 ([7e834ce](https://github.com/icoretech/airbroke/commit/7e834ce835516e54287fa0b7627d77251eec06ee))
+
 ## [1.1.42](https://github.com/icoretech/airbroke/compare/v1.1.41...v1.1.42) (2023-08-02)
 
 
