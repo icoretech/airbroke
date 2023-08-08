@@ -29,7 +29,7 @@
     "chart.js": "4.3.3",
     "nanoid": "4.0.2",
     "next": "13.4.12",
-    "next-auth": "4.22.4",
+    "next-auth": "4.22.5",
     "numeral": "2.0.6",
     "octokit": "3.1.0",
     "openai-edge": "1.2.2",
