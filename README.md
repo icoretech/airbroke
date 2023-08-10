@@ -38,7 +38,7 @@
 ## System Requirements
 
 - Node.js 20+ compatible environment
-- Minimum of 250MB RAM (380+ recommended)
+- Minimum of 300MB RAM
 - At least 1000 millicores, equivalent to 1 CPU core
 - PostgreSQL 15+ database
 - 8+ free database connections slots per instance
