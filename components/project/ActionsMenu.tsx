@@ -27,7 +27,7 @@ export default function ProjectActionsMenu({ project }: { project: Project }) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="z-11 absolute right-0 mt-10 w-56 origin-top-right translate-y-1/2 divide-y divide-white/5 rounded-md bg-airbroke-800 shadow-2xl ring-1 ring-gray-900/5 focus:outline-none">
+        <Menu.Items className="absolute right-0 z-50 mt-10 w-56 origin-top-right translate-y-1/2 divide-y divide-white/5 rounded-md bg-airbroke-800 shadow-2xl ring-1 ring-gray-900/5 focus:outline-none">
           <div className="px-4 py-3">
             <p className="text-sm text-white">{project.name}</p>
             <p className="truncate text-xs font-medium text-gray-200">{project.organization}</p>
