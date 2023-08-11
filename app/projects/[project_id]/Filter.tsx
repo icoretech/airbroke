@@ -28,7 +28,7 @@ export default function Filter({ environments }: { environments: string[] }) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 w-56 origin-top-right divide-y divide-white/5  rounded-md  bg-airbroke-800  py-2 shadow-2xl ring-1 ring-gray-900/5 focus:outline-none">
+        <Menu.Items className="absolute right-0 z-40 w-56 origin-top-right divide-y divide-white/5 rounded-md bg-airbroke-800 py-2 shadow-2xl ring-1 ring-gray-900/5 focus:outline-none">
           {environments.map((env) => (
             <Menu.Item key={env}>
               {({ active }) => (
