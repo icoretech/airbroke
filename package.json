@@ -13,8 +13,8 @@
     "db:seed": "prisma db seed",
     "db:migrate": "prisma migrate deploy",
     "postinstall": "prisma generate",
-    "dep:check": "npx npm-check-updates",
-    "dep:set": "npx npm-check-updates -u"
+    "dep:check": "ncu",
+    "dep:set": "ncu -u"
   },
   "dependencies": {
     "@airbrake/browser": "2.1.8",
@@ -64,6 +64,7 @@
     "eslint-plugin-testing-library": "5.11.1",
     "jest": "29.6.2",
     "jest-environment-jsdom": "29.6.2",
+    "npm-check-updates": "^16.10.18",
     "prettier": "3.0.1",
     "prettier-plugin-tailwindcss": "0.5.1",
     "prisma": "5.1.1",
