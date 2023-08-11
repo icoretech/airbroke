@@ -13,10 +13,10 @@ export default function SidebarMobile({ children }: { children: React.ReactNode 
       <Dialog as="div" className="relative z-50 xl:hidden" onClose={() => setSidebarOpen(false)}>
         <Transition.Child
           as={Fragment}
-          enter="transition-opacity ease-linear duration-300"
+          enter="transition-opacity ease-in-out delay-50 duration-300"
           enterFrom="opacity-0"
           enterTo="opacity-100"
-          leave="transition-opacity ease-linear duration-300"
+          leave="transition-opacity ease-in-out duration-300"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
@@ -27,7 +27,7 @@ export default function SidebarMobile({ children }: { children: React.ReactNode 
           <Transition.Child
             as={Fragment}
             enter="transition ease-in-out duration-300 transform"
-            enterFrom="-translate-x-full"
+            enterFrom="will-change: transform; -translate-x-full"
             enterTo="translate-x-0"
             leave="transition ease-in-out duration-300 transform"
             leaveFrom="translate-x-0"
