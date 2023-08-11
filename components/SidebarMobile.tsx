@@ -27,7 +27,7 @@ export default function SidebarMobile({ children }: { children: React.ReactNode 
           <Transition.Child
             as={Fragment}
             enter="transition ease-in-out duration-300 transform"
-            enterFrom="will-change: transform; -translate-x-full"
+            enterFrom="will-change-transform -translate-x-full"
             enterTo="translate-x-0"
             leave="transition ease-in-out duration-300 transform"
             leaveFrom="translate-x-0"
