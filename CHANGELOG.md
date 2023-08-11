@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.1.45](https://github.com/icoretech/airbroke/compare/v1.1.44...v1.1.45) (2023-08-11)
+
+
+### Features
+
+* enhance transitions for mobile sidebar ([85f483a](https://github.com/icoretech/airbroke/commit/85f483a38ca19bf81daea2fedd57005c709ee6db))
+* **sidebar:** Implement hybrid approach for "Bookmarks" link active state ([70c1c62](https://github.com/icoretech/airbroke/commit/70c1c626d43092f6804cfbc6a04c4fc06af1e65b))
+
+
+### Bug Fixes
+
+* **ActionsMenu.tsx:** update z-index value in ProjectActionsMenu component to prevent overlap with other elements ([e4d9d5f](https://github.com/icoretech/airbroke/commit/e4d9d5fa0909671f8b38d997d4dbef933c272fd0))
+* **deps:** update dependency next-auth to v4.22.5 ([#190](https://github.com/icoretech/airbroke/issues/190)) ([119be32](https://github.com/icoretech/airbroke/commit/119be32fc815756f6a5d76dee1d54a0a534209f7))
+* **Filter.tsx:** update z-index value in Filter component to prevent overlap with other elements ([1cb0fd9](https://github.com/icoretech/airbroke/commit/1cb0fd9697e91e870774b22bf70e80d35eca41bf))
+
 ## [1.1.44](https://github.com/icoretech/airbroke/compare/v1.1.43...v1.1.44) (2023-08-07)
 
 
