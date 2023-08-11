@@ -5,9 +5,9 @@ import logo from '@/public/logo.svg';
 import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
-import { BsBookmarksFill } from 'react-icons-ng/bs';
 import { SlPlus } from 'react-icons-ng/sl';
 import { TbClockPause } from 'react-icons-ng/tb';
+import BookmarksLinkClientComponent from './BookmarksLinkClientComponent';
 import { Gravatar } from './Gravatar';
 import { ProviderIcon } from './ProviderIcon';
 
@@ -31,17 +31,7 @@ export default async function SidebarDesktop({ selectedProjectId }: SidebarDeskt
           <li>
             <ul role="list" className="-mx-2 mt-2 space-y-1">
               <li>
-                <Link
-                  href="/bookmarks"
-                  className="group flex transform gap-x-3 rounded-md p-2 text-sm leading-6 text-gray-400 transition-transform duration-100 hover:scale-105 hover:bg-gray-800 hover:text-white"
-                >
-                  <div className="flex w-full justify-between">
-                    <div className="flex items-center gap-x-3 font-semibold">
-                      <BsBookmarksFill className="h-6 w-6 shrink-0" aria-hidden="true" />
-                      <span>Bookmarks</span>
-                    </div>
-                  </div>
-                </Link>
+                <BookmarksLinkClientComponent />
               </li>
             </ul>
           </li>
@@ -53,10 +43,10 @@ export default async function SidebarDesktop({ selectedProjectId }: SidebarDeskt
                   <li key={project.id}>
                     <Link
                       href={`/projects/${project.id}`}
-                      className={`group flex transform gap-x-3 rounded-md p-2 text-sm leading-6 transition-transform hover:scale-105 ${
+                      className={`group flex transform gap-x-3 rounded-md p-2 text-sm leading-6 transition-all duration-100 ease-out will-change-transform hover:scale-105 ${
                         project.id === selectedProjectId
                           ? 'bg-gray-800 text-white'
-                          : 'text-gray-400 transition-colors duration-100 hover:bg-gray-800 hover:text-white'
+                          : 'text-gray-400 hover:bg-gray-800 hover:text-white'
                       }`}
                     >
                       <div className="flex w-full justify-between">
