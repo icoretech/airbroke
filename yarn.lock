@@ -2310,7 +2310,7 @@ __metadata:
     react: 18.2.0
     react-chartjs-2: 5.2.0
     react-dom: 18.2.0
-    react-icons-ng: 4.8.5
+    react-icons-ng: 4.9.1
     server-only: 0.0.1
     sharp: 0.32.4
     superjson: 1.13.1
@@ -8122,12 +8122,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-icons-ng@npm:4.8.5":
-  version: 4.8.5
-  resolution: "react-icons-ng@npm:4.8.5"
+"react-icons-ng@npm:4.9.1":
+  version: 4.9.1
+  resolution: "react-icons-ng@npm:4.9.1"
   peerDependencies:
     react: "*"
-  checksum: 17efc2ff5bf0fa99bab2743dd70c6e4b879c559d646af8f713011244e6319741c30572fb92e4a5bb31db9a78f3344e978e0f39037c92f0fda16a67e8462e6e37
+  checksum: 42cedc71cdfdfdf301e8d8769f2c2134636b894e0aa1e40411246e91b0282990d62d565be9e3c8de9aa560c39774a9b242cfa03ec7065d8fd8bc99787bd46c90
   languageName: node
   linkType: hard
 
