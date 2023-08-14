@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.1.46](https://github.com/icoretech/airbroke/compare/v1.1.45...v1.1.46) (2023-08-14)
+
+
+### Features
+
+* **package.json:** add 'npm-check-updates' as a new dev dependency to manage package updates ([486043d](https://github.com/icoretech/airbroke/commit/486043d6e17d7ce5c75ab307c91e56ebbdb28d8e))
+
+
+### Bug Fixes
+
+* **deps:** update dependency ai to v2.1.33 ([d9e258c](https://github.com/icoretech/airbroke/commit/d9e258cc7100835789b0784d1ea7d5d4598e7b81))
+* **deps:** update dependency autoprefixer to v10.4.15 ([13a4c76](https://github.com/icoretech/airbroke/commit/13a4c766a9bb562f71e8ba9d1948cfbf39c0f57b))
+* **deps:** update dependency next-auth to v4.23.0 ([97bc9a8](https://github.com/icoretech/airbroke/commit/97bc9a8be748ce958a50c3488fbd2eff850c5b58))
+* **deps:** update dependency react-icons-ng to v4.9.1 ([bbf05e6](https://github.com/icoretech/airbroke/commit/bbf05e6a67135879f610cccfdd255f9142712c12))
+* **SidebarMobile.tsx:** use tailwind class ([d9df921](https://github.com/icoretech/airbroke/commit/d9df921a39b7d85c2b0841eb8c57a55b927b07ee))
+
 ## [1.1.45](https://github.com/icoretech/airbroke/compare/v1.1.44...v1.1.45) (2023-08-11)
 
 
