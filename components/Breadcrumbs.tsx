@@ -8,14 +8,15 @@ export default function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[]
     <ol role="list" className="mx-auto flex w-full space-x-4 px-4 sm:px-2 lg:px-4">
       <li className="flex items-center xl:hidden">
         <SidebarOpenButton />
+        <Link href="/projects" className="ml-2 text-xs font-medium text-indigo-200 hover:text-indigo-400">
+          Projects
+        </Link>
       </li>
       <li className="hidden items-center xl:flex">
-        <div className="flex items-center">
-          <Link href="/projects" className="text-indigo-400 hover:text-indigo-200">
-            <SlLayers className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
-            <span className="sr-only">Projects</span>
-          </Link>
-        </div>
+        <Link href="/projects" className="text-indigo-400 hover:text-indigo-200">
+          <SlLayers className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
+          <span className="sr-only">Projects</span>
+        </Link>
       </li>
       {breadcrumbs.map((breadcrumb) => (
         <li key={breadcrumb.name} className="flex items-center">
@@ -34,7 +35,7 @@ export default function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[]
             aria-current={breadcrumb.current ? 'page' : undefined}
           >
             <span className="inline-flex max-w-[50px] items-center truncate sm:max-w-[100px] md:max-w-[200px] lg:max-w-lg">
-              <span className="truncate">{breadcrumb.name}</span>
+              {breadcrumb.name}
             </span>
           </Link>
         </li>
