@@ -19,6 +19,18 @@
         "node"
       ],
       "enabled": false
+    },
+    {
+      "managers": [
+        "npm",
+        "yarn"
+      ],
+      "matchPackageNames": [
+        "next",
+        "@next/bundle-analyzer",
+        "eslint-config-next"
+      ],
+      "enabled": false
     }
   ]
 }
