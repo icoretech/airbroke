@@ -2303,7 +2303,7 @@ __metadata:
     numeral: 2.0.6
     octokit: 3.1.0
     openai-edge: 1.2.2
-    postcss: 8.4.27
+    postcss: 8.4.28
     prettier: 3.0.2
     prettier-plugin-tailwindcss: 0.5.3
     prisma: 5.1.1
@@ -7777,7 +7777,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.27, postcss@npm:^8.4.23":
+"postcss@npm:8.4.28":
+  version: 8.4.28
+  resolution: "postcss@npm:8.4.28"
+  dependencies:
+    nanoid: ^3.3.6
+    picocolors: ^1.0.0
+    source-map-js: ^1.0.2
+  checksum: f605c24a36f7e400bad379735fbfc893ccb8d293ad6d419bb824db77cdcb69f43d614ef35f9f7091f32ca588d130ec60dbcf53b366e6bf88a8a64bbeb3c05f6d
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.4.23":
   version: 8.4.27
   resolution: "postcss@npm:8.4.27"
   dependencies:
