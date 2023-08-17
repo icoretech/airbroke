@@ -7213,8 +7213,8 @@ __metadata:
   linkType: hard
 
 "npm-check-updates@npm:^16.10.18":
-  version: 16.11.2
-  resolution: "npm-check-updates@npm:16.11.2"
+  version: 16.12.1
+  resolution: "npm-check-updates@npm:16.12.1"
   dependencies:
     chalk: ^5.3.0
     cli-table3: ^0.6.3
@@ -7230,6 +7230,7 @@ __metadata:
     json-parse-helpfulerror: ^1.0.3
     jsonlines: ^0.1.1
     lodash: ^4.17.21
+    make-fetch-happen: ^11.1.1
     minimatch: ^9.0.3
     p-map: ^4.0.0
     pacote: 15.2.0
@@ -7249,7 +7250,7 @@ __metadata:
   bin:
     ncu: build/src/bin/cli.js
     npm-check-updates: build/src/bin/cli.js
-  checksum: 3d4d3b8efd808a6f7ef29c5ef2e38dac363f764a5247077584620b72edf9c7e0c8c65a566b408c81179373ea7f197550f3244020798594f37c618299d476e35b
+  checksum: 653937cc65cafcc6275831f90bdbe028f23aaafcb3a0433ae69e818cd0ef4a72dc3c33e216cb6e58ec9052bf2bf39fd9bf16d0b70f5207333637f4d04d2b96be
   languageName: node
   linkType: hard
 
