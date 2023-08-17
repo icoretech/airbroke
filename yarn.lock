@@ -2329,7 +2329,6 @@ __metadata:
     npm-check-updates: ^16.10.18
     numeral: 2.0.6
     octokit: 3.1.0
-    openai-edge: 1.2.2
     postcss: 8.4.28
     prettier: 3.0.2
     prettier-plugin-tailwindcss: 0.5.3
@@ -7542,13 +7541,6 @@ __metadata:
     is-inside-container: ^1.0.0
     is-wsl: ^2.2.0
   checksum: 3993c0f61d51fed8ac290e99c9c3cf45d3b6cfb3e2aa2b74cafd312c3486c22fd81df16ac8f3ab91dd8a4e3e729a16fc2480cfc406c4833416cf908acf1ae7c9
-  languageName: node
-  linkType: hard
-
-"openai-edge@npm:1.2.2":
-  version: 1.2.2
-  resolution: "openai-edge@npm:1.2.2"
-  checksum: 9d6ff6e79fbad5a0f2b6dd5db75abeb489dfa530f3e14a664500856497c1e19f6ec24036c2988cd3194f3ce38325214112d6f4c9766743497a7e1c69bf2f5f39
   languageName: node
   linkType: hard
 
