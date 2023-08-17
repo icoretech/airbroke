@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.1.47](https://github.com/icoretech/airbroke/compare/v1.1.46...v1.1.47) (2023-08-17)
+
+
+### Features
+
+* **route.ts:** update OpenAI initialization to use the new OpenAI constructor and include organization parameter if available ([e68163c](https://github.com/icoretech/airbroke/commit/e68163cd0e10826c71f7002a1f1b972dcac5c127))
+
+
+### Bug Fixes
+
+* **Breadcrumbs.tsx:** add Projects link to breadcrumbs for easier navigation ([f6e6797](https://github.com/icoretech/airbroke/commit/f6e6797e0cb6cab71d414ac273c275b9b209a507))
+* **deps:** update dependency ai to v2.1.34 ([b5a4cce](https://github.com/icoretech/airbroke/commit/b5a4cce8385745588c108d4122cf86db0e3ee8b9))
+* **deps:** update dependency next-auth to v4.23.1 ([bff1e15](https://github.com/icoretech/airbroke/commit/bff1e1506b6e245c87786f8a93ef083c856ac4af))
+* **deps:** update dependency postcss to v8.4.28 ([#216](https://github.com/icoretech/airbroke/issues/216)) ([659e306](https://github.com/icoretech/airbroke/commit/659e30642b759ad7a4361972bf641baf90cb6548))
+* **deps:** update dependency sharp to v0.32.5 ([#217](https://github.com/icoretech/airbroke/issues/217)) ([8bf2a49](https://github.com/icoretech/airbroke/commit/8bf2a491d06f1053ff1764e9bda70277297a3d52))
+* **deps:** update dependency zod to v3.22.0 ([3a8781a](https://github.com/icoretech/airbroke/commit/3a8781a057e1deef522f4566344da82d3e47afc1))
+* **deps:** update dependency zod to v3.22.1 ([#218](https://github.com/icoretech/airbroke/issues/218)) ([5ddc22b](https://github.com/icoretech/airbroke/commit/5ddc22b471e4fc2012c1c025c1f6a717987d4b80))
+* **package.json:** update ai package version to 2.2.1 for compatibility and bug fixes ([e68163c](https://github.com/icoretech/airbroke/commit/e68163cd0e10826c71f7002a1f1b972dcac5c127))
+* **page.tsx:** reorganize JSX structure for better readability and maintainability ([f6e6797](https://github.com/icoretech/airbroke/commit/f6e6797e0cb6cab71d414ac273c275b9b209a507))
+* **route.ts:** update import statement for OpenAI library to use the correct package name ([e68163c](https://github.com/icoretech/airbroke/commit/e68163cd0e10826c71f7002a1f1b972dcac5c127))
+* **route.ts:** update method name for creating chat completions from createChatCompletion to chat.completions.create ([e68163c](https://github.com/icoretech/airbroke/commit/e68163cd0e10826c71f7002a1f1b972dcac5c127))
+* **SidebarButtons.tsx:** update styling and icon for SidebarOpenButton ([f6e6797](https://github.com/icoretech/airbroke/commit/f6e6797e0cb6cab71d414ac273c275b9b209a507))
+
 ## [1.1.46](https://github.com/icoretech/airbroke/compare/v1.1.45...v1.1.46) (2023-08-14)
 
 
