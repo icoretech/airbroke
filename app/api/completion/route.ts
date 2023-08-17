@@ -3,7 +3,7 @@ import prisma from '@/lib/db';
 import { OpenAIStream, StreamingTextResponse } from 'ai';
 import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
-import { Configuration, OpenAIApi } from 'openai-edge';
+import OpenAI from 'openai';
 
 // doesn't work with next-auth https://github.com/vercel/next.js/issues/50444#issuecomment-1602746782
 // export const runtime = 'edge';
@@ -38,8 +38,10 @@ export async function POST(request: NextRequest) {
 
   const { notice, ...occurrence } = occurrenceWithRelations;
 
-  const config = new Configuration({ apiKey: process.env.AIRBROKE_OPENAI_API_KEY });
-  const openai = new OpenAIApi(config);
+  const openai = new OpenAI({
+    apiKey: process.env.AIRBROKE_OPENAI_API_KEY,
+    organization: process.env.AIRBROKE_OPENAI_ORGANIZATION || null,
+  });
 
   const errorType = notice.kind;
   const errorMessage = occurrence.message;
@@ -58,7 +60,7 @@ export async function POST(request: NextRequest) {
   const promptTruncated = prompt.slice(0, maxTokens);
 
   // createCompletion at the moment results in a 404.
-  const response = await openai.createChatCompletion({
+  const response = await openai.chat.completions.create({
     model: process.env.AIRBROKE_OPENAI_ENGINE || 'gpt-3.5-turbo',
     stream: true,
     temperature: 0.6,
