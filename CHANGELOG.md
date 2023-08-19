@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.48](https://github.com/icoretech/airbroke/compare/v1.1.47...v1.1.48) (2023-08-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @headlessui/react to v1.7.17 ([51f03cc](https://github.com/icoretech/airbroke/commit/51f03cc172667e3083c59a8f0a9ad1ae3b6f9957))
+* **deps:** update dependency ai to v2.2.2 ([#221](https://github.com/icoretech/airbroke/issues/221)) ([ace664b](https://github.com/icoretech/airbroke/commit/ace664bfc2ab27e2a98b5f20ceb554c766193c89))
+* **deps:** update dependency ai to v2.2.6 ([43e5f6b](https://github.com/icoretech/airbroke/commit/43e5f6b0c4053c41a160a1e80f978cdd4eeb82f4))
+* **deps:** update dependency zod to v3.22.2 ([#229](https://github.com/icoretech/airbroke/issues/229)) ([a043ea9](https://github.com/icoretech/airbroke/commit/a043ea90ea35a321d0dcef22711a8f34ece256cf))
+
 ## [1.1.47](https://github.com/icoretech/airbroke/compare/v1.1.46...v1.1.47) (2023-08-17)
 
 
