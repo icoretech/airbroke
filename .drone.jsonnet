@@ -44,9 +44,9 @@
           password: {
             from_secret: 'github_packages_pat',
           },
-          build_args: {
-            DEBUG_TOOLS: 'true',
-          },
+          build_args: [
+            'DEBUG_TOOLS=true',
+          ],
         },
         when: {
           branch: ['main'],
