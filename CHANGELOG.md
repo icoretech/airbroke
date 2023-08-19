@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.49](https://github.com/icoretech/airbroke/compare/v1.1.48...v1.1.49) (2023-08-19)
+
+
+### Bug Fixes
+
+* **Background.tsx:** update fill attribute to use the simplified pattern id for better semantics ([fd0e6a5](https://github.com/icoretech/airbroke/commit/fd0e6a58fb26d81065aa936699e65f6907114264))
+
 ## [1.1.48](https://github.com/icoretech/airbroke/compare/v1.1.47...v1.1.48) (2023-08-19)
 
 
