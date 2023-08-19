@@ -6,14 +6,7 @@ export default function Background() {
         aria-hidden="true"
       >
         <defs>
-          <pattern
-            id="983e3e4c-de6d-4c3f-8d64-b9761d1534cc"
-            width={200}
-            height={200}
-            x="50%"
-            y={-1}
-            patternUnits="userSpaceOnUse"
-          >
+          <pattern id="diagonal-line-pattern" width={200} height={200} x="50%" y={-1} patternUnits="userSpaceOnUse">
             <path d="M.5 200V.5H200" fill="none" />
           </pattern>
         </defs>
@@ -23,7 +16,7 @@ export default function Background() {
             strokeWidth={0}
           />
         </svg>
-        <rect width="100%" height="100%" strokeWidth={0} fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)" />
+        <rect width="100%" height="100%" strokeWidth={0} fill="url(#diagonal-line-pattern)" />
       </svg>
       <div
         className="absolute left-[calc(50%-4rem)] top-10 -z-10 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]"
