@@ -1,5 +1,6 @@
 # docker build --no-cache -t icoretech/airbroke:latest .
 # docker run -p 3000:3000 icoretech/airbroke:latest
+ARG DEBUG_TOOLS
 
 FROM --platform=$BUILDPLATFORM node:20.4-alpine AS builder
 ENV NEXT_TELEMETRY_DISABLED 1
@@ -13,12 +14,14 @@ RUN yarn install --immutable
 RUN yarn build
 
 FROM --platform=$BUILDPLATFORM node:20.4-alpine AS runner
+ARG DEBUG_TOOLS
+
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 
 # debug cache filesystem in a live env, to be removed
 # inotifywait -m -r -e create,modify,delete /app
-# RUN apk add --no-cache inotify-tools
+RUN [ "${DEBUG_TOOLS}" = "true" ] && apk add --no-cache inotify-tools htop net-tools lsof psmisc strace tcpdump || true
 
 WORKDIR /app
 
