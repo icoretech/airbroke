@@ -48,7 +48,7 @@
     "zod-form-data": "2.0.1"
   },
   "devDependencies": {
-    "@jest/globals": "29.6.3",
+    "@jest/globals": "29.6.4",
     "@next/bundle-analyzer": "13.4.12",
     "@testing-library/jest-dom": "5.17.0",
     "@testing-library/react": "14.0.0",
