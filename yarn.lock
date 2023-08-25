@@ -2296,13 +2296,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:2.2.8":
-  version: 2.2.8
-  resolution: "ai@npm:2.2.8"
+"ai@npm:2.2.9":
+  version: 2.2.9
+  resolution: "ai@npm:2.2.9"
   dependencies:
     eventsource-parser: 1.0.0
     nanoid: 3.3.6
-    openai: 4.0.0
+    openai: 4.2.0
     solid-swr-store: 0.10.7
     sswr: 2.0.0
     swr: 2.2.0
@@ -2322,7 +2322,7 @@ __metadata:
       optional: true
     vue:
       optional: true
-  checksum: 20115eef7dfacec8711d92fe2a23d35942b2f952b2a92d72f060ca83f2be0057545202d2a6120eef1b9011ceac8ef241319acde12d6585cf75634a1f0a4519b1
+  checksum: 0ee9527d27d3fa77312f84b7751f77644d0c69b1fe7c3542b6cabc98b75ef0c6229651e3b4f8ceef7afe367e8df3be116199c45cb2feb354cc82a74e3b71a9d0
   languageName: node
   linkType: hard
 
@@ -2345,7 +2345,7 @@ __metadata:
     "@types/numeral": 2.0.2
     "@types/react": 18.2.21
     "@types/react-dom": 18.2.7
-    ai: 2.2.8
+    ai: 2.2.9
     autoprefixer: 10.4.15
     chance: 1.1.11
     chart.js: 4.3.3
@@ -7673,9 +7673,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.0.0":
-  version: 4.0.0
-  resolution: "openai@npm:4.0.0"
+"openai@npm:4.2.0":
+  version: 4.2.0
+  resolution: "openai@npm:4.2.0"
   dependencies:
     "@types/node": ^18.11.18
     "@types/node-fetch": ^2.6.4
@@ -7687,7 +7687,7 @@ __metadata:
     node-fetch: ^2.6.7
   bin:
     openai: bin/cli
-  checksum: d740a0411eefe8fcdc4cd41558d294ec18240782e3ebede1bc76d222537e52869223885bfb17ec8033fa37715a4a6cf8d236d2ab3e3d790fef07d5501ea0325d
+  checksum: c2b28e422d7ea6a38a2d98d1c9c933819386d560e473ebcf4417d0cbd80a79f05392120ae32da8b8250732b62469a08270b9b4864e9ff2965aa1af897b986867
   languageName: node
   linkType: hard
 
