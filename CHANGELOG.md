@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.1.50](https://github.com/icoretech/airbroke/compare/v1.1.49...v1.1.50) (2023-09-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @tailwindcss/forms to v0.5.5 ([18ad385](https://github.com/icoretech/airbroke/commit/18ad38531df7fb7e3a78323aa7454ae9119d9a4d))
+* **deps:** update dependency @tailwindcss/forms to v0.5.6 ([19bcae0](https://github.com/icoretech/airbroke/commit/19bcae047214e574a67053e2011f5adcf3f58633))
+* **deps:** update dependency ai to v2.2.10 ([a543fd9](https://github.com/icoretech/airbroke/commit/a543fd9002864ff0b4998a2d51f38ecf7b1fb3b6))
+* **deps:** update dependency ai to v2.2.11 ([5bee61f](https://github.com/icoretech/airbroke/commit/5bee61f426162ab6d2c3e62960668d6ab12632ad))
+* **deps:** update dependency ai to v2.2.7 ([e08b410](https://github.com/icoretech/airbroke/commit/e08b4101ab080bf74cc58a2c9ff85a5c6123cb0d))
+* **deps:** update dependency ai to v2.2.8 ([db0a1f2](https://github.com/icoretech/airbroke/commit/db0a1f223ad156798f58bca3b8bd82f930a86e8c))
+* **deps:** update dependency ai to v2.2.9 ([dd9dca6](https://github.com/icoretech/airbroke/commit/dd9dca65bb253121ee2a3f28c288546272ea9dd5))
+* **deps:** update dependency chart.js to v4.4.0 ([4f408bf](https://github.com/icoretech/airbroke/commit/4f408bf704752cf5162b942349c90c75ad4ad85e))
+* **deps:** update dependency postcss to v8.4.29 ([eb86262](https://github.com/icoretech/airbroke/commit/eb86262c9f739874c2fa6399bdec30b47e27b73b))
+* **deps:** update dependency typescript to v5.2.2 ([ec98439](https://github.com/icoretech/airbroke/commit/ec9843950f70a8685feeab80c3961ba46acc27fb))
+* **deps:** update prisma monorepo to v5.2.0 ([7a3d33d](https://github.com/icoretech/airbroke/commit/7a3d33dff439fede96f19b2b5340c176bce08dcb))
+
 ## [1.1.49](https://github.com/icoretech/airbroke/compare/v1.1.48...v1.1.49) (2023-08-19)
 
 
