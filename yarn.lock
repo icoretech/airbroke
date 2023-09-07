@@ -7582,8 +7582,8 @@ __metadata:
   linkType: hard
 
 "npm-check-updates@npm:^16.10.18":
-  version: 16.13.2
-  resolution: "npm-check-updates@npm:16.13.2"
+  version: 16.13.3
+  resolution: "npm-check-updates@npm:16.13.3"
   dependencies:
     chalk: ^5.3.0
     cli-table3: ^0.6.3
@@ -7619,7 +7619,7 @@ __metadata:
   bin:
     ncu: build/src/bin/cli.js
     npm-check-updates: build/src/bin/cli.js
-  checksum: 1d57cf83c7905ac22b72a0c0c1e618226e404c7d535d2787a6127c6249af22ac61a94bed410ea8a27f81f3a179f02a6338d57eb37c825940c7ac3d390f9e3593
+  checksum: ca065150fe6e01d03cd36410dd2ba3e8fae076d6e2f65a7a947af5f8287a83d9ec97a61a5ff82cc18cb4b5e6659b023fd2f838fa25bb379d6a725933b25df7a8
   languageName: node
   linkType: hard
 
