@@ -67,7 +67,7 @@
     "prettier": "3.0.3",
     "prettier-plugin-tailwindcss": "0.5.4",
     "prisma": "5.3.0",
-    "tsx": "3.12.9"
+    "tsx": "3.12.10"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
