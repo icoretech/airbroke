@@ -501,13 +501,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild-kit/esm-loader@npm:^2.6.1":
-  version: 2.6.1
-  resolution: "@esbuild-kit/esm-loader@npm:2.6.1"
+"@esbuild-kit/esm-loader@npm:^2.6.3":
+  version: 2.6.3
+  resolution: "@esbuild-kit/esm-loader@npm:2.6.3"
   dependencies:
     "@esbuild-kit/core-utils": ^3.3.0
     get-tsconfig: ^4.7.0
-  checksum: 3949288c68c8f4c963fd4a6c47662999f2a67275a04808272074c804789e77261908b0f212ee1e3b910d71cd4bb71a5665adac662caa61f0f58bb49886462492
+  checksum: 60264538da15d8ac0a43b0700fae9025ac2cca5b2b8d02bb182fd9911dad1a71efbd9e2e4c16d4ab3c8348b790891acb8accce24034b48c2a45b9c7da25d8cac
   languageName: node
   linkType: hard
 
@@ -2538,7 +2538,7 @@ __metadata:
     superjson: 1.13.1
     tailwindcss: 3.3.3
     timeago-react: 3.0.6
-    tsx: 3.12.9
+    tsx: 3.12.10
     typescript: 5.2.2
     zod: 3.22.2
     zod-error: 1.5.0
@@ -9988,20 +9988,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsx@npm:3.12.9":
-  version: 3.12.9
-  resolution: "tsx@npm:3.12.9"
+"tsx@npm:3.12.10":
+  version: 3.12.10
+  resolution: "tsx@npm:3.12.10"
   dependencies:
     "@esbuild-kit/cjs-loader": ^2.4.2
     "@esbuild-kit/core-utils": ^3.3.0
-    "@esbuild-kit/esm-loader": ^2.6.1
+    "@esbuild-kit/esm-loader": ^2.6.3
     fsevents: ~2.3.2
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     tsx: dist/cli.js
-  checksum: cf9044300b15205a1e10879a5cc3a7ce9e666d2f4a23f58af270e315cba3566af4e22847ab7b82e6229b16d0bb70a477a5d812d81c3e24f45c14001cf25c1cc3
+  checksum: 84fbbdbb90a05ecc764aee92fbe234b45939ccba34a08298fcec2bb9cb2ecb7676b21e676dd12681279490a7ac55bb81897ce503775cbcce0f76703eb282bb37
   languageName: node
   linkType: hard
 
