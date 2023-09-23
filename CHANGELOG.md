@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.51](https://github.com/icoretech/airbroke/compare/v1.1.50...v1.1.51) (2023-09-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ai to v2.2.12 ([be8fc98](https://github.com/icoretech/airbroke/commit/be8fc98e72c6b34e6695c7e9de1e2169514d6d92))
+* **deps:** update dependency ai to v2.2.13 ([8756ab9](https://github.com/icoretech/airbroke/commit/8756ab91660c81326b123794ffb36fd23139ce08))
+* **deps:** update dependency autoprefixer to v10.4.16 ([0beba52](https://github.com/icoretech/airbroke/commit/0beba5258cb8a5cce4202852defb60da7cb31c48))
+* **deps:** update dependency nanoid to v5 ([#279](https://github.com/icoretech/airbroke/issues/279)) ([ae5114e](https://github.com/icoretech/airbroke/commit/ae5114e13d13c1bd9af57558daed74d426614135))
+* **deps:** update dependency postcss to v8.4.30 ([3000ca3](https://github.com/icoretech/airbroke/commit/3000ca34aadf9235d4844f928d9cd1cc5de694f9))
+* **deps:** update dependency sharp to v0.32.6 ([ffe1803](https://github.com/icoretech/airbroke/commit/ffe1803777d097ba36a796fd3110e478948fac34))
+* **deps:** update prisma monorepo to v5.3.0 ([f039779](https://github.com/icoretech/airbroke/commit/f0397790a038bdf00d246ec2431c35c0c3a1c70d))
+* **deps:** update prisma monorepo to v5.3.1 ([7f38fd1](https://github.com/icoretech/airbroke/commit/7f38fd18c74f5d51af2e409d120aa4cdc50fa2be))
+
 ## [1.1.50](https://github.com/icoretech/airbroke/compare/v1.1.49...v1.1.50) (2023-09-04)
 
 
