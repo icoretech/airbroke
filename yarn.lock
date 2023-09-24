@@ -2177,10 +2177,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/numeral@npm:2.0.2":
-  version: 2.0.2
-  resolution: "@types/numeral@npm:2.0.2"
-  checksum: d8b778ef5d1b20cb5919fb2cf41108b324ccfaeccb0238caaf54bd9d4bffbbd57d7b860844f05831fb356a5dc0115b477891531325180a670076036ee1b4a8ca
+"@types/numeral@npm:2.0.3":
+  version: 2.0.3
+  resolution: "@types/numeral@npm:2.0.3"
+  checksum: 460b0ac645519b3eea7ae52df631393246f9526d5772999bc3daa7fc8c63751591a24c9b0cde767bbbc137d918af5efd7676db4c1c062b675848bdb689c40642
   languageName: node
   linkType: hard
 
@@ -2506,7 +2506,7 @@ __metadata:
     "@testing-library/react": 14.0.0
     "@types/chance": 1.1.4
     "@types/node": 20.6.4
-    "@types/numeral": 2.0.2
+    "@types/numeral": 2.0.3
     "@types/react": 18.2.22
     "@types/react-dom": 18.2.7
     ai: 2.2.13
