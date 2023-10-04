@@ -2384,7 +2384,7 @@ __metadata:
     typescript: 5.2.2
     zod: 3.22.3
     zod-error: 1.5.0
-    zod-form-data: 2.0.1
+    zod-form-data: 2.0.2
   languageName: unknown
   linkType: soft
 
@@ -10459,12 +10459,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod-form-data@npm:2.0.1":
-  version: 2.0.1
-  resolution: "zod-form-data@npm:2.0.1"
+"zod-form-data@npm:2.0.2":
+  version: 2.0.2
+  resolution: "zod-form-data@npm:2.0.2"
   peerDependencies:
-    zod: ^3.11.x
-  checksum: f0b0faacf1e185410fef9c53b22afa1d5031971684587246b9869e66bc7fabd7e0a54c8692288b64efd57b40c49ce9947544e9c75716052d55f74f0ee68f5b90
+    zod: ">= 3.11.0"
+  checksum: 09bc98811ee92cade046670bef28bd636610cda539fa9427379758bfa200a9b11dc4cd807681a01a446c2b13f32d88306d14fc3903af58a545928aa1d7831ec2
   languageName: node
   linkType: hard
 
