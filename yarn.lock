@@ -4750,10 +4750,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fp-and-or@npm:^0.1.3":
-  version: 0.1.3
-  resolution: "fp-and-or@npm:0.1.3"
-  checksum: d556ad1fb0abd0115a5815b0f8c78439a690dbe317d5b37e8ad897784254d606d4fecd31e91e81790e713407bdccb675676f48bfa4ff1f278fbae7a9370c21b1
+"fp-and-or@npm:^0.1.4":
+  version: 0.1.4
+  resolution: "fp-and-or@npm:0.1.4"
+  checksum: 780969ef7e86e6822d7e5f27d9c3bcbb7fe1206dbdc8af76482a9213d9c812f8d9dfda8d8d3988f94f6cbc898e7a86ec5ab5700ef53b0760b3bf226a2a52e7e0
   languageName: node
   linkType: hard
 
@@ -5011,7 +5011,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^10.2.2, glob@npm:^10.2.5":
+"glob@npm:^10.2.2":
   version: 10.3.3
   resolution: "glob@npm:10.3.3"
   dependencies:
@@ -5023,6 +5023,21 @@ __metadata:
   bin:
     glob: dist/cjs/src/bin.js
   checksum: 29190d3291f422da0cb40b77a72fc8d2c51a36524e99b8bf412548b7676a6627489528b57250429612b6eec2e6fe7826d328451d3e694a9d15e575389308ec53
+  languageName: node
+  linkType: hard
+
+"glob@npm:^10.3.7":
+  version: 10.3.10
+  resolution: "glob@npm:10.3.10"
+  dependencies:
+    foreground-child: ^3.1.0
+    jackspeak: ^2.3.5
+    minimatch: ^9.0.1
+    minipass: ^5.0.0 || ^6.0.2 || ^7.0.0
+    path-scurry: ^1.10.1
+  bin:
+    glob: dist/esm/bin.mjs
+  checksum: 4f2fe2511e157b5a3f525a54092169a5f92405f24d2aed3142f4411df328baca13059f4182f1db1bf933e2c69c0bd89e57ae87edd8950cba8c7ccbe84f721cf3
   languageName: node
   linkType: hard
 
@@ -5920,6 +5935,19 @@ __metadata:
     "@pkgjs/parseargs":
       optional: true
   checksum: 7b1468dd910afc00642db87448f24b062346570b8b47531409aa9012bcb95fdf7ec2b1c48edbb8b57a938c08391f8cc01b5034fc335aa3a2e74dbcc0ee5c555a
+  languageName: node
+  linkType: hard
+
+"jackspeak@npm:^2.3.5":
+  version: 2.3.6
+  resolution: "jackspeak@npm:2.3.6"
+  dependencies:
+    "@isaacs/cliui": ^8.0.2
+    "@pkgjs/parseargs": ^0.11.0
+  dependenciesMeta:
+    "@pkgjs/parseargs":
+      optional: true
+  checksum: 57d43ad11eadc98cdfe7496612f6bbb5255ea69fe51ea431162db302c2a11011642f50cfad57288bd0aea78384a0612b16e131944ad8ecd09d619041c8531b54
   languageName: node
   linkType: hard
 
@@ -7393,15 +7421,15 @@ __metadata:
   linkType: hard
 
 "npm-check-updates@npm:^16.10.18":
-  version: 16.14.5
-  resolution: "npm-check-updates@npm:16.14.5"
+  version: 16.14.6
+  resolution: "npm-check-updates@npm:16.14.6"
   dependencies:
     chalk: ^5.3.0
     cli-table3: ^0.6.3
     commander: ^10.0.1
     fast-memoize: ^2.5.2
     find-up: 5.0.0
-    fp-and-or: ^0.1.3
+    fp-and-or: ^0.1.4
     get-stdin: ^8.0.0
     globby: ^11.0.4
     hosted-git-info: ^5.1.0
@@ -7419,11 +7447,11 @@ __metadata:
     prompts-ncu: ^3.0.0
     rc-config-loader: ^4.1.3
     remote-git-tags: ^3.0.0
-    rimraf: ^5.0.1
+    rimraf: ^5.0.5
     semver: ^7.5.4
     semver-utils: ^1.1.4
     source-map-support: ^0.5.21
-    spawn-please: ^2.0.1
+    spawn-please: ^2.0.2
     strip-ansi: ^7.1.0
     strip-json-comments: ^5.0.1
     untildify: ^4.0.0
@@ -7431,7 +7459,7 @@ __metadata:
   bin:
     ncu: build/src/bin/cli.js
     npm-check-updates: build/src/bin/cli.js
-  checksum: d15bd903349f782e3251d2fb823abc2532687794cd05e5337ea4721bf3327863b445db3b9f8797404a3ae84124759970e0cebe53e33f74392211770dc7984d4e
+  checksum: 40006cc306dac0c10067a88d3a80d943ed9eb81524eb34ce1210d3e042994ea1671fcb3cd5bc48bdde8cebf4296253491ba7177301c6a1a6cac674e86b40b09e
   languageName: node
   linkType: hard
 
@@ -8755,14 +8783,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rimraf@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "rimraf@npm:5.0.1"
+"rimraf@npm:^5.0.5":
+  version: 5.0.5
+  resolution: "rimraf@npm:5.0.5"
   dependencies:
-    glob: ^10.2.5
+    glob: ^10.3.7
   bin:
-    rimraf: dist/cjs/src/bin.js
-  checksum: bafce85391349a2d960847980bf9b5caa2a8887f481af630f1ea27e08288217293cec72d75e9a2ba35495c212789f66a7f3d23366ba6197026ab71c535126857
+    rimraf: dist/esm/bin.mjs
+  checksum: d66eef829b2e23b16445f34e73d75c7b7cf4cbc8834b04720def1c8f298eb0753c3d76df77325fad79d0a2c60470525d95f89c2475283ad985fd7441c32732d1
   languageName: node
   linkType: hard
 
@@ -9093,12 +9121,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"spawn-please@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "spawn-please@npm:2.0.1"
+"spawn-please@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "spawn-please@npm:2.0.2"
   dependencies:
     cross-spawn: ^7.0.3
-  checksum: b14b6214c1aa1b5c5bccfd59dc13ea1b3293fe13fea2c8f63948dbf9929c5eab2b791def61481924fd2b97ef069e43bac311206a26db75b2b7a558a37068aa75
+  checksum: 96c975181070bb757a16a9b7e4cde119679ace1a1a12890f9b343c98f58a06e27d9e1ed9f5332b09887b33af32fd8aecdcb0effd830df7b2698fafb42187894b
   languageName: node
   linkType: hard
 
