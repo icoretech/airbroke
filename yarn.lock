@@ -2365,7 +2365,7 @@ __metadata:
     jest-environment-jsdom: 29.7.0
     nanoid: 5.0.2
     next: 13.4.12
-    next-auth: 4.23.2
+    next-auth: 4.24.3
     npm-check-updates: ^16.10.18
     numeral: 2.0.6
     octokit: 3.1.1
@@ -7209,9 +7209,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-auth@npm:4.23.2":
-  version: 4.23.2
-  resolution: "next-auth@npm:4.23.2"
+"next-auth@npm:4.24.3":
+  version: 4.24.3
+  resolution: "next-auth@npm:4.24.3"
   dependencies:
     "@babel/runtime": ^7.20.13
     "@panva/hkdf": ^1.0.2
@@ -7230,7 +7230,7 @@ __metadata:
   peerDependenciesMeta:
     nodemailer:
       optional: true
-  checksum: 4820fdc8d9f066afd2dfe64012d7aba727fd7b82fec3a94e85ea5c1651cb4bf532d8742bfd253d9910055833f00c1c8f8f17212661f7648ecff4dd1f3e002e80
+  checksum: b69daef2784f4013dee2fba2abb76eefc3c1c64c6b58c5a954b291bb387311af039faf9b15a85649e0e813a6c720764c1e959dc792051b441800a23a6be7cb11
   languageName: node
   linkType: hard
 
