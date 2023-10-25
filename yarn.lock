@@ -1614,31 +1614,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:5.5.0":
-  version: 5.5.0
-  resolution: "@prisma/client@npm:5.5.0"
+"@prisma/client@npm:5.5.2":
+  version: 5.5.2
+  resolution: "@prisma/client@npm:5.5.2"
   dependencies:
-    "@prisma/engines-version": 5.5.0-19.475c616176945d72f4330c92801f0c5e6398dc0f
+    "@prisma/engines-version": 5.5.1-1.aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a
   peerDependencies:
     prisma: "*"
   peerDependenciesMeta:
     prisma:
       optional: true
-  checksum: c1998a50ac476f2f96e3c83b6630ce294bce5bfea901d47b114ce620bb91845a5f4d4050f8cc9f7f591f2348fbc3e4f03ad5bbeecc1914e11669f391bab5fe7b
+  checksum: 71ac5830041106070744645b882aa3270b8fb2d4a6bdf844c5e936543b2fccc3a6939e2ce47a5aad07f5c958e97ade06b7843a6664d8c9038403a357d04c5f88
   languageName: node
   linkType: hard
 
-"@prisma/engines-version@npm:5.5.0-19.475c616176945d72f4330c92801f0c5e6398dc0f":
-  version: 5.5.0-19.475c616176945d72f4330c92801f0c5e6398dc0f
-  resolution: "@prisma/engines-version@npm:5.5.0-19.475c616176945d72f4330c92801f0c5e6398dc0f"
-  checksum: 14dd15c2698755707409102aaa94f4e578b9ca9c78b48196c8c73f58edbd1cede612937d678eb6051a749f6ceeae44f2fcc94f8fcec3a6dbb8b21d413cca71cc
+"@prisma/engines-version@npm:5.5.1-1.aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a":
+  version: 5.5.1-1.aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a
+  resolution: "@prisma/engines-version@npm:5.5.1-1.aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a"
+  checksum: bd0a1dd20f9c69526099800a9b1870ab5969ad8da728e3cec676b826f5d7e8751e118486901bde2f14f4edce02e98a26da1ad93560c4b51ec38be3356b1b6913
   languageName: node
   linkType: hard
 
-"@prisma/engines@npm:5.5.0":
-  version: 5.5.0
-  resolution: "@prisma/engines@npm:5.5.0"
-  checksum: 78cdf4eebbd7193b76cf99799e9b2e0d5f746fcf9b1ca6a890ddef7086332ec0f3712e0715670471e0edc06e2f01e63e8d15254d01ca75a6851eb7251f27bd7f
+"@prisma/engines@npm:5.5.2":
+  version: 5.5.2
+  resolution: "@prisma/engines@npm:5.5.2"
+  checksum: 45c74bd3db7ae3c6544e0d5303d7750a59b2fbc6cd9b33898ef3680fdbcfdb112a3058c2dfda03b0605156b8051624c2b85de8ccad25b7d859043ecf51a7cac3
   languageName: node
   linkType: hard
 
@@ -2351,7 +2351,7 @@ __metadata:
     "@jest/globals": 29.7.0
     "@next-auth/prisma-adapter": 1.0.7
     "@next/bundle-analyzer": 13.4.12
-    "@prisma/client": 5.5.0
+    "@prisma/client": 5.5.2
     "@tailwindcss/forms": 0.5.6
     "@testing-library/jest-dom": 5.17.0
     "@testing-library/react": 14.0.0
@@ -2379,7 +2379,7 @@ __metadata:
     postcss: 8.4.31
     prettier: 3.0.3
     prettier-plugin-tailwindcss: 0.5.6
-    prisma: 5.5.0
+    prisma: 5.5.2
     react: 18.2.0
     react-chartjs-2: 5.2.0
     react-dom: 18.2.0
@@ -8294,14 +8294,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prisma@npm:5.5.0":
-  version: 5.5.0
-  resolution: "prisma@npm:5.5.0"
+"prisma@npm:5.5.2":
+  version: 5.5.2
+  resolution: "prisma@npm:5.5.2"
   dependencies:
-    "@prisma/engines": 5.5.0
+    "@prisma/engines": 5.5.2
   bin:
     prisma: build/index.js
-  checksum: 59d08e893dfdec20862739b69e39942a17af3d62d53a401c3f222163416c2d256464371e3d4a31d1963f3cd76911b2da56188fbe266ddd8e6c258012b7a27aea
+  checksum: 0f728d5953f8acb136708021da909ae9b22068bd19952378b545520ce6ce4e43f38db53fc3002866ff44dd0372b19460cc7b8c8558664492b26de6687da8680b
   languageName: node
   linkType: hard
 
