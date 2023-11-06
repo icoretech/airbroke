@@ -2370,7 +2370,7 @@ __metadata:
     eslint-plugin-testing-library: 5.11.1
     jest: 29.7.0
     jest-environment-jsdom: 29.7.0
-    nanoid: 5.0.2
+    nanoid: 5.0.3
     next: 13.4.12
     next-auth: 4.24.4
     npm-check-updates: ^16.10.18
@@ -7187,12 +7187,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:5.0.2":
-  version: 5.0.2
-  resolution: "nanoid@npm:5.0.2"
+"nanoid@npm:5.0.3":
+  version: 5.0.3
+  resolution: "nanoid@npm:5.0.3"
   bin:
     nanoid: bin/nanoid.js
-  checksum: fa6908c2c6a7a9e91e02b98cb0b9b829454d390a63f83c1798f0c504d07b536d99cad3e975e5014b176534e67e234ff66bccd4610bf3ffb2cf0d6d932a73f3a8
+  checksum: 419f083464f91e148fa8f313d898e3271b2c148aa711d37c6251e5689b119d2e3ac766d5fa26e53214896969e9e9c6ccbce7af679c966d24490b1b5df94ffb5d
   languageName: node
   linkType: hard
 
