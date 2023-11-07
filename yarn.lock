@@ -1887,10 +1887,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chance@npm:1.1.5":
-  version: 1.1.5
-  resolution: "@types/chance@npm:1.1.5"
-  checksum: fd27552c7c38ebf60a721f7b5af77de9808df6b5f5bf6ee784c6c2ec62edb730ac76c502d736fbc5c59c77baaef8e70e83279e80d7adee4263d420f6e847a185
+"@types/chance@npm:1.1.6":
+  version: 1.1.6
+  resolution: "@types/chance@npm:1.1.6"
+  checksum: a1845ff0a70989d581b8f7628aaef1807276c0ae22d0c038013ebcac4f4bd57e6a765319377994cc3cae2122838638fdb2afe5232ee6b987b3f7ea2cddecbead
   languageName: node
   linkType: hard
 
@@ -2355,7 +2355,7 @@ __metadata:
     "@tailwindcss/forms": 0.5.6
     "@testing-library/jest-dom": 5.17.0
     "@testing-library/react": 14.0.0
-    "@types/chance": 1.1.5
+    "@types/chance": 1.1.6
     "@types/node": 20.8.10
     "@types/numeral": 2.0.4
     "@types/react": 18.2.25
