@@ -1240,18 +1240,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/app@npm:^14.0.0":
-  version: 14.0.0
-  resolution: "@octokit/app@npm:14.0.0"
+"@octokit/app@npm:^14.0.2":
+  version: 14.0.2
+  resolution: "@octokit/app@npm:14.0.2"
   dependencies:
     "@octokit/auth-app": ^6.0.0
     "@octokit/auth-unauthenticated": ^5.0.0
     "@octokit/core": ^5.0.0
     "@octokit/oauth-app": ^6.0.0
-    "@octokit/plugin-paginate-rest": ^8.0.0
-    "@octokit/types": ^11.1.0
-    "@octokit/webhooks": ^12.0.1
-  checksum: 6d1923f5e213ed52a656bd250a3d0504be67e51e95ba5f7ac9658bd19232a67c274267f61b5137905104ea98736d7e00b438dabf87f54596429f34836f14d7bf
+    "@octokit/plugin-paginate-rest": ^9.0.0
+    "@octokit/types": ^12.0.0
+    "@octokit/webhooks": ^12.0.4
+  checksum: 1d6745302f81694c85a47997640be1e509a61da1de4ec31f8fed3715daf03cbcf39d6f80a146e2d2a0ff0ebc987fcda5dba9d53f1357f2e8c93edd5675db3780
   languageName: node
   linkType: hard
 
@@ -1426,17 +1426,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/plugin-paginate-rest@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "@octokit/plugin-paginate-rest@npm:8.0.0"
-  dependencies:
-    "@octokit/types": ^11.0.0
-  peerDependencies:
-    "@octokit/core": ">=5"
-  checksum: b5d7cee50523862c6ce7be057f7200e14ee4dcded462f27304c822c960a37efa23ed51080ea879f5d1e56e78f74baa17d2ce32eed5d726794abc35755777e32c
-  languageName: node
-  linkType: hard
-
 "@octokit/plugin-paginate-rest@npm:^9.0.0":
   version: 9.0.0
   resolution: "@octokit/plugin-paginate-rest@npm:9.0.0"
@@ -1540,15 +1529,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/webhooks@npm:^12.0.1":
-  version: 12.0.3
-  resolution: "@octokit/webhooks@npm:12.0.3"
+"@octokit/webhooks@npm:^12.0.4":
+  version: 12.0.4
+  resolution: "@octokit/webhooks@npm:12.0.4"
   dependencies:
     "@octokit/request-error": ^5.0.0
     "@octokit/webhooks-methods": ^4.0.0
     "@octokit/webhooks-types": 7.1.0
     aggregate-error: ^3.1.0
-  checksum: 2db63122eab1852047379f9cb0024cdb22a2bf16356907b66bc71d5a01814b069178aee07fe61faeb80cde3dcd513a39526974f8bae5ec6e26b63fe87877ace1
+  checksum: ae5d4936e386c618eeb2d7d696dc13ae630f45579ca6a8607795e18ee6fba39f43fc9638f3525ba822ddb6855278fc8099921d6f8a660020db5170121791335c
   languageName: node
   linkType: hard
 
@@ -2375,7 +2364,7 @@ __metadata:
     next-auth: 4.24.5
     npm-check-updates: ^16.10.18
     numeral: 2.0.6
-    octokit: 3.1.1
+    octokit: 3.1.2
     postcss: 8.4.31
     prettier: 3.1.0
     prettier-plugin-tailwindcss: 0.5.7
@@ -7698,11 +7687,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"octokit@npm:3.1.1":
-  version: 3.1.1
-  resolution: "octokit@npm:3.1.1"
+"octokit@npm:3.1.2":
+  version: 3.1.2
+  resolution: "octokit@npm:3.1.2"
   dependencies:
-    "@octokit/app": ^14.0.0
+    "@octokit/app": ^14.0.2
     "@octokit/core": ^5.0.0
     "@octokit/oauth-app": ^6.0.0
     "@octokit/plugin-paginate-graphql": ^4.0.0
@@ -7712,7 +7701,7 @@ __metadata:
     "@octokit/plugin-throttling": ^8.0.0
     "@octokit/request-error": ^5.0.0
     "@octokit/types": ^12.0.0
-  checksum: 6ecfbc54ec19743f22d9d4a7e60a11c1f60ce418229a8699ee6bbf229624806791d05e67eaa2497a7293d62fbc234304c0e14ea0aed9ace256fd710b027d910b
+  checksum: 8ef0d57a0e0129da5a3fddf2b2150c3214fd19b5cbefdd2fe7fa4604f45aae90587080ce1498fadef6714d385835ee00b7c86c526f31d67c93fcd545e041568c
   languageName: node
   linkType: hard
 
