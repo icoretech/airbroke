@@ -53,7 +53,7 @@
     "@testing-library/jest-dom": "5.17.0",
     "@testing-library/react": "14.1.2",
     "@types/chance": "1.1.6",
-    "@types/node": "20.10.1",
+    "@types/node": "20.10.2",
     "@types/numeral": "2.0.5",
     "@types/react": "18.2.25",
     "@types/react-dom": "18.2.11",
