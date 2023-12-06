@@ -2551,7 +2551,7 @@ __metadata:
     octokit: 3.1.2
     postcss: 8.4.32
     prettier: 3.1.0
-    prettier-plugin-tailwindcss: 0.5.8
+    prettier-plugin-tailwindcss: 0.5.9
     prisma: 5.6.0
     react: 18.2.0
     react-chartjs-2: 5.2.0
@@ -8234,9 +8234,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-tailwindcss@npm:0.5.8":
-  version: 0.5.8
-  resolution: "prettier-plugin-tailwindcss@npm:0.5.8"
+"prettier-plugin-tailwindcss@npm:0.5.9":
+  version: 0.5.9
+  resolution: "prettier-plugin-tailwindcss@npm:0.5.9"
   peerDependencies:
     "@ianvs/prettier-plugin-sort-imports": "*"
     "@prettier/plugin-pug": "*"
@@ -8281,7 +8281,7 @@ __metadata:
       optional: true
     prettier-plugin-twig-melody:
       optional: true
-  checksum: 2f3a815fa92a6408f7755b295b3f952e346b6585e70d8e4d4356c88a9c766d88d62da25925dcb8820ec592eef3089908bf65083d881e52f8bd6f7110df9d6366
+  checksum: ceb7d26d4191221736983c26f213f3fac660c289dd902cbce9003dba375e9d21066906d762530c52363049ef529a1e4a9d5926387cbb44e0ef154c0d2619fe72
   languageName: node
   linkType: hard
 
