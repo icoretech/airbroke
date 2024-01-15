@@ -65,7 +65,7 @@
     "jest-environment-jsdom": "29.7.0",
     "npm-check-updates": "^16.10.18",
     "prettier": "3.1.0",
-    "prettier-plugin-tailwindcss": "0.5.9",
+    "prettier-plugin-tailwindcss": "0.5.11",
     "prisma": "5.8.1",
     "tsx": "3.14.0"
   },
