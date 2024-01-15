@@ -676,15 +676,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@headlessui/react@npm:1.7.17":
-  version: 1.7.17
-  resolution: "@headlessui/react@npm:1.7.17"
+"@headlessui/react@npm:1.7.18":
+  version: 1.7.18
+  resolution: "@headlessui/react@npm:1.7.18"
   dependencies:
+    "@tanstack/react-virtual": ^3.0.0-beta.60
     client-only: ^0.0.1
   peerDependencies:
     react: ^16 || ^17 || ^18
     react-dom: ^16 || ^17 || ^18
-  checksum: 0cdb67747e7f606f78214dac0b48573247779e70534b4471515c094b74addda173dc6a9847d33aea9c6e6bc151016c034125328953077e32aa7947ebabed91f7
+  checksum: 7463167b4cf2ad57f92c2deedd6429a245dfc4d979ead5533d2e83429e3e4dd39c346e5a8fd958e6bd9e2fba42486af97577b7dd3137f5a797dacc93632578ba
   languageName: node
   linkType: hard
 
@@ -1950,6 +1951,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/react-virtual@npm:^3.0.0-beta.60":
+  version: 3.0.1
+  resolution: "@tanstack/react-virtual@npm:3.0.1"
+  dependencies:
+    "@tanstack/virtual-core": 3.0.0
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 11534a23100de14a7e0a95da667381181e60a24e29a71246aeed174f8d5f6e176216de6639e6e1f403722ae30d8b92b21ed75ea131529b1417fb81f433468ef0
+  languageName: node
+  linkType: hard
+
+"@tanstack/virtual-core@npm:3.0.0":
+  version: 3.0.0
+  resolution: "@tanstack/virtual-core@npm:3.0.0"
+  checksum: 7283d50fc7b7a56608c37a8e94a93b85890ff7e39c6281633a19c4d6f6f4fbf25f8418f1eec302a008a8746a0d1d0cd00630137b55e6cf019818d68af8ed16b6
+  languageName: node
+  linkType: hard
+
 "@testing-library/dom@npm:^9.0.0":
   version: 9.3.1
   resolution: "@testing-library/dom@npm:9.3.1"
@@ -2550,7 +2570,7 @@ __metadata:
   dependencies:
     "@airbrake/browser": 2.1.8
     "@airbrake/node": 2.1.8
-    "@headlessui/react": 1.7.17
+    "@headlessui/react": 1.7.18
     "@jest/globals": 29.7.0
     "@next-auth/prisma-adapter": 1.0.7
     "@next/bundle-analyzer": 13.4.12
