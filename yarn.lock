@@ -2584,7 +2584,7 @@ __metadata:
     eslint: "npm:8.56.0"
     eslint-config-next: "npm:13.4.12"
     eslint-config-prettier: "npm:9.1.0"
-    eslint-plugin-testing-library: "npm:5.11.1"
+    eslint-plugin-testing-library: "npm:6.2.0"
     jest: "npm:29.7.0"
     jest-environment-jsdom: "npm:29.7.0"
     nanoid: "npm:5.0.5"
@@ -4538,14 +4538,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-testing-library@npm:5.11.1":
-  version: 5.11.1
-  resolution: "eslint-plugin-testing-library@npm:5.11.1"
+"eslint-plugin-testing-library@npm:6.2.0":
+  version: 6.2.0
+  resolution: "eslint-plugin-testing-library@npm:6.2.0"
   dependencies:
     "@typescript-eslint/utils": "npm:^5.58.0"
   peerDependencies:
     eslint: ^7.5.0 || ^8.0.0
-  checksum: 10c0/55c7792345710a2b951acb0552ebe4e491d988f7d37fd308749e75fdbc36142b9a151ecec03b39992f672afea1a99dd3c3d2fb9f737ef18f56d7168e294fd9eb
+  checksum: 10c0/00ed418670f5842151d8a195315aaaf36f4b19e62d539c67be40edf634914a95cc0f65bdb30a4e7a078aafecd5bae423dd4d1f96b2879e72bb9cb80d09a3916c
   languageName: node
   linkType: hard
 
