@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.53](https://github.com/icoretech/airbroke/compare/v1.1.52...v1.1.53) (2024-03-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency autoprefixer to v10.4.18 ([a7639b7](https://github.com/icoretech/airbroke/commit/a7639b7aa4e2e3d321f951ac6118df0a3a702f07))
+* **deps:** update dependency chart.js to v4.4.2 ([8e96a9a](https://github.com/icoretech/airbroke/commit/8e96a9ac04782c6b8d54f6588300df9856f5d1f5))
+* **deps:** update dependency nanoid to v5.0.6 ([83e7642](https://github.com/icoretech/airbroke/commit/83e7642615b24c54f9895f04578eea350bab190f))
+* **deps:** update dependency next-auth to v4.24.6 ([4b0a13a](https://github.com/icoretech/airbroke/commit/4b0a13a7c235a3c5a685ddff910ba08ca6cc347e))
+* **deps:** update dependency next-auth to v4.24.7 ([65471a3](https://github.com/icoretech/airbroke/commit/65471a343e66b6da492b61ea3cc757e61bac55ce))
+* **deps:** update dependency typescript to v5.4.2 ([c5af73d](https://github.com/icoretech/airbroke/commit/c5af73d690238b7dc88b1645a4d981e3e9eed6a0))
+* **deps:** update prisma monorepo to v5.10.2 ([b993453](https://github.com/icoretech/airbroke/commit/b99345385a7045228fcea1bad2999eb5efafca66))
+* **deps:** update prisma monorepo to v5.11.0 ([3acb986](https://github.com/icoretech/airbroke/commit/3acb986512d2a6b6f1a89de2e006949e303882c5))
+
 ## [1.1.52](https://github.com/icoretech/airbroke/compare/v1.1.51...v1.1.52) (2024-02-12)
 
 
