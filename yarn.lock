@@ -2302,6 +2302,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/semver-utils@npm:^1.1.1":
+  version: 1.1.3
+  resolution: "@types/semver-utils@npm:1.1.3"
+  checksum: 10c0/67aaf48cf5d77dc887b8424cb15eedfa4d094d76987138d130e2298e0f4a7f0eb4f2a4cbd6cefb702874953e719881ac92612f6861c8f7b5abd16a0ed06458d1
+  languageName: node
+  linkType: hard
+
 "@types/semver@npm:^7.3.12":
   version: 7.5.7
   resolution: "@types/semver@npm:7.5.7"
@@ -7649,9 +7656,10 @@ __metadata:
   linkType: hard
 
 "npm-check-updates@npm:^16.10.18":
-  version: 16.14.15
-  resolution: "npm-check-updates@npm:16.14.15"
+  version: 16.14.18
+  resolution: "npm-check-updates@npm:16.14.18"
   dependencies:
+    "@types/semver-utils": "npm:^1.1.1"
     chalk: "npm:^5.3.0"
     cli-table3: "npm:^0.6.3"
     commander: "npm:^10.0.1"
@@ -7687,7 +7695,7 @@ __metadata:
   bin:
     ncu: build/src/bin/cli.js
     npm-check-updates: build/src/bin/cli.js
-  checksum: 10c0/53deacb22422bd6320b12709c55d5e9c05cbb8219aed512fd7d08c40f3ce4a265399319369bfb6b0ab5063afd055cf8d4d62123d6498ada2434f8a1a252bf1b3
+  checksum: 10c0/5b39f510871235902da6a28d98097cebf60218cf5f313deb62cf601fcd2c91dad40902a22b6db1d77a85b791413c9d06071f7e731c62462b4c9a86ebeab715f1
   languageName: node
   linkType: hard
 
