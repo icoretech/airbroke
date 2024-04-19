@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.1.53](https://github.com/icoretech/airbroke/compare/v1.1.52...v1.1.53) (2024-04-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @headlessui/react to v1.7.19 ([d3eaab3](https://github.com/icoretech/airbroke/commit/d3eaab3d53ec01bddecee6a0ebf946b3ba5fdc7f))
+* **deps:** update dependency autoprefixer to v10.4.18 ([a7639b7](https://github.com/icoretech/airbroke/commit/a7639b7aa4e2e3d321f951ac6118df0a3a702f07))
+* **deps:** update dependency autoprefixer to v10.4.19 ([e960e6a](https://github.com/icoretech/airbroke/commit/e960e6a735f30330b2c4fcff80eaeeb08c9d3043))
+* **deps:** update dependency chart.js to v4.4.2 ([8e96a9a](https://github.com/icoretech/airbroke/commit/8e96a9ac04782c6b8d54f6588300df9856f5d1f5))
+* **deps:** update dependency nanoid to v5.0.6 ([83e7642](https://github.com/icoretech/airbroke/commit/83e7642615b24c54f9895f04578eea350bab190f))
+* **deps:** update dependency nanoid to v5.0.7 ([f46a2df](https://github.com/icoretech/airbroke/commit/f46a2dfd29812dffdb0e93f574b76f36eff96bee))
+* **deps:** update dependency next-auth to v4.24.6 ([4b0a13a](https://github.com/icoretech/airbroke/commit/4b0a13a7c235a3c5a685ddff910ba08ca6cc347e))
+* **deps:** update dependency next-auth to v4.24.7 ([65471a3](https://github.com/icoretech/airbroke/commit/65471a343e66b6da492b61ea3cc757e61bac55ce))
+* **deps:** update dependency octokit to v3.2.0 ([089ffea](https://github.com/icoretech/airbroke/commit/089ffea860f75cab6d4ddc9091949bc800bfb64e))
+* **deps:** update dependency postcss to v8.4.38 ([adbd1a7](https://github.com/icoretech/airbroke/commit/adbd1a75a2ff3746563f9b6c568dc8a6a5da9e56))
+* **deps:** update dependency sharp to v0.33.3 ([e19c480](https://github.com/icoretech/airbroke/commit/e19c4805e8caf6f2602c592a8585193024c45e8e))
+* **deps:** update dependency tailwindcss to v3.4.3 ([1fd9170](https://github.com/icoretech/airbroke/commit/1fd9170b6bf19e5a63469e69fb108fe4c5e65820))
+* **deps:** update dependency typescript to v5.4.2 ([c5af73d](https://github.com/icoretech/airbroke/commit/c5af73d690238b7dc88b1645a4d981e3e9eed6a0))
+* **deps:** update dependency typescript to v5.4.4 ([c0da804](https://github.com/icoretech/airbroke/commit/c0da8044f8f7ba32ed33cb595784a496272a8977))
+* **deps:** update dependency typescript to v5.4.5 ([55df06a](https://github.com/icoretech/airbroke/commit/55df06ac191f65591500dda725a56fb98ff54ca9))
+* **deps:** update dependency zod to v3.22.5 ([3f8b765](https://github.com/icoretech/airbroke/commit/3f8b7658c03ad2d03c73e6bcbc12633fc7d45135))
+* **deps:** update prisma monorepo to v5.10.2 ([b993453](https://github.com/icoretech/airbroke/commit/b99345385a7045228fcea1bad2999eb5efafca66))
+* **deps:** update prisma monorepo to v5.11.0 ([3acb986](https://github.com/icoretech/airbroke/commit/3acb986512d2a6b6f1a89de2e006949e303882c5))
+* **deps:** update prisma monorepo to v5.12.1 ([56bf49e](https://github.com/icoretech/airbroke/commit/56bf49ea9e929ca8f488fcb2ad917091abefdabb))
+
 ## [1.1.52](https://github.com/icoretech/airbroke/compare/v1.1.51...v1.1.52) (2024-02-12)
 
 
