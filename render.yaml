@@ -5,14 +5,15 @@
 # previewsExpireAfterDays: 2
 services:
   - type: web
+    runtime: node
     name: airbroke
-    env: node
     plan: free
     ## 👇 Specify the plan for the PR deployment:
     # previewPlan: starter
     ## 👇 Preview Environment Initialization script:
     # initialDeployHook: yarn db:seed
     buildCommand: yarn install && yarn build
+    preDeployCommand: npx prisma migrate deploy
     startCommand: yarn start
     healthCheckPath: /api/hc
     envVars:
