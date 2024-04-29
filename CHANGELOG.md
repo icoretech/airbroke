@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.54](https://github.com/icoretech/airbroke/compare/v1.1.53...v1.1.54) (2024-04-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency superjson to v2 ([#331](https://github.com/icoretech/airbroke/issues/331)) ([e0f7409](https://github.com/icoretech/airbroke/commit/e0f7409aa3345c113956a6667382d1cd43ec1d39))
+* **deps:** update prisma monorepo to v5.13.0 ([dfba5ae](https://github.com/icoretech/airbroke/commit/dfba5ae5d9e4e0558471f4e2ecf6af10ba3a2a04))
+
 ## [1.1.53](https://github.com/icoretech/airbroke/compare/v1.1.52...v1.1.53) (2024-04-19)
 
 
