@@ -1,0 +1,7 @@
+{
+  ".": {
+    "releaseType": "node",
+    "packageName": "airbroke",
+    "versioning": "always-bump-patch"
+  }
+}
