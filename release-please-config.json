@@ -1,0 +1,24 @@
+{
+  "packages": {
+    ".": {
+      "releaseType": "node",
+      "packageName": "airbroke",
+      "bumpMinorPreMajor": true,
+      "changelogSections": [
+        {
+          "type": "feat",
+          "section": "Features"
+        },
+        {
+          "type": "fix",
+          "section": "Bug Fixes"
+        },
+        {
+          "type": "chore",
+          "section": "Chores",
+          "hidden": true
+        }
+      ]
+    }
+  }
+}

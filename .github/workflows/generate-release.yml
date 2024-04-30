@@ -13,11 +13,8 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: google-github-actions/release-please-action@v4
         with:
-          release-type: node
-          package-name: airbroke
-          # changelog-notes-type: github
           token: ${{ secrets.PACKAGES_PAT }}
-          versioning-strategy: always-bump-patch
-          # release-as: '1.1.30'
+          config-file: release-please-config.json
