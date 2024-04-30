@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.55](https://github.com/icoretech/airbroke/compare/v1.1.54...v1.1.55) (2024-04-30)
+
+
+### Features
+
+* **release-please-config.json:** add release-please configuration for airbroke package with node release type and always-bump-patch versioning ([61798d0](https://github.com/icoretech/airbroke/commit/61798d0933852a7d06a8353cb528544077a7cb01))
+* **release-please-config.json:** set release-type field to "node" to specify the type of release being performed ([dd98ee2](https://github.com/icoretech/airbroke/commit/dd98ee23f5815d550e1122012621565cc004851a))
+
 ## [1.2.0](https://github.com/icoretech/airbroke/compare/airbroke-v1.1.54...airbroke-v1.2.0) (2024-04-30)
 
 
