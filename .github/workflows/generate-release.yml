@@ -18,3 +18,4 @@ jobs:
         with:
           token: ${{ secrets.PACKAGES_PAT }}
           release-type: node
+          include-component-in-tag: true
