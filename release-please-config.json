@@ -3,7 +3,6 @@
   "release-type": "node",
   "include-component-in-tag": false,
   "versioning": "always-bump-patch",
-  "last-release-sha": "596e8bf721a430c9d990231053ee93c027436326",
   "packages": {
     ".": {}
   }
