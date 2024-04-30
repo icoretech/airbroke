@@ -8,13 +8,25 @@ const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
   images: {
-    domains: ['www.gravatar.com', 'i.imgur.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.gravatar.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.imgur.com',
+      },
+    ],
+  },
+  devIndicators: {
+    buildActivityPosition: 'bottom-right',
+  },
+  logging: {
+    level: process.env.AIRBROKE_LOG_LEVEL === 'verbose' ? 'verbose' : undefined,
   },
   experimental: {
-    serverActions: true,
     serverComponentsExternalPackages: ['@octokit', '@airbrake/node'],
-    isrMemoryCacheSize: 0,
-    logging: process.env.AIRBROKE_LOG_LEVEL === 'verbose' ? 'verbose' : undefined,
     // typedRoutes: true,
   },
   async rewrites() {
