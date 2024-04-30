@@ -17,5 +17,4 @@ jobs:
       - uses: google-github-actions/release-please-action@v4
         with:
           token: ${{ secrets.PACKAGES_PAT }}
-          release-type: node
-          include-component-in-tag: false
+          manifest-file: .release-please-manifest.json
