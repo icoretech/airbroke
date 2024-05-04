@@ -50,7 +50,7 @@
   "devDependencies": {
     "@jest/globals": "29.7.0",
     "@next/bundle-analyzer": "14.2.3",
-    "@testing-library/jest-dom": "6.4.2",
+    "@testing-library/jest-dom": "6.4.5",
     "@testing-library/react": "15.0.6",
     "@types/chance": "1.1.6",
     "@types/node": "20.12.8",
