@@ -31,7 +31,7 @@
     "next": "14.2.3",
     "next-auth": "4.24.7",
     "numeral": "2.0.6",
-    "octokit": "3.2.0",
+    "octokit": "3.2.1",
     "openai": "^4.39.0",
     "postcss": "8.4.38",
     "react": "18.3.1",
