@@ -12,9 +12,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/provider-utils@npm:0.0.5":
-  version: 0.0.5
-  resolution: "@ai-sdk/provider-utils@npm:0.0.5"
+"@ai-sdk/provider-utils@npm:0.0.6":
+  version: 0.0.6
+  resolution: "@ai-sdk/provider-utils@npm:0.0.6"
   dependencies:
     "@ai-sdk/provider": "npm:0.0.3"
     eventsource-parser: "npm:1.1.2"
@@ -25,7 +25,7 @@ __metadata:
   peerDependenciesMeta:
     zod:
       optional: true
-  checksum: 10c0/b6537fbcda4736fdd632eb5477a9136587175e8603795813b8cf224ec6730537707c5f76a1eff2195b480feee048ed7ed8d9705f05f45d48a2edd4178e241f30
+  checksum: 10c0/5911ca45f509055259819aed433f4b504019decfb16f39863acc60199ad910afda46eef07492db78241dc96090e01644769da0618a61eb22dd7fab6554e7aad6
   languageName: node
   linkType: hard
 
@@ -2642,12 +2642,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:3.1.2":
-  version: 3.1.2
-  resolution: "ai@npm:3.1.2"
+"ai@npm:3.1.3":
+  version: 3.1.3
+  resolution: "ai@npm:3.1.3"
   dependencies:
     "@ai-sdk/provider": "npm:0.0.3"
-    "@ai-sdk/provider-utils": "npm:0.0.5"
+    "@ai-sdk/provider-utils": "npm:0.0.6"
     eventsource-parser: "npm:1.1.2"
     json-schema: "npm:0.4.0"
     jsondiffpatch: "npm:0.6.0"
@@ -2676,7 +2676,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/c343f3a0710960fefa783d04a0d715841394561571220bc0f81a9788ea81fe33f603347deefa8921f6ce0d283419d59aded120ce2a6519f8ba616466a77f84ae
+  checksum: 10c0/47aed9898aadb839a6ad203bf740929a42554b2442c361cd67468a1abf045b29bc999931dc967eac1924898e56c3e331a97c683df476c7e03951f7a99397d9e6
   languageName: node
   linkType: hard
 
@@ -2699,7 +2699,7 @@ __metadata:
     "@types/numeral": "npm:2.0.5"
     "@types/react": "npm:18.3.1"
     "@types/react-dom": "npm:18.3.0"
-    ai: "npm:3.1.2"
+    ai: "npm:3.1.3"
     autoprefixer: "npm:10.4.19"
     chance: "npm:1.1.11"
     chart.js: "npm:4.4.2"
