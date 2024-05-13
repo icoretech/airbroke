@@ -12,11 +12,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/provider-utils@npm:0.0.6":
-  version: 0.0.6
-  resolution: "@ai-sdk/provider-utils@npm:0.0.6"
+"@ai-sdk/provider-utils@npm:0.0.7":
+  version: 0.0.7
+  resolution: "@ai-sdk/provider-utils@npm:0.0.7"
   dependencies:
-    "@ai-sdk/provider": "npm:0.0.3"
+    "@ai-sdk/provider": "npm:0.0.4"
     eventsource-parser: "npm:1.1.2"
     nanoid: "npm:3.3.6"
     secure-json-parse: "npm:2.7.0"
@@ -25,16 +25,16 @@ __metadata:
   peerDependenciesMeta:
     zod:
       optional: true
-  checksum: 10c0/5911ca45f509055259819aed433f4b504019decfb16f39863acc60199ad910afda46eef07492db78241dc96090e01644769da0618a61eb22dd7fab6554e7aad6
+  checksum: 10c0/1bc001739547fa85e71bd5051285659639569b73def138a5a7953aff1ebacbfd98862d9d82594ce96923412a9f9649ef6f077add515030c6ea7d0a064890e2ea
   languageName: node
   linkType: hard
 
-"@ai-sdk/provider@npm:0.0.3":
-  version: 0.0.3
-  resolution: "@ai-sdk/provider@npm:0.0.3"
+"@ai-sdk/provider@npm:0.0.4":
+  version: 0.0.4
+  resolution: "@ai-sdk/provider@npm:0.0.4"
   dependencies:
     json-schema: "npm:0.4.0"
-  checksum: 10c0/37baec90d92b7a5c13a55b72ac589e87a345c3c7717b72a7733f0e834eba6b95a2aeb81995bbf1fd5ca382d60df8f04bd7ea01e883df43a23f11a064a34221bd
+  checksum: 10c0/63c0be6d466458ce6e9536e1939820a9be8082aa9eaef03bccad3bf3af7ecef62076fd43ce840c592ab8728be8636bf18f73ad640cb569ab802b508b06517506
   languageName: node
   linkType: hard
 
@@ -2652,12 +2652,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:3.1.5":
-  version: 3.1.5
-  resolution: "ai@npm:3.1.5"
+"ai@npm:3.1.7":
+  version: 3.1.7
+  resolution: "ai@npm:3.1.7"
   dependencies:
-    "@ai-sdk/provider": "npm:0.0.3"
-    "@ai-sdk/provider-utils": "npm:0.0.6"
+    "@ai-sdk/provider": "npm:0.0.4"
+    "@ai-sdk/provider-utils": "npm:0.0.7"
     eventsource-parser: "npm:1.1.2"
     json-schema: "npm:0.4.0"
     jsondiffpatch: "npm:0.6.0"
@@ -2689,7 +2689,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/c9b22deea7bd6a89776d51b5d93f8602a4a85439129e3426ce8cb9af24346864d01f71c699d4b2090916dc9bb0e938e674188b961fc1037713ac8484520e754a
+  checksum: 10c0/f2d6d3e2b4648a343b66fb846288eec322000ca1ca06bc1a2cba67e2b398f5a8377746d7815078f8d1375a653ba7866e00093ba2746acdb12f845d5f1ec243d0
   languageName: node
   linkType: hard
 
@@ -2712,7 +2712,7 @@ __metadata:
     "@types/numeral": "npm:2.0.5"
     "@types/react": "npm:18.3.2"
     "@types/react-dom": "npm:18.3.0"
-    ai: "npm:3.1.5"
+    ai: "npm:3.1.7"
     autoprefixer: "npm:10.4.19"
     chance: "npm:1.1.11"
     chart.js: "npm:4.4.2"
