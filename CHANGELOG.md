@@ -1,5 +1,38 @@
 # Changelog
 
+## [1.1.56](https://github.com/icoretech/airbroke/compare/v1.1.55...v1.1.56) (2024-05-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ai to v3.1.0 ([#437](https://github.com/icoretech/airbroke/issues/437)) ([7f6edd7](https://github.com/icoretech/airbroke/commit/7f6edd772a6359047ad34a78bfdef9db960d8f5e))
+* **deps:** update dependency ai to v3.1.1 ([b6d6dc5](https://github.com/icoretech/airbroke/commit/b6d6dc5a101f9b93f0f9c3e747dc8dd5edc0523a))
+* **deps:** update dependency ai to v3.1.11 ([76d8e24](https://github.com/icoretech/airbroke/commit/76d8e245ab16cc3e65900cd253b798df9fa8ae5b))
+* **deps:** update dependency ai to v3.1.12 ([2fdeb45](https://github.com/icoretech/airbroke/commit/2fdeb450ce0ee90045e1de9eed6faac222aadc53))
+* **deps:** update dependency ai to v3.1.2 ([da1b049](https://github.com/icoretech/airbroke/commit/da1b04961f5f7ee4454809682e6b3d3f37e0b59f))
+* **deps:** update dependency ai to v3.1.3 ([55a9bc0](https://github.com/icoretech/airbroke/commit/55a9bc0a2e770a986db7e8be3129fc78e4ae2dba))
+* **deps:** update dependency ai to v3.1.4 ([d67fc38](https://github.com/icoretech/airbroke/commit/d67fc3838d1ce54491cca637268a4cebcd22491a))
+* **deps:** update dependency ai to v3.1.5 ([0db4252](https://github.com/icoretech/airbroke/commit/0db42521e31ae2a4f692df3b9fc4b6785b9293b3))
+* **deps:** update dependency ai to v3.1.7 ([75300d5](https://github.com/icoretech/airbroke/commit/75300d591468f1bb22b482b561f8da2e847a33a8))
+* **deps:** update dependency ai to v3.1.8 ([f79b598](https://github.com/icoretech/airbroke/commit/f79b59836d64a53771865f310cf896139d398145))
+* **deps:** update dependency ai to v3.1.9 ([72652d2](https://github.com/icoretech/airbroke/commit/72652d27ad2718cf4b5bfdccb448e1d3c3b0d7b1))
+* **deps:** update dependency chart.js to v4.4.3 ([36e4e0b](https://github.com/icoretech/airbroke/commit/36e4e0b87d39463c6719d47ecdfdee42f921349d))
+* **deps:** update dependency octokit to v3.2.1 ([805516b](https://github.com/icoretech/airbroke/commit/805516b7a3bea5fc1daeac90bd9ba2534ecf67a9))
+* **deps:** update dependency openai to v4.39.1 ([#480](https://github.com/icoretech/airbroke/issues/480)) ([5df998b](https://github.com/icoretech/airbroke/commit/5df998bc833398e0457309d7c57f4be0ecd8f076))
+* **deps:** update dependency openai to v4.40.0 ([77e371e](https://github.com/icoretech/airbroke/commit/77e371e889d631c63140202dd1653f9e6b094a6d))
+* **deps:** update dependency openai to v4.40.1 ([6c94c09](https://github.com/icoretech/airbroke/commit/6c94c0933894f907e3e59b7f0ba58e19e7d57820))
+* **deps:** update dependency openai to v4.40.2 ([719833a](https://github.com/icoretech/airbroke/commit/719833a3f1b8ec132739f9ab99565a9c76937b68))
+* **deps:** update dependency openai to v4.41.0 ([b6cf30f](https://github.com/icoretech/airbroke/commit/b6cf30f839caded6a8916fa72f70706b0de0d14b))
+* **deps:** update dependency openai to v4.41.1 ([21af035](https://github.com/icoretech/airbroke/commit/21af035ce00050ada7e9806a6cbce41a658c5cd7))
+* **deps:** update dependency openai to v4.42.0 ([d40fb5b](https://github.com/icoretech/airbroke/commit/d40fb5b74b8b5853f2da67b366c56f3e19262e79))
+* **deps:** update dependency openai to v4.43.0 ([e9c6a16](https://github.com/icoretech/airbroke/commit/e9c6a16000488104857c102e6e9f872d48b7b7fc))
+* **deps:** update dependency openai to v4.44.0 ([0d258b6](https://github.com/icoretech/airbroke/commit/0d258b6c21bcc697f4a9d5c19f3b701380cdd1ce))
+* **deps:** update dependency openai to v4.45.0 ([85679a8](https://github.com/icoretech/airbroke/commit/85679a893b64e557f0b28e8ae275d569673fc33b))
+* **deps:** update dependency openai to v4.46.1 ([616bf82](https://github.com/icoretech/airbroke/commit/616bf820ac9bea1ac2f582a729a9d6e79f2c0650))
+* **deps:** update dependency openai to v4.47.0 ([686cae9](https://github.com/icoretech/airbroke/commit/686cae97061a626fb245894c24ba038338c6d67a))
+* **deps:** update dependency sharp to v0.33.4 ([6e214bb](https://github.com/icoretech/airbroke/commit/6e214bbfe4b9ae0640d0afa37ea6320a7076a7fb))
+* **deps:** update prisma monorepo to v5.14.0 ([02c4892](https://github.com/icoretech/airbroke/commit/02c48928b4afd4bff9fb7d7160a1b1d846608321))
+
 ## [1.1.55](https://github.com/icoretech/airbroke/compare/v1.1.54...v1.1.55) (2024-04-30)
 
 
