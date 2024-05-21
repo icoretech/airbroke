@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
 
   // createCompletion at the moment results in a 404.
   const response = await openai.chat.completions.create({
-    model: process.env.AIRBROKE_OPENAI_ENGINE || 'gpt-3.5-turbo',
+    model: process.env.AIRBROKE_OPENAI_ENGINE || 'gpt-4o',
     stream: true,
     temperature: 0.6,
     messages: [
