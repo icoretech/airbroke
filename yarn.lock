@@ -2742,7 +2742,7 @@ __metadata:
     superjson: "npm:2.2.1"
     tailwindcss: "npm:3.4.4"
     timeago-react: "npm:3.0.6"
-    tsx: "npm:4.13.0"
+    tsx: "npm:4.13.2"
     typescript: "npm:5.4.5"
     zod-error: "npm:1.5.0"
     zod-form-data: "npm:2.0.2"
@@ -10049,9 +10049,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsx@npm:4.13.0":
-  version: 4.13.0
-  resolution: "tsx@npm:4.13.0"
+"tsx@npm:4.13.2":
+  version: 4.13.2
+  resolution: "tsx@npm:4.13.2"
   dependencies:
     esbuild: "npm:~0.20.2"
     fsevents: "npm:~2.3.3"
@@ -10061,7 +10061,7 @@ __metadata:
       optional: true
   bin:
     tsx: dist/cli.mjs
-  checksum: 10c0/fe5c273885f203430b6b184217c136a60c1506a0009c93c5a5394aabf2a2a7ed7ec96a108d7577715731da2ba44f4ed78bf8e520a7fed93e918052948e684269
+  checksum: 10c0/33d3d788b4cc2e60c41695018b25fd2957e4fb2488d1c1d8b30a33f317984d6ee215e97f298de5fa89e74c2de81494a09949cbdc2b7cf36fd261dc5097286a36
   languageName: node
   linkType: hard
 
