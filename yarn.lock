@@ -38,6 +38,78 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ai-sdk/react@npm:0.0.1":
+  version: 0.0.1
+  resolution: "@ai-sdk/react@npm:0.0.1"
+  dependencies:
+    "@ai-sdk/provider-utils": "npm:0.0.13"
+    "@ai-sdk/ui-utils": "npm:0.0.1"
+    swr: "npm:2.2.0"
+  peerDependencies:
+    react: ^18 || ^19
+  peerDependenciesMeta:
+    react:
+      optional: true
+  checksum: 10c0/dc0f12e0ff037c84b96d7de573ac99e2898421ff9985524324be94256a03b5cd090ac7c71105052e52554fd9aa90779af8d8c7ef25b5512b4231b07c523ead0e
+  languageName: node
+  linkType: hard
+
+"@ai-sdk/solid@npm:0.0.1":
+  version: 0.0.1
+  resolution: "@ai-sdk/solid@npm:0.0.1"
+  dependencies:
+    "@ai-sdk/ui-utils": "npm:0.0.1"
+    solid-swr-store: "npm:0.10.7"
+    swr-store: "npm:0.10.6"
+  peerDependencies:
+    solid-js: ^1.7.7
+  peerDependenciesMeta:
+    solid-js:
+      optional: true
+  checksum: 10c0/a0e726ca5e007d640b87453b37a718d11595394e7fe5225cf5a3fc23ca7ebbfc712d3c0ccd9ab417c15d0ef3f05bcb11823a846ec381b70b9b5dcc54540a0a69
+  languageName: node
+  linkType: hard
+
+"@ai-sdk/svelte@npm:0.0.1":
+  version: 0.0.1
+  resolution: "@ai-sdk/svelte@npm:0.0.1"
+  dependencies:
+    "@ai-sdk/provider-utils": "npm:0.0.13"
+    "@ai-sdk/ui-utils": "npm:0.0.1"
+    sswr: "npm:2.1.0"
+  peerDependencies:
+    svelte: ^3.0.0 || ^4.0.0
+  peerDependenciesMeta:
+    svelte:
+      optional: true
+  checksum: 10c0/ca8aaffa62ededde270b4ed742a2c59ce923cc4580975e98c5c444b8b99dec5011c55b4cbf89335af8837442d311cdf6a960646aa244e2ed5615f0cf46d4e7cb
+  languageName: node
+  linkType: hard
+
+"@ai-sdk/ui-utils@npm:0.0.1":
+  version: 0.0.1
+  resolution: "@ai-sdk/ui-utils@npm:0.0.1"
+  dependencies:
+    "@ai-sdk/provider-utils": "npm:0.0.13"
+  checksum: 10c0/7b5c57932c0367b683059e65726640ff3a7668c73ca01be73c16843f6690e65b2a400dc88fa64f628c4d8aad5c66c191cf9c78e236d1ac2162ae2f072b57c60c
+  languageName: node
+  linkType: hard
+
+"@ai-sdk/vue@npm:0.0.1":
+  version: 0.0.1
+  resolution: "@ai-sdk/vue@npm:0.0.1"
+  dependencies:
+    "@ai-sdk/ui-utils": "npm:0.0.1"
+    swrv: "npm:1.0.4"
+  peerDependencies:
+    vue: ^3.3.4
+  peerDependenciesMeta:
+    vue:
+      optional: true
+  checksum: 10c0/7f76046a7bb1a6a834b5256352ee0efea91d9b3549a9f76b2ccd889fdfe60d6aab187a1f4ae1125e16daa0e1758d9aede4563a1a1cc61f849e2d81d7b5a78209
+  languageName: node
+  linkType: hard
+
 "@airbrake/browser@npm:2.1.8, @airbrake/browser@npm:^2.1.8":
   version: 2.1.8
   resolution: "@airbrake/browser@npm:2.1.8"
@@ -2652,44 +2724,39 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:3.1.30":
-  version: 3.1.30
-  resolution: "ai@npm:3.1.30"
+"ai@npm:3.1.31":
+  version: 3.1.31
+  resolution: "ai@npm:3.1.31"
   dependencies:
     "@ai-sdk/provider": "npm:0.0.10"
     "@ai-sdk/provider-utils": "npm:0.0.13"
+    "@ai-sdk/react": "npm:0.0.1"
+    "@ai-sdk/solid": "npm:0.0.1"
+    "@ai-sdk/svelte": "npm:0.0.1"
+    "@ai-sdk/ui-utils": "npm:0.0.1"
+    "@ai-sdk/vue": "npm:0.0.1"
     eventsource-parser: "npm:1.1.2"
     json-schema: "npm:0.4.0"
     jsondiffpatch: "npm:0.6.0"
     nanoid: "npm:3.3.6"
     secure-json-parse: "npm:2.7.0"
-    solid-swr-store: "npm:0.10.7"
     sswr: "npm:2.1.0"
-    swr: "npm:2.2.0"
-    swr-store: "npm:0.10.6"
-    swrv: "npm:1.0.4"
     zod-to-json-schema: "npm:3.22.5"
   peerDependencies:
     openai: ^4.42.0
     react: ^18 || ^19
-    solid-js: ^1.7.7
     svelte: ^3.0.0 || ^4.0.0
-    vue: ^3.3.4
     zod: ^3.0.0
   peerDependenciesMeta:
     openai:
       optional: true
     react:
       optional: true
-    solid-js:
-      optional: true
     svelte:
-      optional: true
-    vue:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/5e8a2003dbd44ae9c0e3152b34b5a6bdec63479e31a35d375cc39942b2d35f3e08219c1e4014eecd7e0a54ddf9ad64869e092a451a9158ef6131ea38d4b2afd7
+  checksum: 10c0/fb175cea409f36cfaaaf3b4de4f01ce72bf030501a12950cd1ef41182df0ac1ccbdf2a419187bcb75bc36ab9a77d17270a20386e2da322f1989940f03db40a17
   languageName: node
   linkType: hard
 
@@ -2712,7 +2779,7 @@ __metadata:
     "@types/numeral": "npm:2.0.5"
     "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:18.3.0"
-    ai: "npm:3.1.30"
+    ai: "npm:3.1.31"
     autoprefixer: "npm:10.4.19"
     chance: "npm:1.1.11"
     chart.js: "npm:4.4.3"
