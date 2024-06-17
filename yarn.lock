@@ -12,9 +12,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/provider-utils@npm:0.0.14":
-  version: 0.0.14
-  resolution: "@ai-sdk/provider-utils@npm:0.0.14"
+"@ai-sdk/provider-utils@npm:0.0.15":
+  version: 0.0.15
+  resolution: "@ai-sdk/provider-utils@npm:0.0.15"
   dependencies:
     "@ai-sdk/provider": "npm:0.0.10"
     eventsource-parser: "npm:1.1.2"
@@ -25,7 +25,7 @@ __metadata:
   peerDependenciesMeta:
     zod:
       optional: true
-  checksum: 10c0/ecd82c52c4f8847ff526925d58ba48bb8e3a9bc51579d89b841139c514b7d6a72b4e84185c1faaf6aecfc81e1a7aaa35a2f5d2caf700ba5d96ec136a5e2093f1
+  checksum: 10c0/998b19b1c2424984269c27855ede96c806e33bafcc8ec54ce4bd7a09da6ce160831b8607ab0b1d77cba140c175bff3ced3411d3d3290eafe9c22481e64537e5a
   languageName: node
   linkType: hard
 
@@ -38,27 +38,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/react@npm:0.0.2":
-  version: 0.0.2
-  resolution: "@ai-sdk/react@npm:0.0.2"
+"@ai-sdk/react@npm:0.0.3":
+  version: 0.0.3
+  resolution: "@ai-sdk/react@npm:0.0.3"
   dependencies:
-    "@ai-sdk/provider-utils": "npm:0.0.14"
-    "@ai-sdk/ui-utils": "npm:0.0.2"
+    "@ai-sdk/provider-utils": "npm:0.0.15"
+    "@ai-sdk/ui-utils": "npm:0.0.3"
     swr: "npm:2.2.0"
   peerDependencies:
     react: ^18 || ^19
   peerDependenciesMeta:
     react:
       optional: true
-  checksum: 10c0/d3c39b15014158245f8ddfaec77adb17bc158fc3a12cb88d16d123fc3202d8dd95662599c336c163ef2f83f0249bbb66ec995203cb30b5b3dc945e949f2e8803
+  checksum: 10c0/210aab5442ca9728c4669872e1629c4487aada89b47a3fdc5cb2e243e7217a9f470790ae2fef93671dfa4e80d519ddbe39d787fcfc91308ae8b076022b9a87ae
   languageName: node
   linkType: hard
 
-"@ai-sdk/solid@npm:0.0.2":
-  version: 0.0.2
-  resolution: "@ai-sdk/solid@npm:0.0.2"
+"@ai-sdk/solid@npm:0.0.3":
+  version: 0.0.3
+  resolution: "@ai-sdk/solid@npm:0.0.3"
   dependencies:
-    "@ai-sdk/ui-utils": "npm:0.0.2"
+    "@ai-sdk/ui-utils": "npm:0.0.3"
     solid-swr-store: "npm:0.10.7"
     swr-store: "npm:0.10.6"
   peerDependencies:
@@ -66,47 +66,47 @@ __metadata:
   peerDependenciesMeta:
     solid-js:
       optional: true
-  checksum: 10c0/c3c0333d7a385a41f6a919d97ad9f845723c997aca7e6d1106e3d0085762618fba881b14c8ce573177b7d6ef3dff27264dbf2157ab7317d9e98658c7a6ea135b
+  checksum: 10c0/1d847a5cdb2ca28855ea5cb0a9533f91bcf0dce5f771dada7132dcbad60d38802351dc5f321429cdeffaa23a774598dc5b4eae7f63a0c60f04b0259a50ab51af
   languageName: node
   linkType: hard
 
-"@ai-sdk/svelte@npm:0.0.2":
-  version: 0.0.2
-  resolution: "@ai-sdk/svelte@npm:0.0.2"
+"@ai-sdk/svelte@npm:0.0.3":
+  version: 0.0.3
+  resolution: "@ai-sdk/svelte@npm:0.0.3"
   dependencies:
-    "@ai-sdk/provider-utils": "npm:0.0.14"
-    "@ai-sdk/ui-utils": "npm:0.0.2"
+    "@ai-sdk/provider-utils": "npm:0.0.15"
+    "@ai-sdk/ui-utils": "npm:0.0.3"
     sswr: "npm:2.1.0"
   peerDependencies:
     svelte: ^3.0.0 || ^4.0.0
   peerDependenciesMeta:
     svelte:
       optional: true
-  checksum: 10c0/ea48c095c978a17c9e95f94da31955f5a744cff39ee52dd252f2ba9549b6c5da5d54db3ec0fae53a759238f95c6040043b9fbfe237b1795b51d2567c50c1ef89
+  checksum: 10c0/30c0b7f8b371c57a757c5dae52ad24450021f89b35d7787a8e42c8d06f3bc1a8dd2a0da646d8ddd916cf0e87dee06c9878ed2011e6deb8bac93d7951a6c01eee
   languageName: node
   linkType: hard
 
-"@ai-sdk/ui-utils@npm:0.0.2":
-  version: 0.0.2
-  resolution: "@ai-sdk/ui-utils@npm:0.0.2"
+"@ai-sdk/ui-utils@npm:0.0.3":
+  version: 0.0.3
+  resolution: "@ai-sdk/ui-utils@npm:0.0.3"
   dependencies:
-    "@ai-sdk/provider-utils": "npm:0.0.14"
-  checksum: 10c0/f8a49e146810879b3fad67a679c5aa59f10e9c5bd170e2edc62d74ac267ad4b0c3e3c2050e1cf87b235ad922e7e50454c3cda552d3a6cfd240533449f5f75a48
+    "@ai-sdk/provider-utils": "npm:0.0.15"
+  checksum: 10c0/08772b6af483b78882a8d3e79b5ae1e3e1c6dfb906030316d8796475d27762252d177af9888c544c66ed2f6129277d7b8391b6c01510c71ab24adf97d1f130be
   languageName: node
   linkType: hard
 
-"@ai-sdk/vue@npm:0.0.2":
-  version: 0.0.2
-  resolution: "@ai-sdk/vue@npm:0.0.2"
+"@ai-sdk/vue@npm:0.0.3":
+  version: 0.0.3
+  resolution: "@ai-sdk/vue@npm:0.0.3"
   dependencies:
-    "@ai-sdk/ui-utils": "npm:0.0.2"
+    "@ai-sdk/ui-utils": "npm:0.0.3"
     swrv: "npm:1.0.4"
   peerDependencies:
     vue: ^3.3.4
   peerDependenciesMeta:
     vue:
       optional: true
-  checksum: 10c0/6fdf457ae962bccef09fae69794858e3b45f0df605ca0a46199177ef0ac2e9350b9855a9985d3dce31f47b933992ac69b871602a40c72e54417abee341f63a90
+  checksum: 10c0/7dbcf064622a22f882f37a2796b43a7d0fb26b4e0007e8d1ea3411d04401c8e28b3b01d5e7e8ed8fb27139f98c11febcd1b2061e4975198818388c60ac0a61b8
   languageName: node
   linkType: hard
 
@@ -2724,17 +2724,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:3.1.36":
-  version: 3.1.36
-  resolution: "ai@npm:3.1.36"
+"ai@npm:3.1.37":
+  version: 3.1.37
+  resolution: "ai@npm:3.1.37"
   dependencies:
     "@ai-sdk/provider": "npm:0.0.10"
-    "@ai-sdk/provider-utils": "npm:0.0.14"
-    "@ai-sdk/react": "npm:0.0.2"
-    "@ai-sdk/solid": "npm:0.0.2"
-    "@ai-sdk/svelte": "npm:0.0.2"
-    "@ai-sdk/ui-utils": "npm:0.0.2"
-    "@ai-sdk/vue": "npm:0.0.2"
+    "@ai-sdk/provider-utils": "npm:0.0.15"
+    "@ai-sdk/react": "npm:0.0.3"
+    "@ai-sdk/solid": "npm:0.0.3"
+    "@ai-sdk/svelte": "npm:0.0.3"
+    "@ai-sdk/ui-utils": "npm:0.0.3"
+    "@ai-sdk/vue": "npm:0.0.3"
     eventsource-parser: "npm:1.1.2"
     json-schema: "npm:0.4.0"
     jsondiffpatch: "npm:0.6.0"
@@ -2756,7 +2756,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/caf13e3cb295ab9217680805a4115f10299d2e5f1c7082596bfa5195e97c61458060dba4a6d60fcea4057ed68d3ba205e5aab4ee567b6205a7494e7abc2e857f
+  checksum: 10c0/f14412a166ceb24415288e6add78fd15805dfc61a012d12b4931163dddc576c400946b3252a7e5a71b22bf2674c41e01ffb3b9ad3e62e04268871d7bda972773
   languageName: node
   linkType: hard
 
@@ -2779,7 +2779,7 @@ __metadata:
     "@types/numeral": "npm:2.0.5"
     "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:18.3.0"
-    ai: "npm:3.1.36"
+    ai: "npm:3.1.37"
     autoprefixer: "npm:10.4.19"
     chance: "npm:1.1.11"
     chart.js: "npm:4.4.3"
