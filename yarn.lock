@@ -38,9 +38,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/react@npm:0.0.10":
-  version: 0.0.10
-  resolution: "@ai-sdk/react@npm:0.0.10"
+"@ai-sdk/react@npm:0.0.11":
+  version: 0.0.11
+  resolution: "@ai-sdk/react@npm:0.0.11"
   dependencies:
     "@ai-sdk/provider-utils": "npm:0.0.16"
     "@ai-sdk/ui-utils": "npm:0.0.6"
@@ -53,29 +53,27 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/3fdf7b65857b60c59587c28e1969298bf6aa1efbc6c8da35c8ff5a50ce6c637697ee567c6add234ba8668ad4fcf9281920be1842d9499ca164fd741777df4845
+  checksum: 10c0/213a51d7492827217b72edbaf77377d29b39e5bafe6e18901d24974273b38caef6f95f26b4bbf060154cd80857759c20c7143620cd63be284cc912e885bdd656
   languageName: node
   linkType: hard
 
-"@ai-sdk/solid@npm:0.0.7":
-  version: 0.0.7
-  resolution: "@ai-sdk/solid@npm:0.0.7"
+"@ai-sdk/solid@npm:0.0.8":
+  version: 0.0.8
+  resolution: "@ai-sdk/solid@npm:0.0.8"
   dependencies:
     "@ai-sdk/ui-utils": "npm:0.0.6"
-    solid-swr-store: "npm:0.10.7"
-    swr-store: "npm:0.10.6"
   peerDependencies:
     solid-js: ^1.7.7
   peerDependenciesMeta:
     solid-js:
       optional: true
-  checksum: 10c0/f0546962d9383e6f46335818574e2601c5925bc65584af1fd7c6baaf81546eb046c119506f50af4aaf3d4540337535aa19fe5940af4663ef653769064a3efab5
+  checksum: 10c0/f183054ed514ae902fc6a27078fba44c1be2ea8323714331915da377b90d0c2d4f99cd1e9711dbae71fb917b09f4af199260db74d6660cadc50fa4c0b67798b7
   languageName: node
   linkType: hard
 
-"@ai-sdk/svelte@npm:0.0.8":
-  version: 0.0.8
-  resolution: "@ai-sdk/svelte@npm:0.0.8"
+"@ai-sdk/svelte@npm:0.0.9":
+  version: 0.0.9
+  resolution: "@ai-sdk/svelte@npm:0.0.9"
   dependencies:
     "@ai-sdk/provider-utils": "npm:0.0.16"
     "@ai-sdk/ui-utils": "npm:0.0.6"
@@ -85,7 +83,7 @@ __metadata:
   peerDependenciesMeta:
     svelte:
       optional: true
-  checksum: 10c0/ecd2c88171beb734e2d4d3432367c689a0392ea91939e89f7e69a598299ffd43bd72221042a3082b4dd1f85b4c777cfd26676734580356ced2be629a2eb41c99
+  checksum: 10c0/138922112fc518b02e1692f90fa6fae62262e576b88955695b15b6b902a262b3c29e18fe05bb385cdd0f74803f5e303da4d055924f9b770fba90d48d287342f7
   languageName: node
   linkType: hard
 
@@ -2733,15 +2731,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:3.2.10":
-  version: 3.2.10
-  resolution: "ai@npm:3.2.10"
+"ai@npm:3.2.11":
+  version: 3.2.11
+  resolution: "ai@npm:3.2.11"
   dependencies:
     "@ai-sdk/provider": "npm:0.0.10"
     "@ai-sdk/provider-utils": "npm:0.0.16"
-    "@ai-sdk/react": "npm:0.0.10"
-    "@ai-sdk/solid": "npm:0.0.7"
-    "@ai-sdk/svelte": "npm:0.0.8"
+    "@ai-sdk/react": "npm:0.0.11"
+    "@ai-sdk/solid": "npm:0.0.8"
+    "@ai-sdk/svelte": "npm:0.0.9"
     "@ai-sdk/ui-utils": "npm:0.0.6"
     "@ai-sdk/vue": "npm:0.0.8"
     eventsource-parser: "npm:1.1.2"
@@ -2765,7 +2763,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/f78f54d01a9394927cc79c621279818611525fccc8fde2b00de8fd1961d68cb70381a1412939e21a6bc2849da858b66562155e0e4b9c67d360923a4f85033396
+  checksum: 10c0/9d3588d2970ef21daf2b85b6c8b7b75808302080401cec429fb7fc7a2d5216be8b6f92e29c4e8efa9a4644846f68a964fe7bd21498a6969dbc701b2fc7289d4f
   languageName: node
   linkType: hard
 
@@ -2788,7 +2786,7 @@ __metadata:
     "@types/numeral": "npm:2.0.5"
     "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:18.3.0"
-    ai: "npm:3.2.10"
+    ai: "npm:3.2.11"
     autoprefixer: "npm:10.4.19"
     chance: "npm:1.1.11"
     chart.js: "npm:4.4.3"
@@ -9460,16 +9458,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"solid-swr-store@npm:0.10.7":
-  version: 0.10.7
-  resolution: "solid-swr-store@npm:0.10.7"
-  peerDependencies:
-    solid-js: ^1.2
-    swr-store: ^0.10
-  checksum: 10c0/da45f4eeb85323f8686b38dad09dbaf6aac2552191a7314be74bdc088080a11386d25ff7ba63754a880456b2647035f72640450ae07ec237bba4de2d884c2eb2
-  languageName: node
-  linkType: hard
-
 "source-map-js@npm:^1.0.2, source-map-js@npm:^1.2.0":
   version: 1.2.0
   resolution: "source-map-js@npm:1.2.0"
@@ -9851,15 +9839,6 @@ __metadata:
   version: 1.0.0
   resolution: "supports-preserve-symlinks-flag@npm:1.0.0"
   checksum: 10c0/6c4032340701a9950865f7ae8ef38578d8d7053f5e10518076e6554a9381fa91bd9c6850193695c141f32b21f979c985db07265a758867bac95de05f7d8aeb39
-  languageName: node
-  linkType: hard
-
-"swr-store@npm:0.10.6":
-  version: 0.10.6
-  resolution: "swr-store@npm:0.10.6"
-  dependencies:
-    dequal: "npm:^2.0.3"
-  checksum: 10c0/4d26084ec1aa83ef2e1c27be39e75a7f1e8e5b222dd5e0003c31495ed1827443647460b9de21879bd125f686fedc28928d7a067f03d9dde9a9298289cc217540
   languageName: node
   linkType: hard
 
