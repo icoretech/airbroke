@@ -21,7 +21,7 @@
     "@airbrake/node": "2.1.8",
     "@headlessui/react": "1.7.19",
     "@next-auth/prisma-adapter": "1.0.7",
-    "@prisma/client": "5.16.0",
+    "@prisma/client": "5.16.1",
     "@tailwindcss/forms": "0.5.7",
     "ai": "3.2.11",
     "autoprefixer": "10.4.19",
@@ -66,7 +66,7 @@
     "npm-check-updates": "^16.14.20",
     "prettier": "3.3.2",
     "prettier-plugin-tailwindcss": "0.6.5",
-    "prisma": "5.16.0",
+    "prisma": "5.16.1",
     "tsx": "4.15.7"
   },
   "prisma": {
