@@ -25,7 +25,7 @@
     "@tailwindcss/forms": "0.5.7",
     "ai": "3.2.19",
     "autoprefixer": "10.4.19",
-    "chance": "1.1.11",
+    "chance": "1.1.12",
     "chart.js": "4.4.3",
     "nanoid": "5.0.7",
     "next": "14.2.3",
