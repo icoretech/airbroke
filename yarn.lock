@@ -2788,7 +2788,7 @@ __metadata:
     "@types/react-dom": "npm:18.3.0"
     ai: "npm:3.2.19"
     autoprefixer: "npm:10.4.19"
-    chance: "npm:1.1.11"
+    chance: "npm:1.1.12"
     chart.js: "npm:4.4.3"
     eslint: "npm:^8.56.0"
     eslint-config-next: "npm:14.2.3"
@@ -3544,10 +3544,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chance@npm:1.1.11":
-  version: 1.1.11
-  resolution: "chance@npm:1.1.11"
-  checksum: 10c0/d17cadeda91f16ab3b2459d39980712428cacf825e3262f923a2bd896ccf40ff6b97967c816d5152e9841af376bc1dbdc1acd9b792d5828b021753fbe334f086
+"chance@npm:1.1.12":
+  version: 1.1.12
+  resolution: "chance@npm:1.1.12"
+  checksum: 10c0/96686a72df9077852993476dc4a16ec7afb797bb26d74caf4a5c6f6786d73fcd3c821ededb88b23a5c7b8762718b5cc43ce07fdd1ea3f508826ba88b57c36329
   languageName: node
   linkType: hard
 
