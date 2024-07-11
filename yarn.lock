@@ -1865,6 +1865,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@opentelemetry/api@npm:1.9.0":
+  version: 1.9.0
+  resolution: "@opentelemetry/api@npm:1.9.0"
+  checksum: 10c0/9aae2fe6e8a3a3eeb6c1fdef78e1939cf05a0f37f8a4fae4d6bf2e09eb1e06f966ece85805626e01ba5fab48072b94f19b835449e58b6d26720ee19a58298add
+  languageName: node
+  linkType: hard
+
 "@panva/hkdf@npm:^1.0.2":
   version: 1.1.1
   resolution: "@panva/hkdf@npm:1.1.1"
@@ -2731,9 +2738,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:3.2.19":
-  version: 3.2.19
-  resolution: "ai@npm:3.2.19"
+"ai@npm:3.2.20":
+  version: 3.2.20
+  resolution: "ai@npm:3.2.20"
   dependencies:
     "@ai-sdk/provider": "npm:0.0.12"
     "@ai-sdk/provider-utils": "npm:1.0.2"
@@ -2742,6 +2749,7 @@ __metadata:
     "@ai-sdk/svelte": "npm:0.0.14"
     "@ai-sdk/ui-utils": "npm:0.0.11"
     "@ai-sdk/vue": "npm:0.0.13"
+    "@opentelemetry/api": "npm:1.9.0"
     eventsource-parser: "npm:1.1.2"
     json-schema: "npm:0.4.0"
     jsondiffpatch: "npm:0.6.0"
@@ -2763,7 +2771,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/870d6f3fff64723888801fb5472525b586312dbdbb099763df14d595f8d4eb66ede038caf879336c75c624eb2f25562c72762af7ad70393f2f29215eb4d9d58f
+  checksum: 10c0/27f376e7a316ac91a2e3a76ff77ecc7a57abbab689746e19dd478aa35127fef554011c69f2269edd54b371e65818ead96705943d047a9748bed81e44c1c4fbbf
   languageName: node
   linkType: hard
 
@@ -2786,7 +2794,7 @@ __metadata:
     "@types/numeral": "npm:2.0.5"
     "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:18.3.0"
-    ai: "npm:3.2.19"
+    ai: "npm:3.2.20"
     autoprefixer: "npm:10.4.19"
     chance: "npm:1.1.12"
     chart.js: "npm:4.4.3"
