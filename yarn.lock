@@ -72,9 +72,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/svelte@npm:0.0.25":
-  version: 0.0.25
-  resolution: "@ai-sdk/svelte@npm:0.0.25"
+"@ai-sdk/svelte@npm:0.0.26":
+  version: 0.0.26
+  resolution: "@ai-sdk/svelte@npm:0.0.26"
   dependencies:
     "@ai-sdk/provider-utils": "npm:1.0.5"
     "@ai-sdk/ui-utils": "npm:0.0.21"
@@ -84,7 +84,7 @@ __metadata:
   peerDependenciesMeta:
     svelte:
       optional: true
-  checksum: 10c0/56b2bf1b46ba8a3ab7a85f90b5a514f950f0694d65f40f7532a5fc71eaccc8db190b371a9e052085db6c854340495eb7a7ecfb5e8724f4e6b5cb8a3d65024bcf
+  checksum: 10c0/a1a635d8dcfbf8d1c546fe84bf446a582ff02b1a07f735a0e0d688c493e466e79ab6ee8b7dc97d09dc213ad3defe3ae62b5111fc0f20ebf24dcd900c0a4fa407
   languageName: node
   linkType: hard
 
@@ -2724,15 +2724,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:3.2.38":
-  version: 3.2.38
-  resolution: "ai@npm:3.2.38"
+"ai@npm:3.2.40":
+  version: 3.2.40
+  resolution: "ai@npm:3.2.40"
   dependencies:
     "@ai-sdk/provider": "npm:0.0.14"
     "@ai-sdk/provider-utils": "npm:1.0.5"
     "@ai-sdk/react": "npm:0.0.31"
     "@ai-sdk/solid": "npm:0.0.24"
-    "@ai-sdk/svelte": "npm:0.0.25"
+    "@ai-sdk/svelte": "npm:0.0.26"
     "@ai-sdk/ui-utils": "npm:0.0.21"
     "@ai-sdk/vue": "npm:0.0.25"
     "@opentelemetry/api": "npm:1.9.0"
@@ -2759,7 +2759,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/fe80efc60d4c36a56cbdd92d7383d14dc4570c6b05b8d022bf4c4716965a425cbc3a7eeb8ec9364ce8dd07349fc224208d37910ef2a7f6dc8dcb4b89857e6bcd
+  checksum: 10c0/eabc50e50c23c619e00f3376f1c7c0b4e4e2149c82f30cca151ed9ac5d266b3df6c0d04470a1d66caefd1241c1cd252ec46c6cc0f88f3abbd9322d5f4dcecf0a
   languageName: node
   linkType: hard
 
@@ -2782,7 +2782,7 @@ __metadata:
     "@types/numeral": "npm:2.0.5"
     "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:18.3.0"
-    ai: "npm:3.2.38"
+    ai: "npm:3.2.40"
     autoprefixer: "npm:10.4.19"
     chance: "npm:1.1.12"
     chart.js: "npm:4.4.3"
