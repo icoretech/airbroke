@@ -4,6 +4,7 @@ ARG DEBUG_TOOLS
 
 FROM --platform=$BUILDPLATFORM node:22.0-alpine AS builder
 ENV NEXT_TELEMETRY_DISABLED 1
+ENV CHECKPOINT_DISABLE 1
 
 WORKDIR /app
 
@@ -18,6 +19,7 @@ ARG DEBUG_TOOLS
 
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
+ENV CHECKPOINT_DISABLE 1
 
 # debug cache filesystem in a live env, to be removed
 # inotifywait -m -r -e create,modify,delete /app
