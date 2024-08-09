@@ -1,5 +1,32 @@
 # Changelog
 
+## [1.1.58](https://github.com/icoretech/airbroke/compare/v1.1.57...v1.1.58) (2024-08-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ai to v3.2.36 ([7fd4757](https://github.com/icoretech/airbroke/commit/7fd4757722a1931bd831e431b1cb89bc39961680))
+* **deps:** update dependency ai to v3.2.37 ([f642cc9](https://github.com/icoretech/airbroke/commit/f642cc975926a63b79a6e529e6173717959c2375))
+* **deps:** update dependency ai to v3.2.38 ([8a9700d](https://github.com/icoretech/airbroke/commit/8a9700d1ffc54a5cc62b53d220561c448b5edf19))
+* **deps:** update dependency ai to v3.2.40 ([454346a](https://github.com/icoretech/airbroke/commit/454346a341f0052cfbdd4df357123e5f6a886434))
+* **deps:** update dependency ai to v3.2.41 ([94e3781](https://github.com/icoretech/airbroke/commit/94e3781bb7782a160e26d5fcd7ec3de91dad82c9))
+* **deps:** update dependency ai to v3.2.45 ([f196fba](https://github.com/icoretech/airbroke/commit/f196fba3fba6ad6ef8bd12c54e71c66449dda8d5))
+* **deps:** update dependency ai to v3.3.0 ([2a8b716](https://github.com/icoretech/airbroke/commit/2a8b716b290fba72d038873a6c9b889db7ad8c54))
+* **deps:** update dependency ai to v3.3.2 ([b386c39](https://github.com/icoretech/airbroke/commit/b386c392b1cbffbeb4554912846414081e8178c1))
+* **deps:** update dependency ai to v3.3.3 ([#682](https://github.com/icoretech/airbroke/issues/682)) ([bc3f42f](https://github.com/icoretech/airbroke/commit/bc3f42f9bf40998073a9845a9c235b5fcd40fd8c))
+* **deps:** update dependency ai to v3.3.4 ([8b17213](https://github.com/icoretech/airbroke/commit/8b1721398a16dbb70639a9cbcf9587d5d149fbac))
+* **deps:** update dependency autoprefixer to v10.4.20 ([93bc308](https://github.com/icoretech/airbroke/commit/93bc308a384d9891f0a0938ab28c597ecc5a8c2e))
+* **deps:** update dependency openai to v4.53.1 ([8d69da3](https://github.com/icoretech/airbroke/commit/8d69da340c9cd5089f74350f90de0355cdd43b61))
+* **deps:** update dependency openai to v4.53.2 ([ed44e5e](https://github.com/icoretech/airbroke/commit/ed44e5e2a6577331393ffa7ba4a6fbd66da6ad6d))
+* **deps:** update dependency openai to v4.54.0 ([6db0cc9](https://github.com/icoretech/airbroke/commit/6db0cc95b4739d5ef81946b7101a0006d255ea14))
+* **deps:** update dependency openai to v4.55.0 ([e9962c5](https://github.com/icoretech/airbroke/commit/e9962c5a15940d26b5fdcb848d249eedf37ccf19))
+* **deps:** update dependency openai to v4.55.1 ([f2952bc](https://github.com/icoretech/airbroke/commit/f2952bc4693c34a136e03b62dc6ca84ce51d3169))
+* **deps:** update dependency openai to v4.55.3 ([#687](https://github.com/icoretech/airbroke/issues/687)) ([678a1c1](https://github.com/icoretech/airbroke/commit/678a1c1cdd8e80cca7fc9fe78238d152e276848e))
+* **deps:** update dependency postcss to v8.4.41 ([38bfa55](https://github.com/icoretech/airbroke/commit/38bfa554c7c1681ee816470f6261b3bef68ec4b2))
+* **deps:** update dependency tailwindcss to v3.4.7 ([a086dd4](https://github.com/icoretech/airbroke/commit/a086dd4740a2377e7724b39f08dfc64cc12ad473))
+* **deps:** update dependency tailwindcss to v3.4.9 ([17b571e](https://github.com/icoretech/airbroke/commit/17b571ef83c80f943bb6ad8fc0a80279edc0ecd5))
+* **deps:** update prisma monorepo to v5.18.0 ([4e43599](https://github.com/icoretech/airbroke/commit/4e435993d0e38a8ed6463faa46c6717421ceb299))
+
 ## [1.1.57](https://github.com/icoretech/airbroke/compare/v1.1.56...v1.1.57) (2024-07-25)
 
 
