@@ -94,7 +94,7 @@ export const authOptions: NextAuthOptions = {
   },
   debug: process.env.NEXTAUTH_DEBUG === 'true',
   providers: getProviders(),
-  adapter: PrismaAdapter(prisma),
+  // adapter: PrismaAdapter(prisma),
 
   callbacks: {
     async jwt({ token, account, user }) {
@@ -137,5 +137,17 @@ export const authOptions: NextAuthOptions = {
     brandColor: '#192231', // Hex color code
     logo: 'https://i.imgur.com/dPL9YEz.png', // Absolute URL to image
     buttonText: '', // Hex color code
+  },
+};
+
+// Next-auth passes through all options gotten from keycloak, excessive ones must be removed.
+const adapterOverwrite = PrismaAdapter(prisma);
+
+authOptions.adapter = {
+  ...adapterOverwrite,
+  linkAccount: (account) => {
+    delete account['not-before-policy'];
+    delete account['refresh_expires_in'];
+    return adapterOverwrite.linkAccount?.(account);
   },
 };
