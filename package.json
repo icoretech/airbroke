@@ -52,7 +52,7 @@
     "@next/bundle-analyzer": "14.2.3",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "6.4.8",
-    "@testing-library/react": "15.0.7",
+    "@testing-library/react": "16.0.0",
     "@types/chance": "1.1.6",
     "@types/node": "22.4.0",
     "@types/numeral": "2.0.5",
