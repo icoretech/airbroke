@@ -791,16 +791,70 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@headlessui/react@npm:1.7.19":
-  version: 1.7.19
-  resolution: "@headlessui/react@npm:1.7.19"
+"@floating-ui/core@npm:^1.6.0":
+  version: 1.6.7
+  resolution: "@floating-ui/core@npm:1.6.7"
   dependencies:
-    "@tanstack/react-virtual": "npm:^3.0.0-beta.60"
-    client-only: "npm:^0.0.1"
+    "@floating-ui/utils": "npm:^0.2.7"
+  checksum: 10c0/5c9ae274854f87ed09a61de758377d444c2b13ade7fd1067d74287b3e66de5340ae1281e48604b631c540855a2595cfc717adf9a2331eaadc4fa6d28e8571f64
+  languageName: node
+  linkType: hard
+
+"@floating-ui/dom@npm:^1.0.0":
+  version: 1.6.10
+  resolution: "@floating-ui/dom@npm:1.6.10"
+  dependencies:
+    "@floating-ui/core": "npm:^1.6.0"
+    "@floating-ui/utils": "npm:^0.2.7"
+  checksum: 10c0/ed7d7b400e00b2f31f1b8f11863af2cb95d0d3cd84635186ca31b41d8d9fe7fe12c85e4985617d7df7ed365abad48b327d0bae35934842007b4e1052d9780576
+  languageName: node
+  linkType: hard
+
+"@floating-ui/react-dom@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "@floating-ui/react-dom@npm:2.1.1"
+  dependencies:
+    "@floating-ui/dom": "npm:^1.0.0"
   peerDependencies:
-    react: ^16 || ^17 || ^18
-    react-dom: ^16 || ^17 || ^18
-  checksum: 10c0/c0ece0db6ca15092439177a5322de50b60fa5fd90354ae0f999b3e56abab0065ed54fa7b4b69994ec1bdc23adc6ae9919d7dd57f97922d0b9bb6515d27e3a7e5
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 10c0/732ab64600c511ceb0563b87bc557aa61789fec4f416a3f092bab89e508fa1d3ee5ade0f42051cc56eb5e4db867b87ab7fd48ce82db9fd4c01d94ffa08f60115
+  languageName: node
+  linkType: hard
+
+"@floating-ui/react@npm:^0.26.16":
+  version: 0.26.22
+  resolution: "@floating-ui/react@npm:0.26.22"
+  dependencies:
+    "@floating-ui/react-dom": "npm:^2.1.1"
+    "@floating-ui/utils": "npm:^0.2.7"
+    tabbable: "npm:^6.0.0"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 10c0/7eea7bef4fb98d13873752c5cabcf61216dbf00d748027450cdd0ff5c7a51328f8800fa012ecd87bef8e1abedcc7703d5298a604843ec031dc88a18233548623
+  languageName: node
+  linkType: hard
+
+"@floating-ui/utils@npm:^0.2.7":
+  version: 0.2.7
+  resolution: "@floating-ui/utils@npm:0.2.7"
+  checksum: 10c0/0559ea5df2dc82219bad26e3509e9d2b70f6987e552dc8ddf7d7f5923cfeb7c44bf884567125b1f9cdb122a4c7e6e7ddbc666740bc30b0e4091ccbca63c6fb1c
+  languageName: node
+  linkType: hard
+
+"@headlessui/react@npm:2.1.2":
+  version: 2.1.2
+  resolution: "@headlessui/react@npm:2.1.2"
+  dependencies:
+    "@floating-ui/react": "npm:^0.26.16"
+    "@react-aria/focus": "npm:^3.17.1"
+    "@react-aria/interactions": "npm:^3.21.3"
+    "@tanstack/react-virtual": "npm:^3.8.1"
+  peerDependencies:
+    react: ^18
+    react-dom: ^18
+  checksum: 10c0/40f356b43f3774ce0387f5ebdadd307496ea64e9dae7baaa5046a9b76cbbf6350e3d5dfd7b4f497b161e56a3e408671da724c521ecad6631a95421ce5b59db50
   languageName: node
   linkType: hard
 
@@ -1860,6 +1914,81 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-aria/focus@npm:^3.17.1":
+  version: 3.18.1
+  resolution: "@react-aria/focus@npm:3.18.1"
+  dependencies:
+    "@react-aria/interactions": "npm:^3.22.1"
+    "@react-aria/utils": "npm:^3.25.1"
+    "@react-types/shared": "npm:^3.24.1"
+    "@swc/helpers": "npm:^0.5.0"
+    clsx: "npm:^2.0.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/e52cac0c7b61f5e78fa4e7be7dc090fb5ff028549facaf58488712574042f73f1a0dc9f2f3b96ea2c239f581049bf3b4476aad292a7c9cda378c12d02327f1c6
+  languageName: node
+  linkType: hard
+
+"@react-aria/interactions@npm:^3.21.3, @react-aria/interactions@npm:^3.22.1":
+  version: 3.22.1
+  resolution: "@react-aria/interactions@npm:3.22.1"
+  dependencies:
+    "@react-aria/ssr": "npm:^3.9.5"
+    "@react-aria/utils": "npm:^3.25.1"
+    "@react-types/shared": "npm:^3.24.1"
+    "@swc/helpers": "npm:^0.5.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/d54d5398cd0e399b9752f57628b2c58c25add43c74fa785f849ffa187605a14bf0cc5754e1d8859af244cd3bb4478309fdea6e02653b5cbebfc7a66c8142e059
+  languageName: node
+  linkType: hard
+
+"@react-aria/ssr@npm:^3.9.5":
+  version: 3.9.5
+  resolution: "@react-aria/ssr@npm:3.9.5"
+  dependencies:
+    "@swc/helpers": "npm:^0.5.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/e28d3e366b77c77276bd74c8d906ccccc9a5f72c00e65c82c9f35584c3bb2467513429e87facc4e6ede756a2870dddb1645073a6b9afb00b3f28f20a1b0f2d36
+  languageName: node
+  linkType: hard
+
+"@react-aria/utils@npm:^3.25.1":
+  version: 3.25.1
+  resolution: "@react-aria/utils@npm:3.25.1"
+  dependencies:
+    "@react-aria/ssr": "npm:^3.9.5"
+    "@react-stately/utils": "npm:^3.10.2"
+    "@react-types/shared": "npm:^3.24.1"
+    "@swc/helpers": "npm:^0.5.0"
+    clsx: "npm:^2.0.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/a03638713ce7d4f415256cbd3643ef16f2cfd76839778a4ec3b232c6534bd1b4aa1ce02d77dddca57305a04a220dcf345da187e16ba4ae5b2081d73479bafb33
+  languageName: node
+  linkType: hard
+
+"@react-stately/utils@npm:^3.10.2":
+  version: 3.10.2
+  resolution: "@react-stately/utils@npm:3.10.2"
+  dependencies:
+    "@swc/helpers": "npm:^0.5.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/b7cefaeaab45e700916130fbef25480245068d10272e40a18133d5fc6a187f666a2e50bf0c21cb6774060b9b2313a2ff4b188982e759b31995b87a51432c6fe1
+  languageName: node
+  linkType: hard
+
+"@react-types/shared@npm:^3.24.1":
+  version: 3.24.1
+  resolution: "@react-types/shared@npm:3.24.1"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/34ef83cf5d945963208beb724d54468e5371fd7361024f6f42a29cdc6d4a9516aa4d82804cdecbcf01c16d82c96aacb511418d7c839e1ea4579b20411e565ed4
+  languageName: node
+  linkType: hard
+
 "@rushstack/eslint-patch@npm:^1.3.3":
   version: 1.10.4
   resolution: "@rushstack/eslint-patch@npm:1.10.4"
@@ -1909,6 +2038,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@swc/helpers@npm:^0.5.0":
+  version: 0.5.12
+  resolution: "@swc/helpers@npm:0.5.12"
+  dependencies:
+    tslib: "npm:^2.4.0"
+  checksum: 10c0/44693c0f34d772d63f3a6fb461964ec583055549a96df9790afec125b2ba06929a63cf9a165a9aaf22317779f460f8caafa94458b70d5cb2bc057b6ba9b5d02c
+  languageName: node
+  linkType: hard
+
 "@tailwindcss/forms@npm:0.5.7":
   version: 0.5.7
   resolution: "@tailwindcss/forms@npm:0.5.7"
@@ -1920,7 +2058,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-virtual@npm:^3.0.0-beta.60":
+"@tanstack/react-virtual@npm:^3.8.1":
   version: 3.9.0
   resolution: "@tanstack/react-virtual@npm:3.9.0"
   dependencies:
@@ -2540,7 +2678,7 @@ __metadata:
   dependencies:
     "@airbrake/browser": "npm:2.1.8"
     "@airbrake/node": "npm:2.1.8"
-    "@headlessui/react": "npm:1.7.19"
+    "@headlessui/react": "npm:2.1.2"
     "@jest/globals": "npm:29.7.0"
     "@next-auth/prisma-adapter": "npm:1.0.7"
     "@next/bundle-analyzer": "npm:14.2.3"
@@ -3270,6 +3408,13 @@ __metadata:
     strip-ansi: "npm:^6.0.1"
     wrap-ansi: "npm:^7.0.0"
   checksum: 10c0/4bda0f09c340cbb6dfdc1ed508b3ca080f12992c18d68c6be4d9cf51756033d5266e61ec57529e610dacbf4da1c634423b0c1b11037709cc6b09045cbd815df5
+  languageName: node
+  linkType: hard
+
+"clsx@npm:^2.0.0":
+  version: 2.1.1
+  resolution: "clsx@npm:2.1.1"
+  checksum: 10c0/c4c8eb865f8c82baab07e71bfa8897c73454881c4f99d6bc81585aecd7c441746c1399d08363dc096c550cceaf97bd4ce1e8854e1771e9998d9f94c4fe075839
   languageName: node
   linkType: hard
 
@@ -8574,6 +8719,13 @@ __metadata:
   version: 3.2.4
   resolution: "symbol-tree@npm:3.2.4"
   checksum: 10c0/dfbe201ae09ac6053d163578778c53aa860a784147ecf95705de0cd23f42c851e1be7889241495e95c37cabb058edb1052f141387bef68f705afc8f9dd358509
+  languageName: node
+  linkType: hard
+
+"tabbable@npm:^6.0.0":
+  version: 6.2.0
+  resolution: "tabbable@npm:6.2.0"
+  checksum: 10c0/ced8b38f05f2de62cd46836d77c2646c42b8c9713f5bd265daf0e78ff5ac73d3ba48a7ca45f348bafeef29b23da7187c72250742d37627883ef89cbd7fa76898
   languageName: node
   linkType: hard
 

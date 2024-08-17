@@ -2,16 +2,16 @@
 
 import { SidebarCloseButton } from '@/components/SidebarButtons';
 import { useSidebar } from '@/components/SidebarProvider';
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 import { Fragment } from 'react';
 
 export default function SidebarMobile({ children }: { children: React.ReactNode }) {
   const { sidebarOpen, setSidebarOpen } = useSidebar();
 
   return (
-    <Transition.Root show={sidebarOpen} as={Fragment}>
+    <Transition show={sidebarOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50 xl:hidden" onClose={() => setSidebarOpen(false)}>
-        <Transition.Child
+        <TransitionChild
           as={Fragment}
           enter="transition-opacity ease-in-out delay-50 duration-300"
           enterFrom="opacity-0"
@@ -21,10 +21,10 @@ export default function SidebarMobile({ children }: { children: React.ReactNode 
           leaveTo="opacity-0"
         >
           <div className="fixed inset-0 bg-gray-900/80" />
-        </Transition.Child>
+        </TransitionChild>
 
         <div className="fixed inset-0 flex">
-          <Transition.Child
+          <TransitionChild
             as={Fragment}
             enter="transition ease-in-out duration-300 transform"
             enterFrom="will-change-transform -translate-x-full"
@@ -33,8 +33,8 @@ export default function SidebarMobile({ children }: { children: React.ReactNode 
             leaveFrom="translate-x-0"
             leaveTo="-translate-x-full"
           >
-            <Dialog.Panel className="relative mr-16 flex w-full max-w-xs flex-1">
-              <Transition.Child
+            <DialogPanel className="relative mr-16 flex w-full max-w-xs flex-1">
+              <TransitionChild
                 as={Fragment}
                 enter="ease-in-out duration-300"
                 enterFrom="opacity-0"
@@ -46,12 +46,12 @@ export default function SidebarMobile({ children }: { children: React.ReactNode 
                 <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
                   <SidebarCloseButton />
                 </div>
-              </Transition.Child>
+              </TransitionChild>
               {children}
-            </Dialog.Panel>
-          </Transition.Child>
+            </DialogPanel>
+          </TransitionChild>
         </div>
       </Dialog>
-    </Transition.Root>
+    </Transition>
   );
 }

@@ -2,7 +2,7 @@
 
 import { toggleProjectPausedStatus } from '@/app/_actions';
 import classNames from '@/lib/classNames';
-import { Switch } from '@headlessui/react';
+import { Field, Label, Switch } from '@headlessui/react';
 import { useEffect, useState, useTransition } from 'react';
 
 export default function ToggleIntake({ projectId, isPaused }: { projectId: string; isPaused: boolean }) {
@@ -23,7 +23,7 @@ export default function ToggleIntake({ projectId, isPaused }: { projectId: strin
   }
 
   return (
-    <Switch.Group as="div" className="flex items-center">
+    <Field as="div" className="flex items-center">
       <Switch
         checked={enabled}
         onChange={handleToggle}
@@ -41,10 +41,10 @@ export default function ToggleIntake({ projectId, isPaused }: { projectId: strin
           )}
         />
       </Switch>
-      <Switch.Label as="span" className="ml-3 text-sm">
+      <Label as="span" className="ml-3 text-sm">
         <span className="font-medium text-gray-200">Accept Data</span>{' '}
         <span className="text-gray-400">({enabled ? 'Active' : 'Paused'})</span>
-      </Switch.Label>
-    </Switch.Group>
+      </Label>
+    </Field>
   );
 }
