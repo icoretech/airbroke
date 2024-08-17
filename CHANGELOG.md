@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.1.59](https://github.com/icoretech/airbroke/compare/v1.1.58...v1.1.59) (2024-08-17)
+
+
+### Features
+
+* **.env.dist:** update AIRBROKE_OPENAI_ENGINE to 'gpt-4o-latest' for the latest OpenAI engine version ([f1b22ad](https://github.com/icoretech/airbroke/commit/f1b22adb980bd728f6abad091f26b23b192d1012))
+* **package.json:** update ai package version to 3.3.9, openai package version to ^4.56.0, @types/node package version to 22.4.0, and npm-check-updates package version to ^17.0.6 ([f1b22ad](https://github.com/icoretech/airbroke/commit/f1b22adb980bd728f6abad091f26b23b192d1012))
+
+
+### Bug Fixes
+
+* **app/api/completion/route.ts:** update default model to 'gpt-4o-latest' in case AIRBROKE_OPENAI_ENGINE is not set ([f1b22ad](https://github.com/icoretech/airbroke/commit/f1b22adb980bd728f6abad091f26b23b192d1012))
+* **deps:** update dependency ai to v3.3.5 ([a03da3d](https://github.com/icoretech/airbroke/commit/a03da3db81ebb51832fbdff63a64cbf28d7a4803))
+* **deps:** update dependency ai to v3.3.6 ([ba8049d](https://github.com/icoretech/airbroke/commit/ba8049d05416ba4f4610303b959d895c817eacab))
+* **deps:** update dependency openai to v4.55.4 ([e75108e](https://github.com/icoretech/airbroke/commit/e75108e98abb0276da8920a6b3facedcaf7b9dd7))
+* **deps:** update dependency openai to v4.55.5 ([d3f8549](https://github.com/icoretech/airbroke/commit/d3f85496b37996cc17513dfce6c0094ec1d7014d))
+* **generate-release.yml:** update release-please-action dependency to googleapis to fix broken workflow step ([994575d](https://github.com/icoretech/airbroke/commit/994575d5f48ec5bbc362c3419d0f7e8627566f05))
+* **package.json:** update sharp package to version 0.33.5 for bug fixes ([48d3ba4](https://github.com/icoretech/airbroke/commit/48d3ba4a028035810dda94b6b486bdccf6f099ec))
+* **package.json:** update tailwindcss package to version 3.4.10 for the latest features and improvements ([48d3ba4](https://github.com/icoretech/airbroke/commit/48d3ba4a028035810dda94b6b486bdccf6f099ec))
+
 ## [1.1.58](https://github.com/icoretech/airbroke/compare/v1.1.57...v1.1.58) (2024-08-09)
 
 
