@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.1.61](https://github.com/icoretech/airbroke/compare/v1.1.60...v1.1.61) (2024-08-17)
+
+
+### Features
+
+* **ActionsMenu.tsx:** add MenuButton, MenuItem, MenuItems components for improved UI functionality ([5b5ed8e](https://github.com/icoretech/airbroke/commit/5b5ed8ee3393345b93e939f0bd248e480dfa4a50))
+* **ConfirmationDialog.tsx:** add DialogPanel, DialogTitle, TransitionChild components from @headlessui/react for improved accessibility and functionality ([5b5ed8e](https://github.com/icoretech/airbroke/commit/5b5ed8ee3393345b93e939f0bd248e480dfa4a50))
+* **Filter.tsx:** add MenuButton, MenuItem, MenuItems components from @headlessui/react for improved accessibility and functionality ([5b5ed8e](https://github.com/icoretech/airbroke/commit/5b5ed8ee3393345b93e939f0bd248e480dfa4a50))
+* **package.json:** update "@headlessui/react" dependency to version 2.1.2 for compatibility and new features ([5b5ed8e](https://github.com/icoretech/airbroke/commit/5b5ed8ee3393345b93e939f0bd248e480dfa4a50))
+* **SidebarMobile.tsx:** add DialogPanel, TransitionChild components from @headlessui/react for improved accessibility and functionality ([5b5ed8e](https://github.com/icoretech/airbroke/commit/5b5ed8ee3393345b93e939f0bd248e480dfa4a50))
+* **Sort.tsx:** add MenuButton, MenuItem, MenuItems components from @headlessui/react for improved accessibility and functionality ([5b5ed8e](https://github.com/icoretech/airbroke/commit/5b5ed8ee3393345b93e939f0bd248e480dfa4a50))
+* **ToggleIntake.tsx:** add Field, Label components for improved UI functionality ([5b5ed8e](https://github.com/icoretech/airbroke/commit/5b5ed8ee3393345b93e939f0bd248e480dfa4a50))
+
+
+### Bug Fixes
+
+* **package.json:** update eslint and eslint-config-next to versions 8.57.0 and 14.2.5 respectively to stay up to date with latest changes and improvements ([5714315](https://github.com/icoretech/airbroke/commit/57143157f5bb1ec6df0f5f10d4e2c3b9568f355c))
+* **package.json:** update next and next/bundle-analyzer dependencies to versions 14.2.5 to fix known issues and ensure compatibility ([5714315](https://github.com/icoretech/airbroke/commit/57143157f5bb1ec6df0f5f10d4e2c3b9568f355c))
+* **package.json:** update version of "@testing-library/react" to "16.0.0" to match the required version for compatibility with other dependencies ([cb7a2c0](https://github.com/icoretech/airbroke/commit/cb7a2c0db0ef394392edb7a7ecf6b6262ddbc1ed))
+
 ## [1.1.60](https://github.com/icoretech/airbroke/compare/v1.1.59...v1.1.60) (2024-08-17)
 
 
