@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.60](https://github.com/icoretech/airbroke/compare/v1.1.59...v1.1.60) (2024-08-17)
+
+
+### Bug Fixes
+
+* **.env.dist:** update AIRBROKE_OPENAI_ENGINE value to 'gpt-4o' for consistency ([8a76fee](https://github.com/icoretech/airbroke/commit/8a76fee2757af36a3655626b04b497fa2c17432c))
+* **route.ts:** update default model value to 'gpt-4o' to match the .env configuration and ensure consistency ([8a76fee](https://github.com/icoretech/airbroke/commit/8a76fee2757af36a3655626b04b497fa2c17432c))
+
 ## [1.1.59](https://github.com/icoretech/airbroke/compare/v1.1.58...v1.1.59) (2024-08-17)
 
 
