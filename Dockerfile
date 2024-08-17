@@ -3,8 +3,8 @@
 ARG DEBUG_TOOLS
 
 FROM --platform=$BUILDPLATFORM node:22.0-alpine AS builder
-ENV NEXT_TELEMETRY_DISABLED 1
-ENV CHECKPOINT_DISABLE 1
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV CHECKPOINT_DISABLE=1
 
 WORKDIR /app
 
@@ -17,9 +17,9 @@ RUN yarn build
 FROM --platform=$BUILDPLATFORM node:22.0-alpine AS runner
 ARG DEBUG_TOOLS
 
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
-ENV CHECKPOINT_DISABLE 1
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV CHECKPOINT_DISABLE=1
 
 # debug cache filesystem in a live env, to be removed
 # inotifywait -m -r -e create,modify,delete /app
@@ -38,6 +38,6 @@ USER nextjs
 
 EXPOSE 3000
 
-ENV PORT 3000
+ENV PORT=3000
 
 CMD ["node", "server.js"]
