@@ -38,9 +38,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/react@npm:0.0.53":
-  version: 0.0.53
-  resolution: "@ai-sdk/react@npm:0.0.53"
+"@ai-sdk/react@npm:0.0.54":
+  version: 0.0.54
+  resolution: "@ai-sdk/react@npm:0.0.54"
   dependencies:
     "@ai-sdk/provider-utils": "npm:1.0.17"
     "@ai-sdk/ui-utils": "npm:0.0.40"
@@ -53,7 +53,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/54d9c4701a1a841f841a7e62f73f540e340e6738edc29ed143a73424a8c1f2a0e25c44402f5814daaaab830b0aee57bbdec6a90ef66eca14cba144be969fbdff
+  checksum: 10c0/afb9fdb835d2d6c22872adcfed66ea9f6892d130d622680e635dce9f8df5f127edf348f0a5f90666124d4dbaff6fffc3df31fafa0f4f241bbc5c6432d9bcdf84
   languageName: node
   linkType: hard
 
@@ -2660,13 +2660,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:3.3.25":
-  version: 3.3.25
-  resolution: "ai@npm:3.3.25"
+"ai@npm:3.3.26":
+  version: 3.3.26
+  resolution: "ai@npm:3.3.26"
   dependencies:
     "@ai-sdk/provider": "npm:0.0.22"
     "@ai-sdk/provider-utils": "npm:1.0.17"
-    "@ai-sdk/react": "npm:0.0.53"
+    "@ai-sdk/react": "npm:0.0.54"
     "@ai-sdk/solid": "npm:0.0.43"
     "@ai-sdk/svelte": "npm:0.0.45"
     "@ai-sdk/ui-utils": "npm:0.0.40"
@@ -2695,7 +2695,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/73969e61aabc21d36170df3b2baac57f8b26838282808e912ccb9b3ed309ddb098ed6dcb1d24a6f4de899c3a0645fffb93dea1ef5523a8b79e8514ffcebc5435
+  checksum: 10c0/30309676522adf8ede3ecc49608c69a624bebc87c2dbe022a17ef7fe7e4a29e7566b4aebb937d31e8e23abe1b0ad91ae91350887cdabff845bb8b91937aec021
   languageName: node
   linkType: hard
 
@@ -2719,7 +2719,7 @@ __metadata:
     "@types/numeral": "npm:2.0.5"
     "@types/react": "npm:18.3.5"
     "@types/react-dom": "npm:^18.3.0"
-    ai: "npm:3.3.25"
+    ai: "npm:3.3.26"
     autoprefixer: "npm:10.4.20"
     chance: "npm:1.1.12"
     chart.js: "npm:4.4.4"
