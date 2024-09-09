@@ -843,9 +843,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@headlessui/react@npm:2.1.5":
-  version: 2.1.5
-  resolution: "@headlessui/react@npm:2.1.5"
+"@headlessui/react@npm:2.1.6":
+  version: 2.1.6
+  resolution: "@headlessui/react@npm:2.1.6"
   dependencies:
     "@floating-ui/react": "npm:^0.26.16"
     "@react-aria/focus": "npm:^3.17.1"
@@ -854,7 +854,7 @@ __metadata:
   peerDependencies:
     react: ^18
     react-dom: ^18
-  checksum: 10c0/3ab5c4af37f3250a1cc35d7c0ea7cc8f42a1ad6fea05df53ea92358dd310e21b836681f8b6020c838d7180213dc1cbebc33eff167d1c2dcad4ecc152cd16f3da
+  checksum: 10c0/74b393957ece1f51c4f6efa7a7a8b2da52a63e92ad234a14f3e2f6eb1441227d3f07510149024b5a2d8eb3211cd75e6ff34428184790a2a54551adc6831bf2a6
   languageName: node
   linkType: hard
 
@@ -2705,7 +2705,7 @@ __metadata:
   dependencies:
     "@airbrake/browser": "npm:2.1.8"
     "@airbrake/node": "npm:2.1.8"
-    "@headlessui/react": "npm:2.1.5"
+    "@headlessui/react": "npm:2.1.6"
     "@jest/globals": "npm:29.7.0"
     "@next-auth/prisma-adapter": "npm:1.0.7"
     "@next/bundle-analyzer": "npm:14.2.5"
