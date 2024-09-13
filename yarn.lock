@@ -7303,8 +7303,8 @@ __metadata:
   linkType: hard
 
 "openai@npm:^4.56.0":
-  version: 4.60.0
-  resolution: "openai@npm:4.60.0"
+  version: 4.61.0
+  resolution: "openai@npm:4.61.0"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -7322,7 +7322,7 @@ __metadata:
       optional: true
   bin:
     openai: bin/cli
-  checksum: 10c0/60f13ddea1466dbbb3e971e5f4ca1ce31de285b743910c5605d48df4dd35975f93c7450168ce2e32ca70ec508b93faaff1a29d9c7abd07a12cce7d28cde71a2a
+  checksum: 10c0/cc2edda37d9062367fb96bbce95926774677ca97eee30d18414d7659f5b09c63e089763163638e196cc102dcdf78e6e0624e16ab2bbc88a2aee3d9942275d8a7
   languageName: node
   linkType: hard
 
