@@ -2660,9 +2660,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:3.3.37":
-  version: 3.3.37
-  resolution: "ai@npm:3.3.37"
+"ai@npm:3.3.39":
+  version: 3.3.39
+  resolution: "ai@npm:3.3.39"
   dependencies:
     "@ai-sdk/provider": "npm:0.0.23"
     "@ai-sdk/provider-utils": "npm:1.0.19"
@@ -2695,7 +2695,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/3449daaaa37bd38f9efa609fe7ef7530c2053bb770a0764f77b2af8e75b018e23a53e24b471f2475aee142e153e4080255d242502f016f41da8c8827522e43c5
+  checksum: 10c0/af2da2752a8716976bc76fb5fe940a6d820e809452e309296314dfd21150ae1220035dcdc9ed013cf931db4ae7aacaa783c0e38462e05fffa1a2d03e84f3f613
   languageName: node
   linkType: hard
 
@@ -2719,7 +2719,7 @@ __metadata:
     "@types/numeral": "npm:2.0.5"
     "@types/react": "npm:18.3.6"
     "@types/react-dom": "npm:^18.3.0"
-    ai: "npm:3.3.37"
+    ai: "npm:3.3.39"
     autoprefixer: "npm:10.4.20"
     chance: "npm:1.1.12"
     chart.js: "npm:4.4.4"
