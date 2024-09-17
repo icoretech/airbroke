@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.63](https://github.com/icoretech/airbroke/compare/v1.1.62...v1.1.63) (2024-09-17)
+
+
+### Features
+
+* **route.ts:** refactor OpenAI integration to use @ai-sdk/openai for improved functionality and maintainability ([41fc5d5](https://github.com/icoretech/airbroke/commit/41fc5d5fb25ec7b89e54e792c7b12c50b0ce9359))
+
 ## [1.1.62](https://github.com/icoretech/airbroke/compare/v1.1.61...v1.1.62) (2024-09-17)
 
 
