@@ -1,3 +1,4 @@
+// app/api/v3/notices/route.ts
 import prisma from '@/lib/db';
 import parseNotice, { NoticeData } from '@/lib/parseNotice';
 import { processError } from '@/lib/processError';

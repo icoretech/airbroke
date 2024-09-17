@@ -1,3 +1,4 @@
+// lib/parseNotice.ts
 interface NoticeTrace {
   file: string;
   line: number;
@@ -19,6 +20,8 @@ export interface NoticeData {
 }
 
 export default function parseNotice(noticeData: NoticeData): NoticeData {
+  console.log('Received noticeData:', JSON.stringify(noticeData, null, 2));
+
   const whitelistedNotice: NoticeData = {
     errors: [],
     context: noticeData.context || {},
@@ -30,8 +33,8 @@ export default function parseNotice(noticeData: NoticeData): NoticeData {
   if (Array.isArray(noticeData.errors)) {
     noticeData.errors.forEach((error) => {
       const whitelistedError: NoticeError = {
-        type: error.type,
-        message: error.message,
+        type: error.type || 'UnknownError',
+        message: error.message || 'No message provided',
         backtrace: [],
       };
 
