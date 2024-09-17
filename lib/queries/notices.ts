@@ -1,3 +1,4 @@
+// lib/queries/notices.ts
 import { customCache } from '@/lib/cache';
 import prisma from '@/lib/db';
 import type { Project } from '@prisma/client';
@@ -43,6 +44,16 @@ export async function getNotices(projectId: string, params: NoticeSearchParams, 
   );
 
   return cachedData;
+}
+
+// Function to get the count of notices for a project
+export async function getNoticesCountByProjectId(projectId: string): Promise<number> {
+  const count = await prisma.notice.count({
+    where: {
+      project_id: projectId,
+    },
+  });
+  return count;
 }
 
 // Function to fetch a single notice by ID

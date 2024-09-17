@@ -1,7 +1,8 @@
+// components/project/OccurrencesChartWrapper.tsx
 import OccurrenceChart from '@/components/OccurrenceChart';
 import prisma from '@/lib/db';
 
-export default async function OccurrencesChartWrapper({ occurrenceIds }: { occurrenceIds: string[] }) {
+export default async function OccurrencesChartWrapper({ projectId }: { projectId: string }) {
   // Calculate the start and end date for the past two weeks
   const endDate = new Date();
   const startDate = new Date();
@@ -11,14 +12,16 @@ export default async function OccurrencesChartWrapper({ occurrenceIds }: { occur
   const occurrenceSummaries = await prisma.hourlyOccurrence.groupBy({
     by: ['interval_start'],
     where: {
-      occurrence_id: {
-        in: occurrenceIds,
+      occurrence: {
+        notice: {
+          project_id: projectId,
+        },
       },
       interval_start: {
-        gte: startDate.toISOString(),
+        gte: startDate,
       },
       interval_end: {
-        lte: endDate.toISOString(),
+        lte: endDate,
       },
     },
     _sum: {

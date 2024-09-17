@@ -1,6 +1,7 @@
+// components/project/Overview.tsx
 import NoData from '@/components/NoData';
-import { getNoticeIdsByProjectId } from '@/lib/queries/notices';
-import { getHourlyOccurrenceRateForLast14Days, getOccurrenceIdsByNoticeIds } from '@/lib/queries/occurrences';
+import { getNoticesCountByProjectId } from '@/lib/queries/notices';
+import { getHourlyOccurrenceRateForLast14Days, getOccurrencesCountByProjectId } from '@/lib/queries/occurrences';
 import { getProjectById } from '@/lib/queries/projects';
 import OccurrencesChartWrapper from './OccurrencesChartWrapper';
 import DangerZone from './cards/DangerZone';
@@ -14,13 +15,13 @@ export default async function Overview({ projectId }: OverviewProps) {
   if (!project) {
     throw new Error('Project not found');
   }
-  const noticeIds = await getNoticeIdsByProjectId(project.id);
-  const occurrenceIds = await getOccurrenceIdsByNoticeIds(noticeIds);
+  const noticesCount = await getNoticesCountByProjectId(project.id);
+  const occurrencesCount = await getOccurrencesCountByProjectId(project.id);
   const hourlyOccurrenceRateForLast14Days = await getHourlyOccurrenceRateForLast14Days(project.id);
 
   const stats = [
-    { name: 'Notices', value: noticeIds.length },
-    { name: 'Occurrences', value: occurrenceIds.length },
+    { name: 'Notices', value: noticesCount },
+    { name: 'Occurrences', value: occurrencesCount },
     { name: 'Incoming Rate', value: hourlyOccurrenceRateForLast14Days, unit: '/ hour' },
   ];
 
@@ -103,7 +104,7 @@ export default async function Overview({ projectId }: OverviewProps) {
       </div>
 
       <div className="mt-6 rounded-lg bg-gray-900 p-6">
-        <OccurrencesChartWrapper occurrenceIds={occurrenceIds} />
+        <OccurrencesChartWrapper projectId={project.id} />
       </div>
     </div>
   );

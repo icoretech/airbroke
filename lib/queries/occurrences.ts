@@ -1,3 +1,4 @@
+// lib/queries/occurrences.ts
 import { customCache } from '@/lib/cache';
 import prisma from '@/lib/db';
 import type { Notice, Occurrence, Project } from '@prisma/client';
@@ -53,6 +54,18 @@ export async function getOccurrences(
   return cachedData;
 }
 
+// Function to get the count of occurrences for a project
+export async function getOccurrencesCountByProjectId(projectId: string): Promise<number> {
+  const count = await prisma.occurrence.count({
+    where: {
+      notice: {
+        project_id: projectId,
+      },
+    },
+  });
+  return count;
+}
+
 // Function to fetch a single occurrence by ID
 export async function getOccurrenceById(occurrenceId: string): Promise<OccurrenceWithNoticeAndProject | null> {
   const cachedData = await customCache(() => _fetchOccurrenceById(occurrenceId), ['occurrence', occurrenceId], {
@@ -82,25 +95,17 @@ export async function getHourlyOccurrenceRateForLast14Days(projectId: string): P
       count: true,
     },
     where: {
-      AND: [
-        {
-          occurrence: {
-            notice: {
-              project_id: projectId,
-            },
-          },
+      occurrence: {
+        notice: {
+          project_id: projectId,
         },
-        {
-          interval_start: {
-            gte: startDate,
-          },
-        },
-        {
-          interval_end: {
-            lte: endDate,
-          },
-        },
-      ],
+      },
+      interval_start: {
+        gte: startDate,
+      },
+      interval_end: {
+        lte: endDate,
+      },
     },
   });
 
