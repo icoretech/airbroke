@@ -20,7 +20,7 @@ export interface NoticeData {
 }
 
 export default function parseNotice(noticeData: NoticeData): NoticeData {
-  console.log('Received noticeData:', JSON.stringify(noticeData, null, 2));
+  // console.log('Received noticeData:', JSON.stringify(noticeData, null, 2));
 
   const whitelistedNotice: NoticeData = {
     errors: [],
