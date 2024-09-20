@@ -118,9 +118,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/vue@npm:0.0.50":
-  version: 0.0.50
-  resolution: "@ai-sdk/vue@npm:0.0.50"
+"@ai-sdk/vue@npm:0.0.51":
+  version: 0.0.51
+  resolution: "@ai-sdk/vue@npm:0.0.51"
   dependencies:
     "@ai-sdk/provider-utils": "npm:1.0.19"
     "@ai-sdk/ui-utils": "npm:0.0.44"
@@ -130,7 +130,7 @@ __metadata:
   peerDependenciesMeta:
     vue:
       optional: true
-  checksum: 10c0/44bd0f9b77d4b10f3be6e0788086bbc3c28474726e1a08b11513c5fa73b9bf9c8fe45148626f2daf597d1d8fb4a08f302ddecd2b4ac8aad1ecdb1cda56f8caa2
+  checksum: 10c0/5752e69dff4bcb6b1a696d56229c649e9e6aeef792927f3980a16a90a9921a9d330c81d152618957e5e652d6ea4e36265b5d5dc2763cdc7fce03463b0142b6b5
   languageName: node
   linkType: hard
 
@@ -2629,8 +2629,8 @@ __metadata:
   linkType: hard
 
 "ai@npm:^3.3.40":
-  version: 3.3.43
-  resolution: "ai@npm:3.3.43"
+  version: 3.3.44
+  resolution: "ai@npm:3.3.44"
   dependencies:
     "@ai-sdk/provider": "npm:0.0.23"
     "@ai-sdk/provider-utils": "npm:1.0.19"
@@ -2638,7 +2638,7 @@ __metadata:
     "@ai-sdk/solid": "npm:0.0.47"
     "@ai-sdk/svelte": "npm:0.0.49"
     "@ai-sdk/ui-utils": "npm:0.0.44"
-    "@ai-sdk/vue": "npm:0.0.50"
+    "@ai-sdk/vue": "npm:0.0.51"
     "@opentelemetry/api": "npm:1.9.0"
     eventsource-parser: "npm:1.1.2"
     json-schema: "npm:0.4.0"
@@ -2663,7 +2663,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/8b9f422b4615f68a584d2c7c1209ff4507c92324c11bd90067a07eaf3c5f4953a93484009c23dbaab3106f4468bc468ceed6f1db4cf9d7fdeed80c5b4b2e18ba
+  checksum: 10c0/74afda6dcaaf66827e709185d4f1be28241ae3f2d84d41faf6e89c3bd163acbdf709e9260dc9f16fd3dd9a765acc72e825a3005de7614ca1f08096107f9a9b02
   languageName: node
   linkType: hard
 
