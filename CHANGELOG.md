@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.1.64](https://github.com/icoretech/airbroke/compare/v1.1.63...v1.1.64) (2024-09-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/openai to ^0.0.61 ([dd9b127](https://github.com/icoretech/airbroke/commit/dd9b1276cf8252d8b2b29d81ec4013c0e3cbabbb))
+* **deps:** update dependency @ai-sdk/openai to ^0.0.62 ([35df5ea](https://github.com/icoretech/airbroke/commit/35df5ea4c7265e5e5c3c34ea6318e6ef56a4694b))
+* **deps:** update dependency ai to v3.3.41 ([1b6c649](https://github.com/icoretech/airbroke/commit/1b6c6497fc03f990d184c7c5a0b3ea51cc47da26))
+* **deps:** update dependency ai to v3.3.43 ([0f13b44](https://github.com/icoretech/airbroke/commit/0f13b4446f1c4d4ab8acaec9971bdaa14b41becd))
+* **deps:** update dependency ai to v3.3.44 ([67306b6](https://github.com/icoretech/airbroke/commit/67306b6990c042e75f99a66dac9c6f9664e0c876))
+* **deps:** update dependency ai to v3.4.0 ([2f49509](https://github.com/icoretech/airbroke/commit/2f49509928a6ffde997202e59ef8c3ecf4526566))
+* **deps:** update dependency ai to v3.4.1 ([3f03802](https://github.com/icoretech/airbroke/commit/3f03802042bbac62a7f2664d64284cf85116fc82))
+* **deps:** update dependency ai to v3.4.2 ([87dc501](https://github.com/icoretech/airbroke/commit/87dc5011ebc4f0caece976e55f8c18731c22bd2d))
+* **deps:** update dependency ai to v3.4.3 ([b41a8ee](https://github.com/icoretech/airbroke/commit/b41a8ee3a944763682c350db51dac1551a17a8e1))
+* **deps:** update dependency ai to v3.4.4 ([e5de339](https://github.com/icoretech/airbroke/commit/e5de339a9b5e74226fc1408184ff1075963361a3))
+* **deps:** update dependency tailwindcss to v3.4.12 ([9b755d7](https://github.com/icoretech/airbroke/commit/9b755d7455e913f7fd527061c0fa4fffdf3987c3))
+* **deps:** update dependency tailwindcss to v3.4.13 ([7293ee6](https://github.com/icoretech/airbroke/commit/7293ee6fa9d43b9a0303e4e8473363d9b9803890))
+* **deps:** update prisma monorepo to v5.20.0 ([62d5c8f](https://github.com/icoretech/airbroke/commit/62d5c8f44b0bef678e33bd6b7e421c1ceffdc6aa))
+
 ## [1.1.63](https://github.com/icoretech/airbroke/compare/v1.1.62...v1.1.63) (2024-09-17)
 
 
