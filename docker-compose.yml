@@ -2,7 +2,7 @@ name: airbroke
 
 services:
   db:
-    image: postgres:16-alpine
+    image: postgres:17-alpine
     command: postgres -c 'max_connections=23' -c 'shared_buffers=128MB'
     environment:
       - POSTGRES_PASSWORD=airbroke
