@@ -2629,8 +2629,8 @@ __metadata:
   linkType: hard
 
 "ai@npm:^3.3.40":
-  version: 3.4.8
-  resolution: "ai@npm:3.4.8"
+  version: 3.4.9
+  resolution: "ai@npm:3.4.9"
   dependencies:
     "@ai-sdk/provider": "npm:0.0.24"
     "@ai-sdk/provider-utils": "npm:1.0.20"
@@ -2663,7 +2663,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/963df27cb7646410fed244be6f7dfadb275da4b0385ae007a6258bf069d80a48fd9cdac06ef280b8d1ff851988c91b48b1dac1c6f330c0609542296908a22daf
+  checksum: 10c0/b7a0f8add6ebea6ec3e96c64a8717f09ed5b4904e82d3d717d7c0a0b37c52a6636f8a6e8f117f9cddf35eed3c2fd3b5cded9ee1b05d3a7d1ba3a0f3cef6273bc
   languageName: node
   linkType: hard
 
