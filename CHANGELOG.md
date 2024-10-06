@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.65](https://github.com/icoretech/airbroke/compare/v1.1.64...v1.1.65) (2024-10-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/openai to ^0.0.63 ([eb8d392](https://github.com/icoretech/airbroke/commit/eb8d392097e7e9e8202bb17d727f306527560f4b))
+* **deps:** update dependency @ai-sdk/openai to ^0.0.64 ([c2688e2](https://github.com/icoretech/airbroke/commit/c2688e2ef3ef5c4f5f31a316f5d6628640e28667))
+* **deps:** update dependency @ai-sdk/openai to ^0.0.65 ([61d4984](https://github.com/icoretech/airbroke/commit/61d4984e5ad5b2fefbe81f569b22c0a4d91d8d3d))
+* **deps:** update dependency @ai-sdk/openai to ^0.0.66 ([78a849b](https://github.com/icoretech/airbroke/commit/78a849b73fca2d91b69c7e99088227d618dc1bdc))
+* **deps:** update dependency @headlessui/react to v2.1.9 ([4e319ac](https://github.com/icoretech/airbroke/commit/4e319accc7db972000e785aa0d16c9fed6df30d0))
+* **deps:** update dependency ai to v3.4.7 ([b8467fd](https://github.com/icoretech/airbroke/commit/b8467fddfd0afc12e682980e5325604875774943))
+* **deps:** update dependency ai to v3.4.8 ([20c0103](https://github.com/icoretech/airbroke/commit/20c010369a5f7c9712570b7368aa6a146a5e9f77))
+* **deps:** update dependency ai to v3.4.9 ([d8e9f8c](https://github.com/icoretech/airbroke/commit/d8e9f8cdbde779c9a8cf28646424cf37f6d022eb))
+
 ## [1.1.64](https://github.com/icoretech/airbroke/compare/v1.1.63...v1.1.64) (2024-09-26)
 
 
