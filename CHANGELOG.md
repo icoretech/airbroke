@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.66](https://github.com/icoretech/airbroke/compare/v1.1.65...v1.1.66) (2024-10-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency typescript to v5.6.3 ([320f4db](https://github.com/icoretech/airbroke/commit/320f4db652891069287a033bc7054debfe88636e))
+
 ## [1.1.65](https://github.com/icoretech/airbroke/compare/v1.1.64...v1.1.65) (2024-10-04)
 
 
