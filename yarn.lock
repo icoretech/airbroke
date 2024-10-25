@@ -12,32 +12,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/openai@npm:^0.0.68":
-  version: 0.0.68
-  resolution: "@ai-sdk/openai@npm:0.0.68"
+"@ai-sdk/openai@npm:^0.0.70":
+  version: 0.0.70
+  resolution: "@ai-sdk/openai@npm:0.0.70"
   dependencies:
-    "@ai-sdk/provider": "npm:0.0.24"
-    "@ai-sdk/provider-utils": "npm:1.0.20"
+    "@ai-sdk/provider": "npm:0.0.26"
+    "@ai-sdk/provider-utils": "npm:1.0.22"
   peerDependencies:
     zod: ^3.0.0
-  checksum: 10c0/53c4c22b6a414df595c054004d4bae818cda9224ca50ef344e98ba20628f4affe78dd5954d43e252fe7ce4fd6c4263f4d1368172990887742f3a05346d54a5d9
-  languageName: node
-  linkType: hard
-
-"@ai-sdk/provider-utils@npm:1.0.20":
-  version: 1.0.20
-  resolution: "@ai-sdk/provider-utils@npm:1.0.20"
-  dependencies:
-    "@ai-sdk/provider": "npm:0.0.24"
-    eventsource-parser: "npm:1.1.2"
-    nanoid: "npm:3.3.6"
-    secure-json-parse: "npm:2.7.0"
-  peerDependencies:
-    zod: ^3.0.0
-  peerDependenciesMeta:
-    zod:
-      optional: true
-  checksum: 10c0/40b3a9f3188904ba4e56d857d9bf7297ac2787bf92e2af26d95e435dc04cee6a12d82af71a04e1e2bea15e5b3cf7ddffc33323d2e06c372de0d853624f60f6fb
+  checksum: 10c0/db8c54b6a9adb206dc5bd7ce40968d4b21fbb9eb597e5103cca94e2c347e9cc3c3af4f5851f36a4136014cc88b4564dea48ec723391af0311f446b97cff39e50
   languageName: node
   linkType: hard
 
@@ -55,15 +38,6 @@ __metadata:
     zod:
       optional: true
   checksum: 10c0/7681fbc0839dfa3bf9232d48cfca824fa4ea82334af452ff6a053a51f2f097cb6bd3babca3323b488e02adacecee13b634c6723fe41a182555e82ddee18c93e6
-  languageName: node
-  linkType: hard
-
-"@ai-sdk/provider@npm:0.0.24":
-  version: 0.0.24
-  resolution: "@ai-sdk/provider@npm:0.0.24"
-  dependencies:
-    json-schema: "npm:0.4.0"
-  checksum: 10c0/6e550c33ce6375636897b24ad8dfb2a605ff91d92aabd3c7aba2049f3d943c3a5534a1441e9ae4d7ef35c864687dc41c15704d19f11dcc6624fa1e705255c103
   languageName: node
   linkType: hard
 
@@ -2696,7 +2670,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "airbroke@workspace:."
   dependencies:
-    "@ai-sdk/openai": "npm:^0.0.68"
+    "@ai-sdk/openai": "npm:^0.0.70"
     "@airbrake/browser": "npm:2.1.8"
     "@airbrake/node": "npm:2.1.8"
     "@headlessui/react": "npm:2.2.0"
@@ -6320,7 +6294,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json-schema@npm:0.4.0, json-schema@npm:^0.4.0":
+"json-schema@npm:^0.4.0":
   version: 0.4.0
   resolution: "json-schema@npm:0.4.0"
   checksum: 10c0/d4a637ec1d83544857c1c163232f3da46912e971d5bf054ba44fdb88f07d8d359a462b4aec46f2745efbc57053365608d88bc1d7b1729f7b4fc3369765639ed3
@@ -6871,15 +6845,6 @@ __metadata:
     object-assign: "npm:^4.0.1"
     thenify-all: "npm:^1.0.0"
   checksum: 10c0/103114e93f87362f0b56ab5b2e7245051ad0276b646e3902c98397d18bb8f4a77f2ea4a2c9d3ad516034ea3a56553b60d3f5f78220001ca4c404bd711bd0af39
-  languageName: node
-  linkType: hard
-
-"nanoid@npm:3.3.6":
-  version: 3.3.6
-  resolution: "nanoid@npm:3.3.6"
-  bin:
-    nanoid: bin/nanoid.cjs
-  checksum: 10c0/606b355960d0fcbe3d27924c4c52ef7d47d3b57208808ece73279420d91469b01ec1dce10fae512b6d4a8c5a5432b352b228336a8b2202a6ea68e67fa348e2ee
   languageName: node
   linkType: hard
 
@@ -8110,7 +8075,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"secure-json-parse@npm:2.7.0, secure-json-parse@npm:^2.7.0":
+"secure-json-parse@npm:^2.7.0":
   version: 2.7.0
   resolution: "secure-json-parse@npm:2.7.0"
   checksum: 10c0/f57eb6a44a38a3eeaf3548228585d769d788f59007454214fab9ed7f01fbf2e0f1929111da6db28cf0bcc1a2e89db5219a59e83eeaec3a54e413a0197ce879e4
