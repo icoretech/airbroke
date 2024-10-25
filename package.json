@@ -30,7 +30,7 @@
     "chart.js": "4.4.5",
     "nanoid": "5.0.7",
     "next": "14.2.5",
-    "next-auth": "4.24.7",
+    "next-auth": "4.24.10",
     "numeral": "2.0.6",
     "octokit": "3.2.1",
     "postcss": "8.4.47",
