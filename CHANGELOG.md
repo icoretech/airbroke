@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.1.66](https://github.com/icoretech/airbroke/compare/v1.1.65...v1.1.66) (2024-10-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/openai to ^0.0.67 ([c1d3554](https://github.com/icoretech/airbroke/commit/c1d3554b392263a98025336c8e6afa7529583d41))
+* **deps:** update dependency @ai-sdk/openai to ^0.0.68 ([ae2cfcb](https://github.com/icoretech/airbroke/commit/ae2cfcb7cf604865dda7f295d4f280a024cb82bb))
+* **deps:** update dependency @headlessui/react to v2.1.10 ([98d2d36](https://github.com/icoretech/airbroke/commit/98d2d36464e0cf27a04785d75bcd42de098179fd))
+* **deps:** update dependency ai to v3.4.10 ([d33cf69](https://github.com/icoretech/airbroke/commit/d33cf691ed6834a26c3b3623414251ed6c90ed7f))
+* **deps:** update dependency ai to v3.4.11 ([ee776ef](https://github.com/icoretech/airbroke/commit/ee776efd5af1974133f307c519bf2df0cd214161))
+* **deps:** update dependency ai to v3.4.12 ([8bccb82](https://github.com/icoretech/airbroke/commit/8bccb8206201a7ce24fd9d5ca3deff5a4a37c375))
+* **deps:** update dependency ai to v3.4.13 ([d03cb92](https://github.com/icoretech/airbroke/commit/d03cb922bf38642d3d1ec5de460292abf952873c))
+* **deps:** update dependency ai to v3.4.16 ([18f53d4](https://github.com/icoretech/airbroke/commit/18f53d44be926beb403285d7fec38314b2496797))
+* **deps:** update dependency ai to v3.4.17 ([7fbe69b](https://github.com/icoretech/airbroke/commit/7fbe69beb9fb6033add42d499da754aaa9e01744))
+* **deps:** update dependency chart.js to v4.4.5 ([55d1294](https://github.com/icoretech/airbroke/commit/55d129423280ff37529c302967da8bf100338418))
+* **deps:** update dependency tailwindcss to v3.4.14 ([1b1a365](https://github.com/icoretech/airbroke/commit/1b1a365665ab9ac6b372c5c70fd2d36b22c2cfac))
+* **deps:** update dependency typescript to v5.6.3 ([320f4db](https://github.com/icoretech/airbroke/commit/320f4db652891069287a033bc7054debfe88636e))
+* **deps:** update prisma monorepo to v5.21.0 ([f649ac4](https://github.com/icoretech/airbroke/commit/f649ac402e83a625329222c033868aa51404b451))
+* **deps:** update prisma monorepo to v5.21.1 ([5ff842e](https://github.com/icoretech/airbroke/commit/5ff842ef023231bc75eb93a93dc11b99d06970a8))
+
 ## [1.1.65](https://github.com/icoretech/airbroke/compare/v1.1.64...v1.1.65) (2024-10-04)
 
 
