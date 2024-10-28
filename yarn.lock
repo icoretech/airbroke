@@ -50,22 +50,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/react@npm:0.0.67":
-  version: 0.0.67
-  resolution: "@ai-sdk/react@npm:0.0.67"
+"@ai-sdk/react@npm:0.0.68":
+  version: 0.0.68
+  resolution: "@ai-sdk/react@npm:0.0.68"
   dependencies:
     "@ai-sdk/provider-utils": "npm:1.0.22"
     "@ai-sdk/ui-utils": "npm:0.0.49"
     swr: "npm:^2.2.5"
   peerDependencies:
-    react: ^18 || ^19
+    react: ^18 || ^19 || ^19.0.0-rc
     zod: ^3.0.0
   peerDependenciesMeta:
     react:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/15321c1b5231090c668ca39fe77f4ebf6fc77ec38fcb2ccb7fef2e84c3c513fe6162251520ea3faaf822b348b1645d9714a7a70b0681b652cecccfb1f39ba572
+  checksum: 10c0/76a1583b9eac097032071b389237801bd9b2d31848b97d924d7c1e10a8cd95fc02032ae661b909d5e9e953fae4aeb8b97fd6e7839ebefe714328de1a973267cb
   languageName: node
   linkType: hard
 
@@ -2629,12 +2629,12 @@ __metadata:
   linkType: hard
 
 "ai@npm:^3.3.40":
-  version: 3.4.22
-  resolution: "ai@npm:3.4.22"
+  version: 3.4.23
+  resolution: "ai@npm:3.4.23"
   dependencies:
     "@ai-sdk/provider": "npm:0.0.26"
     "@ai-sdk/provider-utils": "npm:1.0.22"
-    "@ai-sdk/react": "npm:0.0.67"
+    "@ai-sdk/react": "npm:0.0.68"
     "@ai-sdk/solid": "npm:0.0.53"
     "@ai-sdk/svelte": "npm:0.0.55"
     "@ai-sdk/ui-utils": "npm:0.0.49"
@@ -2647,7 +2647,7 @@ __metadata:
     zod-to-json-schema: "npm:^3.23.3"
   peerDependencies:
     openai: ^4.42.0
-    react: ^18 || ^19
+    react: ^18 || ^19 || ^19.0.0-rc
     sswr: ^2.1.0
     svelte: ^3.0.0 || ^4.0.0
     zod: ^3.0.0
@@ -2662,7 +2662,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/1e2d91c1032182561b90234541d5bf0a3ffbb9797b9b201a43ed32d3d003b231d6251a8e73ea4ca40615faf0d5d349b5ee4389b9143745d8a92c6aa39192b623
+  checksum: 10c0/2d39c3153d4118084b0b469d1cb7dad8b8011986981f1ae3a7d265a1c2f0d622a46fe93355890b7f7dcdadeabe7e6fc7daadae4e30f2f1feda58474f8f0deacc
   languageName: node
   linkType: hard
 
