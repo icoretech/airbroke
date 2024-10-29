@@ -2690,7 +2690,7 @@ __metadata:
     ai: "npm:^3.3.40"
     autoprefixer: "npm:10.4.20"
     chance: "npm:1.1.12"
-    chart.js: "npm:4.4.5"
+    chart.js: "npm:4.4.6"
     eslint: "npm:^8.57.0"
     eslint-config-next: "npm:14.2.5"
     eslint-config-prettier: "npm:9.1.0"
@@ -3333,12 +3333,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chart.js@npm:4.4.5":
-  version: 4.4.5
-  resolution: "chart.js@npm:4.4.5"
+"chart.js@npm:4.4.6":
+  version: 4.4.6
+  resolution: "chart.js@npm:4.4.6"
   dependencies:
     "@kurkle/color": "npm:^0.3.0"
-  checksum: 10c0/042393725d1dc6a7fc55757abc5db88cbce0e84ad115c08d552af56d72197e806eb78e04253d12a5f0cf331a57a059dc30fc2dab9324e4f695806b3a087d1b0c
+  checksum: 10c0/456d16a030c35fa16182945e91d4fdd89510343454309b783f5e060ea89baaed3bc9b43d2d9b3acadd385e5921718e27ed2fcae8b5efa277d27bc4da4af639f2
   languageName: node
   linkType: hard
 
