@@ -50,13 +50,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/react@npm:0.0.69":
-  version: 0.0.69
-  resolution: "@ai-sdk/react@npm:0.0.69"
+"@ai-sdk/react@npm:0.0.70":
+  version: 0.0.70
+  resolution: "@ai-sdk/react@npm:0.0.70"
   dependencies:
     "@ai-sdk/provider-utils": "npm:1.0.22"
     "@ai-sdk/ui-utils": "npm:0.0.50"
     swr: "npm:^2.2.5"
+    throttleit: "npm:2.1.0"
   peerDependencies:
     react: ^18 || ^19 || ^19.0.0-rc
     zod: ^3.0.0
@@ -65,7 +66,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/2342c6c00e8248686030c6d07166d0e739678ec5f31d3584c57cbecc0fcb6bf15cba43cb5303c0bc6625768e617317391eac06db16c1b438283d1446951d2b40
+  checksum: 10c0/e42434ad3240e5a721204ec37eeb1d3f3ba6951ba5edf685fd2792ea205c759f662f177e3195fe213c7b11753f524d5b4855e5fd4d1bc607cb0580e1e14917fa
   languageName: node
   linkType: hard
 
@@ -2629,12 +2630,12 @@ __metadata:
   linkType: hard
 
 "ai@npm:^3.3.40":
-  version: 3.4.30
-  resolution: "ai@npm:3.4.30"
+  version: 3.4.31
+  resolution: "ai@npm:3.4.31"
   dependencies:
     "@ai-sdk/provider": "npm:0.0.26"
     "@ai-sdk/provider-utils": "npm:1.0.22"
-    "@ai-sdk/react": "npm:0.0.69"
+    "@ai-sdk/react": "npm:0.0.70"
     "@ai-sdk/solid": "npm:0.0.54"
     "@ai-sdk/svelte": "npm:0.0.57"
     "@ai-sdk/ui-utils": "npm:0.0.50"
@@ -2662,7 +2663,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/6ca6218a3387b3a0cf49fe168183524ed7108211986fd57eee79c10fd86e2cce8b807835c69813f437d7bc041346b84035aa1e862cf08e8aa1ca86ee7ea07f1e
+  checksum: 10c0/3b79e71bfda1277865bec4dec7cf10a06dc19eff80550e336c7ed0879500232ac948933b55c8264ed5c6a9ce50158d125aca925171165487dbb0113bedc89d63
   languageName: node
   linkType: hard
 
@@ -8779,6 +8780,13 @@ __metadata:
   dependencies:
     any-promise: "npm:^1.0.0"
   checksum: 10c0/f375aeb2b05c100a456a30bc3ed07ef03a39cbdefe02e0403fb714b8c7e57eeaad1a2f5c4ecfb9ce554ce3db9c2b024eba144843cd9e344566d9fcee73b04767
+  languageName: node
+  linkType: hard
+
+"throttleit@npm:2.1.0":
+  version: 2.1.0
+  resolution: "throttleit@npm:2.1.0"
+  checksum: 10c0/1696ae849522cea6ba4f4f3beac1f6655d335e51b42d99215e196a718adced0069e48deaaf77f7e89f526ab31de5b5c91016027da182438e6f9280be2f3d5265
   languageName: node
   linkType: hard
 
