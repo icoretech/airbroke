@@ -12,15 +12,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/openai@npm:^0.0.70":
-  version: 0.0.70
-  resolution: "@ai-sdk/openai@npm:0.0.70"
+"@ai-sdk/openai@npm:^0.0.71":
+  version: 0.0.71
+  resolution: "@ai-sdk/openai@npm:0.0.71"
   dependencies:
     "@ai-sdk/provider": "npm:0.0.26"
     "@ai-sdk/provider-utils": "npm:1.0.22"
   peerDependencies:
     zod: ^3.0.0
-  checksum: 10c0/db8c54b6a9adb206dc5bd7ce40968d4b21fbb9eb597e5103cca94e2c347e9cc3c3af4f5851f36a4136014cc88b4564dea48ec723391af0311f446b97cff39e50
+  checksum: 10c0/40de002337b9628826eaf09ea5b27d080dcb9b00ea6dd97b1547624d3ee08ee240a44751ebf5e6dbd5fbb26691d3afae78f3ed01197e023af8cb4f45a839d820
   languageName: node
   linkType: hard
 
@@ -2671,7 +2671,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "airbroke@workspace:."
   dependencies:
-    "@ai-sdk/openai": "npm:^0.0.70"
+    "@ai-sdk/openai": "npm:^0.0.71"
     "@airbrake/browser": "npm:2.1.8"
     "@airbrake/node": "npm:2.1.8"
     "@headlessui/react": "npm:2.2.0"
