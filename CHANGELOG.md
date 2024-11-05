@@ -1,5 +1,41 @@
 # Changelog
 
+## [1.1.66](https://github.com/icoretech/airbroke/compare/v1.1.65...v1.1.66) (2024-11-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/openai to ^0.0.67 ([c1d3554](https://github.com/icoretech/airbroke/commit/c1d3554b392263a98025336c8e6afa7529583d41))
+* **deps:** update dependency @ai-sdk/openai to ^0.0.68 ([ae2cfcb](https://github.com/icoretech/airbroke/commit/ae2cfcb7cf604865dda7f295d4f280a024cb82bb))
+* **deps:** update dependency @ai-sdk/openai to ^0.0.70 ([aecd2b6](https://github.com/icoretech/airbroke/commit/aecd2b61f900751f4445987a4fe0bc20507e4ac5))
+* **deps:** update dependency @ai-sdk/openai to ^0.0.71 ([8ef175f](https://github.com/icoretech/airbroke/commit/8ef175f8ae9632edd3bb9ff242480a8d92c5c0c1))
+* **deps:** update dependency @ai-sdk/openai to ^0.0.72 ([19f26f7](https://github.com/icoretech/airbroke/commit/19f26f7d79cbbfc53f912d4d172dc984f83c9956))
+* **deps:** update dependency @headlessui/react to v2.1.10 ([98d2d36](https://github.com/icoretech/airbroke/commit/98d2d36464e0cf27a04785d75bcd42de098179fd))
+* **deps:** update dependency @headlessui/react to v2.2.0 ([036d3f9](https://github.com/icoretech/airbroke/commit/036d3f97c93a48e19b93bb83e11962b14cfa1389))
+* **deps:** update dependency ai to v3.4.10 ([d33cf69](https://github.com/icoretech/airbroke/commit/d33cf691ed6834a26c3b3623414251ed6c90ed7f))
+* **deps:** update dependency ai to v3.4.11 ([ee776ef](https://github.com/icoretech/airbroke/commit/ee776efd5af1974133f307c519bf2df0cd214161))
+* **deps:** update dependency ai to v3.4.12 ([8bccb82](https://github.com/icoretech/airbroke/commit/8bccb8206201a7ce24fd9d5ca3deff5a4a37c375))
+* **deps:** update dependency ai to v3.4.13 ([d03cb92](https://github.com/icoretech/airbroke/commit/d03cb922bf38642d3d1ec5de460292abf952873c))
+* **deps:** update dependency ai to v3.4.16 ([18f53d4](https://github.com/icoretech/airbroke/commit/18f53d44be926beb403285d7fec38314b2496797))
+* **deps:** update dependency ai to v3.4.17 ([7fbe69b](https://github.com/icoretech/airbroke/commit/7fbe69beb9fb6033add42d499da754aaa9e01744))
+* **deps:** update dependency ai to v3.4.20 ([4f9ef55](https://github.com/icoretech/airbroke/commit/4f9ef5577443504231bcb78b0b15433fbfc2e37e))
+* **deps:** update dependency ai to v3.4.21 ([be0de66](https://github.com/icoretech/airbroke/commit/be0de66dacaa1820940fc78ed4ac6659ffe950b8))
+* **deps:** update dependency ai to v3.4.22 ([0a5d69d](https://github.com/icoretech/airbroke/commit/0a5d69d80487a7c883aa4ffc581450e3de237a1b))
+* **deps:** update dependency ai to v3.4.23 ([4517e97](https://github.com/icoretech/airbroke/commit/4517e970bfddcfda704e340835dbba4472b0c081))
+* **deps:** update dependency ai to v3.4.27 ([3223617](https://github.com/icoretech/airbroke/commit/32236178221016423b7ac271b203d28d067f936a))
+* **deps:** update dependency ai to v3.4.29 ([11bb577](https://github.com/icoretech/airbroke/commit/11bb57779fad9aadb8a8ce4f401854c453414379))
+* **deps:** update dependency ai to v3.4.30 ([e1e05b7](https://github.com/icoretech/airbroke/commit/e1e05b7783200044d9fbaba920dff9b087bfa895))
+* **deps:** update dependency ai to v3.4.31 ([c67f420](https://github.com/icoretech/airbroke/commit/c67f420091931504bdbceb983a481bc2ebff6b16))
+* **deps:** update dependency ai to v3.4.32 ([fc17f1f](https://github.com/icoretech/airbroke/commit/fc17f1f2448ea13479fd0b15ffee9f5c05a959b8))
+* **deps:** update dependency ai to v3.4.33 ([bb731d8](https://github.com/icoretech/airbroke/commit/bb731d892697d1c3326e6ccde831d6e5dd5c892b))
+* **deps:** update dependency chart.js to v4.4.5 ([55d1294](https://github.com/icoretech/airbroke/commit/55d129423280ff37529c302967da8bf100338418))
+* **deps:** update dependency chart.js to v4.4.6 ([d9e9a86](https://github.com/icoretech/airbroke/commit/d9e9a865737f465e568e14f43a3e325062ace961))
+* **deps:** update dependency nanoid to v5.0.8 ([f739b2d](https://github.com/icoretech/airbroke/commit/f739b2dd1942091c7c8e2a5c5317cecc80441a87))
+* **deps:** update dependency tailwindcss to v3.4.14 ([1b1a365](https://github.com/icoretech/airbroke/commit/1b1a365665ab9ac6b372c5c70fd2d36b22c2cfac))
+* **deps:** update dependency typescript to v5.6.3 ([320f4db](https://github.com/icoretech/airbroke/commit/320f4db652891069287a033bc7054debfe88636e))
+* **deps:** update prisma monorepo to v5.21.0 ([f649ac4](https://github.com/icoretech/airbroke/commit/f649ac402e83a625329222c033868aa51404b451))
+* **deps:** update prisma monorepo to v5.21.1 ([5ff842e](https://github.com/icoretech/airbroke/commit/5ff842ef023231bc75eb93a93dc11b99d06970a8))
+
 ## [1.1.65](https://github.com/icoretech/airbroke/compare/v1.1.64...v1.1.65) (2024-10-04)
 
 
