@@ -17,7 +17,7 @@
     "dep:set": "ncu -u"
   },
   "dependencies": {
-    "@ai-sdk/openai": "^0.0.71",
+    "@ai-sdk/openai": "^0.0.72",
     "@airbrake/browser": "2.1.8",
     "@airbrake/node": "2.1.8",
     "@headlessui/react": "2.2.0",
