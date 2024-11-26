@@ -28,7 +28,7 @@
     "autoprefixer": "10.4.20",
     "chance": "1.1.12",
     "chart.js": "4.4.6",
-    "nanoid": "5.0.8",
+    "nanoid": "5.0.9",
     "next": "14.2.5",
     "next-auth": "4.24.7",
     "numeral": "2.0.6",
