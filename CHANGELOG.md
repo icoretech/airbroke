@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.67](https://github.com/icoretech/airbroke/compare/v1.1.66...v1.1.67) (2024-12-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency chart.js to v4.4.7 ([#895](https://github.com/icoretech/airbroke/issues/895)) ([ec0a890](https://github.com/icoretech/airbroke/commit/ec0a890a25396f9ca47d926104ebaf0bd31c186d))
+* **deps:** update dependency nanoid to v5.0.9 ([#892](https://github.com/icoretech/airbroke/issues/892)) ([54c55c6](https://github.com/icoretech/airbroke/commit/54c55c60b7c7577b9fbf649d7f8f1f78ecc83ae2))
+* **deps:** update dependency postcss to v8.4.48 ([#874](https://github.com/icoretech/airbroke/issues/874)) ([b26a9f1](https://github.com/icoretech/airbroke/commit/b26a9f1407c06a039abfa226e61ae098fc0ace0b))
+* **deps:** update dependency postcss to v8.4.49 ([#875](https://github.com/icoretech/airbroke/issues/875)) ([4dd9e44](https://github.com/icoretech/airbroke/commit/4dd9e44c535ce7ffe3324294b212bc7755b50790))
+* **deps:** update dependency tailwindcss to v3.4.15 ([#877](https://github.com/icoretech/airbroke/issues/877)) ([35d215d](https://github.com/icoretech/airbroke/commit/35d215d6d4fdd6020bbe4b9e9e8ee90b609920fa))
+* **deps:** update dependency typescript to v5.7.2 ([#884](https://github.com/icoretech/airbroke/issues/884)) ([30e892c](https://github.com/icoretech/airbroke/commit/30e892cc93a0258f681cf5e220556da600863dd7))
+* **deps:** update prisma monorepo to v5.22.0 ([20a612c](https://github.com/icoretech/airbroke/commit/20a612c0e864ab560c08b1429c0d8cd3e6d8160d))
+
 ## [1.1.66](https://github.com/icoretech/airbroke/compare/v1.1.65...v1.1.66) (2024-11-05)
 
 
