@@ -2,7 +2,7 @@
 # docker run -p 3000:3000 icoretech/airbroke:latest
 ARG DEBUG_TOOLS
 
-FROM --platform=$BUILDPLATFORM node:22.0-alpine AS builder
+FROM --platform=$BUILDPLATFORM node:22.12-alpine AS builder
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV CHECKPOINT_DISABLE=1
 
@@ -14,7 +14,7 @@ COPY . .
 RUN yarn install --immutable
 RUN yarn build
 
-FROM --platform=$BUILDPLATFORM node:22.0-alpine AS runner
+FROM --platform=$BUILDPLATFORM node:22.12-alpine AS runner
 ARG DEBUG_TOOLS
 
 ENV NODE_ENV=production
