@@ -90,7 +90,7 @@ export default function Form() {
       </div>
 
       <div className="mt-6 flex items-center justify-end space-x-6">
-        <Link href="/" className="text-sm font-semibold leading-6 text-white">
+        <Link href="/projects" className="text-sm font-semibold leading-6 text-white">
           Cancel
         </Link>
 
