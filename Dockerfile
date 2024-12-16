@@ -9,6 +9,10 @@ ENV CHECKPOINT_DISABLE=1
 WORKDIR /app
 
 RUN apk add --no-cache libc6-compat
+# issue with alpine and prisma ssl
+# https://github.com/prisma/prisma/issues/25817
+# remove once prisma 6.1 is fully shipped
+RUN sh -c '[ ! -e /lib/libssl.so.3 ] && ln -s /usr/lib/libssl.so.3 /lib/libssl.so.3 || echo "Link already exists"'
 
 COPY . .
 RUN yarn install --immutable
