@@ -269,7 +269,3 @@ When working with error collection in Airbroke, you may come across situations w
 As a result, you may encounter repeated errors that don't expose the specific parameter or stack trace after the first occurrence, or they may have originated from a different part of the application. This tradeoff is made to ensure a compact database size and high performance. The underlying idea is to encourage you to address and resolve errors, so maintaining a clean and organized error slate will yield better insights and improvements over time.
 
 By understanding these limitations and keeping your error collection streamlined, you can effectively utilize Airbroke's features to identify and resolve issues in your application.
-
-## Analytics
-
-![Alt](https://repobeats.axiom.co/api/embed/48f60fbfcf724565f4ef697ad425de802c52fd28.svg 'Repobeats analytics image')
