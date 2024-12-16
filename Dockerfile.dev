@@ -11,6 +11,11 @@ WORKDIR $NODE_ROOT
 
 RUN apk add --no-cache git
 
+# issue with alpine and prisma ssl
+# https://github.com/prisma/prisma/issues/25817
+# remove once prisma 6.1 is fully shipped
+RUN sh -c '[ ! -e /lib/libssl.so.3 ] && ln -s /usr/lib/libssl.so.3 /lib/libssl.so.3 || echo "Link already exists"'
+
 EXPOSE 3000
 
 CMD ["yarn", "dev"]
