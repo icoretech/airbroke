@@ -16,6 +16,10 @@ RUN apk add --no-cache git
 # remove once prisma 6.1 is fully shipped
 RUN sh -c '[ ! -e /lib/libssl.so.3 ] && ln -s /usr/lib/libssl.so.3 /lib/libssl.so.3 || echo "Link already exists"'
 
+COPY docker-yarn-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-yarn-entrypoint.sh
+
 EXPOSE 3000
 
+ENTRYPOINT ["docker-yarn-entrypoint.sh"]
 CMD ["yarn", "dev"]
