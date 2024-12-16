@@ -14,7 +14,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 // /projects
-export default async function Projects({ searchParams }: { searchParams: Record<string, string> }) {
+export default async function Projects(props: { searchParams: Promise<Record<string, string>> }) {
+  const searchParams = await props.searchParams;
   const searchQuery = searchParams.searchQuery;
 
   const totalProjects = await prisma.project.count();

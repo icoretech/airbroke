@@ -1,3 +1,4 @@
+// components/project/Edit.tsx
 import { updateProject } from '@/lib/actions';
 import { getProjectById } from '@/lib/queries/projects';
 import { redirect } from 'next/navigation';

@@ -1,6 +1,5 @@
-import { authOptions } from '@/lib/auth';
+import { auth } from '@/lib/auth';
 import { getOccurrenceBookmarks } from '@/lib/queries/occurrenceBookmarks';
-import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import OccurrenceCounterLabel from './CounterLabel';
 import CustomTimeAgo from './CustomTimeAgo';
@@ -11,18 +10,21 @@ type BookmarksTableProps = {
 };
 
 export default async function BookmarksTable({ searchQuery }: BookmarksTableProps) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   const occurrenceBookmarks = await getOccurrenceBookmarks(session?.user?.id, searchQuery);
   // Group by project name
-  const groupedBookmarks = occurrenceBookmarks.reduce((acc, bookmark) => {
-    const projectName = bookmark.occurrence.notice.project.name;
-    if (!acc[projectName]) {
-      acc[projectName] = [];
-    }
-    acc[projectName].push(bookmark);
-    return acc;
-  }, {} as Record<string, (typeof occurrenceBookmarks)[0][]>);
+  const groupedBookmarks = occurrenceBookmarks.reduce(
+    (acc, bookmark) => {
+      const projectName = bookmark.occurrence.notice.project.name;
+      if (!acc[projectName]) {
+        acc[projectName] = [];
+      }
+      acc[projectName].push(bookmark);
+      return acc;
+    },
+    {} as Record<string, (typeof occurrenceBookmarks)[0][]>
+  );
 
   // Convert the grouped object into an array that can be mapped over
   const groupedBookmarksArray = Object.entries(groupedBookmarks);

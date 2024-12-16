@@ -1,8 +1,7 @@
 import { LogoutButton } from '@/components/SessionButtons';
-import { authOptions } from '@/lib/auth';
+import { auth } from '@/lib/auth';
 import { getProjectsGroupedByOrganization } from '@/lib/queries/projects';
 import logo from '@/public/logo.svg';
-import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SlPlus } from 'react-icons-ng/sl';
@@ -17,7 +16,7 @@ type SidebarDesktopProps = {
 
 export default async function SidebarDesktop({ selectedProjectId }: SidebarDesktopProps) {
   const groupedProjects = await getProjectsGroupedByOrganization();
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   return (
     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-airbroke-800 px-6 ring-1 ring-white/5 scrollbar-none">

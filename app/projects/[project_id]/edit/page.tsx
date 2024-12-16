@@ -1,3 +1,4 @@
+// app/projects/[project_id]/edit/page.tsx
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CodeTemplate from '@/components/CodeTemplate';
 import SidebarDesktop from '@/components/SidebarDesktop';
@@ -17,11 +18,14 @@ import { SlPencil, SlSettings, SlWrench } from 'react-icons-ng/sl';
 export const revalidate = 0;
 
 type ComponentProps = {
-  params: { project_id: string };
-  searchParams: Record<string, string>;
+  params: Promise<{ project_id: string }>;
+  searchParams: Promise<Record<string, string>>;
 };
 
-export default async function Project({ params, searchParams }: ComponentProps) {
+export default async function Project(props: ComponentProps) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
+
   const currentTab = searchParams.tab ?? 'overview';
   const currentErrorMessage = searchParams.errorMessage;
 
@@ -102,7 +106,7 @@ export default async function Project({ params, searchParams }: ComponentProps) 
                         href={tab.href}
                         className={classNames(
                           tab.current
-                            ? 'border-indigo-500 text-indigo-400 '
+                            ? 'border-indigo-500 text-indigo-400'
                             : 'border-transparent text-indigo-200 hover:border-indigo-500 hover:text-indigo-400',
                           'group inline-flex items-center border-b-2 px-1 py-4 text-sm font-medium'
                         )}

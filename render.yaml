@@ -25,9 +25,9 @@ services:
         fromDatabase:
           name: airbroke-starter-db
           property: connectionString
-      - key: NEXTAUTH_SECRET
+      - key: AUTH_SECRET
         value: your_nextauth_secret_here
-      - key: NEXTAUTH_URL
+      - key: AUTH_URL
         value: https://$RENDER_EXTERNAL_HOSTNAME
 databases:
   - name: airbroke-starter-db

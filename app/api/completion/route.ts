@@ -1,28 +1,27 @@
-import { authOptions } from '@/lib/auth';
+// app/api/completion/route.ts
+import { auth } from '@/lib/auth';
 import prisma from '@/lib/db';
 import { createOpenAI } from '@ai-sdk/openai';
 import { CoreMessage, streamText } from 'ai';
-import { getServerSession } from 'next-auth';
-import { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 30;
 
-export async function POST(request: NextRequest) {
-  const session = await getServerSession(authOptions);
+export async function POST(request: Request) {
+  const session = await auth();
   if (!session) {
-    return new NextResponse('You are not logged in', { status: 401 });
+    return new Response('You are not logged in', { status: 401 });
   }
 
-  const extraData = request.nextUrl.searchParams.get('sendExtraData');
-  const occurrenceId = request.nextUrl.searchParams.get('occurrence');
+  const body = await request.json();
+  const { isDetailMode, occurrenceId } = body;
 
   if (!process.env.AIRBROKE_OPENAI_API_KEY) {
-    return new NextResponse('Unauthorized', { status: 401 });
+    return new Response('Unauthorized', { status: 401 });
   }
 
   if (!occurrenceId) {
-    return new NextResponse('Missing occurrence', { status: 400 });
+    return new Response('Missing occurrence', { status: 400 });
   }
 
   const occurrenceWithRelations = await prisma.occurrence.findFirst({
@@ -31,7 +30,7 @@ export async function POST(request: NextRequest) {
   });
 
   if (!occurrenceWithRelations) {
-    return new NextResponse('Occurrence not found', { status: 404 });
+    return new Response('Occurrence not found', { status: 404 });
   }
 
   const { notice, ...occurrence } = occurrenceWithRelations;
@@ -41,7 +40,7 @@ export async function POST(request: NextRequest) {
 
   let prompt = `I encountered an error of type "${errorType}" with the following message: "${errorMessage}". Explain what this error means and suggest possible solutions.`;
 
-  if (extraData) {
+  if (isDetailMode) {
     const backtraceString = JSON.stringify(occurrence.backtrace, null, 2);
     prompt += ` The backtrace of the error is as follows: ${backtraceString}`;
   }
@@ -58,10 +57,10 @@ export async function POST(request: NextRequest) {
     apiKey: process.env.AIRBROKE_OPENAI_API_KEY,
     organization: process.env.AIRBROKE_OPENAI_ORGANIZATION,
   });
-  const model = openaiProvider(process.env.AIRBROKE_OPENAI_ENGINE || 'o1-mini');
+  const model = openaiProvider(process.env.AIRBROKE_OPENAI_ENGINE || 'gpt-4o');
 
   // Stream the AI's response using streamText
-  const result = await streamText({
+  const result = streamText({
     model,
     messages,
   });

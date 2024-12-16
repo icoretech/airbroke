@@ -7,6 +7,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
+  serverExternalPackages: ['@airbrake/node'],
   images: {
     remotePatterns: [
       {
@@ -24,10 +25,6 @@ const nextConfig = {
   },
   logging: {
     level: process.env.AIRBROKE_LOG_LEVEL === 'verbose' ? 'verbose' : undefined,
-  },
-  experimental: {
-    serverComponentsExternalPackages: ['@octokit', '@airbrake/node'],
-    // typedRoutes: true,
   },
   async rewrites() {
     return [

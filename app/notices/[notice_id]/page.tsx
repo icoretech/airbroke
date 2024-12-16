@@ -10,17 +10,20 @@ import type { Metadata, Route } from 'next';
 export const revalidate = 0;
 
 type ComponentProps = {
-  params: { notice_id: string };
-  searchParams: { [key: string]: string | undefined };
+  params: Promise<{ notice_id: string }>;
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 };
 
-export async function generateMetadata({ params }: ComponentProps): Promise<Metadata> {
+export async function generateMetadata(props: ComponentProps): Promise<Metadata> {
+  const params = await props.params;
   const notice = await getNoticeById(params.notice_id);
   return { title: `(${notice?.project?.name}) ${notice?.kind}` };
 }
 
 // /notices/:notice_id
-export default async function Notice({ params, searchParams }: ComponentProps) {
+export default async function Notice(props: ComponentProps) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
   const notice = await getNoticeById(params.notice_id);
   if (!notice) {
     throw new Error('Notice not found');

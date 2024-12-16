@@ -7,7 +7,8 @@ import type { Route } from 'next';
 
 export const revalidate = 0;
 
-export default async function Bookmarks({ searchParams }: { searchParams: Record<string, string> }) {
+export default async function Bookmarks(props: { searchParams: Promise<Record<string, string>> }) {
+  const searchParams = await props.searchParams;
   const searchQuery = searchParams.searchQuery;
 
   const breadcrumbs = [

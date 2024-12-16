@@ -1,27 +1,9 @@
 'use server';
 
-import { authOptions } from '@/lib/auth';
+import { auth } from '@/lib/auth';
 import prisma from '@/lib/db';
 import { Context } from '@/types/airbroke';
-import { getServerSession as originalGetServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
-import { cookies, headers } from 'next/headers';
-
-export const getServerSession = async () => {
-  const req = {
-    headers: Object.fromEntries(headers() as Headers),
-    cookies: Object.fromEntries(
-      cookies()
-        .getAll()
-        .map((c) => [c.name, c.value])
-    ),
-  };
-  const res = { getHeader() {}, setCookie() {}, setHeader() {} };
-
-  // @ts-ignore - The type used in next-auth for the req object doesn't match, but it still works
-  const session = await originalGetServerSession(req, res, authOptions);
-  return session;
-};
 
 export async function performReplay(context: Context): Promise<string> {
   const { headers, httpMethod, url } = context;
@@ -52,7 +34,7 @@ export async function performReplay(context: Context): Promise<string> {
 
 // Function to create a bookmark for a user
 export async function createOccurrenceBookmark(occurrenceId: string) {
-  const session = await getServerSession();
+  const session = await auth();
   if (!session) {
     throw new Error('Session not found');
   }
@@ -69,7 +51,7 @@ export async function createOccurrenceBookmark(occurrenceId: string) {
 }
 
 export async function removeOccurrenceBookmark(occurrenceId: string) {
-  const session = await getServerSession();
+  const session = await auth();
   if (!session) {
     throw new Error('Session not found');
   }

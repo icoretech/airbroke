@@ -1,3 +1,4 @@
+// components/occurrence/toolbox/AI.tsx
 'use client';
 
 import { useCompletion } from 'ai/react';
@@ -8,7 +9,11 @@ import { SiOpenai } from 'react-icons-ng/si';
 export default function ToolboxAI({ occurrenceId }: { occurrenceId: string }) {
   const [isDetailMode, setIsDetailMode] = useState(false);
   const { complete, completion, stop, isLoading, error } = useCompletion({
-    api: `/api/completion?occurrence=${occurrenceId}${isDetailMode ? '&sendExtraData=true' : ''}`,
+    api: '/api/completion',
+    body: {
+      occurrenceId,
+      isDetailMode,
+    },
   });
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -38,7 +43,7 @@ export default function ToolboxAI({ occurrenceId }: { occurrenceId: string }) {
           readOnly
           ref={textareaRef}
           value={error ? error.message : completion}
-          className="h-60 w-full resize-none rounded-lg bg-gray-700 px-4 py-2 text-xs text-white  scrollbar-none"
+          className="h-60 w-full resize-none rounded-lg bg-gray-700 px-4 py-2 text-xs text-white scrollbar-none"
         ></textarea>
       </div>
       <div>

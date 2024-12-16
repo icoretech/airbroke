@@ -13,13 +13,12 @@ import ResolveButton from '@/components/occurrence/ResolveButton';
 import Session from '@/components/occurrence/Session';
 import Toolbox from '@/components/occurrence/Toolbox';
 import ProjectActionsMenu from '@/components/project/ActionsMenu';
-import { authOptions } from '@/lib/auth';
+import { auth } from '@/lib/auth';
 import classNames from '@/lib/classNames';
 import { checkOccurrenceBookmarkExistence } from '@/lib/queries/occurrenceBookmarks';
 import { getOccurrenceById } from '@/lib/queries/occurrences';
 import type { OccurrenceTabKeys, OccurrenceTabs } from '@/types/airbroke';
 import type { Metadata, Route } from 'next';
-import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import { FaCarCrash } from 'react-icons-ng/fa';
 import { SlCompass, SlGlobe, SlGraph, SlLink, SlList, SlUser, SlWrench } from 'react-icons-ng/sl';
@@ -27,21 +26,24 @@ import { SlCompass, SlGlobe, SlGraph, SlLink, SlList, SlUser, SlWrench } from 'r
 export const revalidate = 0;
 
 type ComponentProps = {
-  params: { occurrence_id: string };
-  searchParams: { [key: string]: string | undefined };
+  params: Promise<{ occurrence_id: string }>;
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 };
 
-export async function generateMetadata({ params }: ComponentProps): Promise<Metadata> {
+export async function generateMetadata(props: ComponentProps): Promise<Metadata> {
+  const params = await props.params;
   const occurrence = await getOccurrenceById(params.occurrence_id);
   return { title: occurrence?.message };
 }
 
-export default async function Occurrence({ params, searchParams }: ComponentProps) {
+export default async function Occurrence(props: ComponentProps) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
   const occurrence = await getOccurrenceById(params.occurrence_id);
   if (!occurrence) {
     throw new Error('Occurrence not found');
   }
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   const userId = session?.user?.id;
   const isBookmarked = await checkOccurrenceBookmarkExistence(userId, occurrence.id);
   const hasSession = occurrence.session && Object.keys(occurrence.session).length > 0;
@@ -184,7 +186,7 @@ export default async function Occurrence({ params, searchParams }: ComponentProp
                       href={tab.href}
                       className={classNames(
                         tab.current
-                          ? 'border-indigo-500 text-indigo-400 '
+                          ? 'border-indigo-500 text-indigo-400'
                           : 'border-transparent text-indigo-200 hover:border-indigo-500 hover:text-indigo-400',
                         'group inline-flex items-center border-b-2 px-1 py-4 text-sm font-medium'
                       )}

@@ -1,17 +1,38 @@
 import prisma from '@/lib/db';
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import type { NextAuthOptions, Profile } from 'next-auth';
-import type { AdapterAccount } from 'next-auth/adapters';
-import AtlassianProvider from 'next-auth/providers/atlassian';
-import AzureADProvider from 'next-auth/providers/azure-ad';
-import CognitoProvider from 'next-auth/providers/cognito';
-import GithubProvider from 'next-auth/providers/github';
-import GitlabProvider from 'next-auth/providers/gitlab';
-import GoogleProvider from 'next-auth/providers/google';
-import KeycloakProvider from 'next-auth/providers/keycloak';
-import { Octokit } from 'octokit';
+import AtlassianProvider from '@auth/core/providers/atlassian';
+import CognitoProvider from '@auth/core/providers/cognito';
+import GithubProvider from '@auth/core/providers/github';
+import GitlabProvider from '@auth/core/providers/gitlab';
+import GoogleProvider from '@auth/core/providers/google';
+import KeycloakProvider from '@auth/core/providers/keycloak';
+import MicrosoftEntraID from '@auth/core/providers/microsoft-entra-id';
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import type { Account, Profile } from 'next-auth';
+import NextAuth from 'next-auth';
+import type { Adapter, AdapterAccount } from 'next-auth/adapters';
 
 type ExtendedProfile = Profile & { [key: string]: any };
+
+const CustomPrismaAdapter = (): Adapter => {
+  const baseAdapter = PrismaAdapter(prisma);
+
+  return {
+    ...baseAdapter,
+    linkAccount(account: AdapterAccount) {
+      // Next-auth passes through all options gotten from keycloak, excessive ones must be removed.
+      delete account['not-before-policy'];
+      delete account['refresh_expires_in'];
+
+      // Call the original linkAccount method
+      if (baseAdapter.linkAccount) {
+        return baseAdapter.linkAccount(account);
+      }
+
+      return null;
+    },
+    // You can override other methods here if needed
+  };
+};
 
 const getProviders = () => {
   let providers = [];
@@ -76,12 +97,12 @@ const getProviders = () => {
     );
   }
 
-  if (process.env.AIRBROKE_AZURE_AD_CLIENT_ID && process.env.AIRBROKE_AZURE_AD_CLIENT_SECRET) {
+  if (process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_ID && process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_SECRET) {
     providers.push(
-      AzureADProvider({
-        clientId: process.env.AIRBROKE_AZURE_AD_CLIENT_ID,
-        clientSecret: process.env.AIRBROKE_AZURE_AD_CLIENT_SECRET,
-        tenantId: process.env.AIRBROKE_AZURE_AD_TENANT_ID,
+      MicrosoftEntraID({
+        clientId: process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_ID,
+        clientSecret: process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_SECRET,
+        issuer: process.env.AIRBROKE_MICROSOFT_ENTRA_ID_ISSUER,
       })
     );
   }
@@ -89,21 +110,24 @@ const getProviders = () => {
   return providers;
 };
 
-export const authOptions: NextAuthOptions = {
+export const { handlers, auth, signIn, signOut } = NextAuth({
   session: {
     strategy: 'jwt',
   },
-  debug: process.env.NEXTAUTH_DEBUG === 'true',
+  debug: process.env.AUTH_DEBUG === 'true',
   providers: getProviders(),
-  // adapter: PrismaAdapter(prisma),
-
+  adapter: CustomPrismaAdapter(),
   callbacks: {
-    async jwt({ token, account, user }) {
+    jwt({ token, account, user }) {
       // Persist the user id to the token right after signin
       if (user?.id) {
         token.id = user.id;
       }
       return token;
+    },
+    authorized: async ({ auth }) => {
+      // Logged in users are authenticated, otherwise redirect to login page
+      return !!auth;
     },
     async session({ session, token }) {
       if (session.user) {
@@ -111,25 +135,47 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    async signIn({ account, profile }) {
+    async signIn({ account, profile }: { account: Account | null; profile?: Profile }): Promise<boolean | string> {
       const extendedProfile = profile as ExtendedProfile;
 
       if (account?.provider === 'google' && process.env.AIRBROKE_GOOGLE_DOMAINS) {
         const domains = process.env.AIRBROKE_GOOGLE_DOMAINS.split(',');
         const emailDomain = extendedProfile?.email?.split('@')[1];
-        return extendedProfile?.email_verified && emailDomain && domains.includes(emailDomain);
+        // Coerce to boolean explicitly
+        return !!(extendedProfile?.email_verified && emailDomain && domains.includes(emailDomain));
       }
 
       if (account?.provider === 'github' && process.env.AIRBROKE_GITHUB_ORGS) {
         const allowedOrgs = process.env.AIRBROKE_GITHUB_ORGS.split(',');
         const token = account.access_token;
-        const octokit = new Octokit({ auth: token, userAgent: 'airbroke' });
-        const orgsResponse = await octokit.rest.orgs.listForAuthenticatedUser();
-        const userOrgs = orgsResponse.data.map((org) => org.login);
 
-        // Check if the user is part of at least one of the allowed organizations
-        return userOrgs.some((org) => allowedOrgs.includes(org));
+        try {
+          const response = await fetch('https://api.github.com/user/orgs', {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: 'application/vnd.github.v3+json',
+              'User-Agent': 'airbroke',
+            },
+          });
+
+          if (!response.ok) {
+            console.error('Failed to fetch user organizations:', response.status, response.statusText);
+            return false;
+          }
+
+          const orgsResponse = await response.json();
+          const userOrgs = orgsResponse.map((org: { login: string }) => org.login);
+
+          // Ensure the return value is strictly boolean
+          return userOrgs.some((org: string) => allowedOrgs.includes(org));
+        } catch (error) {
+          console.error('Error fetching user organizations:', error);
+          return false;
+        }
       }
+
+      // Default return value
       return true;
     },
   },
@@ -139,16 +185,4 @@ export const authOptions: NextAuthOptions = {
     logo: 'https://i.imgur.com/dPL9YEz.png', // Absolute URL to image
     buttonText: '', // Hex color code
   },
-};
-
-// Next-auth passes through all options gotten from keycloak, excessive ones must be removed.
-const adapterOverwrite = PrismaAdapter(prisma);
-
-authOptions.adapter = {
-  ...adapterOverwrite,
-  linkAccount: (account: AdapterAccount) => {
-    delete account['not-before-policy'];
-    delete account['refresh_expires_in'];
-    return adapterOverwrite.linkAccount?.(account);
-  },
-};
+});

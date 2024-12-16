@@ -13,17 +13,20 @@ import Sort from './Sort';
 export const revalidate = 0;
 
 type ComponentProps = {
-  params: { project_id: string };
-  searchParams: { [key: string]: string | undefined };
+  params: Promise<{ project_id: string }>;
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 };
 
-export async function generateMetadata({ params }: ComponentProps): Promise<Metadata> {
+export async function generateMetadata(props: ComponentProps): Promise<Metadata> {
+  const params = await props.params;
   const project = await getProjectById(params.project_id);
   return { title: project?.name };
 }
 
 // /projects/:project_id
-export default async function ProjectNotices({ params, searchParams }: ComponentProps) {
+export default async function ProjectNotices(props: ComponentProps) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
   const project = await getProjectById(params.project_id);
   if (!project) {
     throw new Error('Project not found');
@@ -50,7 +53,7 @@ export default async function ProjectNotices({ params, searchParams }: Component
       </div>
 
       <main className="xl:pl-72">
-        <div className="sticky top-0 z-40  bg-airbroke-900">
+        <div className="sticky top-0 z-40 bg-airbroke-900">
           <nav className="border-b border-white border-opacity-10 bg-gradient-to-r from-airbroke-800 to-airbroke-900">
             <div className="flex justify-between pr-4 sm:pr-6 lg:pr-6">
               <Breadcrumbs breadcrumbs={breadcrumbs} />
