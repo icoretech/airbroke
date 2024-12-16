@@ -12,32 +12,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/openai@npm:1.0.0":
-  version: 1.0.0
-  resolution: "@ai-sdk/openai@npm:1.0.0"
+"@ai-sdk/openai@npm:1.0.8":
+  version: 1.0.8
+  resolution: "@ai-sdk/openai@npm:1.0.8"
   dependencies:
-    "@ai-sdk/provider": "npm:1.0.0"
-    "@ai-sdk/provider-utils": "npm:2.0.0"
+    "@ai-sdk/provider": "npm:1.0.2"
+    "@ai-sdk/provider-utils": "npm:2.0.4"
   peerDependencies:
     zod: ^3.0.0
-  checksum: 10c0/b7383e7bd0bb0c19a2c33a77c6814fa5f428b1535361fa5288c264cbb122d02216bc3d9afb5ec5554f7b7e07817223b758c25869051334f6345f34e3a3daa46d
-  languageName: node
-  linkType: hard
-
-"@ai-sdk/provider-utils@npm:2.0.0":
-  version: 2.0.0
-  resolution: "@ai-sdk/provider-utils@npm:2.0.0"
-  dependencies:
-    "@ai-sdk/provider": "npm:1.0.0"
-    eventsource-parser: "npm:^3.0.0"
-    nanoid: "npm:^5.0.8"
-    secure-json-parse: "npm:^2.7.0"
-  peerDependencies:
-    zod: ^3.0.0
-  peerDependenciesMeta:
-    zod:
-      optional: true
-  checksum: 10c0/34986a5b0ea8ae4236b9f2f1ff5f7013357f3903db3a301493e21e4eb1eadcdd7a8da68e54acc92ffd3b189832a8da322c5a5845d0ee0cbe1e461639578dcf20
+  checksum: 10c0/4a3d66bb594c8eca8624325b17705f19f549acb77148bf05c2741c22a904f178b346befeb038c8889b9d7e28985320ab893deb9cfd82537eb4bea86227d5b85c
   languageName: node
   linkType: hard
 
@@ -55,15 +38,6 @@ __metadata:
     zod:
       optional: true
   checksum: 10c0/3644709b90011310faa2bf27d11241aafb2659b9f3084b6c8df42c990e3241f97691f695997e227ebcee4b46cc3920806cab0ad873810d2d889f04add0fbf048
-  languageName: node
-  linkType: hard
-
-"@ai-sdk/provider@npm:1.0.0":
-  version: 1.0.0
-  resolution: "@ai-sdk/provider@npm:1.0.0"
-  dependencies:
-    json-schema: "npm:^0.4.0"
-  checksum: 10c0/242fddc273dca49f50f0cd1c553ed6f76ab9f4edc1828b36098870725102dab1fcba317517998fe0a4cd018833a466c96df3b5e5049f5e8fd14690142b96fd6a
   languageName: node
   linkType: hard
 
@@ -2274,7 +2248,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "airbroke@workspace:."
   dependencies:
-    "@ai-sdk/openai": "npm:1.0.0"
+    "@ai-sdk/openai": "npm:1.0.8"
     "@airbrake/browser": "npm:2.1.8"
     "@airbrake/node": "npm:2.1.8"
     "@auth/prisma-adapter": "npm:^2.7.4"
@@ -6168,7 +6142,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:5.0.9, nanoid@npm:^5.0.8":
+"nanoid@npm:5.0.9":
   version: 5.0.9
   resolution: "nanoid@npm:5.0.9"
   bin:
