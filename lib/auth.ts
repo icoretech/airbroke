@@ -1,6 +1,7 @@
 import prisma from '@/lib/db';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import type { NextAuthOptions, Profile } from 'next-auth';
+import type { AdapterAccount } from 'next-auth/adapters';
 import AtlassianProvider from 'next-auth/providers/atlassian';
 import AzureADProvider from 'next-auth/providers/azure-ad';
 import CognitoProvider from 'next-auth/providers/cognito';
@@ -145,7 +146,7 @@ const adapterOverwrite = PrismaAdapter(prisma);
 
 authOptions.adapter = {
   ...adapterOverwrite,
-  linkAccount: (account) => {
+  linkAccount: (account: AdapterAccount) => {
     delete account['not-before-policy'];
     delete account['refresh_expires_in'];
     return adapterOverwrite.linkAccount?.(account);
