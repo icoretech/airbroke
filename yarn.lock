@@ -2295,7 +2295,6 @@ __metadata:
     timeago-react: "npm:3.0.6"
     tsx: "npm:4.19.2"
     typescript: "npm:5.7.2"
-    zod: "npm:3.23.8"
     zod-error: "npm:1.5.0"
     zod-form-data: "npm:2.0.2"
   languageName: unknown
@@ -8703,13 +8702,6 @@ __metadata:
   peerDependencies:
     zod: ^3.24.1
   checksum: 10c0/dd4e72085003e41a3f532bd00061f27041418a4eb176aa6ce33042db08d141bd37707017ee9117d97738ae3f22fc3e1404ea44e6354634ac5da79d7d3173b4ee
-  languageName: node
-  linkType: hard
-
-"zod@npm:3.23.8":
-  version: 3.23.8
-  resolution: "zod@npm:3.23.8"
-  checksum: 10c0/8f14c87d6b1b53c944c25ce7a28616896319d95bc46a9660fe441adc0ed0a81253b02b5abdaeffedbeb23bdd25a0bf1c29d2c12dd919aef6447652dd295e3e69
   languageName: node
   linkType: hard
 
