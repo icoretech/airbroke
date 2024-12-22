@@ -24,7 +24,7 @@
     "@headlessui/react": "2.2.0",
     "@prisma/client": "6",
     "@tailwindcss/forms": "0.5.9",
-    "ai": "4.0.21",
+    "ai": "4.0.22",
     "autoprefixer": "10.4.20",
     "chance": "1.1.12",
     "chart.js": "4.4.7",
