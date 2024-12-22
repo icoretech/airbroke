@@ -24,23 +24,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/provider-utils@npm:2.0.4":
-  version: 2.0.4
-  resolution: "@ai-sdk/provider-utils@npm:2.0.4"
-  dependencies:
-    "@ai-sdk/provider": "npm:1.0.2"
-    eventsource-parser: "npm:^3.0.0"
-    nanoid: "npm:^3.3.8"
-    secure-json-parse: "npm:^2.7.0"
-  peerDependencies:
-    zod: ^3.0.0
-  peerDependenciesMeta:
-    zod:
-      optional: true
-  checksum: 10c0/3644709b90011310faa2bf27d11241aafb2659b9f3084b6c8df42c990e3241f97691f695997e227ebcee4b46cc3920806cab0ad873810d2d889f04add0fbf048
-  languageName: node
-  linkType: hard
-
 "@ai-sdk/provider-utils@npm:2.0.5":
   version: 2.0.5
   resolution: "@ai-sdk/provider-utils@npm:2.0.5"
@@ -58,15 +41,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/provider@npm:1.0.2":
-  version: 1.0.2
-  resolution: "@ai-sdk/provider@npm:1.0.2"
-  dependencies:
-    json-schema: "npm:^0.4.0"
-  checksum: 10c0/f39e3cbccf54353312431f39d0a3798d8360b259344a5edfad9b07d3912e98fcd196e06b56fd0ac6bef262a17b912cd61312f5dae736cdfadd1e0863231c3d82
-  languageName: node
-  linkType: hard
-
 "@ai-sdk/provider@npm:1.0.3":
   version: 1.0.3
   resolution: "@ai-sdk/provider@npm:1.0.3"
@@ -76,12 +50,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/react@npm:1.0.6":
-  version: 1.0.6
-  resolution: "@ai-sdk/react@npm:1.0.6"
+"@ai-sdk/react@npm:1.0.7":
+  version: 1.0.7
+  resolution: "@ai-sdk/react@npm:1.0.7"
   dependencies:
-    "@ai-sdk/provider-utils": "npm:2.0.4"
-    "@ai-sdk/ui-utils": "npm:1.0.5"
+    "@ai-sdk/provider-utils": "npm:2.0.5"
+    "@ai-sdk/ui-utils": "npm:1.0.6"
     swr: "npm:^2.2.5"
     throttleit: "npm:2.1.0"
   peerDependencies:
@@ -92,23 +66,23 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/45651eac7e888c72e90ef66742d31bf152a95d90f83a5f07ed5f9387845ba651abc851c757bf9eae5dae1dea7c6a005572e02085b89d5409a7bdcf2b0ccdf9b9
+  checksum: 10c0/f0b67a96157ae88dfa2bf42dc94d87f332aad263008feebd66b8abdf0609412ff7340caf57cfc7c84514a886b1a09a3201b256e5e274e03dea4724497239a83d
   languageName: node
   linkType: hard
 
-"@ai-sdk/ui-utils@npm:1.0.5":
-  version: 1.0.5
-  resolution: "@ai-sdk/ui-utils@npm:1.0.5"
+"@ai-sdk/ui-utils@npm:1.0.6":
+  version: 1.0.6
+  resolution: "@ai-sdk/ui-utils@npm:1.0.6"
   dependencies:
-    "@ai-sdk/provider": "npm:1.0.2"
-    "@ai-sdk/provider-utils": "npm:2.0.4"
+    "@ai-sdk/provider": "npm:1.0.3"
+    "@ai-sdk/provider-utils": "npm:2.0.5"
     zod-to-json-schema: "npm:^3.23.5"
   peerDependencies:
     zod: ^3.0.0
   peerDependenciesMeta:
     zod:
       optional: true
-  checksum: 10c0/55ce43305d943e2545da45c9d9bd95815931675a14c02a8cfa0e60bac2c2e4f69e56c5d73049da8886fc8b755b1fd382219414e6bb1f45d8be6a9842452d6dd6
+  checksum: 10c0/a78a8e4cb3c6294403160627c27e1135b72ccdcb645952167956e77340a6a3b71522ab61f770f8851286d64bbeb0d8c2f2f6156a8fcd7a614c6628e4582581ee
   languageName: node
   linkType: hard
 
@@ -2247,14 +2221,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:4.0.21":
-  version: 4.0.21
-  resolution: "ai@npm:4.0.21"
+"ai@npm:4.0.22":
+  version: 4.0.22
+  resolution: "ai@npm:4.0.22"
   dependencies:
-    "@ai-sdk/provider": "npm:1.0.2"
-    "@ai-sdk/provider-utils": "npm:2.0.4"
-    "@ai-sdk/react": "npm:1.0.6"
-    "@ai-sdk/ui-utils": "npm:1.0.5"
+    "@ai-sdk/provider": "npm:1.0.3"
+    "@ai-sdk/provider-utils": "npm:2.0.5"
+    "@ai-sdk/react": "npm:1.0.7"
+    "@ai-sdk/ui-utils": "npm:1.0.6"
     "@opentelemetry/api": "npm:1.9.0"
     jsondiffpatch: "npm:0.6.0"
     zod-to-json-schema: "npm:^3.23.5"
@@ -2266,7 +2240,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/5703d920498558262c539fb56db6104264b6cd0a94b4355163c4f3ae56bdd579a09fd8ddd098b723082f7e405e28f4a43b4eb815da0f7ed45883e69582fed145
+  checksum: 10c0/eee8c67c49660ffbbcd951e20291d19d6b5b2ceaacf65ed80e7b2bb641bc2c2235847c2a45537c6c49e4b94511c9f3fa2ff8c4f908399b49a49f0d2d4b659439
   languageName: node
   linkType: hard
 
@@ -2291,7 +2265,7 @@ __metadata:
     "@types/numeral": "npm:2.0.5"
     "@types/react": "npm:19.0.2"
     "@types/react-dom": "npm:19.0.2"
-    ai: "npm:4.0.21"
+    ai: "npm:4.0.22"
     autoprefixer: "npm:10.4.20"
     chance: "npm:1.1.12"
     chart.js: "npm:4.4.7"
