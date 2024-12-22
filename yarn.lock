@@ -12,15 +12,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/openai@npm:1.0.10":
-  version: 1.0.10
-  resolution: "@ai-sdk/openai@npm:1.0.10"
+"@ai-sdk/openai@npm:1.0.11":
+  version: 1.0.11
+  resolution: "@ai-sdk/openai@npm:1.0.11"
   dependencies:
-    "@ai-sdk/provider": "npm:1.0.2"
-    "@ai-sdk/provider-utils": "npm:2.0.4"
+    "@ai-sdk/provider": "npm:1.0.3"
+    "@ai-sdk/provider-utils": "npm:2.0.5"
   peerDependencies:
     zod: ^3.0.0
-  checksum: 10c0/3efc9505057aa0dcf74861e4253a49d5ff8f38a44f66bbb045e4ba8c89d946a8414e8acb0e19b0d9997326969b1f50c6e1a2eccdd25dd34266b14ea5ed863f56
+  checksum: 10c0/c2ead33dbe5721d6b0930498573c940d56ffd0b33f8c88869a32a03caff1b8862381ed6cf3db05d8231fbf51c772ba492bfa0f4dcac9b9ce8b930cd9696971bc
   languageName: node
   linkType: hard
 
@@ -41,12 +41,38 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ai-sdk/provider-utils@npm:2.0.5":
+  version: 2.0.5
+  resolution: "@ai-sdk/provider-utils@npm:2.0.5"
+  dependencies:
+    "@ai-sdk/provider": "npm:1.0.3"
+    eventsource-parser: "npm:^3.0.0"
+    nanoid: "npm:^3.3.8"
+    secure-json-parse: "npm:^2.7.0"
+  peerDependencies:
+    zod: ^3.0.0
+  peerDependenciesMeta:
+    zod:
+      optional: true
+  checksum: 10c0/95c4f0d6009f91a9886d1b2bfe392b1aace933e1b234b180ed03f01c68670910c542476355aba6b6ef379bf6c4623250705c8c04c98ab13b2ff165dd761d3014
+  languageName: node
+  linkType: hard
+
 "@ai-sdk/provider@npm:1.0.2":
   version: 1.0.2
   resolution: "@ai-sdk/provider@npm:1.0.2"
   dependencies:
     json-schema: "npm:^0.4.0"
   checksum: 10c0/f39e3cbccf54353312431f39d0a3798d8360b259344a5edfad9b07d3912e98fcd196e06b56fd0ac6bef262a17b912cd61312f5dae736cdfadd1e0863231c3d82
+  languageName: node
+  linkType: hard
+
+"@ai-sdk/provider@npm:1.0.3":
+  version: 1.0.3
+  resolution: "@ai-sdk/provider@npm:1.0.3"
+  dependencies:
+    json-schema: "npm:^0.4.0"
+  checksum: 10c0/2543bcc193818fb5e38bddfd3728d6b9a68d457be7dd220c92eeda1328f9c40f981c8dfa02ecbc561a80aef3231c4fac97ef2aea9a07370956d5578841fe071a
   languageName: node
   linkType: hard
 
@@ -2248,7 +2274,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "airbroke@workspace:."
   dependencies:
-    "@ai-sdk/openai": "npm:1.0.10"
+    "@ai-sdk/openai": "npm:1.0.11"
     "@airbrake/browser": "npm:2.1.8"
     "@airbrake/node": "npm:2.1.8"
     "@auth/prisma-adapter": "npm:2.7.4"
