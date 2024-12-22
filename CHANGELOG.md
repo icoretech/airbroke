@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.1.67](https://github.com/icoretech/airbroke/compare/v1.1.66...v1.1.67) (2024-12-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/openai to v1.0.10 ([#878](https://github.com/icoretech/airbroke/issues/878)) ([d89c3f8](https://github.com/icoretech/airbroke/commit/d89c3f8e285f9d1e99bc2986b65524747a2149f6))
+* **deps:** update dependency @ai-sdk/openai to v1.0.11 ([#910](https://github.com/icoretech/airbroke/issues/910)) ([8042297](https://github.com/icoretech/airbroke/commit/8042297f9c9fbcfc5387437b30659ffdc678fa2a))
+* **deps:** update dependency ai to v4.0.20 ([#879](https://github.com/icoretech/airbroke/issues/879)) ([45ed5eb](https://github.com/icoretech/airbroke/commit/45ed5eb078d801c0e373724870662f5dfc9bf0af))
+* **deps:** update dependency ai to v4.0.21 ([#909](https://github.com/icoretech/airbroke/issues/909)) ([f59e06b](https://github.com/icoretech/airbroke/commit/f59e06b3d311f30696e51d5f6c0f4df9b5619ecd))
+* **deps:** update dependency ai to v4.0.22 ([#911](https://github.com/icoretech/airbroke/issues/911)) ([cd79aab](https://github.com/icoretech/airbroke/commit/cd79aab3acb4ce217eadf1dbc840b2571b02cfea))
+* **deps:** update dependency chart.js to v4.4.7 ([#895](https://github.com/icoretech/airbroke/issues/895)) ([ec0a890](https://github.com/icoretech/airbroke/commit/ec0a890a25396f9ca47d926104ebaf0bd31c186d))
+* **deps:** update dependency nanoid to v5.0.9 ([#892](https://github.com/icoretech/airbroke/issues/892)) ([54c55c6](https://github.com/icoretech/airbroke/commit/54c55c60b7c7577b9fbf649d7f8f1f78ecc83ae2))
+* **deps:** update dependency postcss to v8.4.48 ([#874](https://github.com/icoretech/airbroke/issues/874)) ([b26a9f1](https://github.com/icoretech/airbroke/commit/b26a9f1407c06a039abfa226e61ae098fc0ace0b))
+* **deps:** update dependency postcss to v8.4.49 ([#875](https://github.com/icoretech/airbroke/issues/875)) ([4dd9e44](https://github.com/icoretech/airbroke/commit/4dd9e44c535ce7ffe3324294b212bc7755b50790))
+* **deps:** update dependency superjson to v2.2.2 ([#899](https://github.com/icoretech/airbroke/issues/899)) ([7a00ff7](https://github.com/icoretech/airbroke/commit/7a00ff7bcc946b5823ab087e48459aee42988df5))
+* **deps:** update dependency tailwindcss to v3.4.15 ([#877](https://github.com/icoretech/airbroke/issues/877)) ([35d215d](https://github.com/icoretech/airbroke/commit/35d215d6d4fdd6020bbe4b9e9e8ee90b609920fa))
+* **deps:** update dependency tailwindcss to v3.4.16 ([#896](https://github.com/icoretech/airbroke/issues/896)) ([045981c](https://github.com/icoretech/airbroke/commit/045981cc465b8205ed8ec12024a95fbc5e7989de))
+* **deps:** update dependency tailwindcss to v3.4.17 ([#905](https://github.com/icoretech/airbroke/issues/905)) ([b3fa02a](https://github.com/icoretech/airbroke/commit/b3fa02a794416f6d88f64b75a11b32a9e01942ba))
+* **deps:** update dependency typescript to v5.7.2 ([#884](https://github.com/icoretech/airbroke/issues/884)) ([30e892c](https://github.com/icoretech/airbroke/commit/30e892cc93a0258f681cf5e220556da600863dd7))
+* **deps:** update dependency zod to v3.24.1 ([#902](https://github.com/icoretech/airbroke/issues/902)) ([a52ee62](https://github.com/icoretech/airbroke/commit/a52ee62ad3e72b6fab90312471d09d68848b29a5))
+* **deps:** update prisma monorepo to v5.22.0 ([20a612c](https://github.com/icoretech/airbroke/commit/20a612c0e864ab560c08b1429c0d8cd3e6d8160d))
+* **deps:** update prisma monorepo to v6.1.0 ([#906](https://github.com/icoretech/airbroke/issues/906)) ([211d717](https://github.com/icoretech/airbroke/commit/211d71762ef0e47f5dbbac246b07dd3919d9f484))
+
 ## [1.1.66](https://github.com/icoretech/airbroke/compare/v1.1.65...v1.1.66) (2024-11-05)
 
 
