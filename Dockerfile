@@ -24,6 +24,7 @@ ARG DEBUG_TOOLS
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV CHECKPOINT_DISABLE=1
+ENV AUTH_TRUST_HOST=true
 
 # debug cache filesystem in a live env, to be removed
 # inotifywait -m -r -e create,modify,delete /app
