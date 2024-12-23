@@ -1,3 +1,5 @@
+// lib/auth.ts
+
 import prisma from '@/lib/db';
 import AtlassianProvider from '@auth/core/providers/atlassian';
 import CognitoProvider from '@auth/core/providers/cognito';
@@ -116,6 +118,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
   debug: process.env.AUTH_DEBUG === 'true',
   providers: getProviders(),
+  trustHost: true,
   adapter: CustomPrismaAdapter(),
   callbacks: {
     jwt({ token, account, user }) {
