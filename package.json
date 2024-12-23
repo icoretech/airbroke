@@ -29,7 +29,7 @@
     "chance": "1.1.12",
     "chart.js": "4.4.7",
     "nanoid": "5.0.9",
-    "next": "15.1.0",
+    "next": "15.1.2",
     "next-auth": "^5.0.0-beta.25",
     "numeral": "2.0.6",
     "postcss": "8.4.49",
