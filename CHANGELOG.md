@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.68](https://github.com/icoretech/airbroke/compare/v1.1.67...v1.1.68) (2024-12-23)
+
+
+### Bug Fixes
+
+* **deps:** update @next/bundle-analyzer and eslint-config-next to latest versions for improved performance and bug fixes ([1f0d85d](https://github.com/icoretech/airbroke/commit/1f0d85d5a383a4edf1af97a74f1725dadc95f597))
+
 ## [1.1.67](https://github.com/icoretech/airbroke/compare/v1.1.66...v1.1.67) (2024-12-22)
 
 
