@@ -73,7 +73,7 @@
   "prisma": {
     "seed": "tsx prisma/seed.ts"
   },
-  "packageManager": "yarn@4.5.3",
+  "packageManager": "yarn@4.6.0",
   "resolutions": {
     "@types/react": "19.0.2",
     "@types/react-dom": "19.0.2"
