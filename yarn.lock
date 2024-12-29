@@ -6331,12 +6331,12 @@ __metadata:
   linkType: hard
 
 "npm-check-updates@npm:^17.0.6":
-  version: 17.1.12
-  resolution: "npm-check-updates@npm:17.1.12"
+  version: 17.1.13
+  resolution: "npm-check-updates@npm:17.1.13"
   bin:
     ncu: build/cli.js
     npm-check-updates: build/cli.js
-  checksum: 10c0/e59e7615f7965abf5e931f78079885f55c37a3aa68a31e1be286eda21775ae839124e99f9b6875e33f0c82cbe5b8e9da67d5dfaae4561a310ab8908d60537e94
+  checksum: 10c0/4a63b682e686c21996fc9ce42f28d8124360a2de9a757b948fd663c70cc1b673c2da1784816e581b6a1093eee325d5108a38ba93d82cce6ee4e138efd0b5778e
   languageName: node
   linkType: hard
 
