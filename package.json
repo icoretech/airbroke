@@ -34,7 +34,7 @@
     "numeral": "2.0.6",
     "postcss": "8.4.49",
     "react": "19.0.0",
-    "react-chartjs-2": "5.2.0",
+    "react-chartjs-2": "5.3.0",
     "react-dom": "19.0.0",
     "react-icons-ng": "4.9.1",
     "server-only": "0.0.1",
