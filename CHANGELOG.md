@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.69](https://github.com/icoretech/airbroke/compare/v1.1.68...v1.1.69) (2025-01-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/openai to v1.0.12 ([#918](https://github.com/icoretech/airbroke/issues/918)) ([6e99417](https://github.com/icoretech/airbroke/commit/6e994174278e0a3de5bfeac7db1fd2e6cfcd1432))
+* **deps:** update dependency ai to v4.0.23 ([#919](https://github.com/icoretech/airbroke/issues/919)) ([ab4aa5a](https://github.com/icoretech/airbroke/commit/ab4aa5a135d888060942ebe37e732d8b1052376b))
+* **deps:** update dependency react-chartjs-2 to v5.3.0 ([#917](https://github.com/icoretech/airbroke/issues/917)) ([51c5474](https://github.com/icoretech/airbroke/commit/51c5474522f6408501301554ed997e7d850d6620))
+* **deps:** update dependency zod-form-data to v2.0.5 ([#907](https://github.com/icoretech/airbroke/issues/907)) ([43d2be7](https://github.com/icoretech/airbroke/commit/43d2be7e5a113a38ffe2d45dfae83a010d63917e))
+
 ## [1.1.68](https://github.com/icoretech/airbroke/compare/v1.1.67...v1.1.68) (2024-12-23)
 
 
