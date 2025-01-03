@@ -37,7 +37,7 @@
 
 ## System Requirements
 
-- Node.js 18/20+ compatible environment
+- Node.js 20/22+ compatible environment
 - Minimum of 300MB RAM
 - At least 1000 millicores, equivalent to 1 CPU core
 - PostgreSQL 15+ database
@@ -194,10 +194,14 @@ Airbroke includes an authentication layer that allows you to secure access to th
 - GitHub
 - Atlassian
 - Google
+- Apple
+- Authentik
 - Cognito
 - GitLab
 - Keycloak
-- Azure AD
+- Microsoft Entra Id
+- Slack
+- Okta
 
 To configure the authentication layer, you need to set the necessary environment variables corresponding to the authentication providers you want to use. These environment variables typically include client IDs, client secrets, and other provider-specific configuration details. Make sure to keep these environment variables secure, as they contain sensitive information.
 

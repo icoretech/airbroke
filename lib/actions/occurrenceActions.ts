@@ -1,47 +1,53 @@
+// lib/actions/occurrenceActions.ts
+
 'use server';
 
 import { auth } from '@/lib/auth';
-import prisma from '@/lib/db';
+import { prisma } from '@/lib/db';
 import { Context } from '@/types/airbroke';
 import { revalidatePath } from 'next/cache';
 
+/**
+ * Replays an HTTP request based on captured context data.
+ */
 export async function performReplay(context: Context): Promise<string> {
   const { headers, httpMethod, url } = context;
-  if (!url) return 'Invalid HTTP request for replay. The URL property is missing.';
+  if (!url) {
+    return 'Invalid HTTP request for replay. The URL property is missing.';
+  }
 
   const requestOptions: RequestInit = {
-    method: httpMethod,
-    headers: headers,
+    method: httpMethod ?? 'GET',
     cache: 'no-store',
+    ...(headers ? { headers } : {}),
   };
 
-  let responseText: string;
   try {
     const response = await fetch(url, requestOptions);
     const responseBody = await response.text();
 
     if (response.ok) {
-      responseText = `HTTP Status Code: ${response.status}\nBody hidden`;
+      return `HTTP Status Code: ${response.status}\nBody hidden`;
     } else {
-      responseText = `HTTP Status Code: ${response.status}\n${responseBody}`;
+      return `HTTP Status Code: ${response.status}\n${responseBody}`;
     }
   } catch (error) {
-    responseText = `Error occurred during fetch: ${error}`;
+    return `Error occurred during fetch: ${String(error)}`;
   }
-
-  return responseText;
 }
 
-// Function to create a bookmark for a user
+/**
+ * Creates an occurrence bookmark for the currently logged-in user.
+ */
 export async function createOccurrenceBookmark(occurrenceId: string) {
   const session = await auth();
-  if (!session) {
-    throw new Error('Session not found');
+  if (!session || !session.user || !session.user.id) {
+    throw new Error('No user session or user ID found');
   }
 
   await prisma.occurrenceBookmark.create({
     data: {
-      user_id: session.user?.id!,
+      user_id: session.user.id,
       occurrence_id: occurrenceId,
     },
   });
@@ -50,16 +56,19 @@ export async function createOccurrenceBookmark(occurrenceId: string) {
   revalidatePath('/bookmarks');
 }
 
+/**
+ * Removes an occurrence bookmark for the currently logged-in user.
+ */
 export async function removeOccurrenceBookmark(occurrenceId: string) {
   const session = await auth();
-  if (!session) {
-    throw new Error('Session not found');
+  if (!session?.user?.id) {
+    throw new Error('No user session or user ID found');
   }
 
   await prisma.occurrenceBookmark.delete({
     where: {
       user_id_occurrence_id: {
-        user_id: session.user?.id!,
+        user_id: session.user.id,
         occurrence_id: occurrenceId,
       },
     },
@@ -69,6 +78,9 @@ export async function removeOccurrenceBookmark(occurrenceId: string) {
   revalidatePath('/bookmarks');
 }
 
+/**
+ * Sets the `resolved_at` timestamp for an occurrence.
+ */
 export async function resolveOccurrence(occurrenceId: string) {
   await prisma.occurrence.update({
     where: { id: occurrenceId },
@@ -78,6 +90,9 @@ export async function resolveOccurrence(occurrenceId: string) {
   revalidatePath(`/occurrences/${occurrenceId}`);
 }
 
+/**
+ * Clears the `resolved_at` timestamp for an occurrence (reinstate).
+ */
 export async function reinstateOccurrence(occurrenceId: string) {
   await prisma.occurrence.update({
     where: { id: occurrenceId },

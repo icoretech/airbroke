@@ -1,11 +1,13 @@
+// components/ConfirmationDialog.tsx
+
 'use client';
 
 import { deleteProject, deleteProjectNotices } from '@/app/_actions';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { useRouter } from 'next/navigation';
 import { Fragment, useRef, useState, useTransition } from 'react';
-import { SlDisc, SlFire } from 'react-icons-ng/sl';
-import { VscTrash } from 'react-icons-ng/vsc';
+import { SlDisc, SlFire } from 'react-icons/sl';
+import { VscTrash } from 'react-icons/vsc';
 
 export default function ConfirmationDialog({
   projectId,

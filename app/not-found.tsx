@@ -1,23 +1,28 @@
+// app/not-found.tsx
+
 import Link from 'next/link';
+import { TbFileXFilled } from 'react-icons/tb';
 
 export default function NotFound() {
   return (
-    <>
-      <main className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
-        <div className="text-center">
-          <p className="text-base font-semibold text-indigo-600">404</p>
-          <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">Page not found</h1>
-          <p className="mt-6 text-base leading-7 text-gray-600">Sorry, we couldn’t find the page you’re looking for.</p>
-          <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Link
-              href="/"
-              className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Go back home
-            </Link>
-          </div>
-        </div>
-      </main>
-    </>
+    <main className="flex h-screen w-full flex-col items-center justify-center bg-airbroke-900 px-6 py-24 text-white sm:py-32">
+      <div className="flex flex-col items-center text-center">
+        <TbFileXFilled className="mb-4 h-12 w-12 text-gray-500" />
+
+        <h1 className="mb-2 text-6xl font-bold tracking-tight text-white sm:text-7xl">404</h1>
+        <p className="text-xl font-semibold text-gray-300">Page Not Found</p>
+        <p className="mt-4 max-w-md text-sm text-gray-400">
+          Oops! We couldn’t find the page you’re looking for. It might have been removed or you may have typed the wrong
+          URL.
+        </p>
+
+        <Link
+          href="/projects"
+          className="mt-8 inline-block rounded-md bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white ring-1 ring-indigo-600 ring-offset-2 transition-colors hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        >
+          Back to Projects
+        </Link>
+      </div>
+    </main>
   );
 }

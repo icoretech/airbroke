@@ -1,6 +1,8 @@
-import numeral from 'numeral';
+// components/CounterLabel.tsx
 
-export default function OccurrenceCounterLabel({ counter }: { counter: bigint }) {
+import numbro from 'numbro';
+
+export default function CounterLabel({ counter }: { counter: bigint }) {
   const getCounterColorClass = () => {
     const ranges = [1, 10, 20, 50, 100, 250, 500, 1000, 2500, 5000, 10000];
     const colorClasses = [
@@ -30,7 +32,11 @@ export default function OccurrenceCounterLabel({ counter }: { counter: bigint })
     <div
       className={`ml-auto w-10 min-w-max whitespace-nowrap rounded-full px-2.5 py-0.5 text-center text-xs font-medium leading-5 text-white ring-1 ring-inset ${getCounterColorClass()}`}
     >
-      {numeral(counter).format('0a')}
+      {numbro(Number(counter)).format({
+        average: true,
+        mantissa: 1,
+        totalLength: 1,
+      })}
     </div>
   );
 }

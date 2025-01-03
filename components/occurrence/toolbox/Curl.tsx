@@ -1,8 +1,10 @@
+// components/occurrence/toolbox/Curl.tsx
+
 'use client';
 
 import { Context } from '@/types/airbroke';
 import { useState } from 'react';
-import { SiCurl } from 'react-icons-ng/si';
+import { SiCurl } from 'react-icons/si';
 
 function ToolboxCurl({ context }: { context: Context }) {
   const toCurl = (): string => {

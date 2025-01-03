@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "lint-watch",
+      "type": "shell",
+      "command": "yarn",
+      "args": ["lint:eslint:vscode:watch"],
+      "problemMatcher": "$eslint-stylish",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    }
+  ]
+}

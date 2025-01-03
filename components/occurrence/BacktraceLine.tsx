@@ -1,5 +1,8 @@
+// components/occurrence/BacktraceLine.tsx
+
 import { composeFileUrl } from '@/lib/gitProvider';
-import { Project } from '@prisma/client';
+
+import type { Project } from '@prisma/client';
 
 export default function LinkedBacktraceLine({ file, line, project }: { file: string; line: number; project: Project }) {
   if (file.includes('PROJECT_ROOT')) {

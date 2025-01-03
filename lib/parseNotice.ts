@@ -1,4 +1,5 @@
 // lib/parseNotice.ts
+
 interface NoticeTrace {
   file: string;
   line: number;
@@ -11,16 +12,37 @@ export interface NoticeError {
   backtrace: NoticeTrace[];
 }
 
+/**
+ * The structure of a parsed Notice object.
+ */
 export interface NoticeData {
   errors: NoticeError[];
-  context: Record<string, any>;
-  environment: Record<string, any>;
-  session: Record<string, any>;
-  params: Record<string, any>;
+  /**
+   * Additional context in key-value form.
+   */
+  context: Record<string, unknown>;
+  /**
+   * Environment details.
+   */
+  environment: Record<string, unknown>;
+  /**
+   * Session details, if any.
+   */
+  session: Record<string, unknown>;
+  /**
+   * Params or additional data associated with the notice.
+   */
+  params: Record<string, unknown>;
 }
 
+/**
+ * Sanitizes and normalizes a raw NoticeData object to ensure required fields are present.
+ *
+ * @param noticeData - The raw NoticeData to parse
+ * @returns A sanitized and normalized NoticeData object
+ */
 export default function parseNotice(noticeData: NoticeData): NoticeData {
-  // console.log('Received noticeData:', JSON.stringify(noticeData, null, 2));
+  console.trace('Received noticeData:', JSON.stringify(noticeData, null, 2));
 
   const whitelistedNotice: NoticeData = {
     errors: [],

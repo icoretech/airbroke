@@ -1,9 +1,12 @@
-import type { NoticeSearchParams } from '@/lib/queries/notices';
+// components/NoticesTable.tsx
+
 import { getNotices } from '@/lib/queries/notices';
 import Link from 'next/link';
-import OccurrenceCounterLabel from './CounterLabel';
+import CounterLabel from './CounterLabel';
 import CustomTimeAgo from './CustomTimeAgo';
 import EnvironmentLabel from './EnvironmentLabel';
+
+import type { NoticeSearchParams } from '@/lib/queries/notices';
 
 type NoticesTableProps = {
   projectId: string;
@@ -18,7 +21,7 @@ export default async function NoticesTable({ projectId, searchParams }: NoticesT
       {notices.map((notice) => (
         <li
           key={notice.id}
-          className="relative flex items-center space-x-4 px-4 py-4 transition-colors duration-200 hover:bg-airbroke-800 sm:px-6 lg:px-8"
+          className="relative flex items-center space-x-4 px-4 py-4 transition-colors duration-200 hover:bg-gradient-to-r hover:from-airbroke-800 hover:to-airbroke-900 sm:px-6 lg:px-8"
         >
           <div className="min-w-0 flex-auto">
             <div className="flex items-center gap-x-3">
@@ -33,9 +36,9 @@ export default async function NoticesTable({ projectId, searchParams }: NoticesT
           </div>
 
           <p className="min-w-[200px] text-right text-xs text-white">
-            <CustomTimeAgo datetime={notice.updated_at} locale="en_US" />
+            <CustomTimeAgo date={new Date(notice.updated_at)} />
           </p>
-          <OccurrenceCounterLabel counter={notice.seen_count} />
+          <CounterLabel counter={notice.seen_count} />
         </li>
       ))}
     </ul>

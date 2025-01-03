@@ -1,4 +1,6 @@
-import { SlDisc } from 'react-icons-ng/sl';
+// app/loading.tsx
+
+import { SlDisc } from 'react-icons/sl';
 
 export default function Loading() {
   return (

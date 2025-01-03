@@ -1,12 +1,10 @@
+// components/occurrence/Toolbox.tsx
+
 import { getOccurrenceById } from '@/lib/queries/occurrences';
 import { Context } from '@/types/airbroke';
 import ToolboxAI from './toolbox/AI';
 import ToolboxCurl from './toolbox/Curl';
 import ToolboxFetch from './toolbox/Replay';
-
-interface ToolboxProps {
-  occurrenceId: string;
-}
 
 export default async function Toolbox({ occurrenceId }: { occurrenceId: string }) {
   const occurrence = await getOccurrenceById(occurrenceId);

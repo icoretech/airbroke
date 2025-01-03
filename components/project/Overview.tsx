@@ -1,23 +1,19 @@
 // components/project/Overview.tsx
-import NoData from '@/components/NoData';
+
 import { getNoticesCountByProjectId } from '@/lib/queries/notices';
 import { getHourlyOccurrenceRateForLast14Days, getOccurrencesCountByProjectId } from '@/lib/queries/occurrences';
-import { getProjectById } from '@/lib/queries/projects';
+import TestZone from '../TestZone';
 import OccurrencesChartWrapper from './OccurrencesChartWrapper';
 import DangerZone from './cards/DangerZone';
 
-type OverviewProps = {
-  projectId: string;
-};
+import type { Project } from '@prisma/client';
 
-export default async function Overview({ projectId }: OverviewProps) {
-  const project = await getProjectById(projectId);
-  if (!project) {
-    throw new Error('Project not found');
-  }
-  const noticesCount = await getNoticesCountByProjectId(project.id);
-  const occurrencesCount = await getOccurrencesCountByProjectId(project.id);
-  const hourlyOccurrenceRateForLast14Days = await getHourlyOccurrenceRateForLast14Days(project.id);
+export default async function Overview({ project }: { project: Project }) {
+  const [noticesCount, occurrencesCount, hourlyOccurrenceRateForLast14Days] = await Promise.all([
+    getNoticesCountByProjectId(project.id),
+    getOccurrencesCountByProjectId(project.id),
+    getHourlyOccurrenceRateForLast14Days(project.id),
+  ]);
 
   const stats = [
     { name: 'Notices', value: noticesCount },
@@ -26,11 +22,33 @@ export default async function Overview({ projectId }: OverviewProps) {
   ];
 
   return (
-    <div className="px-4 py-6 text-white sm:px-6 lg:px-8">
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-4">
-        <div className="rounded-lg bg-gray-900 p-6">
-          <h3 className="text-base font-semibold leading-6 text-white">Project Information</h3>
+    <div className="space-y-6 px-4 py-6 text-white sm:px-6 lg:px-8">
+      {/* Stats block, full width */}
+      <div className="rounded-lg bg-gray-900 p-6 shadow-md">
+        <h3 className="text-base font-semibold leading-6 text-white">Stats</h3>
+        <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3">
+          {stats.map((stat) => (
+            <div key={stat.name} className="rounded-lg bg-gray-800 p-4">
+              <p className="text-sm font-medium leading-6 text-gray-400">{stat.name}</p>
+              <p className="mt-2 flex items-baseline gap-x-2">
+                <span className="text-4xl font-semibold tracking-tight text-white">{stat.value}</span>
+                {stat.unit && <span className="text-sm text-gray-400">{stat.unit}</span>}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
 
+      {/* Chart goes first, full width */}
+      <div className="rounded-lg bg-gray-900 p-6 shadow-md">
+        <OccurrencesChartWrapper projectId={project.id} />
+      </div>
+
+      {/* Two-column layout for Project Info + Repository Info */}
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        {/* Project info */}
+        <div className="rounded-lg bg-gray-900 p-6 shadow-md">
+          <h3 className="text-base font-semibold leading-6 text-white">Project Information</h3>
           <dl className="mt-6 divide-y divide-white/10">
             <div className="py-3">
               <dt className="text-sm font-medium leading-6 text-white">Name</dt>
@@ -50,9 +68,10 @@ export default async function Overview({ projectId }: OverviewProps) {
             </div>
           </dl>
         </div>
-        <div className="rounded-lg bg-gray-900 p-6">
-          <h3 className="text-base font-semibold leading-6 text-white">Repository Information</h3>
 
+        {/* Repository info */}
+        <div className="rounded-lg bg-gray-900 p-6 shadow-md">
+          <h3 className="text-base font-semibold leading-6 text-white">Repository Information</h3>
           <dl className="mt-6 divide-y divide-white/10">
             <div className="py-3">
               <dt className="text-sm font-medium leading-6 text-white">Provider</dt>
@@ -72,39 +91,19 @@ export default async function Overview({ projectId }: OverviewProps) {
             </div>
           </dl>
         </div>
-
-        <div className="rounded-lg bg-gray-900 p-6">
-          <h3 className="text-base font-semibold leading-6 text-white">Stats</h3>
-          <div className="mt-6 grid grid-cols-1 gap-6">
-            {stats.map((stat) => (
-              <div key={stat.name} className="rounded-lg bg-gray-800 p-4">
-                <p className="text-sm font-medium leading-6 text-gray-400">{stat.name}</p>
-                <p className="mt-2 flex items-baseline gap-x-2">
-                  <span className="text-4xl font-semibold tracking-tight text-white">{stat.value}</span>
-                  {stat.unit && <span className="text-sm text-gray-400">{stat.unit}</span>}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="grid grid-cols-1 gap-6">
-          <div className="rounded-lg bg-gray-900 p-6">
-            <h3 className="text-base font-semibold leading-6 text-white">Test Zone</h3>
-            <p className="mt-1 text-sm leading-6 text-gray-400">Send test exceptions</p>
-
-            <div className="mt-6 flex-1">
-              <NoData project={project} showHeader={false} />
-            </div>
-          </div>
-
-          <div className="rounded-lg bg-gray-900 p-6">
-            <DangerZone projectId={project.id} />
-          </div>
-        </div>
       </div>
 
-      <div className="mt-6 rounded-lg bg-gray-900 p-6">
-        <OccurrencesChartWrapper projectId={project.id} />
+      {/* "Actions" area with Test Zone + Danger Zone, full width */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        {/* Left: Test Zone */}
+        <div className="rounded-lg bg-gray-900 p-6 shadow-md">
+          <TestZone project={project} />
+        </div>
+
+        {/* Right: Danger Zone */}
+        <div className="rounded-lg bg-gray-900 p-6 shadow-md">
+          <DangerZone project={project} />
+        </div>
       </div>
     </div>
   );

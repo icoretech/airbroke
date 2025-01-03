@@ -1,49 +1,89 @@
-import ProjectsTable from '@/components/ProjectsTable';
-import Search from '@/components/Search';
-import { SidebarOpenButton } from '@/components/SidebarButtons';
-import SidebarDesktop from '@/components/SidebarDesktop';
-import SidebarMobile from '@/components/SidebarMobile';
-import prisma from '@/lib/db';
-import type { Metadata } from 'next';
-import { redirect } from 'next/navigation';
+// app/projects/page.tsx
 
-export const revalidate = 0;
+import CounterLabel from '@/components/CounterLabel';
+import CreateProjectProposal from '@/components/CreateProjectProposal';
+import { DashboardShell } from '@/components/DashboardShell';
+import OccurrencesChartBackground from '@/components/OccurrencesChartBackground';
+import PingDot from '@/components/PingDot';
+import { cachedProjectChartOccurrencesData } from '@/lib/actions/projectActions';
+import { getProjects } from '@/lib/queries/projects';
+import { cookies } from 'next/headers';
+import Link from 'next/link';
+import { TbFileAlert } from 'react-icons/tb';
 
-export async function generateMetadata(): Promise<Metadata> {
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
+export async function generateMetadata() {
   return { title: 'Projects' };
 }
 
 // /projects
-export default async function Projects(props: { searchParams: Promise<Record<string, string>> }) {
-  const searchParams = await props.searchParams;
-  const searchQuery = searchParams.searchQuery;
+export default async function Projects(props: { searchParams: SearchParams }) {
+  const resolvedSearchParams = await props.searchParams;
+  const searchQuery = resolvedSearchParams.searchQuery;
+  const currentSearchTerm = typeof searchQuery === 'string' ? searchQuery : '';
+  const cookieStore = await cookies();
+  const initialSidebarOpen = cookieStore.get('sidebarOpen')?.value === 'true';
 
-  const totalProjects = await prisma.project.count();
+  const projects = await getProjects(currentSearchTerm);
 
-  if (totalProjects === 0) {
-    redirect('/projects/new');
+  if (projects.length === 0) {
+    return (
+      <DashboardShell initialSidebarOpen={initialSidebarOpen}>
+        {currentSearchTerm ? (
+          <div className="mt-10 text-center">
+            <TbFileAlert aria-hidden="true" className="mx-auto h-12 w-12 animate-bounce text-indigo-200" />
+            <h3 className="mt-2 text-sm font-semibold text-indigo-200">No projects found for {currentSearchTerm}</h3>
+            <CreateProjectProposal />
+          </div>
+        ) : (
+          <CreateProjectProposal />
+        )}
+      </DashboardShell>
+    );
   }
 
+  const projectsWithChartData = await Promise.all(
+    projects.map(async (project) => {
+      const chartData = await cachedProjectChartOccurrencesData(project.id);
+      return { ...project, chartData };
+    })
+  );
+
   return (
-    <div>
-      <SidebarMobile>
-        <SidebarDesktop />
-      </SidebarMobile>
+    <DashboardShell initialSidebarOpen={initialSidebarOpen}>
+      <ul role="list" className="divide-y divide-white/5">
+        {projectsWithChartData.map((project) => {
+          // Decide color class
+          const isEmpty = project.notices_count === BigInt(0);
+          const colorKey = project.paused ? 'gray' : isEmpty ? 'green' : 'red';
+          const badgeLabel = `${project.organization} / ${project.name}`;
 
-      <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
-        <SidebarDesktop />
-      </div>
+          return (
+            <li key={project.id} className="relative hover:bg-airbroke-800">
+              {/* Chart as background */}
+              <div className="pointer-events-none absolute inset-0 z-0">
+                <OccurrencesChartBackground chartData={project.chartData} />
+              </div>
 
-      <main className="xl:pl-72">
-        <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5 bg-airbroke-900 px-4 shadow-sm sm:px-6 lg:px-8">
-          <SidebarOpenButton />
-          <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-            <Search />
-          </div>
-        </div>
+              <Link href={`/projects/${project.id}`} className="relative z-10 block p-4 sm:px-6 lg:px-8">
+                <div className="flex items-center justify-between">
+                  <span className="relative z-10 inline-flex items-center gap-1.5 rounded-md bg-gray-900/70 px-2 py-1 text-xs font-medium text-white">
+                    {/* Dot with ping animation */}
+                    <PingDot color={colorKey} />
+                    {badgeLabel}
+                  </span>
 
-        <ProjectsTable currentSearchTerm={searchQuery} />
-      </main>
-    </div>
+                  {/* Right side: CounterLabel */}
+                  <div className="relative z-10">
+                    <CounterLabel counter={project.notices_count} />
+                  </div>
+                </div>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </DashboardShell>
   );
 }

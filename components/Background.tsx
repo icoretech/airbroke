@@ -1,3 +1,5 @@
+// components/Background.tsx
+
 export default function Background() {
   return (
     <>

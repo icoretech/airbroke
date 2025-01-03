@@ -1,158 +1,204 @@
+// lib/actions/projectActions.ts
+
 'use server';
 
-import prisma from '@/lib/db';
-import { parseGitURL } from '@/lib/parseGitUrl';
-import { revalidateTag } from 'next/cache';
+import { prisma } from '@/lib/db';
+import { parseGitURL } from '@/lib/gitProvider';
+import { unstable_cacheLife as cacheLife } from 'next/cache';
+import { redirect, unstable_rethrow } from 'next/navigation';
 import { z } from 'zod';
-import { generateErrorMessage } from 'zod-error';
-import { zfd } from 'zod-form-data';
 
-interface ProjectResponse {
-  project_id: string | null;
+import type { Project } from '@prisma/client';
+
+export interface ProjectState {
   error: string | null;
+  lastUrl: string;
 }
 
-// TODO: replace with zod
-function validateProjectName(name: string): boolean {
-  const nameRegex = /^[a-zA-Z0-9-_.]{1,100}$/;
-  return nameRegex.test(name);
+export interface ProjectResponse {
+  error?: string | null;
+  errors?: {
+    [K in keyof Project]?: string[];
+  };
 }
 
-export async function createProject(data?: FormData): Promise<ProjectResponse> {
-  if (!data) {
-    // Handle the case when no data is provided
+// REGEX for validating the repository name (1-100 chars, no spaces, only [a-zA-Z0-9-_.])
+const repoNameRegex = /^[a-zA-Z0-9._-]{1,100}$/;
+
+export async function createProject(prevState: ProjectState, formData: FormData): Promise<ProjectState> {
+  // Convert FormData to a plain record of strings
+  const dataObj: Record<string, string> = {};
+  formData.forEach((val, key) => {
+    dataObj[key] = val.toString();
+  });
+
+  const repository_url = dataObj.repository_url?.trim() || '';
+
+  // If there's no repository_url, create a random project name
+  if (!repository_url) {
     const randomNum = Math.floor(Math.random() * 10000);
 
     try {
-      const project = await prisma.project.create({ data: { name: `Company ${randomNum}` } });
-      return { project_id: project.id, error: null };
-    } catch (e) {
-      if (e instanceof Error) {
-        return { project_id: null, error: e.message };
-      } else {
-        return { project_id: null, error: 'An unknown error occurred' };
-      }
+      const project = await prisma.project.create({ data: { name: `project${randomNum}` } });
+      redirect(`/projects/${project.id}/edit?tab=integrations`);
+    } catch (err) {
+      unstable_rethrow(err);
+      return { error: (err as Error).message ?? 'Unknown error', lastUrl: '' };
     }
   }
 
-  const repository_url = data.get('repository_url') as string;
-
+  // If we do have a repository_url => parse & validate
   const parsed = parseGitURL(repository_url);
   if (!parsed) {
+    return { error: 'Invalid repository URL format.', lastUrl: repository_url };
+  }
+
+  // Zod schema for the parseGitURL results
+  const parseSchema = z.object({
+    provider: z.string().min(1),
+    organization: z.string().min(1),
+    repository: z.string().regex(repoNameRegex, 'Invalid project name. Must be 1-100 chars (no spaces).'),
+  });
+
+  // Run the schema check
+  const parseResult = parseSchema.safeParse(parsed);
+  if (!parseResult.success) {
+    // E.g. invalid repository format
+    const firstIssue = parseResult.error.issues[0];
     return {
-      project_id: null,
-      error: 'Invalid repository URL format.',
+      error: firstIssue?.message || 'Invalid repository name or format.',
+      lastUrl: repository_url,
     };
   }
 
-  const { provider, organization, repository } = parsed;
+  // If valid, we proceed
+  const { provider, organization, repository } = parseResult.data;
 
-  if (!validateProjectName(repository)) {
-    return {
-      project_id: null,
-      error: `Invalid project name "${repository}". It must be 1-100 characters long and can contain only alphanumeric characters without spaces.`,
-    };
-  }
-
-  const projectData = {
-    name: repository,
-    organization: organization,
-    repo_provider: provider,
-    repo_branch: 'main',
-    repo_issue_tracker: repository_url,
-    repo_url: repository_url,
-    // repo_provider_api_key: data.get('repo_provider_api_key') as string,
-    // repo_provider_api_secret: data.get('repo_provider_api_secret') as string,
-  };
-
+  // Attempt to create the project in the DB
   try {
-    const project = await prisma.project.create({ data: projectData });
-    return { project_id: project.id, error: null };
-  } catch (e) {
-    // Check if the exception is an instance of Error
-    if (e instanceof Error) {
-      // If it is, we can safely cast it to Error
-      return { project_id: null, error: e.message };
-    } else {
-      // Otherwise, create a new Error object
-      return { project_id: null, error: 'An unknown error occurred' };
-    }
+    const newProject = await prisma.project.create({
+      data: {
+        name: repository,
+        organization,
+        repo_provider: provider,
+        repo_url: repository_url,
+        repo_branch: 'main',
+        repo_issue_tracker: repository_url,
+      },
+    });
+    redirect(`/projects/${newProject.id}/edit?tab=integrations`);
+  } catch (err) {
+    unstable_rethrow(err);
+    return { error: (err as Error).message ?? 'Unknown error', lastUrl: repository_url };
   }
 }
 
-export async function updateProject(projectId: string, formData: FormData): Promise<ProjectResponse> {
-  // Define a schema for your form data
-  const formDataSchema = zfd
-    .formData({
-      name: zfd.text(),
-      organization: zfd.text(),
-      repo_provider_api_key: zfd.text(z.string().optional()),
-      repo_provider_api_secret: zfd.text(z.string().optional()),
-      repo_branch: zfd.text(z.string().optional()),
-      repo_issue_tracker: zfd.text(z.string().optional()).refine((value) => {
-        // Add a custom URL validation
-        if (value) {
+export async function updateProject(prevState: ProjectResponse, formData: FormData): Promise<ProjectResponse> {
+  // Define the shape of the data for updating a project.
+  const updateProjectSchema = z
+    .object({
+      projectId: z.string().uuid('Invalid project ID'),
+      organization: z.string().min(1, 'organization is required'),
+      name: z.string().min(1, 'name is required'),
+      repo_provider_api_key: z.string().optional(),
+      repo_provider_api_secret: z.string().optional(),
+      repo_branch: z.string().optional(),
+      repo_issue_tracker: z
+        .string()
+        .optional()
+        .or(z.literal(''))
+        .transform((val) => (val === '' ? undefined : val))
+        .refine((val) => {
+          if (!val) return true;
           try {
-            new URL(value);
+            new URL(val);
             return true;
           } catch {
             return false;
           }
-        }
-        return true;
-      }, 'Must be a valid URL'),
-      repo_url: zfd.text(z.string().optional()).refine((value) => {
-        // Add a custom URL validation
-        if (value) {
+        }, 'repo_issue_tracker must be a valid URL'),
+      repo_url: z
+        .string()
+        .optional()
+        .or(z.literal(''))
+        .transform((val) => (val === '' ? undefined : val))
+        .refine((val) => {
+          if (!val) return true;
           try {
-            new URL(value);
+            new URL(val);
             return true;
           } catch {
             return false;
           }
-        }
-        return true;
-      }, 'Must be a valid URL'),
+        }, 'repo_url must be a valid URL'),
     })
+    // If one credential is provided, ensure the other is too
     .refine(
-      (data) => {
-        // If one of repo_provider_api_key or repo_provider_api_secret is present, the other must be too
-        if (
+      (data) =>
+        !(
           (data.repo_provider_api_key && !data.repo_provider_api_secret) ||
           (!data.repo_provider_api_key && data.repo_provider_api_secret)
-        ) {
-          return false;
-        }
-        return true;
-      },
+        ),
       {
         message: 'Both repo_provider_api_key and repo_provider_api_secret must be provided if one is present',
-        path: ['repo_provider_api_key', 'repo_provider_api_secret'], // This is where the error message will be attached
+        path: ['repo_provider_api_key', 'repo_provider_api_secret'],
       }
     );
 
-  // Validate the form data
-  const parsedData = formDataSchema.safeParse(formData);
-  if (!parsedData.success) {
-    const errorMessage = generateErrorMessage(parsedData.error.issues);
-    revalidateTag(`project_${projectId}`);
-    return { project_id: projectId, error: errorMessage };
-  }
-  const convertedData = Object.fromEntries(
-    Object.entries(parsedData.data).map(([key, value]) => [key, value === undefined ? null : value])
-  );
-  await prisma.project.update({
-    where: { id: projectId },
-    data: convertedData,
+  const dataObj: Record<string, string> = {};
+  formData.forEach((val, key) => {
+    dataObj[key] = val.toString();
   });
 
-  revalidateTag('projects');
-  revalidateTag(`project_${projectId}`);
+  const parsed = updateProjectSchema.safeParse(dataObj);
+  if (!parsed.success) {
+    const fieldErrors = parsed.error.flatten().fieldErrors;
+    return { errors: fieldErrors };
+  }
 
-  return { project_id: projectId, error: null };
+  const {
+    projectId,
+    name,
+    organization,
+    repo_provider_api_key,
+    repo_provider_api_secret,
+    repo_branch,
+    repo_issue_tracker,
+    repo_url,
+  } = parsed.data;
+
+  const dataForPrisma: Record<string, unknown> = {};
+
+  if (name !== undefined) dataForPrisma.name = name;
+  if (organization !== undefined) dataForPrisma.organization = organization;
+  if (repo_provider_api_key !== undefined) {
+    dataForPrisma.repo_provider_api_key = repo_provider_api_key;
+  }
+  if (repo_provider_api_secret !== undefined) {
+    dataForPrisma.repo_provider_api_secret = repo_provider_api_secret;
+  }
+  if (repo_branch !== undefined) dataForPrisma.repo_branch = repo_branch;
+  if (repo_issue_tracker !== undefined) {
+    dataForPrisma.repo_issue_tracker = repo_issue_tracker;
+  }
+  if (repo_url !== undefined) dataForPrisma.repo_url = repo_url;
+
+  try {
+    await prisma.project.update({
+      where: { id: projectId },
+      data: dataForPrisma,
+    });
+  } catch (err) {
+    // Could put a "global" error if DB fails
+    const message = (err as Error)?.message || 'Database error';
+    return { error: message };
+  }
+
+  // success: no errors
+  return {};
 }
 
-export async function toggleProjectPausedStatus(projectId: string): Promise<void> {
+export async function toggleProjectPausedStatus(projectId: string) {
   const project = await prisma.project.findUnique({ where: { id: projectId } });
   if (!project) {
     throw new Error('Project not found.');
@@ -162,21 +208,50 @@ export async function toggleProjectPausedStatus(projectId: string): Promise<void
     where: { id: projectId },
     data: { paused: !project.paused },
   });
-
-  revalidateTag('projects');
-  revalidateTag(`project_${projectId}`);
 }
 
-export async function deleteProjectNotices(projectId: string): Promise<void> {
+export async function deleteProjectNotices(projectId: string) {
   await prisma.notice.deleteMany({ where: { project_id: projectId } });
-
-  revalidateTag('projects');
-  revalidateTag(`project_${projectId}`);
-  revalidateTag(`project_${projectId}_notices`);
 }
 
-export async function deleteProject(projectId: string): Promise<void> {
+export async function deleteProject(projectId: string) {
   await prisma.project.delete({ where: { id: projectId } });
+}
 
-  revalidateTag('projects');
+export async function cachedProjectChartOccurrencesData(projectId: string) {
+  'use cache';
+  cacheLife('hours');
+
+  const endDate = new Date();
+  const startDate = new Date(endDate.getTime() - 14 * 24 * 60 * 60 * 1000);
+
+  const occurrenceSummaries = await prisma.hourlyOccurrence.groupBy({
+    by: ['interval_start'],
+    where: {
+      occurrence: {
+        notice: { project_id: projectId },
+      },
+      interval_start: { gte: startDate },
+      interval_end: { lte: endDate },
+    },
+    _sum: { count: true },
+    orderBy: { interval_start: 'asc' },
+  });
+
+  const occurrenceCountByDate: Record<string, number> = {};
+  occurrenceSummaries.forEach((summary) => {
+    const hourStamp = summary.interval_start.toISOString().slice(0, 13);
+    occurrenceCountByDate[hourStamp] = Number(summary._sum.count);
+  });
+
+  const data = [];
+  const cursorDate = new Date(startDate);
+  while (cursorDate <= endDate) {
+    const stamp = cursorDate.toISOString().slice(0, 13);
+    const count = occurrenceCountByDate[stamp] || 0;
+    data.push({ date: stamp, count });
+    cursorDate.setHours(cursorDate.getHours() + 1);
+  }
+
+  return data;
 }

@@ -1,4 +1,6 @@
-import prisma from '@/lib/db';
+// app/api/hc/route.ts
+
+import { prisma } from '@/lib/db';
 import { NextRequest, NextResponse } from 'next/server';
 
 // GET /api/hc

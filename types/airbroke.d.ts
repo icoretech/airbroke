@@ -1,5 +1,7 @@
+// types/airbroke.d.ts
+
 import type { Route } from 'next';
-import type { IconType } from 'react-icons-ng';
+import type { IconType } from 'react-icons';
 
 export interface Context {
   headers?: Record<string, string>;

@@ -1,7 +1,9 @@
+// components/BookmarksTable.tsx
+
 import { auth } from '@/lib/auth';
 import { getOccurrenceBookmarks } from '@/lib/queries/occurrenceBookmarks';
 import Link from 'next/link';
-import OccurrenceCounterLabel from './CounterLabel';
+import CounterLabel from './CounterLabel';
 import CustomTimeAgo from './CustomTimeAgo';
 import EnvironmentLabel from './EnvironmentLabel';
 
@@ -41,7 +43,7 @@ export default async function BookmarksTable({ searchQuery }: BookmarksTableProp
             {bookmarks.map((bookmark) => (
               <li
                 key={bookmark.occurrence.id}
-                className="relative flex items-center space-x-4 px-4 py-4 transition-colors duration-200 hover:bg-airbroke-800 sm:px-6 lg:px-8"
+                className="relative flex items-center space-x-4 px-4 py-4 transition-colors duration-200 hover:bg-gradient-to-r hover:from-airbroke-800 hover:to-airbroke-900 sm:px-6 lg:px-8"
               >
                 <div className="min-w-0 flex-auto">
                   <div className="flex items-center gap-x-3">
@@ -59,18 +61,18 @@ export default async function BookmarksTable({ searchQuery }: BookmarksTableProp
                     <EnvironmentLabel env={bookmark.occurrence.notice.env} />
 
                     <p className="truncate">
-                      First seen: <CustomTimeAgo datetime={bookmark.occurrence.created_at} locale="en_US" />
+                      First seen: <CustomTimeAgo date={new Date(bookmark.occurrence.created_at)} />
                     </p>
                   </div>
                 </div>
 
                 <div className="text-right text-xs">
                   <p className="text-white">
-                    <CustomTimeAgo datetime={bookmark.occurrence.updated_at} locale="en_US" />
+                    <CustomTimeAgo date={new Date(bookmark.occurrence.updated_at)} />
                   </p>
                   <p className="text-xs text-gray-400">{bookmark.occurrence.updated_at.toUTCString()}</p>
                 </div>
-                <OccurrenceCounterLabel counter={bookmark.occurrence.seen_count} />
+                <CounterLabel counter={bookmark.occurrence.seen_count} />
               </li>
             ))}
           </ul>

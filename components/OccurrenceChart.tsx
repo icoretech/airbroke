@@ -1,8 +1,11 @@
+// components/OccurrenceChart.tsx
+
 'use client';
 
 import {
   BarElement,
   CategoryScale,
+  ChartData,
   Chart as ChartJS,
   ChartOptions,
   Legend,
@@ -15,18 +18,10 @@ import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-interface ChartDataType {
-  labels: string[];
-  datasets: {
-    label: string;
-    data: number[];
-    backgroundColor: string;
-    borderColor: string;
-    borderWidth: number;
-    hoverBackgroundColor: string;
-    hoverBorderColor: string;
-  }[];
-}
+/**
+ * The shape of the data we pass to <Bar />.
+ */
+type ChartDataType = ChartData<'bar'>;
 
 export default function OccurrenceChart({ data }: { data: { date: string; count: number }[] }) {
   const [chartData, setChartData] = useState<ChartDataType | null>(null);

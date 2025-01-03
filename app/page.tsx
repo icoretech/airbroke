@@ -1,20 +1,21 @@
+// app/page.tsx
+
 import Background from '@/components/Background';
+import FooterCredits from '@/components/FooterCredits';
 import logo from '@/public/logo.svg';
 import screenshot from '@/public/screenshot.png';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaGithub } from 'react-icons-ng/fa';
+import { FaGithub } from 'react-icons/fa';
 
 export default function HomePage() {
-  const currentYear = new Date().getFullYear();
-
   return (
     <div className="h-full bg-gray-900">
       <div className="relative isolate overflow-hidden bg-gray-900">
         <Background />
         <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-40">
           <div className="mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
-            <Image src={logo} alt="Airbroke logo" className="h-11 w-auto" />
+            <Image src={logo} alt="Airbroke logo" className="h-11 w-auto" width="463" height="338" />
             <div className="mt-24 sm:mt-32 lg:mt-16">
               <a href="https://github.com/icoretech/airbroke/releases" className="inline-flex space-x-6">
                 <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-sm font-semibold leading-6 text-indigo-400 ring-1 ring-inset ring-indigo-500/20">
@@ -26,7 +27,7 @@ export default function HomePage() {
               Hello, welcome to Airbroke
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-300">
-              Self-hosted, Cost-effective, Open Source Error Tracking for a Sustainable Startup Journey.
+              Self-hosted, Cost-effective and Open Source Error Tracker.
             </p>
             <div className="mt-10 flex items-center gap-x-6">
               <Link
@@ -47,6 +48,9 @@ export default function HomePage() {
                 src={screenshot}
                 alt="Airbroke screenshot"
                 className="w-[76rem] rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10"
+                height="1726"
+                width="2758"
+                priority={true}
               />
             </div>
           </div>
@@ -61,7 +65,9 @@ export default function HomePage() {
             </a>
           </div>
           <div className="mt-8 md:order-1 md:mt-0">
-            <p className="text-center text-xs leading-5 text-white">&copy; {currentYear} iCoreTech, Inc.</p>
+            <p className="text-center text-xs leading-5 text-white">
+              <FooterCredits />
+            </p>
           </div>
         </div>
       </footer>

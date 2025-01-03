@@ -1,13 +1,18 @@
+// components/SidebarProvider.tsx
+
 'use client';
 
-import { ReactNode, createContext, useContext, useState } from 'react';
+import React, { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 
-interface SidebarContextProps {
+interface SidebarContextValue {
   sidebarOpen: boolean;
-  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setSidebarOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const SidebarContext = createContext<SidebarContextProps | undefined>(undefined);
+const SidebarContext = createContext<SidebarContextValue>({
+  sidebarOpen: false,
+  setSidebarOpen: () => {},
+});
 
 export function useSidebar() {
   const context = useContext(SidebarContext);
@@ -17,8 +22,19 @@ export function useSidebar() {
   return context;
 }
 
-export function SidebarProvider({ children }: { children: ReactNode }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+export function SidebarProvider({
+  children,
+  initialSidebarOpen = false,
+}: {
+  children: React.ReactNode;
+  initialSidebarOpen?: boolean;
+}) {
+  const [sidebarOpen, setSidebarOpen] = useState(initialSidebarOpen);
+
+  // Whenever sidebarOpen changes, update the cookie.
+  useEffect(() => {
+    document.cookie = `sidebarOpen=${sidebarOpen}; path=/;`;
+  }, [sidebarOpen]);
 
   return <SidebarContext.Provider value={{ sidebarOpen, setSidebarOpen }}>{children}</SidebarContext.Provider>;
 }

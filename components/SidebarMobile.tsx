@@ -1,57 +1,37 @@
+// components/SidebarMobile.tsx
+
 'use client';
 
-import { SidebarCloseButton } from '@/components/SidebarButtons';
-import { useSidebar } from '@/components/SidebarProvider';
-import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
-import { Fragment } from 'react';
+import { Dialog, DialogBackdrop, DialogPanel, TransitionChild } from '@headlessui/react';
+import { IoMdCloseCircleOutline } from 'react-icons/io';
+import { useSidebar } from './SidebarProvider';
 
 export default function SidebarMobile({ children }: { children: React.ReactNode }) {
   const { sidebarOpen, setSidebarOpen } = useSidebar();
 
   return (
-    <Transition show={sidebarOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50 xl:hidden" onClose={() => setSidebarOpen(false)}>
-        <TransitionChild
-          as={Fragment}
-          enter="transition-opacity ease-in-out delay-50 duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="transition-opacity ease-in-out duration-300"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 bg-gray-900/80" />
-        </TransitionChild>
+    <Dialog open={sidebarOpen} onClose={setSidebarOpen} className="relative z-50 lg:hidden">
+      <DialogBackdrop
+        transition
+        className="fixed inset-0 bg-gray-900/80 transition-opacity duration-300 ease-linear data-[closed]:opacity-0"
+      />
 
-        <div className="fixed inset-0 flex">
-          <TransitionChild
-            as={Fragment}
-            enter="transition ease-in-out duration-300 transform"
-            enterFrom="will-change-transform -translate-x-full"
-            enterTo="translate-x-0"
-            leave="transition ease-in-out duration-300 transform"
-            leaveFrom="translate-x-0"
-            leaveTo="-translate-x-full"
-          >
-            <DialogPanel className="relative mr-16 flex w-full max-w-xs flex-1">
-              <TransitionChild
-                as={Fragment}
-                enter="ease-in-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in-out duration-300"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
-                  <SidebarCloseButton />
-                </div>
-              </TransitionChild>
-              {children}
-            </DialogPanel>
+      <div className="fixed inset-0 flex">
+        <DialogPanel
+          transition
+          className="relative mr-16 flex w-full max-w-xs flex-1 transform transition duration-300 ease-in-out data-[closed]:-translate-x-full"
+        >
+          <TransitionChild>
+            <div className="absolute left-full top-0 flex w-16 justify-center pt-5 duration-300 ease-in-out data-[closed]:opacity-0">
+              <button type="button" onClick={() => setSidebarOpen(false)} className="-m-2.5 p-2.5">
+                <span className="sr-only">Close sidebar</span>
+                <IoMdCloseCircleOutline aria-hidden="true" className="size-6 text-white" />
+              </button>
+            </div>
           </TransitionChild>
-        </div>
-      </Dialog>
-    </Transition>
+          {children}
+        </DialogPanel>
+      </div>
+    </Dialog>
   );
 }

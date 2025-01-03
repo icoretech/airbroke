@@ -1,13 +1,17 @@
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-  openAnalyzer: false,
-});
+// next.config.ts
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: 'standalone',
   serverExternalPackages: ['@airbrake/node'],
+  experimental: {
+    dynamicIO: true,
+    typedRoutes: true,
+    reactCompiler: true,
+  },
+  poweredByHeader: false,
   images: {
     remotePatterns: [
       {
@@ -20,11 +24,10 @@ const nextConfig = {
       },
     ],
   },
-  devIndicators: {
-    buildActivityPosition: 'bottom-right',
-  },
   logging: {
-    level: process.env.AIRBROKE_LOG_LEVEL === 'verbose' ? 'verbose' : undefined,
+    fetches: {
+      fullUrl: true,
+    },
   },
   async rewrites() {
     return [
@@ -40,17 +43,23 @@ const nextConfig = {
         source: '/notifier_api/v2/notices',
         destination: '/api/v3/notices',
       },
-      // old api routing compat
+    ];
+  },
+  async redirects() {
+    return [
+      // compat
       {
         source: '/projects/:project_id/notices/:notice_id/occurrences/:occurrence_id',
         destination: '/occurrences/:occurrence_id',
+        permanent: true,
       },
       {
         source: '/projects/:project_id/notices/:notice_id',
         destination: '/notices/:notice_id',
+        permanent: true,
       },
     ];
   },
 };
 
-module.exports = withBundleAnalyzer(nextConfig);
+export default nextConfig;

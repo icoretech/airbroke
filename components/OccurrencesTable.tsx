@@ -1,7 +1,9 @@
+// components/OccurrencesTable.tsx
+
 import type { OccurrenceSearchParams } from '@/lib/queries/occurrences';
 import { getOccurrences } from '@/lib/queries/occurrences';
 import Link from 'next/link';
-import OccurrenceCounterLabel from './CounterLabel';
+import CounterLabel from './CounterLabel';
 import CustomTimeAgo from './CustomTimeAgo';
 import EnvironmentLabel from './EnvironmentLabel';
 
@@ -18,7 +20,7 @@ export default async function OccurrencesTable({ noticeId, searchParams }: Occur
       {occurrences.map((occurrence) => (
         <li
           key={occurrence.id}
-          className="relative flex items-center space-x-4 px-4 py-4 transition-colors duration-200 hover:bg-airbroke-800 sm:px-6 lg:px-8"
+          className="relative flex items-center space-x-4 px-4 py-4 transition-colors duration-200 hover:bg-gradient-to-r hover:from-airbroke-800 hover:to-airbroke-900 sm:px-6 lg:px-8"
         >
           <div className="min-w-0 flex-auto">
             <div className="flex items-center gap-x-3">
@@ -42,18 +44,18 @@ export default async function OccurrencesTable({ noticeId, searchParams }: Occur
               )}
 
               <p className="truncate">
-                First seen: <CustomTimeAgo datetime={occurrence.created_at} locale="en_US" />
+                First seen: <CustomTimeAgo date={new Date(occurrence.created_at)} />
               </p>
             </div>
           </div>
 
           <div className="min-w-[200px] text-right text-xs">
             <p className="text-white">
-              <CustomTimeAgo datetime={occurrence.updated_at} locale="en_US" />
+              <CustomTimeAgo date={new Date(occurrence.updated_at)} />
             </p>
             <p className="text-xs text-gray-400">{occurrence.updated_at.toUTCString()}</p>
           </div>
-          <OccurrenceCounterLabel counter={occurrence.seen_count} />
+          <CounterLabel counter={occurrence.seen_count} />
         </li>
       ))}
     </ul>

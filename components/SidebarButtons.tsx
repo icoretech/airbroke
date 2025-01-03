@@ -1,25 +1,24 @@
+// components/SidebarButtons.tsx
+
 'use client';
 
 import { useSidebar } from '@/components/SidebarProvider';
-import { SlClose, SlMenu } from 'react-icons-ng/sl';
+import { IoMenuOutline } from 'react-icons/io5';
+import { SlClose } from 'react-icons/sl';
 
 export function SidebarOpenButton() {
-  const { sidebarOpen, setSidebarOpen } = useSidebar();
+  const { setSidebarOpen } = useSidebar();
 
   return (
-    <button
-      type="button"
-      className="p-2 text-indigo-200 hover:text-indigo-400 xl:hidden"
-      onClick={() => setSidebarOpen(true)}
-    >
+    <button type="button" className="-m-2.5 p-2.5 text-gray-700 lg:hidden" onClick={() => setSidebarOpen(true)}>
       <span className="sr-only">Open sidebar</span>
-      <SlMenu className="h-6 w-6" aria-hidden="true" />
+      <IoMenuOutline className="size-6" aria-hidden="true" />
     </button>
   );
 }
 
 export function SidebarCloseButton() {
-  const { sidebarOpen, setSidebarOpen } = useSidebar();
+  const { setSidebarOpen } = useSidebar();
 
   return (
     <button type="button" className="-m-2.5 p-2.5" onClick={() => setSidebarOpen(false)}>

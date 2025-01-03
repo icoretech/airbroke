@@ -1,62 +1,85 @@
-import { customCache } from '@/lib/cache';
-import prisma from '@/lib/db';
-import type { Project } from '@prisma/client';
+// lib/queries/projects.ts
 
-// Define the type for the grouped projects
-type GroupedProjects = { [key: string]: Project[] };
+import { prisma } from '@/lib/db';
+import 'server-only';
 
-// Function to get projects based on optional search term
+import type { Prisma, Project } from '@prisma/client';
+
+/**
+ * A record that groups projects by organization name.
+ */
+type GroupedProjects = Record<string, Project[]>;
+
+/**
+ * Retrieves a list of projects. If `currentSearchTerm` is provided,
+ * the returned list is filtered by a case-insensitive partial match on the project's name.
+ *
+ * @param currentSearchTerm - Optional substring to filter projects by name
+ * @returns Promise resolving to a list of matching projects
+ */
 export async function getProjects(currentSearchTerm?: string): Promise<Project[]> {
-  const whereObject: any = {
-    ...(currentSearchTerm && { name: { contains: currentSearchTerm, mode: 'insensitive' } }),
-  };
+  const whereObject: Prisma.ProjectWhereInput = currentSearchTerm
+    ? { name: { contains: currentSearchTerm, mode: 'insensitive' } }
+    : {};
 
-  const cachedData = await customCache(() => _fetchProjects(whereObject), ['projects', JSON.stringify(whereObject)], {
-    revalidate: 60,
-    tags: ['projects'],
-  });
-
-  return cachedData;
+  return _fetchProjects(whereObject);
 }
 
-// Function to get projects grouped by organization
+/**
+ * Retrieves all projects and returns them grouped by their `organization` field.
+ *
+ * @returns Promise resolving to an object keyed by organization
+ */
 export async function getProjectsGroupedByOrganization(): Promise<GroupedProjects> {
   const projects = await getProjects();
   const groupedProjects: GroupedProjects = {};
 
-  projects.forEach((project) => {
-    const { organization, ...rest } = project;
-    const formattedProject: Project = { organization, ...rest };
-
+  for (const project of projects) {
+    const { organization } = project;
     if (!groupedProjects[organization]) {
       groupedProjects[organization] = [];
     }
-
-    groupedProjects[organization].push(formattedProject);
-  });
+    groupedProjects[organization].push(project);
+  }
 
   return groupedProjects;
 }
 
-// Function to fetch a single project by ID
+/**
+ * Retrieves a single project by its ID.
+ *
+ * @param projectId - The unique project ID (string)
+ * @returns Promise resolving to the Project, or null if not found
+ */
 export async function getProjectById(projectId: string): Promise<Project | null> {
-  const cachedData = await customCache(() => _fetchProjectById(projectId), ['project', projectId], {
-    revalidate: 60,
-    tags: [`project_${projectId}`],
-  });
-
-  return cachedData;
+  return _fetchProjectById(projectId);
 }
 
-async function _fetchProjects(whereObject?: any): Promise<Project[]> {
-  const result = await prisma.project.findMany({
+/**
+ * Internal helper to fetch multiple projects from Prisma.
+ *
+ * @param whereObject - Prisma filter criteria
+ * @returns Array of matching Project records
+ *
+ * @private
+ */
+async function _fetchProjects(whereObject: Prisma.ProjectWhereInput): Promise<Project[]> {
+  return prisma.project.findMany({
     where: whereObject,
     orderBy: { name: 'asc' },
   });
-  return result;
 }
 
+/**
+ * Internal helper to fetch a single project by ID from Prisma.
+ *
+ * @param projectId - The project ID
+ * @returns A matching Project or null
+ *
+ * @private
+ */
 async function _fetchProjectById(projectId: string): Promise<Project | null> {
-  const result = await prisma.project.findUnique({ where: { id: projectId } });
-  return result;
+  return prisma.project.findUnique({
+    where: { id: projectId },
+  });
 }

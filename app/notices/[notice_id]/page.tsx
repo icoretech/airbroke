@@ -1,71 +1,58 @@
-import Breadcrumbs from '@/components/Breadcrumbs';
-import OccurrencesTable from '@/components/OccurrencesTable';
-import Search from '@/components/Search';
-import SidebarDesktop from '@/components/SidebarDesktop';
-import SidebarMobile from '@/components/SidebarMobile';
-import ProjectActionsMenu from '@/components/project/ActionsMenu';
-import { getNoticeById } from '@/lib/queries/notices';
-import type { Metadata, Route } from 'next';
+// app/notices/[notice_id]/page.tsx
 
-export const revalidate = 0;
+import { DashboardShell } from '@/components/DashboardShell';
+import OccurrencesTable from '@/components/OccurrencesTable';
+import { getNoticeById } from '@/lib/queries/notices';
+import { cookies } from 'next/headers';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 type ComponentProps = {
   params: Promise<{ notice_id: string }>;
   searchParams: Promise<{ [key: string]: string | undefined }>;
 };
 
-export async function generateMetadata(props: ComponentProps): Promise<Metadata> {
-  const params = await props.params;
-  const notice = await getNoticeById(params.notice_id);
+export async function generateMetadata(props: ComponentProps) {
+  const noticeId = (await props.params).notice_id;
+  const notice = await getNoticeById(noticeId);
   return { title: `(${notice?.project?.name}) ${notice?.kind}` };
 }
 
 // /notices/:notice_id
 export default async function Notice(props: ComponentProps) {
-  const searchParams = await props.searchParams;
-  const params = await props.params;
-  const notice = await getNoticeById(params.notice_id);
+  const [cookieStore, resolvedSearchParams, resolvedParams] = await Promise.all([
+    cookies(),
+    props.searchParams,
+    props.params,
+  ]);
+  const initialSidebarOpen = cookieStore.get('sidebarOpen')?.value === 'true';
+
+  const notice = await getNoticeById(resolvedParams.notice_id);
   if (!notice) {
-    throw new Error('Notice not found');
+    notFound();
   }
 
-  const breadcrumbs = [
-    {
-      name: `${notice.project.organization.toLowerCase()} / ${notice.project.name.toLowerCase()}`,
-      href: `/projects/${notice.project_id}` as Route,
-      current: false,
-    },
-    { name: notice.kind, href: `/notices/${notice.id}` as Route, current: true },
-  ];
-
   return (
-    <div>
-      <SidebarMobile>
-        <SidebarDesktop selectedProjectId={notice.project_id} />
-      </SidebarMobile>
-
-      <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
-        <SidebarDesktop selectedProjectId={notice.project_id} />
-      </div>
-
-      <main className="xl:pl-72">
-        <div className="sticky top-0 z-40 bg-airbroke-900">
-          <nav className="border-b border-white border-opacity-10 bg-gradient-to-r from-airbroke-800 to-airbroke-900">
-            <div className="flex justify-between pr-4 sm:pr-6 lg:pr-6">
-              <Breadcrumbs breadcrumbs={breadcrumbs} />
-              <ProjectActionsMenu project={notice.project} />
-            </div>
-          </nav>
-
-          <div className="flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5  px-4 shadow-sm sm:px-6 lg:px-8">
-            <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-              <Search />
-            </div>
-          </div>
+    <DashboardShell initialSidebarOpen={initialSidebarOpen} selectedProjectId={notice.project.id}>
+      <header className="border-b border-white/5 bg-gradient-to-r from-airbroke-800 to-airbroke-900 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
+        <div className="min-w-0 flex-1">
+          <h1 className="text-lg font-bold leading-6 text-indigo-400">
+            {notice.project.organization} / {notice.project.name}
+          </h1>
+          <p className="mt-1 text-sm text-indigo-200">{notice.kind}</p>
         </div>
 
-        <OccurrencesTable noticeId={notice.id} searchParams={searchParams} />
-      </main>
-    </div>
+        <div className="mt-4 flex sm:ml-4 sm:mt-0">
+          <Link
+            href={`/projects/${notice.project.id}/edit`}
+            className="inline-flex items-center gap-x-2 rounded-md bg-indigo-400/10 px-3 py-2 text-sm font-semibold text-indigo-400 shadow-sm ring-1 ring-indigo-400/30 transition-colors duration-200 hover:bg-indigo-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+          >
+            Edit Project
+          </Link>
+        </div>
+      </header>
+
+      <OccurrencesTable noticeId={notice.id} searchParams={resolvedSearchParams} />
+    </DashboardShell>
   );
 }

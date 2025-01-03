@@ -1,5 +1,6 @@
 // app/api/v3/notices/route.ts
-import prisma from '@/lib/db';
+
+import { prisma } from '@/lib/db';
 import parseNotice, { NoticeData } from '@/lib/parseNotice';
 import { processError } from '@/lib/processError';
 import { customAlphabet, urlAlphabet } from 'nanoid';
@@ -18,7 +19,7 @@ function extractProjectKeyFromRequest(request: NextRequest): ProjectKeyInfo {
   if (clientKey) {
     return { projectKey: clientKey, requestType: 'params' };
   } else if (authorization) {
-    const [_authType, token] = authorization.split(' ');
+    const [, token] = authorization.split(' ');
     return { projectKey: token, requestType: 'headers' };
   } else if (airbrakeToken) {
     return { projectKey: airbrakeToken, requestType: 'headers' };
@@ -73,12 +74,17 @@ async function POST(request: NextRequest) {
 
   const project = await prisma.project.findFirst({ where: { api_key: projectKey } });
   if (!project || project.paused) {
+    const json_response = { error: '**Airbroke: Project not found or paused' };
     if (requestType === 'params') {
-      const json_response = { error: '**Airbroke: Project not found or paused' };
-      return NextResponse.json(json_response, { status: 404, headers: generateCorsHeaders() });
+      return NextResponse.json(json_response, {
+        status: 404,
+        headers: generateCorsHeaders(),
+      });
     } else {
-      const json_response = { error: '**Airbroke: Project not found or paused' };
-      const headers = { ...generateCorsHeaders(), 'WWW-Authenticate': `Bearer realm="Airbroke"` };
+      const headers = {
+        ...generateCorsHeaders(),
+        'WWW-Authenticate': `Bearer realm="Airbroke"`,
+      };
       return NextResponse.json(json_response, { status: 404, headers });
     }
   }
@@ -90,17 +96,24 @@ async function POST(request: NextRequest) {
   const environment = whitelisted.environment;
   const session = whitelisted.session;
   const requestParams = whitelisted.params;
+
   for (const error of errors) {
     await processError(project, error, context, environment, session, requestParams);
   }
 
   const customNanoid = customAlphabet(urlAlphabet, 21);
-  // assuming airbroke frontend is deployed alongside collector
-  const responseJSON = { id: customNanoid(), url: `${getServerHostname(request)}/projects/${project.id}` };
-  return NextResponse.json(responseJSON, { status: 201, headers: generateCorsHeaders() });
+  const responseJSON = {
+    id: customNanoid(),
+    url: `${getServerHostname(request)}/projects/${project.id}`,
+  };
+
+  return NextResponse.json(responseJSON, {
+    status: 201,
+    headers: generateCorsHeaders(),
+  });
 }
 
-async function OPTIONS(request: NextRequest) {
+async function OPTIONS() {
   return new NextResponse('', { status: 200, headers: generateCorsHeaders() });
 }
 

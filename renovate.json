@@ -19,17 +19,6 @@
         "node"
       ],
       "enabled": false
-    },
-    {
-      "managers": [
-        "npm"
-      ],
-      "matchPackageNames": [
-        "next",
-        "@next/bundle-analyzer",
-        "eslint-config-next"
-      ],
-      "enabled": false
     }
   ]
 }

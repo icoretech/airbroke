@@ -1,29 +1,44 @@
 name: airbroke
 
+x-healthcheck-postgres: &postgres_healthcheck
+  test: ['CMD-SHELL', 'pg_isready -U postgres']
+  interval: 10s
+  timeout: 5s
+  retries: 5
+
 services:
   db:
-    image: postgres:17-alpine
-    command: postgres -c 'max_connections=23' -c 'shared_buffers=128MB'
+    image: bitnami/postgresql:17
+    # command: postgres -c 'shared_buffers=128MB'
     environment:
-      - POSTGRES_PASSWORD=airbroke
-      - POSTGRES_MULTIPLE_DATABASES="airbroke_development","airbroke_test"
+      POSTGRESQL_PASSWORD: airbroke
+      POSTGRESQL_DATABASE: airbroke_development
+      POSTGRESQL_MAX_CONNECTIONS: 23
     volumes:
-      - db_data_17:/var/lib/postgresql/data
-      - ./prisma/pg-init-scripts:/docker-entrypoint-initdb.d
+      - db_data_bitnami_17:/bitnami/postgresql
+      # - ./prisma/pg-init-scripts:/docker-entrypoint-initdb.d
     ports:
       - 5460:5432
     networks:
       - airbroke
-    healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U postgres']
-      interval: 10s
-      timeout: 5s
-      retries: 5
+    healthcheck: *postgres_healthcheck
+
+  testdb:
+    image: bitnami/postgresql:17
+    # command: postgres -c 'shared_buffers=128MB'
+    environment:
+      POSTGRESQL_PASSWORD: airbroke
+      POSTGRESQL_DATABASE: airbroke_test
+      POSTGRESQL_MAX_CONNECTIONS: 23
+    networks:
+      - airbroke
+    healthcheck: *postgres_healthcheck
 
   web:
     build:
       context: '.'
       dockerfile: Dockerfile.dev
+    image: icoretech/airbroke:develop
     restart: always
     environment:
       DATABASE_URL: 'postgresql://postgres:airbroke@db/airbroke_development?connection_limit=8&connection_timeout=5'
@@ -37,32 +52,27 @@ services:
         condition: service_healthy
     volumes:
       - .:/app
-      - npm_cache:/root/.npm
-      - yarn_cache:/root/.yarn
-      # - next_cache:/app/.next/cache
 
-  # test:
-  #   extends: nextbase
-  #   command: yarn test
-  #   restart: always
-  #   environment:
-  #     DATABASE_URL: 'postgresql://postgres:airbroke@db/airbroke_test?connection_limit=15'
-  #     DIRECT_URL: 'postgresql://postgres:airbroke@db/airbroke_test?connection_limit=15'
-  #   volumes:
-  #     - .:/app
-  #     - npm_cache:/root/.npm
-  #     - yarn_cache:/usr/local/share/.cache/yarn
-  #     - test_next_cache:/app/.next
-  #   depends_on:
-  #     nextbase:
-  #       condition: service_completed_successfully
+  test:
+    image: icoretech/airbroke:develop
+    command: yarn test
+    restart: always
+    environment:
+      DATABASE_URL: 'postgresql://postgres:airbroke@testdb/airbroke_test?connection_limit=15'
+      DIRECT_URL: 'postgresql://postgres:airbroke@testdb/airbroke_test'
+      TESTING: 'true'
+    volumes:
+      - .:/app
+    networks:
+      - airbroke
+    depends_on:
+      testdb:
+        condition: service_healthy
 
 volumes:
-  db_data_17:
+  db_data_bitnami_17:
   npm_cache:
   yarn_cache:
-  # next_cache:
-  # test_next_data:
 
 networks:
   airbroke:

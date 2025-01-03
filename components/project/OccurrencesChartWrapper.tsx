@@ -1,6 +1,7 @@
 // components/project/OccurrencesChartWrapper.tsx
+
 import OccurrenceChart from '@/components/OccurrenceChart';
-import prisma from '@/lib/db';
+import { prisma } from '@/lib/db';
 
 export default async function OccurrencesChartWrapper({ projectId }: { projectId: string }) {
   // Calculate the start and end date for the past two weeks

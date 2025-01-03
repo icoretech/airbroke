@@ -1,19 +1,24 @@
 // lib/auth.ts
 
-import prisma from '@/lib/db';
-import AtlassianProvider from '@auth/core/providers/atlassian';
-import CognitoProvider from '@auth/core/providers/cognito';
-import GithubProvider from '@auth/core/providers/github';
-import GitlabProvider from '@auth/core/providers/gitlab';
-import GoogleProvider from '@auth/core/providers/google';
-import KeycloakProvider from '@auth/core/providers/keycloak';
+import { prisma } from '@/lib/db';
+import Apple from '@auth/core/providers/apple';
+import Atlassian from '@auth/core/providers/atlassian';
+import Authentik from '@auth/core/providers/authentik';
+import Cognito from '@auth/core/providers/cognito';
+import Github from '@auth/core/providers/github';
+import Gitlab from '@auth/core/providers/gitlab';
+import Google from '@auth/core/providers/google';
+import Keycloak from '@auth/core/providers/keycloak';
 import MicrosoftEntraID from '@auth/core/providers/microsoft-entra-id';
+import Okta from '@auth/core/providers/okta';
+import Slack from '@auth/core/providers/slack';
 import { PrismaAdapter } from '@auth/prisma-adapter';
-import type { Account, Profile } from 'next-auth';
 import NextAuth from 'next-auth';
+
+import type { Account, Profile } from 'next-auth';
 import type { Adapter, AdapterAccount } from 'next-auth/adapters';
 
-type ExtendedProfile = Profile & { [key: string]: any };
+type ExtendedProfile = Profile & { [key: string]: unknown };
 
 const CustomPrismaAdapter = (): Adapter => {
   const baseAdapter = PrismaAdapter(prisma);
@@ -37,11 +42,11 @@ const CustomPrismaAdapter = (): Adapter => {
 };
 
 const getProviders = () => {
-  let providers = [];
+  const providers = [];
 
   if (process.env.AIRBROKE_GITHUB_ID && process.env.AIRBROKE_GITHUB_SECRET) {
     providers.push(
-      GithubProvider({
+      Github({
         clientId: process.env.AIRBROKE_GITHUB_ID,
         clientSecret: process.env.AIRBROKE_GITHUB_SECRET,
         authorization: {
@@ -54,7 +59,7 @@ const getProviders = () => {
 
   if (process.env.AIRBROKE_ATLASSIAN_ID && process.env.AIRBROKE_ATLASSIAN_SECRET) {
     providers.push(
-      AtlassianProvider({
+      Atlassian({
         clientId: process.env.AIRBROKE_ATLASSIAN_ID,
         clientSecret: process.env.AIRBROKE_ATLASSIAN_SECRET,
       })
@@ -63,16 +68,58 @@ const getProviders = () => {
 
   if (process.env.AIRBROKE_GOOGLE_ID && process.env.AIRBROKE_GOOGLE_SECRET) {
     providers.push(
-      GoogleProvider({
+      Google({
         clientId: process.env.AIRBROKE_GOOGLE_ID,
         clientSecret: process.env.AIRBROKE_GOOGLE_SECRET,
       })
     );
   }
 
-  if (process.env.AIRBROKE_COGNITO_ID && process.env.AIRBROKE_COGNITO_SECRET) {
+  if (process.env.AIRBROKE_APPLE_ID && process.env.AIRBROKE_APPLE_SECRET) {
     providers.push(
-      CognitoProvider({
+      Apple({
+        clientId: process.env.AIRBROKE_APPLE_ID,
+        clientSecret: process.env.AIRBROKE_APPLE_SECRET,
+      })
+    );
+  }
+
+  if (process.env.AIRBROKE_SLACK_ID && process.env.AIRBROKE_SLACK_SECRET) {
+    providers.push(
+      Slack({
+        clientId: process.env.AIRBROKE_SLACK_ID,
+        clientSecret: process.env.AIRBROKE_SLACK_SECRET,
+      })
+    );
+  }
+
+  if (
+    process.env.AIRBROKE_AUTHENTIK_ID &&
+    process.env.AIRBROKE_AUTHENTIK_SECRET &&
+    process.env.AIRBROKE_AUTHENTIK_ISSUER
+  ) {
+    providers.push(
+      Authentik({
+        clientId: process.env.AIRBROKE_AUTHENTIK_ID,
+        clientSecret: process.env.AIRBROKE_AUTHENTIK_SECRET,
+        issuer: process.env.AIRBROKE_AUTHENTIK_ISSUER,
+      })
+    );
+  }
+
+  if (process.env.AIRBROKE_OKTA_ID && process.env.AIRBROKE_OKTA_SECRET && process.env.AIRBROKE_OKTA_ISSUER) {
+    providers.push(
+      Okta({
+        clientId: process.env.AIRBROKE_OKTA_ID,
+        clientSecret: process.env.AIRBROKE_OKTA_SECRET,
+        issuer: process.env.AIRBROKE_OKTA_ISSUER,
+      })
+    );
+  }
+
+  if (process.env.AIRBROKE_COGNITO_ID && process.env.AIRBROKE_COGNITO_SECRET && process.env.AIRBROKE_COGNITO_ISSUER) {
+    providers.push(
+      Cognito({
         clientId: process.env.AIRBROKE_COGNITO_ID,
         clientSecret: process.env.AIRBROKE_COGNITO_SECRET,
         issuer: process.env.AIRBROKE_COGNITO_ISSUER,
@@ -82,16 +129,20 @@ const getProviders = () => {
 
   if (process.env.AIRBROKE_GITLAB_ID && process.env.AIRBROKE_GITLAB_SECRET) {
     providers.push(
-      GitlabProvider({
+      Gitlab({
         clientId: process.env.AIRBROKE_GITLAB_ID,
         clientSecret: process.env.AIRBROKE_GITLAB_SECRET,
       })
     );
   }
 
-  if (process.env.AIRBROKE_KEYCLOAK_ID && process.env.AIRBROKE_KEYCLOAK_SECRET) {
+  if (
+    process.env.AIRBROKE_KEYCLOAK_ID &&
+    process.env.AIRBROKE_KEYCLOAK_SECRET &&
+    process.env.AIRBROKE_KEYCLOAK_ISSUER
+  ) {
     providers.push(
-      KeycloakProvider({
+      Keycloak({
         clientId: process.env.AIRBROKE_KEYCLOAK_ID,
         clientSecret: process.env.AIRBROKE_KEYCLOAK_SECRET,
         issuer: process.env.AIRBROKE_KEYCLOAK_ISSUER,
@@ -99,7 +150,11 @@ const getProviders = () => {
     );
   }
 
-  if (process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_ID && process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_SECRET) {
+  if (
+    process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_ID &&
+    process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_SECRET &&
+    process.env.AIRBROKE_MICROSOFT_ENTRA_ID_ISSUER
+  ) {
     providers.push(
       MicrosoftEntraID({
         clientId: process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_ID,
@@ -112,6 +167,14 @@ const getProviders = () => {
   return providers;
 };
 
+export async function getSerializedProviders() {
+  const providers = getProviders().map((provider) => ({
+    id: provider.id,
+    name: provider.name,
+  }));
+  return providers;
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   session: {
     strategy: 'jwt',
@@ -120,8 +183,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: getProviders(),
   trustHost: true,
   adapter: CustomPrismaAdapter(),
+  pages: {
+    signIn: '/signin',
+  },
   callbacks: {
-    jwt({ token, account, user }) {
+    jwt({ token, user }) {
       // Persist the user id to the token right after signin
       if (user?.id) {
         token.id = user.id;

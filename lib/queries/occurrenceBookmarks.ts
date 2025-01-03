@@ -1,31 +1,20 @@
-import prisma from '@/lib/db';
-import type { Notice, Occurrence, OccurrenceBookmark, Project } from '@prisma/client';
-import { cache } from 'react';
+// lib/queries/occurrenceBookmarks.ts
+
+import { prisma } from '@/lib/db';
+import type { Notice, Occurrence, OccurrenceBookmark, Prisma, Project } from '@prisma/client';
 
 export interface OccurrenceBookmarkWithAssociations extends OccurrenceBookmark {
   occurrence: Occurrence & { notice: Notice & { project: Project } };
 }
 
-// Cached function to fetch occurrence bookmarks from the database
-const fetchOccurrenceBookmarks = cache(async (whereObject?: any): Promise<OccurrenceBookmarkWithAssociations[]> => {
-  const results: OccurrenceBookmarkWithAssociations[] = await prisma.occurrenceBookmark.findMany({
-    where: whereObject,
-    include: {
-      occurrence: {
-        include: {
-          notice: {
-            include: {
-              project: true,
-            },
-          },
-        },
-      },
-    },
-  });
-  return results;
-});
-
-// Function to get occurrence bookmarks based on provided search parameters
+/**
+ * Retrieves a list of occurrence bookmarks for a given user,
+ * optionally filtered by a search query that matches the occurrence message or notice kind.
+ *
+ * @param userId - The user ID
+ * @param searchQuery - Optional partial string to match occurrence messages or notice kind
+ * @returns Promise resolving to a list of bookmarks
+ */
 export async function getOccurrenceBookmarks(
   userId?: string,
   searchQuery?: string
@@ -34,7 +23,7 @@ export async function getOccurrenceBookmarks(
     return [];
   }
 
-  const whereObject = {
+  const whereObject: Prisma.OccurrenceBookmarkWhereInput = {
     user_id: userId,
     ...(searchQuery && {
       OR: [
@@ -60,16 +49,20 @@ export async function getOccurrenceBookmarks(
     }),
   };
 
-  const occurrenceBookmarks = await fetchOccurrenceBookmarks(whereObject);
-
-  return occurrenceBookmarks;
+  return _fetchOccurrenceBookmarks(whereObject);
 }
 
-// Function to get a single occurrence bookmark by user ID and occurrence ID
-export const checkOccurrenceBookmarkExistence = async (
+/**
+ * Checks whether an occurrence bookmark exists for the given user and occurrence IDs.
+ *
+ * @param userId - The user's ID
+ * @param occurrenceId - The occurrence's ID
+ * @returns Promise resolving to a boolean indicating whether a bookmark exists
+ */
+export async function checkOccurrenceBookmarkExistence(
   userId: string | undefined,
   occurrenceId: string
-): Promise<boolean> => {
+): Promise<boolean> {
   if (!userId || !occurrenceId) {
     return false;
   }
@@ -79,4 +72,29 @@ export const checkOccurrenceBookmarkExistence = async (
   });
 
   return Boolean(bookmark);
-};
+}
+
+/**
+ * Internal helper to fetch occurrence bookmarks from Prisma,
+ * optionally filtered by a Prisma.OccurrenceBookmarkWhereInput object.
+ *
+ * @private
+ */
+async function _fetchOccurrenceBookmarks(
+  whereObject?: Prisma.OccurrenceBookmarkWhereInput
+): Promise<OccurrenceBookmarkWithAssociations[]> {
+  return prisma.occurrenceBookmark.findMany({
+    ...(whereObject !== undefined && { where: whereObject }),
+    include: {
+      occurrence: {
+        include: {
+          notice: {
+            include: {
+              project: true,
+            },
+          },
+        },
+      },
+    },
+  });
+}

@@ -1,16 +1,10 @@
+// components/occurrence/Params.tsx
+
 import { KeyValuePair, flattenObject, isObjectWithKeys } from '@/lib/occurrenceUtils';
-import { getOccurrenceById } from '@/lib/queries/occurrences';
 
-interface ParamsProps {
-  occurrenceId: string;
-}
+import type { Occurrence } from '@prisma/client';
 
-export default async function Params({ occurrenceId }: ParamsProps) {
-  const occurrence = await getOccurrenceById(occurrenceId);
-  if (!occurrence) {
-    throw new Error('Occurrence not found');
-  }
-
+export default async function Params({ occurrence }: { occurrence: Occurrence }) {
   return (
     <div className="overflow-x-auto px-4 sm:px-6 lg:px-8">
       {isObjectWithKeys(occurrence.params) && (

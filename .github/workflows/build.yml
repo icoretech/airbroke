@@ -32,6 +32,12 @@ jobs:
             org.opencontainers.image.source=https://github.com/icoretech/airbroke
             org.opencontainers.image.title=Airbroke
             org.opencontainers.image.vendor=iCoreTech, Inc.
+            org.opencontainers.image.documentation=https://github.com/icoretech/airbroke/blob/main/README.md
+            org.opencontainers.image.url=https://airbroke.icorete.ch
+            org.opencontainers.image.authors=Claudio Poli <claudio@icorete.ch>
+            org.opencontainers.image.licenses=MIT
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.version={{version}}
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
@@ -51,4 +57,6 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           provenance: false
