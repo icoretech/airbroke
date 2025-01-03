@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.70](https://github.com/icoretech/airbroke/compare/v1.1.69...v1.1.70) (2025-01-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/openai to v1.0.13 ([#922](https://github.com/icoretech/airbroke/issues/922)) ([5dd7266](https://github.com/icoretech/airbroke/commit/5dd7266bd64e30eb49872b419a9915107e1ebab5))
+* **deps:** update dependency ai to v4.0.25 ([#923](https://github.com/icoretech/airbroke/issues/923)) ([fe29e11](https://github.com/icoretech/airbroke/commit/fe29e112ba108ff497e2b16d55d9c939dd352f1a))
+
 ## [1.1.69](https://github.com/icoretech/airbroke/compare/v1.1.68...v1.1.69) (2025-01-02)
 
 
