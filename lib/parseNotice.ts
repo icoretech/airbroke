@@ -42,7 +42,7 @@ export interface NoticeData {
  * @returns A sanitized and normalized NoticeData object
  */
 export default function parseNotice(noticeData: NoticeData): NoticeData {
-  console.trace('Received noticeData:', JSON.stringify(noticeData, null, 2));
+  // console.trace('Received noticeData:', JSON.stringify(noticeData, null, 2));
 
   const whitelistedNotice: NoticeData = {
     errors: [],
