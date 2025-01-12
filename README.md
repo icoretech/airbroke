@@ -207,7 +207,7 @@ To configure the authentication layer, you need to set the necessary environment
 
 To complete the configuration, you also need to set the callback path in your OAuth applications for each provider. The callback path should be set to `https://<myhostname>/api/auth/callback/<provider>`. This path is where the authentication provider will redirect the user after successful authentication.
 
-You can find a list of available authentication providers and their documentation on the [NextAuth.js Providers page](https://next-auth.js.org/providers/). Each provider has its own specific configuration requirements and authentication flow, so refer to their documentation for more details.
+You can find a list of available authentication providers and their documentation on the [NextAuth.js Providers page](https://authjs.dev/getting-started/authentication/oauth). Each provider has its own specific configuration requirements and authentication flow, so refer to their documentation for more details.
 
 To configure the authentication providers, you'll need to set specific environment variables. You can find the list of required environment variables and their descriptions in the [`.env.dist`](https://github.com/icoretech/airbroke/blob/main/.env.dist) file in the Airbroke repository.
 
