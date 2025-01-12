@@ -165,7 +165,7 @@ This key, along with other essential information, will be provided to you.
 ### About PgBouncer
 
 To optimize your experience with Airbroke, as well as with Postgres overall, we advise integrating PgBouncer 1.24.0+ into your tech stack in transaction mode. For more comprehensive information, we recommend reviewing [Prisma's Connection Management documentation](https://www.prisma.io/docs/guides/performance-and-optimization/connection-management#external-connection-poolers), which provides insights on external connection poolers.
-We recommend not setting `pgbouncer=true` in the database connection string if you're using **PgBouncer 1.21.0 or later**.
+We recommend not setting `pgbouncer=true` in the database connection string if you're using **PgBouncer 1.21.0 or later** ([source](https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/databases-connections/pgbouncer)).
 
 ### About DIRECT_URL
 
