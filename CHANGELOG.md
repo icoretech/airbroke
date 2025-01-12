@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.70](https://github.com/icoretech/airbroke/compare/v1.1.69...v1.1.70) (2025-01-12)
+
+
+### Features
+
+* **env:** add NEXT_SERVER_ACTIONS_ENCRYPTION_KEY to .env.dist for consistent encryption across servers ([a81061a](https://github.com/icoretech/airbroke/commit/a81061a92777c3c41255b64c69da5d4a69712ee3))
+* **page.tsx:** add link to project name for easier navigation to project page ([3ecf79f](https://github.com/icoretech/airbroke/commit/3ecf79f0965ca6a032a8c25dd0cf3ce8ab6c2284))
+* **signin:** add session check and redirect to projects if authenticated ([59aa1d7](https://github.com/icoretech/airbroke/commit/59aa1d77d38f35ad42a09437f68551cbe53926f4))
+
+
+### Bug Fixes
+
+* **SessionButtons.tsx:** update signOut import to use next-auth/react for consistency with authentication library usage ([c42b886](https://github.com/icoretech/airbroke/commit/c42b886c4197a05bac84fd2a3c0fb99aef7dc027))
+
 ## [1.1.69](https://github.com/icoretech/airbroke/compare/v1.1.68...v1.1.69) (2025-01-02)
 
 
