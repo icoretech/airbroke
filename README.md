@@ -165,13 +165,14 @@ After deployment, you should be able to access your ingress (preferably secured 
 This process will generate an API key that you can use with your Airbrake-compatible clients.
 This key, along with other essential information, will be provided to you.
 
-### About pgBouncer
+### About PgBouncer
 
-To optimize your experience with Airbroke, as well as with Postgres overall, we advise integrating pgBouncer into your tech stack in transaction mode. Don't forget to correctly set the connection flags in your DATABASE_URL. This ensures that the connection pooler will be utilized (for example, `?pgbouncer=true&connection_limit=10`) and that the necessary `DEALLOCATE` commands will be executed by Prisma. For more comprehensive information, we recommend reviewing [Prisma's Connection Management documentation](https://www.prisma.io/docs/guides/performance-and-optimization/connection-management#external-connection-poolers), which provides insights on external connection poolers.
+To optimize your experience with Airbroke, as well as with Postgres overall, we advise integrating PgBouncer into your tech stack in transaction mode. Don't forget to correctly set the connection flags in your DATABASE_URL. This ensures that the connection pooler will be utilized (for example, `?pgbouncer=true&connection_limit=10`) and that the necessary `DEALLOCATE` commands will be executed by Prisma. For more comprehensive information, we recommend reviewing [Prisma's Connection Management documentation](https://www.prisma.io/docs/guides/performance-and-optimization/connection-management#external-connection-poolers), which provides insights on external connection poolers.
+We recommend not setting `pgbouncer=true` in the database connection string if you're using **PgBouncer 1.21.0 or later**.
 
 ### About DIRECT_URL
 
-The DIRECT_URL should be configured to establish a direct connection to the database. This is particularly crucial when using pgBouncer, as it enables migrations that cannot be executed through a data proxy. You can find more detailed information about this subject in the [Prisma's guide on configuring pgBouncer](https://www.prisma.io/docs/guides/performance-and-optimization/connection-management/configure-pg-bouncer).
+The `DIRECT_URL` environment variable should be configured to establish a direct connection to the database. This is particularly crucial when using PgBouncer, as it enables migrations that cannot be executed through a data proxy. You can find more detailed information about this subject in the [Prisma's guide on configuring pgBouncer](https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/databases-connections/pgbouncer).
 
 ## Architecture
 
