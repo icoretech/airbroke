@@ -29,6 +29,8 @@ services:
         value: your_nextauth_secret_here
       - key: AUTH_URL
         value: https://$RENDER_EXTERNAL_HOSTNAME
+      - key: AIRBROKE_CORS_ORIGINS
+        value: https://$RENDER_EXTERNAL_HOSTNAME
 databases:
   - name: airbroke-starter-db
     plan: free
