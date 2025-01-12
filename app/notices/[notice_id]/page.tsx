@@ -37,7 +37,9 @@ export default async function Notice(props: ComponentProps) {
       <header className="border-b border-white/5 bg-gradient-to-r from-airbroke-800 to-airbroke-900 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
         <div className="min-w-0 flex-1">
           <h1 className="text-lg font-bold leading-6 text-indigo-400">
-            {notice.project.organization} / {notice.project.name}
+            <Link href={`/projects/${notice.project.id}`}>
+              {notice.project.organization} / {notice.project.name}
+            </Link>
           </h1>
           <p className="mt-1 text-sm text-indigo-200">{notice.kind}</p>
         </div>
