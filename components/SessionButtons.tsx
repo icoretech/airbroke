@@ -2,7 +2,7 @@
 
 'use client';
 
-import { signOut } from '@/lib/auth';
+import { signOut } from 'next-auth/react';
 
 interface LogoutButtonProps {
   children?: React.ReactNode;
