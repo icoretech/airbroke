@@ -23,7 +23,7 @@ export default function ConfirmationDialog({
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const cancelButtonRef = useRef(null);
-  const { push } = useRouter();
+  const { push, refresh } = useRouter();
 
   async function handleConfirmAction() {
     startTransition(() => {
@@ -34,6 +34,7 @@ export default function ConfirmationDialog({
       } else if (btnId === 'deleteAllErrors') {
         deleteProjectNotices(projectId);
         setOpen(false);
+        refresh();
       }
     });
   }
