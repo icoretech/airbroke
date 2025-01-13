@@ -197,7 +197,7 @@ Airbroke includes an authentication layer that allows you to secure access to th
 - Cognito
 - GitLab
 - Keycloak
-- Microsoft Entra Id
+- Microsoft Entra ID
 - Slack
 - Okta
 
