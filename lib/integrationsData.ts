@@ -7,6 +7,7 @@ import {
   iosSwiftTemplate,
   javaTemplate,
   jsclientTemplate,
+  nodejsclientTemplate,
   phpTemplate,
   pythonTemplate,
   rubyTemplate,
@@ -38,6 +39,13 @@ export const integrations: IntegrationItem[] = [
     filename: 'airbroke.js',
     language: 'javascript',
     code: jsclientTemplate,
+    icon: SiJavascript,
+  },
+  {
+    name: 'JavaScript (Node.js)',
+    filename: 'airbroke.js',
+    language: 'javascript',
+    code: nodejsclientTemplate,
     icon: SiJavascript,
   },
   {

@@ -60,6 +60,24 @@ const airbrake = new Notifier({
 `;
 
 //
+// JavaScript (Node.js)
+//
+export const nodejsclientTemplate = `
+import { Notifier } from '@airbrake/node';
+
+const airbrake = new Notifier({
+  projectId: 1, // any number will do
+  projectKey: '{REPLACE_PROJECT_KEY}',
+  environment: 'production',
+  host: 'https://airbroke.mydomain.com',
+  remoteConfig: false,
+  performanceStats: false,
+  queryStats: false,
+  queueStats: false,
+});
+`;
+
+//
 // Python (Generic or Django)
 //
 export const pythonTemplate = `
