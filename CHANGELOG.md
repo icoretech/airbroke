@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.71](https://github.com/icoretech/airbroke/compare/v1.1.70...v1.1.71) (2025-01-13)
+
+
+### Features
+
+* **ConfirmationDialog.tsx:** add refresh function from useRouter to update UI after delete action ([d96609b](https://github.com/icoretech/airbroke/commit/d96609b8e832711ef1b4f6c58e68e524ae92907c))
+* **render.yaml:** add AIRBROKE_CORS_ORIGINS environment variable to configure CORS origins ([3f87524](https://github.com/icoretech/airbroke/commit/3f8752495805d504c8240c37967090f4c4e8e60b))
+
+
+### Bug Fixes
+
+* **deps:** update nextjs monorepo to v15.2.0-canary.6 ([#937](https://github.com/icoretech/airbroke/issues/937)) ([15d22e3](https://github.com/icoretech/airbroke/commit/15d22e3878e0ecb88dc5a2bb1c058be211e2ff04))
+* **processError:** Use MD5 hash of error messages to uniquely identify occurrences, closes https://github.com/icoretech/airbroke/issues/6 ([296a121](https://github.com/icoretech/airbroke/commit/296a12173573ba2878afeb2f124ed7b58daf6148))
+
 ## [1.1.70](https://github.com/icoretech/airbroke/compare/v1.1.69...v1.1.70) (2025-01-12)
 
 
