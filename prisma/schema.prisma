@@ -50,6 +50,7 @@ model Occurrence {
   id                 String               @id @default(cuid())
   notice_id          String
   message            String               @db.Text
+  message_hash       String               @db.Text
   seen_count         BigInt               @default(1)
   backtrace          Json                 @default("{}")
   context            Json                 @default("{}")
@@ -63,7 +64,7 @@ model Occurrence {
   hourly_occurrences HourlyOccurrence[]
   bookmarks          OccurrenceBookmark[]
 
-  @@unique([notice_id, message])
+  @@unique([notice_id, message_hash])
   @@index([seen_count])
   @@index([updated_at])
   @@map("occurrences")

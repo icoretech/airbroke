@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/db';
 import { NoticeError } from '@/lib/parseNotice';
 import { Prisma, Project } from '@prisma/client';
+import crypto from 'node:crypto';
 
 /**
  * Processes and records a NoticeError instance into the database (notices/occurrences).
@@ -73,17 +74,20 @@ export async function processError(
   let attemptsOccurrence = 3;
   let successOccurrence = false;
 
+  const messageHash = crypto.createHash('md5').update(error.message, 'utf8').digest('hex');
+
   while (attemptsOccurrence > 0 && !successOccurrence) {
     try {
       await prisma.occurrence.upsert({
         where: {
-          notice_id_message: {
+          notice_id_message_hash: {
             notice_id: current_notice_id,
-            message: message,
+            message_hash: messageHash,
           },
         },
         create: {
           message: message,
+          message_hash: messageHash,
           backtrace: JSON.parse(JSON.stringify(backtrace)),
           context: JSON.parse(JSON.stringify(context)),
           environment: JSON.parse(JSON.stringify(environment)),
