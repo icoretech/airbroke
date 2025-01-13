@@ -1,6 +1,6 @@
 {
   "name": "airbroke",
-  "version": "1.1.70",
+  "version": "1.1.71",
   "private": true,
   "scripts": {
     "dev": "next dev",
