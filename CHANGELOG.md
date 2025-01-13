@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.72](https://github.com/icoretech/airbroke/compare/v1.1.71...v1.1.72) (2025-01-13)
+
+
+### Bug Fixes
+
+* **seed.ts:** add message hashing for occurrences to ensure hashed unique identifiers ([c5b14e4](https://github.com/icoretech/airbroke/commit/c5b14e462517588740fa62be887050de1af7f5c9))
+
 ## [1.1.71](https://github.com/icoretech/airbroke/compare/v1.1.70...v1.1.71) (2025-01-13)
 
 
