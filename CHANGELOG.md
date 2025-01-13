@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.73](https://github.com/icoretech/airbroke/compare/v1.1.72...v1.1.73) (2025-01-13)
+
+
+### Features
+
+* **configTemplates.ts, integrationsData.ts:** add Node.js client template for Airbrake integration ([7e6b4d7](https://github.com/icoretech/airbroke/commit/7e6b4d7616c1dcdc730123c9291349a15641350c))
+
 ## [1.1.72](https://github.com/icoretech/airbroke/compare/v1.1.71...v1.1.72) (2025-01-13)
 
 
