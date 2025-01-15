@@ -5,15 +5,15 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
-"@ai-sdk/openai@npm:1.0.18":
-  version: 1.0.18
-  resolution: "@ai-sdk/openai@npm:1.0.18"
+"@ai-sdk/openai@npm:1.0.19":
+  version: 1.0.19
+  resolution: "@ai-sdk/openai@npm:1.0.19"
   dependencies:
     "@ai-sdk/provider": "npm:1.0.4"
     "@ai-sdk/provider-utils": "npm:2.0.7"
   peerDependencies:
     zod: ^3.0.0
-  checksum: 10c0/d93c39534003f8064466fd6928a211bb437936dab8cb4487086bc3490951b084cdbd6cfe602561010ac5641791fc68d4d564a5300bd2c0ccdb47f3a5b5833e0b
+  checksum: 10c0/c1d8156df24fa6030356e98670bd4baf24438bd8f26127428588f794dfcd388caba1d4688e4ae6654a5512c016f9d8cadf7776d5d82fcd38374d7cc89c27c174
   languageName: node
   linkType: hard
 
@@ -43,12 +43,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/react@npm:1.0.10":
-  version: 1.0.10
-  resolution: "@ai-sdk/react@npm:1.0.10"
+"@ai-sdk/react@npm:1.0.11":
+  version: 1.0.11
+  resolution: "@ai-sdk/react@npm:1.0.11"
   dependencies:
     "@ai-sdk/provider-utils": "npm:2.0.7"
-    "@ai-sdk/ui-utils": "npm:1.0.9"
+    "@ai-sdk/ui-utils": "npm:1.0.10"
     swr: "npm:^2.2.5"
     throttleit: "npm:2.1.0"
   peerDependencies:
@@ -59,13 +59,13 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/97c3a4367268d5d69b0f1190ee29d28fdb398d46f7c32cf8efce7895b4ac479b06473b008fe0280c4dc13d68e4dbc1725270b7c5ad7ff016e6b89f60a58dec9b
+  checksum: 10c0/a715add0a659cea707d80f87d0da77f79e4634f2294e161ed6a6a0715c302e814c7a545698f2742104fad1ff8fb59210598e381cdf546352608fc7e0485ed912
   languageName: node
   linkType: hard
 
-"@ai-sdk/ui-utils@npm:1.0.9":
-  version: 1.0.9
-  resolution: "@ai-sdk/ui-utils@npm:1.0.9"
+"@ai-sdk/ui-utils@npm:1.0.10":
+  version: 1.0.10
+  resolution: "@ai-sdk/ui-utils@npm:1.0.10"
   dependencies:
     "@ai-sdk/provider": "npm:1.0.4"
     "@ai-sdk/provider-utils": "npm:2.0.7"
@@ -75,7 +75,7 @@ __metadata:
   peerDependenciesMeta:
     zod:
       optional: true
-  checksum: 10c0/aa583073ceace1bee1954b226c3d70511ad40df0a523f9af5db13e84409f2cd62c14805ad46b405f03fb416a2395cd37bb4f799002375e46e50bcf778a29482d
+  checksum: 10c0/b45f4543cc2c114d206adfca2a347c4ada348200fee5d42a8458a862226bf8da94e29a9a0ac585708202995acf296c9f687464c169bd003c1b0d20551c369b44
   languageName: node
   linkType: hard
 
@@ -777,10 +777,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@faker-js/faker@npm:9.3.0":
-  version: 9.3.0
-  resolution: "@faker-js/faker@npm:9.3.0"
-  checksum: 10c0/6528e2f0bf0abc315780024534074a449e01e7f581f1a50a20ee7103d29d842e1c4d7dd6b27aa173f668308bf55a1d64c2547286c0c4e5a8e08d0b8269aaedc7
+"@faker-js/faker@npm:9.4.0":
+  version: 9.4.0
+  resolution: "@faker-js/faker@npm:9.4.0"
+  checksum: 10c0/52f242a764b506f84f0f80e8122758a4b4a82873d72e67b5ddee9d8132c33d462705b43543dd0b86b743f54daec668a1938b9e5b9d643c606a775fb48959580c
   languageName: node
   linkType: hard
 
@@ -1150,74 +1150,74 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/env@npm:15.2.0-canary.6":
-  version: 15.2.0-canary.6
-  resolution: "@next/env@npm:15.2.0-canary.6"
-  checksum: 10c0/8d4dfd5630732aaa3891706e0409a688846f4d1ea416813094c04c2c7ccd90da0037a5e0361fe864bf9693030a5b216febfb1a5f6b9adbb5685248f417bcd90c
+"@next/env@npm:15.2.0-canary.11":
+  version: 15.2.0-canary.11
+  resolution: "@next/env@npm:15.2.0-canary.11"
+  checksum: 10c0/1a4ef63a4b6f6caae4e4f3ac7244ce77f01c6c6eb267385985b31dbf25ce8803b092f1775045e99c6c3aef00607a2d4c7843d1025ac2948b21fd3872795d2e7c
   languageName: node
   linkType: hard
 
-"@next/eslint-plugin-next@npm:15.2.0-canary.6":
-  version: 15.2.0-canary.6
-  resolution: "@next/eslint-plugin-next@npm:15.2.0-canary.6"
+"@next/eslint-plugin-next@npm:15.2.0-canary.11":
+  version: 15.2.0-canary.11
+  resolution: "@next/eslint-plugin-next@npm:15.2.0-canary.11"
   dependencies:
     fast-glob: "npm:3.3.1"
-  checksum: 10c0/0cf73f9d6a759a0a821dfe79d777da0a95dc4e4c0822666707a4f89404d38db54d0d93879d62fb99b5cc230d20dba8d59ebd385b1fa42bac5e89f8f710af8db6
+  checksum: 10c0/baa725653e285cc97ec7b1f66ceff4135ad82eda1baee7e8d783a417f8f22b89d7d0de8b139630f4e58c0725c9b3c92c986980fc1d9e7cb3b914b85895a40e05
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-arm64@npm:15.2.0-canary.6":
-  version: 15.2.0-canary.6
-  resolution: "@next/swc-darwin-arm64@npm:15.2.0-canary.6"
+"@next/swc-darwin-arm64@npm:15.2.0-canary.11":
+  version: 15.2.0-canary.11
+  resolution: "@next/swc-darwin-arm64@npm:15.2.0-canary.11"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-x64@npm:15.2.0-canary.6":
-  version: 15.2.0-canary.6
-  resolution: "@next/swc-darwin-x64@npm:15.2.0-canary.6"
+"@next/swc-darwin-x64@npm:15.2.0-canary.11":
+  version: 15.2.0-canary.11
+  resolution: "@next/swc-darwin-x64@npm:15.2.0-canary.11"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@next/swc-linux-arm64-gnu@npm:15.2.0-canary.6":
-  version: 15.2.0-canary.6
-  resolution: "@next/swc-linux-arm64-gnu@npm:15.2.0-canary.6"
+"@next/swc-linux-arm64-gnu@npm:15.2.0-canary.11":
+  version: 15.2.0-canary.11
+  resolution: "@next/swc-linux-arm64-gnu@npm:15.2.0-canary.11"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@next/swc-linux-arm64-musl@npm:15.2.0-canary.6":
-  version: 15.2.0-canary.6
-  resolution: "@next/swc-linux-arm64-musl@npm:15.2.0-canary.6"
+"@next/swc-linux-arm64-musl@npm:15.2.0-canary.11":
+  version: 15.2.0-canary.11
+  resolution: "@next/swc-linux-arm64-musl@npm:15.2.0-canary.11"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@next/swc-linux-x64-gnu@npm:15.2.0-canary.6":
-  version: 15.2.0-canary.6
-  resolution: "@next/swc-linux-x64-gnu@npm:15.2.0-canary.6"
+"@next/swc-linux-x64-gnu@npm:15.2.0-canary.11":
+  version: 15.2.0-canary.11
+  resolution: "@next/swc-linux-x64-gnu@npm:15.2.0-canary.11"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@next/swc-linux-x64-musl@npm:15.2.0-canary.6":
-  version: 15.2.0-canary.6
-  resolution: "@next/swc-linux-x64-musl@npm:15.2.0-canary.6"
+"@next/swc-linux-x64-musl@npm:15.2.0-canary.11":
+  version: 15.2.0-canary.11
+  resolution: "@next/swc-linux-x64-musl@npm:15.2.0-canary.11"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@next/swc-win32-arm64-msvc@npm:15.2.0-canary.6":
-  version: 15.2.0-canary.6
-  resolution: "@next/swc-win32-arm64-msvc@npm:15.2.0-canary.6"
+"@next/swc-win32-arm64-msvc@npm:15.2.0-canary.11":
+  version: 15.2.0-canary.11
+  resolution: "@next/swc-win32-arm64-msvc@npm:15.2.0-canary.11"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@next/swc-win32-x64-msvc@npm:15.2.0-canary.6":
-  version: 15.2.0-canary.6
-  resolution: "@next/swc-win32-x64-msvc@npm:15.2.0-canary.6"
+"@next/swc-win32-x64-msvc@npm:15.2.0-canary.11":
+  version: 15.2.0-canary.11
+  resolution: "@next/swc-win32-x64-msvc@npm:15.2.0-canary.11"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -1815,12 +1815,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:19.0.6":
-  version: 19.0.6
-  resolution: "@types/react@npm:19.0.6"
+"@types/react@npm:19.0.7":
+  version: 19.0.7
+  resolution: "@types/react@npm:19.0.7"
   dependencies:
     csstype: "npm:^3.0.2"
-  checksum: 10c0/4ddb0ad2a92940c0323996c2efbae9712e562e1d60d1015ba5088ca8e8db32f1804516a2971e6fa7a95bda9aa9c1896c86c32739213ef12527924c021b0145bf
+  checksum: 10c0/818e546fa03a2a65ac2652fc472891ac96684211e8967bc25e1da6a8a09e2301ad972b1b038d128f8b4cbbd7691f6f57fee274db568169e9b6b01556abbb5bee
   languageName: node
   linkType: hard
 
@@ -2090,14 +2090,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:4.0.34":
-  version: 4.0.34
-  resolution: "ai@npm:4.0.34"
+"ai@npm:4.0.38":
+  version: 4.0.38
+  resolution: "ai@npm:4.0.38"
   dependencies:
     "@ai-sdk/provider": "npm:1.0.4"
     "@ai-sdk/provider-utils": "npm:2.0.7"
-    "@ai-sdk/react": "npm:1.0.10"
-    "@ai-sdk/ui-utils": "npm:1.0.9"
+    "@ai-sdk/react": "npm:1.0.11"
+    "@ai-sdk/ui-utils": "npm:1.0.10"
     "@opentelemetry/api": "npm:1.9.0"
     jsondiffpatch: "npm:0.6.0"
   peerDependencies:
@@ -2108,7 +2108,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/30040bed233a5f762c31e9e55266b4801fe06c284e5f7bf26643ae94c768e83cf15c2d5cffb47829f631a8e29af1ecc20f1b79c10d240309b44c506c73353c0d
+  checksum: 10c0/86bade1a15ba03ed072b334f3ade184817981ac2052a99b916aa0dd41ff77ef65dbe242f270a9a50dd45baa21c149c84fb73988ac92be8d662f846a60da7aa29
   languageName: node
   linkType: hard
 
@@ -2116,40 +2116,40 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "airbroke@workspace:."
   dependencies:
-    "@ai-sdk/openai": "npm:1.0.18"
+    "@ai-sdk/openai": "npm:1.0.19"
     "@airbrake/browser": "npm:2.1.8"
     "@airbrake/node": "npm:2.1.8"
     "@auth/prisma-adapter": "npm:2.7.4"
     "@eslint/eslintrc": "npm:3.2.0"
-    "@faker-js/faker": "npm:9.3.0"
+    "@faker-js/faker": "npm:9.4.0"
     "@headlessui/react": "npm:2.2.0"
     "@microlink/react-json-view": "npm:^1.24.0"
     "@prisma/client": "npm:6.2.1"
     "@testing-library/dom": "npm:^10.4.0"
     "@testing-library/react": "npm:^16.1.0"
     "@types/node": "npm:22.10.6"
-    "@types/react": "npm:19.0.6"
+    "@types/react": "npm:19.0.7"
     "@types/react-dom": "npm:19.0.3"
     "@types/react-syntax-highlighter": "npm:^15.5.13"
     "@vitejs/plugin-react": "npm:4.3.4"
-    ai: "npm:4.0.34"
+    ai: "npm:4.0.38"
     babel-plugin-react-compiler: "npm:19.0.0-beta-e552027-20250112"
     chart.js: "npm:4.4.7"
     chokidar-cli: "npm:^3.0.0"
     clsx: "npm:^2.1.1"
     date-fns: "npm:^4.1.0"
     eslint: "npm:9.18.0"
-    eslint-config-next: "npm:15.2.0-canary.6"
+    eslint-config-next: "npm:15.2.0-canary.11"
     eslint-config-prettier: "npm:9.1.0"
     eslint-plugin-react-compiler: "npm:19.0.0-beta-e552027-20250112"
     jsdom: "npm:^26.0.0"
     nanoid: "npm:5.0.9"
-    next: "npm:15.2.0-canary.6"
+    next: "npm:15.2.0-canary.11"
     next-auth: "npm:5.0.0-beta.25"
     numbro: "npm:^2.5.0"
-    postcss: "npm:8.4.49"
+    postcss: "npm:8.5.1"
     prettier: "npm:3.4.2"
-    prettier-plugin-tailwindcss: "npm:0.6.9"
+    prettier-plugin-tailwindcss: "npm:0.6.10"
     prisma: "npm:6.2.1"
     react: "npm:19.0.0"
     react-chartjs-2: "npm:5.3.0"
@@ -3411,11 +3411,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-next@npm:15.2.0-canary.6":
-  version: 15.2.0-canary.6
-  resolution: "eslint-config-next@npm:15.2.0-canary.6"
+"eslint-config-next@npm:15.2.0-canary.11":
+  version: 15.2.0-canary.11
+  resolution: "eslint-config-next@npm:15.2.0-canary.11"
   dependencies:
-    "@next/eslint-plugin-next": "npm:15.2.0-canary.6"
+    "@next/eslint-plugin-next": "npm:15.2.0-canary.11"
     "@rushstack/eslint-patch": "npm:^1.10.3"
     "@typescript-eslint/eslint-plugin": "npm:^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0"
     "@typescript-eslint/parser": "npm:^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0"
@@ -3431,7 +3431,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/d7035c31db9b938cce3620a236530baaed20a8dfed07c5dc36d933ff67d8873cc23543b13a8a860aa01e7439eacaecf72adc221aaad037c7bcd98c953174b2c0
+  checksum: 10c0/00ea77ccfce54b2e6d4a6d1fda3c73eb42cafba6e35a045b1270dbc12004f3fa81e6f63000bc7e9ba8f8b4242a0fdec42b1306269ea6fc0bf9975f05eb8b985e
   languageName: node
   linkType: hard
 
@@ -5229,19 +5229,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:15.2.0-canary.6":
-  version: 15.2.0-canary.6
-  resolution: "next@npm:15.2.0-canary.6"
+"next@npm:15.2.0-canary.11":
+  version: 15.2.0-canary.11
+  resolution: "next@npm:15.2.0-canary.11"
   dependencies:
-    "@next/env": "npm:15.2.0-canary.6"
-    "@next/swc-darwin-arm64": "npm:15.2.0-canary.6"
-    "@next/swc-darwin-x64": "npm:15.2.0-canary.6"
-    "@next/swc-linux-arm64-gnu": "npm:15.2.0-canary.6"
-    "@next/swc-linux-arm64-musl": "npm:15.2.0-canary.6"
-    "@next/swc-linux-x64-gnu": "npm:15.2.0-canary.6"
-    "@next/swc-linux-x64-musl": "npm:15.2.0-canary.6"
-    "@next/swc-win32-arm64-msvc": "npm:15.2.0-canary.6"
-    "@next/swc-win32-x64-msvc": "npm:15.2.0-canary.6"
+    "@next/env": "npm:15.2.0-canary.11"
+    "@next/swc-darwin-arm64": "npm:15.2.0-canary.11"
+    "@next/swc-darwin-x64": "npm:15.2.0-canary.11"
+    "@next/swc-linux-arm64-gnu": "npm:15.2.0-canary.11"
+    "@next/swc-linux-arm64-musl": "npm:15.2.0-canary.11"
+    "@next/swc-linux-x64-gnu": "npm:15.2.0-canary.11"
+    "@next/swc-linux-x64-musl": "npm:15.2.0-canary.11"
+    "@next/swc-win32-arm64-msvc": "npm:15.2.0-canary.11"
+    "@next/swc-win32-x64-msvc": "npm:15.2.0-canary.11"
     "@swc/counter": "npm:0.1.3"
     "@swc/helpers": "npm:0.5.15"
     busboy: "npm:1.6.0"
@@ -5286,7 +5286,7 @@ __metadata:
       optional: true
   bin:
     next: dist/bin/next
-  checksum: 10c0/c8565a34939e499e40f3bcda2a4aec4d39e5ff416a48c0dc00ef386bc6afb151df9b37aca152118132b255c5bf5a44ecce8d12528d1901c21dd7fb9a6d7cdd29
+  checksum: 10c0/07531d935dec1e7725b28b3bdd67f3cd7518f2b33af08e0677011e86805b4c84b79f9c23d04980c0de1cb4c890479467c6d2d3fd692b3a1e00f0d5b1443fc37f
   languageName: node
   linkType: hard
 
@@ -5742,7 +5742,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.49, postcss@npm:^8.4.43, postcss@npm:^8.4.47":
+"postcss@npm:8.5.1":
+  version: 8.5.1
+  resolution: "postcss@npm:8.5.1"
+  dependencies:
+    nanoid: "npm:^3.3.8"
+    picocolors: "npm:^1.1.1"
+    source-map-js: "npm:^1.2.1"
+  checksum: 10c0/c4d90c59c98e8a0c102b77d3f4cac190f883b42d63dc60e2f3ed840f16197c0c8e25a4327d2e9a847b45a985612317dc0534178feeebd0a1cf3eb0eecf75cae4
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.4.43, postcss@npm:^8.4.47":
   version: 8.4.49
   resolution: "postcss@npm:8.4.49"
   dependencies:
@@ -5794,15 +5805,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-tailwindcss@npm:0.6.9":
-  version: 0.6.9
-  resolution: "prettier-plugin-tailwindcss@npm:0.6.9"
+"prettier-plugin-tailwindcss@npm:0.6.10":
+  version: 0.6.10
+  resolution: "prettier-plugin-tailwindcss@npm:0.6.10"
   peerDependencies:
     "@ianvs/prettier-plugin-sort-imports": "*"
     "@prettier/plugin-pug": "*"
     "@shopify/prettier-plugin-liquid": "*"
     "@trivago/prettier-plugin-sort-imports": "*"
-    "@zackad/prettier-plugin-twig-melody": "*"
+    "@zackad/prettier-plugin-twig": "*"
     prettier: ^3.0
     prettier-plugin-astro: "*"
     prettier-plugin-css-order: "*"
@@ -5824,7 +5835,7 @@ __metadata:
       optional: true
     "@trivago/prettier-plugin-sort-imports":
       optional: true
-    "@zackad/prettier-plugin-twig-melody":
+    "@zackad/prettier-plugin-twig":
       optional: true
     prettier-plugin-astro:
       optional: true
@@ -5848,7 +5859,7 @@ __metadata:
       optional: true
     prettier-plugin-svelte:
       optional: true
-  checksum: 10c0/370b1d67063a6ff15b0b7fd5d6687bef587aa4be0c856e7f743d5016037ff25d0d69c6aa8c6cecf1355676962aeca52089dc28d063540fb030bcd326a07f47f8
+  checksum: 10c0/9e1e8d59285acb915c647235867e0c6da4f66e60a05984375036998c207662988cb59a362390f86050c09863e4ee982102dfcffb0131cc1413aec1b7d1d8fb08
   languageName: node
   linkType: hard
 
