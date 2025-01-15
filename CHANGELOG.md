@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.74](https://github.com/icoretech/airbroke/compare/v1.1.73...v1.1.74) (2025-01-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ai to v4.0.34 ([#943](https://github.com/icoretech/airbroke/issues/943)) ([61f255f](https://github.com/icoretech/airbroke/commit/61f255fab2f7236c9fd1b39e28ed0a5719d4b6de))
+
 ## [1.1.73](https://github.com/icoretech/airbroke/compare/v1.1.72...v1.1.73) (2025-01-13)
 
 
