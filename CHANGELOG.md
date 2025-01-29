@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.1.74](https://github.com/icoretech/airbroke/compare/v1.1.73...v1.1.74) (2025-01-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/openai to v1.0.20 ([#948](https://github.com/icoretech/airbroke/issues/948)) ([9d19be2](https://github.com/icoretech/airbroke/commit/9d19be282aef234c2c0db2aae2b99420777828be))
+* **deps:** update dependency @ai-sdk/openai to v1.1.0 ([#960](https://github.com/icoretech/airbroke/issues/960)) ([908e438](https://github.com/icoretech/airbroke/commit/908e43895f0a3eab41bd60e58e52bd73a4265058))
+* **deps:** update dependency @ai-sdk/openai to v1.1.2 ([#965](https://github.com/icoretech/airbroke/issues/965)) ([d785217](https://github.com/icoretech/airbroke/commit/d7852176ba61f463eb4f3b105b5aeb08bf51efef))
+* **deps:** update dependency ai to v4.0.34 ([#943](https://github.com/icoretech/airbroke/issues/943)) ([61f255f](https://github.com/icoretech/airbroke/commit/61f255fab2f7236c9fd1b39e28ed0a5719d4b6de))
+* **deps:** update dependency ai to v4.0.39 ([#949](https://github.com/icoretech/airbroke/issues/949)) ([1c02570](https://github.com/icoretech/airbroke/commit/1c0257030fbb659414e6d459c5eb0ff11730fa32))
+* **deps:** update dependency ai to v4.0.40 ([#958](https://github.com/icoretech/airbroke/issues/958)) ([e1cc297](https://github.com/icoretech/airbroke/commit/e1cc2973441a0c9dd8315b17d01071382ce4a73f))
+* **deps:** update dependency ai to v4.1.0 ([#961](https://github.com/icoretech/airbroke/issues/961)) ([2508629](https://github.com/icoretech/airbroke/commit/25086297a5feb81d515175d5cc2ae257bead95cb))
+* **deps:** update dependency ai to v4.1.10 ([#975](https://github.com/icoretech/airbroke/issues/975)) ([5adb709](https://github.com/icoretech/airbroke/commit/5adb7096c87b42aac8544557f92ccee0fa3950c9))
+* **deps:** update dependency ai to v4.1.5 ([#966](https://github.com/icoretech/airbroke/issues/966)) ([df6b0be](https://github.com/icoretech/airbroke/commit/df6b0bebbdce30b5602f4d1084342c69b9e612b9))
+* **deps:** update nextjs monorepo to v15.2.0-canary.12 ([#950](https://github.com/icoretech/airbroke/issues/950)) ([1a077d3](https://github.com/icoretech/airbroke/commit/1a077d3a7c78a8a4bd31ab7430be2ab32b5594d9))
+* **deps:** update nextjs monorepo to v15.2.0-canary.13 ([#957](https://github.com/icoretech/airbroke/issues/957)) ([63f833c](https://github.com/icoretech/airbroke/commit/63f833cbe1f5fdf1742ac5f0143884eccd44627d))
+* **deps:** update nextjs monorepo to v15.2.0-canary.14 ([#959](https://github.com/icoretech/airbroke/issues/959)) ([46ecaf3](https://github.com/icoretech/airbroke/commit/46ecaf329946b8edb200939856dd77520a172019))
+* **deps:** update nextjs monorepo to v15.2.0-canary.16 ([#962](https://github.com/icoretech/airbroke/issues/962)) ([9cd3f65](https://github.com/icoretech/airbroke/commit/9cd3f65d5ba505bc6add6a320738ff5a2b967ad3))
+* **deps:** update nextjs monorepo to v15.2.0-canary.18 ([#963](https://github.com/icoretech/airbroke/issues/963)) ([d5be47f](https://github.com/icoretech/airbroke/commit/d5be47fef548ecb159c0ff50a0bf80e6821d0345))
+* **deps:** update nextjs monorepo to v15.2.0-canary.24 ([#964](https://github.com/icoretech/airbroke/issues/964)) ([b3d0bd2](https://github.com/icoretech/airbroke/commit/b3d0bd2788cbd0d3ca2571deec7f13c9ab624ba0))
+* **deps:** update nextjs monorepo to v15.2.0-canary.25 ([#971](https://github.com/icoretech/airbroke/issues/971)) ([cede1c7](https://github.com/icoretech/airbroke/commit/cede1c7bc6598b4daef12444edaba21590ddb0c8))
+* **deps:** update nextjs monorepo to v15.2.0-canary.26 ([#973](https://github.com/icoretech/airbroke/issues/973)) ([5fc56e5](https://github.com/icoretech/airbroke/commit/5fc56e5e2fab31c6002bc02e57ea531b11ae81f4))
+* **deps:** update nextjs monorepo to v15.2.0-canary.27 ([#976](https://github.com/icoretech/airbroke/issues/976)) ([152f9ac](https://github.com/icoretech/airbroke/commit/152f9aca17c48038b53657f76bce81c45a912a33))
+* **deps:** update nextjs monorepo to v15.2.0-canary.28 ([#977](https://github.com/icoretech/airbroke/issues/977)) ([0088fb5](https://github.com/icoretech/airbroke/commit/0088fb538b3301717d2102b9f8be7e37774a1345))
+* **deps:** update prisma monorepo to v6.3.0 ([#979](https://github.com/icoretech/airbroke/issues/979)) ([8d7ca63](https://github.com/icoretech/airbroke/commit/8d7ca63812b65f248801bba8b0e3dbfae828dcc6))
+
 ## [1.1.73](https://github.com/icoretech/airbroke/compare/v1.1.72...v1.1.73) (2025-01-13)
 
 
