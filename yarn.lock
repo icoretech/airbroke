@@ -2093,9 +2093,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:4.1.24":
-  version: 4.1.24
-  resolution: "ai@npm:4.1.24"
+"ai@npm:4.1.25":
+  version: 4.1.25
+  resolution: "ai@npm:4.1.25"
   dependencies:
     "@ai-sdk/provider": "npm:1.0.7"
     "@ai-sdk/provider-utils": "npm:2.1.6"
@@ -2111,7 +2111,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/3f6890bcb1ea5335db4a0852edab94c5235821b28b8ae78bddd634c808b97b1722ce55ac2e0b9f9d0f4a7386a43f2026d850e27a8ac371fcfcf114fa0a3ecea6
+  checksum: 10c0/6498097c1eed10e09376cc1e9868982d863e21af4ec20fb05199d6e6559882acd7af3bd743fc63c6f13e6dbe2452080b53483919f45bb81fdf088d9788f68ab5
   languageName: node
   linkType: hard
 
@@ -2135,7 +2135,7 @@ __metadata:
     "@types/react-dom": "npm:19.0.3"
     "@types/react-syntax-highlighter": "npm:^15.5.13"
     "@vitejs/plugin-react": "npm:4.3.4"
-    ai: "npm:4.1.24"
+    ai: "npm:4.1.25"
     babel-plugin-react-compiler: "npm:19.0.0-beta-e552027-20250112"
     chart.js: "npm:4.4.7"
     chokidar-cli: "npm:^3.0.0"
