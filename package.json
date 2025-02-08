@@ -52,7 +52,7 @@
     "@vitejs/plugin-react": "4.3.4",
     "babel-plugin-react-compiler": "19.0.0-beta-e552027-20250112",
     "chokidar-cli": "^3.0.0",
-    "eslint": "9.19.0",
+    "eslint": "9.20.0",
     "eslint-config-next": "15.2.0-canary.45",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-react-compiler": "19.0.0-beta-e552027-20250112",
