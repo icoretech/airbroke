@@ -43,9 +43,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/react@npm:1.1.14":
-  version: 1.1.14
-  resolution: "@ai-sdk/react@npm:1.1.14"
+"@ai-sdk/react@npm:1.1.15":
+  version: 1.1.15
+  resolution: "@ai-sdk/react@npm:1.1.15"
   dependencies:
     "@ai-sdk/provider-utils": "npm:2.1.8"
     "@ai-sdk/ui-utils": "npm:1.1.14"
@@ -59,7 +59,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/0ac6eee802dc34f93e3d9e7516d2435bd5cc58962efddd4e8ac4a640f800030bb8ce4d87598d8b10d06554963497ce9236eece3ce981897114cb3c0fe12ef656
+  checksum: 10c0/b60435b934c0e6ad46532d862dbc25ce3febbb554ac744c6dc0c4cf4bb9ebe8217c7d31627995a30f4138ac65f9791b624558b61c5c57c0d8ff323dd1c16cf4e
   languageName: node
   linkType: hard
 
@@ -1154,7 +1154,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microlink/react-json-view@npm:^1.24.0":
+"@microlink/react-json-view@npm:^1.26.0":
   version: 1.26.0
   resolution: "@microlink/react-json-view@npm:1.26.0"
   dependencies:
@@ -1651,7 +1651,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/react@npm:^16.1.0":
+"@testing-library/react@npm:^16.2.0":
   version: 16.2.0
   resolution: "@testing-library/react@npm:16.2.0"
   dependencies:
@@ -2111,13 +2111,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:4.1.39":
-  version: 4.1.39
-  resolution: "ai@npm:4.1.39"
+"ai@npm:4.1.40":
+  version: 4.1.40
+  resolution: "ai@npm:4.1.40"
   dependencies:
     "@ai-sdk/provider": "npm:1.0.7"
     "@ai-sdk/provider-utils": "npm:2.1.8"
-    "@ai-sdk/react": "npm:1.1.14"
+    "@ai-sdk/react": "npm:1.1.15"
     "@ai-sdk/ui-utils": "npm:1.1.14"
     "@opentelemetry/api": "npm:1.9.0"
     jsondiffpatch: "npm:0.6.0"
@@ -2129,7 +2129,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10c0/e8205abccd9c9f4e8d14c89e34ac31d7fd33b458895259d77e87ea690e94275bb6ff69eef27f22cbb77b7c89ce00aab241a07d4ea586de7385f61875c3dd9b1a
+  checksum: 10c0/3c68629b6d8650f29a491b3c180030a7ce9cd14aa2e2f4c74c6d355c49cb282d744971ab3248a46ac5af77ef8e7764fbe38697ceba1c1b0e34b3ac15166e689a
   languageName: node
   linkType: hard
 
@@ -2144,17 +2144,17 @@ __metadata:
     "@eslint/eslintrc": "npm:3.2.0"
     "@faker-js/faker": "npm:9.5.0"
     "@headlessui/react": "npm:2.2.0"
-    "@microlink/react-json-view": "npm:^1.24.0"
+    "@microlink/react-json-view": "npm:^1.26.0"
     "@prisma/client": "npm:6.3.1"
     "@testing-library/dom": "npm:^10.4.0"
-    "@testing-library/react": "npm:^16.1.0"
+    "@testing-library/react": "npm:^16.2.0"
     "@types/node": "npm:22.13.4"
     "@types/react": "npm:19.0.8"
     "@types/react-dom": "npm:19.0.3"
     "@types/react-syntax-highlighter": "npm:^15.5.13"
     "@vitejs/plugin-react": "npm:4.3.4"
-    ai: "npm:4.1.39"
-    babel-plugin-react-compiler: "npm:19.0.0-beta-e552027-20250112"
+    ai: "npm:4.1.40"
+    babel-plugin-react-compiler: "npm:19.0.0-beta-30d8a17-20250209"
     chart.js: "npm:4.4.7"
     chokidar-cli: "npm:^3.0.0"
     clsx: "npm:^2.1.1"
@@ -2162,7 +2162,7 @@ __metadata:
     eslint: "npm:9.20.1"
     eslint-config-next: "npm:15.2.0-canary.60"
     eslint-config-prettier: "npm:9.1.0"
-    eslint-plugin-react-compiler: "npm:19.0.0-beta-e552027-20250112"
+    eslint-plugin-react-compiler: "npm:19.0.0-beta-30d8a17-20250209"
     jsdom: "npm:^26.0.0"
     nanoid: "npm:5.0.9"
     next: "npm:15.2.0-canary.60"
@@ -2446,12 +2446,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112":
-  version: 19.0.0-beta-e552027-20250112
-  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112"
+"babel-plugin-react-compiler@npm:19.0.0-beta-30d8a17-20250209":
+  version: 19.0.0-beta-30d8a17-20250209
+  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-30d8a17-20250209"
   dependencies:
     "@babel/types": "npm:^7.19.0"
-  checksum: 10c0/f64c8f11b893b6bd355a8b3f20b4f15486cee18f98560f2df991abb315b4b037fbf6ccda832eede446fac6140a942e73984a6c5e7e8f5ea5fe1fb0b45d560482
+  checksum: 10c0/c2b43dca8cfbf5da74fdc3209055859de6989f67652503a51ab51679ffa2ed81d3d91b3271ab995e85e0660efd649f7bee3feb0ff9a23960e940a6b3ae0418f1
   languageName: node
   linkType: hard
 
@@ -3569,9 +3569,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112":
-  version: 19.0.0-beta-e552027-20250112
-  resolution: "eslint-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112"
+"eslint-plugin-react-compiler@npm:19.0.0-beta-30d8a17-20250209":
+  version: 19.0.0-beta-30d8a17-20250209
+  resolution: "eslint-plugin-react-compiler@npm:19.0.0-beta-30d8a17-20250209"
   dependencies:
     "@babel/core": "npm:^7.24.4"
     "@babel/parser": "npm:^7.24.4"
@@ -3581,7 +3581,7 @@ __metadata:
     zod-validation-error: "npm:^3.0.3"
   peerDependencies:
     eslint: ">=7"
-  checksum: 10c0/d54bb2def851f79d88376ef108d5f682c07de820c9561a09051a8a5f3a4dbff0c22c8d014ad5e88db5f4db27947a371f497a8b07ddc561575f1601e47e0df6e4
+  checksum: 10c0/3d7c07bf929b930ce75bf577c35f99aa27fade1e05cc81630b3d2f7a27a9f67287290edb8a2e7d6e13dbb6af7a8f498d8936fda599e1fbbb919a7173d1d4809b
   languageName: node
   linkType: hard
 

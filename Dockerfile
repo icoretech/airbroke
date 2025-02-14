@@ -1,6 +1,6 @@
 # docker build --no-cache -t icoretech/airbroke:latest --progress=plain .
 # docker run -p 3000:3000 icoretech/airbroke:latest
-FROM --platform=$BUILDPLATFORM node:22.13-alpine AS base
+FROM --platform=$BUILDPLATFORM node:22.14-alpine AS base
 ARG DEBUG_TOOLS
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV CHECKPOINT_DISABLE=1
