@@ -5,15 +5,15 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
-"@ai-sdk/openai@npm:1.1.10":
-  version: 1.1.10
-  resolution: "@ai-sdk/openai@npm:1.1.10"
+"@ai-sdk/openai@npm:1.1.11":
+  version: 1.1.11
+  resolution: "@ai-sdk/openai@npm:1.1.11"
   dependencies:
     "@ai-sdk/provider": "npm:1.0.7"
-    "@ai-sdk/provider-utils": "npm:2.1.7"
+    "@ai-sdk/provider-utils": "npm:2.1.8"
   peerDependencies:
     zod: ^3.0.0
-  checksum: 10c0/9f4e1e740bc9fe2d389d9599f4172bc4c8784d85435cca84e62708507099cc03817808b5dc58e51da68bdb4a87e9f5ad5bf846a0b43ed465549a52ad88d59bac
+  checksum: 10c0/608aab93d0b85d052c3bc739b4b1246085cfa6f0e78b9f9e856e2cb3384da9cb2550fef409360807ed7aa8852341dab69bd08101470de12e22c209eab87708ed
   languageName: node
   linkType: hard
 
@@ -34,9 +34,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/provider-utils@npm:2.1.7":
-  version: 2.1.7
-  resolution: "@ai-sdk/provider-utils@npm:2.1.7"
+"@ai-sdk/provider-utils@npm:2.1.8":
+  version: 2.1.8
+  resolution: "@ai-sdk/provider-utils@npm:2.1.8"
   dependencies:
     "@ai-sdk/provider": "npm:1.0.7"
     eventsource-parser: "npm:^3.0.0"
@@ -47,7 +47,7 @@ __metadata:
   peerDependenciesMeta:
     zod:
       optional: true
-  checksum: 10c0/a1ec7ec403418cd02516e43af2b234da8a7a5fa812154b67a53307ca714a7b9acf5f816ad99211ec9fbe563040df75746000d0a7d6f8b5a7e34fecf1a85733a6
+  checksum: 10c0/8bf2b2bfc16bd1406d2ec0ce4c44734c0a784f691e330ae1ff1de3dbc0c1629c43b78727a031b89bb3242cbac21820002168fd7aec2d1a0b9194f31bdb439d84
   languageName: node
   linkType: hard
 
@@ -2154,7 +2154,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "airbroke@workspace:."
   dependencies:
-    "@ai-sdk/openai": "npm:1.1.10"
+    "@ai-sdk/openai": "npm:1.1.11"
     "@airbrake/browser": "npm:2.1.8"
     "@airbrake/node": "npm:2.1.8"
     "@auth/prisma-adapter": "npm:2.7.4"
