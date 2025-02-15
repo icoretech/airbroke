@@ -1155,8 +1155,8 @@ __metadata:
   linkType: hard
 
 "@microlink/react-json-view@npm:^1.26.0":
-  version: 1.26.0
-  resolution: "@microlink/react-json-view@npm:1.26.0"
+  version: 1.26.1
+  resolution: "@microlink/react-json-view@npm:1.26.1"
   dependencies:
     react-base16-styling: "npm:~0.9.0"
     react-lifecycles-compat: "npm:~3.0.4"
@@ -1164,7 +1164,7 @@ __metadata:
   peerDependencies:
     react: ">= 15"
     react-dom: ">= 15"
-  checksum: 10c0/08d75298139e02a7f0e6904898e868b99d914ef7516396ac5462e91aa1644a9c1e7e54d41f3b44de75005c9637051bfb06a35e31f73d0517c611ad045e6321c9
+  checksum: 10c0/7bb03415c44c2ef9b21e7451f0e2f8850e7179ed0636cf69686bb0af54d54b4bf38be5d3e99ca07785a741f3d86cbb45f2276e3dcfbdb945d796d21821d40fa5
   languageName: node
   linkType: hard
 
