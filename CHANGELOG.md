@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.76](https://github.com/icoretech/airbroke/compare/v1.1.75...v1.1.76) (2025-02-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @microlink/react-json-view to v1.26.1 ([#1025](https://github.com/icoretech/airbroke/issues/1025)) ([7569565](https://github.com/icoretech/airbroke/commit/7569565d71d140602fee86bf54490574f3e70716))
+* **deps:** update dependency ai to v4.1.41 ([#1021](https://github.com/icoretech/airbroke/issues/1021)) ([e30fbdc](https://github.com/icoretech/airbroke/commit/e30fbdc1fdd68afd6278ea5775df0e65784a46ff))
+* **deps:** update dependency nanoid to v5.1.0 ([#1023](https://github.com/icoretech/airbroke/issues/1023)) ([f14f2ef](https://github.com/icoretech/airbroke/commit/f14f2ef6e48d3a3cafa6c76d71c885605a3f6f25))
+* **deps:** update nextjs monorepo to v15.2.0-canary.61 ([#1022](https://github.com/icoretech/airbroke/issues/1022)) ([3dec354](https://github.com/icoretech/airbroke/commit/3dec354fa3cd8ccff7a21bd47d0d5614866fc6db))
+
 ## [1.1.75](https://github.com/icoretech/airbroke/compare/v1.1.74...v1.1.75) (2025-02-14)
 
 
