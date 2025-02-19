@@ -2350,7 +2350,7 @@ __metadata:
     react: "npm:19.0.0"
     react-chartjs-2: "npm:5.3.0"
     react-dom: "npm:19.0.0"
-    react-icons: "npm:5.4.0"
+    react-icons: "npm:5.5.0"
     react-syntax-highlighter: "npm:^15.6.1"
     server-only: "npm:0.0.1"
     tailwindcss: "npm:3.4.17"
@@ -6313,12 +6313,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-icons@npm:5.4.0":
-  version: 5.4.0
-  resolution: "react-icons@npm:5.4.0"
+"react-icons@npm:5.5.0":
+  version: 5.5.0
+  resolution: "react-icons@npm:5.5.0"
   peerDependencies:
     react: "*"
-  checksum: 10c0/698b0c4616870152d86de2585fb709bf3eeb9292d971d689965dade5f0ee71cdc92d2125b728ab220cc39a4c6d6bad1ed526b9b934ab39a7b6001bc23b73ee16
+  checksum: 10c0/a24309bfc993c19cbcbfc928157e53a137851822779977b9588f6dd41ffc4d11ebc98b447f4039b0d309a858f0a42980f6bfb4477fb19f9f2d1bc2e190fcf79c
   languageName: node
   linkType: hard
 
