@@ -2330,7 +2330,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:4.3.4"
     ai: "npm:4.1.44"
     babel-plugin-react-compiler: "npm:19.0.0-beta-e552027-20250112"
-    chart.js: "npm:4.4.7"
+    chart.js: "npm:4.4.8"
     chokidar-cli: "npm:^3.0.0"
     clsx: "npm:^2.1.1"
     date-fns: "npm:^4.1.0"
@@ -2854,12 +2854,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chart.js@npm:4.4.7":
-  version: 4.4.7
-  resolution: "chart.js@npm:4.4.7"
+"chart.js@npm:4.4.8":
+  version: 4.4.8
+  resolution: "chart.js@npm:4.4.8"
   dependencies:
     "@kurkle/color": "npm:^0.3.0"
-  checksum: 10c0/9db499993c561f11184112003956ba96cf00513e025f58846be36e75ebddc6cbab2f93626c3734c305bc801e9362a9ef193b9591e679c59903b2ecb48cfcb317
+  checksum: 10c0/4777e3fef7ccfb664c02b79f90e53fb0e46c01293bc56af5ab81aa8ffef4b1ccc675bef948b7efd071a5dd0ebd59c0e95c42ef606f728da8e3ff1741fc2d1df0
   languageName: node
   linkType: hard
 
