@@ -5,15 +5,15 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
-"@ai-sdk/openai@npm:1.1.13":
-  version: 1.1.13
-  resolution: "@ai-sdk/openai@npm:1.1.13"
+"@ai-sdk/openai@npm:1.1.14":
+  version: 1.1.14
+  resolution: "@ai-sdk/openai@npm:1.1.14"
   dependencies:
-    "@ai-sdk/provider": "npm:1.0.8"
-    "@ai-sdk/provider-utils": "npm:2.1.9"
+    "@ai-sdk/provider": "npm:1.0.9"
+    "@ai-sdk/provider-utils": "npm:2.1.10"
   peerDependencies:
     zod: ^3.0.0
-  checksum: 10c0/d9538a0982415e32e59699b313192fdfe06f9d6f21bcb04f01953c9bc0d9587bd7fd0eec73bb7d460f03eb13362c3c2f10d0ff2a27301944cd193ecad7077e38
+  checksum: 10c0/795ffc0beb0f0a19b5b9bfffadfe3087043314769cec6ea10622df4d699314c9f612bf3aad47d1bd2a55fdb895c9bee053914011e0005c5d37e0d8652b25f2e6
   languageName: node
   linkType: hard
 
@@ -31,32 +31,6 @@ __metadata:
     zod:
       optional: true
   checksum: 10c0/d33bbe18f05b3713870ee400378d356e3ccd4a648e2c1bcd492fd3517781b8f7dae91e2916265641098861c4a447e23c178ad22026e2c47e286f56ecfd50b156
-  languageName: node
-  linkType: hard
-
-"@ai-sdk/provider-utils@npm:2.1.9":
-  version: 2.1.9
-  resolution: "@ai-sdk/provider-utils@npm:2.1.9"
-  dependencies:
-    "@ai-sdk/provider": "npm:1.0.8"
-    eventsource-parser: "npm:^3.0.0"
-    nanoid: "npm:^3.3.8"
-    secure-json-parse: "npm:^2.7.0"
-  peerDependencies:
-    zod: ^3.0.0
-  peerDependenciesMeta:
-    zod:
-      optional: true
-  checksum: 10c0/13db9252d9b32838a3e87705c3e5010fc4d2fb45c866a14cddaeecd45a90a8fa601f1466db7ad3deab782d1ca5286fe773923ad460901445ac054fcd7d153346
-  languageName: node
-  linkType: hard
-
-"@ai-sdk/provider@npm:1.0.8":
-  version: 1.0.8
-  resolution: "@ai-sdk/provider@npm:1.0.8"
-  dependencies:
-    json-schema: "npm:^0.4.0"
-  checksum: 10c0/e7da752e42584f1caadbf58f57243937208b628eec8bad0f7aae5229152e05d3e4b3769dfdb789410a8aa1e5afed90252edce692d1a9d6ed83813c5a0d8e6316
   languageName: node
   linkType: hard
 
@@ -2329,7 +2303,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "airbroke@workspace:."
   dependencies:
-    "@ai-sdk/openai": "npm:1.1.13"
+    "@ai-sdk/openai": "npm:1.1.14"
     "@airbrake/browser": "npm:2.1.8"
     "@airbrake/node": "npm:2.1.8"
     "@auth/prisma-adapter": "npm:2.7.4"
