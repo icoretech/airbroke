@@ -961,10 +961,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@faker-js/faker@npm:9.5.0":
-  version: 9.5.0
-  resolution: "@faker-js/faker@npm:9.5.0"
-  checksum: 10c0/97c983e0752e36bd2322fe0bda273e41093ae868452811b3146d33412147a03b343a6720a2e388d4c4a06c5c6ce89cad9e6c2c363008ef061a26c4fce067c22d
+"@faker-js/faker@npm:9.5.1":
+  version: 9.5.1
+  resolution: "@faker-js/faker@npm:9.5.1"
+  checksum: 10c0/b1b89a511162e43426b12f659f7a0d89a3cd1643ecda0d695f20eef65e21e466189ee89d07333592dedc9cee4cafd0dcb0f0b054a2e473b25f4f5fd945293a02
   languageName: node
   linkType: hard
 
@@ -2308,7 +2308,7 @@ __metadata:
     "@airbrake/node": "npm:2.1.8"
     "@auth/prisma-adapter": "npm:2.7.4"
     "@eslint/eslintrc": "npm:3.3.0"
-    "@faker-js/faker": "npm:9.5.0"
+    "@faker-js/faker": "npm:9.5.1"
     "@headlessui/react": "npm:2.2.0"
     "@microlink/react-json-view": "npm:^1.26.0"
     "@prisma/client": "npm:6.4.1"
