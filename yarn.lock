@@ -161,13 +161,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth/core@npm:0.37.4":
-  version: 0.37.4
-  resolution: "@auth/core@npm:0.37.4"
+"@auth/core@npm:0.38.0":
+  version: 0.38.0
+  resolution: "@auth/core@npm:0.38.0"
   dependencies:
     "@panva/hkdf": "npm:^1.2.1"
-    jose: "npm:^5.9.6"
-    oauth4webapi: "npm:^3.1.1"
+    jose: "npm:^6.0.6"
+    oauth4webapi: "npm:^3.3.0"
     preact: "npm:10.24.3"
     preact-render-to-string: "npm:6.5.11"
   peerDependencies:
@@ -181,18 +181,18 @@ __metadata:
       optional: true
     nodemailer:
       optional: true
-  checksum: 10c0/d3d18535141d17042b831d5984f3b069ffd97f84c05875fbbc34fb0371b40c916756fec0fea50a42e8fcc0427bba1113d123f266062bbec1dd6d1cace8b2f8de
+  checksum: 10c0/8bbf4dc40af59285298b7dc57a07d6e3fb5c0734a650694e127d37b86a4cc80fa82a97e17162e9ea36013965e9123c492a147dcaa7ebd692368ef824b3a86ccb
   languageName: node
   linkType: hard
 
-"@auth/prisma-adapter@npm:2.7.4":
-  version: 2.7.4
-  resolution: "@auth/prisma-adapter@npm:2.7.4"
+"@auth/prisma-adapter@npm:2.8.0":
+  version: 2.8.0
+  resolution: "@auth/prisma-adapter@npm:2.8.0"
   dependencies:
-    "@auth/core": "npm:0.37.4"
+    "@auth/core": "npm:0.38.0"
   peerDependencies:
-    "@prisma/client": ">=2.26.0 || >=3 || >=4 || >=5"
-  checksum: 10c0/303556e4e6f3a8a370a6c0709821d9b666ad1dc6d1c1423606cd04f41a58f6faa6abb1137b52cd92f08401930dc55ab2a7e355bc02d1fb7723d8c7f215fa95c0
+    "@prisma/client": ">=2.26.0 || >=3 || >=4 || >=5 || >=6"
+  checksum: 10c0/92dd1d7dd1029d690ed20e9a0220d149c62b9a31394878bc6e54332a68d377e7d4358eeb3c7e07b921d316748fea2a5adcaa7868c60337fc18fcec26a6ba328a
   languageName: node
   linkType: hard
 
@@ -2306,7 +2306,7 @@ __metadata:
     "@ai-sdk/openai": "npm:1.1.15"
     "@airbrake/browser": "npm:2.1.8"
     "@airbrake/node": "npm:2.1.8"
-    "@auth/prisma-adapter": "npm:2.7.4"
+    "@auth/prisma-adapter": "npm:2.8.0"
     "@eslint/eslintrc": "npm:3.3.0"
     "@faker-js/faker": "npm:9.5.1"
     "@headlessui/react": "npm:2.2.0"
@@ -4958,10 +4958,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jose@npm:^5.9.3, jose@npm:^5.9.6":
+"jose@npm:^5.9.3":
   version: 5.9.6
   resolution: "jose@npm:5.9.6"
   checksum: 10c0/d6bcd8c7d655b5cda8e182952a76f0c093347f5476d74795405bb91563f7ab676f61540310dd4b1531c60d685335ceb600571a409551d2cbd2ab3e9f9fbf1e4d
+  languageName: node
+  linkType: hard
+
+"jose@npm:^6.0.6":
+  version: 6.0.8
+  resolution: "jose@npm:6.0.8"
+  checksum: 10c0/ab795679225a72eafef31e2d8aefa8196de9917e9f6c76c997963e617fba86762c19c6713c83d836adb28854d99fbd6547c83d825585094be29f0d6f9712f6cd
   languageName: node
   linkType: hard
 
@@ -5649,10 +5656,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"oauth4webapi@npm:^3.0.0, oauth4webapi@npm:^3.1.1":
+"oauth4webapi@npm:^3.0.0":
   version: 3.1.4
   resolution: "oauth4webapi@npm:3.1.4"
   checksum: 10c0/81e471750f4903121efcef4edb1b73d725ae6d3b9646a0febd45e29ed05b62faba14a69e433181eae441913684a02d681c4e561dcac578de9cb45dd719f53464
+  languageName: node
+  linkType: hard
+
+"oauth4webapi@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "oauth4webapi@npm:3.3.0"
+  checksum: 10c0/3f379a55e5b8447e6650e206b55f12220f29c6582568008ae38ba8317902c09a9ca9d322803d4ff2a1dbe6b7b55706052e494bc2c2e19596295a93cb09dc075d
   languageName: node
   linkType: hard
 
