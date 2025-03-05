@@ -17,7 +17,7 @@
     "lint:eslint:vscode:watch": "chokidar 'app/**/*.{js,ts,jsx,tsx}' 'components/**/*.{js,ts,jsx,tsx}' 'lib/**/*.{js,ts,jsx,tsx}' -c 'yarn lint:eslint:vscode'"
   },
   "dependencies": {
-    "@ai-sdk/openai": "1.2.0",
+    "@ai-sdk/openai": "1.2.1",
     "@airbrake/browser": "2.1.8",
     "@airbrake/node": "2.1.8",
     "@auth/prisma-adapter": "2.7.4",
