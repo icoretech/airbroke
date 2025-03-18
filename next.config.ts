@@ -3,8 +3,8 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
   output: 'standalone',
+  allowedDevOrigins: ['airbroke-dev.icorete.ch'],
   serverExternalPackages: ['@airbrake/node'],
   experimental: {
     dynamicIO: true,

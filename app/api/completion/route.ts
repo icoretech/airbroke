@@ -2,7 +2,7 @@
 
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/db';
-import { createOpenAI } from '@ai-sdk/openai';
+import { type OpenAIProviderSettings, createOpenAI } from '@ai-sdk/openai';
 import { CoreMessage, streamText } from 'ai';
 
 export const dynamic = 'force-dynamic';
@@ -54,13 +54,14 @@ export async function POST(request: Request) {
     },
   ];
 
-  const openAISettings = {
+  const openAISettings: OpenAIProviderSettings = {
     apiKey: process.env.AIRBROKE_OPENAI_API_KEY ?? '',
+    compatibility: 'strict',
     ...(process.env.AIRBROKE_OPENAI_ORGANIZATION ? { organization: process.env.AIRBROKE_OPENAI_ORGANIZATION } : {}),
   };
 
   const openaiProvider = createOpenAI(openAISettings);
-  const model = openaiProvider(process.env.AIRBROKE_OPENAI_ENGINE || 'gpt-4o');
+  const model = openaiProvider.responses(process.env.AIRBROKE_OPENAI_ENGINE || 'gpt-4o');
 
   // Stream the AI's response using streamText
   const result = streamText({
