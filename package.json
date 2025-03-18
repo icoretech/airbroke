@@ -19,7 +19,7 @@
   "dependencies": {
     "@ai-sdk/openai": "1.2.5",
     "@airbrake/browser": "2.1.9",
-    "@airbrake/node": "2.1.8",
+    "@airbrake/node": "2.1.9",
     "@auth/prisma-adapter": "2.7.4",
     "@headlessui/react": "2.2.0",
     "@microlink/react-json-view": "^1.26.0",
