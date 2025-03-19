@@ -2362,7 +2362,7 @@ __metadata:
     eslint-config-prettier: "npm:10.1.1"
     eslint-plugin-react-compiler: "npm:19.0.0-beta-3229e95-20250315"
     jsdom: "npm:26.0.0"
-    nanoid: "npm:5.1.4"
+    nanoid: "npm:5.1.5"
     next: "npm:15.3.0-canary.12"
     next-auth: "npm:5.0.0-beta.25"
     numbro: "npm:2.5.0"
@@ -5505,12 +5505,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:5.1.4":
-  version: 5.1.4
-  resolution: "nanoid@npm:5.1.4"
+"nanoid@npm:5.1.5":
+  version: 5.1.5
+  resolution: "nanoid@npm:5.1.5"
   bin:
     nanoid: bin/nanoid.js
-  checksum: 10c0/a911892e2d51a84850a0c333a6c2603617ad2e383f1b35343f8017346e2b46a171902617ae60636bfbb7d8479e1659b6143f9f1b21c83988d2ed93a22cfb4271
+  checksum: 10c0/e6004f1ad6c7123eeb037062c4441d44982037dc043aabb162457ef6986e99964ba98c63c975f96c547403beb0bf95bc537bd7bf9a09baf381656acdc2975c3c
   languageName: node
   linkType: hard
 
