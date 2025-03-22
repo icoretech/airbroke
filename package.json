@@ -20,7 +20,7 @@
     "@ai-sdk/openai": "1.3.0",
     "@airbrake/browser": "2.1.9",
     "@airbrake/node": "2.1.9",
-    "@auth/prisma-adapter": "2.7.4",
+    "@auth/prisma-adapter": "2.8.0",
     "@headlessui/react": "2.2.0",
     "@microlink/react-json-view": "1.26.1",
     "@prisma/client": "6.5.0",
