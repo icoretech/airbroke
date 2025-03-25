@@ -17,20 +17,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/provider-utils@npm:2.2.0":
-  version: 2.2.0
-  resolution: "@ai-sdk/provider-utils@npm:2.2.0"
-  dependencies:
-    "@ai-sdk/provider": "npm:1.1.0"
-    eventsource-parser: "npm:^3.0.0"
-    nanoid: "npm:^3.3.8"
-    secure-json-parse: "npm:^2.7.0"
-  peerDependencies:
-    zod: ^3.23.8
-  checksum: 10c0/635cce9375eddea5dfef0a989f051ad7b6798129929a4f66fbff1c9ec933fd5202e0b591114abf4fd3a7011ea33116270d0ba9a891ccda6ac21e784e928a7cb7
-  languageName: node
-  linkType: hard
-
 "@ai-sdk/provider-utils@npm:2.2.1":
   version: 2.2.1
   resolution: "@ai-sdk/provider-utils@npm:2.2.1"
@@ -53,12 +39,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/react@npm:1.2.0":
-  version: 1.2.0
-  resolution: "@ai-sdk/react@npm:1.2.0"
+"@ai-sdk/react@npm:1.2.1":
+  version: 1.2.1
+  resolution: "@ai-sdk/react@npm:1.2.1"
   dependencies:
-    "@ai-sdk/provider-utils": "npm:2.2.0"
-    "@ai-sdk/ui-utils": "npm:1.2.0"
+    "@ai-sdk/provider-utils": "npm:2.2.1"
+    "@ai-sdk/ui-utils": "npm:1.2.1"
     swr: "npm:^2.2.5"
     throttleit: "npm:2.1.0"
   peerDependencies:
@@ -67,20 +53,20 @@ __metadata:
   peerDependenciesMeta:
     zod:
       optional: true
-  checksum: 10c0/f8d6985352b68c6b75764991ff35c6711b464ade777cb4b2c4ea85420791b97959276c9fcc120ae5ba41d4c50f3eb35d1ef948513b9d1f374dc5558d1bf6e32b
+  checksum: 10c0/23e69b620a07eb1effdaec06c61c4bd08992c5930d886d7d954969a2811e977a2a985818e5dd609aa839d268afc619b0e606bfa6c5cea64f745b2793f549140e
   languageName: node
   linkType: hard
 
-"@ai-sdk/ui-utils@npm:1.2.0":
-  version: 1.2.0
-  resolution: "@ai-sdk/ui-utils@npm:1.2.0"
+"@ai-sdk/ui-utils@npm:1.2.1":
+  version: 1.2.1
+  resolution: "@ai-sdk/ui-utils@npm:1.2.1"
   dependencies:
     "@ai-sdk/provider": "npm:1.1.0"
-    "@ai-sdk/provider-utils": "npm:2.2.0"
+    "@ai-sdk/provider-utils": "npm:2.2.1"
     zod-to-json-schema: "npm:^3.24.1"
   peerDependencies:
     zod: ^3.23.8
-  checksum: 10c0/bf1546e14b1d08de2287ff8dd154a101d6f622743aa24fbad6814f6325da5ce5f12a4a8e7a97cfd98a3f7ea4cd584cb9ae630b1b75b8fb44576c2434b50705f9
+  checksum: 10c0/461a6691e8b0f32b577bb54930c9e8ac533642c881a2d9a8ba6b8d9628ab7cc94fece113710b2472b9a0d9672193252af0a6d12cd9387fc2d37afdc08efe8054
   languageName: node
   linkType: hard
 
@@ -2313,16 +2299,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:4.2.0":
-  version: 4.2.0
-  resolution: "ai@npm:4.2.0"
+"ai@npm:4.2.2":
+  version: 4.2.2
+  resolution: "ai@npm:4.2.2"
   dependencies:
     "@ai-sdk/provider": "npm:1.1.0"
-    "@ai-sdk/provider-utils": "npm:2.2.0"
-    "@ai-sdk/react": "npm:1.2.0"
-    "@ai-sdk/ui-utils": "npm:1.2.0"
+    "@ai-sdk/provider-utils": "npm:2.2.1"
+    "@ai-sdk/react": "npm:1.2.1"
+    "@ai-sdk/ui-utils": "npm:1.2.1"
     "@opentelemetry/api": "npm:1.9.0"
-    eventsource-parser: "npm:^3.0.0"
     jsondiffpatch: "npm:0.6.0"
   peerDependencies:
     react: ^18 || ^19 || ^19.0.0-rc
@@ -2330,7 +2315,7 @@ __metadata:
   peerDependenciesMeta:
     react:
       optional: true
-  checksum: 10c0/ff3f12aa76b0efb3c3093d687dd37972b27660f7e78e7375f97b6d80fbd6c3e199544b70578f18219cdec079f57df3d96226bf3e88a99a49b31b2c741b1e1104
+  checksum: 10c0/282ebbf5774ecf855593e6cfdd2119051ebf90598d2b055ebcae0fb6d57072565a8ee480549fb71960020d957366521a3f58212ef6d2a4493595a859f7e26e5e
   languageName: node
   linkType: hard
 
@@ -2354,7 +2339,7 @@ __metadata:
     "@types/react-dom": "npm:19.0.4"
     "@types/react-syntax-highlighter": "npm:^15.5.13"
     "@vitejs/plugin-react": "npm:4.3.4"
-    ai: "npm:4.2.0"
+    ai: "npm:4.2.2"
     babel-plugin-react-compiler: "npm:19.0.0-beta-aeaed83-20250323"
     chart.js: "npm:4.4.8"
     chokidar-cli: "npm:^3.0.0"
@@ -4049,13 +4034,6 @@ __metadata:
   version: 2.0.3
   resolution: "esutils@npm:2.0.3"
   checksum: 10c0/9a2fe69a41bfdade834ba7c42de4723c97ec776e40656919c62cbd13607c45e127a003f05f724a1ea55e5029a4cf2de444b13009f2af71271e42d93a637137c7
-  languageName: node
-  linkType: hard
-
-"eventsource-parser@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "eventsource-parser@npm:3.0.0"
-  checksum: 10c0/74ded91ff93330bd95243bd5a8fc61c805ea1843dd7ffac8e8ac36287fff419a7eec21b2fadf50d4e554ce0506de72f47928513e3c5b886fa4613fd49ef0024f
   languageName: node
   linkType: hard
 
