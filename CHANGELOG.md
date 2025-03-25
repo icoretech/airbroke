@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.79](https://github.com/icoretech/airbroke/compare/v1.1.78...v1.1.79) (2025-03-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/openai to v1.3.1 ([#1107](https://github.com/icoretech/airbroke/issues/1107)) ([d3a2ac8](https://github.com/icoretech/airbroke/commit/d3a2ac8ca17bc442fc628df9aca98155bf40e13e))
+* **deps:** update nextjs monorepo to v15.3.0-canary.20 ([#1101](https://github.com/icoretech/airbroke/issues/1101)) ([cf117c9](https://github.com/icoretech/airbroke/commit/cf117c997a9a05a06a7095e05a4c2d3c015d73a5))
+* **deps:** update nextjs monorepo to v15.3.0-canary.21 ([#1108](https://github.com/icoretech/airbroke/issues/1108)) ([ffe2b79](https://github.com/icoretech/airbroke/commit/ffe2b799a4676fde93eadfa7bf700328645c9659))
+
 ## [1.1.78](https://github.com/icoretech/airbroke/compare/v1.1.77...v1.1.78) (2025-03-23)
 
 
