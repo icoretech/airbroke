@@ -39,12 +39,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/react@npm:1.2.2":
-  version: 1.2.2
-  resolution: "@ai-sdk/react@npm:1.2.2"
+"@ai-sdk/react@npm:1.2.3":
+  version: 1.2.3
+  resolution: "@ai-sdk/react@npm:1.2.3"
   dependencies:
     "@ai-sdk/provider-utils": "npm:2.2.1"
-    "@ai-sdk/ui-utils": "npm:1.2.1"
+    "@ai-sdk/ui-utils": "npm:1.2.2"
     swr: "npm:^2.2.5"
     throttleit: "npm:2.1.0"
   peerDependencies:
@@ -53,20 +53,20 @@ __metadata:
   peerDependenciesMeta:
     zod:
       optional: true
-  checksum: 10c0/f829106796df7817afdad2bbd913b19d4eda47fd4d4847dd9bf4665850cdc7c94f927f3ff464f910ed0458c0d00911e34d7453b92752b8656b20125ab71599eb
+  checksum: 10c0/621e312a483ca6a9a3b27ff4cc16275426c1ee2562a82670b25d59970e30f9e44872d73bdd214f8904c1ab5938bb39d043461b68233ad3734d6fb3e30b75f875
   languageName: node
   linkType: hard
 
-"@ai-sdk/ui-utils@npm:1.2.1":
-  version: 1.2.1
-  resolution: "@ai-sdk/ui-utils@npm:1.2.1"
+"@ai-sdk/ui-utils@npm:1.2.2":
+  version: 1.2.2
+  resolution: "@ai-sdk/ui-utils@npm:1.2.2"
   dependencies:
     "@ai-sdk/provider": "npm:1.1.0"
     "@ai-sdk/provider-utils": "npm:2.2.1"
     zod-to-json-schema: "npm:^3.24.1"
   peerDependencies:
     zod: ^3.23.8
-  checksum: 10c0/461a6691e8b0f32b577bb54930c9e8ac533642c881a2d9a8ba6b8d9628ab7cc94fece113710b2472b9a0d9672193252af0a6d12cd9387fc2d37afdc08efe8054
+  checksum: 10c0/e765374a87316fa87da1bf9f5c60a83343de3f638983c2cd05ef26dbe97101e931368f8d936289feaf0fa8c05c737cc5875ba91a5ff525105ba7dedf7eb8a8ed
   languageName: node
   linkType: hard
 
@@ -2299,14 +2299,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:4.2.6":
-  version: 4.2.6
-  resolution: "ai@npm:4.2.6"
+"ai@npm:4.2.8":
+  version: 4.2.8
+  resolution: "ai@npm:4.2.8"
   dependencies:
     "@ai-sdk/provider": "npm:1.1.0"
     "@ai-sdk/provider-utils": "npm:2.2.1"
-    "@ai-sdk/react": "npm:1.2.2"
-    "@ai-sdk/ui-utils": "npm:1.2.1"
+    "@ai-sdk/react": "npm:1.2.3"
+    "@ai-sdk/ui-utils": "npm:1.2.2"
     "@opentelemetry/api": "npm:1.9.0"
     jsondiffpatch: "npm:0.6.0"
   peerDependencies:
@@ -2315,7 +2315,7 @@ __metadata:
   peerDependenciesMeta:
     react:
       optional: true
-  checksum: 10c0/6a4a9c987343a1ab99048b7cfa9abac166c8e8ea650a7d9e75f8bffe8ca86163e1a6e9abea131956097954cbe6cf60f484469c331fe587d1de26a2cd2786ca56
+  checksum: 10c0/df1e7cfae16c1802aa9a1320442f54835e21e65017bd629b7bbc8b3782c154bdf8e54148c2c2fedced2e2ede4b56d968503401a76f3d13a6f8e3083f2f46da01
   languageName: node
   linkType: hard
 
@@ -2339,7 +2339,7 @@ __metadata:
     "@types/react-dom": "npm:19.0.4"
     "@types/react-syntax-highlighter": "npm:^15.5.13"
     "@vitejs/plugin-react": "npm:4.3.4"
-    ai: "npm:4.2.6"
+    ai: "npm:4.2.8"
     babel-plugin-react-compiler: "npm:19.0.0-beta-aeaed83-20250323"
     chart.js: "npm:4.4.8"
     chokidar-cli: "npm:^3.0.0"
