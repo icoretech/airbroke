@@ -24,7 +24,7 @@
     "@headlessui/react": "2.2.1",
     "@microlink/react-json-view": "1.26.1",
     "@prisma/client": "6.5.0",
-    "ai": "4.2.11",
+    "ai": "4.3.1",
     "chart.js": "4.4.8",
     "clsx": "2.1.1",
     "date-fns": "4.1.0",
