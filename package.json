@@ -49,7 +49,7 @@
     "@types/react": "19.1.2",
     "@types/react-dom": "19.1.2",
     "@types/react-syntax-highlighter": "^15.5.13",
-    "@vitejs/plugin-react": "4.4.0",
+    "@vitejs/plugin-react": "4.4.1",
     "babel-plugin-react-compiler": "19.0.0-beta-ebf51a3-20250411",
     "chokidar-cli": "^3.0.0",
     "eslint": "9.25.0",
