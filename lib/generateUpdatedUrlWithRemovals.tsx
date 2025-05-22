@@ -1,6 +1,5 @@
 // lib/generateUpdatedUrlWithRemovals.tsx
 
-// lib/generateUpdatedUrlWithRemovals.ts
 import type { Route } from 'next';
 import type { ReadonlyURLSearchParams } from 'next/navigation';
 
