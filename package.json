@@ -45,7 +45,7 @@
     "@faker-js/faker": "9.7.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",
-    "@types/node": "22.15.2",
+    "@types/node": "22.15.21",
     "@types/react": "19.1.2",
     "@types/react-dom": "19.1.2",
     "@types/react-syntax-highlighter": "^15.5.13",
