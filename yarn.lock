@@ -1453,9 +1453,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microlink/react-json-view@npm:1.26.1":
-  version: 1.26.1
-  resolution: "@microlink/react-json-view@npm:1.26.1"
+"@microlink/react-json-view@npm:1.26.2":
+  version: 1.26.2
+  resolution: "@microlink/react-json-view@npm:1.26.2"
   dependencies:
     react-base16-styling: "npm:~0.9.0"
     react-lifecycles-compat: "npm:~3.0.4"
@@ -1463,7 +1463,7 @@ __metadata:
   peerDependencies:
     react: ">= 15"
     react-dom: ">= 15"
-  checksum: 10c0/7bb03415c44c2ef9b21e7451f0e2f8850e7179ed0636cf69686bb0af54d54b4bf38be5d3e99ca07785a741f3d86cbb45f2276e3dcfbdb945d796d21821d40fa5
+  checksum: 10c0/340301bad21e61563e1521aa449d25d1b8d478b75add2feeb8863a1fb7fa5639c8d3d84c74dd5cb251ad43d59edd6aa4cfefabdb6f05527029857d77d74b68b8
   languageName: node
   linkType: hard
 
@@ -2465,7 +2465,7 @@ __metadata:
     "@eslint/eslintrc": "npm:3.3.1"
     "@faker-js/faker": "npm:9.7.0"
     "@headlessui/react": "npm:2.2.4"
-    "@microlink/react-json-view": "npm:1.26.1"
+    "@microlink/react-json-view": "npm:1.26.2"
     "@prisma/client": "npm:6.6.0"
     "@testing-library/dom": "npm:^10.4.0"
     "@testing-library/react": "npm:^16.2.0"
