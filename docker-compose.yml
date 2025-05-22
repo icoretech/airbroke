@@ -55,7 +55,7 @@ services:
 
   test:
     image: icoretech/airbroke:develop
-    command: yarn test
+    command: yarn test --watch
     restart: always
     environment:
       DATABASE_URL: 'postgresql://postgres:airbroke@testdb/airbroke_test?connection_limit=15'
