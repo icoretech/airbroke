@@ -5,7 +5,7 @@ stop:
 	docker compose down --remove-orphans
 
 build:
-	docker compose build --pull
+	COMPOSE_BAKE=true docker compose build --pull
 
 resetdb: stop
 	docker compose run --rm web npx prisma migrate reset --force
