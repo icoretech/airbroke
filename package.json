@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.3.1",
-    "@faker-js/faker": "9.7.0",
+    "@faker-js/faker": "9.8.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",
     "@types/node": "22.15.21",
