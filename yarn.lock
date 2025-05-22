@@ -1145,19 +1145,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@headlessui/react@npm:2.2.2":
-  version: 2.2.2
-  resolution: "@headlessui/react@npm:2.2.2"
+"@headlessui/react@npm:2.2.4":
+  version: 2.2.4
+  resolution: "@headlessui/react@npm:2.2.4"
   dependencies:
     "@floating-ui/react": "npm:^0.26.16"
-    "@react-aria/focus": "npm:^3.17.1"
-    "@react-aria/interactions": "npm:^3.21.3"
-    "@tanstack/react-virtual": "npm:^3.13.6"
+    "@react-aria/focus": "npm:^3.20.2"
+    "@react-aria/interactions": "npm:^3.25.0"
+    "@tanstack/react-virtual": "npm:^3.13.9"
     use-sync-external-store: "npm:^1.5.0"
   peerDependencies:
     react: ^18 || ^19 || ^19.0.0-rc
     react-dom: ^18 || ^19 || ^19.0.0-rc
-  checksum: 10c0/73d2687295e755b0a4057399a93097fb493b54001e80331669535d79e1071dad66a7f8e273932fa43f6b6584e9d6220ae5e92518d96b7fe3f0ded1e8b7697ca1
+  checksum: 10c0/4b6dfe65adc7e28a842ea83faabd11979926a5fd2933e18bc934fd3c5aff11b8317f2a016026030691f6a417ba242a63bcae7ca3e137bcde7264d0211cec6dfe
   languageName: node
   linkType: hard
 
@@ -1687,78 +1687,92 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-aria/focus@npm:^3.17.1":
-  version: 3.19.0
-  resolution: "@react-aria/focus@npm:3.19.0"
+"@react-aria/focus@npm:^3.20.2":
+  version: 3.20.3
+  resolution: "@react-aria/focus@npm:3.20.3"
   dependencies:
-    "@react-aria/interactions": "npm:^3.22.5"
-    "@react-aria/utils": "npm:^3.26.0"
-    "@react-types/shared": "npm:^3.26.0"
+    "@react-aria/interactions": "npm:^3.25.1"
+    "@react-aria/utils": "npm:^3.29.0"
+    "@react-types/shared": "npm:^3.29.1"
     "@swc/helpers": "npm:^0.5.0"
     clsx: "npm:^2.0.0"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
-  checksum: 10c0/77a9c0d48d71f6c45fa3c2107e7243c0148e48c26c9a7ebd5abf5981258471e38bc20bc33807ac68fbb5df5917e251960463b6aaaad0d878a61da2855af55053
+    react-dom: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
+  checksum: 10c0/c8f220b517fdf52b214d6b74e1ad599e42b5177afdecf6380cf11ee0eac0ad57cf91b8e29fac185881e253f8edf1a88ab242df422aed902004115ea212ade26f
   languageName: node
   linkType: hard
 
-"@react-aria/interactions@npm:^3.21.3, @react-aria/interactions@npm:^3.22.5":
-  version: 3.22.5
-  resolution: "@react-aria/interactions@npm:3.22.5"
+"@react-aria/interactions@npm:^3.25.0, @react-aria/interactions@npm:^3.25.1":
+  version: 3.25.1
+  resolution: "@react-aria/interactions@npm:3.25.1"
   dependencies:
-    "@react-aria/ssr": "npm:^3.9.7"
-    "@react-aria/utils": "npm:^3.26.0"
-    "@react-types/shared": "npm:^3.26.0"
+    "@react-aria/ssr": "npm:^3.9.8"
+    "@react-aria/utils": "npm:^3.29.0"
+    "@react-stately/flags": "npm:^3.1.1"
+    "@react-types/shared": "npm:^3.29.1"
     "@swc/helpers": "npm:^0.5.0"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
-  checksum: 10c0/6b94dece2a3cafdd85c1b9da7dbabeafe0d771fd2af67f59203906793c5faac9ddeb100e13673109f094b2ba4d6de61b5f57c9bcd244c10db6ce12010d46bc6a
+    react-dom: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
+  checksum: 10c0/9f9d63c0eae8809810883d3469044beab2e8df074a992ba935b6aeb74831c13cb463b5854b61deb3ebc1ccf7c05d70d2fae85d40375d7b8b56503100010c7c6d
   languageName: node
   linkType: hard
 
-"@react-aria/ssr@npm:^3.9.7":
-  version: 3.9.7
-  resolution: "@react-aria/ssr@npm:3.9.7"
+"@react-aria/ssr@npm:^3.9.8":
+  version: 3.9.8
+  resolution: "@react-aria/ssr@npm:3.9.8"
   dependencies:
     "@swc/helpers": "npm:^0.5.0"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
-  checksum: 10c0/37168cd81b1e8223aedb906c1333381f3c436dadf58cbd675606ced314605ce5c49eee5c831309648bfbab78a8598c344be636a85962c742ebf11ae7e87ee93e
+  checksum: 10c0/848cac34f8584477ab6c91686ab447c7f7eee997e0b1771cc71298d15a4dd0400ce7b899ad8c1603a72d59a72f24a390964133693a3ba602828801d4dacc3f45
   languageName: node
   linkType: hard
 
-"@react-aria/utils@npm:^3.26.0":
-  version: 3.26.0
-  resolution: "@react-aria/utils@npm:3.26.0"
+"@react-aria/utils@npm:^3.29.0":
+  version: 3.29.0
+  resolution: "@react-aria/utils@npm:3.29.0"
   dependencies:
-    "@react-aria/ssr": "npm:^3.9.7"
-    "@react-stately/utils": "npm:^3.10.5"
-    "@react-types/shared": "npm:^3.26.0"
+    "@react-aria/ssr": "npm:^3.9.8"
+    "@react-stately/flags": "npm:^3.1.1"
+    "@react-stately/utils": "npm:^3.10.6"
+    "@react-types/shared": "npm:^3.29.1"
     "@swc/helpers": "npm:^0.5.0"
     clsx: "npm:^2.0.0"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
-  checksum: 10c0/97d1140356ab4f0fe682db6bb9b4bc2f23f7d25fc8c28b8ab225d7fb428b47f82401cc49eb5ba6c2f006f03ec94e88410ae017e19711d5f2d9c2fade2b461b64
+    react-dom: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
+  checksum: 10c0/99ceabb63b98c0d7526ebb6ab6dbbf1cf06ea0ed5e4f2794337aaa3952c338b24a21023e762286f0054522b4a48925f1d96361433acf81245c329d6c657aecfe
   languageName: node
   linkType: hard
 
-"@react-stately/utils@npm:^3.10.5":
-  version: 3.10.5
-  resolution: "@react-stately/utils@npm:3.10.5"
+"@react-stately/flags@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "@react-stately/flags@npm:3.1.1"
+  dependencies:
+    "@swc/helpers": "npm:^0.5.0"
+  checksum: 10c0/3f64deb7b5daa787072f77e358624b65ad0627ee148d968423f3a5968b655d99671673927e21e4ba2ad0c9828d6ea75dae8ca421af90f9b41986a28341a4101f
+  languageName: node
+  linkType: hard
+
+"@react-stately/utils@npm:^3.10.6":
+  version: 3.10.6
+  resolution: "@react-stately/utils@npm:3.10.6"
   dependencies:
     "@swc/helpers": "npm:^0.5.0"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
-  checksum: 10c0/188500fef26361515d1a6c506ad347f68c82a1d61a13a09109080966a195e1cf97686991143e0d5684fd0b1a3c6a0a1e0149c92c0665bcc34c2026cd9730af1c
+  checksum: 10c0/09403746285a3866765c04bed5f2505e0bdbb971bdeb2eedee31ebf5bad3d0c0c0cef9d0dd5852fc6c58f6b552cbc90364eb32403245dfc04dc22c5e2fbfbe32
   languageName: node
   linkType: hard
 
-"@react-types/shared@npm:^3.26.0":
-  version: 3.26.0
-  resolution: "@react-types/shared@npm:3.26.0"
+"@react-types/shared@npm:^3.29.1":
+  version: 3.29.1
+  resolution: "@react-types/shared@npm:3.29.1"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
-  checksum: 10c0/3ff20c24dc01d0ad9574f9a13f0e2519f5e3fe962251b7e9dd51e57ee0c1507c8f180792a987531217b02d8900ec2ae92658083b943afa02b9d68018fc79188f
+  checksum: 10c0/7b124568475d8e067d3d71de2dc31d82479a92b9a9a7cd493802e2780b973787adfb65eb718d475950078c57087369edf156aed68e5029111a39c3b34bf4250b
   languageName: node
   linkType: hard
 
@@ -1925,22 +1939,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-virtual@npm:^3.13.6":
-  version: 3.13.6
-  resolution: "@tanstack/react-virtual@npm:3.13.6"
+"@tanstack/react-virtual@npm:^3.13.9":
+  version: 3.13.9
+  resolution: "@tanstack/react-virtual@npm:3.13.9"
   dependencies:
-    "@tanstack/virtual-core": "npm:3.13.6"
+    "@tanstack/virtual-core": "npm:3.13.9"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10c0/3d2fdf024cb9189981cc015518a34a771a57cd698ca775022ad481431e6f26e596309f57d2238ef15f3b53b805879edaed6394e4cad1bb550ee92259e4d52633
+  checksum: 10c0/aa05fb24e30686516e74ccdec94a83d195615a4f29bc866a53ee6b0107e466c6d6e3e947b3fb0613b907b0f982d74b00367868cf6b1ac956562d0e7c24d6764b
   languageName: node
   linkType: hard
 
-"@tanstack/virtual-core@npm:3.13.6":
-  version: 3.13.6
-  resolution: "@tanstack/virtual-core@npm:3.13.6"
-  checksum: 10c0/9c40af4deccf0fadc5c371f4e659f1aff221db0ede9664ee7cf3642a2d05f6f1c9494605f3606f70d7c8948dc22e50c48519a8435d0e845f1b1f34c9353722c8
+"@tanstack/virtual-core@npm:3.13.9":
+  version: 3.13.9
+  resolution: "@tanstack/virtual-core@npm:3.13.9"
+  checksum: 10c0/6e9526a9d52f8ddc54af8a1dc7380814b10ab38d8a4265e362a5b69c3132097ace51496d4206fe8aa90e33129aaf1a177c93d7ed018b5564b78e057fc9cdb48d
   languageName: node
   linkType: hard
 
@@ -2450,7 +2464,7 @@ __metadata:
     "@auth/prisma-adapter": "npm:2.7.4"
     "@eslint/eslintrc": "npm:3.3.1"
     "@faker-js/faker": "npm:9.7.0"
-    "@headlessui/react": "npm:2.2.2"
+    "@headlessui/react": "npm:2.2.4"
     "@microlink/react-json-view": "npm:1.26.1"
     "@prisma/client": "npm:6.6.0"
     "@testing-library/dom": "npm:^10.4.0"
