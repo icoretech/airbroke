@@ -57,7 +57,7 @@
     "eslint-config-prettier": "10.1.5",
     "eslint-plugin-react-compiler": "19.1.0-rc.2",
     "jsdom": "26.1.0",
-    "postcss": "8.5.3",
+    "postcss": "8.5.4",
     "prettier": "3.5.3",
     "prettier-plugin-tailwindcss": "0.6.11",
     "prisma": "6.8.2",
