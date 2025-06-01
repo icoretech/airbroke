@@ -2387,7 +2387,7 @@ __metadata:
     typescript: "npm:5.8.3"
     vite-tsconfig-paths: "npm:5.1.4"
     vitest: "npm:3.1.4"
-    zod: "npm:3.25.42"
+    zod: "npm:3.25.46"
   languageName: unknown
   linkType: soft
 
@@ -8147,10 +8147,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:3.25.42":
-  version: 3.25.42
-  resolution: "zod@npm:3.25.42"
-  checksum: 10c0/daa04d3bd5d87318790def440c074a154e29a5c900aefc6605c078df5878cdc9b465091c1ad117478e1f907242b8983d69bf2c11fcf354772b18d7103b94383a
+"zod@npm:3.25.46":
+  version: 3.25.46
+  resolution: "zod@npm:3.25.46"
+  checksum: 10c0/2cc754a49244f9d80ef50c0da8e01136e0202a9fa92229bcfef2b8285ca07f865bcdd17f0fb609219bd91a2de7965b9a27627cd456e151924144d7a06c6d6686
   languageName: node
   linkType: hard
 
