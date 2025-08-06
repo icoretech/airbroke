@@ -54,7 +54,7 @@
     "chokidar-cli": "^3.0.0",
     "eslint": "9.28.0",
     "eslint-config-next": "15.4.0-canary.61",
-    "eslint-config-prettier": "10.1.5",
+    "eslint-config-prettier": "10.1.8",
     "eslint-plugin-react-compiler": "19.1.0-rc.2",
     "jsdom": "26.1.0",
     "postcss": "8.5.4",
