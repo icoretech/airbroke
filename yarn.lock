@@ -5,15 +5,15 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
-"@ai-sdk/openai@npm:1.3.22":
-  version: 1.3.22
-  resolution: "@ai-sdk/openai@npm:1.3.22"
+"@ai-sdk/openai@npm:1.3.23":
+  version: 1.3.23
+  resolution: "@ai-sdk/openai@npm:1.3.23"
   dependencies:
     "@ai-sdk/provider": "npm:1.1.3"
     "@ai-sdk/provider-utils": "npm:2.2.8"
   peerDependencies:
     zod: ^3.0.0
-  checksum: 10c0/bcc73a84bebd15aa54568c3c77cedd5f999e282c5be180d5e28ebc789f8873dd0a74d87f1ec4a0f16e3e61b658c3b0734835daf176ed910966246db73c72b468
+  checksum: 10c0/4fefd458488ac9d35bd7a096f738254b737747bc33a72e31ae16fbb89a2c759602e8bb5ef0f6f61bf4e33b3060c7a0b65a1f6d46f01db5657528e15dadf9c134
   languageName: node
   linkType: hard
 
@@ -2360,7 +2360,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "airbroke@workspace:."
   dependencies:
-    "@ai-sdk/openai": "npm:1.3.22"
+    "@ai-sdk/openai": "npm:1.3.23"
     "@airbrake/browser": "npm:2.1.9"
     "@airbrake/node": "npm:2.1.9"
     "@auth/prisma-adapter": "npm:2.9.1"
