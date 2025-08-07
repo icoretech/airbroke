@@ -865,9 +865,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@headlessui/react@npm:2.2.4":
-  version: 2.2.4
-  resolution: "@headlessui/react@npm:2.2.4"
+"@headlessui/react@npm:2.2.7":
+  version: 2.2.7
+  resolution: "@headlessui/react@npm:2.2.7"
   dependencies:
     "@floating-ui/react": "npm:^0.26.16"
     "@react-aria/focus": "npm:^3.20.2"
@@ -877,7 +877,7 @@ __metadata:
   peerDependencies:
     react: ^18 || ^19 || ^19.0.0-rc
     react-dom: ^18 || ^19 || ^19.0.0-rc
-  checksum: 10c0/4b6dfe65adc7e28a842ea83faabd11979926a5fd2933e18bc934fd3c5aff11b8317f2a016026030691f6a417ba242a63bcae7ca3e137bcde7264d0211cec6dfe
+  checksum: 10c0/7650e20eb83237575a66ad957c1cdf55389074089c4e3586c851e1fdb669cae495ca9e850d0fb22eb2c37648c339c1d8ddf500eee733afda92176e00b7459433
   languageName: node
   linkType: hard
 
@@ -2366,7 +2366,7 @@ __metadata:
     "@auth/prisma-adapter": "npm:2.9.1"
     "@eslint/eslintrc": "npm:3.3.1"
     "@faker-js/faker": "npm:9.8.0"
-    "@headlessui/react": "npm:2.2.4"
+    "@headlessui/react": "npm:2.2.7"
     "@microlink/react-json-view": "npm:1.26.2"
     "@prisma/client": "npm:6.8.2"
     "@testing-library/dom": "npm:^10.4.0"
