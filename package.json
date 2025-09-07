@@ -22,7 +22,7 @@
     "@airbrake/node": "2.1.9",
     "@auth/prisma-adapter": "2.9.1",
     "@headlessui/react": "2.2.7",
-    "@microlink/react-json-view": "1.26.2",
+    "@microlink/react-json-view": "1.27.0",
     "@prisma/client": "6.8.2",
     "ai": "4.3.19",
     "chart.js": "4.4.9",
