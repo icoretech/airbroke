@@ -69,5 +69,5 @@
   "prisma": {
     "seed": "node --experimental-strip-types prisma/seed.ts"
   },
-  "packageManager": "yarn@4.9.4"
+  "packageManager": "yarn@4.10.0"
 }
