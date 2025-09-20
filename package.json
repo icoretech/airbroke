@@ -56,7 +56,7 @@
     "eslint-config-next": "15.4.0-canary.61",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-react-compiler": "19.1.0-rc.2",
-    "jsdom": "26.1.0",
+    "jsdom": "27.0.0",
     "postcss": "8.5.6",
     "prettier": "3.6.2",
     "prettier-plugin-tailwindcss": "0.6.14",
