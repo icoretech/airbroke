@@ -2,11 +2,11 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "lint-watch",
+      "label": "biome-check",
       "type": "shell",
       "command": "yarn",
-      "args": ["lint:eslint:vscode:watch"],
-      "problemMatcher": "$eslint-stylish",
+      "args": ["biome:check"],
+      "problemMatcher": [],
       "options": {
         "cwd": "${workspaceFolder}"
       }

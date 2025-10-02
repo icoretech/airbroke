@@ -13,6 +13,7 @@ FROM base AS builder
 WORKDIR /app
 COPY . .
 RUN yarn install --immutable
+RUN yarn biome:ci
 RUN yarn build
 
 FROM base AS runner

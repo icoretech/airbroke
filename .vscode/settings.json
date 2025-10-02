@@ -1,11 +1,40 @@
 {
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "editor.codeActionsOnSave": {
-    "source.organizeImports": "explicit"
-  },
+  // Use the project's TypeScript
   "typescript.tsdk": "node_modules/typescript/lib",
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+
+  // Biome VS Code integration (requires biomejs.biome extension)
+  "biome.enabled": true,
+  "biome.requireConfiguration": true,
+  // Use Biome from PATH for portability across dev machines
+  "biome.lsp.bin": "biome",
+
+  // Make Biome the formatter for this workspace
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.biome": "explicit",
+    "source.organizeImports.biome": "explicit",
+    // Disable ESLint fix-on-save in this workspace (realtime is Biome-only)
+    "source.fixAll.eslint": "never"
   },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+
+  // Prevent ESLint from formatting in this workspace
+  "eslint.format.enable": false,
+
+  // Keep the previous behavior for Makefile extension
   "makefile.configureOnOpen": false
 }

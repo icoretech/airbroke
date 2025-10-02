@@ -20,6 +20,15 @@
   },
   "overrides": [
     {
+      "includes": ["components/ui/**", "components/ai-elements/**"],
+      "linter": {
+        "enabled": false
+      },
+      "formatter": {
+        "enabled": false
+      }
+    },
+    {
       "includes": ["app/globals.css"],
       "linter": { "enabled": false },
       "formatter": { "enabled": false }
