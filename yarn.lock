@@ -142,9 +142,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth/core@npm:0.40.0":
-  version: 0.40.0
-  resolution: "@auth/core@npm:0.40.0"
+"@auth/core@npm:0.41.0":
+  version: 0.41.0
+  resolution: "@auth/core@npm:0.41.0"
   dependencies:
     "@panva/hkdf": "npm:^1.2.1"
     jose: "npm:^6.0.6"
@@ -162,18 +162,18 @@ __metadata:
       optional: true
     nodemailer:
       optional: true
-  checksum: 10c0/25cd12f22611eedc21c17dc1908fa9428ae5f0e32eb32c1ab009642276c37099cce58f49ffbb7f8e8d6d6488d5101a24fb9808ec662eee5aca19d520750acaa3
+  checksum: 10c0/2971dc78b12cb00774fa4a82105d0302b7e2d96e416336f119e7e90604878bde26fca16c5c53dc027ecb47cecffb0d1471397cd5d8aedb85a8cd4b41c742379c
   languageName: node
   linkType: hard
 
-"@auth/prisma-adapter@npm:2.10.0":
-  version: 2.10.0
-  resolution: "@auth/prisma-adapter@npm:2.10.0"
+"@auth/prisma-adapter@npm:2.11.0":
+  version: 2.11.0
+  resolution: "@auth/prisma-adapter@npm:2.11.0"
   dependencies:
-    "@auth/core": "npm:0.40.0"
+    "@auth/core": "npm:0.41.0"
   peerDependencies:
     "@prisma/client": ">=2.26.0 || >=3 || >=4 || >=5 || >=6"
-  checksum: 10c0/f6c95f144958c678e8cbc691b205c937cbc456beab3da035ab3e00d55e91b8b39be6ff8529dbe3c72d0f95365988db09bc5862445f70c2438061dbe69bca34f5
+  checksum: 10c0/0109a8800636c65b755a38987d22dcf350b316bf9cf5722eeb6ef76e21e6a2487d88edabd1a010f70e5bd1ef1b62463555d0d49fbb21e9a67e5de6c6d143f27c
   languageName: node
   linkType: hard
 
@@ -1271,9 +1271,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:6.16.2":
-  version: 6.16.2
-  resolution: "@prisma/client@npm:6.16.2"
+"@prisma/client@npm:6.17.1":
+  version: 6.17.1
+  resolution: "@prisma/client@npm:6.17.1"
   peerDependencies:
     prisma: "*"
     typescript: ">=5.1.0"
@@ -1282,7 +1282,7 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: 10c0/2d3356d18de6411dc61b701dfea2a4fc052913f7f7c6019d4cf477a2d391c7ca0adf1601f1d2b9030b5a1c2479b4d7d5b128e1b413218c1b12cd58f1091d2d1a
+  checksum: 10c0/dac39e6cca192720915e02c5d1c8b6e447dafb40522b7133a7bc0047462720de57e2a1370d76a69670f18d9699994b79d9afaba3407c1a97973b58ac066a9c90
   languageName: node
   linkType: hard
 
@@ -1784,12 +1784,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:22.18.6":
-  version: 22.18.6
-  resolution: "@types/node@npm:22.18.6"
+"@types/node@npm:22.18.11":
+  version: 22.18.11
+  resolution: "@types/node@npm:22.18.11"
   dependencies:
     undici-types: "npm:~6.21.0"
-  checksum: 10c0/7ba190da2e64e56c59270661af8cd682c830a1375b6f965ab153be90baabfdaa867aa1d63f87b42de80956996d46dfe1cf93ecefe982d9a16e485b6756949f9a
+  checksum: 10c0/3802f598608638e13ca350fbe2db0db5dde9a0b6704295fa1b6cec6defe24f9baf6a891eee6eaecd016bcd5ea18edecdaf71679d87079fe468913701adb61387
   languageName: node
   linkType: hard
 
@@ -2002,22 +2002,22 @@ __metadata:
     "@ai-sdk/openai": "npm:1.3.24"
     "@airbrake/browser": "npm:2.1.9"
     "@airbrake/node": "npm:2.1.9"
-    "@auth/prisma-adapter": "npm:2.10.0"
+    "@auth/prisma-adapter": "npm:2.11.0"
     "@biomejs/biome": "npm:2.2.5"
     "@faker-js/faker": "npm:9.9.0"
     "@headlessui/react": "npm:2.2.9"
     "@microlink/react-json-view": "npm:1.27.0"
-    "@prisma/client": "npm:6.16.2"
+    "@prisma/client": "npm:6.17.1"
     "@testing-library/dom": "npm:^10.4.0"
     "@testing-library/react": "npm:^16.3.0"
-    "@types/node": "npm:22.18.6"
+    "@types/node": "npm:22.18.11"
     "@types/react": "npm:19.1.15"
     "@types/react-dom": "npm:19.1.9"
     "@types/react-syntax-highlighter": "npm:^15.5.13"
     "@vitejs/plugin-react": "npm:4.7.0"
     ai: "npm:4.3.19"
     babel-plugin-react-compiler: "npm:19.1.0-rc.3"
-    chart.js: "npm:4.5.0"
+    chart.js: "npm:4.5.1"
     clsx: "npm:2.1.1"
     date-fns: "npm:4.1.0"
     jsdom: "npm:26.1.0"
@@ -2318,12 +2318,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chart.js@npm:4.5.0":
-  version: 4.5.0
-  resolution: "chart.js@npm:4.5.0"
+"chart.js@npm:4.5.1":
+  version: 4.5.1
+  resolution: "chart.js@npm:4.5.1"
   dependencies:
     "@kurkle/color": "npm:^0.3.0"
-  checksum: 10c0/f12c7f9a238ee7ce6d3f7111628e9daba86bb8ff8e54cfe63525fde6ded9003c72c4c8d2c7d5702539dc0aff7e682dfec058660ade8d03a970da002656d4ac91
+  checksum: 10c0/3f2a11dcaae9079e8e6b8ad077e2ae311f04996f9da14815730891e66215ee8b5f2c0eb70b5a156e5bde0f89a41bae13506dc6153e50fd22dcb282b21eec706f
   languageName: node
   linkType: hard
 
