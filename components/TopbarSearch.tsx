@@ -25,8 +25,12 @@ export default function TopbarSearch({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // Search is currently not supported/meaningful on project edit pages.
-  if (pathname.startsWith("/projects/") && pathname.endsWith("/edit")) {
+  // Search is currently not supported/meaningful on some pages.
+  // (Avoid a broken searchQuery UX.)
+  if (
+    (pathname.startsWith("/projects/") && pathname.endsWith("/edit")) ||
+    pathname.startsWith("/occurrences/")
+  ) {
     return null;
   }
 
