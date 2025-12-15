@@ -138,10 +138,7 @@ export async function AppShell({
                             asChild
                             isActive={p.id === selectedProjectId}
                           >
-                            <Link
-                              href={`/projects/${p.id}`}
-                              className="transition-all duration-100 ease-out will-change-transform hover:scale-105"
-                            >
+                            <Link href={`/projects/${p.id}`}>
                               {p.paused ? (
                                 <TbClockPause />
                               ) : (
