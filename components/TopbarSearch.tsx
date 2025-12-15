@@ -17,22 +17,13 @@ type TopbarSearchProps = {
   placeholder?: string;
 };
 
-export default function TopbarSearch({
+function TopbarSearchImpl({
   isDisabled = false,
   placeholder = "Search...",
 }: TopbarSearchProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
-  // Search is currently not supported/meaningful on some pages.
-  // (Avoid a broken searchQuery UX.)
-  if (
-    (pathname.startsWith("/projects/") && pathname.endsWith("/edit")) ||
-    pathname.startsWith("/occurrences/")
-  ) {
-    return null;
-  }
 
   const [isPending, startTransition] = useTransition();
   const [value, setValue] = useState("");
@@ -150,4 +141,15 @@ export default function TopbarSearch({
       </InputGroup>
     </form>
   );
+}
+
+export default function TopbarSearch(props: TopbarSearchProps) {
+  const pathname = usePathname();
+  const isUnsupported =
+    (pathname.startsWith("/projects/") && pathname.endsWith("/edit")) ||
+    pathname.startsWith("/occurrences/");
+
+  if (isUnsupported) return null;
+
+  return <TopbarSearchImpl {...props} />;
 }
