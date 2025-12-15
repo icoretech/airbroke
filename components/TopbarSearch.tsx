@@ -25,6 +25,11 @@ export default function TopbarSearch({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  // Search is currently not supported/meaningful on project edit pages.
+  if (pathname.startsWith("/projects/") && pathname.endsWith("/edit")) {
+    return null;
+  }
+
   const [isPending, startTransition] = useTransition();
   const [value, setValue] = useState("");
   const [isMac, setIsMac] = useState<boolean | null>(null);
