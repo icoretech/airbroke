@@ -1,83 +1,103 @@
-// components/OccurrenceChart.tsx
+"use client";
 
-'use client';
-
+import React from "react";
 import {
-  BarElement,
-  CategoryScale,
-  ChartData,
-  Chart as ChartJS,
-  ChartOptions,
-  Legend,
-  LinearScale,
-  Title,
-  Tooltip,
-} from 'chart.js';
-import { useEffect, useState } from 'react';
-import { Bar } from 'react-chartjs-2';
+  Bar,
+  BarChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  XAxis,
+} from "@/components/RechartsWrapper";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+import type {
+  NameType,
+  ValueType,
+} from "recharts/types/component/DefaultTooltipContent";
+import type { TooltipContentProps } from "recharts/types/component/Tooltip";
+import type { ChartConfig } from "@/components/ui/chart";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+type DataPoint = { date: number; count: number };
 
-/**
- * The shape of the data we pass to <Bar />.
- */
-type ChartDataType = ChartData<'bar'>;
-
-export default function OccurrenceChart({ data }: { data: { date: string; count: number }[] }) {
-  const [chartData, setChartData] = useState<ChartDataType | null>(null);
-
-  useEffect(() => {
-    if (data) {
-      setChartData({
-        labels: data.map((item) => item.date),
-        datasets: [
-          {
-            label: 'Occurrences',
-            data: data.map((item) => item.count),
-            backgroundColor: '#c7d2fe',
-            borderColor: '#c7d2fe',
-            borderWidth: 1,
-            hoverBackgroundColor: '#a5b4fc',
-            hoverBorderColor: '#a5b4fc',
-          },
-        ],
-      });
-    }
-  }, [data]);
-
-  const options: ChartOptions<'bar'> = {
-    scales: {
-      x: {
-        type: 'category',
-        ticks: {
-          color: '#ffffff', // labels
-        },
-        grid: {
-          color: 'rgba(255, 255, 255, 0.1)', // grid
-        },
-      },
-      y: {
-        beginAtZero: true,
-        ticks: {
-          color: '#ffffff', // labels
-        },
-        grid: {
-          color: 'rgba(255, 255, 255, 0.1)', // grid
-        },
-      },
-    },
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        enabled: true,
-        backgroundColor: '#6366F1',
-        titleColor: '#F3F4F6',
-        bodyColor: '#F3F4F6',
-      },
-    },
+export default function OccurrenceChart({
+  chartData,
+}: {
+  chartData: DataPoint[];
+}) {
+  const gradId = React.useId();
+  const chartConfig: ChartConfig = {
+    count: { label: "Occurrences", color: "hsl(var(--chart-1))" },
   };
 
-  return chartData && <Bar data={chartData} options={options} />;
+  return (
+    <ChartContainer config={chartConfig} className="aspect-auto h-55 w-full">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          accessibilityLayer
+          data={chartData}
+          margin={{ left: 12, right: 12 }}
+        >
+          <defs>
+            <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+              <stop
+                offset="0%"
+                stopColor="hsl(var(--sidebar-accent-grad-start))"
+              />
+              <stop
+                offset="100%"
+                stopColor="hsl(var(--sidebar-accent-grad-end))"
+              />
+            </linearGradient>
+          </defs>
+          <CartesianGrid vertical={false} stroke="rgba(255,255,255,0.1)" />
+          <XAxis
+            type="number"
+            scale="time"
+            dataKey="date"
+            domain={["dataMin", "dataMax"]}
+            tickCount={8}
+            tick={{ fill: "rgba(255,255,255,0.9)", fontSize: 12 }}
+            tickLine={false}
+            axisLine={false}
+            tickMargin={8}
+            minTickGap={24}
+            tickFormatter={(value: number | string) => {
+              const d = new Date(
+                typeof value === "number" ? value : Number(value),
+              );
+              return d.toLocaleDateString(undefined, {
+                month: "short",
+                day: "numeric",
+              });
+            }}
+          />
+          <ChartTooltip
+            content={(props: TooltipContentProps<ValueType, NameType>) => {
+              const raw = props.label as number | string | undefined;
+              const ts = typeof raw === "number" ? raw : Number(raw ?? 0);
+              const label = Number.isNaN(ts)
+                ? ""
+                : new Date(ts).toLocaleDateString(undefined, {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                    hour: "2-digit",
+                  });
+              return (
+                <ChartTooltipContent
+                  {...props}
+                  label={label}
+                  className="w-45"
+                />
+              );
+            }}
+          />
+          <Bar dataKey="count" fill={`url(#${gradId})`} radius={4} />
+        </BarChart>
+      </ResponsiveContainer>
+    </ChartContainer>
+  );
 }

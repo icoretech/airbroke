@@ -55,8 +55,8 @@ export default function parseNotice(noticeData: NoticeData): NoticeData {
   if (Array.isArray(noticeData.errors)) {
     noticeData.errors.forEach((error) => {
       const whitelistedError: NoticeError = {
-        type: error.type || 'UnknownError',
-        message: error.message || 'No message provided',
+        type: error.type || "UnknownError",
+        message: error.message || "No message provided",
         backtrace: [],
       };
 

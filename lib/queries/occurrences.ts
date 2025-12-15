@@ -1,10 +1,15 @@
 // lib/queries/occurrences.ts
 
-import { prisma } from '@/lib/db';
-import type { Notice, Occurrence, Prisma, Project } from '@prisma/client';
+import { db } from "@/lib/db";
+import type {
+  Notice,
+  Occurrence,
+  Prisma,
+  Project,
+} from "@/prisma/generated/client";
 
-export type SortAttribute = 'seen_count' | 'updated_at' | undefined;
-export type SortDirection = 'asc' | 'desc' | undefined;
+type SortAttribute = "seen_count" | "updated_at" | undefined;
+type SortDirection = "asc" | "desc" | undefined;
 
 export type OccurrenceSearchParams = {
   sortDir?: SortDirection;
@@ -38,9 +43,14 @@ interface OccurrenceWithNoticeAndProject extends Occurrence {
  */
 export async function getOccurrences(
   noticeId: string,
-  params: OccurrenceSearchParams
+  params: OccurrenceSearchParams,
 ): Promise<OccurrenceWithNotice[]> {
-  const { sortDir = 'desc', sortAttr = 'updated_at', searchQuery, limit } = params;
+  const {
+    sortDir = "desc",
+    sortAttr = "updated_at",
+    searchQuery,
+    limit,
+  } = params;
 
   const whereObject: Prisma.OccurrenceWhereInput = {
     notice_id: noticeId,
@@ -48,7 +58,7 @@ export async function getOccurrences(
       ? {
           message: {
             contains: searchQuery,
-            mode: 'insensitive',
+            mode: "insensitive",
           },
         }
       : {}),
@@ -67,8 +77,10 @@ export async function getOccurrences(
  * @param projectId - The ID of the project
  * @returns Promise resolving to the count of matching occurrences
  */
-export async function getOccurrencesCountByProjectId(projectId: string): Promise<number> {
-  return prisma.occurrence.count({
+export async function getOccurrencesCountByProjectId(
+  projectId: string,
+): Promise<number> {
+  return db.occurrence.count({
     where: {
       notice: {
         project_id: projectId,
@@ -83,22 +95,10 @@ export async function getOccurrencesCountByProjectId(projectId: string): Promise
  * @param occurrenceId - The ID of the occurrence
  * @returns Promise resolving to the Occurrence (with Notice & Project) or null if not found
  */
-export async function getOccurrenceById(occurrenceId: string): Promise<OccurrenceWithNoticeAndProject | null> {
+export async function getOccurrenceById(
+  occurrenceId: string,
+): Promise<OccurrenceWithNoticeAndProject | null> {
   return _fetchOccurrenceById(occurrenceId);
-}
-
-/**
- * Given an array of Notice IDs, returns all matching Occurrence IDs.
- *
- * @param noticeIds - Array of Notice IDs
- * @returns Promise resolving to an array of Occurrence IDs
- */
-export async function getOccurrenceIdsByNoticeIds(noticeIds: string[]): Promise<string[]> {
-  const result = await prisma.occurrence.findMany({
-    where: { notice_id: { in: noticeIds } },
-    select: { id: true },
-  });
-  return result.map((occurrence) => occurrence.id);
 }
 
 /**
@@ -108,12 +108,14 @@ export async function getOccurrenceIdsByNoticeIds(noticeIds: string[]): Promise<
  * @param projectId - The ID of the project
  * @returns Promise resolving to an integer (rounded) of occurrences per hour
  */
-export async function getHourlyOccurrenceRateForLast14Days(projectId: string): Promise<number> {
+export async function getHourlyOccurrenceRateForLast14Days(
+  projectId: string,
+): Promise<number> {
   const endDate = new Date();
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - 14);
 
-  const occurrences = await prisma.hourlyOccurrence.aggregate({
+  const occurrences = await db.hourlyOccurrence.aggregate({
     _sum: {
       count: true,
     },
@@ -140,41 +142,6 @@ export async function getHourlyOccurrenceRateForLast14Days(projectId: string): P
 }
 
 /**
- * Returns how many occurrences happened in the last hour block
- * for a given Project, plus the truncated current hour timestamp.
- */
-export async function getOccurrencesInLastHourBlock(
-  projectId: string
-): Promise<{ lastHourCount: number; currentHour: Date }> {
-  const currentHour = new Date();
-  currentHour.setMinutes(0, 0, 0); // e.g. 15:00 if it's 15:32
-
-  const previousHour = new Date(currentHour.getTime() - 60 * 60 * 1000); // 14:00
-
-  const occurrences = await prisma.hourlyOccurrence.aggregate({
-    _sum: { count: true },
-    where: {
-      occurrence: {
-        notice: {
-          project_id: projectId,
-        },
-      },
-      interval_start: {
-        gte: previousHour, // 14:00
-      },
-      interval_end: {
-        lte: currentHour, // 15:00
-      },
-    },
-  });
-
-  // If `_sum.count` is null, default to 0 (then convert to number)
-  const total = Number(occurrences._sum.count ?? 0);
-
-  return { lastHourCount: total, currentHour };
-}
-
-/**
  * Internal helper to fetch multiple Occurrences with Notice included.
  *
  * @private
@@ -182,9 +149,9 @@ export async function getOccurrencesInLastHourBlock(
 async function _fetchOccurrences(
   whereObject: Prisma.OccurrenceWhereInput,
   orderByObject: Prisma.OccurrenceOrderByWithRelationInput,
-  limit?: number
+  limit?: number,
 ): Promise<OccurrenceWithNotice[]> {
-  return prisma.occurrence.findMany({
+  return db.occurrence.findMany({
     where: whereObject,
     orderBy: orderByObject,
     take: limit ?? 100,
@@ -199,8 +166,10 @@ async function _fetchOccurrences(
  *
  * @private
  */
-async function _fetchOccurrenceById(occurrenceId: string): Promise<OccurrenceWithNoticeAndProject | null> {
-  return prisma.occurrence.findUnique({
+async function _fetchOccurrenceById(
+  occurrenceId: string,
+): Promise<OccurrenceWithNoticeAndProject | null> {
+  return db.occurrence.findUnique({
     where: { id: occurrenceId },
     include: {
       notice: {

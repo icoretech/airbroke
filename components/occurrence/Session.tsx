@@ -1,12 +1,17 @@
 // components/occurrence/Session.tsx
 
-import { KeyValuePair, flattenObject, isObjectWithKeys } from '@/lib/occurrenceUtils';
-import { getOccurrenceById } from '@/lib/queries/occurrences';
+import { flattenObject, isObjectWithKeys } from "@/lib/occurrenceUtils";
+import { getOccurrenceById } from "@/lib/queries/occurrences";
+import type { KeyValuePair } from "@/lib/occurrenceUtils";
 
-export default async function Session({ occurrenceId }: { occurrenceId: string }) {
+export default async function Session({
+  occurrenceId,
+}: {
+  occurrenceId: string;
+}) {
   const occurrence = await getOccurrenceById(occurrenceId);
   if (!occurrence) {
-    throw new Error('Occurrence not found');
+    throw new Error("Occurrence not found");
   }
 
   return (
@@ -15,11 +20,13 @@ export default async function Session({ occurrenceId }: { occurrenceId: string }
         <div className="space-y-4 text-xs">
           {flattenObject(occurrence.session).map((item: KeyValuePair) => (
             <div
-              className="flex items-start space-x-2 rounded border border-airbroke-800 bg-gradient-to-r from-gray-900 to-airbroke-900 p-2 shadow-md"
+              className="flex items-start space-x-2 rounded border border-airbroke-800 bg-linear-to-r from-gray-900 to-airbroke-900 p-2 shadow-md"
               key={item.key}
             >
-              <div className="flex-shrink-0 font-semibold text-indigo-200">{item.key}:</div>
-              <div className="flex-grow break-all rounded px-2 font-mono text-gray-300">
+              <div className="shrink-0 font-semibold text-indigo-200">
+                {item.key}:
+              </div>
+              <div className="grow break-all rounded px-2 font-mono text-gray-300">
                 {JSON.stringify(item.value)}
               </div>
             </div>

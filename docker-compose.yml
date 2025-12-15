@@ -8,14 +8,15 @@ x-healthcheck-postgres: &postgres_healthcheck
 
 services:
   db:
-    image: bitnami/postgresql:17
+    image: postgres:18
     # command: postgres -c 'shared_buffers=128MB'
     environment:
-      POSTGRESQL_PASSWORD: airbroke
-      POSTGRESQL_DATABASE: airbroke_development
-      POSTGRESQL_MAX_CONNECTIONS: 23
+      POSTGRES_PASSWORD: airbroke
+      POSTGRES_DB: airbroke_development
     volumes:
-      - db_data_bitnami_17:/bitnami/postgresql
+      # Postgres 18+ expects a single mount at /var/lib/postgresql
+      # Do NOT mount /var/lib/postgresql/data for 18+
+      - db_data_pg18:/var/lib/postgresql
       # - ./prisma/pg-init-scripts:/docker-entrypoint-initdb.d
     ports:
       - 5460:5432
@@ -24,12 +25,11 @@ services:
     healthcheck: *postgres_healthcheck
 
   testdb:
-    image: bitnami/postgresql:17
+    image: postgres:18
     # command: postgres -c 'shared_buffers=128MB'
     environment:
-      POSTGRESQL_PASSWORD: airbroke
-      POSTGRESQL_DATABASE: airbroke_test
-      POSTGRESQL_MAX_CONNECTIONS: 23
+      POSTGRES_PASSWORD: airbroke
+      POSTGRES_DB: airbroke_test
     networks:
       - airbroke
     healthcheck: *postgres_healthcheck
@@ -70,7 +70,7 @@ services:
         condition: service_healthy
 
 volumes:
-  db_data_bitnami_17:
+  db_data_pg18:
   npm_cache:
   yarn_cache:
 

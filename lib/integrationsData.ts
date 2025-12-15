@@ -1,4 +1,17 @@
 // lib/integrationsData.ts
+
+import { FaApple } from "react-icons/fa";
+import {
+  SiAndroid,
+  SiDotnet,
+  SiGo,
+  SiJavascript,
+  SiOpenjdk,
+  SiPhp,
+  SiPython,
+  SiRuby,
+  SiSwift,
+} from "react-icons/si";
 import {
   androidTemplate,
   dotNetTemplate,
@@ -11,12 +24,8 @@ import {
   phpTemplate,
   pythonTemplate,
   rubyTemplate,
-} from '@/lib/configTemplates';
-
-import { FaApple } from 'react-icons/fa';
-import { SiAndroid, SiDotnet, SiGo, SiJavascript, SiOpenjdk, SiPhp, SiPython, SiRuby, SiSwift } from 'react-icons/si';
-
-import type { IconType } from 'react-icons';
+} from "@/lib/configTemplates";
+import type { IconType } from "react-icons";
 
 export interface IntegrationItem {
   name: string;
@@ -28,79 +37,79 @@ export interface IntegrationItem {
 
 export const integrations: IntegrationItem[] = [
   {
-    name: 'Ruby / Rails',
-    filename: 'config/initializers/airbroke.rb',
-    language: 'ruby',
+    name: "Ruby / Rails",
+    filename: "config/initializers/airbroke.rb",
+    language: "ruby",
     code: rubyTemplate,
     icon: SiRuby,
   },
   {
-    name: 'JavaScript (Browser)',
-    filename: 'airbroke.js',
-    language: 'javascript',
+    name: "JavaScript (Browser)",
+    filename: "airbroke.js",
+    language: "javascript",
     code: jsclientTemplate,
     icon: SiJavascript,
   },
   {
-    name: 'JavaScript (Node.js)',
-    filename: 'airbroke.js',
-    language: 'javascript',
+    name: "JavaScript (Node.js)",
+    filename: "airbroke.js",
+    language: "javascript",
     code: nodejsclientTemplate,
     icon: SiJavascript,
   },
   {
-    name: 'Python',
-    filename: 'airbroke.py',
-    language: 'python',
+    name: "Python",
+    filename: "airbroke.py",
+    language: "python",
     code: pythonTemplate,
     icon: SiPython,
   },
   {
-    name: 'iOS / Swift',
-    filename: 'AppDelegate.swift',
-    language: 'swift',
+    name: "iOS / Swift",
+    filename: "AppDelegate.swift",
+    language: "swift",
     code: iosSwiftTemplate,
     icon: SiSwift,
   },
   {
-    name: 'iOS / Objective-C',
-    filename: 'AppDelegate.m',
-    language: 'objectivec',
+    name: "iOS / Objective-C",
+    filename: "AppDelegate.m",
+    language: "objectivec",
     code: iosObjectiveCTemplate,
     icon: FaApple,
   },
   {
-    name: 'Android',
-    filename: 'MainActivity.java',
-    language: 'java',
+    name: "Android",
+    filename: "MainActivity.java",
+    language: "java",
     code: androidTemplate,
     icon: SiAndroid,
   },
   {
-    name: '.NET / C#',
-    filename: 'Program.cs',
-    language: 'csharp',
+    name: ".NET / C#",
+    filename: "Program.cs",
+    language: "csharp",
     code: dotNetTemplate,
     icon: SiDotnet,
   },
   {
-    name: 'Go (gobrake)',
-    filename: 'main.go',
-    language: 'go',
+    name: "Go (gobrake)",
+    filename: "main.go",
+    language: "go",
     code: goTemplate,
     icon: SiGo,
   },
   {
-    name: 'Java (Javabrake)',
-    filename: 'Example.java',
-    language: 'java',
+    name: "Java (Javabrake)",
+    filename: "Example.java",
+    language: "java",
     code: javaTemplate,
     icon: SiOpenjdk,
   },
   {
-    name: 'PHP',
-    filename: 'phpbrake.php',
-    language: 'php',
+    name: "PHP",
+    filename: "phpbrake.php",
+    language: "php",
     code: phpTemplate,
     icon: SiPhp,
   },

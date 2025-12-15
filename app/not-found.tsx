@@ -1,28 +1,59 @@
 // app/not-found.tsx
 
-import Link from 'next/link';
-import { TbFileXFilled } from 'react-icons/tb';
+import Image from "next/image";
+import Link from "next/link";
+import { TbFileXFilled } from "react-icons/tb";
+import PageBackground from "@/components/PageBackground";
+import { Button } from "@/components/ui/button";
+import logo from "@/public/logo.svg";
 
 export default function NotFound() {
   return (
-    <main className="flex h-screen w-full flex-col items-center justify-center bg-airbroke-900 px-6 py-24 text-white sm:py-32">
-      <div className="flex flex-col items-center text-center">
-        <TbFileXFilled className="mb-4 h-12 w-12 text-gray-500" />
+    <main className="relative flex min-h-screen w-full items-center justify-center px-6 py-24 text-white sm:py-32">
+      <PageBackground>
+        <div className="mx-auto w-full max-w-xl text-center">
+          {/* Brand */}
+          <div className="mb-6 flex items-center justify-center">
+            <Image
+              src={logo}
+              alt="Airbroke"
+              width={463}
+              height={338}
+              className="h-9 w-auto md:h-10"
+            />
+          </div>
 
-        <h1 className="mb-2 text-6xl font-bold tracking-tight text-white sm:text-7xl">404</h1>
-        <p className="text-xl font-semibold text-gray-300">Page Not Found</p>
-        <p className="mt-4 max-w-md text-sm text-gray-400">
-          Oops! We couldn’t find the page you’re looking for. It might have been removed or you may have typed the wrong
-          URL.
-        </p>
+          {/* Card */}
+          <div className="rounded-xl border border-white/10 bg-card/70 p-6 shadow-sm ring-1 ring-white/5 backdrop-blur">
+            <div className="flex flex-col items-center">
+              <TbFileXFilled
+                className="mb-3 h-10 w-10 text-gray-400"
+                aria-hidden="true"
+              />
+              <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                Page not found
+              </h1>
+              <p className="mt-2 max-w-prose text-sm text-gray-300">
+                The page you’re looking for doesn’t exist or may have moved.
+              </p>
 
-        <Link
-          href="/projects"
-          className="mt-8 inline-block rounded-md bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white ring-1 ring-indigo-600 ring-offset-2 transition-colors hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        >
-          Back to Projects
-        </Link>
-      </div>
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+                <Button asChild>
+                  <Link href="/projects">Back to Projects</Link>
+                </Button>
+                <Button asChild variant="outline">
+                  <Link href="/">Go Home</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Tip */}
+          <p className="mt-6 text-xs text-gray-400">
+            Tip: Check the URL or return to Projects to continue.
+          </p>
+        </div>
+      </PageBackground>
     </main>
   );
 }

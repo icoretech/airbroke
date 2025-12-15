@@ -37,7 +37,7 @@
 
 ## System Requirements
 
-- Node.js 20/22+ compatible environment
+- Node.js 22/24+ compatible environment
 - Minimum of 300MB RAM
 - At least 1000 millicores, equivalent to 1 CPU core
 - PostgreSQL 15+ database
@@ -45,7 +45,7 @@
 
 ## Deployment Options
 
-Airbroke provides flexibility in deployment options. You can either deploy it from the built source code or use a multiarch Docker image. For Kubernetes deployments, a Helm chart is provided. As Airbroke is a Next.js 15 application, it can be deployed wherever a Node.js server is supported. This includes managed environments such as Vercel, Netlify, and Heroku.
+Airbroke provides flexibility in deployment options. You can either deploy it from the built source code or use a multiarch Docker image. For Kubernetes deployments, a Helm chart is provided. As Airbroke is a Next.js 16 application, it can be deployed wherever a Node.js server is supported. This includes managed environments such as Vercel, Netlify, and Heroku.
 
 ### Build from source
 

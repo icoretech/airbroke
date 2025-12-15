@@ -1,9 +1,9 @@
 // lib/queries/projects.ts
 
-import { prisma } from '@/lib/db';
-import 'server-only';
+import { db } from "@/lib/db";
+import "server-only";
 
-import type { Prisma, Project } from '@prisma/client';
+import type { Prisma, Project } from "@/prisma/generated/client";
 
 /**
  * A record that groups projects by organization name.
@@ -17,9 +17,11 @@ type GroupedProjects = Record<string, Project[]>;
  * @param currentSearchTerm - Optional substring to filter projects by name
  * @returns Promise resolving to a list of matching projects
  */
-export async function getProjects(currentSearchTerm?: string): Promise<Project[]> {
+export async function getProjects(
+  currentSearchTerm?: string,
+): Promise<Project[]> {
   const whereObject: Prisma.ProjectWhereInput = currentSearchTerm
-    ? { name: { contains: currentSearchTerm, mode: 'insensitive' } }
+    ? { name: { contains: currentSearchTerm, mode: "insensitive" } }
     : {};
 
   return _fetchProjects(whereObject);
@@ -51,7 +53,9 @@ export async function getProjectsGroupedByOrganization(): Promise<GroupedProject
  * @param projectId - The unique project ID (string)
  * @returns Promise resolving to the Project, or null if not found
  */
-export async function getProjectById(projectId: string): Promise<Project | null> {
+export async function getProjectById(
+  projectId: string,
+): Promise<Project | null> {
   return _fetchProjectById(projectId);
 }
 
@@ -63,10 +67,12 @@ export async function getProjectById(projectId: string): Promise<Project | null>
  *
  * @private
  */
-async function _fetchProjects(whereObject: Prisma.ProjectWhereInput): Promise<Project[]> {
-  return prisma.project.findMany({
+async function _fetchProjects(
+  whereObject: Prisma.ProjectWhereInput,
+): Promise<Project[]> {
+  return db.project.findMany({
     where: whereObject,
-    orderBy: { name: 'asc' },
+    orderBy: { name: "asc" },
   });
 }
 
@@ -79,7 +85,7 @@ async function _fetchProjects(whereObject: Prisma.ProjectWhereInput): Promise<Pr
  * @private
  */
 async function _fetchProjectById(projectId: string): Promise<Project | null> {
-  return prisma.project.findUnique({
+  return db.project.findUnique({
     where: { id: projectId },
   });
 }

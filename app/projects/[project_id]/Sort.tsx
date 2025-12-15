@@ -1,20 +1,33 @@
 // app/projects/[project_id]/Sort.tsx
 
-'use client';
+"use client";
 
-import { generateUpdatedURLWithRemovals } from '@/lib/generateUpdatedUrlWithRemovals';
-import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
-import clsx from 'clsx';
-import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { Fragment } from 'react';
-import { MdDeleteSweep, MdSort } from 'react-icons/md';
-import { TbArrowBadgeDown, TbArrowBadgeUp } from 'react-icons/tb';
+import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { generateUpdatedURLWithRemovals } from "@/lib/generateUpdatedUrlWithRemovals";
 
-export type SortAttribute = 'env' | 'kind' | 'updated_at' | 'seen_count' | undefined;
-export type SortDirection = 'asc' | 'desc' | undefined;
+type SortAttribute = "env" | "kind" | "updated_at" | "seen_count" | undefined;
+type SortDirection = "asc" | "desc" | undefined;
 
-const sortAttributes: Exclude<SortAttribute, undefined>[] = ['kind', 'seen_count', 'env', 'updated_at'];
+const sortAttributes: Exclude<SortAttribute, undefined>[] = [
+  "kind",
+  "seen_count",
+  "env",
+  "updated_at",
+];
 
 export default function Sort() {
   const pathname = usePathname();
@@ -25,90 +38,76 @@ export default function Sort() {
     sortAttr?: SortAttribute;
   };
 
-  // Toggle logic: If already sorting by "attr" asc, switch to "desc"; otherwise default to "asc"
-  function toggleSort(attr: Exclude<SortAttribute, undefined>): SortDirection {
-    return sortAttr === attr && sortDir === 'asc' ? 'desc' : 'asc';
-  }
+  // Defaults must mirror backend query defaults
+  const DEFAULT_ATTR: Exclude<SortAttribute, undefined> = "updated_at";
+  const DEFAULT_DIR: Exclude<SortDirection, undefined> = "desc";
+  const effectiveAttr: Exclude<SortAttribute, undefined> = (sortAttr ??
+    DEFAULT_ATTR) as Exclude<SortAttribute, undefined>;
+  const effectiveDir: Exclude<SortDirection, undefined> = (sortDir ??
+    DEFAULT_DIR) as Exclude<SortDirection, undefined>;
 
-  // Decide which arrow to show next to each attribute
-  function sortIcon(attr: Exclude<SortAttribute, undefined>) {
-    const nextDir = toggleSort(attr);
-    // If we are currently sorting by this attribute, show arrow up/down for the *next* direction
-    if (sortAttr === attr) {
-      return nextDir === 'asc' ? <TbArrowBadgeUp /> : <TbArrowBadgeDown />;
-    }
-    // Otherwise, no arrow
-    return null;
+  function toggleSort(attr: Exclude<SortAttribute, undefined>): SortDirection {
+    return effectiveAttr === attr && effectiveDir === "asc" ? "desc" : "asc";
   }
 
   return (
-    <div className="relative">
-      <Menu>
-        <MenuButton className="flex items-center gap-2 rounded-md px-2 py-1 text-sm font-medium text-white shadow-inner transition-colors duration-100 focus:outline-none data-[hover]:bg-indigo-600 data-[open]:bg-indigo-600">
-          Sort
-          <MdSort className="h-5 w-5 text-gray-400" aria-hidden="true" />
-        </MenuButton>
-
-        <Transition
-          as={Fragment}
-          enter="ease-out duration-100"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="ease-in duration-75"
-          leaveFrom="opacity-100 scale-100"
-          leaveTo="opacity-0 scale-95"
-        >
-          <MenuItems className="absolute right-0 z-50 mt-2 w-52 origin-top-right rounded-xl border border-white/5 bg-gray-900 p-1 text-sm/6 text-white shadow-xl ring-1 ring-gray-900/5 ring-indigo-900 transition focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0">
-            {/* Sort attributes */}
-            {sortAttributes.map((attr) => {
-              const nextDir = toggleSort(attr);
-              // Are we currently sorting by this attribute?
-              const isActive = sortAttr === attr;
-              return (
-                <MenuItem key={attr}>
-                  {({ focus }) => (
-                    <Link
-                      href={generateUpdatedURLWithRemovals(pathname, searchParams, {
-                        sortAttr: attr,
-                        sortDir: nextDir,
-                      })}
-                      className={clsx(
-                        'group flex w-full items-center gap-2 rounded-lg px-3 py-1.5',
-                        focus || isActive ? 'bg-indigo-700 text-white' : 'text-gray-300 hover:text-white'
-                      )}
-                    >
-                      {/* Arrow icon if currently sorting by this attribute */}
-                      <span className="h-4 w-4 text-indigo-200 group-hover:text-indigo-300">{sortIcon(attr)}</span>
-                      {attr}
-                      {/* Show the “(asc)” or “(desc)” status if currently sorting */}
-                      {isActive && ` (${sortDir || 'desc'})`}
-                    </Link>
-                  )}
-                </MenuItem>
-              );
-            })}
-
-            {/* Divider */}
-            <div className="my-1 h-px bg-white/5" />
-
-            {/* Clear sort - removes sortAttr and sortDir from the URL */}
-            <MenuItem>
-              {({ focus }) => (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="sm" aria-label="Sort notices">
+          <ArrowUpDown className="mr-2 size-4" />
+          <span className="flex items-center gap-1">
+            Sort:
+            <span className="capitalize">
+              {(effectiveAttr as string).replace("_", " ")}
+            </span>
+            {effectiveDir === "asc" ? (
+              <ArrowUp className="size-3.5" />
+            ) : (
+              <ArrowDown className="size-3.5" />
+            )}
+          </span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-56">
+        <DropdownMenuLabel>Sort by</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuRadioGroup value={effectiveAttr}>
+          {sortAttributes.map((attr) => {
+            const nextDir = toggleSort(attr);
+            const isActive = effectiveAttr === attr;
+            return (
+              <DropdownMenuRadioItem key={attr} value={attr}>
                 <Link
-                  href={generateUpdatedURLWithRemovals(pathname, searchParams, {}, ['sortAttr', 'sortDir'])}
-                  className={clsx(
-                    'group flex w-full items-center gap-2 rounded-lg px-3 py-1.5',
-                    focus ? 'bg-rose-700 text-white' : 'text-gray-300 hover:text-white'
-                  )}
+                  href={generateUpdatedURLWithRemovals(pathname, searchParams, {
+                    sortAttr: attr,
+                    sortDir: nextDir,
+                  })}
+                  className="flex w-full items-center"
                 >
-                  <MdDeleteSweep className="h-4 w-4 fill-white/30 group-hover:fill-white" aria-hidden="true" />
-                  Clear sorting
+                  <span className="capitalize">{attr.replace("_", " ")}</span>
                 </Link>
-              )}
-            </MenuItem>
-          </MenuItems>
-        </Transition>
-      </Menu>
-    </div>
+                {isActive && (
+                  <DropdownMenuShortcut>
+                    {(effectiveDir ?? "desc").toUpperCase()}
+                  </DropdownMenuShortcut>
+                )}
+              </DropdownMenuRadioItem>
+            );
+          })}
+        </DropdownMenuRadioGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link
+            href={generateUpdatedURLWithRemovals(pathname, searchParams, {}, [
+              "sortAttr",
+              "sortDir",
+            ])}
+            className="flex w-full"
+          >
+            Clear sorting
+          </Link>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

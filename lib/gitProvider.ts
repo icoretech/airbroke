@@ -1,6 +1,6 @@
 // lib/gitProvider.ts
 
-import type { Project } from '@prisma/client';
+import type { Project } from "@/prisma/generated/client";
 
 /**
  * Information about a repository provider and path.
@@ -49,7 +49,8 @@ export function parseGitURL(url: string): GitInfo | null {
   //
   // This tries to handle "ssh://git@github.com/org/repo.git"
   // plus "https://github.com/org/repo" or "git://bitbucket.org/org/repo"
-  const generalUrlRegex = /^(?:https?|git|ssh):\/\/(?:[^@]+@)?([^/:]+)(?::\d+)?\/([^/]+)\/([^/]+?)(?:\.git)?(?:\/|$)/i;
+  const generalUrlRegex =
+    /^(?:https?|git|ssh):\/\/(?:[^@]+@)?([^/:]+)(?::\d+)?\/([^/]+)\/([^/]+?)(?:\.git)?(?:\/|$)/i;
 
   // First, try short SSH form: "git@domain:org/repo"
   let matches = url.match(shortSshRegex);
@@ -77,27 +78,31 @@ export function parseGitURL(url: string): GitInfo | null {
   return null;
 }
 
-export function composeFileUrl(project: Project, filePath: string, lineNumber?: number): string {
+export function composeFileUrl(
+  project: Project,
+  filePath: string,
+  lineNumber?: number,
+): string {
   // Convert provider/branch/URL/file path to lowercase (or handle them safely).
   const repoProvider = project.repo_provider?.toLowerCase();
-  const repoUrl = project.repo_url?.toLowerCase() || '';
-  const repoBranch = project.repo_branch?.toLowerCase() || '';
+  const repoUrl = project.repo_url?.toLowerCase() || "";
+  const repoBranch = project.repo_branch?.toLowerCase() || "";
   const filePathLower = filePath.toLowerCase();
 
   // Bail out if we don’t have the minimum info needed.
   if (!repoUrl || !repoBranch || !filePathLower || !repoProvider) {
-    return '';
+    return "";
   }
 
   // Each provider has a unique path for referencing files.
   const providerPaths: Record<string, string> = {
-    github: '/blob',
-    bitbucket: '/src',
-    gitlab: '/-/blob',
-    gitkraken: '/tree',
-    gitea: '/src/branch',
-    gogs: '/blob',
-    gitter: '/blob',
+    github: "/blob",
+    bitbucket: "/src",
+    gitlab: "/-/blob",
+    gitkraken: "/tree",
+    gitea: "/src/branch",
+    gogs: "/blob",
+    gitter: "/blob",
   };
 
   // Some providers have unique ways to reference a particular line.
@@ -109,7 +114,7 @@ export function composeFileUrl(project: Project, filePath: string, lineNumber?: 
   // If we don’t recognize the provider, return empty.
   const basePath = providerPaths[repoProvider];
   if (!basePath) {
-    return '';
+    return "";
   }
 
   // Construct the base URL with provider-specific path.
@@ -117,7 +122,8 @@ export function composeFileUrl(project: Project, filePath: string, lineNumber?: 
 
   // Append line-number reference if provided.
   if (lineNumber) {
-    const formatter = lineNumberFormats[repoProvider] ?? lineNumberFormats.default;
+    const formatter =
+      lineNumberFormats[repoProvider] ?? lineNumberFormats.default;
     url += formatter(lineNumber);
   }
 
@@ -130,10 +136,10 @@ export function composeFileUrl(project: Project, filePath: string, lineNumber?: 
  * Falls back to "unknown" if it can't identify a known provider.
  */
 function guessProvider(domain: string): string {
-  if (domain.includes('github')) return 'github';
-  if (domain.includes('gitlab')) return 'gitlab';
-  if (domain.includes('bitbucket')) return 'bitbucket';
-  if (domain.includes('gitea')) return 'gitea';
+  if (domain.includes("github")) return "github";
+  if (domain.includes("gitlab")) return "gitlab";
+  if (domain.includes("bitbucket")) return "bitbucket";
+  if (domain.includes("gitea")) return "gitea";
   // Add more partial matches if needed...
-  return 'unknown';
+  return "unknown";
 }

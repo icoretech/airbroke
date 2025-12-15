@@ -1,9 +1,15 @@
 // lib/queries/occurrenceBookmarks.ts
 
-import { prisma } from '@/lib/db';
-import type { Notice, Occurrence, OccurrenceBookmark, Prisma, Project } from '@prisma/client';
+import { db } from "@/lib/db";
+import type {
+  Notice,
+  Occurrence,
+  OccurrenceBookmark,
+  Prisma,
+  Project,
+} from "@/prisma/generated/client";
 
-export interface OccurrenceBookmarkWithAssociations extends OccurrenceBookmark {
+interface OccurrenceBookmarkWithAssociations extends OccurrenceBookmark {
   occurrence: Occurrence & { notice: Notice & { project: Project } };
 }
 
@@ -17,7 +23,7 @@ export interface OccurrenceBookmarkWithAssociations extends OccurrenceBookmark {
  */
 export async function getOccurrenceBookmarks(
   userId?: string,
-  searchQuery?: string
+  searchQuery?: string,
 ): Promise<OccurrenceBookmarkWithAssociations[]> {
   if (!userId) {
     return [];
@@ -31,7 +37,7 @@ export async function getOccurrenceBookmarks(
           occurrence: {
             message: {
               contains: searchQuery,
-              mode: 'insensitive',
+              mode: "insensitive",
             },
           },
         },
@@ -40,7 +46,7 @@ export async function getOccurrenceBookmarks(
             notice: {
               kind: {
                 contains: searchQuery,
-                mode: 'insensitive',
+                mode: "insensitive",
               },
             },
           },
@@ -61,13 +67,13 @@ export async function getOccurrenceBookmarks(
  */
 export async function checkOccurrenceBookmarkExistence(
   userId: string | undefined,
-  occurrenceId: string
+  occurrenceId: string,
 ): Promise<boolean> {
   if (!userId || !occurrenceId) {
     return false;
   }
 
-  const bookmark = await prisma.occurrenceBookmark.findFirst({
+  const bookmark = await db.occurrenceBookmark.findFirst({
     where: { user_id: userId, occurrence_id: occurrenceId },
   });
 
@@ -81,9 +87,9 @@ export async function checkOccurrenceBookmarkExistence(
  * @private
  */
 async function _fetchOccurrenceBookmarks(
-  whereObject?: Prisma.OccurrenceBookmarkWhereInput
+  whereObject?: Prisma.OccurrenceBookmarkWhereInput,
 ): Promise<OccurrenceBookmarkWithAssociations[]> {
-  return prisma.occurrenceBookmark.findMany({
+  return db.occurrenceBookmark.findMany({
     ...(whereObject !== undefined && { where: whereObject }),
     include: {
       occurrence: {

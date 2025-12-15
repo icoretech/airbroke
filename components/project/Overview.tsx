@@ -1,110 +1,241 @@
 // components/project/Overview.tsx
 
-import { getNoticesCountByProjectId } from '@/lib/queries/notices';
-import { getHourlyOccurrenceRateForLast14Days, getOccurrencesCountByProjectId } from '@/lib/queries/occurrences';
-import TestZone from '../TestZone';
-import OccurrencesChartWrapper from './OccurrencesChartWrapper';
-import DangerZone from './cards/DangerZone';
+import Link from "next/link";
+import ActivityCard from "@/components/analytics/ActivityCard";
+import HealthCard from "@/components/analytics/HealthCard";
+import CopyToClipboardButton from "@/components/CopyToClipboardButton";
+import IntegrationsGrid from "@/components/IntegrationsGrid";
+import { SourceRepoProviderIcon } from "@/components/SourceRepoProviderIcon";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyMedia,
+  EmptyTitle,
+} from "@/components/ui/empty";
+import {
+  Item,
+  ItemContent,
+  ItemDescription,
+  ItemGroup,
+  ItemMedia,
+  ItemSeparator,
+  ItemTitle,
+} from "@/components/ui/item";
+import { Separator } from "@/components/ui/separator";
+import {
+  getLastNoticeDateByProjectId,
+  getNoticesCountByProjectId,
+} from "@/lib/queries/notices";
+import {
+  getHourlyOccurrenceRateForLast14Days,
+  getOccurrencesCountByProjectId,
+} from "@/lib/queries/occurrences";
+import TestZone from "../TestZone";
+import DangerZone from "./cards/DangerZone";
+import type { Project } from "@/prisma/generated/client";
 
-import type { Project } from '@prisma/client';
-
-export default async function Overview({ project }: { project: Project }) {
-  const [noticesCount, occurrencesCount, hourlyOccurrenceRateForLast14Days] = await Promise.all([
+export default async function Overview({
+  project,
+  repositoryOverride,
+}: {
+  project: Project;
+  repositoryOverride?: React.ReactNode;
+}) {
+  const [
+    noticesCount,
+    occurrencesCount,
+    hourlyOccurrenceRateForLast14Days,
+    lastNoticeDate,
+  ] = await Promise.all([
     getNoticesCountByProjectId(project.id),
     getOccurrencesCountByProjectId(project.id),
     getHourlyOccurrenceRateForLast14Days(project.id),
+    getLastNoticeDateByProjectId(project.id),
   ]);
 
   const stats = [
-    { name: 'Notices', value: noticesCount },
-    { name: 'Occurrences', value: occurrencesCount },
-    { name: 'Incoming Rate', value: hourlyOccurrenceRateForLast14Days, unit: '/ hour' },
+    { name: "Notices", value: noticesCount },
+    { name: "Occurrences", value: occurrencesCount },
+    {
+      name: "Incoming Rate",
+      value: hourlyOccurrenceRateForLast14Days,
+      unit: "/ hour",
+    },
   ];
 
   return (
     <div className="space-y-6 px-4 py-6 text-white sm:px-6 lg:px-8">
-      {/* Stats block, full width */}
-      <div className="rounded-lg bg-gray-900 p-6 shadow-md">
-        <h3 className="text-base font-semibold leading-6 text-white">Stats</h3>
-        <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3">
-          {stats.map((stat) => (
-            <div key={stat.name} className="rounded-lg bg-gray-800 p-4">
-              <p className="text-sm font-medium leading-6 text-gray-400">{stat.name}</p>
-              <p className="mt-2 flex items-baseline gap-x-2">
-                <span className="text-4xl font-semibold tracking-tight text-white">{stat.value}</span>
-                {stat.unit && <span className="text-sm text-gray-400">{stat.unit}</span>}
-              </p>
-            </div>
-          ))}
+      <section className="grid grid-cols-1 gap-4 lg:grid-cols-12">
+        {/* Activity */}
+        <ActivityCard projectId={project.id} />
+        {/* Health */}
+        <HealthCard
+          stats={stats}
+          paused={project.paused}
+          lastNoticeDate={lastNoticeDate}
+        />
+
+        {/* Repository or Edit Settings card */}
+        <div className="lg:col-span-7">
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm text-white">
+                {repositoryOverride ? "Edit Project Settings" : "Repository"}
+              </CardTitle>
+              {repositoryOverride ? (
+                <CardDescription className="text-xs text-white/70">
+                  Update your project’s metadata or repository details.
+                </CardDescription>
+              ) : null}
+            </CardHeader>
+            <CardContent className="pt-0">
+              {repositoryOverride ? (
+                repositoryOverride
+              ) : project.repo_url ? (
+                <ItemGroup>
+                  <Item variant="default" size="sm">
+                    <ItemMedia variant="icon">
+                      <SourceRepoProviderIcon
+                        sourceRepoProvider={project.repo_provider}
+                      />
+                    </ItemMedia>
+                    <ItemContent>
+                      <ItemTitle>Provider</ItemTitle>
+                      <ItemDescription className="capitalize">
+                        {project.repo_provider}
+                      </ItemDescription>
+                    </ItemContent>
+                  </Item>
+                  <ItemSeparator />
+                  <Item variant="default" size="sm">
+                    <ItemContent>
+                      <ItemTitle>URL</ItemTitle>
+                      <ItemDescription className="truncate">
+                        <a
+                          href={project.repo_url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="underline"
+                        >
+                          {project.repo_url}
+                        </a>
+                      </ItemDescription>
+                    </ItemContent>
+                  </Item>
+                  <ItemSeparator />
+                  <Item variant="default" size="sm">
+                    <ItemContent>
+                      <ItemTitle>Main Branch</ItemTitle>
+                      <ItemDescription>
+                        {project.repo_branch || "Not set"}
+                      </ItemDescription>
+                    </ItemContent>
+                  </Item>
+                  <ItemSeparator />
+                  <Item variant="default" size="sm">
+                    <ItemContent>
+                      <ItemTitle>Issue Tracker</ItemTitle>
+                      <ItemDescription className="truncate">
+                        {project.repo_issue_tracker ? (
+                          <a
+                            href={project.repo_issue_tracker}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="underline"
+                          >
+                            {project.repo_issue_tracker}
+                          </a>
+                        ) : (
+                          "Not set"
+                        )}
+                      </ItemDescription>
+                    </ItemContent>
+                  </Item>
+                </ItemGroup>
+              ) : (
+                <Empty>
+                  <EmptyMedia variant="icon">
+                    <SourceRepoProviderIcon
+                      sourceRepoProvider={project.repo_provider}
+                      className="size-6"
+                    />
+                  </EmptyMedia>
+                  <EmptyTitle>Connect your repository</EmptyTitle>
+                  <EmptyDescription>
+                    Add repo URL and issue tracker to enable deep links from
+                    backtraces.
+                  </EmptyDescription>
+                  <EmptyContent>
+                    <Button asChild>
+                      <Link href={`/projects/${project.id}/edit`}>
+                        Edit project
+                      </Link>
+                    </Button>
+                  </EmptyContent>
+                </Empty>
+              )}
+            </CardContent>
+          </Card>
         </div>
-      </div>
 
-      {/* Chart goes first, full width */}
-      <div className="rounded-lg bg-gray-900 p-6 shadow-md">
-        <OccurrencesChartWrapper projectId={project.id} />
-      </div>
-
-      {/* Two-column layout for Project Info + Repository Info */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {/* Project info */}
-        <div className="rounded-lg bg-gray-900 p-6 shadow-md">
-          <h3 className="text-base font-semibold leading-6 text-white">Project Information</h3>
-          <dl className="mt-6 divide-y divide-white/10">
-            <div className="py-3">
-              <dt className="text-sm font-medium leading-6 text-white">Name</dt>
-              <dd className="mt-1 text-sm leading-6 text-gray-400">{project.name}</dd>
-            </div>
-            <div className="py-3">
-              <dt className="text-sm font-medium leading-6 text-white">Organization</dt>
-              <dd className="mt-1 text-sm leading-6 text-gray-400">{project.organization}</dd>
-            </div>
-            <div className="py-3">
-              <dt className="text-sm font-medium leading-6 text-white">API Key</dt>
-              <dd className="mt-1 text-sm leading-6 text-gray-400">{project.api_key}</dd>
-            </div>
-            <div className="py-3">
-              <dt className="text-sm font-medium leading-6 text-white">Status</dt>
-              <dd className="mt-1 text-sm leading-6 text-gray-400">{project.paused ? 'Paused' : 'Accepting data'}</dd>
-            </div>
-          </dl>
+        {/* Quick Actions */}
+        <div className="lg:col-span-5">
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm text-white">
+                Quick Actions
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <ItemGroup>
+                <Item variant="default" size="sm" className="items-center">
+                  <ItemContent>
+                    <ItemTitle>API Key</ItemTitle>
+                    <ItemDescription className="font-mono truncate text-white/80">
+                      {project.api_key}
+                    </ItemDescription>
+                  </ItemContent>
+                  <CopyToClipboardButton
+                    value={project.api_key}
+                    size="icon-sm"
+                    variant="outline"
+                  />
+                </Item>
+              </ItemGroup>
+              <Separator className="my-3" />
+              <TestZone project={project} />
+            </CardContent>
+          </Card>
         </div>
 
-        {/* Repository info */}
-        <div className="rounded-lg bg-gray-900 p-6 shadow-md">
-          <h3 className="text-base font-semibold leading-6 text-white">Repository Information</h3>
-          <dl className="mt-6 divide-y divide-white/10">
-            <div className="py-3">
-              <dt className="text-sm font-medium leading-6 text-white">Provider</dt>
-              <dd className="mt-1 text-sm leading-6 text-gray-400">{project.repo_provider}</dd>
-            </div>
-            <div className="py-3">
-              <dt className="text-sm font-medium leading-6 text-white">URL</dt>
-              <dd className="mt-1 text-sm leading-6 text-gray-400">{project.repo_url || 'Not set'}</dd>
-            </div>
-            <div className="py-3">
-              <dt className="text-sm font-medium leading-6 text-white">Main Branch</dt>
-              <dd className="mt-1 text-sm leading-6 text-gray-400">{project.repo_branch || 'Not set'}</dd>
-            </div>
-            <div className="py-3">
-              <dt className="text-sm font-medium leading-6 text-white">Issue Tracker</dt>
-              <dd className="mt-1 text-sm leading-6 text-gray-400">{project.repo_issue_tracker || 'Not set'}</dd>
-            </div>
-          </dl>
-        </div>
-      </div>
-
-      {/* "Actions" area with Test Zone + Danger Zone, full width */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        {/* Left: Test Zone */}
-        <div className="rounded-lg bg-gray-900 p-6 shadow-md">
-          <TestZone project={project} />
+        {/* Integrations */}
+        <div className="lg:col-span-12">
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm text-white">Integrations</CardTitle>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <IntegrationsGrid
+                replacements={{ REPLACE_PROJECT_KEY: project.api_key }}
+              />
+            </CardContent>
+          </Card>
         </div>
 
-        {/* Right: Danger Zone */}
-        <div className="rounded-lg bg-gray-900 p-6 shadow-md">
+        {/* Danger Zone (use component's own red styling; no extra wrapper) */}
+        <div className="lg:col-span-12">
           <DangerZone project={project} />
         </div>
-      </div>
+      </section>
     </div>
   );
 }

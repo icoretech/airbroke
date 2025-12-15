@@ -1,10 +1,25 @@
 // components/SourceRepoProviderIcon.tsx
 
-import type { IconType } from 'react-icons';
-import { FaBitbucket, FaCode, FaGithub, FaGitkraken, FaGitlab, FaGitter } from 'react-icons/fa';
-import { SiGitea } from 'react-icons/si';
+import {
+  FaBitbucket,
+  FaCode,
+  FaGithub,
+  FaGitkraken,
+  FaGitlab,
+  FaGitter,
+} from "react-icons/fa";
+import { SiGitea } from "react-icons/si";
+import type { IconType } from "react-icons";
 
-type KnownSourceRepoProviders = 'github' | 'bitbucket' | 'gitlab' | 'gitkraken' | 'gitea' | 'gogs' | 'gitter' | string;
+type KnownSourceRepoProviders =
+  | "github"
+  | "bitbucket"
+  | "gitlab"
+  | "gitkraken"
+  | "gitea"
+  | "gogs"
+  | "gitter"
+  | string;
 type SourceRepoProviderIconProps = {
   /** Name of the provider (e.g., "github", "gitlab"). */
   sourceRepoProvider: KnownSourceRepoProviders;
@@ -25,7 +40,10 @@ const providerIcon: Record<string, IconType> = {
 /**
  * Displays an icon for a given git provider, falling back to a generic code icon if not recognized.
  */
-export function SourceRepoProviderIcon({ sourceRepoProvider, className }: SourceRepoProviderIconProps) {
+export function SourceRepoProviderIcon({
+  sourceRepoProvider,
+  className,
+}: SourceRepoProviderIconProps) {
   const iconKey = sourceRepoProvider.toLowerCase();
   const Icon = providerIcon[iconKey] ?? FaCode;
   return <Icon className={className} aria-hidden="true" />;

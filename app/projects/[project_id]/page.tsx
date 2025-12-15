@@ -1,21 +1,28 @@
 // app/projects/[project_id]/page.tsx
 
-import { DashboardShell } from '@/components/DashboardShell';
-import NoticesTable from '@/components/NoticesTable';
-import { getNoticeEnvs } from '@/lib/queries/notices';
-import { getProjectById } from '@/lib/queries/projects';
-import { cookies } from 'next/headers';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import Filter from './Filter';
-import Sort from './Sort';
+import { notFound } from "next/navigation";
+import CopyToClipboardButton from "@/components/CopyToClipboardButton";
+import NoticesTable from "@/components/NoticesTable";
+import { Badge } from "@/components/ui/badge";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
+import { getNoticeEnvs } from "@/lib/queries/notices";
+import { getProjectById } from "@/lib/queries/projects";
+import EnvironmentFilter from "./Filter";
+import Sort from "./Sort";
+import type { Metadata } from "next";
 
 type ComponentProps = {
   params: Promise<{ project_id: string }>;
   searchParams: Promise<{ [key: string]: string | undefined }>;
 };
 
-export async function generateMetadata(props: ComponentProps) {
+export async function generateMetadata(
+  props: ComponentProps,
+): Promise<Metadata> {
   const projectId = (await props.params).project_id;
   const project = await getProjectById(projectId);
   return { title: project?.name };
@@ -23,12 +30,10 @@ export async function generateMetadata(props: ComponentProps) {
 
 // /projects/:project_id
 export default async function ProjectNotices(props: ComponentProps) {
-  const [cookieStore, resolvedSearchParams, resolvedParams] = await Promise.all([
-    cookies(),
+  const [resolvedSearchParams, resolvedParams] = await Promise.all([
     props.searchParams,
     props.params,
   ]);
-  const initialSidebarOpen = cookieStore.get('sidebarOpen')?.value === 'true';
 
   const project = await getProjectById(resolvedParams.project_id);
   if (!project) {
@@ -38,33 +43,84 @@ export default async function ProjectNotices(props: ComponentProps) {
   const uniqueEnvArray = await getNoticeEnvs(project.id);
 
   return (
-    <DashboardShell initialSidebarOpen={initialSidebarOpen} selectedProjectId={project.id}>
-      <header className="border-b border-white/5 bg-gradient-to-r from-airbroke-800 to-airbroke-900 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
-        <div className="min-w-0 flex-1">
-          <h1 className="text-lg font-bold leading-6 text-indigo-400">
-            {project.organization} / {project.name}
-          </h1>
-          <p className="mt-1 text-sm text-indigo-200">API Key: {project.api_key}</p>
+    <div className="space-y-6">
+      {/* Project header */}
+      <section className="rounded-xl border border-card/40 bg-card/40 p-4 shadow-md ring-1 ring-card/40 backdrop-blur sm:p-5">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-3">
+            <h1 className="text-xl font-semibold leading-none text-foreground">
+              {project.name}
+            </h1>
+            {project.paused && <Badge variant="secondary">Paused</Badge>}
+            <Badge variant="outline">
+              Notices: {project.notices_count.toString()}
+            </Badge>
+          </div>
         </div>
 
-        <div className="mt-4 flex sm:ml-4 sm:mt-0">
-          <Link
-            href={`/projects/${project.id}/edit`}
-            className="inline-flex items-center gap-x-2 rounded-md bg-indigo-400/10 px-3 py-2 text-sm font-semibold text-indigo-400 shadow-sm ring-1 ring-indigo-400/30 transition-colors duration-200 hover:bg-indigo-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-          >
-            Edit Project
-          </Link>
-        </div>
-      </header>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="min-w-0">
+            <div className="mb-1 text-xs font-medium text-muted-foreground">
+              API Key
+            </div>
+            <InputGroup>
+              <InputGroupInput
+                readOnly
+                value={project.api_key}
+                className="font-mono text-xs"
+              />
+              <InputGroupAddon align="inline-end">
+                <CopyToClipboardButton
+                  value={project.api_key}
+                  size="icon-sm"
+                  variant="ghost"
+                />
+              </InputGroupAddon>
+            </InputGroup>
+          </div>
 
-      <div className="border-b border-white/5 bg-airbroke-900 px-4 py-2 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-end space-x-6">
-          <Filter environments={uniqueEnvArray} />
-          <Sort />
-        </div>
-      </div>
+          {project.repo_url && (
+            <div className="min-w-0">
+              <div className="mb-1 text-xs font-medium text-muted-foreground">
+                Repository
+              </div>
+              <a
+                href={project.repo_url}
+                target="_blank"
+                rel="noreferrer"
+                className="block truncate text-sm text-foreground underline underline-offset-4 hover:text-foreground/80"
+              >
+                {project.repo_url}
+              </a>
+            </div>
+          )}
 
-      <NoticesTable searchParams={resolvedSearchParams} projectId={project.id} />
-    </DashboardShell>
+          <div>
+            <div className="mb-1 text-xs font-medium text-muted-foreground">
+              Branch
+            </div>
+            <div className="text-sm text-foreground">
+              {project.repo_branch ?? "main"}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Notices */}
+      <section className="rounded-xl sm:overflow-hidden sm:border sm:border-card/40 sm:bg-card/40 sm:shadow-md sm:ring-1 sm:ring-card/40 sm:backdrop-blur">
+        <div className="flex w-full flex-wrap items-center justify-between gap-3 rounded-lg border border-card/40 bg-card/40 px-4 py-3 shadow-xs sm:rounded-none sm:border-0 sm:bg-transparent sm:shadow-none sm:border-b sm:border-card/40">
+          <h2 className="text-sm font-semibold text-foreground">Notices</h2>
+          <div className="flex items-center gap-2">
+            <EnvironmentFilter environments={uniqueEnvArray} />
+            <Sort />
+          </div>
+        </div>
+
+        <NoticesTable
+          searchParams={resolvedSearchParams}
+          projectId={project.id}
+        />
+      </section>
+    </div>
   );
 }

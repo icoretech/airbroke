@@ -1,10 +1,10 @@
 // lib/queries/notices.ts
 
-import { prisma } from '@/lib/db';
-import type { Notice, Prisma, Project } from '@prisma/client';
+import { db } from "@/lib/db";
+import type { Notice, Prisma, Project } from "@/prisma/generated/client";
 
-export type SortAttribute = 'env' | 'kind' | 'updated_at' | 'seen_count' | undefined;
-export type SortDirection = 'asc' | 'desc' | undefined;
+type SortAttribute = "env" | "kind" | "updated_at" | "seen_count" | undefined;
+type SortDirection = "asc" | "desc" | undefined;
 
 export type NoticeSearchParams = {
   sortDir?: SortDirection;
@@ -26,15 +26,25 @@ interface NoticeWithProject extends Notice {
  * @param limit - Optional limit on number of records
  * @returns Promise resolving to a list of Notice objects
  */
-export async function getNotices(projectId: string, params: NoticeSearchParams, limit?: number): Promise<Notice[]> {
-  const { sortDir = 'desc', sortAttr = 'updated_at', filterByEnv, searchQuery } = params;
+export async function getNotices(
+  projectId: string,
+  params: NoticeSearchParams,
+  limit?: number,
+): Promise<Notice[]> {
+  const {
+    sortDir = "desc",
+    sortAttr = "updated_at",
+    filterByEnv,
+    searchQuery,
+  } = params;
 
   // Conditionally build the where object
   const whereObject: Prisma.NoticeWhereInput = {
     project_id: projectId,
-    ...(filterByEnv !== undefined && filterByEnv !== '' && { env: filterByEnv }),
+    ...(filterByEnv !== undefined &&
+      filterByEnv !== "" && { env: filterByEnv }),
     ...(searchQuery && {
-      kind: { contains: searchQuery, mode: 'insensitive' },
+      kind: { contains: searchQuery, mode: "insensitive" },
     }),
   };
 
@@ -51,8 +61,10 @@ export async function getNotices(projectId: string, params: NoticeSearchParams, 
  * @param projectId - The ID of the project
  * @returns Promise resolving to the count of matching notices
  */
-export async function getNoticesCountByProjectId(projectId: string): Promise<number> {
-  return prisma.notice.count({
+export async function getNoticesCountByProjectId(
+  projectId: string,
+): Promise<number> {
+  return db.notice.count({
     where: {
       project_id: projectId,
     },
@@ -65,18 +77,10 @@ export async function getNoticesCountByProjectId(projectId: string): Promise<num
  * @param noticeId - The unique ID of the notice
  * @returns Promise resolving to the Notice record (with project) or null if not found
  */
-export async function getNoticeById(noticeId: string): Promise<NoticeWithProject | null> {
+export async function getNoticeById(
+  noticeId: string,
+): Promise<NoticeWithProject | null> {
   return _fetchNoticeById(noticeId);
-}
-
-/**
- * Retrieves all Notice IDs that belong to a given project.
- *
- * @param projectId - The ID of the project
- * @returns Promise resolving to an array of Notice IDs
- */
-export async function getNoticeIdsByProjectId(projectId: string): Promise<string[]> {
-  return _fetchNoticeIdsByProjectId(projectId);
 }
 
 /**
@@ -89,6 +93,20 @@ export async function getNoticeEnvs(projectId: string): Promise<string[]> {
   return _fetchNoticeEnvs(projectId);
 }
 
+/**
+ * Returns the most recent notice updated_at for a project or null if none.
+ */
+export async function getLastNoticeDateByProjectId(
+  projectId: string,
+): Promise<Date | null> {
+  const n = await db.notice.findFirst({
+    where: { project_id: projectId },
+    orderBy: { updated_at: "desc" },
+    select: { updated_at: true },
+  });
+  return n?.updated_at ?? null;
+}
+
 // -- Private helper functions --
 
 /**
@@ -97,9 +115,9 @@ export async function getNoticeEnvs(projectId: string): Promise<string[]> {
 async function _fetchNotices(
   whereObject: Prisma.NoticeWhereInput,
   orderByObject: Prisma.NoticeOrderByWithRelationInput,
-  limit?: number
+  limit?: number,
 ): Promise<Notice[]> {
-  return prisma.notice.findMany({
+  return db.notice.findMany({
     where: whereObject,
     orderBy: orderByObject,
     ...(limit !== undefined && { take: limit }),
@@ -109,29 +127,20 @@ async function _fetchNotices(
 /**
  * Internal helper to fetch one Notice by ID, including its Project.
  */
-async function _fetchNoticeById(noticeId: string): Promise<NoticeWithProject | null> {
-  return prisma.notice.findUnique({
+async function _fetchNoticeById(
+  noticeId: string,
+): Promise<NoticeWithProject | null> {
+  return db.notice.findUnique({
     where: { id: noticeId },
     include: { project: true },
   });
 }
 
 /**
- * Internal helper to fetch all Notice IDs for a project.
- */
-async function _fetchNoticeIdsByProjectId(projectId: string): Promise<string[]> {
-  const notices = await prisma.notice.findMany({
-    where: { project_id: projectId },
-    select: { id: true },
-  });
-  return notices.map((notice) => notice.id);
-}
-
-/**
  * Internal helper to fetch distinct environment values for a project.
  */
 async function _fetchNoticeEnvs(projectId: string): Promise<string[]> {
-  const result = await prisma.notice.findMany({
+  const result = await db.notice.findMany({
     where: {
       project_id: projectId,
     },
@@ -139,9 +148,9 @@ async function _fetchNoticeEnvs(projectId: string): Promise<string[]> {
       env: true,
     },
     orderBy: {
-      env: 'asc',
+      env: "asc",
     },
-    distinct: ['env'],
+    distinct: ["env"],
   });
 
   return result.map((n) => n.env);

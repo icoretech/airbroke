@@ -1,37 +1,49 @@
 // app/api/completion/route.ts
 
-import { auth } from '@/lib/auth';
-import { prisma } from '@/lib/db';
-import { type OpenAIProviderSettings, createOpenAI } from '@ai-sdk/openai';
-import { CoreMessage, streamText } from 'ai';
+import { createOpenAI } from "@ai-sdk/openai";
+import { streamText } from "ai";
+import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
+import type { OpenAIProviderSettings } from "@ai-sdk/openai";
+import type { ModelMessage } from "ai";
 
-export const dynamic = 'force-dynamic';
 export const maxDuration = 30;
 
 export async function POST(request: Request) {
   const session = await auth();
   if (!session) {
-    return new Response('You are not logged in', { status: 401 });
+    return new Response("You are not logged in", { status: 401 });
   }
 
-  const body = await request.json();
-  const { isDetailMode, occurrenceId } = body;
+  const body: unknown = await request.json();
+  const bodyRecord =
+    typeof body === "object" && body !== null
+      ? (body as Record<string, unknown>)
+      : {};
+
+  const isDetailMode = bodyRecord.isDetailMode === true;
+  const occurrenceId =
+    typeof bodyRecord.occurrenceId === "string"
+      ? bodyRecord.occurrenceId
+      : typeof bodyRecord.prompt === "string"
+        ? bodyRecord.prompt
+        : undefined;
 
   if (!process.env.AIRBROKE_OPENAI_API_KEY) {
-    return new Response('Unauthorized', { status: 401 });
+    return new Response("Unauthorized", { status: 401 });
   }
 
   if (!occurrenceId) {
-    return new Response('Missing occurrence', { status: 400 });
+    return new Response("Missing occurrence", { status: 400 });
   }
 
-  const occurrenceWithRelations = await prisma.occurrence.findFirst({
+  const occurrenceWithRelations = await db.occurrence.findFirst({
     where: { id: occurrenceId },
     include: { notice: { include: { project: true } } },
   });
 
   if (!occurrenceWithRelations) {
-    return new Response('Occurrence not found', { status: 404 });
+    return new Response("Occurrence not found", { status: 404 });
   }
 
   const { notice, ...occurrence } = occurrenceWithRelations;
@@ -47,21 +59,24 @@ export async function POST(request: Request) {
   }
 
   // Prepare the messages array for the AI model
-  const messages: CoreMessage[] = [
+  const messages: ModelMessage[] = [
     {
-      role: 'user',
+      role: "user",
       content: prompt,
     },
   ];
 
   const openAISettings: OpenAIProviderSettings = {
-    apiKey: process.env.AIRBROKE_OPENAI_API_KEY ?? '',
-    compatibility: 'strict',
-    ...(process.env.AIRBROKE_OPENAI_ORGANIZATION ? { organization: process.env.AIRBROKE_OPENAI_ORGANIZATION } : {}),
+    apiKey: process.env.AIRBROKE_OPENAI_API_KEY ?? "",
+    ...(process.env.AIRBROKE_OPENAI_ORGANIZATION
+      ? { organization: process.env.AIRBROKE_OPENAI_ORGANIZATION }
+      : {}),
   };
 
   const openaiProvider = createOpenAI(openAISettings);
-  const model = openaiProvider.responses(process.env.AIRBROKE_OPENAI_ENGINE || 'gpt-4o');
+  const model = openaiProvider.responses(
+    process.env.AIRBROKE_OPENAI_ENGINE || "gpt-4o",
+  );
 
   // Stream the AI's response using streamText
   const result = streamText({
@@ -70,5 +85,5 @@ export async function POST(request: Request) {
   });
 
   // Return the streamed response
-  return result.toDataStreamResponse();
+  return result.toTextStreamResponse();
 }

@@ -7,23 +7,26 @@ export const rubyTemplate = `
 # config/initializers/airbroke.rb
 Airbrake.configure do |config|
   def set_if_responds_to(config, method_name, value)
-    config.send("\#{method_name}=", value) if config.respond_to?(method_name)
+    config.send("#{method_name}=", value) if config.respond_to?(method_name)
   end
 
-  config.error_host = 'https://airbroke.mydomain.com'
   config.project_id = 1 # any number will do
   config.project_key = '{REPLACE_PROJECT_KEY}'
   config.environment = Rails.env
   config.ignore_environments = %w[development test]
 
-  # These lines ensure no performance stats or remote configs are used
+  # Hosts (Airbroke / self-hosted)
+  set_if_responds_to(config, :host, 'https://airbroke.mydomain.com')
+  set_if_responds_to(config, :error_host, 'https://airbroke.mydomain.com')
+
+  # Disable APM + remote config (Airbroke focuses on error reporting)
   set_if_responds_to(config, :performance_stats, false)
   set_if_responds_to(config, :query_stats, false)
-  set_if_responds_to(config, :remote_config_host, nil)
-  set_if_responds_to(config, :apm_host, nil)
-  set_if_responds_to(config, :remote_config, false)
   set_if_responds_to(config, :job_stats, false)
+
+  # Some older/newer versions expose these; keep the guards to avoid internet calls:
   set_if_responds_to(config, :queue_stats, false)
+  set_if_responds_to(config, :remote_config, false)
 
   config.root_directory = '/app' if Rails.env.production? || Rails.env.staging?
 end
@@ -52,6 +55,8 @@ const airbrake = new Notifier({
   projectKey: '{REPLACE_PROJECT_KEY}',
   environment: 'production',
   host: 'https://airbroke.mydomain.com',
+
+  // Disable APM + remote config (Airbroke focuses on error reporting)
   remoteConfig: false,
   performanceStats: false,
   queryStats: false,
@@ -70,6 +75,8 @@ const airbrake = new Notifier({
   projectKey: '{REPLACE_PROJECT_KEY}',
   environment: 'production',
   host: 'https://airbroke.mydomain.com',
+
+  // Disable APM + remote config (Airbroke focuses on error reporting)
   remoteConfig: false,
   performanceStats: false,
   queryStats: false,
@@ -86,7 +93,9 @@ import pybrake
 notifier = pybrake.Notifier(
     project_id=123,         # any number will do
     project_key='{REPLACE_PROJECT_KEY}',
+    host='https://airbroke.mydomain.com',
     environment='production',
+    remote_config=False,
     performance_stats=False,
     query_stats=False,
     queue_stats=False,
@@ -111,8 +120,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     ABNotifier.startNotifier(withAPIKey: "{REPLACE_PROJECT_KEY}",
       projectID: "12345",
+      hostName: "airbroke.mydomain.com",
       environmentName: ABNotifierAutomaticEnvironment,
-      useSSL: true
+      useSSL: true,
+      delegate: nil
     )
 
     return true
@@ -129,7 +140,9 @@ export const iosObjectiveCTemplate = `
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [ABNotifier startNotifierWithAPIKey:@"{REPLACE_PROJECT_KEY}"
                               projectID:@"12345"
+                               hostName:@"airbroke.mydomain.com"
                         environmentName:ABNotifierAutomaticEnvironment
+                                 useSSL:YES
                                delegate:self];
 
     return YES;
@@ -142,6 +155,8 @@ export const iosObjectiveCTemplate = `
 export const androidTemplate = `
 import com.loopj.android.airbrake.AirbrakeNotifier;
 
+// NOTE: airbrake-android is a legacy notifier and hard-codes api.airbrake.io.
+// It cannot be configured to send to your self-hosted Airbroke instance.
 public class MainActivity extends Activity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -160,8 +175,8 @@ export const dotNetTemplate = `
 var config = new AirbrakeConfig {
     ProjectId = "12345",
     ProjectKey = "{REPLACE_PROJECT_KEY}",
-    Environment = "production"
-    // If Sharpbrake supports performance options, set them to false if needed
+    Environment = "production",
+    Host = "https://airbroke.mydomain.com"
 };
 
 var notifier = new AirbrakeNotifier(config);
@@ -184,8 +199,11 @@ var airbrake = gobrake.NewNotifierWithOptions(&gobrake.NotifierOptions{
   ProjectKey:  "{REPLACE_PROJECT_KEY}",
   Environment: "production",
 
-  // If needed, disable performance stats:
-  // PerformanceStats: false,
+  Host: "https://airbroke.mydomain.com",
+
+  // Disable APM + remote config (Airbroke focuses on error reporting)
+  DisableAPM:          true,
+  DisableRemoteConfig: true,
 })
 `;
 
@@ -206,6 +224,13 @@ public class Example {
     config.projectId = 12345;
     config.projectKey = "{REPLACE_PROJECT_KEY}";
     config.environment = "production";
+    config.errorHost = "https://airbroke.mydomain.com";
+
+    // Disable APM + remote config (Airbroke focuses on error reporting)
+    config.remoteConfig = false;
+    config.performanceStats = false;
+    config.queryStats = false;
+    config.queueStats = false;
 
     Notifier notifier = new Notifier(config);
   }
@@ -223,7 +248,9 @@ composer require airbrake/phpbrake
 $notifier = new Airbrake\\Notifier([
     'projectId' => 12345,
     'projectKey' => '{REPLACE_PROJECT_KEY}',
-    'environment' => 'production'
+    'environment' => 'production',
+    'host' => 'https://airbroke.mydomain.com',
+    'remoteConfig' => false,
 ]);
 
 Airbrake\\Instance::set($notifier);

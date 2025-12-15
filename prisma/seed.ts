@@ -1,9 +1,12 @@
 // prisma/seed.ts
 
-import { PrismaClient } from '@prisma/client';
-import crypto from 'node:crypto';
+import crypto from "node:crypto";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { Pool } from "pg";
+import { PrismaClient } from "@/prisma/generated/client";
 
-const prisma = new PrismaClient();
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const prisma = new PrismaClient({ adapter: new PrismaPg(pool) });
 
 async function main() {
   const numberOfProjects = 3;
@@ -28,7 +31,13 @@ async function main() {
       const noticeKind = `ActionController::RoutingError${j}`;
 
       const notice = await prisma.notice.upsert({
-        where: { project_id_env_kind: { kind: noticeKind, project_id: project.id, env: 'development' } },
+        where: {
+          project_id_env_kind: {
+            kind: noticeKind,
+            project_id: project.id,
+            env: "development",
+          },
+        },
         update: {},
         create: {
           project_id: project.id,
@@ -37,7 +46,10 @@ async function main() {
       });
 
       const message = "Identifier 'ab_functions' has already been declared";
-      const messageHash = crypto.createHash('md5').update(message, 'utf8').digest('hex');
+      const messageHash = crypto
+        .createHash("md5")
+        .update(message, "utf8")
+        .digest("hex");
 
       await prisma.occurrence.upsert({
         where: {
@@ -52,87 +64,87 @@ async function main() {
           message_hash: messageHash,
           backtrace: [
             {
-              file: '/usr/local/lib/ruby/3.1.0/uri/rfc3986_parser.rb',
+              file: "/usr/local/lib/ruby/3.1.0/uri/rfc3986_parser.rb",
               line: 67,
-              function: 'split',
+              function: "split",
             },
             {
-              file: '/usr/local/lib/ruby/3.1.0/uri/rfc3986_parser.rb',
+              file: "/usr/local/lib/ruby/3.1.0/uri/rfc3986_parser.rb",
               line: 72,
-              function: 'parse',
+              function: "parse",
             },
             {
-              file: '/usr/local/lib/ruby/3.1.0/uri/common.rb',
+              file: "/usr/local/lib/ruby/3.1.0/uri/common.rb",
               line: 188,
-              function: 'parse',
+              function: "parse",
             },
             {
-              file: '/usr/local/lib/ruby/3.1.0/uri/common.rb',
+              file: "/usr/local/lib/ruby/3.1.0/uri/common.rb",
               line: 692,
-              function: 'URI',
+              function: "URI",
             },
             {
-              file: '/PROJECT_ROOT/app/controllers/users/registrations_controller.rb',
+              file: "/PROJECT_ROOT/app/controllers/users/registrations_controller.rb",
               line: 498,
-              function: 'print_log',
+              function: "print_log",
             },
             {
-              file: '/PROJECT_ROOT/app/controllers/users/registrations_controller.rb',
+              file: "/PROJECT_ROOT/app/controllers/users/registrations_controller.rb",
               line: 17,
-              function: 'new',
+              function: "new",
             },
             {
-              file: '/GEM_ROOT/gems/actionpack-7.0.3.1/lib/action_controller/metal/basic_implicit_render.rb',
+              file: "/GEM_ROOT/gems/actionpack-7.0.3.1/lib/action_controller/metal/basic_implicit_render.rb",
               line: 6,
-              function: 'send_action',
+              function: "send_action",
             },
           ],
           context: {
-            url: 'https://my.domain.com/#/splash?u=xDcjxZYdxUZUdWDSgqps&page=369&nextPath=%2Fbooks%2F11781',
+            url: "https://my.domain.com/#/splash?u=xDcjxZYdxUZUdWDSgqps&page=369&nextPath=%2Fbooks%2F11781",
             history: [
               {
-                to: '/',
-                date: '2022-10-09T20:02:22.123Z',
-                from: '/',
-                type: 'location',
+                to: "/",
+                date: "2022-10-09T20:02:22.123Z",
+                from: "/",
+                type: "location",
               },
             ],
-            language: 'JavaScript',
+            language: "JavaScript",
             notifier: {
-              url: 'https://github.com/airbrake/airbrake-js/tree/master/packages/browser',
-              name: 'airbrake-js/browser',
-              version: '2.1.7',
+              url: "https://github.com/airbrake/airbrake-js/tree/master/packages/browser",
+              name: "airbrake-js/browser",
+              version: "2.1.7",
             },
-            severity: 'error',
+            severity: "error",
             userAgent:
-              'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36",
             windowError: true,
-            rootDirectory: 'https://my.domain.com',
+            rootDirectory: "https://my.domain.com",
           },
           environment: {
-            app_type: 'web',
-            app_flavour: 'default',
-            app_version: '7.4.2',
-            client_lang: 'it-IT',
+            app_type: "web",
+            app_flavour: "default",
+            app_version: "7.4.2",
+            client_lang: "it-IT",
           },
           session: {
-            session_id: 'd76a962bdcb44d80c6104874f5401e2b',
-            _csrf_token: 'Z_Bi8QnLsiQhlcJ10v1STgsTQJGHguwyMbe-Wc7OzQ8',
+            session_id: "d76a962bdcb44d80c6104874f5401e2b",
+            _csrf_token: "Z_Bi8QnLsiQhlcJ10v1STgsTQJGHguwyMbe-Wc7OzQ8",
           },
           params: {
-            page: '235',
+            page: "235",
             book_id: 16899,
             content: null,
             user_id: 3206792,
-            app_type: 'desktop',
-            platform: 'pc',
+            app_type: "desktop",
+            platform: "pc",
             device_id: 3694746,
-            user_role: 'student',
+            user_role: "student",
             created_at: null,
             updated_at: null,
             user_agent:
-              'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) MyApp/7.4.1 Chrome/80.0.3987.165 Electron/8.2.5 Safari/537.36',
-            app_version: '7.4.1',
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) MyApp/7.4.1 Chrome/80.0.3987.165 Electron/8.2.5 Safari/537.36",
+            app_version: "7.4.1",
             resource_id: 16643461180004,
             app_timestamp: 1664347553,
             calculated_at: null,

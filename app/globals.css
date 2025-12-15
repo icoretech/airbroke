@@ -1,3 +1,235 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Theme color names that map to our CSS tokens so utilities like bg-background still work */
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  /* Sidebar palette names */
+  --color-sidebar: hsl(var(--sidebar-background));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+
+  /* Keep legacy named palettes for compatibility */
+  --color-airbroke-50: #e5e7eb;
+  --color-airbroke-100: #cbd5e1;
+  --color-airbroke-200: #9aa5b1;
+  --color-airbroke-300: #718096;
+  --color-airbroke-400: #4a5568;
+  --color-airbroke-500: #2d3748;
+  --color-airbroke-600: #1a202c;
+  --color-airbroke-700: #171923;
+  --color-airbroke-800: #192231;
+  --color-airbroke-900: #1f2937;
+
+  --color-gravity-50: #1a202c;
+  --color-gravity-100: #181d28;
+  --color-gravity-200: #0f131a;
+  --color-gravity-300: #0d1016;
+  --color-gravity-400: #0b0d12;
+  --color-gravity-500: #090b0f;
+  --color-gravity-600: #07080b;
+  --color-gravity-700: #040507;
+  --color-gravity-800: #020304;
+  --color-gravity-900: #000000;
+}
+
+@layer base {
+  :root {
+    /* Light theme defaults */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 215 28% 17%; /* align with airbroke palette for consistency */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 215 15% 52%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    /* Sidebar (light) */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 215 28% 17%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 216 15% 52%;
+  }
+  .dark {
+    /* Dark theme mapped to Airbroke with purple accent */
+    --background: 221 39% 11%; /* close to Tailwind gray-900 (#111827) */
+    --foreground: 213 27% 84%; /* #CBD5E1 */
+    --card: 221 39% 13%;
+    --card-foreground: 213 27% 84%;
+    --popover: 221 39% 13%;
+    --popover-foreground: 213 27% 84%;
+    --primary: 239 84% 67%; /* tailwind indigo-500-like */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 230 21% 11%; /* #171923 */
+    --secondary-foreground: 213 27% 84%;
+    --muted: 215 15% 22%;
+    --muted-foreground: 213 15% 65%;
+    --accent: 239 84% 67%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 221 23% 20%;
+    --input: 221 23% 20%;
+    --ring: 239 84% 67%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    /* Sidebar (dark) tuned to Airbroke 800 for 1:1 look */
+    --sidebar-background: 218 32% 15%; /* ≈ #192231 */
+    --sidebar-foreground: 213 27% 84%; /* ≈ #CBD5E1 */
+    --sidebar-primary: 239 84% 67%; /* purple accent for focus/ring */
+    --sidebar-primary-foreground: 0 0% 100%;
+    /* Sidebar hover: darker, richer purple */
+    --sidebar-accent: 243 70% 56%;
+    /* Horizontal gradient: left darker, right slightly brighter (subtle) */
+    --sidebar-accent-grad-start: 243 70% 55%;
+    --sidebar-accent-grad-end: 243 70% 57%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 218 23% 18%; /* soft separator ~ white/5 feel */
+    --sidebar-ring: 239 84% 67%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom utility preserved from v3 config */
+@utility scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+/* Hide webkit scrollbar when this utility is applied */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Sidebar hover/focus/active styles (shadcn sidebar data attributes) */
+@layer utilities {
+  /* Ensure all shadcn buttons show hand cursor without editing components/ui */
+  [data-slot="button"] {
+    cursor: pointer;
+  }
+  /* Shared gradient button utility to ensure consistent hover/active */
+  .btn-gradient {
+    background-image: linear-gradient(
+      to right,
+      hsl(var(--sidebar-accent-grad-start)),
+      hsl(var(--sidebar-accent-grad-end))
+    );
+    color: white;
+    cursor: pointer;
+    transition:
+      filter 150ms ease,
+      opacity 150ms ease;
+  }
+  .btn-gradient:hover {
+    filter: brightness(1.08);
+  }
+  .btn-gradient:active {
+    filter: brightness(0.98) saturate(1.02);
+  }
+
+  /* Apply subtle horizontal gradient across hover, focus-visible and active */
+  [data-sidebar="menu-button"]:hover,
+  [data-sidebar="menu-button"]:focus-visible,
+  [data-sidebar="menu-button"][data-active="true"],
+  [data-sidebar="menu-sub-button"]:hover,
+  [data-sidebar="menu-sub-button"]:focus-visible,
+  [data-sidebar="menu-sub-button"][data-active="true"] {
+    background-image: linear-gradient(
+      to right,
+      hsl(var(--sidebar-accent-grad-start)),
+      hsl(var(--sidebar-accent-grad-end))
+    );
+    color: hsl(var(--sidebar-accent-foreground));
+  }
+  /* Radix dropdown items: match gradient on hover/focus without color flicker */
+  [role="menuitem"],
+  [data-radix-collection-item] {
+    /* Prevent background-color transition flicker */
+    transition-property: color, background-image, filter;
+  }
+  [role="menuitem"]:hover,
+  [role="menuitem"][data-highlighted],
+  [data-radix-collection-item][data-highlighted] {
+    background: linear-gradient(
+      to right,
+      hsl(var(--sidebar-accent-grad-start)),
+      hsl(var(--sidebar-accent-grad-end))
+    );
+    background-color: transparent;
+    color: hsl(var(--sidebar-accent-foreground));
+  }
+  /* Ensure pointer cursor on sidebar buttons and dropdown items */
+  [data-sidebar="menu-button"],
+  [data-sidebar="menu-sub-button"],
+  [role="menuitem"],
+  [data-radix-collection-item] {
+    cursor: pointer;
+  }
+  /* Ensure pointer cursor on sidebar buttons */
+  [data-sidebar="menu-button"],
+  [data-sidebar="menu-sub-button"] {
+    cursor: pointer;
+  }
+  /* Pointer on Radix dropdown items */
+  [role="menuitem"],
+  [data-radix-collection-item] {
+    cursor: pointer;
+  }
+}

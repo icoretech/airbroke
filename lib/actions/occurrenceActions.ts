@@ -1,11 +1,11 @@
 // lib/actions/occurrenceActions.ts
 
-'use server';
+"use server";
 
-import { auth } from '@/lib/auth';
-import { prisma } from '@/lib/db';
-import { Context } from '@/types/airbroke';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath } from "next/cache";
+import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
+import type { Context } from "@/types/airbroke";
 
 /**
  * Replays an HTTP request based on captured context data.
@@ -13,12 +13,12 @@ import { revalidatePath } from 'next/cache';
 export async function performReplay(context: Context): Promise<string> {
   const { headers, httpMethod, url } = context;
   if (!url) {
-    return 'Invalid HTTP request for replay. The URL property is missing.';
+    return "Invalid HTTP request for replay. The URL property is missing.";
   }
 
   const requestOptions: RequestInit = {
-    method: httpMethod ?? 'GET',
-    cache: 'no-store',
+    method: httpMethod ?? "GET",
+    cache: "no-store",
     ...(headers ? { headers } : {}),
   };
 
@@ -42,10 +42,10 @@ export async function performReplay(context: Context): Promise<string> {
 export async function createOccurrenceBookmark(occurrenceId: string) {
   const session = await auth();
   if (!session || !session.user || !session.user.id) {
-    throw new Error('No user session or user ID found');
+    throw new Error("No user session or user ID found");
   }
 
-  await prisma.occurrenceBookmark.create({
+  await db.occurrenceBookmark.create({
     data: {
       user_id: session.user.id,
       occurrence_id: occurrenceId,
@@ -53,7 +53,7 @@ export async function createOccurrenceBookmark(occurrenceId: string) {
   });
 
   revalidatePath(`/occurrences/${occurrenceId}`);
-  revalidatePath('/bookmarks');
+  revalidatePath("/bookmarks");
 }
 
 /**
@@ -62,10 +62,10 @@ export async function createOccurrenceBookmark(occurrenceId: string) {
 export async function removeOccurrenceBookmark(occurrenceId: string) {
   const session = await auth();
   if (!session?.user?.id) {
-    throw new Error('No user session or user ID found');
+    throw new Error("No user session or user ID found");
   }
 
-  await prisma.occurrenceBookmark.delete({
+  await db.occurrenceBookmark.delete({
     where: {
       user_id_occurrence_id: {
         user_id: session.user.id,
@@ -75,14 +75,14 @@ export async function removeOccurrenceBookmark(occurrenceId: string) {
   });
 
   revalidatePath(`/occurrences/${occurrenceId}`);
-  revalidatePath('/bookmarks');
+  revalidatePath("/bookmarks");
 }
 
 /**
  * Sets the `resolved_at` timestamp for an occurrence.
  */
 export async function resolveOccurrence(occurrenceId: string) {
-  await prisma.occurrence.update({
+  await db.occurrence.update({
     where: { id: occurrenceId },
     data: { resolved_at: new Date() },
   });
@@ -94,7 +94,7 @@ export async function resolveOccurrence(occurrenceId: string) {
  * Clears the `resolved_at` timestamp for an occurrence (reinstate).
  */
 export async function reinstateOccurrence(occurrenceId: string) {
-  await prisma.occurrence.update({
+  await db.occurrence.update({
     where: { id: occurrenceId },
     data: { resolved_at: null },
   });

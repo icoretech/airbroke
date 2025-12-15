@@ -1,3 +1,3 @@
 // app/_actions.ts
 
-export * from '@/lib/actions';
+export * from "@/lib/actions";

@@ -1,5 +1,5 @@
 {
-  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.8/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -10,12 +10,69 @@
     "indentStyle": "space",
     "indentWidth": 2
   },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/.next",
+      "!**/dist",
+      "!**/public",
+      "!**/build",
+      "!**/prisma/generated",
+      "!components/ui",
+      "!components/ai-elements"
+    ]
+  },
   "assist": {
     "enabled": true,
     "actions": {
       "source": {
-        "organizeImports": "on"
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              {
+                "type": false,
+                "source": ":NODE:"
+              },
+              {
+                "type": false,
+                "source": ":PACKAGE:"
+              },
+              {
+                "type": false,
+                "source": ":ALIAS:"
+              },
+              {
+                "type": false,
+                "source": ":PATH:"
+              },
+              {
+                "type": true,
+                "source": ":NODE:"
+              },
+              {
+                "type": true,
+                "source": ":PACKAGE:"
+              },
+              {
+                "type": true,
+                "source": ":ALIAS:"
+              },
+              {
+                "type": true,
+                "source": ":PATH:"
+              }
+            ]
+          }
+        }
       }
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
     }
   },
   "overrides": [
@@ -29,9 +86,9 @@
       }
     },
     {
-      "includes": ["app/globals.css"],
-      "linter": { "enabled": false },
-      "formatter": { "enabled": false }
+      "linter": {
+        "enabled": false
+      }
     }
   ],
   "linter": {
@@ -40,7 +97,15 @@
       "next": "recommended"
     },
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "style": {
+        "useImportType": {
+          "level": "warn",
+          "options": {
+            "style": "separatedType"
+          }
+        }
+      }
     }
   }
 }

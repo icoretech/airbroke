@@ -1,9 +1,9 @@
 // components/CustomTimeAgo.tsx
 
-'use client';
+"use client";
 
-import { formatDistanceToNowStrict } from 'date-fns';
-import { useEffect, useMemo, useState } from 'react';
+import { formatDistanceToNowStrict } from "date-fns";
+import { useEffect, useMemo, useState } from "react";
 
 interface CustomTimeAgoProps {
   date: Date;
@@ -34,7 +34,9 @@ export default function CustomTimeAgo({
   const refreshIntervalMs = refreshIntervalSec * 1000;
 
   // Initialize state with the current distance
-  const [timeAgo, setTimeAgo] = useState(() => formatDistanceToNowStrict(memoDate, { addSuffix }));
+  const [timeAgo, setTimeAgo] = useState(() =>
+    formatDistanceToNowStrict(memoDate, { addSuffix }),
+  );
 
   useEffect(() => {
     // If live is false, don't auto-update

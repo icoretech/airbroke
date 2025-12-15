@@ -1,7 +1,7 @@
 // lib/generateUpdatedUrlWithRemovals.tsx
 
-import type { Route } from 'next';
-import type { ReadonlyURLSearchParams } from 'next/navigation';
+import type { Route } from "next";
+import type { ReadonlyURLSearchParams } from "next/navigation";
 
 type UpdatedParams = Record<string, string | undefined>;
 
@@ -16,7 +16,7 @@ export function generateUpdatedURLWithRemovals(
   pathname: string,
   currentParams: URLSearchParams | ReadonlyURLSearchParams,
   newParams: UpdatedParams,
-  removeParams?: RemoveParams
+  removeParams?: RemoveParams,
 ) {
   const updatedParams = new URLSearchParams(currentParams.toString());
 
@@ -32,9 +32,13 @@ export function generateUpdatedURLWithRemovals(
 
   // Also remove any specifically listed
   if (removeParams) {
-    removeParams.forEach((p) => updatedParams.delete(p));
+    removeParams.forEach((p) => {
+      updatedParams.delete(p);
+    });
   }
 
   const searchString = updatedParams.toString();
-  return searchString ? (`${pathname}?${searchString}` as Route) : (pathname as Route);
+  return searchString
+    ? (`${pathname}?${searchString}` as Route)
+    : (pathname as Route);
 }

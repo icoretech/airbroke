@@ -1,12 +1,12 @@
 generator client {
-  provider        = "prisma-client-js"
+  provider        = "prisma-client"
   previewFeatures = ["relationJoins", "strictUndefinedChecks"]
+  output          = "./generated"
+  engineType      = "client"
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
 }
 
 model Project {
@@ -114,7 +114,7 @@ model Session {
 model User {
   id            String               @id @default(cuid())
   name          String?
-  email         String?              @unique
+  email         String               @unique
   emailVerified DateTime?            @map("email_verified")
   image         String?
   accounts      Account[]
@@ -126,7 +126,7 @@ model User {
 
 model VerificationToken {
   identifier String
-  token      String   @unique
+  token      String
   expires    DateTime
 
   @@unique([identifier, token])

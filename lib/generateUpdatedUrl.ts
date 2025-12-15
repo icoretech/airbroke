@@ -1,12 +1,12 @@
 // lib/generateUpdatedUrl.ts
 
-import type { Route } from 'next';
-import type { ReadonlyURLSearchParams } from 'next/navigation';
+import type { Route } from "next";
+import type { ReadonlyURLSearchParams } from "next/navigation";
 
 export function generateUpdatedURL(
   pathname: string,
   currentParams: URLSearchParams | ReadonlyURLSearchParams,
-  newParams: Record<string, string>
+  newParams: Record<string, string>,
 ) {
   // Copy existing search params
   const updatedParams = new URLSearchParams(currentParams.toString());

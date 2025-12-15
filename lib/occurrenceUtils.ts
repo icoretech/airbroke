@@ -5,12 +5,14 @@ export interface KeyValuePair {
   value: unknown;
 }
 
-export function isObjectWithKeys(item: unknown): item is Record<string, unknown> {
+export function isObjectWithKeys(
+  item: unknown,
+): item is Record<string, unknown> {
   return (
     item !== null &&
-    typeof item === 'object' &&
+    typeof item === "object" &&
     !Array.isArray(item) &&
-    Object.keys(item).every((key) => typeof key === 'string')
+    Object.keys(item).every((key) => typeof key === "string")
   );
 }
 
@@ -19,9 +21,9 @@ function isPrimitive(value: unknown): boolean {
   return (
     value === null ||
     value === undefined ||
-    typeof value === 'string' ||
-    typeof value === 'number' ||
-    typeof value === 'boolean'
+    typeof value === "string" ||
+    typeof value === "number" ||
+    typeof value === "boolean"
   );
 }
 
@@ -31,7 +33,7 @@ function isPrimitive(value: unknown): boolean {
  * @param obj  The object or array to flatten
  * @param prefix  Key prefix (for recursion)
  */
-export function flattenObject(obj: unknown, prefix = ''): KeyValuePair[] {
+export function flattenObject(obj: unknown, prefix = ""): KeyValuePair[] {
   if (obj == null) {
     // null or undefined => no pairs
     return [];
@@ -44,7 +46,7 @@ export function flattenObject(obj: unknown, prefix = ''): KeyValuePair[] {
       // Store the entire array as one value
       return [
         {
-          key: prefix || '(root)', // If prefix is empty, label it something like (root)
+          key: prefix || "(root)", // If prefix is empty, label it something like (root)
           // Could store as JSON or a string
           value: obj, // We'll let the UI JSON.stringify it
         },
@@ -79,5 +81,5 @@ export function flattenObject(obj: unknown, prefix = ''): KeyValuePair[] {
   }
 
   // If it's a single primitive at the root
-  return [{ key: prefix || '(root)', value: obj }];
+  return [{ key: prefix || "(root)", value: obj }];
 }

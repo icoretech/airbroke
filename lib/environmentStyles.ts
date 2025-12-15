@@ -9,36 +9,36 @@ const environmentMapping: Record<
   }
 > = {
   default: {
-    text: 'text-white',
-    background: 'bg-gray-900 ring-gray-700',
+    text: "text-white",
+    background: "bg-gray-900 ring-gray-700",
   },
   prod: {
-    text: 'text-indigo-400',
-    background: 'bg-indigo-400/10 ring-indigo-400/30',
+    text: "text-indigo-400",
+    background: "bg-indigo-400/10 ring-indigo-400/30",
   },
   staging: {
-    text: 'text-gray-400',
-    background: 'bg-gray-400/10 ring-gray-400/20',
+    text: "text-gray-400",
+    background: "bg-gray-400/10 ring-gray-400/20",
   },
   test: {
-    text: 'text-white',
-    background: 'bg-rose-900 ring-rose-700',
+    text: "text-white",
+    background: "bg-rose-900 ring-rose-700",
   },
   dev: {
-    text: 'text-green-400',
-    background: 'bg-green-400/10 ring-green-400/20',
+    text: "text-green-400",
+    background: "bg-green-400/10 ring-green-400/20",
   },
   qa: {
-    text: 'text-purple-400',
-    background: 'bg-purple-400/10 ring-purple-400/20',
+    text: "text-purple-400",
+    background: "bg-purple-400/10 ring-purple-400/20",
   },
   uat: {
-    text: 'text-yellow-400',
-    background: 'bg-yellow-400/10 ring-yellow-400/20',
+    text: "text-yellow-400",
+    background: "bg-yellow-400/10 ring-yellow-400/20",
   },
   sandbox: {
-    text: 'text-pink-400',
-    background: 'bg-pink-400/10 ring-pink-400/20',
+    text: "text-pink-400",
+    background: "bg-pink-400/10 ring-pink-400/20",
   },
 };
 
@@ -51,7 +51,9 @@ function getEnvironmentKey(env: string): string {
   // If 'prod', 'staging', 'test', etc. is found in `env`, pick that key;
   // else 'default'
   const matchedKey =
-    Object.keys(environmentMapping).find((key) => key !== 'default' && lowerEnv.includes(key)) || 'default';
+    Object.keys(environmentMapping).find(
+      (key) => key !== "default" && lowerEnv.includes(key),
+    ) || "default";
 
   return matchedKey;
 }
@@ -59,24 +61,6 @@ function getEnvironmentKey(env: string): string {
 /**
  * Returns only the **text color** classes for the given env.
  * e.g. "text-indigo-400"
- */
-export function getEnvironmentTextColor(env: string): string {
-  const envKey = getEnvironmentKey(env);
-  return environmentMapping[envKey].text;
-}
-
-/**
- * Returns only the **background + ring** classes for the given env.
- * e.g. "bg-gray-400/10 ring-gray-400/20"
- */
-export function getEnvironmentBackground(env: string): string {
-  const envKey = getEnvironmentKey(env);
-  return environmentMapping[envKey].background;
-}
-
-/**
- * Returns the **full** set of classes combining text + background + ring
- * (the original style from <EnvironmentLabel>).
  */
 export function getEnvironmentClasses(env: string): string {
   const envKey = getEnvironmentKey(env);

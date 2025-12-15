@@ -1,9 +1,10 @@
 // lib/processError.ts
 
-import { prisma } from '@/lib/db';
-import { NoticeError } from '@/lib/parseNotice';
-import { Prisma, Project } from '@prisma/client';
-import crypto from 'node:crypto';
+import crypto from "node:crypto";
+import { db } from "@/lib/db";
+import { Prisma } from "@/prisma/generated/client";
+import type { NoticeError } from "@/lib/parseNotice";
+import type { Project } from "@/prisma/generated/client";
 
 /**
  * Processes and records a NoticeError instance into the database (notices/occurrences).
@@ -17,13 +18,13 @@ export async function processError(
   context: Record<string, unknown>,
   environment: Record<string, unknown>,
   session: Record<string, unknown>,
-  requestParams: Record<string, unknown>
+  requestParams: Record<string, unknown>,
 ): Promise<void> {
   const type = error.type;
   const message = error.message;
   const backtrace = error.backtrace;
   // If the context has .environment, use that, else default to "unknown".
-  const env = (context.environment as string) || 'unknown';
+  const env = (context.environment as string) || "unknown";
 
   let attemptsNotice = 3;
   let successNotice = false;
@@ -32,7 +33,7 @@ export async function processError(
   // 1) Upsert the Notice with retry on unique constraint issues
   while (attemptsNotice > 0 && !successNotice) {
     try {
-      const current_notice = await prisma.notice.upsert({
+      const current_notice = await db.notice.upsert({
         where: {
           project_id_env_kind: {
             project_id: project.id,
@@ -56,9 +57,14 @@ export async function processError(
       current_notice_id = current_notice.id;
       successNotice = true;
     } catch (upsertError) {
-      if (upsertError instanceof Prisma.PrismaClientKnownRequestError && upsertError.code === 'P2002') {
+      if (
+        upsertError instanceof Prisma.PrismaClientKnownRequestError &&
+        upsertError.code === "P2002"
+      ) {
         attemptsNotice--;
-        console.debug(`Notice upsert failed due to P2002. Retrying... attempts left: ${attemptsNotice}`);
+        console.debug(
+          `Notice upsert failed due to P2002. Retrying... attempts left: ${attemptsNotice}`,
+        );
       } else {
         throw upsertError;
       }
@@ -74,11 +80,14 @@ export async function processError(
   let attemptsOccurrence = 3;
   let successOccurrence = false;
 
-  const messageHash = crypto.createHash('md5').update(error.message, 'utf8').digest('hex');
+  const messageHash = crypto
+    .createHash("md5")
+    .update(error.message, "utf8")
+    .digest("hex");
 
   while (attemptsOccurrence > 0 && !successOccurrence) {
     try {
-      await prisma.occurrence.upsert({
+      await db.occurrence.upsert({
         where: {
           notice_id_message_hash: {
             notice_id: current_notice_id,
@@ -105,9 +114,14 @@ export async function processError(
 
       successOccurrence = true;
     } catch (err) {
-      if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') {
+      if (
+        err instanceof Prisma.PrismaClientKnownRequestError &&
+        err.code === "P2002"
+      ) {
         attemptsOccurrence--;
-        console.debug(`Occurrence upsert failed due to P2002. Retrying... attempts left: ${attemptsOccurrence}`);
+        console.debug(
+          `Occurrence upsert failed due to P2002. Retrying... attempts left: ${attemptsOccurrence}`,
+        );
       } else {
         throw err;
       }
