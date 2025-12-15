@@ -24,7 +24,7 @@ export default function CustomTimeAgo({
   date,
   addSuffix = true,
   live = true,
-  refreshIntervalSec = 1,
+  refreshIntervalSec = 60,
 }: CustomTimeAgoProps) {
   // Memoize the passed date so we don’t cause
   // re-renders if the parent re-creates the Date object
@@ -49,5 +49,9 @@ export default function CustomTimeAgo({
     return () => clearInterval(interval);
   }, [addSuffix, live, memoDate, refreshIntervalMs]);
 
-  return <time dateTime={memoDate.toISOString()}>{timeAgo}</time>;
+  return (
+    <time suppressHydrationWarning dateTime={memoDate.toISOString()}>
+      {timeAgo}
+    </time>
+  );
 }
