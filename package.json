@@ -1,6 +1,6 @@
 {
   "name": "airbroke",
-  "version": "1.1.80",
+  "version": "1.1.81",
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
