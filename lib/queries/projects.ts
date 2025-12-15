@@ -72,7 +72,7 @@ async function _fetchProjects(
 ): Promise<Project[]> {
   return db.project.findMany({
     where: whereObject,
-    orderBy: { name: "asc" },
+    orderBy: [{ organization: "asc" }, { name: "asc" }],
   });
 }
 
