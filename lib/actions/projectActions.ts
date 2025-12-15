@@ -227,14 +227,24 @@ export async function toggleProjectPausedStatus(projectId: string) {
     where: { id: projectId },
     data: { paused: !project.paused },
   });
+
+  // Cache Components mode: ensure project pages and sidebar reflect changes.
+  revalidatePath("/projects");
+  revalidatePath(`/projects/${projectId}`);
+  revalidatePath(`/projects/${projectId}/edit`);
 }
 
 export async function deleteProjectNotices(projectId: string) {
   await db.notice.deleteMany({ where: { project_id: projectId } });
+
+  revalidatePath(`/projects/${projectId}`);
+  revalidatePath(`/projects/${projectId}/edit`);
 }
 
 export async function deleteProject(projectId: string) {
   await db.project.delete({ where: { id: projectId } });
+
+  revalidatePath("/projects");
 }
 
 export async function cachedProjectChartOccurrencesData(projectId: string) {

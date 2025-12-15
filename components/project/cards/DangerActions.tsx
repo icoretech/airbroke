@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { deleteProject, deleteProjectNotices } from "@/app/_actions";
 import {
   AlertDialog,
@@ -25,6 +25,32 @@ export default function DangerActions({
 }) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
+  const [isWorking, setIsWorking] = useState(false);
+  const isBusy = pending || isWorking;
+
+  function handleDeleteAllErrors() {
+    setIsWorking(true);
+    void deleteProjectNotices(projectId)
+      .catch((error) => {
+        console.error("Delete all errors failed:", error);
+      })
+      .finally(() => {
+        setIsWorking(false);
+        startTransition(() => router.refresh());
+      });
+  }
+
+  function handleDeleteProject() {
+    setIsWorking(true);
+    void deleteProject(projectId)
+      .catch((error) => {
+        console.error("Delete project failed:", error);
+      })
+      .finally(() => {
+        setIsWorking(false);
+        startTransition(() => router.push("/projects"));
+      });
+  }
 
   return (
     <div className="flex flex-col gap-3">
@@ -35,7 +61,7 @@ export default function DangerActions({
         {/* Delete All Errors */}
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="destructive" size="sm" disabled={pending}>
+            <Button variant="destructive" size="sm" disabled={isBusy}>
               Delete All Errors
             </Button>
           </AlertDialogTrigger>
@@ -48,16 +74,13 @@ export default function DangerActions({
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel disabled={pending}>Cancel</AlertDialogCancel>
+              <AlertDialogCancel disabled={isBusy}>Cancel</AlertDialogCancel>
               <AlertDialogAction
                 className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                onClick={() =>
-                  startTransition(async () => {
-                    await deleteProjectNotices(projectId);
-                    router.refresh();
-                  })
-                }
-                disabled={pending}
+                onClick={() => {
+                  handleDeleteAllErrors();
+                }}
+                disabled={isBusy}
               >
                 Delete All Errors
               </AlertDialogAction>
@@ -68,7 +91,7 @@ export default function DangerActions({
         {/* Delete Project */}
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="destructive" size="sm" disabled={pending}>
+            <Button variant="destructive" size="sm" disabled={isBusy}>
               Delete Project
             </Button>
           </AlertDialogTrigger>
@@ -81,16 +104,13 @@ export default function DangerActions({
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel disabled={pending}>Cancel</AlertDialogCancel>
+              <AlertDialogCancel disabled={isBusy}>Cancel</AlertDialogCancel>
               <AlertDialogAction
                 className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                onClick={() =>
-                  startTransition(async () => {
-                    await deleteProject(projectId);
-                    router.push("/projects");
-                  })
-                }
-                disabled={pending}
+                onClick={() => {
+                  handleDeleteProject();
+                }}
+                disabled={isBusy}
               >
                 Delete Project
               </AlertDialogAction>

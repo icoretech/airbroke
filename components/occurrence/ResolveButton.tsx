@@ -4,7 +4,7 @@
 
 import { CheckCircle2, RotateCcw } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { reinstateOccurrence, resolveOccurrence } from "@/app/_actions";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,6 +24,7 @@ export default function ResolveButton({
 }: ResolveButtonProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [isWorking, setIsWorking] = useState(false);
 
   const isResolved = Boolean(resolvedAt);
   const label = isResolved ? "Reinstate" : "Resolve";
@@ -40,15 +41,20 @@ export default function ResolveButton({
           type="button"
           variant="outline"
           size="sm"
-          disabled={isPending}
-          aria-disabled={isPending}
+          disabled={isPending || isWorking}
+          aria-disabled={isPending || isWorking}
           className={toneClass}
-          onClick={() =>
-            startTransition(async () => {
-              await action(occurrenceId);
-              router.refresh();
-            })
-          }
+          onClick={() => {
+            setIsWorking(true);
+            void action(occurrenceId)
+              .catch((error) => {
+                console.error("Resolve action failed:", error);
+              })
+              .finally(() => {
+                setIsWorking(false);
+                startTransition(() => router.refresh());
+              });
+          }}
         >
           <Icon className="mr-2 size-4" aria-hidden="true" />
           {label}
