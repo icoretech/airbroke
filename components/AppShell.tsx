@@ -63,6 +63,7 @@ export async function AppShell({
               <SidebarMenuButton size="lg" asChild>
                 <Link
                   href="/"
+                  prefetch={false}
                   aria-label="Airbroke home"
                   className="flex items-center gap-2"
                 >
@@ -95,7 +96,7 @@ export async function AppShell({
                       !selectedProjectId && activeSection !== "bookmarks"
                     }
                   >
-                    <Link href="/projects">
+                    <Link href="/projects" prefetch={false}>
                       <TbFileDelta />
                       <span>Projects</span>
                     </Link>
@@ -106,7 +107,7 @@ export async function AppShell({
                     asChild
                     isActive={activeSection === "bookmarks"}
                   >
-                    <Link href="/bookmarks">
+                    <Link href="/bookmarks" prefetch={false}>
                       <TbBookmarks />
                       <span>Bookmarks</span>
                     </Link>
@@ -138,7 +139,7 @@ export async function AppShell({
                             asChild
                             isActive={p.id === selectedProjectId}
                           >
-                            <Link href={`/projects/${p.id}`}>
+                            <Link href={`/projects/${p.id}`} prefetch={false}>
                               {p.paused ? (
                                 <TbClockPause />
                               ) : (

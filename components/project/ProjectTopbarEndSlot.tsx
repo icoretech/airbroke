@@ -21,7 +21,7 @@ export function ProjectTopbarEndSlot({ projectId }: { projectId: string }) {
       asChild
       className="inline-flex items-center gap-2 btn-gradient shadow-xs focus-visible:ring-1 focus-visible:ring-offset-0"
     >
-      <Link href={href} aria-label="Show notices">
+      <Link href={href} prefetch={false} aria-label="Show notices">
         <List />
         Show Notices
       </Link>
