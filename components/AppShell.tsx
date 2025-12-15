@@ -83,7 +83,7 @@ export async function AppShell({
           </SidebarMenu>
         </SidebarHeader>
 
-        <SidebarContent>
+        <SidebarContent className="scrollbar-none">
           {/* Primary links */}
           <SidebarGroup>
             <SidebarGroupContent>
