@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.82](https://github.com/icoretech/airbroke/compare/v1.1.81...v1.1.82) (2025-12-15)
+
+
+### Bug Fixes
+
+* **projects:** sort by organization ([271d6b9](https://github.com/icoretech/airbroke/commit/271d6b9d9d186231cb295e93211c68021cdca6ec))
+* **ui:** avoid conditional hooks in TopbarSearch ([c810c19](https://github.com/icoretech/airbroke/commit/c810c19e6198708bd6a5510d5f2f09c7c013c747))
+* **ui:** revalidate project updates ([80f9e4d](https://github.com/icoretech/airbroke/commit/80f9e4de801dea2a20d70023fb0a02f9e1550847))
+
 ## [1.1.81](https://github.com/icoretech/airbroke/compare/v1.1.80...v1.1.81) (2025-12-15)
 
 
