@@ -7,7 +7,7 @@ export default function PageBackground({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative isolate w-full bg-linear-to-b from-airbroke-900/40 to-background">
+    <div className="relative isolate min-h-screen w-full overflow-hidden bg-linear-to-b from-airbroke-900/40 to-background">
       <Background />
       {children}
     </div>
