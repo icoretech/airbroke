@@ -65,11 +65,11 @@
     "zod": "4.2.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.8",
+    "@biomejs/biome": "2.3.9",
     "@faker-js/faker": "10.1.0",
     "@tailwindcss/postcss": "^4.1.18",
     "@testing-library/dom": "^10.4.1",
-    "@testing-library/react": "^16.3.0",
+    "@testing-library/react": "^16.3.1",
     "@types/node": "25.0.2",
     "@types/pg": "^8.16.0",
     "@types/react": "19.2.7",
