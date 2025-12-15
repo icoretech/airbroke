@@ -3724,7 +3724,6 @@ __metadata:
     react: "npm:19.2.3"
     react-chartjs-2: "npm:5.3.1"
     react-dom: "npm:19.2.3"
-    react-hook-form: "npm:^7.68.0"
     react-icons: "npm:5.5.0"
     react-syntax-highlighter: "npm:^16.1.0"
     recharts: "npm:3.6.0"
@@ -6289,15 +6288,6 @@ __metadata:
   peerDependencies:
     react: ^19.2.3
   checksum: 10/5780f6d4c8e8ece09f82c5500ba2d55e01c30b5273f9281734d7d3b65013cd1fa52ec4e4436e5248c0a9e5bc340836044051168bbad8d7eac4d33ee6c2a867a1
-  languageName: node
-  linkType: hard
-
-"react-hook-form@npm:^7.68.0":
-  version: 7.68.0
-  resolution: "react-hook-form@npm:7.68.0"
-  peerDependencies:
-    react: ^16.8.0 || ^17 || ^18 || ^19
-  checksum: 10/c9624924cd324ee5560de51715361d754d24591734b1cf2b87c95477d35f5ca01b10e94d477bebe215afd37914c5cdbd4a717ead910d8de67f346f517f5a8d92
   languageName: node
   linkType: hard
 
