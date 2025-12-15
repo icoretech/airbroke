@@ -92,7 +92,7 @@
     "seed": "node --experimental-strip-types prisma/seed.ts"
   },
   "resolutions": {
-    "rollup": "4.52.5"
+    "rollup": "4.53.3"
   },
   "packageManager": "yarn@4.12.0"
 }
