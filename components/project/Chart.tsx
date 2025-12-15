@@ -1,25 +1,24 @@
 "use client";
 
-import * as React from "react";
-import * as Recharts from "recharts";
+import { createContext, useContext } from "react";
+import { Tooltip } from "recharts";
+import { cn } from "@/lib/utils";
+import type { ComponentProps, ReactNode } from "react";
 import type {
   NameType,
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent";
 import type { TooltipContentProps } from "recharts/types/component/Tooltip";
-import { cn } from "@/lib/utils";
 
-export type ChartConfig = Record<
-  string,
-  { label?: React.ReactNode; color?: string }
->;
+export type ChartConfig = Record<string, { label?: ReactNode; color?: string }>;
 
 type ChartContextValue = { config: ChartConfig };
-const ChartContext = React.createContext<ChartContextValue | null>(null);
+const ChartContext = createContext<ChartContextValue | null>(null);
 
 export function useChartConfig(): ChartContextValue {
-  const ctx = React.useContext(ChartContext);
-  if (!ctx) throw new Error("useChartConfig must be used within ChartContainer");
+  const ctx = useContext(ChartContext);
+  if (!ctx)
+    throw new Error("useChartConfig must be used within ChartContainer");
   return ctx;
 }
 
@@ -28,9 +27,9 @@ export function ChartContainer({
   className,
   children,
   ...props
-}: React.ComponentProps<"div"> & {
+}: ComponentProps<"div"> & {
   config: ChartConfig;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <ChartContext.Provider value={{ config }}>
@@ -41,7 +40,7 @@ export function ChartContainer({
   );
 }
 
-export const ChartTooltip = Recharts.Tooltip;
+export const ChartTooltip = Tooltip;
 
 export function ChartTooltipContent({
   active,
@@ -68,7 +67,7 @@ export function ChartTooltipContent({
       )}
     >
       {!hideLabel && label ? (
-        <div className="mb-1 font-medium">{label as React.ReactNode}</div>
+        <div className="mb-1 font-medium">{label as ReactNode}</div>
       ) : null}
       <div className="grid gap-1.5">
         {items.map((raw, idx) => {
@@ -82,9 +81,16 @@ export function ChartTooltipContent({
           const key = item.dataKey || item.name || `value-${idx}`;
           const conf = key && config[key] ? config[key] : undefined;
           return (
-            <div key={`${key}-${idx}`} className="flex items-center justify-between gap-4">
-              <span className="text-muted-foreground">{conf?.label ?? item.name}</span>
-              <span className="font-mono tabular-nums">{String(item.value ?? "")}</span>
+            <div
+              key={`${key}-${idx}`}
+              className="flex items-center justify-between gap-4"
+            >
+              <span className="text-muted-foreground">
+                {conf?.label ?? item.name}
+              </span>
+              <span className="font-mono tabular-nums">
+                {String(item.value ?? "")}
+              </span>
             </div>
           );
         })}

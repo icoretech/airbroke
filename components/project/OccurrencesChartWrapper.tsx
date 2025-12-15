@@ -1,7 +1,7 @@
 // components/project/OccurrencesChartWrapper.tsx
 
+import OccurrenceChart from "@/components/OccurrenceChart";
 import { db } from "@/lib/db";
-import OccurrencesChart from "./OccurrencesChart";
 
 export default async function OccurrencesChartWrapper({
   projectId,
@@ -72,7 +72,7 @@ export default async function OccurrencesChartWrapper({
           Hourly Occurrences in the past 14 days
         </h2>
       )}
-      <OccurrencesChart chartData={chartData} compact={compact} />
+      <OccurrenceChart chartData={chartData} compact={compact} />
     </div>
   );
 }

@@ -1,6 +1,11 @@
 "use client";
 
-import React from "react";
+import { useId } from "react";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/project/Chart";
 import {
   Bar,
   BarChart,
@@ -8,32 +13,32 @@ import {
   ResponsiveContainer,
   XAxis,
 } from "@/components/RechartsWrapper";
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
 import type {
   NameType,
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent";
 import type { TooltipContentProps } from "recharts/types/component/Tooltip";
-import type { ChartConfig } from "@/components/ui/chart";
+import type { ChartConfig } from "@/components/project/Chart";
 
 type DataPoint = { date: number; count: number };
 
 export default function OccurrenceChart({
   chartData,
+  compact = false,
 }: {
   chartData: DataPoint[];
+  compact?: boolean;
 }) {
-  const gradId = React.useId();
+  const gradId = useId();
   const chartConfig: ChartConfig = {
     count: { label: "Occurrences", color: "hsl(var(--chart-1))" },
   };
 
   return (
-    <ChartContainer config={chartConfig} className="aspect-auto h-55 w-full">
+    <ChartContainer
+      config={chartConfig}
+      className={`aspect-auto ${compact ? "h-45" : "h-55"} w-full`}
+    >
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           accessibilityLayer
