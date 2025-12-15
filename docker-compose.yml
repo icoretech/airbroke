@@ -45,6 +45,7 @@ services:
       DIRECT_URL: 'postgresql://postgres:airbroke@db/airbroke_development'
     ports:
       - 3000:3000
+      - 9229:9229
     networks:
       - airbroke
     depends_on:

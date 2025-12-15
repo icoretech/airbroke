@@ -22,7 +22,7 @@
 
 ### Docker (local dev)
 
-- Prefer running Yarn commands in the running containers:
+- running Yarn commands requires a running docker container:
   - Web: `docker exec airbroke-web-1 yarn …`
   - Tests: `docker exec airbroke-test-1 yarn …`
 

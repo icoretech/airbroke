@@ -3722,7 +3722,6 @@ __metadata:
     prisma: "npm:7.1.0"
     radix-ui: "npm:^1.4.3"
     react: "npm:19.2.3"
-    react-chartjs-2: "npm:5.3.1"
     react-dom: "npm:19.2.3"
     react-icons: "npm:5.5.0"
     react-syntax-highlighter: "npm:^16.1.0"
@@ -6267,16 +6266,6 @@ __metadata:
     csstype: "npm:^3.0.10"
     lodash.curry: "npm:^4.1.1"
   checksum: 10/c8344a437e230894572e4ae4e164d23442cd258a34e725abdc6b06b98b0eeeecf5d3886119379cbcd5f897ad22324dbd23f13d8f3cc16f8000f78a5ba2cd25f7
-  languageName: node
-  linkType: hard
-
-"react-chartjs-2@npm:5.3.1":
-  version: 5.3.1
-  resolution: "react-chartjs-2@npm:5.3.1"
-  peerDependencies:
-    chart.js: ^4.1.1
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/889f17ac70806d13135357b0d858ec862b53783bf70ccdffd15f6d03f1a92dae5f02b5e14644136ef5df2bc2a63401642dc0a73b694f568be4f7fbcdf3a58665
   languageName: node
   linkType: hard
 
