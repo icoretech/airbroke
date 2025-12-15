@@ -9,6 +9,7 @@ export default function BookmarksLayout({ children }: { children: ReactNode }) {
     <AppShell
       activeSection="bookmarks"
       topbarBreadcrumbs={<AppBreadcrumbs items={crumbs} />}
+      topbarSearchPlaceholder="Search bookmarks…"
     >
       {children}
     </AppShell>

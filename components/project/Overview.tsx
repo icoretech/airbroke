@@ -73,7 +73,7 @@ export default async function Overview({
   ];
 
   return (
-    <div className="space-y-6 px-4 py-6 text-white sm:px-6 lg:px-8">
+    <div className="space-y-6 text-white">
       <section className="grid grid-cols-1 gap-4 lg:grid-cols-12">
         {/* Activity */}
         <ActivityCard projectId={project.id} />

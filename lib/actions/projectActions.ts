@@ -263,7 +263,7 @@ export async function cachedProjectChartOccurrencesData(projectId: string) {
     occurrenceCountByDate[hourStamp] = Number(summary._sum.count);
   });
 
-  const data = [];
+  const data: Array<{ date: string; count: number }> = [];
   const cursorDate = new Date(startDate);
   while (cursorDate <= endDate) {
     const stamp = cursorDate.toISOString().slice(0, 13);
