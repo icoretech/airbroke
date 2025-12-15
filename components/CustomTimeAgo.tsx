@@ -26,6 +26,8 @@ export default function CustomTimeAgo({
   live = true,
   refreshIntervalSec = 60,
 }: CustomTimeAgoProps) {
+  const [mounted, setMounted] = useState(false);
+
   // Memoize the passed date so we don’t cause
   // re-renders if the parent re-creates the Date object
   const memoDate = useMemo(() => date, [date]);
@@ -33,13 +35,19 @@ export default function CustomTimeAgo({
   // Convert from seconds to milliseconds
   const refreshIntervalMs = refreshIntervalSec * 1000;
 
-  // Initialize state with the current distance
-  const [timeAgo, setTimeAgo] = useState(() =>
-    formatDistanceToNowStrict(memoDate, { addSuffix }),
-  );
+  // Render a deterministic value on the server to avoid hydration mismatches.
+  // Once mounted, switch to a relative "time ago" string.
+  const [timeAgo, setTimeAgo] = useState(() => memoDate.toUTCString());
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     // If live is false, don't auto-update
+    setTimeAgo(formatDistanceToNowStrict(memoDate, { addSuffix }));
     if (!live) return;
 
     const interval = setInterval(() => {
@@ -47,11 +55,7 @@ export default function CustomTimeAgo({
     }, refreshIntervalMs);
 
     return () => clearInterval(interval);
-  }, [addSuffix, live, memoDate, refreshIntervalMs]);
+  }, [addSuffix, live, memoDate, refreshIntervalMs, mounted]);
 
-  return (
-    <time suppressHydrationWarning dateTime={memoDate.toISOString()}>
-      {timeAgo}
-    </time>
-  );
+  return <time dateTime={memoDate.toISOString()}>{timeAgo}</time>;
 }
