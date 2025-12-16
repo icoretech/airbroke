@@ -4,7 +4,6 @@ import {
   Bookmark as IconBookmark,
   MoreVertical as IconDotsVertical,
   LogOut as IconLogout,
-  User as IconUserCircle,
 } from "lucide-react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
@@ -92,9 +91,6 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <IconUserCircle /> Account
-              </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/bookmarks">
                   <IconBookmark /> Bookmarks

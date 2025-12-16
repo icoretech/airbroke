@@ -29,7 +29,7 @@ airbroke.notify(new Error('Hello from Airbroke'))`;
     <div className="h-full bg-background">
       {/* Hero */}
       <div className="relative isolate overflow-hidden">
-        <PageBackground>
+        <PageBackground fullHeight={false}>
           <div className="mx-auto max-w-7xl px-6 pb-20 pt-16 sm:pb-28 lg:flex lg:items-center lg:gap-12 lg:px-8 lg:py-28">
             {/* Left: brand + copy + CTAs */}
             <div className="mx-auto max-w-2xl shrink-0 lg:mx-0 lg:max-w-xl">
