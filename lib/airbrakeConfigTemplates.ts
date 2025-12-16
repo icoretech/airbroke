@@ -1,4 +1,4 @@
-// lib/configTemplates.ts
+// lib/airbrakeConfigTemplates.ts
 
 //
 // Ruby / Rails
@@ -16,8 +16,8 @@ Airbrake.configure do |config|
   config.ignore_environments = %w[development test]
 
   # Hosts (Airbroke / self-hosted)
-  set_if_responds_to(config, :host, 'https://airbroke.mydomain.com')
-  set_if_responds_to(config, :error_host, 'https://airbroke.mydomain.com')
+  set_if_responds_to(config, :host, '{REPLACE_AIRBROKE_URL}')
+  set_if_responds_to(config, :error_host, '{REPLACE_AIRBROKE_URL}')
 
   # Disable APM + remote config (Airbroke focuses on error reporting)
   set_if_responds_to(config, :performance_stats, false)
@@ -54,7 +54,7 @@ const airbrake = new Notifier({
   projectId: 1, // any number will do
   projectKey: '{REPLACE_PROJECT_KEY}',
   environment: 'production',
-  host: 'https://airbroke.mydomain.com',
+  host: '{REPLACE_AIRBROKE_URL}',
 
   // Disable APM + remote config (Airbroke focuses on error reporting)
   remoteConfig: false,
@@ -74,7 +74,7 @@ const airbrake = new Notifier({
   projectId: 1, // any number will do
   projectKey: '{REPLACE_PROJECT_KEY}',
   environment: 'production',
-  host: 'https://airbroke.mydomain.com',
+  host: '{REPLACE_AIRBROKE_URL}',
 
   // Disable APM + remote config (Airbroke focuses on error reporting)
   remoteConfig: false,
@@ -93,7 +93,7 @@ import pybrake
 notifier = pybrake.Notifier(
     project_id=123,         # any number will do
     project_key='{REPLACE_PROJECT_KEY}',
-    host='https://airbroke.mydomain.com',
+    host='{REPLACE_AIRBROKE_URL}',
     environment='production',
     remote_config=False,
     performance_stats=False,
@@ -120,7 +120,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     ABNotifier.startNotifier(withAPIKey: "{REPLACE_PROJECT_KEY}",
       projectID: "12345",
-      hostName: "airbroke.mydomain.com",
+      hostName: "{REPLACE_AIRBROKE_HOST}",
       environmentName: ABNotifierAutomaticEnvironment,
       useSSL: true,
       delegate: nil
@@ -140,7 +140,7 @@ export const iosObjectiveCTemplate = `
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [ABNotifier startNotifierWithAPIKey:@"{REPLACE_PROJECT_KEY}"
                               projectID:@"12345"
-                               hostName:@"airbroke.mydomain.com"
+                               hostName:@"{REPLACE_AIRBROKE_HOST}"
                         environmentName:ABNotifierAutomaticEnvironment
                                  useSSL:YES
                                delegate:self];
@@ -176,7 +176,7 @@ var config = new AirbrakeConfig {
     ProjectId = "12345",
     ProjectKey = "{REPLACE_PROJECT_KEY}",
     Environment = "production",
-    Host = "https://airbroke.mydomain.com"
+    Host = "{REPLACE_AIRBROKE_URL}"
 };
 
 var notifier = new AirbrakeNotifier(config);
@@ -199,7 +199,7 @@ var airbrake = gobrake.NewNotifierWithOptions(&gobrake.NotifierOptions{
   ProjectKey:  "{REPLACE_PROJECT_KEY}",
   Environment: "production",
 
-  Host: "https://airbroke.mydomain.com",
+  Host: "{REPLACE_AIRBROKE_URL}",
 
   // Disable APM + remote config (Airbroke focuses on error reporting)
   DisableAPM:          true,
@@ -224,7 +224,7 @@ public class Example {
     config.projectId = 12345;
     config.projectKey = "{REPLACE_PROJECT_KEY}";
     config.environment = "production";
-    config.errorHost = "https://airbroke.mydomain.com";
+    config.errorHost = "{REPLACE_AIRBROKE_URL}";
 
     // Disable APM + remote config (Airbroke focuses on error reporting)
     config.remoteConfig = false;
@@ -249,7 +249,7 @@ $notifier = new Airbrake\\Notifier([
     'projectId' => 12345,
     'projectKey' => '{REPLACE_PROJECT_KEY}',
     'environment' => 'production',
-    'host' => 'https://airbroke.mydomain.com',
+    'host' => '{REPLACE_AIRBROKE_URL}',
     'remoteConfig' => false,
 ]);
 

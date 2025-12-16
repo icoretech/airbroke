@@ -10,6 +10,7 @@ import {
   SiPhp,
   SiPython,
   SiRuby,
+  SiSentry,
   SiSwift,
 } from "react-icons/si";
 import {
@@ -24,7 +25,11 @@ import {
   phpTemplate,
   pythonTemplate,
   rubyTemplate,
-} from "@/lib/configTemplates";
+} from "@/lib/airbrakeConfigTemplates";
+import {
+  sentryBrowserTemplate,
+  sentryNodeTemplate,
+} from "@/lib/sentryConfigTemplates";
 import type { IconType } from "react-icons";
 
 export interface IntegrationItem {
@@ -35,7 +40,7 @@ export interface IntegrationItem {
   icon?: IconType;
 }
 
-export const integrations: IntegrationItem[] = [
+export const airbrakeIntegrations: IntegrationItem[] = [
   {
     name: "Ruby / Rails",
     filename: "config/initializers/airbroke.rb",
@@ -112,5 +117,22 @@ export const integrations: IntegrationItem[] = [
     language: "php",
     code: phpTemplate,
     icon: SiPhp,
+  },
+];
+
+export const sentryIntegrations: IntegrationItem[] = [
+  {
+    name: "Sentry (Browser)",
+    filename: "sentry.browser.ts",
+    language: "typescript",
+    code: sentryBrowserTemplate,
+    icon: SiSentry,
+  },
+  {
+    name: "Sentry (Node.js)",
+    filename: "sentry.node.ts",
+    language: "typescript",
+    code: sentryNodeTemplate,
+    icon: SiSentry,
   },
 ];

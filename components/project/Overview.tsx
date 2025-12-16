@@ -1,5 +1,6 @@
 // components/project/Overview.tsx
 
+import { headers } from "next/headers";
 import Link from "next/link";
 import ActivityCard from "@/components/analytics/ActivityCard";
 import HealthCard from "@/components/analytics/HealthCard";
@@ -43,6 +44,28 @@ import TestZone from "../TestZone";
 import DangerZone from "./cards/DangerZone";
 import type { Project } from "@/prisma/generated/client";
 
+async function inferAppOrigin(): Promise<{ origin: string; host: string }> {
+  if (process.env.AUTH_URL) {
+    const url = new URL(process.env.AUTH_URL);
+    return { origin: url.origin, host: url.host };
+  }
+
+  const headerList = await headers();
+  const forwardedProto =
+    headerList.get("x-forwarded-proto")?.split(",")[0]?.trim() || "http";
+  const forwardedHost = headerList.get("x-forwarded-host")?.split(",")[0];
+  const host = (forwardedHost || headerList.get("host") || "").trim();
+
+  if (!host) {
+    return {
+      origin: "https://airbroke.mydomain.com",
+      host: "airbroke.mydomain.com",
+    };
+  }
+
+  return { origin: `${forwardedProto}://${host}`, host };
+}
+
 export default async function Overview({
   project,
   repositoryOverride,
@@ -61,6 +84,7 @@ export default async function Overview({
     getHourlyOccurrenceRateForLast14Days(project.id),
     getLastNoticeDateByProjectId(project.id),
   ]);
+  const { origin: appOrigin, host: appHost } = await inferAppOrigin();
 
   const stats = [
     { name: "Notices", value: noticesCount },
@@ -225,7 +249,12 @@ export default async function Overview({
             </CardHeader>
             <CardContent className="pt-0">
               <IntegrationsGrid
-                replacements={{ REPLACE_PROJECT_KEY: project.api_key }}
+                replacements={{
+                  REPLACE_AIRBROKE_HOST: appHost,
+                  REPLACE_AIRBROKE_URL: appOrigin,
+                  REPLACE_PROJECT_ID: project.id,
+                  REPLACE_PROJECT_KEY: project.api_key,
+                }}
               />
             </CardContent>
           </Card>

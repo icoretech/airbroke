@@ -1,12 +1,6 @@
-import { serializeEnvelope } from "@sentry/core";
 import { NextRequest } from "next/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { startCaptureServer } from "@/__tests__/helpers/captureServer";
-import type {
-  Envelope,
-  Transport,
-  TransportMakeRequestResponse,
-} from "@sentry/core";
 
 vi.mock("@/lib/db", () => ({
   db: {
@@ -29,37 +23,23 @@ describe("Sentry SDK → Airbroke intake contract", () => {
     vi.clearAllMocks();
   });
 
-  it("accepts envelope produced by @sentry/node", async () => {
+  it("accepts envelope produced by @sentry/node (tunnel)", async () => {
     const projectId = "p1";
     const projectKey = "k1";
-    const captured: { serialized: string }[] = [];
 
-    const transport: Transport = {
-      async send(envelope: Envelope): Promise<TransportMakeRequestResponse> {
-        const serialized = serializeEnvelope(envelope);
-        captured.push({
-          serialized:
-            typeof serialized === "string"
-              ? serialized
-              : Buffer.from(serialized).toString("utf8"),
-        });
-        return {};
-      },
-      async flush() {
-        return true;
-      },
-    };
+    const { baseUrl, requests, close } = await startCaptureServer({
+      responseStatus: 200,
+      responseHeaders: {},
+      responseBody: "",
+    });
 
     const SentryNode = await import("@sentry/node");
-    type InitOptions = NonNullable<Parameters<typeof SentryNode.init>[0]>;
-    type TransportFactory = NonNullable<InitOptions["transport"]>;
-    const customTransport: TransportFactory = () => transport;
 
     SentryNode.init({
-      dsn: "https://public@example.ingest.sentry.io/1",
+      dsn: `https://${projectKey}@example.ingest.sentry.io/1`,
       environment: "test-env",
       release: "airbroke-test@1.0.0",
-      transport: customTransport,
+      tunnel: `${baseUrl}/api/sentry/${projectId}/envelope?sentry_key=${projectKey}`,
       tracesSampleRate: 0,
       sampleRate: 1,
       sendClientReports: false,
@@ -71,13 +51,23 @@ describe("Sentry SDK → Airbroke intake contract", () => {
     await SentryNode.flush(2000);
     await SentryNode.close(0);
 
-    const eventEnvelope =
-      captured.find(({ serialized }) =>
-        serialized.includes('"type":"event"'),
-      ) ?? captured[0];
+    await close();
 
     expect(eventId).toBeDefined();
-    expect(eventEnvelope?.serialized).toContain('"type":"event"');
+    expect(requests.length).toBeGreaterThanOrEqual(1);
+
+    const captured = requests.find(({ bodyText }) =>
+      bodyText.includes('"type":"event"'),
+    );
+    if (!captured) {
+      throw new Error("No Sentry event envelope captured from @sentry/node");
+    }
+
+    expect(captured.method).toBe("POST");
+    expect(captured.url).toBe(
+      `/api/sentry/${projectId}/envelope?sentry_key=${projectKey}`,
+    );
+    expect(captured.bodyText).toContain('"type":"event"');
 
     vi.mocked(db.project.findFirst).mockResolvedValue({
       id: projectId,
@@ -85,16 +75,27 @@ describe("Sentry SDK → Airbroke intake contract", () => {
       paused: false,
     } as unknown as Awaited<ReturnType<typeof db.project.findFirst>>);
 
+    const sentryAuthHeader =
+      headerValue(captured.headers["x-sentry-auth"]) ??
+      `Sentry sentry_key=${projectKey}, sentry_version=7`;
+    const contentEncoding = headerValue(captured.headers["content-encoding"]);
+    const contentType =
+      headerValue(captured.headers["content-type"]) ??
+      "application/x-sentry-envelope";
+    const headers: Record<string, string> = {
+      "content-type": contentType,
+      "x-sentry-auth": sentryAuthHeader,
+    };
+    if (contentEncoding) {
+      headers["content-encoding"] = contentEncoding;
+    }
+
     const req = new NextRequest(
-      new URL(
-        `http://localhost/api/sentry/${projectId}/envelope?sentry_key=${projectKey}`,
-      ),
+      new URL(`http://localhost/api/sentry/${projectId}/envelope`),
       {
         method: "POST",
-        body: eventEnvelope?.serialized ?? "",
-        headers: {
-          "content-type": "application/x-sentry-envelope",
-        },
+        body: bodyToArrayBuffer(captured.bodyRaw),
+        headers,
       },
     );
 
@@ -145,7 +146,7 @@ describe("Sentry SDK → Airbroke intake contract", () => {
     expect(captured?.url).toBe(
       `/api/sentry/${projectId}/envelope?sentry_key=${projectKey}`,
     );
-    expect(captured?.body).toContain('"type":"event"');
+    expect(captured?.bodyText).toContain('"type":"event"');
 
     vi.mocked(db.project.findFirst).mockResolvedValue({
       id: projectId,
@@ -153,16 +154,27 @@ describe("Sentry SDK → Airbroke intake contract", () => {
       paused: false,
     } as unknown as Awaited<ReturnType<typeof db.project.findFirst>>);
 
+    const sentryAuthHeader =
+      headerValue(captured.headers["x-sentry-auth"]) ??
+      `Sentry sentry_key=${projectKey}, sentry_version=7`;
+    const contentEncoding = headerValue(captured.headers["content-encoding"]);
+    const contentType =
+      headerValue(captured.headers["content-type"]) ??
+      "application/x-sentry-envelope";
+    const headers: Record<string, string> = {
+      "content-type": contentType,
+      "x-sentry-auth": sentryAuthHeader,
+    };
+    if (contentEncoding) {
+      headers["content-encoding"] = contentEncoding;
+    }
+
     const req = new NextRequest(
-      new URL(
-        `http://localhost/api/sentry/${projectId}/envelope?sentry_key=${projectKey}`,
-      ),
+      new URL(`http://localhost/api/sentry/${projectId}/envelope`),
       {
         method: "POST",
-        body: captured.body,
-        headers: {
-          "content-type": "application/x-sentry-envelope",
-        },
+        body: bodyToArrayBuffer(captured.bodyRaw),
+        headers,
       },
     );
 
@@ -176,3 +188,15 @@ describe("Sentry SDK → Airbroke intake contract", () => {
     expect(processError).toHaveBeenCalledTimes(1);
   });
 });
+
+function headerValue(value: string | string[] | undefined): string | undefined {
+  if (!value) return undefined;
+  if (Array.isArray(value)) return value.join(", ");
+  return value;
+}
+
+function bodyToArrayBuffer(body: Uint8Array): ArrayBuffer {
+  const copy = new Uint8Array(body.byteLength);
+  copy.set(body);
+  return copy.buffer;
+}

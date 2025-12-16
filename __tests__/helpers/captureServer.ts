@@ -5,7 +5,8 @@ export type CapturedRequest = {
   method: string | undefined;
   url: string | undefined;
   headers: Record<string, string | string[] | undefined>;
-  body: string;
+  bodyRaw: Uint8Array;
+  bodyText: string;
 };
 
 export async function startCaptureServer(options?: {
@@ -27,17 +28,18 @@ export async function startCaptureServer(options?: {
     JSON.stringify({ id: "n1", url: "http://localhost/projects/p1" });
 
   const server = createServer((req, res) => {
-    let body = "";
-    req.setEncoding("utf8");
+    const chunks: Buffer[] = [];
     req.on("data", (chunk) => {
-      body += chunk;
+      chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
     });
     req.on("end", () => {
+      const bodyBuffer = Buffer.concat(chunks);
       requests.push({
         method: req.method,
         url: req.url,
         headers: req.headers,
-        body,
+        bodyRaw: bodyBuffer,
+        bodyText: bodyBuffer.toString("utf8"),
       });
 
       res.statusCode = responseStatus;

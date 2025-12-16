@@ -71,9 +71,9 @@ describe("Airbrake SDK → Airbroke intake contract", () => {
 
     expect(captured?.method).toBe("POST");
     expect(captured?.url).toBe("/api/v3/projects/1/notices?key=k1");
-    expect(typeof captured?.body).toBe("string");
+    expect(typeof captured?.bodyText).toBe("string");
 
-    const body = captured.body;
+    const body = captured.bodyText;
     const parsedBody = JSON.parse(body) as {
       errors?: unknown[];
       context?: Record<string, unknown>;
@@ -137,7 +137,7 @@ describe("Airbrake SDK → Airbroke intake contract", () => {
 
     expect(requests).toHaveLength(1);
     const [captured] = requests;
-    expect(typeof captured?.body).toBe("string");
+    expect(typeof captured?.bodyText).toBe("string");
 
     vi.mocked(db.project.findFirst).mockResolvedValue({
       id: "p1",
@@ -149,7 +149,7 @@ describe("Airbrake SDK → Airbroke intake contract", () => {
       new URL(`http://localhost/api/v3/notices?key=${projectKey}`),
       {
         method: "POST",
-        body: captured.body,
+        body: captured.bodyText,
         headers: {
           "content-type":
             typeof captured.headers["content-type"] === "string"

@@ -3,6 +3,7 @@
 "use client";
 
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -10,7 +11,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { integrations } from "@/lib/integrationsData";
+import {
+  airbrakeIntegrations,
+  sentryIntegrations,
+} from "@/lib/integrationsData";
 import { CodeBlock } from "./CodeBlock";
 import type { IntegrationItem } from "@/lib/integrationsData";
 
@@ -34,6 +38,7 @@ export default function IntegrationsGrid({
   replacements,
 }: IntegrationsGridProps) {
   const [selected, setSelected] = useState<IntegrationItem | null>(null);
+  const [provider, setProvider] = useState<"airbrake" | "sentry">("airbrake");
 
   const handleSelect = (item: IntegrationItem) => {
     setSelected(item);
@@ -43,24 +48,65 @@ export default function IntegrationsGrid({
     if (!nextOpen) setSelected(null);
   };
 
+  const handleProviderChange = (next: "airbrake" | "sentry") => {
+    setProvider(next);
+    setSelected(null);
+  };
+
+  const items =
+    provider === "airbrake" ? airbrakeIntegrations : sentryIntegrations;
+
   return (
     <div className="space-y-4">
+      <div className="flex flex-wrap items-center gap-2">
+        <Button
+          type="button"
+          size="sm"
+          variant={provider === "airbrake" ? "secondary" : "outline"}
+          onClick={() => handleProviderChange("airbrake")}
+        >
+          Airbrake SDKs
+        </Button>
+        <Button
+          type="button"
+          size="sm"
+          variant={provider === "sentry" ? "secondary" : "outline"}
+          onClick={() => handleProviderChange("sentry")}
+        >
+          Sentry SDKs
+        </Button>
+      </div>
+
       {/* Info banner */}
       <div className="relative rounded-lg bg-gray-900 px-4 py-3 text-sm text-gray-100 shadow-md sm:px-6">
-        <p className="leading-5">
-          <strong className="font-semibold text-indigo-300">Heads up!</strong>{" "}
-          Airbroke is an Airbrake-compatible error collector. Simply install an
-          official Airbrake SDK in your project and configure it to point to
-          Airbroke. Below are example snippets showing how to configure
-          Airbrake. Remember to disable extra performance stats or remote config
-          options, so only error notifications are sent to Airbroke.
-        </p>
+        {provider === "airbrake" ? (
+          <p className="leading-5">
+            <strong className="font-semibold text-indigo-300">Heads up!</strong>{" "}
+            Airbroke is an Airbrake-compatible error collector. Simply install
+            an official Airbrake SDK in your project and configure it to point
+            to Airbroke. Below are example snippets showing how to configure
+            Airbrake. Remember to disable extra performance stats or remote
+            config options, so only error notifications are sent to Airbroke.
+          </p>
+        ) : (
+          <p className="leading-5">
+            <strong className="font-semibold text-indigo-300">Heads up!</strong>{" "}
+            Airbroke also supports a Sentry-compatible envelope intake. Use your
+            project ID + API key with the{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-gray-100">
+              /api/sentry/&lt;PROJECT_ID&gt;/envelope
+            </code>{" "}
+            endpoint (shown as a <code>tunnel</code> in these snippets). Keep it
+            errors-only by disabling tracing, sessions/outcomes, and default
+            integrations.
+          </p>
+        )}
       </div>
 
       {/* Integration cards */}
       <Dialog onOpenChange={handleOpenChange}>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {integrations.map((item) => {
+          {items.map((item) => {
             const Icon = item.icon;
 
             return (
