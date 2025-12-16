@@ -30,9 +30,9 @@ function extractProjectKeyFromRequest(request: NextRequest): ProjectKeyInfo {
 }
 
 async function parseRequestBody(request: NextRequest) {
-  const contentType = request.headers.get("content-type") || "";
+  const contentType = (request.headers.get("content-type") || "").toLowerCase();
 
-  if (contentType === "text/plain" || contentType === "") {
+  if (contentType === "" || contentType.startsWith("text/plain")) {
     // older clients, airbrake-js, etc.
     const rawBody = await request.text();
     const parsedBody = JSON.parse(rawBody) as NoticeData;
