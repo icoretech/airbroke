@@ -21,7 +21,7 @@
     "shadcn:update:dry": "node bin/update-shadcn-components.mjs --dry"
   },
   "dependencies": {
-    "@ai-sdk/openai": "2.0.86",
+    "@ai-sdk/openai": "2.0.87",
     "@ai-sdk/react": "2.0.115",
     "@airbrake/browser": "2.1.9",
     "@airbrake/node": "2.1.9",
