@@ -48,9 +48,9 @@ airbroke.notify(new Error('Hello from Airbroke'))`;
               </h1>
               <p className="mt-6 text-lg leading-8 text-muted-foreground">
                 <strong>Airbroke</strong> ingests errors via an
-                Airbrake-compatible API, stores them in Postgres, and gives you
-                a modern, low-overhead UI with AI assistance, HTTP replay, and
-                occurrence charts.
+                Airbrake/Sentry-compatible API, stores them in Postgres, and
+                gives you a modern, low-overhead UI with AI assistance, HTTP
+                replay, and occurrence charts.
               </p>
               <div className="mt-8 flex items-center gap-3">
                 <Button asChild>

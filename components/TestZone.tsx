@@ -9,11 +9,11 @@ import {
   init as initSentry,
 } from "@sentry/browser";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import { SlEnergy } from "react-icons/sl";
 import {
-  sendAirbrakeNodeException,
-  sendSentryNodeException,
+  sendAirbrakeNodeException as sendAirbrakeNodeExceptionAction,
+  sendSentryNodeException as sendSentryNodeExceptionAction,
 } from "@/app/_actions";
 import { Button } from "@/components/ui/button";
 import {
@@ -28,81 +28,121 @@ import { Spinner } from "@/components/ui/spinner";
 import type { Project } from "@/prisma/generated/client";
 
 export default function TestZone({ project }: { project: Project }) {
-  const [isPending, startTransition] = useTransition();
-  const [isSentryPending, setSentryPending] = useState(false);
+  const [, startTransition] = useTransition();
+  const [isAirbrakeBrowserPending, setAirbrakeBrowserPending] = useState(false);
+  const [isAirbrakeNodePending, setAirbrakeNodePending] = useState(false);
+  const [isSentryBrowserPending, setSentryBrowserPending] = useState(false);
+  const [isSentryNodePending, setSentryNodePending] = useState(false);
   const { refresh } = useRouter();
+  const hasInitializedSentryBrowser = useRef(false);
 
-  const sendAirbrakeJsException = async () => {
-    const airbrake = new AirbrakeJsNotifier({
-      projectId: 1,
-      projectKey: project.api_key,
-      environment: "test",
-      host: window.location.origin,
-      remoteConfig: false,
-      performanceStats: false,
-      queryStats: false,
-    });
-
-    await airbrake.notify(
-      new Error("[AirbrakeJs] This is a test exception from Airbroke"),
-    );
-    startTransition(() => refresh());
+  const runWithPending = (
+    setPending: (next: boolean) => void,
+    action: () => Promise<void>,
+    label: string,
+  ) => {
+    setPending(true);
+    action()
+      .catch((e: unknown) => {
+        console.error(`${label} failed`, e);
+      })
+      .finally(() => {
+        startTransition(() => refresh());
+        setPending(false);
+      });
   };
 
-  const sendAirbrakeNode = () => {
-    startTransition(() => {
-      sendAirbrakeNodeException(
-        project.id,
-        project.api_key,
-        window.location.origin,
-      );
-    });
-  };
+  const sendAirbrakeBrowserException = () => {
+    runWithPending(
+      setAirbrakeBrowserPending,
+      async () => {
+        const airbrake = new AirbrakeJsNotifier({
+          projectId: 1,
+          projectKey: project.api_key,
+          environment: "test",
+          host: window.location.origin,
+          remoteConfig: false,
+          performanceStats: false,
+          queryStats: false,
+        });
 
-  const sendSentryBrowser = async () => {
-    setSentryPending(true);
-    const hostUrl = new URL(window.location.origin);
-    initSentry({
-      // Sentry's DSN validation requires a numeric projectId in debug builds.
-      // We use a placeholder DSN and route real ingestion via `tunnel`.
-      dsn: `https://${project.api_key}@${hostUrl.host}/1`,
-      environment: "test",
-      release: "airbroke-test@1.0.0",
-      tunnel: `${window.location.origin}/api/sentry/${project.id}/envelope?sentry_key=${project.api_key}`,
-      tracesSampleRate: 0,
-      sampleRate: 1,
-      sendClientReports: false,
-      defaultIntegrations: false,
-      integrations: [],
-      beforeSend(event) {
-        event.user = undefined;
-        return event;
+        await airbrake.notify(
+          new Error("[AirbrakeJs] This is a test exception from Airbroke"),
+        );
       },
-    });
-
-    const err = new Error("[Sentry] This is a test exception from Airbroke");
-    captureSentryException(err);
-
-    await flushSentry(5000).catch((e) => {
-      console.error("Sentry browser test flush failed", e);
-    });
-
-    startTransition(() => refresh());
-    setSentryPending(false);
+      "Airbrake browser test",
+    );
   };
 
-  const sendSentryNode = async () => {
-    setSentryPending(true);
-    await sendSentryNodeException(
-      project.id,
-      project.api_key,
-      window.location.origin,
-    ).catch((e) => {
-      console.error("Sentry node test failed", e);
-    });
+  const sendAirbrakeNodeException = () => {
+    runWithPending(
+      setAirbrakeNodePending,
+      async () => {
+        await sendAirbrakeNodeExceptionAction(
+          project.id,
+          project.api_key,
+          window.location.origin,
+        );
+      },
+      "Airbrake Node.js test",
+    );
+  };
 
-    startTransition(() => refresh());
-    setSentryPending(false);
+  const sendSentryBrowserException = () => {
+    runWithPending(
+      setSentryBrowserPending,
+      async () => {
+        if (!hasInitializedSentryBrowser.current) {
+          const hostUrl = new URL(window.location.origin);
+          initSentry({
+            // Sentry's DSN validation requires a numeric projectId in debug builds.
+            // We use a placeholder DSN and route real ingestion via `tunnel`.
+            dsn: `https://${project.api_key}@${hostUrl.host}/1`,
+            environment: "test",
+            release: "airbroke-test@1.0.0",
+            tunnel: `${window.location.origin}/api/sentry/${project.id}/envelope?sentry_key=${project.api_key}`,
+            tracesSampleRate: 0,
+            sampleRate: 1,
+            sendClientReports: false,
+            sendDefaultPii: false,
+            maxBreadcrumbs: 0,
+            defaultIntegrations: false,
+            integrations: [],
+            beforeSend(event) {
+              event.user = undefined;
+              event.request = undefined;
+              event.tags = undefined;
+              event.extra = undefined;
+              event.contexts = undefined;
+              event.breadcrumbs = undefined;
+              return event;
+            },
+          });
+          hasInitializedSentryBrowser.current = true;
+        }
+
+        captureSentryException(
+          new Error("[Sentry] This is a test exception from Airbroke"),
+        );
+
+        await flushSentry(5000);
+      },
+      "Sentry browser test",
+    );
+  };
+
+  const sendSentryNodeException = () => {
+    runWithPending(
+      setSentryNodePending,
+      async () => {
+        await sendSentryNodeExceptionAction(
+          project.id,
+          project.api_key,
+          window.location.origin,
+        );
+      },
+      "Sentry Node.js test",
+    );
   };
 
   return (
@@ -128,11 +168,15 @@ export default function TestZone({ project }: { project: Project }) {
           <Button
             variant="outline"
             size="sm"
-            onClick={sendAirbrakeJsException}
-            disabled={isPending}
+            onClick={sendAirbrakeBrowserException}
+            disabled={isAirbrakeBrowserPending}
           >
-            {isPending ? <Spinner /> : <SlEnergy aria-hidden="true" />}
-            {isPending ? "Sending…" : "Test"}
+            {isAirbrakeBrowserPending ? (
+              <Spinner />
+            ) : (
+              <SlEnergy aria-hidden="true" />
+            )}
+            {isAirbrakeBrowserPending ? "Sending…" : "Test"}
           </Button>
         </ItemActions>
       </Item>
@@ -152,11 +196,15 @@ export default function TestZone({ project }: { project: Project }) {
           <Button
             variant="outline"
             size="sm"
-            onClick={sendAirbrakeNode}
-            disabled={isPending}
+            onClick={sendAirbrakeNodeException}
+            disabled={isAirbrakeNodePending}
           >
-            {isPending ? <Spinner /> : <SlEnergy aria-hidden="true" />}
-            {isPending ? "Sending…" : "Test"}
+            {isAirbrakeNodePending ? (
+              <Spinner />
+            ) : (
+              <SlEnergy aria-hidden="true" />
+            )}
+            {isAirbrakeNodePending ? "Sending…" : "Test"}
           </Button>
         </ItemActions>
       </Item>
@@ -175,15 +223,15 @@ export default function TestZone({ project }: { project: Project }) {
           <Button
             variant="outline"
             size="sm"
-            onClick={sendSentryBrowser}
-            disabled={isPending || isSentryPending}
+            onClick={sendSentryBrowserException}
+            disabled={isSentryBrowserPending}
           >
-            {isPending || isSentryPending ? (
+            {isSentryBrowserPending ? (
               <Spinner />
             ) : (
               <SlEnergy aria-hidden="true" />
             )}
-            {isPending || isSentryPending ? "Sending…" : "Test"}
+            {isSentryBrowserPending ? "Sending…" : "Test"}
           </Button>
         </ItemActions>
       </Item>
@@ -203,15 +251,15 @@ export default function TestZone({ project }: { project: Project }) {
           <Button
             variant="outline"
             size="sm"
-            onClick={sendSentryNode}
-            disabled={isPending || isSentryPending}
+            onClick={sendSentryNodeException}
+            disabled={isSentryNodePending}
           >
-            {isPending || isSentryPending ? (
+            {isSentryNodePending ? (
               <Spinner />
             ) : (
               <SlEnergy aria-hidden="true" />
             )}
-            {isPending || isSentryPending ? "Sending…" : "Test"}
+            {isSentryNodePending ? "Sending…" : "Test"}
           </Button>
         </ItemActions>
       </Item>

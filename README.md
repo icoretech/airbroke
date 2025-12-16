@@ -24,7 +24,7 @@
 > Airbroke is currently in active development! Using it in production environments is at your own discretion. We appreciate your feedback and support as we work towards a stable release.
 
 - :floppy_disk: Based on PostgreSQL
-- :globe_with_meridians: Airbrake(tm)-compatible HTTP collector endpoint
+- :globe_with_meridians: Airbrake(tm)/Sentry(tm)-compatible HTTP collector endpoints
 - :computer: Modern, React-based frontend for error management
 - :rocket: Designed with simplicity at its core
 - :wrench: Maintains small database footprint even under heavy data ingestion
