@@ -34,7 +34,7 @@ services:
       - key: AUTH_SECRET
         generateValue: true
       - key: AIRBROKE_CORS_ORIGINS
-        sync: false
+        value: "*"
 databases:
   - name: airbroke-starter-db
     plan: free
