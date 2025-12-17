@@ -1,0 +1,36 @@
+{
+  "name": "airbroke",
+  "description": "Open Source Error Catcher (Airbrake/Sentry-compatible) built with Next.js and Postgres.",
+  "repository": "https://github.com/icoretech/airbroke",
+  "keywords": ["nextjs", "postgres", "airbrake", "sentry", "error-tracking"],
+  "website": "https://github.com/icoretech/airbroke",
+  "scripts": {
+    "postdeploy": "yarn db:migrate"
+  },
+  "env": {
+    "AUTH_SECRET": {
+      "description": "Auth.js secret used to sign cookies and tokens.",
+      "generator": "secret"
+    },
+    "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": {
+      "description": "Optional: set this if you run multiple dynos/instances so Server Actions encryption is consistent across servers.",
+      "generator": "secret",
+      "required": false
+    },
+    "AIRBROKE_CORS_ORIGINS": {
+      "description": "Comma-separated list of allowed origins for /api/v3/notices CORS (or '*' for quick starts).",
+      "value": "*",
+      "required": false
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql"
+    }
+  ],
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  }
+}

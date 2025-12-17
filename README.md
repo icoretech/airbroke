@@ -103,6 +103,31 @@ Detailed instructions for this process can also be found in the [Prisma deployme
 
 The Render Deploy Button uses `render.yaml` (Render Blueprint). It runs `yarn db:migrate` before each deploy. The template defaults `AIRBROKE_CORS_ORIGINS` to `*` for quick starts — lock it down in the Render dashboard for production.
 
+### Railway
+
+Railway supports one-click deployments via **Templates**. Because templates are created and published from within Railway, you’ll need to create a template once and then wire up the button URL.
+
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/REPLACE_ME?utm_medium=integration&utm_source=button&utm_campaign=airbroke)
+
+Steps:
+
+- Create a Railway project from this repo (GitHub deploy).
+- Add a PostgreSQL database in Railway.
+- Set required environment variables (Railway can suggest vars from `.env.dist`).
+- Publish the project as a Template and replace `REPLACE_ME` above with the template ID.
+
+### Netlify
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/icoretech/airbroke)
+
+The Deploy to Netlify button is configured via `netlify.toml`. The build command runs DB migrations only for production deploys.
+
+### Heroku
+
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://www.heroku.com/deploy?template=https://github.com/icoretech/airbroke)
+
+The Deploy to Heroku button uses `app.json` to provision add-ons and prompt for required environment variables.
+
 ### Helm
 
 You can deploy Airbroke to Kubernetes using the dedicated Helm chart.
@@ -130,7 +155,7 @@ You can override the default values in the `docker-compose.yml` file by creating
 
 Please view all the available configuration variables in the [`.env.dist`](https://github.com/icoretech/airbroke/blob/main/.env.dist) file.
 
-Airbroke requires some environment variables set at runtime, `DATABASE_URL` and `DIRECT_URL` are mandatory, some examples:
+Airbroke requires `DATABASE_URL` at runtime. `DIRECT_URL` is required when you need a *direct* database connection for migrations (for example, when `DATABASE_URL` goes through PgBouncer or a data proxy). Some examples:
 
 ```sh
 # Example Connection to Prisma Data Proxy
