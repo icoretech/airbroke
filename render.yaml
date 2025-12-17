@@ -1,8 +1,9 @@
-#### Render Blueprint specification: https://dashboard.render.com/blueprints ####
-## 👇 Preview environments: https://render.com/docs/preview-environments ###
-# previewsEnabled: true
-## 👇 Automatically nuke the environment after X days of inactivity to reduce billing:
-# previewsExpireAfterDays: 2
+#### Render Blueprint specification: https://render.com/docs/blueprint-spec ####
+## Note: Render does not support variable interpolation in render.yaml.
+## Preview environments: https://render.com/docs/preview-environments
+# previews:
+#   generation: automatic
+#   expireAfterDays: 2
 services:
   - type: web
     runtime: node
@@ -12,11 +13,13 @@ services:
     # previewPlan: starter
     ## 👇 Preview Environment Initialization script:
     # initialDeployHook: yarn db:seed
-    buildCommand: yarn install && yarn build
-    preDeployCommand: npx prisma migrate deploy
-    startCommand: yarn start
+    buildCommand: corepack yarn install --immutable && corepack yarn build
+    preDeployCommand: corepack yarn db:migrate
+    startCommand: corepack yarn start
     healthCheckPath: /api/hc
     envVars:
+      - key: NODE_VERSION
+        value: 24.12.0
       - key: DATABASE_URL
         fromDatabase:
           name: airbroke-starter-db
@@ -25,12 +28,15 @@ services:
         fromDatabase:
           name: airbroke-starter-db
           property: connectionString
+      - key: NEXT_SERVER_ACTIONS_ENCRYPTION_KEY
+        generateValue: true
+        sync: false
       - key: AUTH_SECRET
-        value: your_nextauth_secret_here
-      - key: AUTH_URL
-        value: https://$RENDER_EXTERNAL_HOSTNAME
+        generateValue: true
+        sync: false
       - key: AIRBROKE_CORS_ORIGINS
-        value: https://$RENDER_EXTERNAL_HOSTNAME
+        value: "*"
+        sync: false
 databases:
   - name: airbroke-starter-db
     plan: free

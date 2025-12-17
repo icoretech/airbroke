@@ -62,7 +62,7 @@ yarn install
 yarn build
 ```
 
-This will generate a `build` folder that you can deploy to your server, but please refer to the `Dockerfile` to learn more about what to do after that because you might need to copy over some assets.
+This will generate a `.next` build output. Because this repo uses `output: "standalone"`, the runnable server output is in `.next/standalone` (see the `Dockerfile` for a working copy strategy / asset layout).
 
 You can also run `yarn start` to test the production build locally on port `3000`.
 
@@ -84,22 +84,24 @@ docker run -p 3000:3000 icoretech/airbroke:latest
 
 ### Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ficoretech%2Fairbroke%2Ftree%2Fmain&env=DATABASE_URL,DIRECT_URL,AUTH_SECRET,AUTH_URL,AIRBROKE_CORS_ORIGINS&project-name=airbroke&repository-name=airbroke)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ficoretech%2Fairbroke&project-name=airbroke&repository-name=airbroke&env=DATABASE_URL%2CDIRECT_URL%2CAUTH_SECRET%2CAIRBROKE_CORS_ORIGINS&envDescription=Required+env+vars+for+Airbroke+%28Prisma+%2B+Auth.js%29.+Generate+a+random+AUTH_SECRET.+Set+AIRBROKE_CORS_ORIGINS+to+your+app+origin%28s%29.&envLink=https%3A%2F%2Fgithub.com%2Ficoretech%2Fairbroke%2Fblob%2Fmain%2F.env.dist&envDefaults=%7B%22AIRBROKE_CORS_ORIGINS%22%3A%22*%22%7D&build-command=if+%5B+%22%24VERCEL_ENV%22+%3D+%22production%22+%5D%3B+then+corepack+yarn+db%3Amigrate%3B+fi+%26%26+corepack+yarn+build)
 
-While [testing on Vercel](https://nextjs.org/learn/basics/deploying-nextjs-app/platform-details) has not been conducted, Airbroke should be fully compatible.
+While [testing on Vercel](https://nextjs.org/docs/app/getting-started/deploying) has not been conducted, Airbroke should be fully compatible.
 
 It's important to keep the following points in mind:
 
 - For optimal performance, ensure your database is located in the same region.
 - The endpoints under `/api/*` will be converted into serverless functions, which may introduce potential cold boot time.
-- Due to the nature of serverless functions, your database connections will need to pass through a data proxy.
-- When deploying with Vercel, migrations will need to be executed during the build step. Use the `prisma migrate deploy` command to apply migrations before Vercel proceeds with the deployment of serverless functions.
+- If you connect directly to Postgres, use a pooler (or Prisma Accelerate / Data Proxy) to avoid exhausting DB connections.
+- Migrations must be executed as part of deployment. The Deploy Button above sets a `build-command` that runs DB migrations only for `VERCEL_ENV=production` before building (adjust this in your Vercel project settings if you need a different workflow).
 
-Detailed instructions for this process can also be found in the [Prisma deployment guide for Vercel](https://www.prisma.io/docs/guides/deployment/deployment-guides/deploying-to-vercel#prisma-workflow).
+Detailed instructions for this process can also be found in the [Prisma deployment guide for Vercel](https://www.prisma.io/docs/orm/prisma-client/deployment/serverless/deploy-to-vercel).
 
 ### Render.com
 
 [![Deploy with Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/icoretech/airbroke)
+
+The Render Deploy Button uses `render.yaml` (Render Blueprint). It runs `yarn db:migrate` before each deploy. The template defaults `AIRBROKE_CORS_ORIGINS` to `*` for quick starts — lock it down in the Render dashboard for production.
 
 ### Helm
 
