@@ -94,6 +94,7 @@ It's important to keep the following points in mind:
 - The endpoints under `/api/*` will be converted into serverless functions, which may introduce potential cold boot time.
 - If you connect directly to Postgres, use a pooler (or Prisma Accelerate / Data Proxy) to avoid exhausting DB connections.
 - Migrations must be executed as part of deployment. The Deploy Button above sets a `build-command` that runs DB migrations only for `VERCEL_ENV=production` before building (adjust this in your Vercel project settings if you need a different workflow).
+- The Deploy Button defaults `AIRBROKE_CORS_ORIGINS` to `*` for quick starts. After your first deploy, set it to your deployed origin (for example `https://<project>.vercel.app`) and any custom domains.
 
 Detailed instructions for this process can also be found in the [Prisma deployment guide for Vercel](https://www.prisma.io/docs/orm/prisma-client/deployment/serverless/deploy-to-vercel).
 
@@ -122,11 +123,15 @@ Steps:
 
 The Deploy to Netlify button is configured via `netlify.toml`. The build command runs DB migrations only for production deploys.
 
+Because you don't know your final `*.netlify.app` URL before the first deploy, you can start with `AIRBROKE_CORS_ORIGINS=*` and then tighten it to your deployed origin (for example `https://<site>.netlify.app`) and any custom domains.
+
 ### Heroku
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://www.heroku.com/deploy?template=https://github.com/icoretech/airbroke)
 
 The Deploy to Heroku button uses `app.json` to provision add-ons and prompt for required environment variables.
+
+Because you don't know your final `*.herokuapp.com` URL before the app is created, you can start with `AIRBROKE_CORS_ORIGINS=*` and then tighten it to your deployed origin (for example `https://<app>.herokuapp.com`) and any custom domains.
 
 ### Helm
 
