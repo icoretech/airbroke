@@ -14,8 +14,9 @@ services:
     ## 👇 Preview Environment Initialization script:
     # initialDeployHook: yarn db:seed
     buildCommand: corepack yarn install --immutable && corepack yarn build
-    preDeployCommand: corepack yarn db:migrate
-    startCommand: corepack yarn start
+    # preDeployCommand is not supported on free tier services.
+    # On free tier, run migrations at boot (safe no-op if already applied).
+    startCommand: corepack yarn db:migrate && corepack yarn start
     healthCheckPath: /api/hc
     envVars:
       - key: NODE_VERSION
@@ -30,12 +31,9 @@ services:
           property: connectionString
       - key: NEXT_SERVER_ACTIONS_ENCRYPTION_KEY
         generateValue: true
-        sync: false
       - key: AUTH_SECRET
         generateValue: true
-        sync: false
       - key: AIRBROKE_CORS_ORIGINS
-        value: "*"
         sync: false
 databases:
   - name: airbroke-starter-db
