@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.1.83](https://github.com/icoretech/airbroke/compare/v1.1.82...v1.1.83) (2025-12-17)
+
+
+### Features
+
+* **sentry:** add sentry integrations ([1f22b66](https://github.com/icoretech/airbroke/commit/1f22b6640c1b700f66a9c481e39c2e0d47a3cdcf))
+* **sentry:** add sentry support ([8213a3b](https://github.com/icoretech/airbroke/commit/8213a3bbe90c359c0b4548f344f0366f1a0f274b))
+* **sentry:** rework danger zone for sentry ([45ed77d](https://github.com/icoretech/airbroke/commit/45ed77dfda37508bf7077628398b01397b2afbf3))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/openai to v2.0.87 ([#1260](https://github.com/icoretech/airbroke/issues/1260)) ([179f463](https://github.com/icoretech/airbroke/commit/179f463825230a5a2b5654667744e5864d4787ed))
+* **deps:** update dependency zod to v4.2.1 ([#1262](https://github.com/icoretech/airbroke/issues/1262)) ([813d782](https://github.com/icoretech/airbroke/commit/813d782fa6aeaf65fdee7e6eeb11e0e716453127))
+* **intake:** Accept Content-Type: text/plain;charset=UTF-8 in the Airbrake intake ([4db3ca0](https://github.com/icoretech/airbroke/commit/4db3ca0961aedfecf64616b452c43e2cb9835103))
+* **ui:** fixes ([5b259e4](https://github.com/icoretech/airbroke/commit/5b259e411d486390eab6ce26c0b7e6ba02073d4e))
+
 ## [1.1.82](https://github.com/icoretech/airbroke/compare/v1.1.81...v1.1.82) (2025-12-15)
 
 
