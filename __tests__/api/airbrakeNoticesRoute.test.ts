@@ -116,7 +116,11 @@ describe("POST /api/v3/notices", () => {
   });
 
   it("handles OPTIONS preflight with CORS headers", async () => {
-    const res = await OPTIONS();
+    const req = new NextRequest(new URL("http://localhost/api/v3/notices"), {
+      method: "OPTIONS",
+      headers: { origin: "http://localhost:3000" },
+    });
+    const res = await OPTIONS(req);
     expect(res.status).toBe(200);
     expect(res.headers.get("Access-Control-Allow-Methods")).toBe(
       "POST, OPTIONS",

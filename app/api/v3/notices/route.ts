@@ -112,10 +112,10 @@ async function POST(request: NextRequest) {
   });
 }
 
-async function OPTIONS(request?: NextRequest) {
+async function OPTIONS(request: NextRequest) {
   return new NextResponse("", {
     status: 200,
-    headers: corsHeaders(request?.headers ?? new Headers()),
+    headers: corsHeaders(request.headers),
   });
 }
 
