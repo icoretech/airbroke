@@ -3,7 +3,7 @@
 import { gzipSync } from "node:zlib";
 import { createEnvelope, serializeEnvelope } from "@sentry/core";
 import { NextRequest } from "next/server";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("@/lib/db", () => ({
   db: {
@@ -19,7 +19,9 @@ vi.mock("@/lib/processError", () => ({
 
 const { db } = await import("@/lib/db");
 const { processError } = await import("@/lib/processError");
-const { POST } = await import("@/app/api/sentry/[project_id]/envelope/route");
+const { OPTIONS, POST } = await import(
+  "@/app/api/sentry/[project_id]/envelope/route"
+);
 
 const envelope = (() => {
   const event = {
@@ -119,5 +121,45 @@ describe("POST /api/sentry/[project_id]/envelope", () => {
 
     expect(res.status).toBe(201);
     expect(processError).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("OPTIONS /api/sentry/[project_id]/envelope", () => {
+  const previousOrigins = process.env.AIRBROKE_CORS_ORIGINS;
+
+  afterEach(() => {
+    vi.clearAllMocks();
+    if (previousOrigins === undefined) {
+      delete process.env.AIRBROKE_CORS_ORIGINS;
+    } else {
+      process.env.AIRBROKE_CORS_ORIGINS = previousOrigins;
+    }
+  });
+
+  it("handles OPTIONS preflight with CORS headers", async () => {
+    process.env.AIRBROKE_CORS_ORIGINS = "http://localhost:3000";
+
+    const req = new NextRequest(
+      new URL("http://localhost/api/sentry/p1/envelope"),
+      {
+        method: "OPTIONS",
+        headers: {
+          origin: "http://localhost:3000",
+          "access-control-request-headers": "x-sentry-auth, content-type",
+        },
+      },
+    );
+
+    const res = await OPTIONS(req);
+    expect(res.status).toBe(200);
+    expect(res.headers.get("Access-Control-Allow-Methods")).toBe(
+      "POST, OPTIONS",
+    );
+    expect(res.headers.get("Access-Control-Allow-Origin")).toBe(
+      "http://localhost:3000",
+    );
+    expect(res.headers.get("Access-Control-Allow-Headers")).toBe(
+      "x-sentry-auth, content-type",
+    );
   });
 });
