@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.84](https://github.com/icoretech/airbroke/compare/v1.1.83...v1.1.84) (2025-12-17)
+
+
+### Bug Fixes
+
+* **api:** add CORS for Sentry envelope ([94fd502](https://github.com/icoretech/airbroke/commit/94fd50274cbbe7ed9be3d9a1eb35add078ba3138))
+* **api:** correct OPTIONS handler signature ([cedadcc](https://github.com/icoretech/airbroke/commit/cedadccdbecc2f0d9912b1dcb2b65180b70b8f87))
+* **render:** default CORS origins for blueprint ([0cec35e](https://github.com/icoretech/airbroke/commit/0cec35e6c3ff31312faff5d86220b2bdb632e7a2))
+* **render:** make blueprint free-tier compatible ([f2ef307](https://github.com/icoretech/airbroke/commit/f2ef3074f501391828072f09b052c3f9b2139a45))
+
 ## [1.1.83](https://github.com/icoretech/airbroke/compare/v1.1.82...v1.1.83) (2025-12-17)
 
 
