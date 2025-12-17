@@ -2,6 +2,7 @@
 
 import { brotliDecompressSync, gunzipSync, inflateSync } from "node:zlib";
 import { NextResponse } from "next/server";
+import { corsHeaders } from "@/lib/cors";
 import { db } from "@/lib/db";
 import { parseSentryEnvelope } from "@/lib/parseSentryEnvelope";
 import { processError } from "@/lib/processError";
@@ -56,7 +57,10 @@ async function POST(req: NextRequest, { params }: { params: Params }) {
   const projectKey = getProjectKey(req);
 
   if (!projectKey) {
-    return NextResponse.json({ error: "missing sentry_key" }, { status: 400 });
+    return NextResponse.json(
+      { error: "missing sentry_key" },
+      { status: 400, headers: corsHeaders(req.headers) },
+    );
   }
 
   const project = await db.project.findFirst({
@@ -66,7 +70,7 @@ async function POST(req: NextRequest, { params }: { params: Params }) {
   if (!project) {
     return NextResponse.json(
       { error: "project not found or paused" },
-      { status: 404 },
+      { status: 404, headers: corsHeaders(req.headers) },
     );
   }
 
@@ -76,7 +80,7 @@ async function POST(req: NextRequest, { params }: { params: Params }) {
   if (parsed.notices.length === 0) {
     return NextResponse.json(
       { error: "no event items in envelope" },
-      { status: 400 },
+      { status: 400, headers: corsHeaders(req.headers) },
     );
   }
 
@@ -98,8 +102,15 @@ async function POST(req: NextRequest, { params }: { params: Params }) {
 
   return NextResponse.json(
     { id: firstEventId ?? parsed.notices[0]?.eventId ?? null },
-    { status: 201 },
+    { status: 201, headers: corsHeaders(req.headers) },
   );
 }
 
-export { POST };
+async function OPTIONS(req?: NextRequest) {
+  return new NextResponse("", {
+    status: 200,
+    headers: corsHeaders(req?.headers ?? new Headers()),
+  });
+}
+
+export { OPTIONS, POST };

@@ -101,7 +101,7 @@ Detailed instructions for this process can also be found in the [Prisma deployme
 
 [![Deploy with Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/icoretech/airbroke)
 
-The Render Deploy Button uses `render.yaml` (Render Blueprint). It runs `yarn db:migrate` before each deploy. The template defaults `AIRBROKE_CORS_ORIGINS` to `*` for quick starts — lock it down in the Render dashboard for production.
+The Render Deploy Button uses `render.yaml` (Render Blueprint). It runs `yarn db:migrate` before each deploy. The template defaults `AIRBROKE_CORS_ORIGINS` to `*` for quick starts — lock it down in the Render dashboard for production (this controls CORS for `/api/v3/notices` and `/api/sentry/*/envelope`).
 
 ### Railway
 

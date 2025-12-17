@@ -18,7 +18,7 @@
       "required": false
     },
     "AIRBROKE_CORS_ORIGINS": {
-      "description": "Comma-separated list of allowed origins for /api/v3/notices CORS (or '*' for quick starts).",
+      "description": "Comma-separated list of allowed origins for /api/v3/notices and /api/sentry/*/envelope CORS (or '*' for quick starts).",
       "value": "*",
       "required": false
     }

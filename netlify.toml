@@ -10,4 +10,4 @@
 [template.environment]
   DATABASE_URL = "PostgreSQL connection string (use a pooler/data proxy for serverless runtimes)."
   AUTH_SECRET = "Generate a random string (e.g. `openssl rand -base64 32`)."
-  AIRBROKE_CORS_ORIGINS = "Comma-separated list of allowed origins for /api/v3/notices CORS (or '*' for quick starts)."
+  AIRBROKE_CORS_ORIGINS = "Comma-separated list of allowed origins for /api/v3/notices and /api/sentry/*/envelope CORS (or '*' for quick starts)."

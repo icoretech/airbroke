@@ -2,6 +2,7 @@
 
 import { customAlphabet, urlAlphabet } from "nanoid";
 import { NextResponse } from "next/server";
+import { corsHeaders } from "@/lib/cors";
 import { db } from "@/lib/db";
 import parseNotice, { type NoticeData } from "@/lib/parseNotice";
 import { processError } from "@/lib/processError";
@@ -43,18 +44,6 @@ async function parseRequestBody(request: NextRequest) {
   }
 }
 
-function generateCorsHeaders() {
-  const corsOrigins = process.env.AIRBROKE_CORS_ORIGINS?.split(",") || [];
-
-  return {
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers":
-      "origin, accept, content-type, authorization",
-    "Access-Control-Allow-Origin":
-      corsOrigins.length > 0 ? corsOrigins.join(", ") : "*",
-  };
-}
-
 function getServerHostname(request: NextRequest) {
   const host = request.headers.get("host");
   const protocols = (request.headers.get("x-forwarded-proto") || "https").split(
@@ -81,11 +70,11 @@ async function POST(request: NextRequest) {
     if (requestType === "params") {
       return NextResponse.json(json_response, {
         status: 404,
-        headers: generateCorsHeaders(),
+        headers: corsHeaders(request.headers),
       });
     } else {
       const headers = {
-        ...generateCorsHeaders(),
+        ...corsHeaders(request.headers),
         "WWW-Authenticate": `Bearer realm="Airbroke"`,
       };
       return NextResponse.json(json_response, { status: 404, headers });
@@ -119,12 +108,15 @@ async function POST(request: NextRequest) {
 
   return NextResponse.json(responseJSON, {
     status: 201,
-    headers: generateCorsHeaders(),
+    headers: corsHeaders(request.headers),
   });
 }
 
-async function OPTIONS() {
-  return new NextResponse("", { status: 200, headers: generateCorsHeaders() });
+async function OPTIONS(request?: NextRequest) {
+  return new NextResponse("", {
+    status: 200,
+    headers: corsHeaders(request?.headers ?? new Headers()),
+  });
 }
 
 export { OPTIONS, POST };
