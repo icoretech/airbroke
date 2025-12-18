@@ -50,7 +50,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "4.1.0",
-    "lucide-react": "^0.561.0",
+    "lucide-react": "^0.562.0",
     "motion": "^12.23.26",
     "nanoid": "5.1.6",
     "next": "16.0.10",
