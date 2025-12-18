@@ -4339,7 +4339,7 @@ __metadata:
     tw-animate-css: "npm:^1.4.0"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.0"
-    vite-tsconfig-paths: "npm:6.0.2"
+    vite-tsconfig-paths: "npm:6.0.3"
     vitest: "npm:4.0.16"
     zod: "npm:4.2.1"
   languageName: unknown
@@ -7924,9 +7924,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-tsconfig-paths@npm:6.0.2":
-  version: 6.0.2
-  resolution: "vite-tsconfig-paths@npm:6.0.2"
+"vite-tsconfig-paths@npm:6.0.3":
+  version: 6.0.3
+  resolution: "vite-tsconfig-paths@npm:6.0.3"
   dependencies:
     debug: "npm:^4.1.1"
     globrex: "npm:^0.1.2"
@@ -7936,7 +7936,7 @@ __metadata:
   peerDependenciesMeta:
     vite:
       optional: true
-  checksum: 10/d739fec8a661973325fa798429cd79a013b5f08bddd9b74511342d9af99038bc72768873fb259504b9d8fd6c6c8ee77535d1af97692af7f2aa76f65c167db2a1
+  checksum: 10/271cdc040a03181d13e4253e99ec6deec1cbe4ec4cb2a1377d46dba403483f8e38a5c2ed29ad0493ed51c2cfd658847cb1cdc73e438d6a8bcdd2b52df19d72e2
   languageName: node
   linkType: hard
 
