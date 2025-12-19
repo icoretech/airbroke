@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.85](https://github.com/icoretech/airbroke/compare/v1.1.84...v1.1.85) (2025-12-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency next to v16.1.0 ([#1229](https://github.com/icoretech/airbroke/issues/1229)) ([f92bf53](https://github.com/icoretech/airbroke/commit/f92bf5382af29e4ef053cca19865c6219f9e407e))
+* **deps:** update sentry-javascript monorepo to v10.32.1 ([#1296](https://github.com/icoretech/airbroke/issues/1296)) ([3b7c08a](https://github.com/icoretech/airbroke/commit/3b7c08a90dbd249b65292967bcf9d22b93bfd064))
+
 ## [1.1.84](https://github.com/icoretech/airbroke/compare/v1.1.83...v1.1.84) (2025-12-17)
 
 
