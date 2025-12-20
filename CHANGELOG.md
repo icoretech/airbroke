@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.86](https://github.com/icoretech/airbroke/compare/v1.1.85...v1.1.86) (2025-12-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/react to v2.0.118 ([#1299](https://github.com/icoretech/airbroke/issues/1299)) ([cdfdc1a](https://github.com/icoretech/airbroke/commit/cdfdc1a9c17c84cc323e0b6fa0ddbd57b5291269))
+* **deps:** update dependency ai to v5.0.116 ([#1261](https://github.com/icoretech/airbroke/issues/1261)) ([242097b](https://github.com/icoretech/airbroke/commit/242097ba80b81088f7cbf712adf36f420e5636b0))
+
 ## [1.1.85](https://github.com/icoretech/airbroke/compare/v1.1.84...v1.1.85) (2025-12-19)
 
 
