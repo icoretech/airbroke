@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "2.0.88",
-    "@ai-sdk/react": "2.0.117",
+    "@ai-sdk/react": "2.0.118",
     "@airbrake/browser": "2.1.9",
     "@airbrake/node": "2.1.9",
     "@microlink/react-json-view": "1.27.0",
