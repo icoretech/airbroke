@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.87](https://github.com/icoretech/airbroke/compare/v1.1.86...v1.1.87) (2025-12-22)
+
+
+### Bug Fixes
+
+* **deps:** align ai sdk versions ([82315ab](https://github.com/icoretech/airbroke/commit/82315ab46f13f152ac9f0ab301090449513ec667))
+* **deps:** bump next to 16.1.1 ([ed74a4b](https://github.com/icoretech/airbroke/commit/ed74a4bba12b09313ea8d32231cd81a45d948b9d))
+
 ## [1.1.86](https://github.com/icoretech/airbroke/compare/v1.1.85...v1.1.86) (2025-12-20)
 
 
