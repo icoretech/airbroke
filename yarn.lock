@@ -12,19 +12,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/gateway@npm:3.0.0":
-  version: 3.0.0
-  resolution: "@ai-sdk/gateway@npm:3.0.0"
-  dependencies:
-    "@ai-sdk/provider": "npm:3.0.0"
-    "@ai-sdk/provider-utils": "npm:4.0.0"
-    "@vercel/oidc": "npm:3.0.5"
-  peerDependencies:
-    zod: ^3.25.76 || ^4.1.8
-  checksum: 10/c208fe8d976db9a78b706f27d7471e53e4995161460e11393280a732083672db98596227a8e145c3f3c99304d252f385894540b9a4d19c0e6dca08bdcbbad937
-  languageName: node
-  linkType: hard
-
 "@ai-sdk/gateway@npm:3.0.2":
   version: 3.0.2
   resolution: "@ai-sdk/gateway@npm:3.0.2"
@@ -47,19 +34,6 @@ __metadata:
   peerDependencies:
     zod: ^3.25.76 || ^4.1.8
   checksum: 10/ae0a79aaea83d7573f0fdf334467f7c3eea8bb990394e2b8be2494c3b5daccfc5acfbcb0d5c8bc3463e2130e1b6c736da23c96ebafc479b3137ee7afc5bbecf8
-  languageName: node
-  linkType: hard
-
-"@ai-sdk/provider-utils@npm:4.0.0":
-  version: 4.0.0
-  resolution: "@ai-sdk/provider-utils@npm:4.0.0"
-  dependencies:
-    "@ai-sdk/provider": "npm:3.0.0"
-    "@standard-schema/spec": "npm:^1.1.0"
-    eventsource-parser: "npm:^3.0.6"
-  peerDependencies:
-    zod: ^3.25.76 || ^4.1.8
-  checksum: 10/618d8bb2b242d3cace791ab007925fd0f0bd79172d6b2d382fdce625b56a6fd951111d202ffd3ff4762edef440a4e5bae53cf346905524e765bd7aaf422f5cf5
   languageName: node
   linkType: hard
 
@@ -4288,20 +4262,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:6.0.1":
-  version: 6.0.1
-  resolution: "ai@npm:6.0.1"
-  dependencies:
-    "@ai-sdk/gateway": "npm:3.0.0"
-    "@ai-sdk/provider": "npm:3.0.0"
-    "@ai-sdk/provider-utils": "npm:4.0.0"
-    "@opentelemetry/api": "npm:1.9.0"
-  peerDependencies:
-    zod: ^3.25.76 || ^4.1.8
-  checksum: 10/30f63bf11a2f07b3feab419168e1e2e00d0504dbf58fbf6588cfdad0087d1ac0a151453de212cce0eae5482f6550492892a275d2b69fd4c3fe7ad0d181cdb6dc
-  languageName: node
-  linkType: hard
-
 "ai@npm:6.0.3":
   version: 6.0.3
   resolution: "ai@npm:6.0.3"
@@ -4355,7 +4315,7 @@ __metadata:
     "@types/react-dom": "npm:19.2.3"
     "@types/react-syntax-highlighter": "npm:^15.5.13"
     "@vitejs/plugin-react": "npm:5.1.2"
-    ai: "npm:6.0.1"
+    ai: "npm:6.0.3"
     babel-plugin-react-compiler: "npm:1.0.0"
     chart.js: "npm:4.5.1"
     class-variance-authority: "npm:^0.7.1"
