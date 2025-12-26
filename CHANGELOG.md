@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.1.88](https://github.com/icoretech/airbroke/compare/v1.1.87...v1.1.88) (2025-12-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/openai to v3.0.1 ([#1307](https://github.com/icoretech/airbroke/issues/1307)) ([9acbe2a](https://github.com/icoretech/airbroke/commit/9acbe2ac13d24dd5a847b8184daa50c78f31416a))
+* **deps:** update dependency @ai-sdk/react to v3.0.1 ([#1308](https://github.com/icoretech/airbroke/issues/1308)) ([8847125](https://github.com/icoretech/airbroke/commit/8847125c1ea5f47791acbc67b8ca2a30d48584eb))
+* **deps:** update dependency @ai-sdk/react to v3.0.3 ([#1312](https://github.com/icoretech/airbroke/issues/1312)) ([980675f](https://github.com/icoretech/airbroke/commit/980675f610fa8b659f8eb1da2f6a3b934dbe05ad))
+* **deps:** update dependency ai to v6.0.1 ([#1309](https://github.com/icoretech/airbroke/issues/1309)) ([4251047](https://github.com/icoretech/airbroke/commit/4251047d09798af47fb1b62753daf17fd2d37550))
+* **deps:** update dependency ai to v6.0.3 ([#1313](https://github.com/icoretech/airbroke/issues/1313)) ([923f94f](https://github.com/icoretech/airbroke/commit/923f94f3777ee9f6753a72bb26f01cf5aa4cbe7b))
+
 ## [1.1.87](https://github.com/icoretech/airbroke/compare/v1.1.86...v1.1.87) (2025-12-22)
 
 
