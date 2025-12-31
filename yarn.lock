@@ -4356,7 +4356,7 @@ __metadata:
     vite: "npm:7.3.0"
     vite-tsconfig-paths: "npm:6.0.3"
     vitest: "npm:4.0.16"
-    zod: "npm:4.2.1"
+    zod: "npm:4.3.2"
   languageName: unknown
   linkType: soft
 
@@ -8229,9 +8229,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:4.2.1":
-  version: 4.2.1
-  resolution: "zod@npm:4.2.1"
-  checksum: 10/f21d106ce31e0f24040aa13b13fdd1300fcc8119622b28ca1b1b726ff70b75190dbcfeb927d34f19174683afa298e5df4d806f622abe9b037a0aadb9cdef6443
+"zod@npm:4.3.2":
+  version: 4.3.2
+  resolution: "zod@npm:4.3.2"
+  checksum: 10/7c4260ad01b2d0791bda26aaac1855a23a3f34fc6facdf42c830d35f578516ad51c59ab815afc8f926ecb9677ad1348b2ab850c624943cdda98fc520b9086558
   languageName: node
   linkType: hard
