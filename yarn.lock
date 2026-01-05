@@ -25,6 +25,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ai-sdk/gateway@npm:3.0.6":
+  version: 3.0.6
+  resolution: "@ai-sdk/gateway@npm:3.0.6"
+  dependencies:
+    "@ai-sdk/provider": "npm:3.0.1"
+    "@ai-sdk/provider-utils": "npm:4.0.2"
+    "@vercel/oidc": "npm:3.0.5"
+  peerDependencies:
+    zod: ^3.25.76 || ^4.1.8
+  checksum: 10/d0217a717cdf372681003737821f56ab9f1a0267f0d7735a46138f96253e047787dab41afceba84530e22dff70baabb812a461784020d3f048023f790dfa3815
+  languageName: node
+  linkType: hard
+
 "@ai-sdk/openai@npm:3.0.2":
   version: 3.0.2
   resolution: "@ai-sdk/openai@npm:3.0.2"
@@ -59,17 +72,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/react@npm:3.0.6":
-  version: 3.0.6
-  resolution: "@ai-sdk/react@npm:3.0.6"
+"@ai-sdk/react@npm:3.0.7":
+  version: 3.0.7
+  resolution: "@ai-sdk/react@npm:3.0.7"
   dependencies:
     "@ai-sdk/provider-utils": "npm:4.0.2"
-    ai: "npm:6.0.6"
+    ai: "npm:6.0.7"
     swr: "npm:^2.2.5"
     throttleit: "npm:2.1.0"
   peerDependencies:
     react: ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1
-  checksum: 10/a91b45ddae7cd8dff427149e7f128099e451470797a873d459dc52b7e829eef32e5649b0f4e45a43408c57672985cc93bd6f2a043887cbb5945bc5009324c3fc
+  checksum: 10/c6dec89e139475e645f46f9db468c98d8d73af0451b8731b262024745fe1e22dae1675b961a2784ad6e4d1c87e450acba8a94f2061266e7a3bbd96d9755f124a
   languageName: node
   linkType: hard
 
@@ -4288,12 +4301,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ai@npm:6.0.7":
+  version: 6.0.7
+  resolution: "ai@npm:6.0.7"
+  dependencies:
+    "@ai-sdk/gateway": "npm:3.0.6"
+    "@ai-sdk/provider": "npm:3.0.1"
+    "@ai-sdk/provider-utils": "npm:4.0.2"
+    "@opentelemetry/api": "npm:1.9.0"
+  peerDependencies:
+    zod: ^3.25.76 || ^4.1.8
+  checksum: 10/9a5b44740fc38a0d516c9647a8197249eee94cbb625ccebe3207187b7ea6f931f0b199d0408d5b996724ed1e0daf45a58aaf9828cc29716ceb16cd6619147b73
+  languageName: node
+  linkType: hard
+
 "airbroke@workspace:.":
   version: 0.0.0-use.local
   resolution: "airbroke@workspace:."
   dependencies:
     "@ai-sdk/openai": "npm:3.0.2"
-    "@ai-sdk/react": "npm:3.0.6"
+    "@ai-sdk/react": "npm:3.0.7"
     "@airbrake/browser": "npm:2.1.9"
     "@airbrake/node": "npm:2.1.9"
     "@biomejs/biome": "npm:2.3.11"
