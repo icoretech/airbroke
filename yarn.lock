@@ -25,15 +25,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/openai@npm:3.0.4":
-  version: 3.0.4
-  resolution: "@ai-sdk/openai@npm:3.0.4"
+"@ai-sdk/openai@npm:3.0.7":
+  version: 3.0.7
+  resolution: "@ai-sdk/openai@npm:3.0.7"
   dependencies:
-    "@ai-sdk/provider": "npm:3.0.1"
-    "@ai-sdk/provider-utils": "npm:4.0.3"
+    "@ai-sdk/provider": "npm:3.0.2"
+    "@ai-sdk/provider-utils": "npm:4.0.4"
   peerDependencies:
     zod: ^3.25.76 || ^4.1.8
-  checksum: 10/ec468b39ed8530880d6d2097a92d601efe9697a509e3e3dd57dd57afda7e4901d09f733a71cf03cddba831fcf3f0bc9bc64b154c413afc514babbb7eef3538c8
+  checksum: 10/4494a60a7fb97f16836dec810a5244ab70b858355cfb340589a42a6acf272c7f84b6f8c48be5b4ee2ea938b9a87c0b2666a1541f3d509242d0620c8594ef3269
   languageName: node
   linkType: hard
 
@@ -50,12 +50,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ai-sdk/provider-utils@npm:4.0.4":
+  version: 4.0.4
+  resolution: "@ai-sdk/provider-utils@npm:4.0.4"
+  dependencies:
+    "@ai-sdk/provider": "npm:3.0.2"
+    "@standard-schema/spec": "npm:^1.1.0"
+    eventsource-parser: "npm:^3.0.6"
+  peerDependencies:
+    zod: ^3.25.76 || ^4.1.8
+  checksum: 10/07e6a40370ea1daf8b048674e7528f52569b64a0116deb1f2c2304700e49871ae1f0948efe449996f489adbe3ea2bb2c07c9a8fdb802185b325873c82849b1dc
+  languageName: node
+  linkType: hard
+
 "@ai-sdk/provider@npm:3.0.1":
   version: 3.0.1
   resolution: "@ai-sdk/provider@npm:3.0.1"
   dependencies:
     json-schema: "npm:^0.4.0"
   checksum: 10/c84fed1e40f470dc352c94aea603633510610821fcb7dfcc467b357882d1ab3a8231100e6e1e39fd39d6f5811cbdf98c870759b5e0fadaa7129f85afd14c319d
+  languageName: node
+  linkType: hard
+
+"@ai-sdk/provider@npm:3.0.2":
+  version: 3.0.2
+  resolution: "@ai-sdk/provider@npm:3.0.2"
+  dependencies:
+    json-schema: "npm:^0.4.0"
+  checksum: 10/88d02d5cc31cc39d3d269bf1e5a0c511b38b1fe44b99474de9a212e0c09a436ccaa4241dc1b99fe91aaf4ae80c5bf60aa69832ba117a7c822c9b08748e755d58
   languageName: node
   linkType: hard
 
@@ -4292,7 +4314,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "airbroke@workspace:."
   dependencies:
-    "@ai-sdk/openai": "npm:3.0.4"
+    "@ai-sdk/openai": "npm:3.0.7"
     "@ai-sdk/react": "npm:3.0.11"
     "@airbrake/browser": "npm:2.1.9"
     "@airbrake/node": "npm:2.1.9"
