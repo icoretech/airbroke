@@ -5371,12 +5371,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^12.23.26":
-  version: 12.23.26
-  resolution: "framer-motion@npm:12.23.26"
+"framer-motion@npm:^12.24.7":
+  version: 12.24.7
+  resolution: "framer-motion@npm:12.24.7"
   dependencies:
-    motion-dom: "npm:^12.23.23"
-    motion-utils: "npm:^12.23.6"
+    motion-dom: "npm:^12.24.3"
+    motion-utils: "npm:^12.23.28"
     tslib: "npm:^2.4.0"
   peerDependencies:
     "@emotion/is-prop-valid": "*"
@@ -5389,7 +5389,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/29d51ac57ce8c2599664bf706d7a83c2aba4fe1dee1c0c7d75d5c45c120b1c2ca5d257c3ff608992b26bf8e9cf258cacf231b0873d7b16f01c5eeb42b9831f78
+  checksum: 10/8062f24f872b47c468eb7776afbf94ccbc2ad6cc4ae4f92202270f0d7a522ed89db971dd1c7c59adb9dc644210f1a13ae565f21dcf312ee7cb23293324977d35
   languageName: node
   linkType: hard
 
@@ -6232,27 +6232,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"motion-dom@npm:^12.23.23":
-  version: 12.23.23
-  resolution: "motion-dom@npm:12.23.23"
+"motion-dom@npm:^12.24.3":
+  version: 12.24.3
+  resolution: "motion-dom@npm:12.24.3"
   dependencies:
-    motion-utils: "npm:^12.23.6"
-  checksum: 10/6bec34c28b478622bd23ce919c0d64e7f372cbc3f88e665f1e34fbf590e9bb53eebea086fb28f4e0c31941bd5274e086dc9b5360b68c4976891b94c4e92ca01a
+    motion-utils: "npm:^12.23.28"
+  checksum: 10/6de28bef1326e8e10cdabf4528df0287453cd7e78c8c28a6f474ab03e65922a73863845c3683c639c75a8570d2f5aa54c693e28a26067197e35111bb5e7285a5
   languageName: node
   linkType: hard
 
-"motion-utils@npm:^12.23.6":
-  version: 12.23.6
-  resolution: "motion-utils@npm:12.23.6"
-  checksum: 10/fae741319e72389eca8f3e73e644ffe6501409d00c7febb2f9b836629ae86ef735e73d670d0591706ca5e93ce10228ddbcff0ecdeb09b4cd8df14df7007aedd9
+"motion-utils@npm:^12.23.28":
+  version: 12.23.28
+  resolution: "motion-utils@npm:12.23.28"
+  checksum: 10/2d481eb26134f282019e0117abae7b5788e89504a88113d7f53e94c5a6aae34e552d3b14a804ebc5d46596946839190963a3fb8189c55b5b38cf82fb16069a77
   languageName: node
   linkType: hard
 
 "motion@npm:^12.23.26":
-  version: 12.23.26
-  resolution: "motion@npm:12.23.26"
+  version: 12.24.7
+  resolution: "motion@npm:12.24.7"
   dependencies:
-    framer-motion: "npm:^12.23.26"
+    framer-motion: "npm:^12.24.7"
     tslib: "npm:^2.4.0"
   peerDependencies:
     "@emotion/is-prop-valid": "*"
@@ -6265,7 +6265,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/c5e683d2c67e55816587cbbd451c5600dc0602aa04108ab0bf8d4472befd490e90b3177362dbc8b9f96316ec16383924cc574eb7c9e031540f1e88e64a2704ae
+  checksum: 10/92285c8b0e67b04998d03f3ad3ff441b50ed5e763a2faadc8a26ebe362bf198b7784c8c0ae5d67e7c8178c943c741c28b453b06ecf5b4ff78686d4c7291d987f
   languageName: node
   linkType: hard
 
