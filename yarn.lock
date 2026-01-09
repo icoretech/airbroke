@@ -25,19 +25,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/gateway@npm:3.0.9":
-  version: 3.0.9
-  resolution: "@ai-sdk/gateway@npm:3.0.9"
-  dependencies:
-    "@ai-sdk/provider": "npm:3.0.2"
-    "@ai-sdk/provider-utils": "npm:4.0.4"
-    "@vercel/oidc": "npm:3.1.0"
-  peerDependencies:
-    zod: ^3.25.76 || ^4.1.8
-  checksum: 10/c8c55cc6f7ba33151b8ba4a75672f321913e09c92ecee7413f6a127f54eb7c1a9eb41a36018342329cc7f1f90a9d15c14fc0f31be7d37cec94a5660b5b3eba8b
-  languageName: node
-  linkType: hard
-
 "@ai-sdk/openai@npm:3.0.7":
   version: 3.0.7
   resolution: "@ai-sdk/openai@npm:3.0.7"
@@ -4287,20 +4274,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:6.0.14":
-  version: 6.0.14
-  resolution: "ai@npm:6.0.14"
-  dependencies:
-    "@ai-sdk/gateway": "npm:3.0.9"
-    "@ai-sdk/provider": "npm:3.0.2"
-    "@ai-sdk/provider-utils": "npm:4.0.4"
-    "@opentelemetry/api": "npm:1.9.0"
-  peerDependencies:
-    zod: ^3.25.76 || ^4.1.8
-  checksum: 10/114274f6cc97f1a30f5aa48d03f7d1386aa4cb8e6f16b7efdf159769d845ad0f096afa265b44e43020258c4d77dfcd6df2910a1009dec723a202017fe210edaf
-  languageName: node
-  linkType: hard
-
 "ai@npm:6.0.23":
   version: 6.0.23
   resolution: "ai@npm:6.0.23"
@@ -4354,7 +4327,7 @@ __metadata:
     "@types/react-dom": "npm:19.2.3"
     "@types/react-syntax-highlighter": "npm:^15.5.13"
     "@vitejs/plugin-react": "npm:5.1.2"
-    ai: "npm:6.0.14"
+    ai: "npm:6.0.23"
     babel-plugin-react-compiler: "npm:1.0.0"
     chart.js: "npm:4.5.1"
     class-variance-authority: "npm:^0.7.1"
