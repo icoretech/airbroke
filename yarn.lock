@@ -4368,7 +4368,7 @@ __metadata:
     tw-animate-css: "npm:^1.4.0"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.1"
-    vite-tsconfig-paths: "npm:6.0.3"
+    vite-tsconfig-paths: "npm:6.0.4"
     vitest: "npm:4.0.16"
     zod: "npm:4.3.5"
   languageName: unknown
@@ -7963,23 +7963,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-tsconfig-paths@npm:6.0.3":
-  version: 6.0.3
-  resolution: "vite-tsconfig-paths@npm:6.0.3"
+"vite-tsconfig-paths@npm:6.0.4":
+  version: 6.0.4
+  resolution: "vite-tsconfig-paths@npm:6.0.4"
   dependencies:
     debug: "npm:^4.1.1"
     globrex: "npm:^0.1.2"
     tsconfck: "npm:^3.0.3"
+    vite: "npm:*"
   peerDependencies:
     vite: "*"
   peerDependenciesMeta:
     vite:
       optional: true
-  checksum: 10/271cdc040a03181d13e4253e99ec6deec1cbe4ec4cb2a1377d46dba403483f8e38a5c2ed29ad0493ed51c2cfd658847cb1cdc73e438d6a8bcdd2b52df19d72e2
+  checksum: 10/85f871cd5e321f2865972559b01c518664e6e34f9039b630dd77c2f379f8fdc386e15f7237aa5c108d813030c6e9bc8edfbf61687df7684803111a2495edadac
   languageName: node
   linkType: hard
 
-"vite@npm:7.3.1":
+"vite@npm:*, vite@npm:7.3.1":
   version: 7.3.1
   resolution: "vite@npm:7.3.1"
   dependencies:
