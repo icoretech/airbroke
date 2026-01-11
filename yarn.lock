@@ -1179,9 +1179,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microlink/react-json-view@npm:1.27.0":
-  version: 1.27.0
-  resolution: "@microlink/react-json-view@npm:1.27.0"
+"@microlink/react-json-view@npm:1.27.1":
+  version: 1.27.1
+  resolution: "@microlink/react-json-view@npm:1.27.1"
   dependencies:
     react-base16-styling: "npm:~0.9.0"
     react-lifecycles-compat: "npm:~3.0.4"
@@ -1189,7 +1189,7 @@ __metadata:
   peerDependencies:
     react: ">= 15"
     react-dom: ">= 15"
-  checksum: 10/ff0e6ef83adb697294a114ae9a0a39d8a2bfcdf09e617fded6ccb4b2b72a927a81f2e1df85115e8c888c95da460576060ee07d2410b3f8189824707d1abeda0b
+  checksum: 10/6c0ae0a2d7bc2625cb23507f38543183fb4a3a68752d61fca32f8974af13180d250be2b8f99e9fad0071c0dd0efa5e03fd75b38064945a9c1869b17fea536500
   languageName: node
   linkType: hard
 
@@ -4307,7 +4307,7 @@ __metadata:
     "@airbrake/node": "npm:2.1.9"
     "@biomejs/biome": "npm:2.3.11"
     "@faker-js/faker": "npm:10.2.0"
-    "@microlink/react-json-view": "npm:1.27.0"
+    "@microlink/react-json-view": "npm:1.27.1"
     "@prisma/adapter-pg": "npm:^7.2.0"
     "@prisma/client": "npm:7.2.0"
     "@radix-ui/react-alert-dialog": "npm:^1.1.15"
