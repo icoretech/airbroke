@@ -25,7 +25,7 @@
     "@ai-sdk/react": "3.0.29",
     "@airbrake/browser": "2.1.9",
     "@airbrake/node": "2.1.9",
-    "@microlink/react-json-view": "1.27.0",
+    "@microlink/react-json-view": "1.27.1",
     "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "7.2.0",
     "@radix-ui/react-alert-dialog": "^1.1.15",
