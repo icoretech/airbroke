@@ -1,5 +1,39 @@
 # Changelog
 
+## [1.1.88](https://github.com/icoretech/airbroke/compare/v1.1.87...v1.1.88) (2026-01-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/openai to v3.0.1 ([#1307](https://github.com/icoretech/airbroke/issues/1307)) ([9acbe2a](https://github.com/icoretech/airbroke/commit/9acbe2ac13d24dd5a847b8184daa50c78f31416a))
+* **deps:** update dependency @ai-sdk/openai to v3.0.2 ([#1315](https://github.com/icoretech/airbroke/issues/1315)) ([a4ce0ba](https://github.com/icoretech/airbroke/commit/a4ce0ba5b7d53376f1022918298606b7e06c431a))
+* **deps:** update dependency @ai-sdk/openai to v3.0.4 ([#1328](https://github.com/icoretech/airbroke/issues/1328)) ([f88010b](https://github.com/icoretech/airbroke/commit/f88010b1684e19f25848a20cf02ef0127e6abe24))
+* **deps:** update dependency @ai-sdk/openai to v3.0.7 ([#1331](https://github.com/icoretech/airbroke/issues/1331)) ([87c2df8](https://github.com/icoretech/airbroke/commit/87c2df8f3c650810cbbc1dd0f0776b843e723099))
+* **deps:** update dependency @ai-sdk/react to v3.0.1 ([#1308](https://github.com/icoretech/airbroke/issues/1308)) ([8847125](https://github.com/icoretech/airbroke/commit/8847125c1ea5f47791acbc67b8ca2a30d48584eb))
+* **deps:** update dependency @ai-sdk/react to v3.0.11 ([#1329](https://github.com/icoretech/airbroke/issues/1329)) ([eab6ba2](https://github.com/icoretech/airbroke/commit/eab6ba20c9d5a3a3672ba7913519eadb7edca750))
+* **deps:** update dependency @ai-sdk/react to v3.0.14 ([#1332](https://github.com/icoretech/airbroke/issues/1332)) ([94d9777](https://github.com/icoretech/airbroke/commit/94d9777e3d96a471a8c5d1a3f4dd09132f8d1888))
+* **deps:** update dependency @ai-sdk/react to v3.0.19 ([#1336](https://github.com/icoretech/airbroke/issues/1336)) ([cdef6ce](https://github.com/icoretech/airbroke/commit/cdef6ce5ba99d8fa8ad25c4c692141dff7052ef6))
+* **deps:** update dependency @ai-sdk/react to v3.0.20 ([#1338](https://github.com/icoretech/airbroke/issues/1338)) ([9a5ee19](https://github.com/icoretech/airbroke/commit/9a5ee197572de4a576c9d486e06afcc9d8af869e))
+* **deps:** update dependency @ai-sdk/react to v3.0.23 ([#1340](https://github.com/icoretech/airbroke/issues/1340)) ([7354996](https://github.com/icoretech/airbroke/commit/7354996ed721912d5b7e0ea136a93df23042dae2))
+* **deps:** update dependency @ai-sdk/react to v3.0.26 ([#1342](https://github.com/icoretech/airbroke/issues/1342)) ([e8f9f0e](https://github.com/icoretech/airbroke/commit/e8f9f0e00fe9672c3308a402fa88e482361a7f15))
+* **deps:** update dependency @ai-sdk/react to v3.0.29 ([#1347](https://github.com/icoretech/airbroke/issues/1347)) ([e922305](https://github.com/icoretech/airbroke/commit/e9223057d8cecd5bb91cb5c2f3cb21d3150619b6))
+* **deps:** update dependency @ai-sdk/react to v3.0.3 ([#1312](https://github.com/icoretech/airbroke/issues/1312)) ([980675f](https://github.com/icoretech/airbroke/commit/980675f610fa8b659f8eb1da2f6a3b934dbe05ad))
+* **deps:** update dependency @ai-sdk/react to v3.0.5 ([#1316](https://github.com/icoretech/airbroke/issues/1316)) ([2deaf10](https://github.com/icoretech/airbroke/commit/2deaf107d12c997a83e5ee583f60d08f324bf72c))
+* **deps:** update dependency @ai-sdk/react to v3.0.6 ([#1320](https://github.com/icoretech/airbroke/issues/1320)) ([f11971b](https://github.com/icoretech/airbroke/commit/f11971bf2fd402f0f199ca2de6968575841f934b))
+* **deps:** update dependency @ai-sdk/react to v3.0.7 ([#1326](https://github.com/icoretech/airbroke/issues/1326)) ([b09683f](https://github.com/icoretech/airbroke/commit/b09683f06ca90c6668f95baa372e1cb28c69b1f4))
+* **deps:** update dependency ai to v6.0.1 ([#1309](https://github.com/icoretech/airbroke/issues/1309)) ([4251047](https://github.com/icoretech/airbroke/commit/4251047d09798af47fb1b62753daf17fd2d37550))
+* **deps:** update dependency ai to v6.0.11 ([#1330](https://github.com/icoretech/airbroke/issues/1330)) ([471bcee](https://github.com/icoretech/airbroke/commit/471bcee3a686c8cab5a076bb16659e338a62c3a0))
+* **deps:** update dependency ai to v6.0.14 ([#1333](https://github.com/icoretech/airbroke/issues/1333)) ([6260cb4](https://github.com/icoretech/airbroke/commit/6260cb48457d888bc99986f102e9c6a5115f05b3))
+* **deps:** update dependency ai to v6.0.23 ([#1337](https://github.com/icoretech/airbroke/issues/1337)) ([4debc92](https://github.com/icoretech/airbroke/commit/4debc92640edeb5aaa164a7a7fc9edc1220ddf9f))
+* **deps:** update dependency ai to v6.0.27 ([#1343](https://github.com/icoretech/airbroke/issues/1343)) ([735efd5](https://github.com/icoretech/airbroke/commit/735efd57fbbd422b8bc115a9ec9ce87bbc049d43))
+* **deps:** update dependency ai to v6.0.3 ([#1313](https://github.com/icoretech/airbroke/issues/1313)) ([923f94f](https://github.com/icoretech/airbroke/commit/923f94f3777ee9f6753a72bb26f01cf5aa4cbe7b))
+* **deps:** update dependency ai to v6.0.5 ([#1317](https://github.com/icoretech/airbroke/issues/1317)) ([41b010e](https://github.com/icoretech/airbroke/commit/41b010e688be317e71ac6db95019a7ef768d6e39))
+* **deps:** update dependency ai to v6.0.6 ([#1321](https://github.com/icoretech/airbroke/issues/1321)) ([235ac17](https://github.com/icoretech/airbroke/commit/235ac1725679cb02175cd564ecf8866447b37dcb))
+* **deps:** update dependency ai to v6.0.7 ([#1327](https://github.com/icoretech/airbroke/issues/1327)) ([380e519](https://github.com/icoretech/airbroke/commit/380e519a5c40f54e701b892b419f54f03a376d33))
+* **deps:** update dependency zod to v4.3.2 ([#1318](https://github.com/icoretech/airbroke/issues/1318)) ([2a350a1](https://github.com/icoretech/airbroke/commit/2a350a18f9ab03e9268a437652e066d2669d70b8))
+* **deps:** update dependency zod to v4.3.4 ([#1319](https://github.com/icoretech/airbroke/issues/1319)) ([2820aea](https://github.com/icoretech/airbroke/commit/2820aead6822f4ce4ae8b70875c8fb6dc5291420))
+* **deps:** update dependency zod to v4.3.5 ([#1323](https://github.com/icoretech/airbroke/issues/1323)) ([305998c](https://github.com/icoretech/airbroke/commit/305998cc1ae9e5ac5b60443b6b482d842a20e0c7))
+
 ## [1.1.87](https://github.com/icoretech/airbroke/compare/v1.1.86...v1.1.87) (2025-12-22)
 
 
