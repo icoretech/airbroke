@@ -5420,11 +5420,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^12.26.1":
-  version: 12.26.1
-  resolution: "framer-motion@npm:12.26.1"
+"framer-motion@npm:^12.26.2":
+  version: 12.26.2
+  resolution: "framer-motion@npm:12.26.2"
   dependencies:
-    motion-dom: "npm:^12.24.11"
+    motion-dom: "npm:^12.26.2"
     motion-utils: "npm:^12.24.10"
     tslib: "npm:^2.4.0"
   peerDependencies:
@@ -5438,7 +5438,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/f5e71de5c7cd13c1151cbbd8578ed95a4a92225a96757eae36f3131325ac6337a75fd21d58d984fc835d0e197d4abd5943151828653813d32a0f025e8d6af0f6
+  checksum: 10/80d43806c4d3b1208b3ef4766e332f738fcf1fdd1c2b90f1601ff78072865a20fb41f67a495702be95c5d41b4ca54657e94dc81d02f97fdc4bee6271ef39cf14
   languageName: node
   linkType: hard
 
@@ -6293,12 +6293,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"motion-dom@npm:^12.24.11":
-  version: 12.24.11
-  resolution: "motion-dom@npm:12.24.11"
+"motion-dom@npm:^12.26.2":
+  version: 12.26.2
+  resolution: "motion-dom@npm:12.26.2"
   dependencies:
     motion-utils: "npm:^12.24.10"
-  checksum: 10/08a56090ddf5dfc295649073b6a9f90bd71ca3f4608c60d224d561a403a02dc22dd07c4a212980a59437f65e0381ddc05238593cc282ce0c98e4a88b3f0cc458
+  checksum: 10/a24f7df17673433ab32820e508a475d681830b2edbd1a92f9ca64604a02a5ffb53e8bfec317344c34c65a601f2332d0486f038eed0c7db13b8dbc5c750f0063f
   languageName: node
   linkType: hard
 
@@ -6310,10 +6310,10 @@ __metadata:
   linkType: hard
 
 "motion@npm:^12.23.26":
-  version: 12.26.1
-  resolution: "motion@npm:12.26.1"
+  version: 12.26.2
+  resolution: "motion@npm:12.26.2"
   dependencies:
-    framer-motion: "npm:^12.26.1"
+    framer-motion: "npm:^12.26.2"
     tslib: "npm:^2.4.0"
   peerDependencies:
     "@emotion/is-prop-valid": "*"
@@ -6326,7 +6326,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/20b2c959fae15a67c51eebded8f68f4e3ea15c6ce2028a0eb6c0b7b625c84cbbff2135877b06f4b2cc1d808018c910503c56f926fc73a1c7cd18d565ab30cf3b
+  checksum: 10/9ea26346549334b3356d75f11464c12de0b35c3f7fc121eb8edc57f0b8315206695bcdf94c176aea3bff44d90035c1c3e9bf9446ada04a682120915ff524cd20
   languageName: node
   linkType: hard
 
