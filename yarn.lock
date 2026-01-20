@@ -25,6 +25,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ai-sdk/gateway@npm:3.0.17":
+  version: 3.0.17
+  resolution: "@ai-sdk/gateway@npm:3.0.17"
+  dependencies:
+    "@ai-sdk/provider": "npm:3.0.4"
+    "@ai-sdk/provider-utils": "npm:4.0.8"
+    "@vercel/oidc": "npm:3.1.0"
+  peerDependencies:
+    zod: ^3.25.76 || ^4.1.8
+  checksum: 10/b46e7caa8f609ce59db301925d10eb20b56facd503f5f041e469320c1ed998515d7076e0f117b608053096b180b37d8c4ee7e2b4f15a9d47d268652e29dc884b
+  languageName: node
+  linkType: hard
+
 "@ai-sdk/openai@npm:3.0.12":
   version: 3.0.12
   resolution: "@ai-sdk/openai@npm:3.0.12"
@@ -59,17 +72,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/react@npm:3.0.43":
-  version: 3.0.43
-  resolution: "@ai-sdk/react@npm:3.0.43"
+"@ai-sdk/react@npm:3.0.44":
+  version: 3.0.44
+  resolution: "@ai-sdk/react@npm:3.0.44"
   dependencies:
     "@ai-sdk/provider-utils": "npm:4.0.8"
-    ai: "npm:6.0.41"
+    ai: "npm:6.0.42"
     swr: "npm:^2.2.5"
     throttleit: "npm:2.1.0"
   peerDependencies:
     react: ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1
-  checksum: 10/ef756177a54689dc1cbd9b876f55bb579c375e4ece2b89aa49a5001019616d9bf89890b75e9591fd09f3b9cb871f2258aea488b44831b48a8308297118fbce2e
+  checksum: 10/676e87f35c3d7d3132c801b5cb0623cd98797bfbf772c12fa9b3cf0cc60979b0cf6f62dfd69485e253fc74b8c2a970a44621b2c7d0b47327b5efcff7ec6717cd
   languageName: node
   linkType: hard
 
@@ -4297,17 +4310,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:6.0.41":
-  version: 6.0.41
-  resolution: "ai@npm:6.0.41"
+"ai@npm:6.0.42":
+  version: 6.0.42
+  resolution: "ai@npm:6.0.42"
   dependencies:
-    "@ai-sdk/gateway": "npm:3.0.16"
+    "@ai-sdk/gateway": "npm:3.0.17"
     "@ai-sdk/provider": "npm:3.0.4"
     "@ai-sdk/provider-utils": "npm:4.0.8"
     "@opentelemetry/api": "npm:1.9.0"
   peerDependencies:
     zod: ^3.25.76 || ^4.1.8
-  checksum: 10/90147368591647d4be1b9b6022e2a5532d748000880ecc41b4ac5caa57c3332c89256bc7fb4b7bdf9e0db720702ba403284dd2842df90566b891ea9b15c37971
+  checksum: 10/063d0bd2d030fa58875460614f771665ced368732ec30f31953890b55eb4def498c83b0b9ad012869c3fccf619c952a8ee9a78aff6b34cbe2449dbfe25716999
   languageName: node
   linkType: hard
 
@@ -4316,7 +4329,7 @@ __metadata:
   resolution: "airbroke@workspace:."
   dependencies:
     "@ai-sdk/openai": "npm:3.0.12"
-    "@ai-sdk/react": "npm:3.0.43"
+    "@ai-sdk/react": "npm:3.0.44"
     "@airbrake/browser": "npm:2.1.9"
     "@airbrake/node": "npm:2.1.9"
     "@biomejs/biome": "npm:2.3.11"
