@@ -2,7 +2,24 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
   "prHourlyLimit": 0,
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^biome\\.json$"],
+      "matchStrings": [
+        "\"\\$schema\"\\s*:\\s*\"https://biomejs\\.dev/schemas/(?<currentValue>[^/]+)/schema\\.json\""
+      ],
+      "depNameTemplate": "@biomejs/biome",
+      "datasourceTemplate": "npm",
+      "versioningTemplate": "npm"
+    }
+  ],
   "packageRules": [
+    {
+      "matchPackageNames": ["ai", "@ai-sdk/react", "@ai-sdk/openai"],
+      "groupName": "Vercel AI SDK",
+      "groupSlug": "vercel-ai-sdk"
+    },
     {
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true
