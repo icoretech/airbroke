@@ -4,6 +4,11 @@
   "prHourlyLimit": 0,
   "packageRules": [
     {
+      "matchPackageNames": ["ai", "@ai-sdk/react", "@ai-sdk/openai"],
+      "groupName": "Vercel AI SDK",
+      "groupSlug": "vercel-ai-sdk"
+    },
+    {
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true
     },
