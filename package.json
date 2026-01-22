@@ -45,7 +45,7 @@
     "@sentry/browser": "10.35.0",
     "@sentry/core": "10.35.0",
     "@sentry/node": "10.35.0",
-    "ai": "6.0.42",
+    "ai": "6.0.48",
     "chart.js": "4.5.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
