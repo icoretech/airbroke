@@ -4168,12 +4168,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:19.2.11":
-  version: 19.2.11
-  resolution: "@types/react@npm:19.2.11"
+"@types/react@npm:19.2.13":
+  version: 19.2.13
+  resolution: "@types/react@npm:19.2.13"
   dependencies:
     csstype: "npm:^3.2.2"
-  checksum: 10/c31f7770d547bdbd5936bb621727340e41baed4e617e5b2203209024edfc52af4f1ef286851cc5e89d4c62c6a28da3ad0e7d4d62796087c71f63779552ec27fa
+  checksum: 10/a3bb8d09c79f5f29dfbc7e47c5b39c687f4329b76041713993c025781f32c26e4881fbeead65ff44d728945f222b781c6053263bc1819ef90596b4fbfd83f718
   languageName: node
   linkType: hard
 
@@ -4410,7 +4410,7 @@ __metadata:
     "@testing-library/react": "npm:^16.3.2"
     "@types/node": "npm:25.2.0"
     "@types/pg": "npm:^8.16.0"
-    "@types/react": "npm:19.2.11"
+    "@types/react": "npm:19.2.13"
     "@types/react-dom": "npm:19.2.3"
     "@types/react-syntax-highlighter": "npm:^15.5.13"
     "@vitejs/plugin-react": "npm:5.1.3"
