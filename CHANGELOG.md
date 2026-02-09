@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.90](https://github.com/icoretech/airbroke/compare/v1.1.89...v1.1.90) (2026-02-09)
+
+
+### Bug Fixes
+
+* **deps:** update vercel ai sdk ([#1421](https://github.com/icoretech/airbroke/issues/1421)) ([a384f6b](https://github.com/icoretech/airbroke/commit/a384f6b9558b318affc6624faa9cd8048dc26f9e))
+* **deps:** update vercel ai sdk ([#1425](https://github.com/icoretech/airbroke/issues/1425)) ([4654711](https://github.com/icoretech/airbroke/commit/465471162240535407749da070adf34368960ee3))
+* **deps:** update vercel ai sdk ([#1428](https://github.com/icoretech/airbroke/issues/1428)) ([7556e55](https://github.com/icoretech/airbroke/commit/7556e5584f675d319d5803f32c1c5284b4932c97))
+* **deps:** update vercel ai sdk ([#1431](https://github.com/icoretech/airbroke/issues/1431)) ([7e2c781](https://github.com/icoretech/airbroke/commit/7e2c78193b580e0ec2d62296775afea0d277491a))
+* **deps:** update vercel ai sdk ([#1432](https://github.com/icoretech/airbroke/issues/1432)) ([9456d61](https://github.com/icoretech/airbroke/commit/9456d61265f0b2525110ec08f5f802423e9f90cd))
+* **deps:** update vercel ai sdk ([#1434](https://github.com/icoretech/airbroke/issues/1434)) ([46df88c](https://github.com/icoretech/airbroke/commit/46df88cf3c61f1e859086ea438298685481bd433))
+* **deps:** update vercel ai sdk ([#1438](https://github.com/icoretech/airbroke/issues/1438)) ([1118931](https://github.com/icoretech/airbroke/commit/11189316b2546b4a952c93758b83ed746ac80906))
+
 ## [1.1.89](https://github.com/icoretech/airbroke/compare/v1.1.88...v1.1.89) (2026-02-01)
 
 
