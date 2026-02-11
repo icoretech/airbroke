@@ -5,7 +5,7 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["^biome\\.json$"],
+      "managerFilePatterns": ["/^biome\\.json$/"],
       "matchStrings": [
         "\"\\$schema\"\\s*:\\s*\"https://biomejs\\.dev/schemas/(?<currentValue>[^/]+)/schema\\.json\""
       ],
