@@ -12,28 +12,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/gateway@npm:3.0.45":
-  version: 3.0.45
-  resolution: "@ai-sdk/gateway@npm:3.0.45"
+"@ai-sdk/gateway@npm:3.0.46":
+  version: 3.0.46
+  resolution: "@ai-sdk/gateway@npm:3.0.46"
   dependencies:
     "@ai-sdk/provider": "npm:3.0.8"
     "@ai-sdk/provider-utils": "npm:4.0.15"
     "@vercel/oidc": "npm:3.1.0"
   peerDependencies:
     zod: ^3.25.76 || ^4.1.8
-  checksum: 10/9cf8dd2c3797a590b562f8b146e6d12adedc1ae4595590b536104bf2a632e8b7b323dcf3c343594a89bf5a63e2889a59c1407e15c100431b1f5ecab739f9032b
+  checksum: 10/cea29c8ed9132c30bef538a67f903e4d700a052bcceda634a0b88b53594f8e96fe15540bba51f27773b586b16d9790735e5df141ba9a5813c39a0a94e41d3e73
   languageName: node
   linkType: hard
 
-"@ai-sdk/openai@npm:3.0.28":
-  version: 3.0.28
-  resolution: "@ai-sdk/openai@npm:3.0.28"
+"@ai-sdk/openai@npm:3.0.29":
+  version: 3.0.29
+  resolution: "@ai-sdk/openai@npm:3.0.29"
   dependencies:
     "@ai-sdk/provider": "npm:3.0.8"
     "@ai-sdk/provider-utils": "npm:4.0.15"
   peerDependencies:
     zod: ^3.25.76 || ^4.1.8
-  checksum: 10/5afa2dbdee8960138e7dfdf9922f849d4a7b9112fac3e9f2b96294adc673e78db16f8c31a323e21472d6a9c752fe4d4b940d1146ed961b5fa69245da674052fd
+  checksum: 10/1c44a1255d67be4ac71c46bba720db4ff6c46404bfb277df38b305ab3faef3eecc3e35b211d809788624e4755889226fef6ea0407d89d5ea05d4cf942f66a6fe
   languageName: node
   linkType: hard
 
@@ -59,17 +59,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/react@npm:3.0.87":
-  version: 3.0.87
-  resolution: "@ai-sdk/react@npm:3.0.87"
+"@ai-sdk/react@npm:3.0.88":
+  version: 3.0.88
+  resolution: "@ai-sdk/react@npm:3.0.88"
   dependencies:
     "@ai-sdk/provider-utils": "npm:4.0.15"
-    ai: "npm:6.0.85"
+    ai: "npm:6.0.86"
     swr: "npm:^2.2.5"
     throttleit: "npm:2.1.0"
   peerDependencies:
     react: ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1
-  checksum: 10/6801cdf4d41b6522f7fa2f7984075ac23acef7ae3cd5b19353ff57f8f904d2f9ea2e9eba73e0cdccd2e687f86a59f0a2ba4bebbc9cc8599ed6d17635c69db68c
+  checksum: 10/0a3073ad64d948a9fdca5cc385836cf60483a67d189ae6557e65d5bd535cdbb41df7c67ca0256850b3e043d2fcf27e50d05e445f30be3520d477db58a74d5f84
   languageName: node
   linkType: hard
 
@@ -4371,17 +4371,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:6.0.85":
-  version: 6.0.85
-  resolution: "ai@npm:6.0.85"
+"ai@npm:6.0.86":
+  version: 6.0.86
+  resolution: "ai@npm:6.0.86"
   dependencies:
-    "@ai-sdk/gateway": "npm:3.0.45"
+    "@ai-sdk/gateway": "npm:3.0.46"
     "@ai-sdk/provider": "npm:3.0.8"
     "@ai-sdk/provider-utils": "npm:4.0.15"
     "@opentelemetry/api": "npm:1.9.0"
   peerDependencies:
     zod: ^3.25.76 || ^4.1.8
-  checksum: 10/5f751146bbaee9a890ade381a98f519c64a6794f06098981764d82e2e40cd7498dcb89d001a67bfd5e083e624d71dc141da78220354a09c1339ebe9f33c4d97a
+  checksum: 10/de0d484d0462b5436c725d992ae9ccc2a117ccd68b4b7de96b3c17322b0ed25eeef82d861af339185beb7e37b0ec3425427f911f640ec5f69ba3ceb1092635b3
   languageName: node
   linkType: hard
 
@@ -4389,8 +4389,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "airbroke@workspace:."
   dependencies:
-    "@ai-sdk/openai": "npm:3.0.28"
-    "@ai-sdk/react": "npm:3.0.87"
+    "@ai-sdk/openai": "npm:3.0.29"
+    "@ai-sdk/react": "npm:3.0.88"
     "@airbrake/browser": "npm:2.1.9"
     "@airbrake/node": "npm:2.1.9"
     "@biomejs/biome": "npm:2.3.15"
@@ -4424,7 +4424,7 @@ __metadata:
     "@types/react-dom": "npm:19.2.3"
     "@types/react-syntax-highlighter": "npm:^15.5.13"
     "@vitejs/plugin-react": "npm:5.1.4"
-    ai: "npm:6.0.85"
+    ai: "npm:6.0.86"
     babel-plugin-react-compiler: "npm:1.0.0"
     chart.js: "npm:4.5.1"
     class-variance-authority: "npm:^0.7.1"
