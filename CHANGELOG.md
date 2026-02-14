@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.91](https://github.com/icoretech/airbroke/compare/v1.1.90...v1.1.91) (2026-02-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency lucide-react to ^0.564.0 ([#1449](https://github.com/icoretech/airbroke/issues/1449)) ([4219f1b](https://github.com/icoretech/airbroke/commit/4219f1b3cddd4c651f14fb8624ed6abd91eac17f))
+* **deps:** update prisma monorepo to v7.4.0 ([#1444](https://github.com/icoretech/airbroke/issues/1444)) ([53978fc](https://github.com/icoretech/airbroke/commit/53978fc417faa4d94cb964305bfd73b1454acc0e))
+* **deps:** update vercel ai sdk ([#1441](https://github.com/icoretech/airbroke/issues/1441)) ([64aa292](https://github.com/icoretech/airbroke/commit/64aa292383dcd672bb3feaf1edcb7159e1c8c688))
+* **deps:** update vercel ai sdk ([#1446](https://github.com/icoretech/airbroke/issues/1446)) ([af253ea](https://github.com/icoretech/airbroke/commit/af253ea3a4db6600a3d2621a119719ad3f11a450))
+* **deps:** update vercel ai sdk ([#1448](https://github.com/icoretech/airbroke/issues/1448)) ([29b06cc](https://github.com/icoretech/airbroke/commit/29b06ccbb3c34df6c2a08c66d1e05ffb796c5b05))
+* **deps:** update vercel ai sdk ([#1450](https://github.com/icoretech/airbroke/issues/1450)) ([d0a668f](https://github.com/icoretech/airbroke/commit/d0a668ff8a7bd0ca2dbd855e07a36a9aab905edd))
+
 ## [1.1.90](https://github.com/icoretech/airbroke/compare/v1.1.89...v1.1.90) (2026-02-09)
 
 
