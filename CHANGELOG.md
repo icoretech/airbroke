@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.93](https://github.com/icoretech/airbroke/compare/v1.1.92...v1.1.93) (2026-02-21)
+
+
+### Features
+
+* **mcp:** expand MCP API with search and rich outputs ([d23a76e](https://github.com/icoretech/airbroke/commit/d23a76ec300d39b052b4f83421dcae211e6706ab))
+
+
+### Bug Fixes
+
+* externalize @sentry/node in Next server bundle ([e8910a9](https://github.com/icoretech/airbroke/commit/e8910a9605feb58ec8350faa80de53411d3421ab))
+
 ## [1.1.92](https://github.com/icoretech/airbroke/compare/v1.1.91...v1.1.92) (2026-02-21)
 
 
