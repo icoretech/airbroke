@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.94](https://github.com/icoretech/airbroke/compare/v1.1.93...v1.1.94) (2026-02-21)
+
+
+### Features
+
+* **mcp:** switch to streamable transport and remove legacy SSE route ([aa0f3cd](https://github.com/icoretech/airbroke/commit/aa0f3cd15a5bab0e61257a4f5247694b916981c1))
+
 ## [1.1.93](https://github.com/icoretech/airbroke/compare/v1.1.92...v1.1.93) (2026-02-21)
 
 
