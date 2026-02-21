@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.92](https://github.com/icoretech/airbroke/compare/v1.1.91...v1.1.92) (2026-02-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency lucide-react to ^0.574.0 ([#1458](https://github.com/icoretech/airbroke/issues/1458)) ([8b47f12](https://github.com/icoretech/airbroke/commit/8b47f126ffc24b86b29897578bbe37f16eee18c6))
+* **deps:** update dependency lucide-react to ^0.575.0 ([#1466](https://github.com/icoretech/airbroke/issues/1466)) ([a9a87c3](https://github.com/icoretech/airbroke/commit/a9a87c366e71664f796e2794cb776c0b48badd0d))
+* **deps:** update prisma monorepo to v7.4.1 ([#1468](https://github.com/icoretech/airbroke/issues/1468)) ([dc9727b](https://github.com/icoretech/airbroke/commit/dc9727bc00dab310c2ae7a67f1473bc245681720))
+* **deps:** update sentry-javascript monorepo to v10.39.0 ([#1454](https://github.com/icoretech/airbroke/issues/1454)) ([1104451](https://github.com/icoretech/airbroke/commit/1104451c4118034f25fbff1f8f7d0f335e7accd5))
+* **deps:** update vercel ai sdk ([#1460](https://github.com/icoretech/airbroke/issues/1460)) ([738b85c](https://github.com/icoretech/airbroke/commit/738b85c1d7440a07583a6db9edc52ebd0b328030))
+* **deps:** update vercel ai sdk ([#1463](https://github.com/icoretech/airbroke/issues/1463)) ([0dbdd21](https://github.com/icoretech/airbroke/commit/0dbdd214d252a389454840b88d37d569c13dd30f))
+* **deps:** update vercel ai sdk ([#1469](https://github.com/icoretech/airbroke/issues/1469)) ([45aa381](https://github.com/icoretech/airbroke/commit/45aa38159136cf0232e85c7eba5b5551564ef669))
+* **deps:** update vercel ai sdk ([#1471](https://github.com/icoretech/airbroke/issues/1471)) ([584638b](https://github.com/icoretech/airbroke/commit/584638bf54313bb2a391b24e0ac538a6f49e0ad7))
+
 ## [1.1.91](https://github.com/icoretech/airbroke/compare/v1.1.90...v1.1.91) (2026-02-14)
 
 
