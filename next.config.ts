@@ -5,7 +5,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "standalone",
   allowedDevOrigins: ["airbroke-dev.icorete.ch", "127.0.0.1"],
-  serverExternalPackages: ["@airbrake/node"],
+  serverExternalPackages: ["@airbrake/node", "@sentry/node"],
   typedRoutes: true,
   reactCompiler: true,
   cacheComponents: true,
