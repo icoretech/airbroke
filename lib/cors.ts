@@ -1,7 +1,7 @@
 type HeadersLike = Pick<Headers, "get">;
 
 const DEFAULT_ALLOW_HEADERS =
-  "origin, accept, content-type, authorization, x-airbrake-token, x-sentry-auth, sentry-trace, baggage, content-encoding";
+  "origin, accept, content-type, authorization, x-airbroke-token, x-airbroke-mcp-key, x-sentry-auth, sentry-trace, baggage, content-encoding";
 
 const VARY_HEADERS =
   "Origin, Access-Control-Request-Headers, Access-Control-Request-Method";

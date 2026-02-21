@@ -34,6 +34,7 @@
 - :key: Supports multiple OAuth providers for secure user authentication
 - :bar_chart: Occurrence charts
 - :bookmark: Save and manage bookmarks for important occurrences
+- :electric_plug: MCP API for LLM/agent integrations
 
 ## System Requirements
 
@@ -216,6 +217,60 @@ To optimize performance, the frontend may implement caching strategies to reduce
 The Data Collection API is a core component of Airbroke responsible for handling the ingestion of error reports. It serves as the endpoint where clients can send error reports, enabling efficient data collection for error management.
 
 To ensure simplicity and performance, the Data Collection API sidesteps the use of queue systems and performs parsing and transactions in-band. This means that parsing and processing of error reports happen synchronously within the API request cycle. Despite this approach, the Data Collection API demonstrates robust request-per-minute (RPM) performance even under high traffic volumes.
+
+### MCP API (LLM/Agent Integrations)
+
+Airbroke exposes an MCP-compatible JSON-RPC API for read-only error triage workflows:
+
+- `POST /api/mcp`
+- `POST /api/mcp/sse` (same handler, useful for clients configured with an `/sse` endpoint)
+
+Authentication is static-header based (no OAuth in v1). Set `AIRBROKE_MCP_API_KEY` and send either:
+
+- `Authorization: Bearer <AIRBROKE_MCP_API_KEY>`
+- `X-Airbroke-Mcp-Key: <AIRBROKE_MCP_API_KEY>`
+
+Supported RPC methods:
+
+- `initialize`
+- `notifications/initialized`
+- `tools/list`
+- `tools/call`
+
+Available tools:
+
+- `airbroke_list_projects`
+- `airbroke_get_project`
+- `airbroke_list_notices`
+- `airbroke_list_occurrences`
+- `airbroke_get_notice`
+- `airbroke_search`
+- `airbroke_get_occurrence`
+
+Notes on richer MCP outputs:
+
+- `airbroke_list_projects`, `airbroke_list_notices`, and `airbroke_list_occurrences`
+  support `offset` + `limit` for page-like iteration.
+- `airbroke_list_notices` supports `include_project=true` to embed minimal project data.
+- `airbroke_list_occurrences` is summary-first by default, and supports:
+  - `include_details=true` (+ optional `backtrace_frames`) for backtrace preview and key context fields.
+  - `include_notice=true` / `include_project=true` to embed parent notice/project context inline.
+- `airbroke_get_notice` returns:
+  - the notice payload
+  - `latest_occurrences` (by `updated_at desc`)
+  - `top_occurrences` (by `seen_count desc`, then `updated_at desc`)
+  - optional occurrence detail snippets for faster LLM triage.
+- `airbroke_search` supports cross-project query by occurrence message + notice/project metadata
+  with optional filters: `organization`, `project_id`, `env`, `include_resolved`,
+  and rich snippets via `include_details` + `backtrace_frames`.
+
+Example Codex MCP server config:
+
+```toml
+[mcp_servers.airbroke]
+url = "https://myairbroke.xyz/api/mcp/sse?v=2"
+http_headers = { "X-Airbroke-Mcp-Key" = "replace-me" }
+```
 
 ## Authentication Layer
 
