@@ -223,12 +223,17 @@ To ensure simplicity and performance, the Data Collection API sidesteps the use 
 Airbroke exposes an MCP-compatible JSON-RPC API for read-only error triage workflows:
 
 - `POST /api/mcp`
-- `POST /api/mcp/sse` (same handler, useful for clients configured with an `/sse` endpoint)
 
 Authentication is static-header based (no OAuth in v1). Set `AIRBROKE_MCP_API_KEY` and send either:
 
 - `Authorization: Bearer <AIRBROKE_MCP_API_KEY>`
 - `X-Airbroke-Mcp-Key: <AIRBROKE_MCP_API_KEY>`
+
+Origin policy for browser clients:
+
+- Optional `AIRBROKE_MCP_ALLOWED_ORIGINS` (comma-separated) explicitly allows specific `Origin` values.
+- If `AIRBROKE_MCP_ALLOWED_ORIGINS` is unset, Airbroke allows same-origin browser requests by default.
+- Non-browser clients that do not send an `Origin` header are unaffected by this check.
 
 Supported RPC methods:
 
@@ -268,7 +273,7 @@ Example Codex MCP server config:
 
 ```toml
 [mcp_servers.airbroke]
-url = "https://myairbroke.xyz/api/mcp/sse?v=2"
+url = "https://myairbroke.xyz/api/mcp"
 http_headers = { "X-Airbroke-Mcp-Key" = "replace-me" }
 ```
 
