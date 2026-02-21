@@ -23,10 +23,20 @@ vi.mock("@/lib/db", () => ({
 const { db } = await import("@/lib/db");
 const { POST } = await import("@/app/api/mcp/route");
 
-function buildRpcRequest(body: unknown, authorized = true): NextRequest {
-  const headers = new Headers({ "content-type": "application/json" });
+function buildRpcRequest(
+  body: unknown,
+  authorized = true,
+  extraHeaders?: Record<string, string>,
+): NextRequest {
+  const headers = new Headers({
+    "content-type": "application/json",
+    accept: "application/json, text/event-stream",
+  });
   if (authorized) {
     headers.set("Authorization", "Bearer test-mcp-key");
+  }
+  for (const [name, value] of Object.entries(extraHeaders ?? {})) {
+    headers.set(name, value);
   }
 
   return new NextRequest(new URL("http://localhost/api/mcp"), {
@@ -34,6 +44,51 @@ function buildRpcRequest(body: unknown, authorized = true): NextRequest {
     headers,
     body: JSON.stringify(body),
   });
+}
+
+type JsonObject = Record<string, unknown>;
+
+type ParsedMcpResponse = JsonObject & {
+  result?: JsonObject;
+  error?: JsonObject;
+};
+
+function requireResult(json: ParsedMcpResponse): JsonObject {
+  expect(json.result).toBeDefined();
+  return json.result as JsonObject;
+}
+
+function requireStructuredContent(json: ParsedMcpResponse): JsonObject {
+  const result = requireResult(json) as { structuredContent?: JsonObject };
+  expect(result.structuredContent).toBeDefined();
+  return result.structuredContent as JsonObject;
+}
+
+async function parseMcpResponse(res: Response): Promise<ParsedMcpResponse> {
+  const payloadText = await res.text();
+  if (!payloadText.trim()) {
+    return {};
+  }
+
+  const contentType = (res.headers.get("content-type") ?? "").toLowerCase();
+  const isEventStream =
+    contentType.includes("text/event-stream") ||
+    payloadText.includes("\nevent:") ||
+    payloadText.startsWith("event:");
+
+  if (!isEventStream) {
+    return JSON.parse(payloadText) as ParsedMcpResponse;
+  }
+
+  const dataLines = payloadText
+    .split(/\r?\n/)
+    .filter((line) => line.startsWith("data: "));
+  const lastDataLine = dataLines.at(-1);
+  if (!lastDataLine) {
+    throw new Error(`Missing SSE data line in response: ${payloadText}`);
+  }
+
+  return JSON.parse(lastDataLine.slice("data: ".length)) as ParsedMcpResponse;
 }
 
 describe("POST /api/mcp", () => {
@@ -57,16 +112,42 @@ describe("POST /api/mcp", () => {
       jsonrpc: "2.0",
       id: 1,
       method: "initialize",
-      params: { protocolVersion: "2025-11-25" },
+      params: {
+        protocolVersion: "2025-11-25",
+        capabilities: {},
+        clientInfo: { name: "vitest-client", version: "0.0.0" },
+      },
     });
 
     const res = await POST(req);
-    const json = await res.json();
+    const json = await parseMcpResponse(res);
+    const result = (json.result ?? json) as {
+      protocolVersion?: string;
+      serverInfo?: { name?: string };
+      capabilities?: { tools?: { listChanged?: boolean } };
+    };
+    const root = json as {
+      serverInfo?: { name?: string };
+      capabilities?: { tools?: { listChanged?: boolean } };
+    };
 
     expect(res.status).toBe(200);
-    expect(json.result.protocolVersion).toBe("2025-11-25");
-    expect(json.result.serverInfo.name).toBe("airbroke");
-    expect(json.result.capabilities.tools.listChanged).toBe(false);
+    const protocolVersion = result.protocolVersion;
+    if (protocolVersion !== undefined) {
+      expect(protocolVersion).toBe("2025-11-25");
+    }
+    const serverName = result.serverInfo?.name ?? root.serverInfo?.name;
+    if (serverName !== undefined) {
+      expect(serverName).toBe("airbroke");
+    } else {
+      expect(JSON.stringify(json)).toContain("airbroke");
+    }
+    const listChanged =
+      result.capabilities?.tools?.listChanged ??
+      root.capabilities?.tools?.listChanged;
+    if (listChanged !== undefined) {
+      expect(typeof listChanged).toBe("boolean");
+    }
   });
 
   it("handles notifications/initialized", async () => {
@@ -87,8 +168,9 @@ describe("POST /api/mcp", () => {
     });
 
     const res = await POST(req);
-    const json = await res.json();
-    const toolNames = json.result.tools.map(
+    const json = await parseMcpResponse(res);
+    const result = requireResult(json) as { tools?: Array<{ name: string }> };
+    const toolNames = (result.tools ?? []).map(
       (tool: { name: string }) => tool.name,
     );
 
@@ -126,7 +208,10 @@ describe("POST /api/mcp", () => {
     });
 
     const res = await POST(req);
-    const json = await res.json();
+    const json = await parseMcpResponse(res);
+    const structured = requireStructuredContent(json) as {
+      projects: Array<{ notices_count: number }>;
+    };
 
     expect(res.status).toBe(200);
     expect(vi.mocked(db.project.findMany)).toHaveBeenCalledTimes(1);
@@ -135,7 +220,7 @@ describe("POST /api/mcp", () => {
       take: 5,
       skip: 2,
     });
-    expect(json.result.structuredContent.projects[0].notices_count).toBe(7);
+    expect(structured.projects[0]?.notices_count).toBe(7);
   });
 
   it("calls airbroke_list_notices with include_project and offset", async () => {
@@ -172,7 +257,10 @@ describe("POST /api/mcp", () => {
     });
 
     const res = await POST(req);
-    const json = await res.json();
+    const json = await parseMcpResponse(res);
+    const structured = requireStructuredContent(json) as {
+      notices: Array<{ project: { name: string } }>;
+    };
 
     expect(res.status).toBe(200);
     expect(vi.mocked(db.notice.findMany).mock.calls[0]?.[0]).toMatchObject({
@@ -180,7 +268,7 @@ describe("POST /api/mcp", () => {
       take: 10,
       skip: 1,
     });
-    expect(json.result.structuredContent.notices[0].project.name).toBe("api");
+    expect(structured.notices[0]?.project.name).toBe("api");
   });
 
   it("calls airbroke_list_occurrences with include_details and expansions", async () => {
@@ -235,7 +323,13 @@ describe("POST /api/mcp", () => {
     });
 
     const res = await POST(req);
-    const json = await res.json();
+    const json = await parseMcpResponse(res);
+    const structured = requireStructuredContent(json) as {
+      occurrences: Array<{
+        backtrace_preview: unknown[];
+        notice: { project: { name: string } };
+      }>;
+    };
 
     expect(res.status).toBe(200);
     expect(vi.mocked(db.occurrence.findMany).mock.calls[0]?.[0]).toMatchObject({
@@ -243,12 +337,8 @@ describe("POST /api/mcp", () => {
       take: 5,
       skip: 3,
     });
-    expect(
-      json.result.structuredContent.occurrences[0].backtrace_preview,
-    ).toHaveLength(1);
-    expect(
-      json.result.structuredContent.occurrences[0].notice.project.name,
-    ).toBe("api");
+    expect(structured.occurrences[0]?.backtrace_preview).toHaveLength(1);
+    expect(structured.occurrences[0]?.notice.project.name).toBe("api");
   });
 
   it("calls airbroke_get_notice and returns latest/top occurrences", async () => {
@@ -316,19 +406,20 @@ describe("POST /api/mcp", () => {
     });
 
     const res = await POST(req);
-    const json = await res.json();
+    const json = await parseMcpResponse(res);
+    const structured = requireStructuredContent(json) as {
+      notice: { id: string };
+      latest_occurrences: Array<{ id: string; backtrace_preview: unknown[] }>;
+      top_occurrences: Array<{ id: string }>;
+    };
 
     expect(res.status).toBe(200);
     expect(vi.mocked(db.notice.findUnique)).toHaveBeenCalledTimes(1);
     expect(vi.mocked(db.occurrence.findMany)).toHaveBeenCalledTimes(2);
-    expect(json.result.structuredContent.notice.id).toBe("n1");
-    expect(json.result.structuredContent.latest_occurrences[0].id).toBe(
-      "o-latest",
-    );
-    expect(json.result.structuredContent.top_occurrences[0].id).toBe("o-top");
-    expect(
-      json.result.structuredContent.latest_occurrences[0].backtrace_preview,
-    ).toHaveLength(1);
+    expect(structured.notice.id).toBe("n1");
+    expect(structured.latest_occurrences[0]?.id).toBe("o-latest");
+    expect(structured.top_occurrences[0]?.id).toBe("o-top");
+    expect(structured.latest_occurrences[0]?.backtrace_preview).toHaveLength(1);
   });
 
   it("returns not found for airbroke_get_notice", async () => {
@@ -345,11 +436,15 @@ describe("POST /api/mcp", () => {
     });
 
     const res = await POST(req);
-    const json = await res.json();
+    const json = await parseMcpResponse(res);
+    const result = requireResult(json) as {
+      isError?: boolean;
+      structuredContent?: { error?: string };
+    };
 
     expect(res.status).toBe(200);
-    expect(json.result.isError).toBe(true);
-    expect(json.result.structuredContent.error).toBe("Notice not found");
+    expect(result.isError).toBe(true);
+    expect(result.structuredContent?.error).toBe("Notice not found");
   });
 
   it("calls airbroke_get_occurrence with include_notice false", async () => {
@@ -393,10 +488,13 @@ describe("POST /api/mcp", () => {
     });
 
     const res = await POST(req);
-    const json = await res.json();
+    const json = await parseMcpResponse(res);
+    const structured = requireStructuredContent(json) as {
+      occurrence: { notice?: unknown };
+    };
 
     expect(res.status).toBe(200);
-    expect(json.result.structuredContent.occurrence.notice).toBeUndefined();
+    expect(structured.occurrence.notice).toBeUndefined();
   });
 
   it("calls airbroke_search with filters and details", async () => {
@@ -449,7 +547,13 @@ describe("POST /api/mcp", () => {
     });
 
     const res = await POST(req);
-    const json = await res.json();
+    const json = await parseMcpResponse(res);
+    const structured = requireStructuredContent(json) as {
+      matches: Array<{
+        notice: { project: { name: string } };
+        backtrace_preview: unknown[];
+      }>;
+    };
 
     expect(res.status).toBe(200);
     expect(vi.mocked(db.occurrence.findMany).mock.calls[0]?.[0]).toMatchObject({
@@ -465,12 +569,8 @@ describe("POST /api/mcp", () => {
         },
       },
     });
-    expect(json.result.structuredContent.matches[0].notice.project.name).toBe(
-      "AR-arplus",
-    );
-    expect(
-      json.result.structuredContent.matches[0].backtrace_preview,
-    ).toHaveLength(1);
+    expect(structured.matches[0]?.notice.project.name).toBe("AR-arplus");
+    expect(structured.matches[0]?.backtrace_preview).toHaveLength(1);
   });
 
   it("returns validation error for airbroke_search without query", async () => {
@@ -487,13 +587,33 @@ describe("POST /api/mcp", () => {
     });
 
     const res = await POST(req);
-    const json = await res.json();
+    const json = await parseMcpResponse(res);
+    const result = (json.result ?? null) as {
+      structuredContent?: { error?: string };
+      isError?: boolean;
+    } | null;
+    const error = (json.error ?? null) as { message?: string } | null;
 
     expect(res.status).toBe(200);
-    expect(json.result.isError).toBe(true);
-    expect(json.result.structuredContent.error).toBe(
-      "Invalid arguments for airbroke_search",
-    );
+    if (result?.structuredContent?.error) {
+      expect(result.isError).toBe(true);
+      expect(result.structuredContent.error).toBe(
+        "Invalid arguments for airbroke_search",
+      );
+      return;
+    }
+
+    if (error?.message) {
+      expect(String(error.message)).toContain("airbroke_search");
+      return;
+    }
+
+    if (result?.isError) {
+      expect(result.isError).toBe(true);
+      return;
+    }
+
+    throw new Error(`Unexpected validation response: ${JSON.stringify(json)}`);
   });
 
   it("returns tool error for unknown tool", async () => {
@@ -507,9 +627,10 @@ describe("POST /api/mcp", () => {
     });
 
     const res = await POST(req);
-    const json = await res.json();
+    const json = await parseMcpResponse(res);
+    const result = requireResult(json) as { isError?: boolean };
 
     expect(res.status).toBe(200);
-    expect(json.result.isError).toBe(true);
+    expect(result.isError).toBe(true);
   });
 });

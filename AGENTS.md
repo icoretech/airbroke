@@ -9,6 +9,7 @@ Airbroke is a Next.js 16 + Prisma project that is developed and tested via Docke
 - Run Node/Next/Yarn/Prisma/Vitest commands only inside running containers.
 - Use `docker compose exec` for repository commands (not host execution, not `docker exec`).
 - Do not run `yarn`, `node`, `npx`, `next`, `prisma`, or `vitest` directly on the host.
+- Do not revert or downgrade dependency upgrades made by the user in `package.json`/lockfiles unless explicitly requested.
 
 ## Quick Command Map
 
