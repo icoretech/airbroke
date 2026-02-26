@@ -1,26 +1,15 @@
 // components/AppShell.tsx
 
-import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { TbBookmarks, TbClockPause, TbFileDelta } from "react-icons/tb";
 import { NavUser } from "@/components/NavUser";
 import CreateProjectDialog from "@/components/project/CreateProjectDialog";
-import { SourceRepoProviderIcon } from "@/components/SourceRepoProviderIcon";
+import { SidebarProjectsNav } from "@/components/SidebarProjectsNav";
 import TopbarSearch from "@/components/TopbarSearch";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
 import { Separator } from "@/components/ui/separator";
 import {
   Sidebar,
-  SidebarContent,
   SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarInset,
   SidebarMenu,
@@ -32,6 +21,7 @@ import {
 import { auth } from "@/lib/auth";
 import { getProjectsGroupedByOrganization } from "@/lib/queries/projects";
 import logoAsset from "@/public/logo.svg";
+import type { SidebarProjectsGroup } from "@/components/SidebarProjectsNav";
 
 export async function AppShell({
   children,
@@ -53,6 +43,18 @@ export async function AppShell({
   const session = await auth();
   const user = session?.user;
   const grouped = await getProjectsGroupedByOrganization();
+  const groupedProjects: SidebarProjectsGroup[] = Object.entries(grouped).map(
+    ([organization, projects]) => ({
+      organization,
+      projects: projects.map((project) => ({
+        id: project.id,
+        name: project.name,
+        paused: project.paused,
+        repoProvider: project.repo_provider ?? "",
+        noticesCount: project.notices_count.toString(),
+      })),
+    }),
+  );
 
   return (
     <SidebarProvider>
@@ -84,86 +86,11 @@ export async function AppShell({
           </SidebarMenu>
         </SidebarHeader>
 
-        <SidebarContent className="scrollbar-none">
-          {/* Primary links */}
-          <SidebarGroup>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton
-                    asChild
-                    isActive={
-                      !selectedProjectId && activeSection !== "bookmarks"
-                    }
-                  >
-                    <Link href="/projects" prefetch={false}>
-                      <TbFileDelta />
-                      <span>Projects</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton
-                    asChild
-                    isActive={activeSection === "bookmarks"}
-                  >
-                    <Link href="/bookmarks" prefetch={false}>
-                      <TbBookmarks />
-                      <span>Bookmarks</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-
-          {/* Organizations and Projects */}
-          {Object.entries(grouped).map(([org, projects]) => (
-            <Collapsible key={org} defaultOpen className="group/collapsible">
-              <SidebarGroup>
-                <SidebarGroupLabel
-                  asChild
-                  className="group/label text-xs font-semibold text-sidebar-foreground/70"
-                >
-                  <CollapsibleTrigger className="flex w-full items-center">
-                    {org}
-                    <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
-                  </CollapsibleTrigger>
-                </SidebarGroupLabel>
-                <CollapsibleContent>
-                  <SidebarGroupContent>
-                    <SidebarMenu>
-                      {projects.map((p) => (
-                        <SidebarMenuItem key={p.id}>
-                          <SidebarMenuButton
-                            asChild
-                            isActive={p.id === selectedProjectId}
-                          >
-                            <Link href={`/projects/${p.id}`} prefetch={false}>
-                              {p.paused ? (
-                                <TbClockPause />
-                              ) : (
-                                <SourceRepoProviderIcon
-                                  sourceRepoProvider={p.repo_provider}
-                                />
-                              )}
-                              <span className="truncate">{p.name}</span>
-                              {p.notices_count > 0 && (
-                                <span className="ml-auto w-9 min-w-max whitespace-nowrap rounded-full bg-background px-2.5 py-0.5 text-center text-xs font-medium leading-5 text-foreground/90 ring-1 ring-inset ring-white/15">
-                                  {p.notices_count.toString()}
-                                </span>
-                              )}
-                            </Link>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
-                      ))}
-                    </SidebarMenu>
-                  </SidebarGroupContent>
-                </CollapsibleContent>
-              </SidebarGroup>
-            </Collapsible>
-          ))}
-        </SidebarContent>
+        <SidebarProjectsNav
+          groupedProjects={groupedProjects}
+          selectedProjectId={selectedProjectId}
+          activeSection={activeSection}
+        />
 
         <SidebarFooter>
           {(() => {
