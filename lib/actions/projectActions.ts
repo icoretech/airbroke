@@ -237,6 +237,8 @@ export async function toggleProjectPausedStatus(projectId: string) {
 export async function deleteProjectNotices(projectId: string) {
   await db.notice.deleteMany({ where: { project_id: projectId } });
 
+  revalidatePath("/projects");
+  revalidatePath(`/projects/${projectId}`, "layout");
   revalidatePath(`/projects/${projectId}`);
   revalidatePath(`/projects/${projectId}/edit`);
 }
