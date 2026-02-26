@@ -2,9 +2,13 @@
 
 "use server";
 
-import { cacheLife, revalidatePath } from "next/cache";
+import { cacheLife } from "next/cache";
 import { redirect, unstable_rethrow } from "next/navigation";
 import { z } from "zod";
+import {
+  revalidateProjectShellPaths,
+  revalidateProjectsSidebarPaths,
+} from "@/lib/actions/revalidateProjectShellPaths";
 import { db } from "@/lib/db";
 import { parseGitURL } from "@/lib/gitProvider";
 import type { Project } from "@/prisma/generated/client";
@@ -212,8 +216,7 @@ export async function updateProject(
   }
 
   // Invalidate and refresh pages that display project data, then redirect back to Edit tab
-  revalidatePath(`/projects/${projectId}`);
-  revalidatePath(`/projects/${projectId}/edit`);
+  revalidateProjectShellPaths(projectId);
   redirect(`/projects/${projectId}`);
 }
 
@@ -229,24 +232,19 @@ export async function toggleProjectPausedStatus(projectId: string) {
   });
 
   // Cache Components mode: ensure project pages and sidebar reflect changes.
-  revalidatePath("/projects");
-  revalidatePath(`/projects/${projectId}`);
-  revalidatePath(`/projects/${projectId}/edit`);
+  revalidateProjectShellPaths(projectId);
 }
 
 export async function deleteProjectNotices(projectId: string) {
   await db.notice.deleteMany({ where: { project_id: projectId } });
 
-  revalidatePath("/projects");
-  revalidatePath(`/projects/${projectId}`, "layout");
-  revalidatePath(`/projects/${projectId}`);
-  revalidatePath(`/projects/${projectId}/edit`);
+  revalidateProjectShellPaths(projectId);
 }
 
 export async function deleteProject(projectId: string) {
   await db.project.delete({ where: { id: projectId } });
 
-  revalidatePath("/projects");
+  revalidateProjectsSidebarPaths();
 }
 
 export async function cachedProjectChartOccurrencesData(projectId: string) {

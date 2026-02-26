@@ -3,7 +3,7 @@
 "use server";
 
 import { Notifier as AirbrakeNodeNotifier } from "@airbrake/node";
-import { revalidatePath } from "next/cache";
+import { revalidateProjectShellPaths } from "@/lib/actions/revalidateProjectShellPaths";
 
 export async function sendAirbrakeNodeException(
   projectId: string,
@@ -27,5 +27,5 @@ export async function sendAirbrakeNodeException(
     await airbrake.notify(err);
   }
 
-  revalidatePath(`/projects/${projectId}`);
+  revalidateProjectShellPaths(projectId);
 }

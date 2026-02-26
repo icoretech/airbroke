@@ -3,7 +3,7 @@
 "use server";
 
 import { captureException, flush, init } from "@sentry/node";
-import { revalidatePath } from "next/cache";
+import { revalidateProjectShellPaths } from "@/lib/actions/revalidateProjectShellPaths";
 
 export async function sendSentryNodeException(
   projectId: string,
@@ -35,6 +35,6 @@ export async function sendSentryNodeException(
     console.error("Sentry node test flush failed", e);
   });
 
-  revalidatePath(`/projects/${projectId}`);
+  revalidateProjectShellPaths(projectId);
   return eventId;
 }

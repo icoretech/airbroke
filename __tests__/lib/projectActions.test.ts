@@ -48,6 +48,7 @@ describe("deleteProjectNotices", () => {
       where: { project_id: projectId },
     });
     expect(revalidatePathMock).toHaveBeenCalledWith("/projects");
+    expect(revalidatePathMock).toHaveBeenCalledWith("/bookmarks");
     expect(revalidatePathMock).toHaveBeenCalledWith(
       `/projects/${projectId}`,
       "layout",
