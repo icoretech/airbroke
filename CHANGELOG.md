@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.97](https://github.com/icoretech/airbroke/compare/v1.1.96...v1.1.97) (2026-03-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency lucide-react to ^0.576.0 ([#1493](https://github.com/icoretech/airbroke/issues/1493)) ([42163d0](https://github.com/icoretech/airbroke/commit/42163d045d79fd11c365c274817443b1f722a434))
+
 ## [1.1.96](https://github.com/icoretech/airbroke/compare/v1.1.95...v1.1.96) (2026-03-01)
 
 
