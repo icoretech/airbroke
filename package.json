@@ -51,7 +51,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "4.1.0",
-    "lucide-react": "^0.575.0",
+    "lucide-react": "^0.576.0",
     "mcp-handler": "^1.0.7",
     "motion": "^12.34.3",
     "nanoid": "5.1.6",
