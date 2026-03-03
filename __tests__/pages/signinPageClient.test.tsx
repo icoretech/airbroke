@@ -1,15 +1,17 @@
 // __tests__/pages/signinPageClient.test.tsx
 
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import type { ReactNode } from "react";
 import { describe, expect, test, vi } from "vitest";
+
+const signInMock = vi.hoisted(() => vi.fn());
 
 vi.mock("next/navigation", () => ({
   useSearchParams: () => new URLSearchParams(),
 }));
 
 vi.mock("next-auth/react", () => ({
-  signIn: vi.fn(),
+  signIn: signInMock,
 }));
 
 vi.mock("next/image", () => ({
@@ -35,16 +37,15 @@ describe("SignInPageClient", () => {
       />,
     );
 
-    expect(
-      screen.getByRole("heading", { name: /sign in to airbroke/i }),
-    ).toBeDefined();
-    expect(
-      screen.getByRole("button", { name: /sign in with github/i }),
-    ).toBeDefined();
+    screen.getByRole("heading", { name: /sign in to airbroke/i });
+    screen.getByRole("button", { name: /sign in with github/i });
     const cognitoButton = screen.getByRole("button", {
       name: /sign in with cognito/i,
     });
-    expect(cognitoButton).toBeDefined();
     expect(cognitoButton.querySelector("svg")).not.toBeNull();
+    fireEvent.click(cognitoButton);
+    expect(signInMock).toHaveBeenCalledWith("cognito", {
+      callbackUrl: "/projects",
+    });
   });
 });
