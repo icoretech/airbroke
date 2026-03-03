@@ -1,8 +1,8 @@
 // __tests__/pages/signinPageClient.test.tsx
 
 import { fireEvent, render, screen } from "@testing-library/react";
-import type { ReactNode } from "react";
 import { describe, expect, test, vi } from "vitest";
+import type { ReactNode } from "react";
 
 const signInMock = vi.hoisted(() => vi.fn());
 
@@ -15,7 +15,7 @@ vi.mock("next-auth/react", () => ({
 }));
 
 vi.mock("next/image", () => ({
-  default: (props: { alt: string }) => <img alt={props.alt} />,
+  default: () => <span data-testid="next-image" />,
 }));
 
 vi.mock("next/link", () => ({
@@ -25,7 +25,7 @@ vi.mock("next/link", () => ({
 }));
 
 vi.mock("@/components/FooterCredits", () => ({
-  default: () => <div data-testid="footer-credits" />,
+  default: () => <span data-testid="footer-credits" />,
 }));
 
 import SignInPageClient from "../../app/signin/SignInPageClient";
