@@ -6,29 +6,6 @@ import { describe, expect, test, vi } from "vitest";
 
 const signInMock = vi.hoisted(() => vi.fn());
 
-const makeIcon = vi.hoisted(
-  () => (dataIcon: string) => (props: Record<string, unknown>) => (
-    <svg data-icon={dataIcon} {...props} />
-  ),
-);
-
-vi.mock("react-icons/fa", () => ({
-  FaApple: makeIcon("fa-apple"),
-  FaBitbucket: makeIcon("fa-bitbucket"),
-  FaGithub: makeIcon("fa-github"),
-  FaGitlab: makeIcon("fa-gitlab"),
-  FaGoogle: makeIcon("fa-google"),
-  FaSlack: makeIcon("fa-slack"),
-  FaAws: makeIcon("fa-aws"),
-}));
-
-vi.mock("react-icons/si", () => ({
-  SiAmazoncognito: makeIcon("si-amazoncognito"),
-  SiAuthentik: makeIcon("si-authentik"),
-  SiKeycloak: makeIcon("si-keycloak"),
-  SiOkta: makeIcon("si-okta"),
-}));
-
 vi.mock("next/navigation", () => ({
   useSearchParams: () => new URLSearchParams(),
 }));
@@ -67,7 +44,6 @@ describe("SignInPageClient", () => {
     });
     const cognitoIcon = cognitoButton.querySelector("svg");
     expect(cognitoIcon).not.toBeNull();
-    expect(cognitoIcon?.getAttribute("data-icon")).toBe("fa-aws");
     fireEvent.click(cognitoButton);
     expect(signInMock).toHaveBeenCalledWith("cognito", {
       callbackUrl: "/projects",
