@@ -24,6 +24,10 @@ vi.mock("next/link", () => ({
   ),
 }));
 
+vi.mock("@/components/FooterCredits", () => ({
+  default: () => <div data-testid="footer-credits" />,
+}));
+
 import SignInPageClient from "../../app/signin/SignInPageClient";
 
 describe("SignInPageClient", () => {
