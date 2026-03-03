@@ -9,18 +9,14 @@ import { signIn as nextAuthSignIn } from "next-auth/react";
 import { useState } from "react";
 import {
   FaApple,
+  FaAws,
   FaBitbucket,
   FaGithub,
   FaGitlab,
   FaGoogle,
   FaSlack,
 } from "react-icons/fa";
-import {
-  SiAmazoncognito,
-  SiAuthentik,
-  SiKeycloak,
-  SiOkta,
-} from "react-icons/si";
+import { SiAuthentik, SiKeycloak, SiOkta } from "react-icons/si";
 import { SlDisc } from "react-icons/sl";
 import { VscAzure } from "react-icons/vsc";
 import FooterCredits from "@/components/FooterCredits";
@@ -39,7 +35,7 @@ const providerIcons: Record<string, React.ElementType> = {
   authentik: SiAuthentik,
   slack: FaSlack,
   okta: SiOkta,
-  cognito: SiAmazoncognito,
+  cognito: FaAws,
 };
 
 type ProviderInfo = {
