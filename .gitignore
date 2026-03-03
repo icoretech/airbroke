@@ -51,3 +51,4 @@ docker-compose.override.yml
 prisma/generated/
 .tmp/
 .worktrees/
+docs/
