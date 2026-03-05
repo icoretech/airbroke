@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.1.97](https://github.com/icoretech/airbroke/compare/v1.1.96...v1.1.97) (2026-03-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @microlink/react-json-view to v1.30.2 ([ac46246](https://github.com/icoretech/airbroke/commit/ac462461975a4f82b7a24d31b3f48af20dff3947))
+* **deps:** update dependency @microlink/react-json-view to v1.30.2 ([b6f4fb8](https://github.com/icoretech/airbroke/commit/b6f4fb8eea2fff4f4905934e361b58a220b7d207))
+* **deps:** update dependency lucide-react to ^0.576.0 ([#1493](https://github.com/icoretech/airbroke/issues/1493)) ([42163d0](https://github.com/icoretech/airbroke/commit/42163d045d79fd11c365c274817443b1f722a434))
+* **deps:** update dependency lucide-react to ^0.577.0 ([#1504](https://github.com/icoretech/airbroke/issues/1504)) ([736d884](https://github.com/icoretech/airbroke/commit/736d8848821f615f05721f77b1fc2f13fd23a64c))
+* **deps:** update sentry-javascript monorepo to v10.41.0 ([#1495](https://github.com/icoretech/airbroke/issues/1495)) ([bc4c5d8](https://github.com/icoretech/airbroke/commit/bc4c5d8fd9a384a81984c6a3fd4d9b8fcc2a39c5))
+* **deps:** update sentry-javascript monorepo to v10.42.0 ([#1502](https://github.com/icoretech/airbroke/issues/1502)) ([0a785dd](https://github.com/icoretech/airbroke/commit/0a785dd6495d348310dd9d07ca954e5b385c818e))
+* **deps:** update vercel ai sdk ([#1498](https://github.com/icoretech/airbroke/issues/1498)) ([8fb3f90](https://github.com/icoretech/airbroke/commit/8fb3f901f6baffc5de07ce10797aa063cc4b7d49))
+* **deps:** update vercel ai sdk ([#1503](https://github.com/icoretech/airbroke/issues/1503)) ([c653cd4](https://github.com/icoretech/airbroke/commit/c653cd4eddabf2c6bec24daf73ab9c40f0f5c48d))
+* **deps:** update vercel ai sdk ([#1508](https://github.com/icoretech/airbroke/issues/1508)) ([627a57e](https://github.com/icoretech/airbroke/commit/627a57e97c52b2f3e2a9e2ff7fcb9e948745eff9))
+* **signin:** replace cognito icon with FaAws ([16aeb43](https://github.com/icoretech/airbroke/commit/16aeb43dadfc30e3d809c56f07c29aeca186d8d9))
+
 ## [1.1.96](https://github.com/icoretech/airbroke/compare/v1.1.95...v1.1.96) (2026-03-01)
 
 
