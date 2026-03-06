@@ -235,13 +235,6 @@ Origin policy for browser clients:
 - If `AIRBROKE_MCP_ALLOWED_ORIGINS` is unset, Airbroke allows same-origin browser requests by default.
 - Non-browser clients that do not send an `Origin` header are unaffected by this check.
 
-Supported RPC methods:
-
-- `initialize`
-- `notifications/initialized`
-- `tools/list`
-- `tools/call`
-
 Available tools:
 
 - `airbroke_list_projects`
@@ -274,7 +267,9 @@ Example Codex MCP server config:
 ```toml
 [mcp_servers.airbroke]
 url = "https://myairbroke.xyz/api/mcp"
-http_headers = { "X-Airbroke-Mcp-Key" = "replace-me" }
+
+[mcp_servers.airbroke.http_headers]
+X-Airbroke-Mcp-Key = "replace-me"
 ```
 
 ## Authentication Layer
