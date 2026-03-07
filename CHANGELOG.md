@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.98](https://github.com/icoretech/airbroke/compare/v1.1.97...v1.1.98) (2026-03-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @microlink/react-json-view to v1.31.1 ([#1512](https://github.com/icoretech/airbroke/issues/1512)) ([d064136](https://github.com/icoretech/airbroke/commit/d064136d1f5a7852722181fe25f5db376b582d3e))
+* **deps:** update dependency @microlink/react-json-view to v1.31.3 ([#1518](https://github.com/icoretech/airbroke/issues/1518)) ([dd0b2ac](https://github.com/icoretech/airbroke/commit/dd0b2ac61b13e145d155c3e9af93cf2822dc9c12))
+* **deps:** update dependency recharts to v3.8.0 ([#1517](https://github.com/icoretech/airbroke/issues/1517)) ([0e9ada4](https://github.com/icoretech/airbroke/commit/0e9ada4165532a7159ea1b555f1b16460545f7b7))
+
 ## [1.1.97](https://github.com/icoretech/airbroke/compare/v1.1.96...v1.1.97) (2026-03-05)
 
 
