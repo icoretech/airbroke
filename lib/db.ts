@@ -1,7 +1,6 @@
 // lib/db.ts
 
 import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
 import { PrismaClient } from "@/prisma/generated/client";
 
 let prisma: PrismaClient | undefined;
@@ -14,8 +13,7 @@ function createPrisma(): PrismaClient {
     );
   }
 
-  const pool = new Pool({ connectionString: databaseUrl });
-  const adapter = new PrismaPg(pool);
+  const adapter = new PrismaPg({ connectionString: databaseUrl });
 
   return new PrismaClient({
     adapter,
