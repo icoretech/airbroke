@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.99](https://github.com/icoretech/airbroke/compare/v1.1.98...v1.1.99) (2026-03-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @microlink/react-json-view to v1.31.4 ([#1520](https://github.com/icoretech/airbroke/issues/1520)) ([57ff393](https://github.com/icoretech/airbroke/commit/57ff3939bf3283bea0e965fe6ca4def8c77054f3))
+* **deps:** update dependency @microlink/react-json-view to v1.31.6 ([#1524](https://github.com/icoretech/airbroke/issues/1524)) ([165cb9b](https://github.com/icoretech/airbroke/commit/165cb9be4f074d136acfbff81ed6f7a8b948e230))
+* **deps:** update sentry-javascript monorepo to v10.43.0 ([#1525](https://github.com/icoretech/airbroke/issues/1525)) ([cb1a54b](https://github.com/icoretech/airbroke/commit/cb1a54bc265332db40b6bc3000bebd2fac0f4e7b))
+
 ## [1.1.98](https://github.com/icoretech/airbroke/compare/v1.1.97...v1.1.98) (2026-03-07)
 
 
