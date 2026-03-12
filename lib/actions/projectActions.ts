@@ -245,6 +245,7 @@ export async function deleteProject(projectId: string) {
   await db.project.delete({ where: { id: projectId } });
 
   revalidateProjectsSidebarPaths();
+  redirect("/projects");
 }
 
 export async function cachedProjectChartOccurrencesData(projectId: string) {

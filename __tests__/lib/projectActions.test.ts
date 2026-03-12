@@ -4,6 +4,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const revalidatePathMock = vi.fn();
 const noticeDeleteManyMock = vi.fn();
+const projectDeleteMock = vi.fn();
+const redirectMock = vi.fn();
 
 vi.mock("next/cache", () => ({
   cacheLife: vi.fn(),
@@ -11,7 +13,7 @@ vi.mock("next/cache", () => ({
 }));
 
 vi.mock("next/navigation", () => ({
-  redirect: vi.fn(),
+  redirect: redirectMock,
   unstable_rethrow: vi.fn(),
 }));
 
@@ -24,7 +26,7 @@ vi.mock("@/lib/db", () => ({
       create: vi.fn(),
       findUnique: vi.fn(),
       update: vi.fn(),
-      delete: vi.fn(),
+      delete: projectDeleteMock,
     },
     hourlyOccurrence: {
       groupBy: vi.fn(),
@@ -32,7 +34,9 @@ vi.mock("@/lib/db", () => ({
   },
 }));
 
-const { deleteProjectNotices } = await import("@/lib/actions/projectActions");
+const { deleteProject, deleteProjectNotices } = await import(
+  "@/lib/actions/projectActions"
+);
 
 describe("deleteProjectNotices", () => {
   beforeEach(() => {
@@ -57,5 +61,24 @@ describe("deleteProjectNotices", () => {
     expect(revalidatePathMock).toHaveBeenCalledWith(
       `/projects/${projectId}/edit`,
     );
+  });
+});
+
+describe("deleteProject", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("revalidates the projects shell and redirects to the projects list", async () => {
+    const projectId = "project-123";
+
+    await deleteProject(projectId);
+
+    expect(projectDeleteMock).toHaveBeenCalledWith({
+      where: { id: projectId },
+    });
+    expect(revalidatePathMock).toHaveBeenCalledWith("/projects");
+    expect(revalidatePathMock).toHaveBeenCalledWith("/bookmarks");
+    expect(redirectMock).toHaveBeenCalledWith("/projects");
   });
 });
