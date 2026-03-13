@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.1.100](https://github.com/icoretech/airbroke/compare/v1.1.99...v1.1.100) (2026-03-13)
+
+
+### Bug Fixes
+
+* **ci:** update biome to 2.4.7 ([c8f0d7b](https://github.com/icoretech/airbroke/commit/c8f0d7b6dd93e3f616a59957461b440c81a7173f))
+* **deps:** make prisma 7.5 adapter-pg upgrade build clean ([01927c2](https://github.com/icoretech/airbroke/commit/01927c26100e02f14e8c44de8a185e641edfd444))
+* **deps:** update dependency @microlink/react-json-view to v1.31.7 ([#1526](https://github.com/icoretech/airbroke/issues/1526)) ([6ae9bd2](https://github.com/icoretech/airbroke/commit/6ae9bd286d9bc9442295fe011cca09b1e9182947))
+* **deps:** update dependency @microlink/react-json-view to v1.31.8 ([#1529](https://github.com/icoretech/airbroke/issues/1529)) ([fc745bc](https://github.com/icoretech/airbroke/commit/fc745bc2d65216b588c9e9566c9de51412477af9))
+* redirect after deleting a project ([0260927](https://github.com/icoretech/airbroke/commit/026092758210a53445c76fb45d57d7a9c0555514))
+
 ## [1.1.99](https://github.com/icoretech/airbroke/compare/v1.1.98...v1.1.99) (2026-03-10)
 
 
