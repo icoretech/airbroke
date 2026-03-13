@@ -82,37 +82,47 @@ export default async function Backtrace({
       {Array.isArray(occurrence.backtrace) && (
         <div className="flex items-start justify-between overflow-x-auto">
           <div className="flex-1">
-            {occurrence.backtrace.map((trace, index) => {
-              if (!isBacktraceItem(trace)) return null;
+            {(() => {
+              const seenKeys = new Map<string, number>();
 
-              return (
-                <div
-                  key={index}
-                  className="flex flex-row flex-wrap justify-start font-mono text-xs"
-                >
-                  <p
-                    className={clsx(
-                      "text-xs text-gray-400",
-                      trace.file.includes("PROJECT_ROOT") && "font-semibold",
-                    )}
+              return occurrence.backtrace.map((trace) => {
+                if (!isBacktraceItem(trace)) return null;
+
+                const baseKey = `${trace.file}:${trace.line}:${trace.function}`;
+                const seenCount = seenKeys.get(baseKey) ?? 0;
+                seenKeys.set(baseKey, seenCount + 1);
+                const traceKey =
+                  seenCount === 0 ? baseKey : `${baseKey}-${seenCount + 1}`;
+
+                return (
+                  <div
+                    key={traceKey}
+                    className="flex flex-row flex-wrap justify-start font-mono text-xs"
                   >
-                    <LinkedBacktraceLine
-                      file={trace.file}
-                      line={trace.line}
-                      project={occurrence.notice.project}
-                    />
-                  </p>
-                  <p className="mx-1 text-gray-400">:</p>
-                  <p className="text-xs font-semibold text-indigo-200">
-                    {trace.line}
-                  </p>
-                  <p className="mx-1 text-gray-400">→</p>
-                  <p className="text-xs font-semibold text-rose-500">
-                    {trace.function}
-                  </p>
-                </div>
-              );
-            })}
+                    <p
+                      className={clsx(
+                        "text-xs text-gray-400",
+                        trace.file.includes("PROJECT_ROOT") && "font-semibold",
+                      )}
+                    >
+                      <LinkedBacktraceLine
+                        file={trace.file}
+                        line={trace.line}
+                        project={occurrence.notice.project}
+                      />
+                    </p>
+                    <p className="mx-1 text-gray-400">:</p>
+                    <p className="text-xs font-semibold text-indigo-200">
+                      {trace.line}
+                    </p>
+                    <p className="mx-1 text-gray-400">→</p>
+                    <p className="text-xs font-semibold text-rose-500">
+                      {trace.function}
+                    </p>
+                  </div>
+                );
+              });
+            })()}
           </div>
         </div>
       )}

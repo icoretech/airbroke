@@ -18,46 +18,55 @@ type Crumb = {
 export default function AppBreadcrumbs({ items }: { items: Crumb[] }) {
   if (!items?.length) return null;
   const lastIndex = items.length - 1;
+  const seenKeys = new Map<string, number>();
   return (
     <Breadcrumb>
       <BreadcrumbList className="flex-nowrap overflow-hidden w-full">
-        {items.map((item, idx) => (
-          <Fragment key={`frag-${idx}`}>
-            <BreadcrumbItem key={`crumb-${idx}`}>
-              {idx === lastIndex || !item.href ? (
-                <BreadcrumbPage
-                  className={labelClass(idx)}
-                  title={String(item.label)}
-                >
-                  <span className="block truncate">{item.label}</span>
-                </BreadcrumbPage>
-              ) : (
-                <BreadcrumbLink asChild>
-                  {/* Next Link is type-restricted to internal routes; fall back to <a> for external */}
-                  {item.href?.startsWith("/") ? (
-                    <Link
-                      href={item.href as Route}
-                      className={labelClass(idx)}
-                      title={String(item.label)}
-                    >
-                      <span className="block truncate">{item.label}</span>
-                    </Link>
-                  ) : (
-                    <a
-                      href={item.href}
-                      rel="noreferrer"
-                      className={labelClass(idx)}
-                      title={String(item.label)}
-                    >
-                      <span className="block truncate">{item.label}</span>
-                    </a>
-                  )}
-                </BreadcrumbLink>
-              )}
-            </BreadcrumbItem>
-            {idx < lastIndex && <BreadcrumbSeparator key={`sep-${idx}`} />}
-          </Fragment>
-        ))}
+        {items.map((item, idx) => {
+          const baseKey = item.href ?? String(item.label);
+          const seenCount = seenKeys.get(baseKey) ?? 0;
+          seenKeys.set(baseKey, seenCount + 1);
+          const itemKey =
+            seenCount === 0 ? baseKey : `${baseKey}-${seenCount + 1}`;
+
+          return (
+            <Fragment key={itemKey}>
+              <BreadcrumbItem>
+                {idx === lastIndex || !item.href ? (
+                  <BreadcrumbPage
+                    className={labelClass(idx)}
+                    title={String(item.label)}
+                  >
+                    <span className="block truncate">{item.label}</span>
+                  </BreadcrumbPage>
+                ) : (
+                  <BreadcrumbLink asChild>
+                    {/* Next Link is type-restricted to internal routes; fall back to <a> for external */}
+                    {item.href?.startsWith("/") ? (
+                      <Link
+                        href={item.href as Route}
+                        className={labelClass(idx)}
+                        title={String(item.label)}
+                      >
+                        <span className="block truncate">{item.label}</span>
+                      </Link>
+                    ) : (
+                      <a
+                        href={item.href}
+                        rel="noreferrer"
+                        className={labelClass(idx)}
+                        title={String(item.label)}
+                      >
+                        <span className="block truncate">{item.label}</span>
+                      </a>
+                    )}
+                  </BreadcrumbLink>
+                )}
+              </BreadcrumbItem>
+              {idx < lastIndex && <BreadcrumbSeparator />}
+            </Fragment>
+          );
+        })}
       </BreadcrumbList>
     </Breadcrumb>
   );

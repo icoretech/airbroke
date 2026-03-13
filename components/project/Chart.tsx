@@ -59,6 +59,8 @@ export function ChartTooltipContent({
 
   if (!active || items.length === 0) return null;
 
+  const seenKeys = new Map<string, number>();
+
   return (
     <div
       className={cn(
@@ -70,7 +72,7 @@ export function ChartTooltipContent({
         <div className="mb-1 font-medium">{label as ReactNode}</div>
       ) : null}
       <div className="grid gap-1.5">
-        {items.map((raw, idx) => {
+        {items.map((raw) => {
           if (typeof raw !== "object" || raw === null) return null;
           const item = raw as {
             value?: number | string;
@@ -78,11 +80,17 @@ export function ChartTooltipContent({
             color?: string;
             dataKey?: string;
           };
-          const key = item.dataKey || item.name || `value-${idx}`;
-          const conf = key && config[key] ? config[key] : undefined;
+          const baseKey = String(
+            item.dataKey || item.name || item.value || "value",
+          );
+          const seenCount = seenKeys.get(baseKey) ?? 0;
+          seenKeys.set(baseKey, seenCount + 1);
+          const reactKey =
+            seenCount === 0 ? baseKey : `${baseKey}-${seenCount + 1}`;
+          const conf = config[baseKey];
           return (
             <div
-              key={`${key}-${idx}`}
+              key={reactKey}
               className="flex items-center justify-between gap-4"
             >
               <span className="text-muted-foreground">
