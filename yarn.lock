@@ -833,17 +833,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microlink/react-json-view@npm:1.31.12":
-  version: 1.31.12
-  resolution: "@microlink/react-json-view@npm:1.31.12"
+"@microlink/react-json-view@npm:1.31.14":
+  version: 1.31.14
+  resolution: "@microlink/react-json-view@npm:1.31.14"
   dependencies:
     react-base16-styling: "npm:~0.10.0"
     react-lifecycles-compat: "npm:~3.0.4"
-    react-textarea-autosize: "npm:~8.5.7"
+    react-textarea-autosize: "npm:~8.5.9"
   peerDependencies:
     react: ">= 15"
     react-dom: ">= 15"
-  checksum: 10/758e93cd2cb6fa3e0500bcf35defc7cb195fff3d35e85fcaa6b576dfc308daa195a8f8db0ece73ec0501efe7df61cf5f96d1cb72134a85e9da7d8dc223459aa5
+  checksum: 10/bc9ac6eb2da50e535ce5fde637983f53aa606f76c9620a1278527fb6671af7b1c6d37b3091ce9a07440c14dea57f7a47c3cf934bd250a4530d7ed7261264d7d1
   languageName: node
   linkType: hard
 
@@ -4016,7 +4016,7 @@ __metadata:
     "@airbrake/node": "npm:2.1.9"
     "@biomejs/biome": "npm:2.4.8"
     "@faker-js/faker": "npm:10.3.0"
-    "@microlink/react-json-view": "npm:1.31.12"
+    "@microlink/react-json-view": "npm:1.31.14"
     "@modelcontextprotocol/sdk": "npm:^1.27.1"
     "@prisma/adapter-pg": "npm:7.5.0"
     "@prisma/client": "npm:7.5.0"
@@ -7091,7 +7091,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-textarea-autosize@npm:~8.5.7":
+"react-textarea-autosize@npm:~8.5.9":
   version: 8.5.9
   resolution: "react-textarea-autosize@npm:8.5.9"
   dependencies:
