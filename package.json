@@ -55,7 +55,7 @@
     "mcp-handler": "^1.0.7",
     "motion": "^12.36.0",
     "nanoid": "5.1.7",
-    "next": "16.1.7",
+    "next": "16.2.0",
     "next-auth": "5.0.0-beta.30",
     "numbro": "2.5.0",
     "radix-ui": "^1.4.3",
