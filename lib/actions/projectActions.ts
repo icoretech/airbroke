@@ -2,7 +2,7 @@
 
 "use server";
 
-import { cacheLife } from "next/cache";
+import { cacheLife, refresh } from "next/cache";
 import { redirect, unstable_rethrow } from "next/navigation";
 import { z } from "zod";
 import {
@@ -239,6 +239,7 @@ export async function deleteProjectNotices(projectId: string) {
   await db.notice.deleteMany({ where: { project_id: projectId } });
 
   revalidateProjectShellPaths(projectId);
+  refresh();
 }
 
 export async function deleteProject(projectId: string) {

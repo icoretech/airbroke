@@ -3,12 +3,14 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const revalidatePathMock = vi.fn();
+const refreshMock = vi.fn();
 const noticeDeleteManyMock = vi.fn();
 const projectDeleteMock = vi.fn();
 const redirectMock = vi.fn();
 
 vi.mock("next/cache", () => ({
   cacheLife: vi.fn(),
+  refresh: refreshMock,
   revalidatePath: revalidatePathMock,
 }));
 
@@ -61,6 +63,7 @@ describe("deleteProjectNotices", () => {
     expect(revalidatePathMock).toHaveBeenCalledWith(
       `/projects/${projectId}/edit`,
     );
+    expect(refreshMock).toHaveBeenCalled();
   });
 });
 
