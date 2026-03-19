@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.101](https://github.com/icoretech/airbroke/compare/v1.1.100...v1.1.101) (2026-03-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @microlink/react-json-view to v1.31.11 ([#1540](https://github.com/icoretech/airbroke/issues/1540)) ([d5ed1f0](https://github.com/icoretech/airbroke/commit/d5ed1f02abe4e88f9c4737e688771105c983dafd))
+* **deps:** update dependency @microlink/react-json-view to v1.31.12 ([#1545](https://github.com/icoretech/airbroke/issues/1545)) ([df6b0e8](https://github.com/icoretech/airbroke/commit/df6b0e860b70c41fd99f3e05a4199de7b420d7b8))
+* **deps:** update dependency @microlink/react-json-view to v1.31.14 ([#1547](https://github.com/icoretech/airbroke/issues/1547)) ([567bd9b](https://github.com/icoretech/airbroke/commit/567bd9bd6891b5b87521564493b078b300203a96))
+* **deps:** update dependency nanoid to v5.1.7 ([#1538](https://github.com/icoretech/airbroke/issues/1538)) ([05d039f](https://github.com/icoretech/airbroke/commit/05d039faa093f8c11fbd0525c87b2c066d66520c))
+* **deps:** update dependency next to v16.1.7 ([#1542](https://github.com/icoretech/airbroke/issues/1542)) ([68a3aaf](https://github.com/icoretech/airbroke/commit/68a3aaf49c78a51df5c459f60fa2b8fbfd65035d))
+* **deps:** update dependency next to v16.2.0 ([#1548](https://github.com/icoretech/airbroke/issues/1548)) ([cfb34a0](https://github.com/icoretech/airbroke/commit/cfb34a076a220d9ab37336d1f199e820ffac40db))
+* **deps:** update sentry-javascript monorepo to v10.44.0 ([#1544](https://github.com/icoretech/airbroke/issues/1544)) ([ffda311](https://github.com/icoretech/airbroke/commit/ffda311868c16cb3bc93709c4a2c29769b399663))
+* refresh project edit route after deleting notices ([86805d8](https://github.com/icoretech/airbroke/commit/86805d873752455b51aa81a409afaf215e7612c8))
+
 ## [1.1.100](https://github.com/icoretech/airbroke/compare/v1.1.99...v1.1.100) (2026-03-13)
 
 
