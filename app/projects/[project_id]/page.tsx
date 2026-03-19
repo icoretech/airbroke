@@ -11,17 +11,13 @@ import {
 } from "@/components/ui/input-group";
 import { getNoticeEnvs } from "@/lib/queries/notices";
 import { getProjectById } from "@/lib/queries/projects";
+import { toNoticeSearchParams } from "@/lib/routeSearchParams";
 import EnvironmentFilter from "./Filter";
 import Sort from "./Sort";
 import type { Metadata } from "next";
 
-type ComponentProps = {
-  params: Promise<{ project_id: string }>;
-  searchParams: Promise<{ [key: string]: string | undefined }>;
-};
-
 export async function generateMetadata(
-  props: ComponentProps,
+  props: PageProps<"/projects/[project_id]">,
 ): Promise<Metadata> {
   const projectId = (await props.params).project_id;
   const project = await getProjectById(projectId);
@@ -29,7 +25,9 @@ export async function generateMetadata(
 }
 
 // /projects/:project_id
-export default async function ProjectNotices(props: ComponentProps) {
+export default async function ProjectNotices(
+  props: PageProps<"/projects/[project_id]">,
+) {
   const [resolvedSearchParams, resolvedParams] = await Promise.all([
     props.searchParams,
     props.params,
@@ -117,7 +115,7 @@ export default async function ProjectNotices(props: ComponentProps) {
         </div>
 
         <NoticesTable
-          searchParams={resolvedSearchParams}
+          searchParams={toNoticeSearchParams(resolvedSearchParams)}
           projectId={project.id}
         />
       </section>

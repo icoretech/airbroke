@@ -8,8 +8,6 @@ import { parseSentryEnvelope } from "@/lib/parseSentryEnvelope";
 import { processError } from "@/lib/processError";
 import type { NextRequest } from "next/server";
 
-type Params = Promise<{ project_id: string }>;
-
 function getProjectKey(req: NextRequest): string | null {
   const keyFromQuery = req.nextUrl.searchParams.get("sentry_key");
   if (keyFromQuery) return keyFromQuery;
@@ -52,7 +50,10 @@ async function readEnvelopeBody(req: NextRequest): Promise<Uint8Array> {
   return buffer;
 }
 
-async function POST(req: NextRequest, { params }: { params: Params }) {
+async function POST(
+  req: NextRequest,
+  { params }: RouteContext<"/api/sentry/[project_id]/envelope">,
+) {
   const { project_id } = await params;
   const projectKey = getProjectKey(req);
 

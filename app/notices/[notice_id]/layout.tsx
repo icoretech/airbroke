@@ -4,15 +4,11 @@ import { AppShell } from "@/components/AppShell";
 import { EditProjectButton } from "@/components/project/EditProjectButton";
 import { buildNoticeCrumbsById } from "@/lib/breadcrumbs";
 import { db } from "@/lib/db";
-import type { ReactNode } from "react";
 
 export default async function NoticeLayout({
   children,
   params,
-}: {
-  children: ReactNode;
-  params: Promise<{ notice_id: string }>;
-}) {
+}: LayoutProps<"/notices/[notice_id]">) {
   const { notice_id } = await params;
   const getProjectIdForNotice = cache(async (id: string) => {
     const n = await db.notice.findUnique({

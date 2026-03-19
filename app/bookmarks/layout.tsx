@@ -1,9 +1,10 @@
 import AppBreadcrumbs from "@/components/AppBreadcrumbs";
 import { AppShell } from "@/components/AppShell";
 import { buildBookmarksCrumbs } from "@/lib/breadcrumbs";
-import type { ReactNode } from "react";
 
-export default function BookmarksLayout({ children }: { children: ReactNode }) {
+export default function BookmarksLayout({
+  children,
+}: LayoutProps<"/bookmarks">) {
   const crumbs = buildBookmarksCrumbs();
   return (
     <AppShell

@@ -5,11 +5,9 @@ import EditForm from "@/components/project/EditForm";
 import Overview from "@/components/project/Overview";
 import { getProjectById } from "@/lib/queries/projects";
 
-type ComponentProps = {
-  params: Promise<{ project_id: string }>;
-};
-
-export default async function ProjectEditPage(props: ComponentProps) {
+export default async function ProjectEditPage(
+  props: PageProps<"/projects/[project_id]/edit">,
+) {
   const params = await props.params;
 
   const project = await getProjectById(params.project_id);

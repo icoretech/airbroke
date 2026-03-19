@@ -19,21 +19,18 @@ import {
 import { cachedProjectChartOccurrencesData } from "@/lib/actions/projectActions";
 import { buildProjectsIndexCrumbs } from "@/lib/breadcrumbs";
 import { getProjects } from "@/lib/queries/projects";
+import { getSingleSearchParam } from "@/lib/routeSearchParams";
 import type { Metadata } from "next";
-
-type ComponentProps = {
-  searchParams: Promise<{ [key: string]: string | undefined }>;
-};
 
 export async function generateMetadata(): Promise<Metadata> {
   return { title: "Projects" };
 }
 
 // /projects
-export default async function Projects(props: ComponentProps) {
+export default async function Projects(props: PageProps<"/projects">) {
   const resolvedSearchParams = await props.searchParams;
-  const searchQuery = resolvedSearchParams.searchQuery;
-  const currentSearchTerm = typeof searchQuery === "string" ? searchQuery : "";
+  const currentSearchTerm =
+    getSingleSearchParam(resolvedSearchParams, "searchQuery") ?? "";
   // shadcn/sidebar is managed at app/projects/layout.tsx
 
   const projects = await getProjects(currentSearchTerm);

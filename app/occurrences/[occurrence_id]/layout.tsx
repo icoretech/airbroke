@@ -4,15 +4,11 @@ import { AppShell } from "@/components/AppShell";
 import { EditProjectButton } from "@/components/project/EditProjectButton";
 import { buildOccurrenceCrumbsById } from "@/lib/breadcrumbs";
 import { db } from "@/lib/db";
-import type { ReactNode } from "react";
 
 export default async function OccurrenceLayout({
   children,
   params,
-}: {
-  children: ReactNode;
-  params: Promise<{ occurrence_id: string }>;
-}) {
+}: LayoutProps<"/occurrences/[occurrence_id]">) {
   const { occurrence_id } = await params;
   const getProjectIdForOccurrence = cache(async (id: string) => {
     const o = await db.occurrence.findUnique({

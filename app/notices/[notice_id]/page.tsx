@@ -7,16 +7,12 @@ import EnvironmentLabel from "@/components/EnvironmentLabel";
 import OccurrencesTable from "@/components/OccurrencesTable";
 import { Badge } from "@/components/ui/badge";
 import { getNoticeById } from "@/lib/queries/notices";
+import { toOccurrenceSearchParams } from "@/lib/routeSearchParams";
 import Sort from "./Sort";
 import type { Metadata } from "next";
 
-type ComponentProps = {
-  params: Promise<{ notice_id: string }>;
-  searchParams: Promise<{ [key: string]: string | undefined }>;
-};
-
 export async function generateMetadata(
-  props: ComponentProps,
+  props: PageProps<"/notices/[notice_id]">,
 ): Promise<Metadata> {
   const noticeId = (await props.params).notice_id;
   const notice = await getNoticeById(noticeId);
@@ -24,7 +20,7 @@ export async function generateMetadata(
 }
 
 // /notices/:notice_id
-export default async function Notice(props: ComponentProps) {
+export default async function Notice(props: PageProps<"/notices/[notice_id]">) {
   const [resolvedSearchParams, resolvedParams] = await Promise.all([
     props.searchParams,
     props.params,
@@ -79,7 +75,7 @@ export default async function Notice(props: ComponentProps) {
 
         <OccurrencesTable
           noticeId={notice.id}
-          searchParams={resolvedSearchParams}
+          searchParams={toOccurrenceSearchParams(resolvedSearchParams)}
         />
       </section>
     </div>

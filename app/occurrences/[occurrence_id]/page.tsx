@@ -25,16 +25,12 @@ import { Badge } from "@/components/ui/badge";
 import { auth } from "@/lib/auth";
 import { checkOccurrenceBookmarkExistence } from "@/lib/queries/occurrenceBookmarks";
 import { getOccurrenceById } from "@/lib/queries/occurrences";
+import { getSingleSearchParam } from "@/lib/routeSearchParams";
 import type { Metadata, Route } from "next";
 import type { OccurrenceTabKeys, OccurrenceTabs } from "@/types/airbroke";
 
-type ComponentProps = {
-  params: Promise<{ occurrence_id: string }>;
-  searchParams: Promise<{ [key: string]: string | undefined }>;
-};
-
 export async function generateMetadata(
-  props: ComponentProps,
+  props: PageProps<"/occurrences/[occurrence_id]">,
 ): Promise<Metadata> {
   const params = await props.params;
   const occurrence = await getOccurrenceById(params.occurrence_id);
@@ -42,7 +38,9 @@ export async function generateMetadata(
 }
 
 // /occurrences/:occurrence_id
-export default async function Occurrence(props: ComponentProps) {
+export default async function Occurrence(
+  props: PageProps<"/occurrences/[occurrence_id]">,
+) {
   const [resolvedSearchParams, resolvedParams, session] = await Promise.all([
     props.searchParams,
     props.params,
@@ -76,10 +74,11 @@ export default async function Occurrence(props: ComponentProps) {
     "toolbox",
   ];
 
+  const currentTabValue = getSingleSearchParam(resolvedSearchParams, "tab");
   const currentTab: OccurrenceTabKeys = tabKeys.includes(
-    resolvedSearchParams.tab as OccurrenceTabKeys,
+    currentTabValue as OccurrenceTabKeys,
   )
-    ? (resolvedSearchParams.tab as OccurrenceTabKeys)
+    ? (currentTabValue as OccurrenceTabKeys)
     : "backtrace";
 
   const tabs: OccurrenceTabs = {
