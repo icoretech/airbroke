@@ -4,11 +4,15 @@ import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
 
 const projectRoot = fileURLToPath(new URL(".", import.meta.url));
+const nextNavigationMock = fileURLToPath(
+  new URL("./__tests__/helpers/nextNavigation.ts", import.meta.url),
+);
 
 export default defineConfig({
   resolve: {
     alias: {
       "@": projectRoot,
+      "next/navigation": nextNavigationMock,
     },
   },
   test: {
