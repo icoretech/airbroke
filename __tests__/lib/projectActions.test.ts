@@ -79,7 +79,9 @@ describe("deleteProjectNotices", () => {
 describe("cachedProjectChartOccurrencesData", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.mocked(db.hourlyOccurrence.groupBy).mockResolvedValue([]);
+    vi.mocked(db.hourlyOccurrence.groupBy).mockResolvedValue(
+      [] as unknown as Awaited<ReturnType<typeof db.hourlyOccurrence.groupBy>>,
+    );
   });
 
   it("tags project activity chart data for cache invalidation", async () => {

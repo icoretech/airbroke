@@ -15,7 +15,7 @@ ChartJS.register(BarController, LinearScale, BarElement);
 
 type XYPoint = { x: number; y: number };
 
-type ChartDataItem = { date: string; count: number };
+type ChartDataItem = { date: number; count: number };
 
 interface OccurrencesChartBackgroundProps {
   chartData: ChartDataItem[];

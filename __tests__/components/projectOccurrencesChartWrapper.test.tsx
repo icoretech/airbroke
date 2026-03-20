@@ -14,7 +14,7 @@ vi.mock("@/components/OccurrenceChart", () => ({
     chartData,
     compact,
   }: {
-    chartData: Array<{ date: string; count: number }>;
+    chartData: Array<{ date: number; count: number }>;
     compact?: boolean;
   }) => (
     <div data-compact={compact ? "true" : "false"}>
@@ -30,7 +30,7 @@ const { default: OccurrencesChartWrapper } = await import(
 describe("OccurrencesChartWrapper", () => {
   it("uses the shared cached project activity query", async () => {
     cachedProjectChartOccurrencesDataMock.mockResolvedValue([
-      { date: "2026-03-20T18", count: 3 },
+      { date: 1742493600000, count: 3 },
     ]);
 
     const element = await OccurrencesChartWrapper({

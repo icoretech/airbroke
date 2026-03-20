@@ -7,15 +7,11 @@ const { refreshMock, toggleProjectPausedStatusMock } = vi.hoisted(() => ({
   toggleProjectPausedStatusMock: vi.fn(),
 }));
 
-vi.mock(
-  "next/navigation",
-  () => ({
-    useRouter: () => ({
-      refresh: refreshMock,
-    }),
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({
+    refresh: refreshMock,
   }),
-  { virtual: true },
-);
+}));
 
 vi.mock("@/app/_actions", () => ({
   toggleProjectPausedStatus: toggleProjectPausedStatusMock,

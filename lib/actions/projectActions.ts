@@ -272,16 +272,27 @@ export async function cachedProjectChartOccurrencesData(projectId: string) {
     orderBy: { interval_start: "asc" },
   });
 
-  const occurrenceCountByDate: Record<string, number> = {};
+  const occurrenceCountByDate: Record<number, number> = {};
   occurrenceSummaries.forEach((summary) => {
-    const hourStamp = summary.interval_start.toISOString().slice(0, 13);
+    const d = summary.interval_start;
+    const hourStamp = Date.UTC(
+      d.getUTCFullYear(),
+      d.getUTCMonth(),
+      d.getUTCDate(),
+      d.getUTCHours(),
+    );
     occurrenceCountByDate[hourStamp] = Number(summary._sum.count);
   });
 
-  const data: Array<{ date: string; count: number }> = [];
+  const data: Array<{ date: number; count: number }> = [];
   const cursorDate = new Date(startDate);
   while (cursorDate <= endDate) {
-    const stamp = cursorDate.toISOString().slice(0, 13);
+    const stamp = Date.UTC(
+      cursorDate.getUTCFullYear(),
+      cursorDate.getUTCMonth(),
+      cursorDate.getUTCDate(),
+      cursorDate.getUTCHours(),
+    );
     const count = occurrenceCountByDate[stamp] || 0;
     data.push({ date: stamp, count });
     cursorDate.setHours(cursorDate.getHours() + 1);
