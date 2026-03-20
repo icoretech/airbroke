@@ -8,6 +8,7 @@ export default async function OccurrenceChartWrapper({
 }: {
   occurrenceId: string;
 }) {
+  const gradientId = `occurrence-chart-${occurrenceId}`;
   // Calculate the start and end date for the past two weeks
   const endDate = new Date();
   const startDate = new Date();
@@ -60,7 +61,7 @@ export default async function OccurrenceChartWrapper({
       <h2 className="mb-6 min-w-0 text-sm font-semibold leading-6 text-white">
         Hourly Occurrences in the past 14 days
       </h2>
-      <OccurrenceChart chartData={chartData} />
+      <OccurrenceChart chartData={chartData} gradientId={gradientId} />
     </div>
   );
 }

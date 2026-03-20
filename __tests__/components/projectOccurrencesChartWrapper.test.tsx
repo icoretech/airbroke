@@ -13,11 +13,16 @@ vi.mock("@/components/OccurrenceChart", () => ({
   default: ({
     chartData,
     compact,
+    gradientId,
   }: {
     chartData: Array<{ date: number; count: number }>;
     compact?: boolean;
+    gradientId?: string;
   }) => (
-    <div data-compact={compact ? "true" : "false"}>
+    <div
+      data-compact={compact ? "true" : "false"}
+      data-gradient-id={gradientId}
+    >
       {JSON.stringify(chartData)}
     </div>
   ),
@@ -43,6 +48,9 @@ describe("OccurrencesChartWrapper", () => {
       "project-123",
     );
     expect(html).toContain('data-compact="true"');
+    expect(html).toContain(
+      'data-gradient-id="project-chart-project-123-compact"',
+    );
     expect(html).toContain("&quot;count&quot;:3");
   });
 });

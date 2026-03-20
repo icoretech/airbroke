@@ -1,6 +1,5 @@
 "use client";
 
-import { useId } from "react";
 import {
   ChartContainer,
   ChartTooltip,
@@ -25,11 +24,13 @@ type DataPoint = { date: number; count: number };
 export default function OccurrenceChart({
   chartData,
   compact = false,
+  gradientId,
 }: {
   chartData: DataPoint[];
   compact?: boolean;
+  gradientId?: string;
 }) {
-  const gradId = useId();
+  const gradId = gradientId ?? "occurrence-chart-gradient";
   const chartConfig: ChartConfig = {
     count: { label: "Occurrences", color: "hsl(var(--chart-1))" },
   };

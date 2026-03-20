@@ -11,6 +11,7 @@ export default async function OccurrencesChartWrapper({
   compact?: boolean;
 }) {
   const chartData = await cachedProjectChartOccurrencesData(projectId);
+  const gradientId = `project-chart-${projectId}${compact ? "-compact" : ""}`;
 
   return (
     <div className={compact ? "" : "px-4 sm:px-6 lg:px-8"}>
@@ -19,7 +20,11 @@ export default async function OccurrencesChartWrapper({
           Hourly Occurrences in the past 14 days
         </h2>
       )}
-      <OccurrenceChart chartData={chartData} compact={compact} />
+      <OccurrenceChart
+        chartData={chartData}
+        compact={compact}
+        gradientId={gradientId}
+      />
     </div>
   );
 }
