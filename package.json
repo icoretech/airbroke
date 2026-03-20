@@ -1,6 +1,6 @@
 {
   "name": "airbroke",
-  "version": "1.1.101",
+  "version": "1.1.102",
   "private": true,
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect=0.0.0.0' next dev",
