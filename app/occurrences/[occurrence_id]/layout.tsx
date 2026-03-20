@@ -1,3 +1,4 @@
+import { connection } from "next/server";
 import { cache } from "react";
 import AppBreadcrumbs from "@/components/AppBreadcrumbs";
 import { AppShell } from "@/components/AppShell";
@@ -10,6 +11,7 @@ export default async function OccurrenceLayout({
   params,
 }: LayoutProps<"/occurrences/[occurrence_id]">) {
   const { occurrence_id } = await params;
+  await connection();
   const getProjectIdForOccurrence = cache(async (id: string) => {
     const o = await db.occurrence.findUnique({
       where: { id },
