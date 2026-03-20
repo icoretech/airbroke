@@ -1,7 +1,9 @@
 // app/api/v3/notices/route.ts
 
 import { customAlphabet, urlAlphabet } from "nanoid";
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
+import { getProjectActivityTag } from "@/lib/cache/projectActivity";
 import { corsHeaders } from "@/lib/cors";
 import { db } from "@/lib/db";
 import parseNotice, { type NoticeData } from "@/lib/parseNotice";
@@ -99,6 +101,8 @@ async function POST(request: NextRequest) {
       requestParams,
     );
   }
+
+  revalidateTag(getProjectActivityTag(project.id), "max");
 
   const customNanoid = customAlphabet(urlAlphabet, 21);
   const responseJSON = {

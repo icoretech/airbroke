@@ -4,14 +4,19 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const revalidatePathMock = vi.fn();
 const refreshMock = vi.fn();
+const updateTagMock = vi.fn();
+const cacheTagMock = vi.fn();
+const cacheLifeMock = vi.fn();
 const noticeDeleteManyMock = vi.fn();
 const projectDeleteMock = vi.fn();
 const redirectMock = vi.fn();
 
 vi.mock("next/cache", () => ({
-  cacheLife: vi.fn(),
+  cacheLife: cacheLifeMock,
+  cacheTag: cacheTagMock,
   refresh: refreshMock,
   revalidatePath: revalidatePathMock,
+  updateTag: updateTagMock,
 }));
 
 vi.mock("next/navigation", () => ({
@@ -36,9 +41,12 @@ vi.mock("@/lib/db", () => ({
   },
 }));
 
-const { deleteProject, deleteProjectNotices } = await import(
-  "@/lib/actions/projectActions"
-);
+const { db } = await import("@/lib/db");
+const {
+  cachedProjectChartOccurrencesData,
+  deleteProject,
+  deleteProjectNotices,
+} = await import("@/lib/actions/projectActions");
 
 describe("deleteProjectNotices", () => {
   beforeEach(() => {
@@ -63,7 +71,22 @@ describe("deleteProjectNotices", () => {
     expect(revalidatePathMock).toHaveBeenCalledWith(
       `/projects/${projectId}/edit`,
     );
+    expect(updateTagMock).toHaveBeenCalledWith(`project-activity:${projectId}`);
     expect(refreshMock).toHaveBeenCalled();
+  });
+});
+
+describe("cachedProjectChartOccurrencesData", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    vi.mocked(db.hourlyOccurrence.groupBy).mockResolvedValue([]);
+  });
+
+  it("tags project activity chart data for cache invalidation", async () => {
+    await cachedProjectChartOccurrencesData("project-123");
+
+    expect(cacheLifeMock).toHaveBeenCalledWith("hours");
+    expect(cacheTagMock).toHaveBeenCalledWith("project-activity:project-123");
   });
 });
 

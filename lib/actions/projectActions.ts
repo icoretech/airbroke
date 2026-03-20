@@ -2,13 +2,14 @@
 
 "use server";
 
-import { cacheLife, refresh } from "next/cache";
+import { cacheLife, cacheTag, refresh, updateTag } from "next/cache";
 import { redirect, unstable_rethrow } from "next/navigation";
 import { z } from "zod";
 import {
   revalidateProjectShellPaths,
   revalidateProjectsSidebarPaths,
 } from "@/lib/actions/revalidateProjectShellPaths";
+import { getProjectActivityTag } from "@/lib/cache/projectActivity";
 import { db } from "@/lib/db";
 import { parseGitURL } from "@/lib/gitProvider";
 import type { Project } from "@/prisma/generated/client";
@@ -238,6 +239,7 @@ export async function toggleProjectPausedStatus(projectId: string) {
 export async function deleteProjectNotices(projectId: string) {
   await db.notice.deleteMany({ where: { project_id: projectId } });
 
+  updateTag(getProjectActivityTag(projectId));
   revalidateProjectShellPaths(projectId);
   refresh();
 }
@@ -252,6 +254,7 @@ export async function deleteProject(projectId: string) {
 export async function cachedProjectChartOccurrencesData(projectId: string) {
   "use cache";
   cacheLife("hours");
+  cacheTag(getProjectActivityTag(projectId));
 
   const endDate = new Date();
   const startDate = new Date(endDate.getTime() - 14 * 24 * 60 * 60 * 1000);

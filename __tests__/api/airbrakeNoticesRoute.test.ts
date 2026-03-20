@@ -3,6 +3,12 @@
 import { NextRequest } from "next/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
+const revalidateTagMock = vi.fn();
+
+vi.mock("next/cache", () => ({
+  revalidateTag: revalidateTagMock,
+}));
+
 vi.mock("@/lib/db", () => ({
   db: {
     project: {
@@ -71,6 +77,10 @@ describe("POST /api/v3/notices", () => {
     expect(typeof json.id).toBe("string");
     expect(typeof json.url).toBe("string");
     expect(processError).toHaveBeenCalledTimes(1);
+    expect(revalidateTagMock).toHaveBeenCalledWith(
+      "project-activity:p1",
+      "max",
+    );
     expect(vi.mocked(db.project.findFirst)).toHaveBeenCalledWith({
       where: { api_key: "k1" },
     });
