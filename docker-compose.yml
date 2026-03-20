@@ -34,6 +34,18 @@ services:
       - airbroke
     healthcheck: *postgres_healthcheck
 
+  webbase:
+    build:
+      context: '.'
+      dockerfile: Dockerfile.dev
+    image: icoretech/airbroke:develop
+    entrypoint: /bin/sh -lc
+    command: yarn install
+    volumes:
+      - .:/app
+    networks:
+      - airbroke
+
   web:
     build:
       context: '.'
@@ -43,6 +55,7 @@ services:
     environment:
       DATABASE_URL: 'postgresql://postgres:airbroke@db/airbroke_development?connection_limit=8&connection_timeout=5'
       DIRECT_URL: 'postgresql://postgres:airbroke@db/airbroke_development'
+      SKIP_YARN_INSTALL: '1'
     ports:
       - 3000:3000
       - 9229:9229
@@ -51,6 +64,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      webbase:
+        condition: service_completed_successfully
     volumes:
       - .:/app
 
@@ -62,6 +77,7 @@ services:
       DATABASE_URL: 'postgresql://postgres:airbroke@testdb/airbroke_test?connection_limit=15'
       DIRECT_URL: 'postgresql://postgres:airbroke@testdb/airbroke_test'
       TESTING: 'true'
+      SKIP_YARN_INSTALL: '1'
     volumes:
       - .:/app
     networks:
@@ -69,6 +85,8 @@ services:
     depends_on:
       testdb:
         condition: service_healthy
+      webbase:
+        condition: service_completed_successfully
 
 volumes:
   db_data_pg18:
