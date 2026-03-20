@@ -196,11 +196,10 @@ export default function EditForm({
           {/* Additional note or help text */}
           <div className="rounded-md bg-airbroke-600 p-4 text-xs text-gray-300">
             <p>
-              <strong>Tip:</strong> If you&rsquo;re using GitHub or another
-              provider, be sure to update <code>repo_url</code> and{" "}
-              <code>repo_issue_tracker</code>
-              to direct your backtrace links or issue references to the correct
-              location.
+              <strong>Tip:</strong> If you're using GitHub or another provider,
+              be sure to update <code>repo_url</code> and{" "}
+              <code>repo_issue_tracker</code> to direct your backtrace links or
+              issue references to the correct location.
             </p>
           </div>
         </div>
