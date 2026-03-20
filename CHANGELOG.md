@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.1.102](https://github.com/icoretech/airbroke/compare/v1.1.101...v1.1.102) (2026-03-20)
+
+
+### Bug Fixes
+
+* align project activity chart types ([37092af](https://github.com/icoretech/airbroke/commit/37092afe9426e651ee29bf48ec67730550e0e408))
+* avoid loading sentry runtime on normal routes ([8a661a9](https://github.com/icoretech/airbroke/commit/8a661a95cde9c0b92537c66d5a7526a9acb02e68))
+* defer occurrence layout rendering to request time ([c97c2e3](https://github.com/icoretech/airbroke/commit/c97c2e35d81d96452115e8ddb504b074e2226da1))
+* **deps:** update sentry-javascript monorepo to v10.45.0 ([#1549](https://github.com/icoretech/airbroke/issues/1549)) ([59ce86d](https://github.com/icoretech/airbroke/commit/59ce86d91bbc0f59b9477a263cae99b990debd6c))
+* invalidate cached project activity data ([2df85d4](https://github.com/icoretech/airbroke/commit/2df85d46daf1c6e0e91b6e86f4868de922bb2e0f))
+* normalize edit form tip copy ([81542d7](https://github.com/icoretech/airbroke/commit/81542d7ffa6d95044d60bed6e71bad32a59740f9))
+* remove redundant effect-driven ui state ([fa6cbf1](https://github.com/icoretech/airbroke/commit/fa6cbf1c4fa509193f63f793efbeb6b3509496f3))
+* reset next dev output before boot ([08b770f](https://github.com/icoretech/airbroke/commit/08b770fad1f3fa294dcfd6785a3945d6a403819d))
+* use stable chart gradient ids ([ebba9be](https://github.com/icoretech/airbroke/commit/ebba9be86d44643e3de86d73281791f871549146))
+
 ## [1.1.101](https://github.com/icoretech/airbroke/compare/v1.1.100...v1.1.101) (2026-03-19)
 
 
