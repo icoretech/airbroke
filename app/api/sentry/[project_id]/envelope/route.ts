@@ -8,6 +8,11 @@ import { parseSentryEnvelope } from "@/lib/parseSentryEnvelope";
 import { processError } from "@/lib/processError";
 import type { NextRequest } from "next/server";
 
+const MAX_COMPRESSED_BODY_BYTES = 1024 * 1024;
+const MAX_DECOMPRESSED_BODY_BYTES = 5 * 1024 * 1024;
+
+class PayloadTooLargeError extends Error {}
+
 function getProjectKey(req: NextRequest): string | null {
   const keyFromQuery = req.nextUrl.searchParams.get("sentry_key");
   if (keyFromQuery) return keyFromQuery;
@@ -28,23 +33,80 @@ function getProjectKey(req: NextRequest): string | null {
   return null;
 }
 
+async function readCompressedBody(req: NextRequest): Promise<Buffer> {
+  const contentLength = Number(req.headers.get("content-length"));
+  if (
+    Number.isFinite(contentLength) &&
+    contentLength > MAX_COMPRESSED_BODY_BYTES
+  ) {
+    throw new PayloadTooLargeError("Compressed envelope payload is too large");
+  }
+
+  const reader = req.body?.getReader();
+  if (!reader) {
+    return Buffer.alloc(0);
+  }
+
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) {
+      break;
+    }
+    if (!value) {
+      continue;
+    }
+
+    total += value.byteLength;
+    if (total > MAX_COMPRESSED_BODY_BYTES) {
+      throw new PayloadTooLargeError(
+        "Compressed envelope payload is too large",
+      );
+    }
+
+    chunks.push(value);
+  }
+
+  return Buffer.concat(chunks);
+}
+
 async function readEnvelopeBody(req: NextRequest): Promise<Uint8Array> {
-  const arrayBuffer = await req.arrayBuffer();
   const encoding = (req.headers.get("content-encoding") || "").toLowerCase();
-  const buffer = Buffer.from(arrayBuffer);
+  const buffer = await readCompressedBody(req);
 
   try {
     if (encoding === "gzip") {
-      return gunzipSync(buffer);
+      return gunzipSync(buffer, {
+        maxOutputLength: MAX_DECOMPRESSED_BODY_BYTES,
+      });
     }
     if (encoding === "deflate") {
-      return inflateSync(buffer);
+      return inflateSync(buffer, {
+        maxOutputLength: MAX_DECOMPRESSED_BODY_BYTES,
+      });
     }
     if (encoding === "br") {
-      return brotliDecompressSync(buffer);
+      return brotliDecompressSync(buffer, {
+        maxOutputLength: MAX_DECOMPRESSED_BODY_BYTES,
+      });
     }
   } catch (err) {
+    if (
+      err instanceof RangeError &&
+      "code" in err &&
+      err.code === "ERR_BUFFER_TOO_LARGE"
+    ) {
+      throw new PayloadTooLargeError(
+        "Decompressed envelope payload is too large",
+      );
+    }
     console.warn("Failed to decompress Sentry envelope", err);
+  }
+
+  if (buffer.byteLength > MAX_DECOMPRESSED_BODY_BYTES) {
+    throw new PayloadTooLargeError("Envelope payload is too large");
   }
 
   return buffer;
@@ -75,7 +137,19 @@ async function POST(
     );
   }
 
-  const bodyText = await readEnvelopeBody(req);
+  let bodyText: Uint8Array;
+  try {
+    bodyText = await readEnvelopeBody(req);
+  } catch (err) {
+    if (err instanceof PayloadTooLargeError) {
+      return NextResponse.json(
+        { error: "envelope payload too large" },
+        { status: 413, headers: corsHeaders(req.headers) },
+      );
+    }
+    throw err;
+  }
+
   const parsed = parseSentryEnvelope(bodyText);
 
   if (parsed.notices.length === 0) {

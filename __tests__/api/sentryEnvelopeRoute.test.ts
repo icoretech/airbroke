@@ -96,6 +96,58 @@ describe("POST /api/sentry/[project_id]/envelope", () => {
     expect(res.status).toBe(404);
   });
 
+  it("returns 413 for oversized compressed payload", async () => {
+    vi.mocked(db.project.findFirst).mockResolvedValue({
+      id: "p1",
+      api_key: "k1",
+      paused: false,
+    } as unknown as Awaited<ReturnType<typeof db.project.findFirst>>);
+
+    const req = new NextRequest(
+      new URL("http://localhost/api/sentry/p1/envelope?sentry_key=k1"),
+      {
+        method: "POST",
+        body: new Uint8Array(1024 * 1024 + 1),
+        headers: {
+          "content-type": "application/x-sentry-envelope",
+        },
+      },
+    );
+
+    const res = await POST(req, {
+      params: Promise.resolve({ project_id: "p1" }),
+    });
+
+    expect(res.status).toBe(413);
+  });
+
+  it("returns 413 for oversized decompressed payload", async () => {
+    vi.mocked(db.project.findFirst).mockResolvedValue({
+      id: "p1",
+      api_key: "k1",
+      paused: false,
+    } as unknown as Awaited<ReturnType<typeof db.project.findFirst>>);
+
+    const oversized = gzipSync(Buffer.alloc(5 * 1024 * 1024 + 1, "a"));
+    const req = new NextRequest(
+      new URL("http://localhost/api/sentry/p1/envelope?sentry_key=k1"),
+      {
+        method: "POST",
+        body: oversized,
+        headers: {
+          "content-encoding": "gzip",
+          "content-type": "application/x-sentry-envelope",
+        },
+      },
+    );
+
+    const res = await POST(req, {
+      params: Promise.resolve({ project_id: "p1" }),
+    });
+
+    expect(res.status).toBe(413);
+  });
+
   it("accepts gzip encoded envelope", async () => {
     vi.mocked(db.project.findFirst).mockResolvedValue({
       id: "p1",
