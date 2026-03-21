@@ -3,7 +3,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { toggleProjectPausedStatus } from "@/app/_actions";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
@@ -24,9 +24,11 @@ export default function ToggleIntake({
   const toggleId = `toggle-intake-${projectId}`;
   const enabled = optimisticEnabled ?? !isPaused;
 
-  if (optimisticEnabled !== null && optimisticEnabled === !isPaused) {
-    setOptimisticEnabled(null);
-  }
+  useEffect(() => {
+    if (optimisticEnabled !== null && optimisticEnabled === !isPaused) {
+      setOptimisticEnabled(null);
+    }
+  }, [optimisticEnabled, isPaused]);
 
   async function handleToggle(nextEnabled: boolean) {
     setOptimisticEnabled(nextEnabled);
