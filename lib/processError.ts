@@ -81,8 +81,8 @@ export async function processError(
   let successOccurrence = false;
 
   const messageHash = crypto
-    .createHash("md5")
-    .update(error.message, "utf8")
+    .createHash("sha256")
+    .update(message, "utf8")
     .digest("hex");
 
   while (attemptsOccurrence > 0 && !successOccurrence) {

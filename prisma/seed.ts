@@ -47,7 +47,7 @@ async function main() {
 
       const message = "Identifier 'ab_functions' has already been declared";
       const messageHash = crypto
-        .createHash("md5")
+        .createHash("sha256")
         .update(message, "utf8")
         .digest("hex");
 

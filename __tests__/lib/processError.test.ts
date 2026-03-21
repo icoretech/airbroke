@@ -1,6 +1,8 @@
 // __tests__/lib/processError.test.ts
 
+import crypto from "node:crypto";
 import { describe, expect, test } from "vitest";
+import { db } from "@/lib/db";
 import { processError } from "@/lib/processError";
 import { createProject } from "../factories/prismaFactories";
 import type { NoticeError } from "@/lib/parseNotice";
@@ -34,6 +36,37 @@ describe("processError", () => {
         ),
       ).resolves.not.toThrow();
     }
+  });
+
+  test("stores a sha256 message hash for occurrence dedupe", async () => {
+    const project = await createProject();
+    const errorData: NoticeError = {
+      type: "Error",
+      message: "Error: message hash regression",
+      backtrace: [],
+    };
+
+    await processError(project, errorData, { environment: "test" }, {}, {}, {});
+
+    const occurrence = await db.occurrence.findFirst({
+      where: {
+        notice: {
+          project_id: project.id,
+          env: "test",
+          kind: "Error",
+        },
+      },
+      select: {
+        message_hash: true,
+      },
+    });
+
+    expect(occurrence?.message_hash).toBe(
+      crypto
+        .createHash("sha256")
+        .update(errorData.message, "utf8")
+        .digest("hex"),
+    );
   });
 
   test("handles deadlocks", async () => {
