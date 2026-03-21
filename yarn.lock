@@ -52,17 +52,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/react@npm:3.0.135":
-  version: 3.0.135
-  resolution: "@ai-sdk/react@npm:3.0.135"
+"@ai-sdk/react@npm:3.0.136":
+  version: 3.0.136
+  resolution: "@ai-sdk/react@npm:3.0.136"
   dependencies:
     "@ai-sdk/provider-utils": "npm:4.0.21"
-    ai: "npm:6.0.133"
+    ai: "npm:6.0.134"
     swr: "npm:^2.2.5"
     throttleit: "npm:2.1.0"
   peerDependencies:
     react: ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1
-  checksum: 10/839119124e623520863a428ff4c0088361ae6cc6cf61925cba388bd67a4d07ea2e9074d46cc941c322ef55991f2b27767acbc6b711b7a7df2a8f1986220f5bb7
+  checksum: 10/38308e49c1c1d410f81480811513f6290a298920218a4084826e391836c9c12b555529b1baa984a68197a934e6a1e16e841f1c4bdda4b5ffd3ce057ce7180126
   languageName: node
   linkType: hard
 
@@ -3990,9 +3990,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:6.0.133":
-  version: 6.0.133
-  resolution: "ai@npm:6.0.133"
+"ai@npm:6.0.134":
+  version: 6.0.134
+  resolution: "ai@npm:6.0.134"
   dependencies:
     "@ai-sdk/gateway": "npm:3.0.77"
     "@ai-sdk/provider": "npm:3.0.8"
@@ -4000,7 +4000,7 @@ __metadata:
     "@opentelemetry/api": "npm:1.9.0"
   peerDependencies:
     zod: ^3.25.76 || ^4.1.8
-  checksum: 10/153aea1bda2f663f13ad51336450b205b1ffac288642e8a6e684e35dd54b84bfd8b57b5d6633d5dba6f181e8fb97c7ea001088295e645ff326d56e62722e59ea
+  checksum: 10/a8dc3d070e84694e85794466e3ce2af972fe0df1eaba0e3d6bd00c86b7f2a376d93ac862d1cde45979cad53b0e2f49589a7f8c769effd3f99b9203337216518c
   languageName: node
   linkType: hard
 
@@ -4009,7 +4009,7 @@ __metadata:
   resolution: "airbroke@workspace:."
   dependencies:
     "@ai-sdk/openai": "npm:3.0.47"
-    "@ai-sdk/react": "npm:3.0.135"
+    "@ai-sdk/react": "npm:3.0.136"
     "@airbrake/browser": "npm:2.1.9"
     "@airbrake/node": "npm:2.1.9"
     "@biomejs/biome": "npm:2.4.8"
@@ -4043,7 +4043,7 @@ __metadata:
     "@types/react": "npm:19.2.14"
     "@types/react-dom": "npm:19.2.3"
     "@types/react-syntax-highlighter": "npm:^15.5.13"
-    ai: "npm:6.0.133"
+    ai: "npm:6.0.134"
     babel-plugin-react-compiler: "npm:1.0.0"
     chart.js: "npm:4.5.1"
     class-variance-authority: "npm:^0.7.1"
