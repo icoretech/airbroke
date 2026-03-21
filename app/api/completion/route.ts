@@ -8,6 +8,46 @@ import type { OpenAIProviderSettings } from "@ai-sdk/openai";
 import type { ModelMessage } from "ai";
 
 export const maxDuration = 30;
+const MAX_ERROR_MESSAGE_LENGTH = 1_500;
+const MAX_BACKTRACE_FRAMES = 15;
+const MAX_BACKTRACE_LENGTH = 2_000;
+export const MAX_PROMPT_LENGTH = 4_000;
+
+function clampText(value: string, maxLength: number): string {
+  if (value.length <= maxLength) {
+    return value;
+  }
+
+  return `${value.slice(0, maxLength - 3)}...`;
+}
+
+function buildPrompt({
+  errorType,
+  errorMessage,
+  backtrace,
+  isDetailMode,
+}: {
+  errorType: string;
+  errorMessage: string;
+  backtrace: unknown;
+  isDetailMode: boolean;
+}): string {
+  const boundedMessage = clampText(errorMessage, MAX_ERROR_MESSAGE_LENGTH);
+  let prompt = `I encountered an error of type "${errorType}" with the following message: "${boundedMessage}". Explain what this error means and suggest possible solutions.`;
+
+  if (isDetailMode) {
+    const boundedBacktrace = Array.isArray(backtrace)
+      ? backtrace.slice(0, MAX_BACKTRACE_FRAMES)
+      : backtrace;
+    const backtraceString = clampText(
+      JSON.stringify(boundedBacktrace, null, 2),
+      MAX_BACKTRACE_LENGTH,
+    );
+    prompt += ` The backtrace of the error is as follows: ${backtraceString}`;
+  }
+
+  return clampText(prompt, MAX_PROMPT_LENGTH);
+}
 
 export async function POST(request: Request) {
   const session = await auth();
@@ -48,15 +88,12 @@ export async function POST(request: Request) {
 
   const { notice, ...occurrence } = occurrenceWithRelations;
 
-  const errorType = notice.kind;
-  const errorMessage = occurrence.message;
-
-  let prompt = `I encountered an error of type "${errorType}" with the following message: "${errorMessage}". Explain what this error means and suggest possible solutions.`;
-
-  if (isDetailMode) {
-    const backtraceString = JSON.stringify(occurrence.backtrace, null, 2);
-    prompt += ` The backtrace of the error is as follows: ${backtraceString}`;
-  }
+  const prompt = buildPrompt({
+    errorType: notice.kind,
+    errorMessage: occurrence.message,
+    backtrace: occurrence.backtrace,
+    isDetailMode,
+  });
 
   // Prepare the messages array for the AI model
   const messages: ModelMessage[] = [
