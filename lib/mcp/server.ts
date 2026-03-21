@@ -96,14 +96,11 @@ function getConfiguredAllowedOrigins(): string[] {
 }
 
 function getRequestOrigin(req: NextRequest): string | null {
-  const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host");
-  if (!host) {
+  const origin = req.nextUrl.origin;
+  if (!origin || origin === "null") {
     return null;
   }
-  const proto =
-    req.headers.get("x-forwarded-proto") ??
-    req.nextUrl.protocol.replace(":", "");
-  return `${proto}://${host}`;
+  return origin;
 }
 
 function isAllowedOrigin(req: NextRequest, origin: string): boolean {

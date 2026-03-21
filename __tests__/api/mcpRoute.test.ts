@@ -95,6 +95,7 @@ describe("POST /api/mcp", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     process.env.AIRBROKE_MCP_API_KEY = "test-mcp-key";
+    delete process.env.AIRBROKE_MCP_ALLOWED_ORIGINS;
   });
 
   it("returns 401 when authorization is missing", async () => {
@@ -105,6 +106,41 @@ describe("POST /api/mcp", () => {
 
     const res = await POST(req);
     expect(res.status).toBe(401);
+  });
+
+  it("rejects spoofed forwarded headers when same-origin fallback is active", async () => {
+    const req = buildRpcRequest(
+      { jsonrpc: "2.0", id: 1, method: "initialize" },
+      true,
+      {
+        origin: "https://evil.example",
+        "x-forwarded-host": "evil.example",
+        "x-forwarded-proto": "https",
+      },
+    );
+
+    const res = await POST(req);
+    const json = await parseMcpResponse(res);
+
+    expect(res.status).toBe(403);
+    expect(json.error).toMatchObject({
+      code: -32001,
+      message: "Forbidden origin",
+    });
+  });
+
+  it("allows same-origin browser requests when the allowlist is unset", async () => {
+    const req = buildRpcRequest(
+      { jsonrpc: "2.0", id: 1, method: "initialize" },
+      true,
+      {
+        origin: "http://localhost",
+      },
+    );
+
+    const res = await POST(req);
+
+    expect(res.status).toBe(200);
   });
 
   it("handles initialize", async () => {
