@@ -11,7 +11,7 @@ const redirectMock = vi.hoisted(() =>
 );
 
 vi.mock("@/lib/auth", () => ({
-  auth: { api: { getSession: getSessionMock } },
+  getAuth: () => ({ api: { getSession: getSessionMock } }),
 }));
 
 vi.mock("next/headers", () => ({

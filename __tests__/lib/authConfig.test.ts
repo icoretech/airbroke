@@ -1,23 +1,20 @@
 // @vitest-environment node
 
-import { describe, expect, it, vi } from "vitest";
-
-vi.mock("@/lib/db", () => ({
-  db: {},
-}));
+import { describe, expect, it } from "vitest";
 
 describe("auth configuration", () => {
-  it("exports auth instance and getSerializedProviders", async () => {
+  it("exports getAuth and getSerializedProviders", async () => {
     const authModule = await import("@/lib/auth");
 
-    expect(authModule.auth).toBeDefined();
+    expect(authModule.getAuth).toBeDefined();
+    expect(typeof authModule.getAuth).toBe("function");
     expect(authModule.getSerializedProviders).toBeDefined();
     expect(typeof authModule.getSerializedProviders).toBe("function");
   });
 
   it("getSerializedProviders returns provider list with type field", async () => {
-    const { getSerializedProviders } = await import("@/lib/auth");
-    const providers = await getSerializedProviders();
+    const { getSerializedProviders } = await import("@/lib/auth-providers");
+    const providers = getSerializedProviders();
 
     expect(Array.isArray(providers)).toBe(true);
     for (const provider of providers) {

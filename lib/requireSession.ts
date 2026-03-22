@@ -2,7 +2,7 @@
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { auth } from "@/lib/auth";
+import { getAuth } from "@/lib/auth";
 import type { Route } from "next";
 
 /**
@@ -13,7 +13,7 @@ import type { Route } from "next";
  */
 export async function requireSession() {
   const reqHeaders = await headers();
-  const session = await auth.api.getSession({ headers: reqHeaders });
+  const session = await getAuth().api.getSession({ headers: reqHeaders });
   if (!session) {
     // Preserve the original URL so the user returns after sign-in.
     // Next.js sets x-invoke-path and x-invoke-query for server components;

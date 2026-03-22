@@ -1,17 +1,13 @@
 // app/signin/page.tsx
+//
+// No auth runtime import here — the proxy handles redirecting authenticated
+// users to /projects, so this page only needs the provider list.
 
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
-import { auth, getSerializedProviders } from "@/lib/auth";
+import { getSerializedProviders } from "@/lib/auth-providers";
 import SignInPageClient from "./SignInPageClient";
 
-export default async function SignInPage() {
-  const session = await auth.api.getSession({ headers: await headers() });
-  if (session) {
-    redirect("/projects");
-  }
-
-  const providers = await getSerializedProviders();
+export default function SignInPage() {
+  const providers = getSerializedProviders();
 
   return <SignInPageClient providers={providers} />;
 }

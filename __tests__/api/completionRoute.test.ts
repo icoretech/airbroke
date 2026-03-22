@@ -17,11 +17,11 @@ const {
 }));
 
 vi.mock("@/lib/auth", () => ({
-  auth: {
+  getAuth: () => ({
     api: {
       getSession: getSessionMock,
     },
-  },
+  }),
 }));
 
 vi.mock("next/server", () => ({
