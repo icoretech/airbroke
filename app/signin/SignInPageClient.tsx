@@ -5,7 +5,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   FaApple,
   FaAws,
@@ -25,10 +25,11 @@ import {
   SiOkta,
 } from "react-icons/si";
 import { SlDisc } from "react-icons/sl";
-import { TbShieldLock } from "react-icons/tb";
+import { TbAlertTriangle, TbShieldLock } from "react-icons/tb";
 import { VscAzure } from "react-icons/vsc";
 import FooterCredits from "@/components/FooterCredits";
 import PageBackground from "@/components/PageBackground";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 import logo from "@/public/logo.svg";
@@ -67,6 +68,19 @@ export default function SignInPageClient({ providers }: SignInPageClientProps) {
     null,
   );
 
+  // Reset disabled state when the page is restored from bfcache (browser back).
+  const resetState = useCallback(() => {
+    setSigningInProvider(null);
+  }, []);
+
+  useEffect(() => {
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) resetState();
+    };
+    window.addEventListener("pageshow", onPageShow);
+    return () => window.removeEventListener("pageshow", onPageShow);
+  }, [resetState]);
+
   const searchParams = useSearchParams();
   const rawCallback = searchParams.get("callbackUrl") ?? "/projects";
   const callbackUrl =
@@ -76,25 +90,43 @@ export default function SignInPageClient({ providers }: SignInPageClientProps) {
   const error = searchParams.get("error");
   const showError = Boolean(error);
 
-  const handleSignIn = (provider: ProviderInfo) => {
+  const [signInError, setSignInError] = useState<string | null>(null);
+
+  const handleSignIn = async (provider: ProviderInfo) => {
     setSigningInProvider(provider.id);
-    if (provider.type === "social") {
-      authClient.signIn.social({
-        provider: provider.id as
-          | "github"
-          | "google"
-          | "apple"
-          | "gitlab"
-          | "slack"
-          | "salesforce"
-          | "microsoft",
-        callbackURL: callbackUrl,
-      });
-    } else {
-      authClient.signIn.oauth2({
-        providerId: provider.id,
-        callbackURL: callbackUrl,
-      });
+    setSignInError(null);
+
+    try {
+      const result =
+        provider.type === "social"
+          ? await authClient.signIn.social({
+              provider: provider.id as
+                | "github"
+                | "google"
+                | "apple"
+                | "gitlab"
+                | "slack"
+                | "salesforce"
+                | "microsoft",
+              callbackURL: callbackUrl,
+            })
+          : await authClient.signIn.oauth2({
+              providerId: provider.id,
+              callbackURL: callbackUrl,
+            });
+
+      if (result?.error) {
+        const msg = result.error.message ?? result.error.code ?? "";
+        setSignInError(
+          `${provider.name}: sign-in failed (${msg}). Verify that all required environment variables are set correctly (client ID, secret, issuer URL).`,
+        );
+        setSigningInProvider(null);
+      }
+    } catch {
+      setSignInError(
+        `${provider.name}: sign-in failed. Verify that all required environment variables are set correctly (client ID, secret, issuer URL).`,
+      );
+      setSigningInProvider(null);
     }
   };
 
@@ -122,10 +154,15 @@ export default function SignInPageClient({ providers }: SignInPageClientProps) {
 
             {/* Card */}
             <div className="overflow-hidden rounded-xl border border-white/10 bg-airbroke-800/80 p-5 shadow-sm ring-1 ring-white/5 backdrop-blur sm:p-6">
-              {showError && (
-                <div className="mb-4 rounded-md border border-red-700 bg-red-800/90 p-2 text-red-100">
-                  Sign-in error: {error}.
-                </div>
+              {(showError || signInError) && (
+                <Alert className="mb-4 border-red-500/40 bg-red-950/80 text-white [&>svg]:text-red-400">
+                  <TbAlertTriangle />
+                  <AlertTitle>Sign-in failed</AlertTitle>
+                  <AlertDescription className="text-white/80">
+                    {signInError ??
+                      `An error occurred during sign-in (${error}).`}
+                  </AlertDescription>
+                </Alert>
               )}
 
               {/* Provider Buttons (login6-style stack) */}

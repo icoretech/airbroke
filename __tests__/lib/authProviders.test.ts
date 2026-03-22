@@ -58,13 +58,23 @@ describe("getSerializedProviders", () => {
     expect(atlassian?.type).toBe("oauth2");
   });
 
-  it("requires issuer for OIDC providers", async () => {
-    // Auth0 without issuer should not appear
+  it("shows OIDC providers with credentials even without valid issuer", async () => {
+    // Auth0 with credentials but no issuer should still appear on sign-in page
+    // so admins notice misconfiguration rather than a silently missing provider
     process.env.AIRBROKE_AUTH0_ID = "test-id";
     process.env.AIRBROKE_AUTH0_SECRET = "test-secret";
     const { getSerializedProviders } = await import("@/lib/auth");
-    const providers = await getSerializedProviders();
-    expect(providers.find((p) => p.id === "auth0")).toBeUndefined();
+    const providers = getSerializedProviders();
+    expect(providers.find((p) => p.id === "auth0")).toBeDefined();
+  });
+
+  it("excludes OIDC providers from OAuth config without valid issuer", async () => {
+    process.env.AIRBROKE_AUTH0_ID = "test-id";
+    process.env.AIRBROKE_AUTH0_SECRET = "test-secret";
+    delete process.env.AIRBROKE_AUTH0_ISSUER;
+    const { buildGenericOAuthConfig } = await import("@/lib/auth-providers");
+    const configs = buildGenericOAuthConfig();
+    expect(configs.find((c) => c.providerId === "auth0")).toBeUndefined();
   });
 
   it("includes Auth0 when all three env vars are set", async () => {

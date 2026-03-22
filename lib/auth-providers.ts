@@ -20,6 +20,25 @@ export function envList(key: string): string[] | undefined {
     .filter(Boolean);
 }
 
+/** Check if a string looks like a real URL (not a placeholder like "xxx"). */
+function isValidUrl(value: string | undefined): value is string {
+  if (!value) return false;
+  try {
+    new URL(value);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/** Return a cleaned issuer URL or null if the value is a placeholder. */
+function resolveIssuer(envKey: string): string | null {
+  const raw = process.env[envKey];
+  if (!raw) return null;
+  const cleaned = raw.replace(/\/+$/, "");
+  return isValidUrl(cleaned) ? cleaned : null;
+}
+
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
@@ -175,106 +194,118 @@ export function buildGenericOAuthConfig(): GenericOAuthConfig[] {
   }
 
   // Auth0
-  if (
-    process.env.AIRBROKE_AUTH0_ID &&
-    process.env.AIRBROKE_AUTH0_SECRET &&
-    process.env.AIRBROKE_AUTH0_ISSUER
-  ) {
-    const issuer = process.env.AIRBROKE_AUTH0_ISSUER.replace(/\/+$/, "");
-    configs.push({
-      providerId: "auth0",
-      clientId: process.env.AIRBROKE_AUTH0_ID,
-      clientSecret: process.env.AIRBROKE_AUTH0_SECRET,
-      discoveryUrl: `${issuer}/.well-known/openid-configuration`,
-    });
+  {
+    const issuer = resolveIssuer("AIRBROKE_AUTH0_ISSUER");
+    if (
+      process.env.AIRBROKE_AUTH0_ID &&
+      process.env.AIRBROKE_AUTH0_SECRET &&
+      issuer
+    ) {
+      configs.push({
+        providerId: "auth0",
+        clientId: process.env.AIRBROKE_AUTH0_ID,
+        clientSecret: process.env.AIRBROKE_AUTH0_SECRET,
+        discoveryUrl: `${issuer}/.well-known/openid-configuration`,
+      });
+    }
   }
 
   // Authentik
-  if (
-    process.env.AIRBROKE_AUTHENTIK_ID &&
-    process.env.AIRBROKE_AUTHENTIK_SECRET &&
-    process.env.AIRBROKE_AUTHENTIK_ISSUER
-  ) {
-    const issuer = process.env.AIRBROKE_AUTHENTIK_ISSUER.replace(/\/+$/, "");
-    configs.push({
-      providerId: "authentik",
-      clientId: process.env.AIRBROKE_AUTHENTIK_ID,
-      clientSecret: process.env.AIRBROKE_AUTHENTIK_SECRET,
-      discoveryUrl: `${issuer}/.well-known/openid-configuration`,
-    });
+  {
+    const issuer = resolveIssuer("AIRBROKE_AUTHENTIK_ISSUER");
+    if (
+      process.env.AIRBROKE_AUTHENTIK_ID &&
+      process.env.AIRBROKE_AUTHENTIK_SECRET &&
+      issuer
+    ) {
+      configs.push({
+        providerId: "authentik",
+        clientId: process.env.AIRBROKE_AUTHENTIK_ID,
+        clientSecret: process.env.AIRBROKE_AUTHENTIK_SECRET,
+        discoveryUrl: `${issuer}/.well-known/openid-configuration`,
+      });
+    }
   }
 
   // Cognito
-  if (
-    process.env.AIRBROKE_COGNITO_ID &&
-    process.env.AIRBROKE_COGNITO_SECRET &&
-    process.env.AIRBROKE_COGNITO_ISSUER
-  ) {
-    const issuer = process.env.AIRBROKE_COGNITO_ISSUER.replace(/\/+$/, "");
-    configs.push({
-      providerId: "cognito",
-      clientId: process.env.AIRBROKE_COGNITO_ID,
-      clientSecret: process.env.AIRBROKE_COGNITO_SECRET,
-      discoveryUrl: `${issuer}/.well-known/openid-configuration`,
-    });
+  {
+    const issuer = resolveIssuer("AIRBROKE_COGNITO_ISSUER");
+    if (
+      process.env.AIRBROKE_COGNITO_ID &&
+      process.env.AIRBROKE_COGNITO_SECRET &&
+      issuer
+    ) {
+      configs.push({
+        providerId: "cognito",
+        clientId: process.env.AIRBROKE_COGNITO_ID,
+        clientSecret: process.env.AIRBROKE_COGNITO_SECRET,
+        discoveryUrl: `${issuer}/.well-known/openid-configuration`,
+      });
+    }
   }
 
   // Keycloak
-  if (
-    process.env.AIRBROKE_KEYCLOAK_ID &&
-    process.env.AIRBROKE_KEYCLOAK_SECRET &&
-    process.env.AIRBROKE_KEYCLOAK_ISSUER
-  ) {
-    const issuer = process.env.AIRBROKE_KEYCLOAK_ISSUER.replace(/\/+$/, "");
-    configs.push({
-      providerId: "keycloak",
-      clientId: process.env.AIRBROKE_KEYCLOAK_ID,
-      clientSecret: process.env.AIRBROKE_KEYCLOAK_SECRET,
-      discoveryUrl: `${issuer}/.well-known/openid-configuration`,
-    });
+  {
+    const issuer = resolveIssuer("AIRBROKE_KEYCLOAK_ISSUER");
+    if (
+      process.env.AIRBROKE_KEYCLOAK_ID &&
+      process.env.AIRBROKE_KEYCLOAK_SECRET &&
+      issuer
+    ) {
+      configs.push({
+        providerId: "keycloak",
+        clientId: process.env.AIRBROKE_KEYCLOAK_ID,
+        clientSecret: process.env.AIRBROKE_KEYCLOAK_SECRET,
+        discoveryUrl: `${issuer}/.well-known/openid-configuration`,
+      });
+    }
   }
 
   // Okta
-  if (
-    process.env.AIRBROKE_OKTA_ID &&
-    process.env.AIRBROKE_OKTA_SECRET &&
-    process.env.AIRBROKE_OKTA_ISSUER
-  ) {
-    const issuer = process.env.AIRBROKE_OKTA_ISSUER.replace(/\/+$/, "");
-    configs.push({
-      providerId: "okta",
-      clientId: process.env.AIRBROKE_OKTA_ID,
-      clientSecret: process.env.AIRBROKE_OKTA_SECRET,
-      discoveryUrl: `${issuer}/.well-known/openid-configuration`,
-    });
+  {
+    const issuer = resolveIssuer("AIRBROKE_OKTA_ISSUER");
+    if (
+      process.env.AIRBROKE_OKTA_ID &&
+      process.env.AIRBROKE_OKTA_SECRET &&
+      issuer
+    ) {
+      configs.push({
+        providerId: "okta",
+        clientId: process.env.AIRBROKE_OKTA_ID,
+        clientSecret: process.env.AIRBROKE_OKTA_SECRET,
+        discoveryUrl: `${issuer}/.well-known/openid-configuration`,
+      });
+    }
   }
 
   // BoxyHQ SAML
-  if (
-    process.env.AIRBROKE_BOXYHQ_SAML_ID &&
-    process.env.AIRBROKE_BOXYHQ_SAML_SECRET &&
-    process.env.AIRBROKE_BOXYHQ_SAML_ISSUER
-  ) {
-    const issuer = process.env.AIRBROKE_BOXYHQ_SAML_ISSUER.replace(/\/+$/, "");
-    const extraParams: Record<string, string> = {};
-    if (process.env.AIRBROKE_BOXYHQ_SAML_TENANT) {
-      extraParams.tenant = process.env.AIRBROKE_BOXYHQ_SAML_TENANT;
-    }
-    if (process.env.AIRBROKE_BOXYHQ_SAML_PRODUCT) {
-      extraParams.product = process.env.AIRBROKE_BOXYHQ_SAML_PRODUCT;
-    }
+  {
+    const issuer = resolveIssuer("AIRBROKE_BOXYHQ_SAML_ISSUER");
+    if (
+      process.env.AIRBROKE_BOXYHQ_SAML_ID &&
+      process.env.AIRBROKE_BOXYHQ_SAML_SECRET &&
+      issuer
+    ) {
+      const extraParams: Record<string, string> = {};
+      if (process.env.AIRBROKE_BOXYHQ_SAML_TENANT) {
+        extraParams.tenant = process.env.AIRBROKE_BOXYHQ_SAML_TENANT;
+      }
+      if (process.env.AIRBROKE_BOXYHQ_SAML_PRODUCT) {
+        extraParams.product = process.env.AIRBROKE_BOXYHQ_SAML_PRODUCT;
+      }
 
-    configs.push({
-      providerId: "boxyhq-saml",
-      clientId: process.env.AIRBROKE_BOXYHQ_SAML_ID,
-      clientSecret: process.env.AIRBROKE_BOXYHQ_SAML_SECRET,
-      authorizationUrl: `${issuer}/api/oauth/authorize`,
-      tokenUrl: `${issuer}/api/oauth/token`,
-      userInfoUrl: `${issuer}/api/oauth/userinfo`,
-      ...(Object.keys(extraParams).length > 0 && {
-        authorizationUrlParams: extraParams,
-      }),
-    });
+      configs.push({
+        providerId: "boxyhq-saml",
+        clientId: process.env.AIRBROKE_BOXYHQ_SAML_ID,
+        clientSecret: process.env.AIRBROKE_BOXYHQ_SAML_SECRET,
+        authorizationUrl: `${issuer}/api/oauth/authorize`,
+        tokenUrl: `${issuer}/api/oauth/token`,
+        userInfoUrl: `${issuer}/api/oauth/userinfo`,
+        ...(Object.keys(extraParams).length > 0 && {
+          authorizationUrlParams: extraParams,
+        }),
+      });
+    }
   }
 
   // Bitbucket
@@ -320,41 +351,42 @@ export function buildGenericOAuthConfig(): GenericOAuthConfig[] {
   }
 
   // FusionAuth
-  if (
-    process.env.AIRBROKE_FUSIONAUTH_ID &&
-    process.env.AIRBROKE_FUSIONAUTH_SECRET &&
-    process.env.AIRBROKE_FUSIONAUTH_ISSUER
-  ) {
-    const issuer = process.env.AIRBROKE_FUSIONAUTH_ISSUER.replace(/\/+$/, "");
-    configs.push({
-      providerId: "fusionauth",
-      clientId: process.env.AIRBROKE_FUSIONAUTH_ID,
-      clientSecret: process.env.AIRBROKE_FUSIONAUTH_SECRET,
-      discoveryUrl: `${issuer}/.well-known/openid-configuration`,
-      ...(process.env.AIRBROKE_FUSIONAUTH_TENANT_ID && {
-        authorizationUrlParams: {
-          tenantId: process.env.AIRBROKE_FUSIONAUTH_TENANT_ID,
-        },
-      }),
-    });
+  {
+    const issuer = resolveIssuer("AIRBROKE_FUSIONAUTH_ISSUER");
+    if (
+      process.env.AIRBROKE_FUSIONAUTH_ID &&
+      process.env.AIRBROKE_FUSIONAUTH_SECRET &&
+      issuer
+    ) {
+      configs.push({
+        providerId: "fusionauth",
+        clientId: process.env.AIRBROKE_FUSIONAUTH_ID,
+        clientSecret: process.env.AIRBROKE_FUSIONAUTH_SECRET,
+        discoveryUrl: `${issuer}/.well-known/openid-configuration`,
+        ...(process.env.AIRBROKE_FUSIONAUTH_TENANT_ID && {
+          authorizationUrlParams: {
+            tenantId: process.env.AIRBROKE_FUSIONAUTH_TENANT_ID,
+          },
+        }),
+      });
+    }
   }
 
   // Microsoft Entra ID with custom issuer (B2C, CIAM, non-default authority).
-  if (
-    process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_ID &&
-    process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_SECRET &&
-    process.env.AIRBROKE_MICROSOFT_ENTRA_ID_ISSUER
-  ) {
-    const issuer = process.env.AIRBROKE_MICROSOFT_ENTRA_ID_ISSUER.replace(
-      /\/+$/,
-      "",
-    );
-    configs.push({
-      providerId: "microsoft",
-      clientId: process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_ID,
-      clientSecret: process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_SECRET,
-      discoveryUrl: `${issuer}/.well-known/openid-configuration`,
-    });
+  {
+    const issuer = resolveIssuer("AIRBROKE_MICROSOFT_ENTRA_ID_ISSUER");
+    if (
+      process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_ID &&
+      process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_SECRET &&
+      issuer
+    ) {
+      configs.push({
+        providerId: "microsoft",
+        clientId: process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_ID,
+        clientSecret: process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_SECRET,
+        discoveryUrl: `${issuer}/.well-known/openid-configuration`,
+      });
+    }
   }
 
   return configs;
@@ -364,14 +396,50 @@ export function buildGenericOAuthConfig(): GenericOAuthConfig[] {
 // Serialized provider list for the sign-in page
 // ---------------------------------------------------------------------------
 
+/**
+ * Credential-only check for each generic OAuth provider.
+ * Returns all providers where at least ID + SECRET are set, even if the
+ * issuer URL is invalid. This ensures providers always appear on the sign-in
+ * page so admins notice misconfiguration immediately rather than wondering
+ * why a provider is silently missing.
+ */
+function getIntendedGenericProviderIds(): string[] {
+  const ids: string[] = [];
+  const checks: [string, string, string][] = [
+    ["atlassian", "AIRBROKE_ATLASSIAN_ID", "AIRBROKE_ATLASSIAN_SECRET"],
+    ["auth0", "AIRBROKE_AUTH0_ID", "AIRBROKE_AUTH0_SECRET"],
+    ["authentik", "AIRBROKE_AUTHENTIK_ID", "AIRBROKE_AUTHENTIK_SECRET"],
+    ["cognito", "AIRBROKE_COGNITO_ID", "AIRBROKE_COGNITO_SECRET"],
+    ["keycloak", "AIRBROKE_KEYCLOAK_ID", "AIRBROKE_KEYCLOAK_SECRET"],
+    ["okta", "AIRBROKE_OKTA_ID", "AIRBROKE_OKTA_SECRET"],
+    ["boxyhq-saml", "AIRBROKE_BOXYHQ_SAML_ID", "AIRBROKE_BOXYHQ_SAML_SECRET"],
+    ["bitbucket", "AIRBROKE_BITBUCKET_ID", "AIRBROKE_BITBUCKET_SECRET"],
+    ["fusionauth", "AIRBROKE_FUSIONAUTH_ID", "AIRBROKE_FUSIONAUTH_SECRET"],
+  ];
+  for (const [id, idKey, secretKey] of checks) {
+    if (process.env[idKey] && process.env[secretKey]) {
+      ids.push(id);
+    }
+  }
+  // Microsoft with custom issuer is generic; avoid duplicate if already social
+  if (
+    process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_ID &&
+    process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_SECRET &&
+    process.env.AIRBROKE_MICROSOFT_ENTRA_ID_ISSUER
+  ) {
+    ids.push("microsoft");
+  }
+  return ids;
+}
+
 /** Returns provider info for the sign-in page — no auth runtime needed. */
 export function getSerializedProviders(): SerializedProvider[] {
   const social = buildSocialProviders();
-  const generic = buildGenericOAuthConfig();
-
+  const seen = new Set<string>();
   const providers: SerializedProvider[] = [];
 
   for (const id of Object.keys(social)) {
+    seen.add(id);
     providers.push({
       id,
       name: PROVIDER_NAMES[id] ?? id,
@@ -379,8 +447,9 @@ export function getSerializedProviders(): SerializedProvider[] {
     });
   }
 
-  for (const cfg of generic) {
-    const id = cfg.providerId as string;
+  for (const id of getIntendedGenericProviderIds()) {
+    if (seen.has(id)) continue;
+    seen.add(id);
     providers.push({
       id,
       name: PROVIDER_NAMES[id] ?? id,
