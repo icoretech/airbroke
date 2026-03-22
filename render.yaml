@@ -31,8 +31,10 @@ services:
           property: connectionString
       - key: NEXT_SERVER_ACTIONS_ENCRYPTION_KEY
         generateValue: true
-      - key: AUTH_SECRET
+      - key: BETTER_AUTH_SECRET
         generateValue: true
+      - key: BETTER_AUTH_URL
+        sync: false # Set to your service's public URL, e.g. https://airbroke-xxxx.onrender.com
 databases:
   - name: airbroke-starter-db
     plan: free

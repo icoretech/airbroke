@@ -5,7 +5,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { signIn as nextAuthSignIn } from "next-auth/react";
 import { useState } from "react";
 import {
   FaApple,
@@ -31,6 +30,7 @@ import { VscAzure } from "react-icons/vsc";
 import FooterCredits from "@/components/FooterCredits";
 import PageBackground from "@/components/PageBackground";
 import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth-client";
 import logo from "@/public/logo.svg";
 
 const providerIcons: Record<string, React.ElementType> = {
@@ -42,7 +42,7 @@ const providerIcons: Record<string, React.ElementType> = {
   bitbucket: FaBitbucket,
   "boxyhq-saml": TbShieldLock,
   keycloak: SiKeycloak,
-  "microsoft-entra-id": VscAzure,
+  microsoft: VscAzure,
   apple: FaApple,
   authentik: SiAuthentik,
   slack: FaSlack,
@@ -55,6 +55,7 @@ const providerIcons: Record<string, React.ElementType> = {
 type ProviderInfo = {
   id: string;
   name: string;
+  type: "social" | "oauth2";
 };
 
 interface SignInPageClientProps {
@@ -67,13 +68,34 @@ export default function SignInPageClient({ providers }: SignInPageClientProps) {
   );
 
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") ?? "/projects";
+  const rawCallback = searchParams.get("callbackUrl") ?? "/projects";
+  const callbackUrl =
+    rawCallback.startsWith("/") && !rawCallback.startsWith("//")
+      ? rawCallback
+      : "/projects";
   const error = searchParams.get("error");
   const showError = Boolean(error);
 
-  const handleSignIn = (providerId: string) => {
-    setSigningInProvider(providerId);
-    nextAuthSignIn(providerId, { callbackUrl: callbackUrl });
+  const handleSignIn = (provider: ProviderInfo) => {
+    setSigningInProvider(provider.id);
+    if (provider.type === "social") {
+      authClient.signIn.social({
+        provider: provider.id as
+          | "github"
+          | "google"
+          | "apple"
+          | "gitlab"
+          | "slack"
+          | "salesforce"
+          | "microsoft",
+        callbackURL: callbackUrl,
+      });
+    } else {
+      authClient.signIn.oauth2({
+        providerId: provider.id,
+        callbackURL: callbackUrl,
+      });
+    }
   };
 
   return (
@@ -116,7 +138,7 @@ export default function SignInPageClient({ providers }: SignInPageClientProps) {
                     <Button
                       key={provider.id}
                       type="button"
-                      onClick={() => handleSignIn(provider.id)}
+                      onClick={() => handleSignIn(provider)}
                       disabled={Boolean(signingInProvider)}
                       className="w-full"
                     >

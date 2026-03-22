@@ -18,8 +18,8 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { auth } from "@/lib/auth";
 import { getProjectsGroupedByOrganization } from "@/lib/queries/projects";
+import { requireSession } from "@/lib/requireSession";
 import logoAsset from "@/public/logo.svg";
 import type { SidebarProjectsGroup } from "@/components/SidebarProjectsNav";
 
@@ -40,8 +40,8 @@ export async function AppShell({
   topbarBreadcrumbs?: React.ReactNode;
   topbarHideSearch?: boolean;
 }) {
-  const session = await auth();
-  const user = session?.user;
+  const session = await requireSession();
+  const user = session.user;
   const grouped = await getProjectsGroupedByOrganization();
   const groupedProjects: SidebarProjectsGroup[] = Object.entries(grouped).map(
     ([organization, projects]) => ({

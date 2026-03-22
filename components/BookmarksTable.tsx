@@ -1,5 +1,6 @@
 // components/BookmarksTable.tsx
 
+import { headers } from "next/headers";
 import Link from "next/link";
 import { TbBookmarks } from "react-icons/tb";
 import { Button } from "@/components/ui/button";
@@ -23,7 +24,7 @@ type BookmarksTableProps = {
 export default async function BookmarksTable({
   searchQuery,
 }: BookmarksTableProps) {
-  const session = await auth();
+  const session = await auth.api.getSession({ headers: await headers() });
 
   const occurrenceBookmarks = await getOccurrenceBookmarks(
     session?.user?.id,

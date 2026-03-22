@@ -6,6 +6,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import type { OpenAIProviderSettings } from "@ai-sdk/openai";
 import type { ModelMessage } from "ai";
+import type { NextRequest } from "next/server";
 
 export const maxDuration = 30;
 const MAX_ERROR_MESSAGE_LENGTH = 1_500;
@@ -49,8 +50,8 @@ function buildPrompt({
   return clampText(prompt, MAX_PROMPT_LENGTH);
 }
 
-export async function POST(request: Request) {
-  const session = await auth();
+export async function POST(request: NextRequest) {
+  const session = await auth.api.getSession({ headers: request.headers });
   if (!session) {
     return new Response("You are not logged in", { status: 401 });
   }

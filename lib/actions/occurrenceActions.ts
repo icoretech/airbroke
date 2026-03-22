@@ -3,6 +3,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import type { Context } from "@/types/airbroke";
@@ -11,7 +12,10 @@ import type { Context } from "@/types/airbroke";
  * Replays an HTTP request based on captured context data.
  */
 export async function performReplay(context: Context): Promise<string> {
-  const { headers, httpMethod, url } = context;
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session) throw new Error("Unauthorized");
+
+  const { headers: contextHeaders, httpMethod, url } = context;
   if (!url) {
     return "Invalid HTTP request for replay. The URL property is missing.";
   }
@@ -19,7 +23,7 @@ export async function performReplay(context: Context): Promise<string> {
   const requestOptions: RequestInit = {
     method: httpMethod ?? "GET",
     cache: "no-store",
-    ...(headers ? { headers } : {}),
+    ...(contextHeaders ? { headers: contextHeaders } : {}),
   };
 
   try {
@@ -40,7 +44,7 @@ export async function performReplay(context: Context): Promise<string> {
  * Creates an occurrence bookmark for the currently logged-in user.
  */
 export async function createOccurrenceBookmark(occurrenceId: string) {
-  const session = await auth();
+  const session = await auth.api.getSession({ headers: await headers() });
   if (!session || !session.user || !session.user.id) {
     throw new Error("No user session or user ID found");
   }
@@ -60,7 +64,7 @@ export async function createOccurrenceBookmark(occurrenceId: string) {
  * Removes an occurrence bookmark for the currently logged-in user.
  */
 export async function removeOccurrenceBookmark(occurrenceId: string) {
-  const session = await auth();
+  const session = await auth.api.getSession({ headers: await headers() });
   if (!session?.user?.id) {
     throw new Error("No user session or user ID found");
   }
@@ -82,6 +86,9 @@ export async function removeOccurrenceBookmark(occurrenceId: string) {
  * Sets the `resolved_at` timestamp for an occurrence.
  */
 export async function resolveOccurrence(occurrenceId: string) {
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session) throw new Error("Unauthorized");
+
   await db.occurrence.update({
     where: { id: occurrenceId },
     data: { resolved_at: new Date() },
@@ -94,6 +101,9 @@ export async function resolveOccurrence(occurrenceId: string) {
  * Clears the `resolved_at` timestamp for an occurrence (reinstate).
  */
 export async function reinstateOccurrence(occurrenceId: string) {
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session) throw new Error("Unauthorized");
+
   await db.occurrence.update({
     where: { id: occurrenceId },
     data: { resolved_at: null },

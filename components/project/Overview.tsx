@@ -45,8 +45,8 @@ import DangerZone from "./cards/DangerZone";
 import type { Project } from "@/prisma/generated/client";
 
 async function inferAppOrigin(): Promise<{ origin: string; host: string }> {
-  if (process.env.AUTH_URL) {
-    const url = new URL(process.env.AUTH_URL);
+  if (process.env.BETTER_AUTH_URL) {
+    const url = new URL(process.env.BETTER_AUTH_URL);
     return { origin: url.origin, host: url.host };
   }
 
