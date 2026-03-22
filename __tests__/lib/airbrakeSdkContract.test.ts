@@ -4,6 +4,12 @@ import { NextRequest } from "next/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { startCaptureServer } from "@/__tests__/helpers/captureServer";
 
+const revalidateTagMock = vi.fn();
+
+vi.mock("next/cache", () => ({
+  revalidateTag: revalidateTagMock,
+}));
+
 vi.mock("@/lib/db", () => ({
   db: {
     project: {
@@ -105,6 +111,10 @@ describe("Airbrake SDK → Airbroke intake contract", () => {
     const res = await POST(req);
     expect(res.status).toBe(201);
     expect(processError).toHaveBeenCalledTimes(1);
+    expect(revalidateTagMock).toHaveBeenCalledWith(
+      "project-activity:p1",
+      "max",
+    );
   });
 
   it("accepts payload produced by @airbrake/browser", async () => {
@@ -162,5 +172,9 @@ describe("Airbrake SDK → Airbroke intake contract", () => {
     const res = await POST(req);
     expect(res.status).toBe(201);
     expect(processError).toHaveBeenCalledTimes(1);
+    expect(revalidateTagMock).toHaveBeenCalledWith(
+      "project-activity:p1",
+      "max",
+    );
   });
 });

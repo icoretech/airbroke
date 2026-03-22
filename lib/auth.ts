@@ -185,13 +185,18 @@ export async function getSerializedProviders() {
   return providers;
 }
 
+const trustHost =
+  process.env.AUTH_TRUST_HOST == null
+    ? true
+    : process.env.AUTH_TRUST_HOST === "true";
+
 export const { handlers, auth } = NextAuth({
   session: {
     strategy: "jwt",
   },
   debug: process.env.AUTH_DEBUG === "true",
   providers: getProviders(),
-  trustHost: true,
+  trustHost,
   adapter: CustomPrismaAdapter(),
   pages: {
     signIn: "/signin",
