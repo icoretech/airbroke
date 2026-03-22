@@ -36,6 +36,7 @@
           'yarn install --immutable',
           'yarn biome:ci',
           'yarn typecheck',
+          'yarn prisma db push',
           'yarn test --run',
           'NODE_ENV=production yarn build',
         ],
