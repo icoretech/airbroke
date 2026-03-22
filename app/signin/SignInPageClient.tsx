@@ -14,12 +14,14 @@ import {
   FaGithub,
   FaGitlab,
   FaGoogle,
+  FaSalesforce,
   FaSlack,
 } from "react-icons/fa";
 import {
   SiAtlassian,
   SiAuth0,
   SiAuthentik,
+  SiFusionauth,
   SiKeycloak,
   SiOkta,
 } from "react-icons/si";
@@ -46,6 +48,8 @@ const providerIcons: Record<string, React.ElementType> = {
   slack: FaSlack,
   okta: SiOkta,
   cognito: FaAws,
+  salesforce: FaSalesforce,
+  fusionauth: SiFusionauth,
 };
 
 type ProviderInfo = {

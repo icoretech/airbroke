@@ -7,12 +7,14 @@ import Authentik from "@auth/core/providers/authentik";
 import Bitbucket from "@auth/core/providers/bitbucket";
 import BoxyHQSAML from "@auth/core/providers/boxyhq-saml";
 import Cognito from "@auth/core/providers/cognito";
+import FusionAuth from "@auth/core/providers/fusionauth";
 import Github from "@auth/core/providers/github";
 import Gitlab from "@auth/core/providers/gitlab";
 import Google from "@auth/core/providers/google";
 import Keycloak from "@auth/core/providers/keycloak";
 import MicrosoftEntraID from "@auth/core/providers/microsoft-entra-id";
 import Okta from "@auth/core/providers/okta";
+import Salesforce from "@auth/core/providers/salesforce";
 import Slack from "@auth/core/providers/slack";
 import NextAuth from "next-auth";
 import { PrismaAdapter } from "@/lib/auth/prismaAdapter";
@@ -229,6 +231,35 @@ const getProviders = () => {
       Bitbucket({
         clientId: process.env.AIRBROKE_BITBUCKET_ID,
         clientSecret: process.env.AIRBROKE_BITBUCKET_SECRET,
+      }),
+    );
+  }
+
+  if (
+    process.env.AIRBROKE_SALESFORCE_ID &&
+    process.env.AIRBROKE_SALESFORCE_SECRET
+  ) {
+    providers.push(
+      Salesforce({
+        clientId: process.env.AIRBROKE_SALESFORCE_ID,
+        clientSecret: process.env.AIRBROKE_SALESFORCE_SECRET,
+      }),
+    );
+  }
+
+  if (
+    process.env.AIRBROKE_FUSIONAUTH_ID &&
+    process.env.AIRBROKE_FUSIONAUTH_SECRET &&
+    process.env.AIRBROKE_FUSIONAUTH_ISSUER
+  ) {
+    providers.push(
+      FusionAuth({
+        clientId: process.env.AIRBROKE_FUSIONAUTH_ID,
+        clientSecret: process.env.AIRBROKE_FUSIONAUTH_SECRET,
+        issuer: process.env.AIRBROKE_FUSIONAUTH_ISSUER,
+        ...(process.env.AIRBROKE_FUSIONAUTH_TENANT_ID && {
+          tenantId: process.env.AIRBROKE_FUSIONAUTH_TENANT_ID,
+        }),
       }),
     );
   }
@@ -507,6 +538,34 @@ export const { handlers, auth } = NextAuth({
         }
 
         return allowedTenants.includes(tid);
+      }
+
+      if (
+        account?.provider === "salesforce" &&
+        process.env.AIRBROKE_SALESFORCE_ORGS
+      ) {
+        const allowedOrgs = process.env.AIRBROKE_SALESFORCE_ORGS.split(",");
+        const orgId = extendedProfile?.organization_id as string | undefined;
+
+        if (!orgId) {
+          console.error("Salesforce profile missing organization_id");
+          return false;
+        }
+
+        return allowedOrgs.includes(orgId);
+      }
+
+      if (
+        account?.provider === "fusionauth" &&
+        process.env.AIRBROKE_FUSIONAUTH_DOMAINS
+      ) {
+        const domains = process.env.AIRBROKE_FUSIONAUTH_DOMAINS.split(",");
+        const emailDomain = extendedProfile?.email?.split("@")[1];
+        return !!(
+          extendedProfile?.email_verified &&
+          emailDomain &&
+          domains.includes(emailDomain)
+        );
       }
 
       // Default return value

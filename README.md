@@ -285,9 +285,11 @@ Airbroke includes an authentication layer that allows you to secure access to th
 - Bitbucket
 - BoxyHQ SAML
 - Cognito
+- FusionAuth
 - GitLab
 - Keycloak
 - Microsoft Entra ID
+- Salesforce
 - Slack
 - Okta
 
