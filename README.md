@@ -278,9 +278,12 @@ Airbroke includes an authentication layer that allows you to secure access to th
 
 - GitHub
 - Atlassian
+- Auth0
 - Google
 - Apple
 - Authentik
+- Bitbucket
+- BoxyHQ SAML
 - Cognito
 - GitLab
 - Keycloak

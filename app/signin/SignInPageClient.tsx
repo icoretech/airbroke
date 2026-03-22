@@ -16,8 +16,15 @@ import {
   FaGoogle,
   FaSlack,
 } from "react-icons/fa";
-import { SiAuthentik, SiKeycloak, SiOkta } from "react-icons/si";
+import {
+  SiAtlassian,
+  SiAuth0,
+  SiAuthentik,
+  SiKeycloak,
+  SiOkta,
+} from "react-icons/si";
 import { SlDisc } from "react-icons/sl";
+import { TbShieldLock } from "react-icons/tb";
 import { VscAzure } from "react-icons/vsc";
 import FooterCredits from "@/components/FooterCredits";
 import PageBackground from "@/components/PageBackground";
@@ -26,9 +33,12 @@ import logo from "@/public/logo.svg";
 
 const providerIcons: Record<string, React.ElementType> = {
   github: FaGithub,
-  atlassian: FaBitbucket,
+  atlassian: SiAtlassian,
+  auth0: SiAuth0,
   google: FaGoogle,
   gitlab: FaGitlab,
+  bitbucket: FaBitbucket,
+  "boxyhq-saml": TbShieldLock,
   keycloak: SiKeycloak,
   "microsoft-entra-id": VscAzure,
   apple: FaApple,
