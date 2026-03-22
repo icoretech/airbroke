@@ -14,10 +14,44 @@
         include: ['push'],
       },
     },
+    services: [
+      {
+        name: 'pg',
+        image: 'postgres:18',
+        environment: {
+          POSTGRES_DB: 'airbroke_test',
+          POSTGRES_USER: 'test_user',
+          POSTGRES_PASSWORD: 'test_user_password',
+        },
+        ports: [5432],
+      },
+    ],
     steps: [
+      {
+        name: 'quality',
+        image: 'node:24.12-alpine',
+        commands: [
+          'apk add --no-cache git',
+          'corepack enable',
+          'yarn install --immutable',
+          'yarn biome:ci',
+          'yarn typecheck',
+          'yarn test --run',
+          'NODE_ENV=production yarn build',
+        ],
+        environment: {
+          CI: 'true',
+          DATABASE_URL:
+            'postgresql://test_user:test_user_password@pg/airbroke_test?connection_limit=15',
+          DIRECT_URL: 'postgresql://test_user:test_user_password@pg/airbroke_test',
+          NEXT_TELEMETRY_DISABLED: '1',
+          TESTING: 'true',
+        },
+      },
       {
         name: 'tag',
         image: 'alpine/git',
+        depends_on: ['quality'],
         commands: [
           "export CUSTOM_BRANCH_NAME=$(basename \"${DRONE_SOURCE_BRANCH}\" | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g')",
           'echo -n "$CUSTOM_BRANCH_NAME-$SHORT_SHA-$(date +%s)" > .tags',
