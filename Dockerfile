@@ -5,6 +5,7 @@ ARG DEBUG_TOOLS
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV CHECKPOINT_DISABLE=1
 ENV NODE_ENV=production
+RUN apk upgrade --no-cache
 RUN apk add --no-cache libc6-compat dumb-init
 RUN [ "${DEBUG_TOOLS}" = "true" ] && apk add --no-cache inotify-tools htop net-tools lsof psmisc strace tcpdump || true
 RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
