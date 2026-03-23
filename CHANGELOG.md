@@ -1,5 +1,44 @@
 # Changelog
 
+## [1.2.0](https://github.com/icoretech/airbroke/compare/v1.1.102...v1.2.0) (2026-03-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **auth:** Authentication system replaced from NextAuth (next-auth) to Better Auth (better-auth).
+
+### Features
+
+* **auth:** add more configurable sign-in providers ([62ded80](https://github.com/icoretech/airbroke/commit/62ded80ddc1870a1b2c0410c610261a79ae8fb4a))
+* **auth:** add salesforce and fusionauth providers ([4ec039d](https://github.com/icoretech/airbroke/commit/4ec039d0b533e18683dbaf98d0cdc9a5e1f60e56))
+* **auth:** migrate from NextAuth to Better Auth ([3d60888](https://github.com/icoretech/airbroke/commit/3d60888f59ce97c90f4e3e0b9770a864a7e691e1))
+
+
+### Bug Fixes
+
+* **auth:** make trust host configurable ([cfd0c8a](https://github.com/icoretech/airbroke/commit/cfd0c8aa5c3c24452740a2ea387b0b2b69032d1d))
+* **auth:** read signin providers at request time ([7abd547](https://github.com/icoretech/airbroke/commit/7abd547f1b8804e065cac10381b50a809b5167f2))
+* **auth:** validate issuer URLs, improve sign-in error UX ([51ab61c](https://github.com/icoretech/airbroke/commit/51ab61c9c67b40acf598d3be967c4aded53ab221))
+* avoid render-phase intake state sync ([a768a50](https://github.com/icoretech/airbroke/commit/a768a5004cb708283aefec4a73d15d43ffee5ff5))
+* bound sentry envelope intake size ([12b9f99](https://github.com/icoretech/airbroke/commit/12b9f999a149385a3f00a41f91abee05405f1f04))
+* cap completion prompt payloads ([a5eee5d](https://github.com/icoretech/airbroke/commit/a5eee5d851cc191da93b055e3847c06509e2cf5f))
+* **ci:** add explicit quality gate before image builds ([7b53d7f](https://github.com/icoretech/airbroke/commit/7b53d7fcbcc088eb2f7792f59e7cd1aa0b86c3e2))
+* **ci:** bootstrap prisma schema before spec gate ([a452dde](https://github.com/icoretech/airbroke/commit/a452dde602caa09da2b633181b6f17784d887c66))
+* **deps:** update dependency next to v16.2.1 ([e549460](https://github.com/icoretech/airbroke/commit/e549460ceca6073f405d066496de6f17f3922c8e))
+* **deps:** update dependency next to v16.2.1 ([4a867eb](https://github.com/icoretech/airbroke/commit/4a867eba6ffe7499cb41a6f29ddd5b729b0485cc))
+* **deps:** update vercel ai sdk ([cef8983](https://github.com/icoretech/airbroke/commit/cef898343cc5e349a9788af81cf0eb1ce6a630b6))
+* **deps:** update vercel ai sdk ([8e23692](https://github.com/icoretech/airbroke/commit/8e23692d618e3482518f800b4df19caeab5311d9))
+* **deps:** update vercel ai sdk ([0b5ed39](https://github.com/icoretech/airbroke/commit/0b5ed3937f71f68844e01e8af677e6d776d3c88a))
+* **deps:** update vercel ai sdk ([b801e2b](https://github.com/icoretech/airbroke/commit/b801e2b533829c3fb5e6a70a9ea21aac1361b3ea))
+* harden mcp same-origin validation ([bd37ad1](https://github.com/icoretech/airbroke/commit/bd37ad14e336c3fa029ce619aa62e232ebbd9879))
+* remove next dev inspect flag ([ce13034](https://github.com/icoretech/airbroke/commit/ce13034738c320e55f71a56ae6acc5229f69c10f))
+* use sha256 for occurrence message hashes ([f285fa2](https://github.com/icoretech/airbroke/commit/f285fa298dce986a83ca7c74940a850217ebaff5))
+
+
+### Miscellaneous Chores
+
+* release 1.2.0 ([72d22fa](https://github.com/icoretech/airbroke/commit/72d22fae68ac670636c9f13497f23405e7e2dabd))
+
 ## [1.1.102](https://github.com/icoretech/airbroke/compare/v1.1.101...v1.1.102) (2026-03-20)
 
 
