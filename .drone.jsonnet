@@ -31,6 +31,7 @@
         name: 'quality',
         image: 'node:24.12-alpine',
         commands: [
+          'apk upgrade --no-cache',
           'apk add --no-cache git',
           'corepack enable',
           'yarn install --immutable',
