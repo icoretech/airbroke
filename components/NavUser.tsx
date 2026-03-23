@@ -6,7 +6,7 @@ import {
   LogOut as IconLogout,
 } from "lucide-react";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -23,6 +23,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { authClient } from "@/lib/auth-client";
 
 export function NavUser({
   user,
@@ -30,6 +31,7 @@ export function NavUser({
   user: { name: string; email: string; avatar?: string };
 }) {
   const { isMobile } = useSidebar();
+  const router = useRouter();
   const initials = user?.name
     ? user.name
         .split(" ")
@@ -101,7 +103,13 @@ export function NavUser({
             <DropdownMenuItem
               onSelect={(e) => {
                 e.preventDefault();
-                signOut({ redirectTo: "/" });
+                authClient.signOut({
+                  fetchOptions: {
+                    onSuccess: () => {
+                      router.push("/");
+                    },
+                  },
+                });
               }}
             >
               <IconLogout /> Log out

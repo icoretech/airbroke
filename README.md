@@ -85,7 +85,7 @@ docker run -p 3000:3000 icoretech/airbroke:latest
 
 ### Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ficoretech%2Fairbroke&project-name=airbroke&repository-name=airbroke&env=DATABASE_URL%2CDIRECT_URL%2CAUTH_SECRET%2CAIRBROKE_CORS_ORIGINS&envDescription=Required+env+vars+for+Airbroke+%28Prisma+%2B+Auth.js%29.+Generate+a+random+AUTH_SECRET.+Set+AIRBROKE_CORS_ORIGINS+to+your+app+origin%28s%29.&envLink=https%3A%2F%2Fgithub.com%2Ficoretech%2Fairbroke%2Fblob%2Fmain%2F.env.dist&envDefaults=%7B%22AIRBROKE_CORS_ORIGINS%22%3A%22*%22%7D&build-command=if+%5B+%22%24VERCEL_ENV%22+%3D+%22production%22+%5D%3B+then+corepack+yarn+db%3Amigrate%3B+fi+%26%26+corepack+yarn+build)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ficoretech%2Fairbroke&project-name=airbroke&repository-name=airbroke&env=DATABASE_URL%2CDIRECT_URL%2CBETTER_AUTH_SECRET%2CAIRBROKE_CORS_ORIGINS&envDescription=Required+env+vars+for+Airbroke+%28Prisma+%2B+Better+Auth%29.+Generate+a+random+BETTER_AUTH_SECRET.+Set+AIRBROKE_CORS_ORIGINS+to+your+app+origin%28s%29.&envLink=https%3A%2F%2Fgithub.com%2Ficoretech%2Fairbroke%2Fblob%2Fmain%2F.env.dist&envDefaults=%7B%22AIRBROKE_CORS_ORIGINS%22%3A%22*%22%7D&build-command=if+%5B+%22%24VERCEL_ENV%22+%3D+%22production%22+%5D%3B+then+corepack+yarn+db%3Amigrate%3B+fi+%26%26+corepack+yarn+build)
 
 While [testing on Vercel](https://nextjs.org/docs/app/getting-started/deploying) has not been conducted, Airbroke should be fully compatible.
 
@@ -297,7 +297,7 @@ To configure the authentication layer, you need to set the necessary environment
 
 To complete the configuration, you also need to set the callback path in your OAuth applications for each provider. The callback path should be set to `https://<myhostname>/api/auth/callback/<provider>`. This path is where the authentication provider will redirect the user after successful authentication.
 
-You can find a list of available authentication providers and their documentation on the [NextAuth.js Providers page](https://authjs.dev/getting-started/authentication/oauth). Each provider has its own specific configuration requirements and authentication flow, so refer to their documentation for more details.
+You can find a list of available authentication providers and their documentation on the [Better Auth documentation](https://www.better-auth.com/docs/concepts/oauth). Each provider has its own specific configuration requirements and authentication flow, so refer to their documentation for more details.
 
 To configure the authentication providers, you'll need to set specific environment variables. You can find the list of required environment variables and their descriptions in the [`.env.dist`](https://github.com/icoretech/airbroke/blob/main/.env.dist) file in the Airbroke repository.
 

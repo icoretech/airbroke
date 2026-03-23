@@ -1,581 +1,358 @@
 // lib/auth.ts
+//
+// Lazy Better Auth initialization — the betterAuth() instance is constructed
+// on first call to getAuth(), NOT at module import time. This prevents
+// "missing BETTER_AUTH_SECRET / BETTER_AUTH_URL" warnings during `next build`
+// where the auth runtime is not needed.
 
-import Apple from "@auth/core/providers/apple";
-import Atlassian from "@auth/core/providers/atlassian";
-import Auth0 from "@auth/core/providers/auth0";
-import Authentik from "@auth/core/providers/authentik";
-import Bitbucket from "@auth/core/providers/bitbucket";
-import BoxyHQSAML from "@auth/core/providers/boxyhq-saml";
-import Cognito from "@auth/core/providers/cognito";
-import FusionAuth from "@auth/core/providers/fusionauth";
-import Github from "@auth/core/providers/github";
-import Gitlab from "@auth/core/providers/gitlab";
-import Google from "@auth/core/providers/google";
-import Keycloak from "@auth/core/providers/keycloak";
-import MicrosoftEntraID from "@auth/core/providers/microsoft-entra-id";
-import Okta from "@auth/core/providers/okta";
-import Salesforce from "@auth/core/providers/salesforce";
-import Slack from "@auth/core/providers/slack";
-import NextAuth from "next-auth";
-import { PrismaAdapter } from "@/lib/auth/prismaAdapter";
+import { betterAuth } from "better-auth";
+import { prismaAdapter } from "better-auth/adapters/prisma";
+import { APIError } from "better-auth/api";
+import { nextCookies } from "better-auth/next-js";
+import { genericOAuth } from "better-auth/plugins";
+import {
+  buildGenericOAuthConfig,
+  buildSocialProviders,
+  envList,
+} from "@/lib/auth-providers";
 import { db } from "@/lib/db";
-import type { Profile } from "next-auth";
-import type { Adapter, AdapterAccount } from "next-auth/adapters";
 
-type ExtendedProfile = Profile & { [key: string]: unknown };
+// Re-export for call sites that need these utilities
+export { envList, getSerializedProviders } from "@/lib/auth-providers";
 
-const CustomPrismaAdapter = (): Adapter => {
-  const baseAdapter = PrismaAdapter(db);
+// ---------------------------------------------------------------------------
+// Access-control helpers
+// ---------------------------------------------------------------------------
 
-  return {
-    ...baseAdapter,
-    linkAccount(account: AdapterAccount) {
-      // Next-auth passes through all options gotten from keycloak, excessive ones must be removed.
-      delete account["not-before-policy"];
-      delete (account as Record<string, unknown>).refresh_expires_in;
-
-      // Call the original linkAccount method
-      if (baseAdapter.linkAccount) {
-        return baseAdapter.linkAccount(account);
-      }
-
-      return null;
-    },
-    // You can override other methods here if needed
-  };
-};
-
-const getProviders = () => {
-  const providers = [];
-
-  if (process.env.AIRBROKE_GITHUB_ID && process.env.AIRBROKE_GITHUB_SECRET) {
-    providers.push(
-      Github({
-        clientId: process.env.AIRBROKE_GITHUB_ID,
-        clientSecret: process.env.AIRBROKE_GITHUB_SECRET,
-        authorization: {
-          url: "https://github.com/login/oauth/authorize",
-          params: { scope: "read:user user:email read:org" },
-        },
-      }),
-    );
+/** Decode a JWT payload without verification (for reading claims only). */
+export function decodeJwtPayload(token: string): Record<string, unknown> {
+  const parts = token.split(".");
+  if (parts.length !== 3) return {};
+  try {
+    const segment = parts[1] ?? "";
+    const payload = Buffer.from(segment, "base64url").toString("utf-8");
+    return JSON.parse(payload) as Record<string, unknown>;
+  } catch {
+    return {};
   }
-
-  if (
-    process.env.AIRBROKE_ATLASSIAN_ID &&
-    process.env.AIRBROKE_ATLASSIAN_SECRET
-  ) {
-    providers.push(
-      Atlassian({
-        clientId: process.env.AIRBROKE_ATLASSIAN_ID,
-        clientSecret: process.env.AIRBROKE_ATLASSIAN_SECRET,
-      }),
-    );
-  }
-
-  if (process.env.AIRBROKE_GOOGLE_ID && process.env.AIRBROKE_GOOGLE_SECRET) {
-    providers.push(
-      Google({
-        clientId: process.env.AIRBROKE_GOOGLE_ID,
-        clientSecret: process.env.AIRBROKE_GOOGLE_SECRET,
-      }),
-    );
-  }
-
-  if (process.env.AIRBROKE_APPLE_ID && process.env.AIRBROKE_APPLE_SECRET) {
-    providers.push(
-      Apple({
-        clientId: process.env.AIRBROKE_APPLE_ID,
-        clientSecret: process.env.AIRBROKE_APPLE_SECRET,
-      }),
-    );
-  }
-
-  if (process.env.AIRBROKE_SLACK_ID && process.env.AIRBROKE_SLACK_SECRET) {
-    providers.push(
-      Slack({
-        clientId: process.env.AIRBROKE_SLACK_ID,
-        clientSecret: process.env.AIRBROKE_SLACK_SECRET,
-      }),
-    );
-  }
-
-  if (
-    process.env.AIRBROKE_AUTHENTIK_ID &&
-    process.env.AIRBROKE_AUTHENTIK_SECRET &&
-    process.env.AIRBROKE_AUTHENTIK_ISSUER
-  ) {
-    providers.push(
-      Authentik({
-        clientId: process.env.AIRBROKE_AUTHENTIK_ID,
-        clientSecret: process.env.AIRBROKE_AUTHENTIK_SECRET,
-        issuer: process.env.AIRBROKE_AUTHENTIK_ISSUER,
-      }),
-    );
-  }
-
-  if (
-    process.env.AIRBROKE_OKTA_ID &&
-    process.env.AIRBROKE_OKTA_SECRET &&
-    process.env.AIRBROKE_OKTA_ISSUER
-  ) {
-    providers.push(
-      Okta({
-        clientId: process.env.AIRBROKE_OKTA_ID,
-        clientSecret: process.env.AIRBROKE_OKTA_SECRET,
-        issuer: process.env.AIRBROKE_OKTA_ISSUER,
-      }),
-    );
-  }
-
-  if (
-    process.env.AIRBROKE_COGNITO_ID &&
-    process.env.AIRBROKE_COGNITO_SECRET &&
-    process.env.AIRBROKE_COGNITO_ISSUER
-  ) {
-    providers.push(
-      Cognito({
-        clientId: process.env.AIRBROKE_COGNITO_ID,
-        clientSecret: process.env.AIRBROKE_COGNITO_SECRET,
-        issuer: process.env.AIRBROKE_COGNITO_ISSUER,
-      }),
-    );
-  }
-
-  if (process.env.AIRBROKE_GITLAB_ID && process.env.AIRBROKE_GITLAB_SECRET) {
-    providers.push(
-      Gitlab({
-        clientId: process.env.AIRBROKE_GITLAB_ID,
-        clientSecret: process.env.AIRBROKE_GITLAB_SECRET,
-        ...(process.env.AIRBROKE_GITLAB_GROUPS && {
-          authorization: {
-            params: { scope: "read_user read_api" },
-          },
-        }),
-      }),
-    );
-  }
-
-  if (
-    process.env.AIRBROKE_KEYCLOAK_ID &&
-    process.env.AIRBROKE_KEYCLOAK_SECRET &&
-    process.env.AIRBROKE_KEYCLOAK_ISSUER
-  ) {
-    providers.push(
-      Keycloak({
-        clientId: process.env.AIRBROKE_KEYCLOAK_ID,
-        clientSecret: process.env.AIRBROKE_KEYCLOAK_SECRET,
-        issuer: process.env.AIRBROKE_KEYCLOAK_ISSUER,
-      }),
-    );
-  }
-
-  if (
-    process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_ID &&
-    process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_SECRET &&
-    process.env.AIRBROKE_MICROSOFT_ENTRA_ID_ISSUER
-  ) {
-    providers.push(
-      MicrosoftEntraID({
-        clientId: process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_ID,
-        clientSecret: process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_SECRET,
-        issuer: process.env.AIRBROKE_MICROSOFT_ENTRA_ID_ISSUER,
-      }),
-    );
-  }
-
-  if (
-    process.env.AIRBROKE_AUTH0_ID &&
-    process.env.AIRBROKE_AUTH0_SECRET &&
-    process.env.AIRBROKE_AUTH0_ISSUER
-  ) {
-    providers.push(
-      Auth0({
-        clientId: process.env.AIRBROKE_AUTH0_ID,
-        clientSecret: process.env.AIRBROKE_AUTH0_SECRET,
-        issuer: process.env.AIRBROKE_AUTH0_ISSUER,
-      }),
-    );
-  }
-
-  if (
-    process.env.AIRBROKE_BOXYHQ_SAML_ID &&
-    process.env.AIRBROKE_BOXYHQ_SAML_SECRET &&
-    process.env.AIRBROKE_BOXYHQ_SAML_ISSUER
-  ) {
-    const authorizationParams: Record<string, string> = {};
-    if (process.env.AIRBROKE_BOXYHQ_SAML_TENANT) {
-      authorizationParams.tenant = process.env.AIRBROKE_BOXYHQ_SAML_TENANT;
-    }
-    if (process.env.AIRBROKE_BOXYHQ_SAML_PRODUCT) {
-      authorizationParams.product = process.env.AIRBROKE_BOXYHQ_SAML_PRODUCT;
-    }
-
-    providers.push(
-      BoxyHQSAML({
-        clientId: process.env.AIRBROKE_BOXYHQ_SAML_ID,
-        clientSecret: process.env.AIRBROKE_BOXYHQ_SAML_SECRET,
-        issuer: process.env.AIRBROKE_BOXYHQ_SAML_ISSUER,
-        ...(Object.keys(authorizationParams).length > 0 && {
-          authorization: { params: authorizationParams },
-        }),
-      }),
-    );
-  }
-
-  if (
-    process.env.AIRBROKE_BITBUCKET_ID &&
-    process.env.AIRBROKE_BITBUCKET_SECRET
-  ) {
-    providers.push(
-      Bitbucket({
-        clientId: process.env.AIRBROKE_BITBUCKET_ID,
-        clientSecret: process.env.AIRBROKE_BITBUCKET_SECRET,
-      }),
-    );
-  }
-
-  if (
-    process.env.AIRBROKE_SALESFORCE_ID &&
-    process.env.AIRBROKE_SALESFORCE_SECRET
-  ) {
-    providers.push(
-      Salesforce({
-        clientId: process.env.AIRBROKE_SALESFORCE_ID,
-        clientSecret: process.env.AIRBROKE_SALESFORCE_SECRET,
-      }),
-    );
-  }
-
-  if (
-    process.env.AIRBROKE_FUSIONAUTH_ID &&
-    process.env.AIRBROKE_FUSIONAUTH_SECRET &&
-    process.env.AIRBROKE_FUSIONAUTH_ISSUER
-  ) {
-    providers.push(
-      FusionAuth({
-        clientId: process.env.AIRBROKE_FUSIONAUTH_ID,
-        clientSecret: process.env.AIRBROKE_FUSIONAUTH_SECRET,
-        issuer: process.env.AIRBROKE_FUSIONAUTH_ISSUER,
-        ...(process.env.AIRBROKE_FUSIONAUTH_TENANT_ID && {
-          tenantId: process.env.AIRBROKE_FUSIONAUTH_TENANT_ID,
-        }),
-      }),
-    );
-  }
-
-  return providers;
-};
-
-export async function getSerializedProviders() {
-  const providers = getProviders().map((provider) => ({
-    id: provider.id,
-    name: provider.name,
-  }));
-  return providers;
 }
 
-const trustHost =
-  process.env.AUTH_TRUST_HOST == null
-    ? true
-    : process.env.AUTH_TRUST_HOST === "true";
+/** Check email domain against an allowlist. Throws APIError to reject. */
+export function assertEmailDomain(
+  email: string | undefined,
+  emailVerified: boolean | undefined,
+  allowedDomains: string[],
+  providerLabel: string,
+) {
+  if (!emailVerified) {
+    throw new APIError("FORBIDDEN", {
+      message: `${providerLabel}: email not verified`,
+    });
+  }
+  const domain = email?.split("@")[1];
+  if (!domain || !allowedDomains.includes(domain)) {
+    throw new APIError("FORBIDDEN", {
+      message: `${providerLabel}: email domain not allowed`,
+    });
+  }
+}
 
-export const { handlers, auth } = NextAuth({
-  session: {
-    strategy: "jwt",
-  },
-  debug: process.env.AUTH_DEBUG === "true",
-  providers: getProviders(),
-  trustHost,
-  adapter: CustomPrismaAdapter(),
-  pages: {
-    signIn: "/signin",
-  },
-  callbacks: {
-    jwt({ token, user }) {
-      // Persist the user id to the token right after signin
-      if (user?.id) {
-        token.id = user.id;
-      }
-      return token;
-    },
-    authorized: async ({ auth }) => {
-      // Logged in users are authenticated, otherwise redirect to login page
-      return !!auth;
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.id as string;
-      }
-      return session;
-    },
-    async signIn({ account, profile }): Promise<boolean | string> {
-      const extendedProfile = profile as ExtendedProfile;
+/** Map of provider ID → env var for email domain restrictions. */
+const PROVIDER_DOMAIN_ENV: Record<string, string> = {
+  google: "AIRBROKE_GOOGLE_DOMAINS",
+  auth0: "AIRBROKE_AUTH0_DOMAINS",
+  "boxyhq-saml": "AIRBROKE_BOXYHQ_SAML_DOMAINS",
+  fusionauth: "AIRBROKE_FUSIONAUTH_DOMAINS",
+};
 
-      if (
-        account?.provider === "google" &&
-        process.env.AIRBROKE_GOOGLE_DOMAINS
-      ) {
-        const domains = process.env.AIRBROKE_GOOGLE_DOMAINS.split(",");
-        const emailDomain = extendedProfile?.email?.split("@")[1];
-        // Coerce to boolean explicitly
-        return !!(
-          extendedProfile?.email_verified &&
-          emailDomain &&
-          domains.includes(emailDomain)
-        );
-      }
+/** Enforce email domain allowlist for a specific provider. */
+export function enforceEmailDomainForProvider(
+  email: string | undefined,
+  emailVerified: boolean | undefined,
+  providerId: string,
+) {
+  const envKey = PROVIDER_DOMAIN_ENV[providerId];
+  if (!envKey) return;
+  const allowedDomains = envList(envKey);
+  if (!allowedDomains) return;
+  assertEmailDomain(
+    email,
+    emailVerified,
+    allowedDomains,
+    `${providerId} domain check`,
+  );
+}
 
-      if (account?.provider === "github" && process.env.AIRBROKE_GITHUB_ORGS) {
-        const allowedOrgs = process.env.AIRBROKE_GITHUB_ORGS.split(",");
-        const token = account.access_token;
+/** Fetch with a 5-second timeout. */
+export async function fetchWithTimeout(
+  url: string,
+  init: RequestInit,
+): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 5000);
+  try {
+    return await fetch(url, { ...init, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
-        try {
-          const response = await fetch("https://api.github.com/user/orgs", {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              Accept: "application/vnd.github.v3+json",
-              "User-Agent": "airbroke",
-            },
-          });
+/** Enforce provider-specific API-based restrictions (org, group, workspace, tenant). */
+async function enforceProviderRestrictions(
+  providerId: string,
+  accessToken: string | null | undefined,
+  idToken?: string | null,
+) {
+  if (!accessToken) return;
 
-          if (!response.ok) {
-            console.error(
-              "Failed to fetch user organizations:",
-              response.status,
-              response.statusText,
-            );
-            return false;
-          }
+  // GitHub organization restriction
+  if (providerId === "github" && process.env.AIRBROKE_GITHUB_ORGS) {
+    const allowedOrgs = envList("AIRBROKE_GITHUB_ORGS") ?? [];
+    const response = await fetchWithTimeout(
+      "https://api.github.com/user/orgs",
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          Accept: "application/vnd.github.v3+json",
+          "User-Agent": "airbroke",
+        },
+      },
+    );
+    if (!response.ok) {
+      throw new APIError("FORBIDDEN", {
+        message: "GitHub: failed to fetch organizations",
+      });
+    }
+    const orgs = (await response.json()) as Array<{ login: string }>;
+    if (!orgs.some((o) => allowedOrgs.includes(o.login))) {
+      throw new APIError("FORBIDDEN", {
+        message: "GitHub: organization not allowed",
+      });
+    }
+  }
 
-          const orgsResponse = await response.json();
-          const userOrgs = orgsResponse.map(
-            (org: { login: string }) => org.login,
-          );
+  // GitLab group restriction
+  if (providerId === "gitlab" && process.env.AIRBROKE_GITLAB_GROUPS) {
+    const allowedGroups = envList("AIRBROKE_GITLAB_GROUPS") ?? [];
+    const gitlabUrl = (
+      process.env.AIRBROKE_GITLAB_URL ?? "https://gitlab.com"
+    ).replace(/\/+$/, "");
+    const response = await fetchWithTimeout(
+      `${gitlabUrl}/api/v4/groups?min_access_level=10`,
+      { headers: { Authorization: `Bearer ${accessToken}` } },
+    );
+    if (!response.ok) {
+      throw new APIError("FORBIDDEN", {
+        message: "GitLab: failed to fetch groups",
+      });
+    }
+    const groups = (await response.json()) as Array<{ full_path: string }>;
+    if (!groups.some((g) => allowedGroups.includes(g.full_path))) {
+      throw new APIError("FORBIDDEN", {
+        message: "GitLab: group not allowed",
+      });
+    }
+  }
 
-          // Ensure the return value is strictly boolean
-          return userOrgs.some((org: string) => allowedOrgs.includes(org));
-        } catch (error) {
-          console.error("Error fetching user organizations:", error);
-          return false;
-        }
-      }
+  // Bitbucket workspace restriction
+  if (providerId === "bitbucket" && process.env.AIRBROKE_BITBUCKET_WORKSPACES) {
+    const allowedWorkspaces = envList("AIRBROKE_BITBUCKET_WORKSPACES") ?? [];
+    const response = await fetchWithTimeout(
+      "https://api.bitbucket.org/2.0/workspaces?role=member",
+      { headers: { Authorization: `Bearer ${accessToken}` } },
+    );
+    if (!response.ok) {
+      throw new APIError("FORBIDDEN", {
+        message: "Bitbucket: failed to fetch workspaces",
+      });
+    }
+    const data = (await response.json()) as {
+      values: Array<{ slug: string }>;
+    };
+    if (!data.values.some((ws) => allowedWorkspaces.includes(ws.slug))) {
+      throw new APIError("FORBIDDEN", {
+        message: "Bitbucket: workspace not allowed",
+      });
+    }
+  }
 
-      if (account?.provider === "auth0" && process.env.AIRBROKE_AUTH0_DOMAINS) {
-        const domains = process.env.AIRBROKE_AUTH0_DOMAINS.split(",");
-        const emailDomain = extendedProfile?.email?.split("@")[1];
-        return !!(
-          extendedProfile?.email_verified &&
-          emailDomain &&
-          domains.includes(emailDomain)
-        );
-      }
+  // Atlassian site restriction
+  if (providerId === "atlassian" && process.env.AIRBROKE_ATLASSIAN_SITES) {
+    const allowedSites = envList("AIRBROKE_ATLASSIAN_SITES") ?? [];
+    const response = await fetchWithTimeout(
+      "https://api.atlassian.com/oauth/token/accessible-resources",
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          Accept: "application/json",
+        },
+      },
+    );
+    if (!response.ok) {
+      throw new APIError("FORBIDDEN", {
+        message: "Atlassian: failed to fetch accessible resources",
+      });
+    }
+    const resources = (await response.json()) as Array<{ name: string }>;
+    if (!resources.some((r) => allowedSites.includes(r.name))) {
+      throw new APIError("FORBIDDEN", {
+        message: "Atlassian: site not allowed",
+      });
+    }
+  }
 
-      if (
-        account?.provider === "boxyhq-saml" &&
-        process.env.AIRBROKE_BOXYHQ_SAML_DOMAINS
-      ) {
-        const domains = process.env.AIRBROKE_BOXYHQ_SAML_DOMAINS.split(",");
-        const emailDomain = extendedProfile?.email?.split("@")[1];
-        return !!(emailDomain && domains.includes(emailDomain));
-      }
+  // Slack workspace restriction
+  if (providerId === "slack" && process.env.AIRBROKE_SLACK_WORKSPACES) {
+    const allowedTeams = envList("AIRBROKE_SLACK_WORKSPACES") ?? [];
+    const response = await fetchWithTimeout("https://slack.com/api/auth.test", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    if (!response.ok) {
+      throw new APIError("FORBIDDEN", {
+        message: "Slack: failed to call auth.test",
+      });
+    }
+    const data = (await response.json()) as {
+      ok: boolean;
+      team_id?: string;
+    };
+    if (!data.ok || !data.team_id || !allowedTeams.includes(data.team_id)) {
+      throw new APIError("FORBIDDEN", {
+        message: "Slack: workspace not allowed",
+      });
+    }
+  }
 
-      if (
-        account?.provider === "bitbucket" &&
-        process.env.AIRBROKE_BITBUCKET_WORKSPACES
-      ) {
-        const allowedWorkspaces =
-          process.env.AIRBROKE_BITBUCKET_WORKSPACES.split(",");
-        const token = account.access_token;
+  // Microsoft Entra ID tenant restriction.
+  // Reads `tid` from the ID token (preferred) or access token (fallback).
+  if (
+    providerId === "microsoft" &&
+    process.env.AIRBROKE_MICROSOFT_ENTRA_ID_TENANTS
+  ) {
+    const allowedTenants = envList("AIRBROKE_MICROSOFT_ENTRA_ID_TENANTS") ?? [];
+    const claims = decodeJwtPayload(idToken ?? accessToken);
+    const tid = claims.tid as string | undefined;
+    if (!tid || !allowedTenants.includes(tid)) {
+      throw new APIError("FORBIDDEN", {
+        message: "Microsoft Entra ID: tenant not allowed",
+      });
+    }
+  }
 
-        try {
-          const response = await fetch(
-            "https://api.bitbucket.org/2.0/workspaces?role=member",
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
+  // Salesforce organization restriction
+  if (providerId === "salesforce" && process.env.AIRBROKE_SALESFORCE_ORGS) {
+    const allowedOrgs = envList("AIRBROKE_SALESFORCE_ORGS") ?? [];
+    const response = await fetchWithTimeout(
+      "https://login.salesforce.com/services/oauth2/userinfo",
+      { headers: { Authorization: `Bearer ${accessToken}` } },
+    );
+    if (!response.ok) {
+      throw new APIError("FORBIDDEN", {
+        message: "Salesforce: failed to fetch userinfo",
+      });
+    }
+    const data = (await response.json()) as { organizationId?: string };
+    if (!data.organizationId || !allowedOrgs.includes(data.organizationId)) {
+      throw new APIError("FORBIDDEN", {
+        message: "Salesforce: organization not allowed",
+      });
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Lazy Better Auth instance
+// ---------------------------------------------------------------------------
+// NOTE: Better Auth's default prismaAdapter does not wrap user + account
+// creation in a transaction. If account.create.before or session.create.before
+// rejects a login (wrong org, wrong domain, etc.), the user row may already be
+// persisted. This is acceptable — the user exists but cannot create a session,
+// so they cannot access any protected resources. A cleanup job could remove
+// orphaned users if desired.
+// ---------------------------------------------------------------------------
+
+function createAuth() {
+  return betterAuth({
+    database: prismaAdapter(db, { provider: "postgresql" }),
+    baseURL: process.env.BETTER_AUTH_URL,
+    secret: process.env.BETTER_AUTH_SECRET,
+    socialProviders: buildSocialProviders(),
+    plugins: [
+      nextCookies(),
+      genericOAuth({ config: buildGenericOAuthConfig() }),
+    ],
+    databaseHooks: {
+      session: {
+        create: {
+          before: async (session) => {
+            const user = await db.user.findUnique({
+              where: { id: session.userId },
+              select: { email: true, emailVerified: true },
+            });
+
+            const currentAccount = await db.account.findFirst({
+              where: { userId: session.userId },
+              orderBy: { updatedAt: "desc" },
+              select: {
+                providerId: true,
+                accessToken: true,
+                idToken: true,
               },
-            },
-          );
+            });
 
-          if (!response.ok) {
-            console.error(
-              "Failed to fetch user workspaces:",
-              response.status,
-              response.statusText,
+            if (currentAccount) {
+              enforceEmailDomainForProvider(
+                user?.email,
+                user?.emailVerified,
+                currentAccount.providerId,
+              );
+              await enforceProviderRestrictions(
+                currentAccount.providerId,
+                currentAccount.accessToken,
+                currentAccount.idToken,
+              );
+            }
+
+            return { data: session };
+          },
+        },
+      },
+      account: {
+        create: {
+          before: async (account) => {
+            const user = await db.user.findUnique({
+              where: { id: account.userId },
+              select: { email: true, emailVerified: true },
+            });
+            enforceEmailDomainForProvider(
+              user?.email,
+              user?.emailVerified,
+              account.providerId,
             );
-            return false;
-          }
-
-          const data = await response.json();
-          const userWorkspaces = data.values.map(
-            (ws: { slug: string }) => ws.slug,
-          );
-
-          return userWorkspaces.some((ws: string) =>
-            allowedWorkspaces.includes(ws),
-          );
-        } catch (error) {
-          console.error("Error fetching user workspaces:", error);
-          return false;
-        }
-      }
-
-      if (
-        account?.provider === "gitlab" &&
-        process.env.AIRBROKE_GITLAB_GROUPS
-      ) {
-        const allowedGroups = process.env.AIRBROKE_GITLAB_GROUPS.split(",");
-        const token = account.access_token;
-
-        try {
-          const gitlabUrl = (
-            process.env.AIRBROKE_GITLAB_URL ?? "https://gitlab.com"
-          ).replace(/\/+$/, "");
-          const response = await fetch(
-            `${gitlabUrl}/api/v4/groups?min_access_level=10`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            },
-          );
-
-          if (!response.ok) {
-            console.error(
-              "Failed to fetch user groups:",
-              response.status,
-              response.statusText,
+            await enforceProviderRestrictions(
+              account.providerId,
+              account.accessToken,
+              account.idToken,
             );
-            return false;
-          }
-
-          const groups = await response.json();
-          const userGroups = groups.map(
-            (group: { full_path: string }) => group.full_path,
-          );
-
-          return userGroups.some((group: string) =>
-            allowedGroups.includes(group),
-          );
-        } catch (error) {
-          console.error("Error fetching user groups:", error);
-          return false;
-        }
-      }
-
-      if (
-        account?.provider === "atlassian" &&
-        process.env.AIRBROKE_ATLASSIAN_SITES
-      ) {
-        const allowedSites = process.env.AIRBROKE_ATLASSIAN_SITES.split(",");
-        const token = account.access_token;
-
-        try {
-          const response = await fetch(
-            "https://api.atlassian.com/oauth/token/accessible-resources",
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                Accept: "application/json",
-              },
-            },
-          );
-
-          if (!response.ok) {
-            console.error(
-              "Failed to fetch accessible resources:",
-              response.status,
-              response.statusText,
-            );
-            return false;
-          }
-
-          const resources = await response.json();
-          const userSites = resources.map(
-            (resource: { name: string }) => resource.name,
-          );
-
-          return userSites.some((site: string) => allowedSites.includes(site));
-        } catch (error) {
-          console.error("Error fetching accessible resources:", error);
-          return false;
-        }
-      }
-
-      if (
-        account?.provider === "slack" &&
-        process.env.AIRBROKE_SLACK_WORKSPACES
-      ) {
-        const allowedWorkspaces =
-          process.env.AIRBROKE_SLACK_WORKSPACES.split(",");
-        const teamId = extendedProfile?.["https://slack.com/team_id"] as
-          | string
-          | undefined;
-
-        if (!teamId) {
-          console.error("Slack profile missing team_id claim");
-          return false;
-        }
-
-        return allowedWorkspaces.includes(teamId);
-      }
-
-      if (
-        account?.provider === "microsoft-entra-id" &&
-        process.env.AIRBROKE_MICROSOFT_ENTRA_ID_TENANTS
-      ) {
-        const allowedTenants =
-          process.env.AIRBROKE_MICROSOFT_ENTRA_ID_TENANTS.split(",");
-        const tid = (extendedProfile as Record<string, unknown>)?.tid as
-          | string
-          | undefined;
-
-        if (!tid) {
-          console.error("Microsoft Entra ID profile missing tenant ID");
-          return false;
-        }
-
-        return allowedTenants.includes(tid);
-      }
-
-      if (
-        account?.provider === "salesforce" &&
-        process.env.AIRBROKE_SALESFORCE_ORGS
-      ) {
-        const allowedOrgs = process.env.AIRBROKE_SALESFORCE_ORGS.split(",");
-        const orgId = extendedProfile?.organization_id as string | undefined;
-
-        if (!orgId) {
-          console.error("Salesforce profile missing organization_id");
-          return false;
-        }
-
-        return allowedOrgs.includes(orgId);
-      }
-
-      if (
-        account?.provider === "fusionauth" &&
-        process.env.AIRBROKE_FUSIONAUTH_DOMAINS
-      ) {
-        const domains = process.env.AIRBROKE_FUSIONAUTH_DOMAINS.split(",");
-        const emailDomain = extendedProfile?.email?.split("@")[1];
-        return !!(
-          extendedProfile?.email_verified &&
-          emailDomain &&
-          domains.includes(emailDomain)
-        );
-      }
-
-      // Default return value
-      return true;
+            return { data: account };
+          },
+        },
+      },
     },
-  },
-  theme: {
-    colorScheme: "dark", // "auto" | "dark" | "light"
-    brandColor: "#192231", // Hex color code
-    logo: "https://i.imgur.com/dPL9YEz.png", // Absolute URL to image
-    buttonText: "", // Hex color code
-  },
-});
+    account: {
+      accountLinking: {
+        enabled: true,
+      },
+    },
+  });
+}
+
+let _auth: ReturnType<typeof createAuth> | null = null;
+
+/** Lazy getter — constructs Better Auth on first call, fails loudly if env is missing. */
+export function getAuth() {
+  if (!_auth) {
+    _auth = createAuth();
+  }
+  return _auth;
+}

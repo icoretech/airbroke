@@ -22,9 +22,9 @@ import ResolveButton from "@/components/occurrence/ResolveButton";
 import Session from "@/components/occurrence/Session";
 import Toolbox from "@/components/occurrence/Toolbox";
 import { Badge } from "@/components/ui/badge";
-import { auth } from "@/lib/auth";
 import { checkOccurrenceBookmarkExistence } from "@/lib/queries/occurrenceBookmarks";
 import { getOccurrenceById } from "@/lib/queries/occurrences";
+import { requireSession } from "@/lib/requireSession";
 import { getSingleSearchParam } from "@/lib/routeSearchParams";
 import type { Metadata, Route } from "next";
 import type { OccurrenceTabKeys, OccurrenceTabs } from "@/types/airbroke";
@@ -44,7 +44,7 @@ export default async function Occurrence(
   const [resolvedSearchParams, resolvedParams, session] = await Promise.all([
     props.searchParams,
     props.params,
-    auth(),
+    requireSession(),
   ]);
 
   const occurrence = await getOccurrenceById(resolvedParams.occurrence_id);

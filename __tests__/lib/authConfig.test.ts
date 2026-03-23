@@ -1,82 +1,27 @@
 // @vitest-environment node
 
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 
-const { nextAuthMock, prismaAdapterMock } = vi.hoisted(() => ({
-  nextAuthMock: vi.fn((config: unknown) => {
-    return {
-      auth: vi.fn(),
-      handlers: {},
-      config,
-    };
-  }),
-  prismaAdapterMock: vi.fn(() => ({})),
-}));
+describe("auth configuration", () => {
+  it("exports getAuth and getSerializedProviders", async () => {
+    const authModule = await import("@/lib/auth");
 
-vi.mock("next-auth", () => ({
-  default: nextAuthMock,
-}));
+    expect(authModule.getAuth).toBeDefined();
+    expect(typeof authModule.getAuth).toBe("function");
+    expect(authModule.getSerializedProviders).toBeDefined();
+    expect(typeof authModule.getSerializedProviders).toBe("function");
+  });
 
-vi.mock("@/lib/auth/prismaAdapter", () => ({
-  PrismaAdapter: prismaAdapterMock,
-}));
+  it("getSerializedProviders returns provider list with type field", async () => {
+    const { getSerializedProviders } = await import("@/lib/auth-providers");
+    const providers = getSerializedProviders();
 
-vi.mock("@/lib/db", () => ({
-  db: {},
-}));
-
-const originalAuthTrustHost = process.env.AUTH_TRUST_HOST;
-
-async function loadAuthConfig(authTrustHost?: string) {
-  vi.resetModules();
-  nextAuthMock.mockClear();
-  prismaAdapterMock.mockClear();
-
-  if (authTrustHost == null) {
-    delete process.env.AUTH_TRUST_HOST;
-  } else {
-    process.env.AUTH_TRUST_HOST = authTrustHost;
-  }
-
-  await import("@/lib/auth");
-
-  const [config] = nextAuthMock.mock.calls.at(-1) ?? [];
-
-  return config as { trustHost: boolean };
-}
-
-describe("auth trustHost config", () => {
-  beforeEach(() => {
-    if (originalAuthTrustHost == null) {
-      delete process.env.AUTH_TRUST_HOST;
-    } else {
-      process.env.AUTH_TRUST_HOST = originalAuthTrustHost;
+    expect(Array.isArray(providers)).toBe(true);
+    for (const provider of providers) {
+      expect(provider).toHaveProperty("id");
+      expect(provider).toHaveProperty("name");
+      expect(provider).toHaveProperty("type");
+      expect(["social", "oauth2"]).toContain(provider.type);
     }
-  });
-
-  afterEach(() => {
-    if (originalAuthTrustHost == null) {
-      delete process.env.AUTH_TRUST_HOST;
-    } else {
-      process.env.AUTH_TRUST_HOST = originalAuthTrustHost;
-    }
-  });
-
-  it("defaults to trusting the host when AUTH_TRUST_HOST is unset", async () => {
-    const config = await loadAuthConfig();
-
-    expect(config.trustHost).toBe(true);
-  });
-
-  it('allows disabling host trust with AUTH_TRUST_HOST="false"', async () => {
-    const config = await loadAuthConfig("false");
-
-    expect(config.trustHost).toBe(false);
-  });
-
-  it('keeps host trust enabled with AUTH_TRUST_HOST="true"', async () => {
-    const config = await loadAuthConfig("true");
-
-    expect(config.trustHost).toBe(true);
   });
 });

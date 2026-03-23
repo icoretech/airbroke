@@ -3,13 +3,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const {
-  authMock,
+  getSessionMock,
   findFirstMock,
   openaiResponsesMock,
   createOpenAIMock,
   streamTextMock,
 } = vi.hoisted(() => ({
-  authMock: vi.fn(),
+  getSessionMock: vi.fn(),
   findFirstMock: vi.fn(),
   openaiResponsesMock: vi.fn(),
   createOpenAIMock: vi.fn(),
@@ -17,7 +17,15 @@ const {
 }));
 
 vi.mock("@/lib/auth", () => ({
-  auth: authMock,
+  getAuth: () => ({
+    api: {
+      getSession: getSessionMock,
+    },
+  }),
+}));
+
+vi.mock("next/server", () => ({
+  NextRequest: class NextRequest extends Request {},
 }));
 
 vi.mock("@/lib/db", () => ({
@@ -47,9 +55,9 @@ describe("POST /api/completion", () => {
     process.env.AIRBROKE_OPENAI_API_KEY = "test-openai-key";
     process.env.AIRBROKE_OPENAI_ENGINE = "gpt-4o";
 
-    authMock.mockResolvedValue({
+    getSessionMock.mockResolvedValue({
+      session: { id: "session-1" },
       user: { id: "user-1" },
-      expires: "2099-01-01T00:00:00.000Z",
     });
     findFirstMock.mockResolvedValue({
       id: "occ-1",
@@ -102,7 +110,7 @@ describe("POST /api/completion", () => {
           occurrenceId: "occ-1",
           isDetailMode: true,
         }),
-      }),
+      }) as unknown as import("next/server").NextRequest,
     );
 
     expect(res.status).toBe(200);
