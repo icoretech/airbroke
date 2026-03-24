@@ -6198,11 +6198,11 @@ __metadata:
   linkType: hard
 
 "lucide-react@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "lucide-react@npm:1.0.1"
+  version: 1.6.0
+  resolution: "lucide-react@npm:1.6.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/a99e9a12f78d10d9479d0686843691c89469c1ffb60572cc032ab67e278ec8178f5e48bdd28aa9f4a89b6d69deb788f8e4ba097009ff71cb9d91c8510fbb23c3
+  checksum: 10/a4edac31bb32d54687ce9de499a855c4ba04c2f396102ba094b7b138b347ca4236177a761b851b6ff9153c8378102901b82b1cec31b724982ff1bcc1bbca4d11
   languageName: node
   linkType: hard
 
