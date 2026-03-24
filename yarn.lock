@@ -6272,14 +6272,14 @@ __metadata:
   linkType: hard
 
 "mcp-handler@npm:^1.0.7":
-  version: 1.0.7
-  resolution: "mcp-handler@npm:1.0.7"
+  version: 1.1.0
+  resolution: "mcp-handler@npm:1.1.0"
   dependencies:
     chalk: "npm:^5.3.0"
     commander: "npm:^11.1.0"
     redis: "npm:^4.6.0"
   peerDependencies:
-    "@modelcontextprotocol/sdk": 1.25.2
+    "@modelcontextprotocol/sdk": 1.26.0
     next: ">=13.0.0"
   peerDependenciesMeta:
     "@modelcontextprotocol/sdk":
@@ -6290,7 +6290,7 @@ __metadata:
     create-mcp-route: dist/cli/index.js
     mcp-adapter: dist/cli/index.js
     mcp-handler: dist/cli/index.js
-  checksum: 10/9a7837c92f37a94befd9730bfcc138cec349a021a96fa01c2df43a27a7db0dc4c234b298b26a688b6818f3cbf0435aa724e251c660abdf3b24afe11325fde970
+  checksum: 10/702fa4205f1d498880237f6829ee9d9693b542cbf0c22f87619daa82f32473fe2b595d27532fc1a063498316e96f1419bc7a03c15009df6bc897ceabbbd91577
   languageName: node
   linkType: hard
 
