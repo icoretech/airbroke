@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.2.2](https://github.com/icoretech/airbroke/compare/v1.2.1...v1.2.2) (2026-03-26)
+
+
+### Bug Fixes
+
+* **deps:** merge lucide-react v1 update ([f15efcf](https://github.com/icoretech/airbroke/commit/f15efcf5e9987b4b55017b3a383055b1364896e1))
+* **deps:** merge vercel ai sdk update ([8561961](https://github.com/icoretech/airbroke/commit/8561961a4632e3b8022f6ebcef88089519a78a9f))
+* **deps:** update dependency @microlink/react-json-view to v1.31.15 ([#1575](https://github.com/icoretech/airbroke/issues/1575)) ([5665b2a](https://github.com/icoretech/airbroke/commit/5665b2a992a24cfe15c25eea781fcf7ed0acea58))
+* **deps:** update dependency recharts to v3.8.1 ([#1571](https://github.com/icoretech/airbroke/issues/1571)) ([808b4dc](https://github.com/icoretech/airbroke/commit/808b4dc7ab4d08d492eebb47b56e3dc6f3e87c89))
+* **deps:** update sentry-javascript monorepo to v10.46.0 ([#1573](https://github.com/icoretech/airbroke/issues/1573)) ([8605287](https://github.com/icoretech/airbroke/commit/860528780154d5bbc920a13b620fde247f5d3b86))
+* **deps:** update vercel ai sdk ([c5b133b](https://github.com/icoretech/airbroke/commit/c5b133bdf6eb61a12eb492e7dafa5e3860ca7123))
+* **deps:** update vercel ai sdk ([25b3eff](https://github.com/icoretech/airbroke/commit/25b3efff072ae0465f830ef87609b704a0fb9640))
+* **deps:** update vercel ai sdk ([50bbad7](https://github.com/icoretech/airbroke/commit/50bbad799e19ebae0416980edc67618db5c0c078))
+* **deps:** update vercel ai sdk ([#1569](https://github.com/icoretech/airbroke/issues/1569)) ([6eae9fd](https://github.com/icoretech/airbroke/commit/6eae9fd8b8083033e4a6339c35c4bdb409227398))
+* **tsconfig:** drop deprecated baseUrl ([e5b7727](https://github.com/icoretech/airbroke/commit/e5b772770ea9abfe952ac28e5a9306031573968c))
+
 ## [1.2.1](https://github.com/icoretech/airbroke/compare/v1.2.0...v1.2.1) (2026-03-23)
 
 
