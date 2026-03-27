@@ -1,24 +1,37 @@
 # Airbroke Agent Guide
 
-Airbroke is a Next.js 16 + Prisma project that is developed and tested via Docker Compose.
+Airbroke is a Next.js 16 + Prisma app that is developed and verified via
+Docker Compose.
+
+## Quick Reference
+
+- Package manager: `yarn@4.13.0`
+- Start services: `docker compose up -d web test db testdb`
+- App commands: `docker compose exec web yarn <script>`
+- Test commands: `docker compose exec test yarn <script>`
 
 ## Universal Rules
 
-- This is a Docker Compose project. Start required services before running commands:
-  `docker compose up -d web test db testdb`.
-- For this repo, run repository commands and verification through Docker Compose containers by default; use host commands only for Docker/host diagnostics or when the task is explicitly about the host environment.
-- Run Node/Next/Yarn/Prisma/Vitest commands only inside running containers.
-- Use `docker compose exec` for repository commands (not host execution, not `docker exec`).
-- Prefer `docker compose exec` against running services for normal work; use `docker compose run --rm` only when you intentionally need an isolated one-off container.
-- Do not run `yarn`, `node`, `npx`, `next`, `prisma`, or `vitest` directly on the host.
-- Do not revert or downgrade dependency upgrades made by the user in `package.json`/lockfiles unless explicitly requested.
+- Run repository commands and verification through Docker Compose containers by
+  default; use host commands only for Docker and host diagnostics
+- Run Node, Next, Yarn, Prisma, and Vitest commands only inside running
+  containers
+- Use `docker compose exec` for repository commands, not host execution and
+  not `docker exec`
+- Prefer `docker compose exec` against running services for normal work; use
+  `docker compose run --rm` only when you intentionally need an isolated
+  one-off container
+- Do not run `yarn`, `node`, `npx`, `next`, `prisma`, or `vitest` directly
+  on the host
+- Run production builds with `NODE_ENV=production` explicitly set
+- Do not revert or downgrade dependency upgrades made by the user in
+  `package.json` or lockfiles unless explicitly requested
 
-## Quick Command Map
+## Common Scripts
 
-- App commands: `docker compose exec web yarn <script>`
-- Test commands: `docker compose exec test yarn <script>`
-- Common scripts: `dev`, `build`, `start`, `typecheck`, `biome:lint`, `biome:check`,
-  `biome:ci`, `format`, `db:migrate`, `db:seed`, `db:pull`, `db:generate`, `test`
+- `web`: `dev`, `build`, `start`, `typecheck`, `biome:lint`, `biome:check`,
+  `biome:ci`, `format`, `db:migrate`, `db:seed`, `db:pull`, `db:generate`
+- `test`: `test`
 
 ## Detailed Guidelines
 
