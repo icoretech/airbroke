@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.3](https://github.com/icoretech/airbroke/compare/v1.2.2...v1.2.3) (2026-03-27)
+
+
+### Bug Fixes
+
+* **deps:** update prisma monorepo to v7.6.0 ([#1579](https://github.com/icoretech/airbroke/issues/1579)) ([baf3e65](https://github.com/icoretech/airbroke/commit/baf3e65b861fd9726f8d3d4d2cc1fbb748405a59))
+* **deps:** update vercel ai sdk ([0daf803](https://github.com/icoretech/airbroke/commit/0daf8030bcac685e7a9aa5dfa74838b57c67f379))
+* **deps:** update vercel ai sdk ([#1577](https://github.com/icoretech/airbroke/issues/1577)) ([83772e2](https://github.com/icoretech/airbroke/commit/83772e28943e73a598f733c20cca1f44fb1e46c7))
+
 ## [1.2.2](https://github.com/icoretech/airbroke/compare/v1.2.1...v1.2.2) (2026-03-26)
 
 
