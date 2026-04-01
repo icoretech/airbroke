@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.2.4](https://github.com/icoretech/airbroke/compare/v1.2.3...v1.2.4) (2026-04-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/openai to v3.0.49 ([#1583](https://github.com/icoretech/airbroke/issues/1583)) ([5dace99](https://github.com/icoretech/airbroke/commit/5dace991deb916816960a5123a5ebfa9a917d999))
+* **deps:** update dependency next to v16.2.2 ([#1587](https://github.com/icoretech/airbroke/issues/1587)) ([2df8f98](https://github.com/icoretech/airbroke/commit/2df8f980db7474fc0bb52835b131262e39d60989))
+* **deps:** update sentry-javascript monorepo to v10.47.0 ([#1585](https://github.com/icoretech/airbroke/issues/1585)) ([ab3cbf0](https://github.com/icoretech/airbroke/commit/ab3cbf019296c4d4f2e4307096cd050f08bbc1d2))
+* **deps:** update vercel ai sdk ([#1586](https://github.com/icoretech/airbroke/issues/1586)) ([709bb97](https://github.com/icoretech/airbroke/commit/709bb9734d68bd19d08dd96a01f2390b8370b3de))
+
 ## [1.2.3](https://github.com/icoretech/airbroke/compare/v1.2.2...v1.2.3) (2026-03-27)
 
 
