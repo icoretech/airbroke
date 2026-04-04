@@ -37,12 +37,14 @@ model Notice {
   seen_count  BigInt       @default(1)
   created_at  DateTime     @default(now()) @db.Timestamp(6)
   updated_at  DateTime     @updatedAt @db.Timestamp(6)
+  resolved_at DateTime?    @db.Timestamp(6)
   project     Project      @relation(fields: [project_id], references: [id], onDelete: Cascade)
   occurrences Occurrence[]
 
   @@unique([project_id, env, kind])
   @@index([seen_count])
   @@index([updated_at])
+  @@index([resolved_at])
   @@map("notices")
 }
 
