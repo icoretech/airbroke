@@ -16,11 +16,16 @@ describe("getOccurrences resolved filter", () => {
     vi.clearAllMocks();
   });
 
-  it("defaults to all (no resolved filter)", async () => {
+  it("defaults to unresolved filter", async () => {
     const { getOccurrences } = await import("@/lib/queries/occurrences");
     await getOccurrences("notice1", {});
-    const callArgs = mockFindMany.mock.calls[0][0];
-    expect(callArgs.where).not.toHaveProperty("resolved_at");
+    expect(mockFindMany).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: expect.objectContaining({
+          resolved_at: null,
+        }),
+      }),
+    );
   });
 
   it("filters unresolved only", async () => {

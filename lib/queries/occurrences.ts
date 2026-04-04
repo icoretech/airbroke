@@ -44,7 +44,7 @@ interface OccurrenceWithNoticeAndProject extends Occurrence {
  * @returns Promise resolving to a list of Occurrences (with included Notice)
  */
 function resolvedWhere(filter?: ResolvedFilter): Prisma.OccurrenceWhereInput {
-  switch (filter ?? "all") {
+  switch (filter ?? "unresolved") {
     case "unresolved":
       return { resolved_at: null };
     case "resolved":

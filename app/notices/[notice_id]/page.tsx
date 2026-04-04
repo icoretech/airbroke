@@ -70,7 +70,7 @@ export default async function Notice(props: PageProps<"/notices/[notice_id]">) {
         <div className="flex w-full flex-wrap items-center justify-between gap-3 rounded-lg border border-card/40 bg-card/40 px-4 py-3 shadow-xs sm:rounded-none sm:border-0 sm:bg-transparent sm:shadow-none sm:border-b sm:border-card/40">
           <h2 className="text-sm font-semibold text-foreground">Occurrences</h2>
           <div className="flex items-center gap-2">
-            <StatusFilter defaultStatus="all" />
+            <StatusFilter />
             <Sort />
           </div>
         </div>
