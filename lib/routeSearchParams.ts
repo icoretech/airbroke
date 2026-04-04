@@ -30,6 +30,10 @@ export function toNoticeSearchParams(
       searchParams,
       "sortDir",
     ) as NoticeSearchParams["sortDir"],
+    resolvedFilter: getSingleSearchParam(
+      searchParams,
+      "status",
+    ) as NoticeSearchParams["resolvedFilter"],
   };
 }
 
@@ -46,5 +50,9 @@ export function toOccurrenceSearchParams(
       searchParams,
       "sortDir",
     ) as OccurrenceSearchParams["sortDir"],
+    resolvedFilter: getSingleSearchParam(
+      searchParams,
+      "status",
+    ) as OccurrenceSearchParams["resolvedFilter"],
   };
 }

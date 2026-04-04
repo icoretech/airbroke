@@ -10,12 +10,14 @@ import type {
 
 type SortAttribute = "seen_count" | "updated_at" | undefined;
 type SortDirection = "asc" | "desc" | undefined;
+type ResolvedFilter = "unresolved" | "resolved" | "all";
 
 export type OccurrenceSearchParams = {
   sortDir?: SortDirection;
   sortAttr?: SortAttribute;
   searchQuery?: string;
   limit?: number;
+  resolvedFilter?: ResolvedFilter;
 };
 
 /**
@@ -41,6 +43,17 @@ interface OccurrenceWithNoticeAndProject extends Occurrence {
  * @param params - Search and sorting options
  * @returns Promise resolving to a list of Occurrences (with included Notice)
  */
+function resolvedWhere(filter?: ResolvedFilter): Prisma.OccurrenceWhereInput {
+  switch (filter ?? "all") {
+    case "unresolved":
+      return { resolved_at: null };
+    case "resolved":
+      return { resolved_at: { not: null } };
+    case "all":
+      return {};
+  }
+}
+
 export async function getOccurrences(
   noticeId: string,
   params: OccurrenceSearchParams,
@@ -50,10 +63,12 @@ export async function getOccurrences(
     sortAttr = "updated_at",
     searchQuery,
     limit,
+    resolvedFilter,
   } = params;
 
   const whereObject: Prisma.OccurrenceWhereInput = {
     notice_id: noticeId,
+    ...resolvedWhere(resolvedFilter),
     ...(searchQuery
       ? {
           message: {

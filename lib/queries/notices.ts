@@ -5,16 +5,29 @@ import type { Notice, Prisma, Project } from "@/prisma/generated/client";
 
 type SortAttribute = "env" | "kind" | "updated_at" | "seen_count" | undefined;
 type SortDirection = "asc" | "desc" | undefined;
+type ResolvedFilter = "unresolved" | "resolved" | "all";
 
 export type NoticeSearchParams = {
   sortDir?: SortDirection;
   sortAttr?: SortAttribute;
   filterByEnv?: string;
   searchQuery?: string;
+  resolvedFilter?: ResolvedFilter;
 };
 
 interface NoticeWithProject extends Notice {
   project: Project;
+}
+
+function resolvedWhere(filter?: ResolvedFilter): Prisma.NoticeWhereInput {
+  switch (filter ?? "unresolved") {
+    case "unresolved":
+      return { resolved_at: null };
+    case "resolved":
+      return { resolved_at: { not: null } };
+    case "all":
+      return {};
+  }
 }
 
 /**
@@ -36,11 +49,13 @@ export async function getNotices(
     sortAttr = "updated_at",
     filterByEnv,
     searchQuery,
+    resolvedFilter,
   } = params;
 
   // Conditionally build the where object
   const whereObject: Prisma.NoticeWhereInput = {
     project_id: projectId,
+    ...resolvedWhere(resolvedFilter),
     ...(filterByEnv !== undefined &&
       filterByEnv !== "" && { env: filterByEnv }),
     ...(searchQuery && {
