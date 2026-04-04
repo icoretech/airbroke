@@ -41,7 +41,7 @@ export default function ResolveNoticeButton({
         <Button
           type="button"
           variant="outline"
-          size="sm"
+          size="icon-sm"
           disabled={isPending || isWorking}
           aria-disabled={isPending || isWorking}
           className={toneClass}
@@ -62,8 +62,8 @@ export default function ResolveNoticeButton({
               });
           }}
         >
-          <Icon className="mr-2 size-4" aria-hidden="true" />
-          {label}
+          <Icon className="size-4" aria-hidden="true" />
+          <span className="sr-only">{label}</span>
         </Button>
       </TooltipTrigger>
       <TooltipContent sideOffset={6}>
