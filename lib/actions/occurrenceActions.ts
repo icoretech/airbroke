@@ -84,30 +84,46 @@ export async function removeOccurrenceBookmark(occurrenceId: string) {
 
 /**
  * Sets the `resolved_at` timestamp for an occurrence.
+ * The PostgreSQL trigger syncs the parent notice resolved_at.
  */
 export async function resolveOccurrence(occurrenceId: string) {
   const session = await getAuth().api.getSession({ headers: await headers() });
   if (!session) throw new Error("Unauthorized");
 
-  await db.occurrence.update({
+  const occurrence = await db.occurrence.update({
     where: { id: occurrenceId },
     data: { resolved_at: new Date() },
+    select: {
+      notice: {
+        select: { id: true, project_id: true },
+      },
+    },
   });
 
   revalidatePath(`/occurrences/${occurrenceId}`);
+  revalidatePath(`/notices/${occurrence.notice.id}`);
+  revalidatePath(`/projects/${occurrence.notice.project_id}`);
 }
 
 /**
  * Clears the `resolved_at` timestamp for an occurrence (reinstate).
+ * The PostgreSQL trigger syncs the parent notice resolved_at.
  */
 export async function reinstateOccurrence(occurrenceId: string) {
   const session = await getAuth().api.getSession({ headers: await headers() });
   if (!session) throw new Error("Unauthorized");
 
-  await db.occurrence.update({
+  const occurrence = await db.occurrence.update({
     where: { id: occurrenceId },
     data: { resolved_at: null },
+    select: {
+      notice: {
+        select: { id: true, project_id: true },
+      },
+    },
   });
 
   revalidatePath(`/occurrences/${occurrenceId}`);
+  revalidatePath(`/notices/${occurrence.notice.id}`);
+  revalidatePath(`/projects/${occurrence.notice.project_id}`);
 }
