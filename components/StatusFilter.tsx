@@ -18,15 +18,24 @@ import {
 import { generateUpdatedURLWithRemovals } from "@/lib/generateUpdatedUrlWithRemovals";
 
 const STATUS_OPTIONS = [
-  { value: "", label: "Unresolved" },
+  { value: "unresolved", label: "Unresolved" },
   { value: "resolved", label: "Resolved" },
   { value: "all", label: "All" },
 ] as const;
 
-export default function StatusFilter() {
+type StatusValue = (typeof STATUS_OPTIONS)[number]["value"];
+
+interface StatusFilterProps {
+  defaultStatus?: StatusValue;
+}
+
+export default function StatusFilter({
+  defaultStatus = "unresolved",
+}: StatusFilterProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const currentStatus = searchParams.get("status") ?? "";
+  const currentStatus =
+    (searchParams.get("status") as StatusValue | null) ?? defaultStatus;
 
   const currentLabel =
     STATUS_OPTIONS.find((o) => o.value === currentStatus)?.label ??
@@ -48,7 +57,7 @@ export default function StatusFilter() {
             <DropdownMenuRadioItem key={option.value} value={option.value}>
               <Link
                 href={
-                  option.value === ""
+                  option.value === defaultStatus
                     ? generateUpdatedURLWithRemovals(
                         pathname,
                         searchParams,
