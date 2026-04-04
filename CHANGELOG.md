@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.2.5](https://github.com/icoretech/airbroke/compare/v1.2.4...v1.2.5) (2026-04-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @microlink/react-json-view to v1.31.16 ([#1593](https://github.com/icoretech/airbroke/issues/1593)) ([3293cb6](https://github.com/icoretech/airbroke/commit/3293cb6299b8ff44ed793670b743cad6ec4f5f7e))
+* **deps:** update vercel ai sdk ([#1588](https://github.com/icoretech/airbroke/issues/1588)) ([46859d4](https://github.com/icoretech/airbroke/commit/46859d4ae68c34877595ccca2bea4682d8c57955))
+* **deps:** update vercel ai sdk ([#1590](https://github.com/icoretech/airbroke/issues/1590)) ([969e8c8](https://github.com/icoretech/airbroke/commit/969e8c86080c95c54b8db15529b8a83de0fe2771))
+* **deps:** update vercel ai sdk ([#1591](https://github.com/icoretech/airbroke/issues/1591)) ([fa6ee55](https://github.com/icoretech/airbroke/commit/fa6ee5563dad49397288812c6050c8f1fd0146e5))
+* **deps:** update vercel ai sdk ([#1594](https://github.com/icoretech/airbroke/issues/1594)) ([7d41b0d](https://github.com/icoretech/airbroke/commit/7d41b0d381f5a4b1629ef2177804f3cc75c9d060))
+
 ## [1.2.4](https://github.com/icoretech/airbroke/compare/v1.2.3...v1.2.4) (2026-04-01)
 
 
