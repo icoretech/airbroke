@@ -52,3 +52,4 @@ prisma/generated/
 .tmp/
 .worktrees/
 docs/
+!docs/agents/
