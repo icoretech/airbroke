@@ -81,6 +81,29 @@ export async function checkOccurrenceBookmarkExistence(
 }
 
 /**
+ * Returns a set of occurrence IDs that the given user has bookmarked
+ * among the provided occurrence IDs.
+ */
+export async function getBookmarkedOccurrenceIds(
+  userId: string | undefined,
+  occurrenceIds: string[],
+): Promise<Set<string>> {
+  if (!userId || occurrenceIds.length === 0) {
+    return new Set();
+  }
+
+  const bookmarks = await db.occurrenceBookmark.findMany({
+    where: {
+      user_id: userId,
+      occurrence_id: { in: occurrenceIds },
+    },
+    select: { occurrence_id: true },
+  });
+
+  return new Set(bookmarks.map((b) => b.occurrence_id));
+}
+
+/**
  * Internal helper to fetch occurrence bookmarks from Prisma,
  * optionally filtered by a Prisma.OccurrenceBookmarkWhereInput object.
  *

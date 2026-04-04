@@ -44,7 +44,7 @@ export default function BookmarkButton({
         <Button
           type="button"
           variant={bookmarked ? "secondary" : "outline"}
-          size="sm"
+          size="icon-sm"
           disabled={isPending}
           aria-disabled={isPending}
           aria-pressed={bookmarked}

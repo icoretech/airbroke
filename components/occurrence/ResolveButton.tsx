@@ -16,11 +16,13 @@ import {
 interface ResolveButtonProps {
   occurrenceId: string;
   resolvedAt: Date | null;
+  iconOnly?: boolean;
 }
 
 export default function ResolveButton({
   occurrenceId,
   resolvedAt,
+  iconOnly = false,
 }: ResolveButtonProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -40,7 +42,7 @@ export default function ResolveButton({
         <Button
           type="button"
           variant="outline"
-          size="sm"
+          size={iconOnly ? "icon-sm" : "sm"}
           disabled={isPending || isWorking}
           aria-disabled={isPending || isWorking}
           className={toneClass}
@@ -56,8 +58,11 @@ export default function ResolveButton({
               });
           }}
         >
-          <Icon className="mr-2 size-4" aria-hidden="true" />
-          {label}
+          <Icon
+            className={iconOnly ? "size-4" : "mr-2 size-4"}
+            aria-hidden="true"
+          />
+          {iconOnly ? <span className="sr-only">{label}</span> : label}
         </Button>
       </TooltipTrigger>
       <TooltipContent sideOffset={6}>

@@ -1,10 +1,15 @@
 // components/OccurrencesTable.tsx
 
+import { headers } from "next/headers";
 import Link from "next/link";
+import { getAuth } from "@/lib/auth";
+import { getBookmarkedOccurrenceIds } from "@/lib/queries/occurrenceBookmarks";
 import { getOccurrences } from "@/lib/queries/occurrences";
 import CounterLabel from "./CounterLabel";
 import CustomTimeAgo from "./CustomTimeAgo";
 import EnvironmentLabel from "./EnvironmentLabel";
+import BookmarkButton from "./occurrence/BookmarkButton";
+import ResolveButton from "./occurrence/ResolveButton";
 import type { OccurrenceSearchParams } from "@/lib/queries/occurrences";
 
 type OccurrencesTableProps = {
@@ -17,6 +22,11 @@ export default async function OccurrencesTable({
   searchParams,
 }: OccurrencesTableProps) {
   const occurrences = await getOccurrences(noticeId, searchParams);
+
+  const session = await getAuth().api.getSession({ headers: await headers() });
+  const userId = session?.user?.id;
+  const occurrenceIds = occurrences.map((o) => o.id);
+  const bookmarkedIds = await getBookmarkedOccurrenceIds(userId, occurrenceIds);
 
   return (
     <ul className="space-y-3 sm:space-y-0 sm:divide-y sm:divide-card/40">
@@ -66,6 +76,17 @@ export default async function OccurrencesTable({
               </p>
             </div>
             <CounterLabel counter={occurrence.seen_count} />
+            <div className="relative z-10 flex items-center gap-1">
+              <BookmarkButton
+                occurrenceId={occurrence.id}
+                isBookmarked={bookmarkedIds.has(occurrence.id)}
+              />
+              <ResolveButton
+                occurrenceId={occurrence.id}
+                resolvedAt={occurrence.resolved_at}
+                iconOnly
+              />
+            </div>
           </div>
         </li>
       ))}
