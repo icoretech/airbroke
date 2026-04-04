@@ -36,6 +36,7 @@ const ListNoticesArgsSchema = z
     search: z.string().trim().min(1).optional(),
     filter_by_env: z.string().trim().min(1).optional(),
     include_project: z.boolean().optional().default(false),
+    include_resolved: z.boolean().optional().default(true),
     sort_attr: z
       .enum(["env", "kind", "updated_at", "seen_count"])
       .optional()
@@ -208,6 +209,7 @@ function buildOccurrenceSelect(
               env: true,
               kind: true,
               seen_count: true,
+              resolved_at: true,
               updated_at: true,
               ...(includeProject
                 ? {
@@ -273,6 +275,7 @@ function formatOccurrenceSummary(
         env: notice.env,
         kind: notice.kind,
         seen_count: notice.seen_count,
+        resolved_at: notice.resolved_at ?? null,
         updated_at: notice.updated_at,
       };
 
@@ -370,6 +373,7 @@ export const MCP_TOOLS: Record<string, ToolSpec> = {
         ...(args.search
           ? { kind: { contains: args.search, mode: "insensitive" } }
           : {}),
+        ...(args.include_resolved ? {} : { resolved_at: null }),
       };
 
       const notices = await db.notice.findMany({
@@ -384,6 +388,7 @@ export const MCP_TOOLS: Record<string, ToolSpec> = {
               env: true,
               kind: true,
               seen_count: true,
+              resolved_at: true,
               created_at: true,
               updated_at: true,
               project: {
@@ -400,6 +405,7 @@ export const MCP_TOOLS: Record<string, ToolSpec> = {
               env: true,
               kind: true,
               seen_count: true,
+              resolved_at: true,
               created_at: true,
               updated_at: true,
             },
@@ -459,6 +465,7 @@ export const MCP_TOOLS: Record<string, ToolSpec> = {
           env: true,
           kind: true,
           seen_count: true,
+          resolved_at: true,
           created_at: true,
           updated_at: true,
           ...(args.include_project
