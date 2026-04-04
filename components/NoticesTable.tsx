@@ -29,6 +29,11 @@ export default async function NoticesTable({
           <div className="min-w-0 flex-auto">
             <div className="flex items-center gap-x-3">
               <EnvironmentLabel env={notice.env} />
+              {notice.resolved_at && (
+                <div className="flex-none rounded-md bg-green-900 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-green-700">
+                  resolved
+                </div>
+              )}
               <h2 className="min-w-0 text-sm font-semibold leading-6 text-white">
                 <Link
                   href={`/notices/${notice.id}`}
@@ -38,11 +43,6 @@ export default async function NoticesTable({
                   <span className="absolute inset-0" />
                 </Link>
               </h2>
-              {notice.resolved_at && (
-                <div className="flex-none rounded-md bg-green-900 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-green-700">
-                  resolved
-                </div>
-              )}
             </div>
           </div>
 
