@@ -74,8 +74,8 @@ export async function AppShell({
                     alt="Airbroke"
                     width={32}
                     height={32}
-                    className="rounded"
-                    style={{ width: "auto", height: "auto" }}
+                    className="size-8 rounded"
+                    style={{ width: "32px", height: "32px" }}
                   />
                   <div className="grid flex-1 text-left text-sm leading-tight">
                     <span className="truncate font-medium">Airbroke</span>
