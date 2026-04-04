@@ -3,6 +3,7 @@
 import { notFound } from "next/navigation";
 import CopyToClipboardButton from "@/components/CopyToClipboardButton";
 import NoticesTable from "@/components/NoticesTable";
+import StatusFilter from "@/components/StatusFilter";
 import { Badge } from "@/components/ui/badge";
 import {
   InputGroup,
@@ -13,6 +14,7 @@ import { getNoticeEnvs } from "@/lib/queries/notices";
 import { getProjectById } from "@/lib/queries/projects";
 import { toNoticeSearchParams } from "@/lib/routeSearchParams";
 import EnvironmentFilter from "./Filter";
+import NoticesWithBulkActions from "./NoticesWithBulkActions";
 import Sort from "./Sort";
 import type { Metadata } from "next";
 
@@ -109,15 +111,21 @@ export default async function ProjectNotices(
         <div className="flex w-full flex-wrap items-center justify-between gap-3 rounded-lg border border-card/40 bg-card/40 px-4 py-3 shadow-xs sm:rounded-none sm:border-0 sm:bg-transparent sm:shadow-none sm:border-b sm:border-card/40">
           <h2 className="text-sm font-semibold text-foreground">Notices</h2>
           <div className="flex items-center gap-2">
+            <StatusFilter />
             <EnvironmentFilter environments={uniqueEnvArray} />
             <Sort />
           </div>
         </div>
 
-        <NoticesTable
-          searchParams={toNoticeSearchParams(resolvedSearchParams)}
+        <NoticesWithBulkActions
           projectId={project.id}
-        />
+          activeEnv={toNoticeSearchParams(resolvedSearchParams).filterByEnv}
+        >
+          <NoticesTable
+            searchParams={toNoticeSearchParams(resolvedSearchParams)}
+            projectId={project.id}
+          />
+        </NoticesWithBulkActions>
       </section>
     </div>
   );

@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { getNotices } from "@/lib/queries/notices";
+import { Badge } from "./ui/badge";
 import CounterLabel from "./CounterLabel";
 import CustomTimeAgo from "./CustomTimeAgo";
 import EnvironmentLabel from "./EnvironmentLabel";
+import ResolveNoticeButton from "./notice/ResolveNoticeButton";
 import type { NoticeSearchParams } from "@/lib/queries/notices";
 
 type NoticesTableProps = {
@@ -37,6 +39,11 @@ export default async function NoticesTable({
                   <span className="absolute inset-0" />
                 </Link>
               </h2>
+              {notice.resolved_at && (
+                <Badge variant="secondary" className="text-xs">
+                  Resolved
+                </Badge>
+              )}
             </div>
           </div>
 
@@ -45,6 +52,13 @@ export default async function NoticesTable({
               <CustomTimeAgo date={new Date(notice.updated_at)} />
             </p>
             <CounterLabel counter={notice.seen_count} />
+            <div className="relative z-10">
+              <ResolveNoticeButton
+                noticeId={notice.id}
+                projectId={projectId}
+                resolvedAt={notice.resolved_at}
+              />
+            </div>
           </div>
         </li>
       ))}
