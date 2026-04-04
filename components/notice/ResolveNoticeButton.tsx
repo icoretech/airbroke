@@ -5,10 +5,7 @@
 import { CheckCircle2, RotateCcw } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
-import {
-  reinstateAllOccurrences,
-  resolveAllOccurrences,
-} from "@/app/_actions";
+import { reinstateAllOccurrences, resolveAllOccurrences } from "@/app/_actions";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -70,9 +67,7 @@ export default function ResolveNoticeButton({
         </Button>
       </TooltipTrigger>
       <TooltipContent sideOffset={6}>
-        {isResolved
-          ? "Reinstate all occurrences"
-          : "Resolve all occurrences"}
+        {isResolved ? "Reinstate all occurrences" : "Resolve all occurrences"}
       </TooltipContent>
     </Tooltip>
   );

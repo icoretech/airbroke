@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { getNotices } from "@/lib/queries/notices";
-import { Badge } from "./ui/badge";
 import CounterLabel from "./CounterLabel";
 import CustomTimeAgo from "./CustomTimeAgo";
 import EnvironmentLabel from "./EnvironmentLabel";
 import ResolveNoticeButton from "./notice/ResolveNoticeButton";
+import { Badge } from "./ui/badge";
 import type { NoticeSearchParams } from "@/lib/queries/notices";
 
 type NoticesTableProps = {

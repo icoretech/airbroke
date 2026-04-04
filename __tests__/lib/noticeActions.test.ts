@@ -1,5 +1,5 @@
 // @vitest-environment node
-import { describe, expect, it, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mockUpdateMany = vi.fn().mockResolvedValue({ count: 0 });
 const mockFindMany = vi.fn().mockResolvedValue([]);

@@ -84,10 +84,7 @@ export async function resolveSelectedNotices(
  * Resolves all occurrences under all notices for a project,
  * optionally scoped to an environment.
  */
-export async function resolveAllByProjectEnv(
-  projectId: string,
-  env?: string,
-) {
+export async function resolveAllByProjectEnv(projectId: string, env?: string) {
   const session = await getAuth().api.getSession({ headers: await headers() });
   if (!session) throw new Error("Unauthorized");
 
