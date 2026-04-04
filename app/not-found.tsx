@@ -20,7 +20,8 @@ export default function NotFound() {
                 alt="Airbroke"
                 width={463}
                 height={338}
-                className="h-9 w-auto md:h-10"
+                className="h-9 md:h-10"
+                style={{ width: "auto" }}
               />
             </div>
 

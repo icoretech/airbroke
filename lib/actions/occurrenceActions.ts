@@ -45,7 +45,7 @@ export async function performReplay(context: Context): Promise<string> {
  */
 export async function createOccurrenceBookmark(occurrenceId: string) {
   const session = await getAuth().api.getSession({ headers: await headers() });
-  if (!session || !session.user || !session.user.id) {
+  if (!session?.user?.id) {
     throw new Error("No user session or user ID found");
   }
 

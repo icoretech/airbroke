@@ -141,9 +141,10 @@ export default function SignInPageClient({ providers }: SignInPageClientProps) {
                 <Image
                   src={logo}
                   alt="Airbroke"
-                  className="h-10 w-auto"
+                  className="h-10"
                   height={338}
                   width={463}
+                  style={{ width: "auto" }}
                 />
               </Link>
               <h1 className="mt-1 text-xl font-bold text-white sm:text-2xl">

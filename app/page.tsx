@@ -40,7 +40,8 @@ airbroke.notify(new Error('Hello from Airbroke'))`;
                   width={463}
                   height={338}
                   priority
-                  className="h-10 w-auto md:h-12"
+                  className="h-10 md:h-12"
+                  style={{ width: "auto" }}
                 />
               </div>
               <h1 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-6xl">
