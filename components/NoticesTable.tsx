@@ -6,7 +6,6 @@ import CounterLabel from "./CounterLabel";
 import CustomTimeAgo from "./CustomTimeAgo";
 import EnvironmentLabel from "./EnvironmentLabel";
 import ResolveNoticeButton from "./notice/ResolveNoticeButton";
-import { Badge } from "./ui/badge";
 import type { NoticeSearchParams } from "@/lib/queries/notices";
 
 type NoticesTableProps = {
@@ -40,9 +39,9 @@ export default async function NoticesTable({
                 </Link>
               </h2>
               {notice.resolved_at && (
-                <Badge variant="secondary" className="text-xs">
-                  Resolved
-                </Badge>
+                <div className="flex-none rounded-md bg-green-900 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-green-700">
+                  resolved
+                </div>
               )}
             </div>
           </div>
