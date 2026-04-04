@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.2.6](https://github.com/icoretech/airbroke/compare/v1.2.5...v1.2.6) (2026-04-04)
+
+
+### Features
+
+* add bulk resolve/reinstate server actions for notices ([635ef89](https://github.com/icoretech/airbroke/commit/635ef896f6c62de318054778929900095333a16a))
+* add inline resolve and bookmark buttons to occurrences table ([3cdfd7c](https://github.com/icoretech/airbroke/commit/3cdfd7ce4320187b57de9f66f3f7feb407e46df4))
+* add notice-level resolved filtering to MCP tools ([23b7489](https://github.com/icoretech/airbroke/commit/23b748985594a896cc228858d61c3c7dc643dd54))
+* add resolved filter to notice/occurrence queries and route params ([3ef2b9f](https://github.com/icoretech/airbroke/commit/3ef2b9f0742e5ac76c7ca02ac45daa8b63d30245))
+* add resolved_at to notices with PostgreSQL sync trigger ([145e0a3](https://github.com/icoretech/airbroke/commit/145e0a35bbf062fd737bfed8d87a90674c4c6773))
+* add StatusFilter, ResolveNoticeButton, fix occurrence revalidation ([8f8e4c4](https://github.com/icoretech/airbroke/commit/8f8e4c47f28773539772e53386a852a58b592023))
+* wire StatusFilter, ResolveNoticeButton, and bulk actions into pages ([a5c5929](https://github.com/icoretech/airbroke/commit/a5c5929c186fdd88badbb89bf0356415055de7b6))
+
+
+### Bug Fixes
+
+* default occurrences to unresolved filter, matching notices behavior ([17ebbb2](https://github.com/icoretech/airbroke/commit/17ebbb26b2b95e0497901b11cc60392005709b37))
+* make notice resolve/reinstate button icon-only ([6e4f04b](https://github.com/icoretech/airbroke/commit/6e4f04b39c7943bd91ef5cc0cf3ecb3a05344146))
+* match resolved badge style between notices and occurrences tables ([0657ff2](https://github.com/icoretech/airbroke/commit/0657ff24c29519092c5d0dc698e5a6bcca3a2342))
+* move resolved badge before notice title, after env label ([c9f8537](https://github.com/icoretech/airbroke/commit/c9f85377f0725a4daf8ec5c5d454b16423aac668))
+* resolve biome optional chain warning and Next.js logo aspect ratio ([348cbb5](https://github.com/icoretech/airbroke/commit/348cbb5a4a8e63909c2a431a7ce60087bb935c6c))
+* restore docs/agents/ in git, keep rest of docs/ ignored ([3d25df6](https://github.com/icoretech/airbroke/commit/3d25df6d25a7a875fd2f0ae92aaa4e7c6c87d820))
+* sidebar logo uses explicit 32px inline style to prevent resize warning ([9310efc](https://github.com/icoretech/airbroke/commit/9310efc3d60606b64ae9bd744a385f4d28ee92b6))
+* StatusFilter default mismatch and AppShell logo aspect ratio ([c826ead](https://github.com/icoretech/airbroke/commit/c826ead2ad5acb476c28368419c8dba7f60dd8e4))
+
 ## [1.2.5](https://github.com/icoretech/airbroke/compare/v1.2.4...v1.2.5) (2026-04-04)
 
 
