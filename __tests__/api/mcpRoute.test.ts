@@ -91,6 +91,19 @@ async function parseMcpResponse(res: Response): Promise<ParsedMcpResponse> {
   return JSON.parse(lastDataLine.slice("data: ".length)) as ParsedMcpResponse;
 }
 
+function callTool(
+  name: string,
+  args: JsonObject,
+  id: number | string = 1,
+): NextRequest {
+  return buildRpcRequest({
+    jsonrpc: "2.0",
+    id,
+    method: "tools/call",
+    params: { name, arguments: args },
+  });
+}
+
 describe("POST /api/mcp", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -98,255 +111,429 @@ describe("POST /api/mcp", () => {
     delete process.env.AIRBROKE_MCP_ALLOWED_ORIGINS;
   });
 
-  it("returns 401 when authorization is missing", async () => {
-    const req = buildRpcRequest(
-      { jsonrpc: "2.0", id: 1, method: "initialize" },
-      false,
-    );
+  // ── Auth ──────────────────────────────────────────────────────────────
 
-    const res = await POST(req);
-    expect(res.status).toBe(401);
-  });
+  describe("authentication", () => {
+    it("returns 401 when authorization is missing", async () => {
+      const req = buildRpcRequest(
+        { jsonrpc: "2.0", id: 1, method: "initialize" },
+        false,
+      );
 
-  it("rejects spoofed forwarded headers when same-origin fallback is active", async () => {
-    const req = buildRpcRequest(
-      { jsonrpc: "2.0", id: 1, method: "initialize" },
-      true,
-      {
-        origin: "https://evil.example",
-        "x-forwarded-host": "evil.example",
-        "x-forwarded-proto": "https",
-      },
-    );
+      const res = await POST(req);
+      expect(res.status).toBe(401);
+    });
 
-    const res = await POST(req);
-    const json = await parseMcpResponse(res);
+    it("accepts X-Airbroke-Mcp-Key header", async () => {
+      const req = buildRpcRequest(
+        { jsonrpc: "2.0", id: 1, method: "initialize" },
+        false,
+        { "X-Airbroke-Mcp-Key": "test-mcp-key" },
+      );
 
-    expect(res.status).toBe(403);
-    expect(json.error).toMatchObject({
-      code: -32001,
-      message: "Forbidden origin",
+      const res = await POST(req);
+      expect(res.status).toBe(200);
+    });
+
+    it("rejects invalid X-Airbroke-Mcp-Key header", async () => {
+      const req = buildRpcRequest(
+        { jsonrpc: "2.0", id: 1, method: "initialize" },
+        false,
+        { "X-Airbroke-Mcp-Key": "wrong-key" },
+      );
+
+      const res = await POST(req);
+      expect(res.status).toBe(401);
     });
   });
 
-  it("allows same-origin browser requests when the allowlist is unset", async () => {
-    const req = buildRpcRequest(
-      { jsonrpc: "2.0", id: 1, method: "initialize" },
-      true,
-      {
-        origin: "http://localhost",
-      },
-    );
+  // ── Origin ────────────────────────────────────────────────────────────
 
-    const res = await POST(req);
+  describe("origin policy", () => {
+    it("rejects spoofed forwarded headers when same-origin fallback is active", async () => {
+      const req = buildRpcRequest(
+        { jsonrpc: "2.0", id: 1, method: "initialize" },
+        true,
+        {
+          origin: "https://evil.example",
+          "x-forwarded-host": "evil.example",
+          "x-forwarded-proto": "https",
+        },
+      );
 
-    expect(res.status).toBe(200);
-  });
+      const res = await POST(req);
+      const json = await parseMcpResponse(res);
 
-  it("handles initialize", async () => {
-    const req = buildRpcRequest({
-      jsonrpc: "2.0",
-      id: 1,
-      method: "initialize",
-      params: {
-        protocolVersion: "2025-11-25",
-        capabilities: {},
-        clientInfo: { name: "vitest-client", version: "0.0.0" },
-      },
+      expect(res.status).toBe(403);
+      expect(json.error).toMatchObject({
+        code: -32001,
+        message: "Forbidden origin",
+      });
     });
 
-    const res = await POST(req);
-    const json = await parseMcpResponse(res);
-    const result = (json.result ?? json) as {
-      protocolVersion?: string;
-      serverInfo?: { name?: string };
-      capabilities?: { tools?: { listChanged?: boolean } };
-    };
-    const root = json as {
-      serverInfo?: { name?: string };
-      capabilities?: { tools?: { listChanged?: boolean } };
-    };
+    it("allows same-origin browser requests when the allowlist is unset", async () => {
+      const req = buildRpcRequest(
+        { jsonrpc: "2.0", id: 1, method: "initialize" },
+        true,
+        { origin: "http://localhost" },
+      );
 
-    expect(res.status).toBe(200);
-    const protocolVersion = result.protocolVersion;
-    if (protocolVersion !== undefined) {
-      expect(protocolVersion).toBe("2025-11-25");
-    }
-    const serverName = result.serverInfo?.name ?? root.serverInfo?.name;
-    if (serverName !== undefined) {
-      expect(serverName).toBe("airbroke");
-    } else {
-      expect(JSON.stringify(json)).toContain("airbroke");
-    }
-    const listChanged =
-      result.capabilities?.tools?.listChanged ??
-      root.capabilities?.tools?.listChanged;
-    if (listChanged !== undefined) {
-      expect(typeof listChanged).toBe("boolean");
-    }
+      const res = await POST(req);
+      expect(res.status).toBe(200);
+    });
   });
 
-  it("handles notifications/initialized", async () => {
-    const req = buildRpcRequest({
-      jsonrpc: "2.0",
-      method: "notifications/initialized",
+  // ── Protocol ──────────────────────────────────────────────────────────
+
+  describe("protocol", () => {
+    it("handles initialize", async () => {
+      const req = buildRpcRequest({
+        jsonrpc: "2.0",
+        id: 1,
+        method: "initialize",
+        params: {
+          protocolVersion: "2025-11-25",
+          capabilities: {},
+          clientInfo: { name: "vitest-client", version: "0.0.0" },
+        },
+      });
+
+      const res = await POST(req);
+      const json = await parseMcpResponse(res);
+      const result = (json.result ?? json) as {
+        protocolVersion?: string;
+        serverInfo?: { name?: string };
+        capabilities?: { tools?: { listChanged?: boolean } };
+      };
+      const root = json as {
+        serverInfo?: { name?: string };
+        capabilities?: { tools?: { listChanged?: boolean } };
+      };
+
+      expect(res.status).toBe(200);
+      const protocolVersion = result.protocolVersion;
+      if (protocolVersion !== undefined) {
+        expect(protocolVersion).toBe("2025-11-25");
+      }
+      const serverName = result.serverInfo?.name ?? root.serverInfo?.name;
+      if (serverName !== undefined) {
+        expect(serverName).toBe("airbroke");
+      } else {
+        expect(JSON.stringify(json)).toContain("airbroke");
+      }
+      const listChanged =
+        result.capabilities?.tools?.listChanged ??
+        root.capabilities?.tools?.listChanged;
+      if (listChanged !== undefined) {
+        expect(typeof listChanged).toBe("boolean");
+      }
     });
 
-    const res = await POST(req);
-    expect(res.status).toBe(202);
-  });
+    it("handles notifications/initialized", async () => {
+      const req = buildRpcRequest({
+        jsonrpc: "2.0",
+        method: "notifications/initialized",
+      });
 
-  it("lists tools", async () => {
-    const req = buildRpcRequest({
-      jsonrpc: "2.0",
-      id: "tools",
-      method: "tools/list",
+      const res = await POST(req);
+      expect(res.status).toBe(202);
     });
 
-    const res = await POST(req);
-    const json = await parseMcpResponse(res);
-    const result = requireResult(json) as { tools?: Array<{ name: string }> };
-    const toolNames = (result.tools ?? []).map(
-      (tool: { name: string }) => tool.name,
-    );
+    it("lists all tools", async () => {
+      const req = buildRpcRequest({
+        jsonrpc: "2.0",
+        id: "tools",
+        method: "tools/list",
+      });
 
-    expect(res.status).toBe(200);
-    expect(toolNames).toContain("airbroke_list_projects");
-    expect(toolNames).toContain("airbroke_get_occurrence");
-    expect(toolNames).toContain("airbroke_get_notice");
-    expect(toolNames).toContain("airbroke_search");
+      const res = await POST(req);
+      const json = await parseMcpResponse(res);
+      const result = requireResult(json) as {
+        tools?: Array<{ name: string }>;
+      };
+      const toolNames = (result.tools ?? []).map((t) => t.name);
+
+      expect(res.status).toBe(200);
+      expect(toolNames).toContain("airbroke_list_projects");
+      expect(toolNames).toContain("airbroke_get_project");
+      expect(toolNames).toContain("airbroke_list_notices");
+      expect(toolNames).toContain("airbroke_list_occurrences");
+      expect(toolNames).toContain("airbroke_get_notice");
+      expect(toolNames).toContain("airbroke_get_occurrence");
+      expect(toolNames).toContain("airbroke_search");
+      expect(toolNames).toContain("airbroke_get_setup_guide");
+    });
+
+    it("returns tool error for unknown tool", async () => {
+      const req = callTool("airbroke_unknown_tool", {}, 99);
+
+      const res = await POST(req);
+      const json = await parseMcpResponse(res);
+      const result = requireResult(json) as { isError?: boolean };
+
+      expect(res.status).toBe(200);
+      expect(result.isError).toBe(true);
+    });
   });
 
-  it("calls airbroke_list_projects", async () => {
-    vi.mocked(db.project.findMany).mockResolvedValue([
-      {
+  // ── airbroke_list_projects ────────────────────────────────────────────
+
+  describe("airbroke_list_projects", () => {
+    it("returns projects with search, limit, and offset", async () => {
+      vi.mocked(db.project.findMany).mockResolvedValue([
+        {
+          id: "p1",
+          name: "api",
+          organization: "icoretech",
+          paused: false,
+          notices_count: 7,
+          updated_at: new Date("2026-02-21T10:00:00.000Z"),
+        },
+      ] as unknown as Awaited<ReturnType<typeof db.project.findMany>>);
+
+      const res = await POST(
+        callTool("airbroke_list_projects", {
+          search: "api",
+          limit: 5,
+          offset: 2,
+        }),
+      );
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        projects: Array<{ notices_count: number }>;
+      };
+
+      expect(res.status).toBe(200);
+      expect(vi.mocked(db.project.findMany)).toHaveBeenCalledTimes(1);
+      expect(vi.mocked(db.project.findMany).mock.calls[0]?.[0]).toMatchObject({
+        where: { name: { contains: "api", mode: "insensitive" } },
+        take: 5,
+        skip: 2,
+      });
+      expect(structured.projects[0]?.notices_count).toBe(7);
+    });
+  });
+
+  // ── airbroke_get_project ──────────────────────────────────────────────
+
+  describe("airbroke_get_project", () => {
+    it("returns a project by id", async () => {
+      vi.mocked(db.project.findUnique).mockResolvedValue({
         id: "p1",
         name: "api",
         organization: "icoretech",
         paused: false,
-        notices_count: 7,
+        notices_count: 7n,
+        repo_provider: "github",
+        repo_branch: "main",
+        repo_issue_tracker: null,
+        repo_url: "https://github.com/icoretech/api",
+        created_at: new Date("2026-01-01T00:00:00.000Z"),
         updated_at: new Date("2026-02-21T10:00:00.000Z"),
-      },
-    ] as unknown as Awaited<ReturnType<typeof db.project.findMany>>);
+      } as unknown as Awaited<ReturnType<typeof db.project.findUnique>>);
 
-    const req = buildRpcRequest({
-      jsonrpc: "2.0",
-      id: 2,
-      method: "tools/call",
-      params: {
-        name: "airbroke_list_projects",
-        arguments: {
-          search: "api",
-          limit: 5,
-          offset: 2,
-        },
-      },
+      const res = await POST(
+        callTool("airbroke_get_project", { project_id: "p1" }),
+      );
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        project: { id: string; name: string; organization: string };
+      };
+
+      expect(res.status).toBe(200);
+      expect(vi.mocked(db.project.findUnique)).toHaveBeenCalledWith(
+        expect.objectContaining({ where: { id: "p1" } }),
+      );
+      expect(structured.project.name).toBe("api");
+      expect(structured.project.organization).toBe("icoretech");
     });
 
-    const res = await POST(req);
-    const json = await parseMcpResponse(res);
-    const structured = requireStructuredContent(json) as {
-      projects: Array<{ notices_count: number }>;
-    };
+    it("returns not found for missing project", async () => {
+      vi.mocked(db.project.findUnique).mockResolvedValue(null);
 
-    expect(res.status).toBe(200);
-    expect(vi.mocked(db.project.findMany)).toHaveBeenCalledTimes(1);
-    expect(vi.mocked(db.project.findMany).mock.calls[0]?.[0]).toMatchObject({
-      where: { name: { contains: "api", mode: "insensitive" } },
-      take: 5,
-      skip: 2,
+      const res = await POST(
+        callTool("airbroke_get_project", { project_id: "missing" }),
+      );
+      const json = await parseMcpResponse(res);
+      const result = requireResult(json) as {
+        isError?: boolean;
+        structuredContent?: { error?: string };
+      };
+
+      expect(res.status).toBe(200);
+      expect(result.isError).toBe(true);
+      expect(result.structuredContent?.error).toBe("Project not found");
     });
-    expect(structured.projects[0]?.notices_count).toBe(7);
   });
 
-  it("calls airbroke_list_notices with include_project and offset", async () => {
-    vi.mocked(db.notice.findMany).mockResolvedValue([
-      {
-        id: "n1",
-        project_id: "p1",
-        env: "production",
-        kind: "TypeError",
-        seen_count: 3,
-        created_at: new Date("2026-02-21T10:00:00.000Z"),
-        updated_at: new Date("2026-02-21T10:01:00.000Z"),
-        project: {
-          id: "p1",
-          name: "api",
-          organization: "icoretech",
-        },
-      },
-    ] as unknown as Awaited<ReturnType<typeof db.notice.findMany>>);
+  // ── airbroke_list_notices ─────────────────────────────────────────────
 
-    const req = buildRpcRequest({
-      jsonrpc: "2.0",
-      id: 21,
-      method: "tools/call",
-      params: {
-        name: "airbroke_list_notices",
-        arguments: {
-          project_id: "p1",
-          include_project: true,
-          limit: 10,
-          offset: 1,
-        },
-      },
-    });
-
-    const res = await POST(req);
-    const json = await parseMcpResponse(res);
-    const structured = requireStructuredContent(json) as {
-      notices: Array<{ project: { name: string } }>;
-    };
-
-    expect(res.status).toBe(200);
-    expect(vi.mocked(db.notice.findMany).mock.calls[0]?.[0]).toMatchObject({
-      where: { project_id: "p1" },
-      take: 10,
-      skip: 1,
-    });
-    expect(structured.notices[0]?.project.name).toBe("api");
-  });
-
-  it("calls airbroke_list_occurrences with include_details and expansions", async () => {
-    vi.mocked(db.occurrence.findMany).mockResolvedValue([
-      {
-        id: "o1",
-        notice_id: "n1",
-        message: "boom",
-        seen_count: 4,
-        resolved_at: null,
-        created_at: new Date("2026-02-21T10:00:00.000Z"),
-        updated_at: new Date("2026-02-21T10:02:00.000Z"),
-        backtrace: [
-          { file: "app.ts", line: 10, function: "run" },
-          { file: "lib.ts", line: 20, function: "inner" },
-        ],
-        context: { severity: "error", language: "javascript" },
-        environment: { app_version: "1.2.3" },
-        params: { foo: "bar" },
-        notice: {
+  describe("airbroke_list_notices", () => {
+    it("returns notices with include_project and offset", async () => {
+      vi.mocked(db.notice.findMany).mockResolvedValue([
+        {
           id: "n1",
           project_id: "p1",
           env: "production",
           kind: "TypeError",
-          seen_count: 12,
-          updated_at: new Date("2026-02-21T10:03:00.000Z"),
+          seen_count: 3,
+          resolved_at: null,
+          created_at: new Date("2026-02-21T10:00:00.000Z"),
+          updated_at: new Date("2026-02-21T10:01:00.000Z"),
           project: {
             id: "p1",
             name: "api",
             organization: "icoretech",
           },
         },
-      },
-    ] as unknown as Awaited<ReturnType<typeof db.occurrence.findMany>>);
+      ] as unknown as Awaited<ReturnType<typeof db.notice.findMany>>);
 
-    const req = buildRpcRequest({
-      jsonrpc: "2.0",
-      id: 22,
-      method: "tools/call",
-      params: {
-        name: "airbroke_list_occurrences",
-        arguments: {
+      const res = await POST(
+        callTool("airbroke_list_notices", {
+          project_id: "p1",
+          include_project: true,
+          limit: 10,
+          offset: 1,
+        }),
+      );
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        notices: Array<{ project: { name: string }; resolved_at: unknown }>;
+      };
+
+      expect(res.status).toBe(200);
+      expect(vi.mocked(db.notice.findMany).mock.calls[0]?.[0]).toMatchObject({
+        where: { project_id: "p1" },
+        take: 10,
+        skip: 1,
+      });
+      expect(structured.notices[0]?.project.name).toBe("api");
+    });
+
+    it("filters out resolved notices when include_resolved is false", async () => {
+      vi.mocked(db.notice.findMany).mockResolvedValue([]);
+
+      const res = await POST(
+        callTool("airbroke_list_notices", {
+          project_id: "p1",
+          include_resolved: false,
+        }),
+      );
+      await parseMcpResponse(res);
+
+      expect(res.status).toBe(200);
+      expect(vi.mocked(db.notice.findMany).mock.calls[0]?.[0]).toMatchObject({
+        where: {
+          project_id: "p1",
+          resolved_at: null,
+        },
+      });
+    });
+
+    it("includes all notices by default (include_resolved defaults to true)", async () => {
+      vi.mocked(db.notice.findMany).mockResolvedValue([]);
+
+      const res = await POST(
+        callTool("airbroke_list_notices", { project_id: "p1" }),
+      );
+      await parseMcpResponse(res);
+
+      expect(res.status).toBe(200);
+      const where = vi.mocked(db.notice.findMany).mock.calls[0]?.[0]
+        ?.where as JsonObject;
+      expect(where).not.toHaveProperty("resolved_at");
+    });
+
+    it("applies filter_by_env and search", async () => {
+      vi.mocked(db.notice.findMany).mockResolvedValue([]);
+
+      const res = await POST(
+        callTool("airbroke_list_notices", {
+          project_id: "p1",
+          filter_by_env: "production",
+          search: "TypeError",
+        }),
+      );
+      await parseMcpResponse(res);
+
+      expect(res.status).toBe(200);
+      expect(vi.mocked(db.notice.findMany).mock.calls[0]?.[0]).toMatchObject({
+        where: {
+          project_id: "p1",
+          env: "production",
+          kind: { contains: "TypeError", mode: "insensitive" },
+        },
+      });
+    });
+
+    it("includes resolved_at in notice payloads", async () => {
+      const resolvedDate = new Date("2026-03-01T12:00:00.000Z");
+      vi.mocked(db.notice.findMany).mockResolvedValue([
+        {
+          id: "n1",
+          project_id: "p1",
+          env: "production",
+          kind: "TypeError",
+          seen_count: 3,
+          resolved_at: resolvedDate,
+          created_at: new Date("2026-02-21T10:00:00.000Z"),
+          updated_at: new Date("2026-02-21T10:01:00.000Z"),
+        },
+      ] as unknown as Awaited<ReturnType<typeof db.notice.findMany>>);
+
+      const res = await POST(
+        callTool("airbroke_list_notices", { project_id: "p1" }),
+      );
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        notices: Array<{ resolved_at: string }>;
+      };
+
+      expect(structured.notices[0]?.resolved_at).toBe(
+        resolvedDate.toISOString(),
+      );
+    });
+  });
+
+  // ── airbroke_list_occurrences ─────────────────────────────────────────
+
+  describe("airbroke_list_occurrences", () => {
+    it("returns occurrences with include_details and expansions", async () => {
+      vi.mocked(db.occurrence.findMany).mockResolvedValue([
+        {
+          id: "o1",
+          notice_id: "n1",
+          message: "boom",
+          seen_count: 4,
+          resolved_at: null,
+          created_at: new Date("2026-02-21T10:00:00.000Z"),
+          updated_at: new Date("2026-02-21T10:02:00.000Z"),
+          backtrace: [
+            { file: "app.ts", line: 10, function: "run" },
+            { file: "lib.ts", line: 20, function: "inner" },
+          ],
+          context: { severity: "error", language: "javascript" },
+          environment: { app_version: "1.2.3" },
+          params: { foo: "bar" },
+          notice: {
+            id: "n1",
+            project_id: "p1",
+            env: "production",
+            kind: "TypeError",
+            seen_count: 12,
+            resolved_at: null,
+            updated_at: new Date("2026-02-21T10:03:00.000Z"),
+            project: {
+              id: "p1",
+              name: "api",
+              organization: "icoretech",
+            },
+          },
+        },
+      ] as unknown as Awaited<ReturnType<typeof db.occurrence.findMany>>);
+
+      const res = await POST(
+        callTool("airbroke_list_occurrences", {
           notice_id: "n1",
           include_details: true,
           backtrace_frames: 1,
@@ -354,222 +541,355 @@ describe("POST /api/mcp", () => {
           include_project: true,
           limit: 5,
           offset: 3,
+        }),
+      );
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        occurrences: Array<{
+          backtrace_preview: unknown[];
+          notice: { resolved_at: unknown; project: { name: string } };
+        }>;
+      };
+
+      expect(res.status).toBe(200);
+      expect(
+        vi.mocked(db.occurrence.findMany).mock.calls[0]?.[0],
+      ).toMatchObject({
+        where: { notice_id: "n1" },
+        take: 5,
+        skip: 3,
+      });
+      expect(structured.occurrences[0]?.backtrace_preview).toHaveLength(1);
+      expect(structured.occurrences[0]?.notice.project.name).toBe("api");
+      expect(structured.occurrences[0]?.notice.resolved_at).toBeNull();
+    });
+
+    it("filters out resolved occurrences when include_resolved is false", async () => {
+      vi.mocked(db.occurrence.findMany).mockResolvedValue([]);
+
+      const res = await POST(
+        callTool("airbroke_list_occurrences", {
+          notice_id: "n1",
+          include_resolved: false,
+        }),
+      );
+      await parseMcpResponse(res);
+
+      expect(res.status).toBe(200);
+      expect(
+        vi.mocked(db.occurrence.findMany).mock.calls[0]?.[0],
+      ).toMatchObject({
+        where: {
+          notice_id: "n1",
+          resolved_at: null,
         },
-      },
+      });
     });
 
-    const res = await POST(req);
-    const json = await parseMcpResponse(res);
-    const structured = requireStructuredContent(json) as {
-      occurrences: Array<{
-        backtrace_preview: unknown[];
-        notice: { project: { name: string } };
-      }>;
-    };
+    it("includes all occurrences by default", async () => {
+      vi.mocked(db.occurrence.findMany).mockResolvedValue([]);
 
-    expect(res.status).toBe(200);
-    expect(vi.mocked(db.occurrence.findMany).mock.calls[0]?.[0]).toMatchObject({
-      where: { notice_id: "n1" },
-      take: 5,
-      skip: 3,
+      const res = await POST(
+        callTool("airbroke_list_occurrences", { notice_id: "n1" }),
+      );
+      await parseMcpResponse(res);
+
+      const where = vi.mocked(db.occurrence.findMany).mock.calls[0]?.[0]
+        ?.where as JsonObject;
+      expect(where).not.toHaveProperty("resolved_at");
     });
-    expect(structured.occurrences[0]?.backtrace_preview).toHaveLength(1);
-    expect(structured.occurrences[0]?.notice.project.name).toBe("api");
   });
 
-  it("calls airbroke_get_notice and returns latest/top occurrences", async () => {
-    vi.mocked(db.notice.findUnique).mockResolvedValue({
-      id: "n1",
-      project_id: "p1",
-      env: "production",
-      kind: "TypeError",
-      seen_count: 12,
-      created_at: new Date("2026-02-21T10:00:00.000Z"),
-      updated_at: new Date("2026-02-21T10:10:00.000Z"),
-      project: {
-        id: "p1",
-        name: "api",
-        organization: "icoretech",
-      },
-    } as unknown as Awaited<ReturnType<typeof db.notice.findUnique>>);
-    vi.mocked(db.occurrence.findMany)
-      .mockResolvedValueOnce([
-        {
-          id: "o-latest",
-          notice_id: "n1",
-          message: "latest",
-          seen_count: 1,
-          resolved_at: null,
-          created_at: new Date("2026-02-21T10:05:00.000Z"),
-          updated_at: new Date("2026-02-21T10:11:00.000Z"),
-          backtrace: [{ file: "a.ts", line: 1 }],
-          context: {},
-          environment: {},
-          params: {},
-        },
-      ] as unknown as Awaited<ReturnType<typeof db.occurrence.findMany>>)
-      .mockResolvedValueOnce([
-        {
-          id: "o-top",
-          notice_id: "n1",
-          message: "top",
-          seen_count: 10,
-          resolved_at: null,
-          created_at: new Date("2026-02-21T10:01:00.000Z"),
-          updated_at: new Date("2026-02-21T10:09:00.000Z"),
-          backtrace: [{ file: "b.ts", line: 2 }],
-          context: {},
-          environment: {},
-          params: {},
-        },
-      ] as unknown as Awaited<ReturnType<typeof db.occurrence.findMany>>);
+  // ── airbroke_get_notice ───────────────────────────────────────────────
 
-    const req = buildRpcRequest({
-      jsonrpc: "2.0",
-      id: 23,
-      method: "tools/call",
-      params: {
-        name: "airbroke_get_notice",
-        arguments: {
+  describe("airbroke_get_notice", () => {
+    it("returns notice with latest/top occurrences", async () => {
+      vi.mocked(db.notice.findUnique).mockResolvedValue({
+        id: "n1",
+        project_id: "p1",
+        env: "production",
+        kind: "TypeError",
+        seen_count: 12,
+        resolved_at: null,
+        created_at: new Date("2026-02-21T10:00:00.000Z"),
+        updated_at: new Date("2026-02-21T10:10:00.000Z"),
+        project: {
+          id: "p1",
+          name: "api",
+          organization: "icoretech",
+        },
+      } as unknown as Awaited<ReturnType<typeof db.notice.findUnique>>);
+      vi.mocked(db.occurrence.findMany)
+        .mockResolvedValueOnce([
+          {
+            id: "o-latest",
+            notice_id: "n1",
+            message: "latest",
+            seen_count: 1,
+            resolved_at: null,
+            created_at: new Date("2026-02-21T10:05:00.000Z"),
+            updated_at: new Date("2026-02-21T10:11:00.000Z"),
+            backtrace: [{ file: "a.ts", line: 1 }],
+            context: {},
+            environment: {},
+            params: {},
+          },
+        ] as unknown as Awaited<ReturnType<typeof db.occurrence.findMany>>)
+        .mockResolvedValueOnce([
+          {
+            id: "o-top",
+            notice_id: "n1",
+            message: "top",
+            seen_count: 10,
+            resolved_at: null,
+            created_at: new Date("2026-02-21T10:01:00.000Z"),
+            updated_at: new Date("2026-02-21T10:09:00.000Z"),
+            backtrace: [{ file: "b.ts", line: 2 }],
+            context: {},
+            environment: {},
+            params: {},
+          },
+        ] as unknown as Awaited<ReturnType<typeof db.occurrence.findMany>>);
+
+      const res = await POST(
+        callTool("airbroke_get_notice", {
           notice_id: "n1",
           latest_limit: 1,
           top_limit: 1,
           include_occurrence_details: true,
           backtrace_frames: 1,
           include_project: true,
-        },
-      },
+        }),
+      );
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        notice: { id: string; resolved_at: unknown };
+        latest_occurrences: Array<{
+          id: string;
+          backtrace_preview: unknown[];
+        }>;
+        top_occurrences: Array<{ id: string }>;
+      };
+
+      expect(res.status).toBe(200);
+      expect(vi.mocked(db.notice.findUnique)).toHaveBeenCalledTimes(1);
+      expect(vi.mocked(db.occurrence.findMany)).toHaveBeenCalledTimes(2);
+      expect(structured.notice.id).toBe("n1");
+      expect(structured.notice.resolved_at).toBeNull();
+      expect(structured.latest_occurrences[0]?.id).toBe("o-latest");
+      expect(structured.top_occurrences[0]?.id).toBe("o-top");
+      expect(structured.latest_occurrences[0]?.backtrace_preview).toHaveLength(
+        1,
+      );
     });
 
-    const res = await POST(req);
-    const json = await parseMcpResponse(res);
-    const structured = requireStructuredContent(json) as {
-      notice: { id: string };
-      latest_occurrences: Array<{ id: string; backtrace_preview: unknown[] }>;
-      top_occurrences: Array<{ id: string }>;
-    };
+    it("returns not found for missing notice", async () => {
+      vi.mocked(db.notice.findUnique).mockResolvedValue(null);
 
-    expect(res.status).toBe(200);
-    expect(vi.mocked(db.notice.findUnique)).toHaveBeenCalledTimes(1);
-    expect(vi.mocked(db.occurrence.findMany)).toHaveBeenCalledTimes(2);
-    expect(structured.notice.id).toBe("n1");
-    expect(structured.latest_occurrences[0]?.id).toBe("o-latest");
-    expect(structured.top_occurrences[0]?.id).toBe("o-top");
-    expect(structured.latest_occurrences[0]?.backtrace_preview).toHaveLength(1);
-  });
+      const res = await POST(
+        callTool("airbroke_get_notice", { notice_id: "missing" }),
+      );
+      const json = await parseMcpResponse(res);
+      const result = requireResult(json) as {
+        isError?: boolean;
+        structuredContent?: { error?: string };
+      };
 
-  it("returns not found for airbroke_get_notice", async () => {
-    vi.mocked(db.notice.findUnique).mockResolvedValue(null);
-
-    const req = buildRpcRequest({
-      jsonrpc: "2.0",
-      id: 24,
-      method: "tools/call",
-      params: {
-        name: "airbroke_get_notice",
-        arguments: { notice_id: "missing" },
-      },
+      expect(res.status).toBe(200);
+      expect(result.isError).toBe(true);
+      expect(result.structuredContent?.error).toBe("Notice not found");
     });
 
-    const res = await POST(req);
-    const json = await parseMcpResponse(res);
-    const result = requireResult(json) as {
-      isError?: boolean;
-      structuredContent?: { error?: string };
-    };
-
-    expect(res.status).toBe(200);
-    expect(result.isError).toBe(true);
-    expect(result.structuredContent?.error).toBe("Notice not found");
-  });
-
-  it("calls airbroke_get_occurrence with include_notice false", async () => {
-    vi.mocked(db.occurrence.findUnique).mockResolvedValue({
-      id: "o1",
-      notice_id: "n1",
-      message: "boom",
-      seen_count: 4,
-      backtrace: [],
-      context: {},
-      environment: {},
-      session: {},
-      params: {},
-      created_at: new Date("2026-02-21T10:00:00.000Z"),
-      updated_at: new Date("2026-02-21T10:01:00.000Z"),
-      resolved_at: null,
-      notice: {
+    it("filters occurrences when include_resolved is false", async () => {
+      vi.mocked(db.notice.findUnique).mockResolvedValue({
         id: "n1",
         project_id: "p1",
         env: "production",
         kind: "TypeError",
-        seen_count: 7,
-        created_at: new Date("2026-02-21T09:00:00.000Z"),
-        updated_at: new Date("2026-02-21T09:01:00.000Z"),
-        project: {
-          id: "p1",
-          name: "api",
-          organization: "icoretech",
-        },
-      },
-    } as unknown as Awaited<ReturnType<typeof db.occurrence.findUnique>>);
-
-    const req = buildRpcRequest({
-      jsonrpc: "2.0",
-      id: 25,
-      method: "tools/call",
-      params: {
-        name: "airbroke_get_occurrence",
-        arguments: { occurrence_id: "o1", include_notice: false },
-      },
-    });
-
-    const res = await POST(req);
-    const json = await parseMcpResponse(res);
-    const structured = requireStructuredContent(json) as {
-      occurrence: { notice?: unknown };
-    };
-
-    expect(res.status).toBe(200);
-    expect(structured.occurrence.notice).toBeUndefined();
-  });
-
-  it("calls airbroke_search with filters and details", async () => {
-    vi.mocked(db.occurrence.findMany).mockResolvedValue([
-      {
-        id: "o1",
-        notice_id: "n1",
-        message: "Network request failed",
-        seen_count: 9,
+        seen_count: 5,
         resolved_at: null,
         created_at: new Date("2026-02-21T10:00:00.000Z"),
-        updated_at: new Date("2026-02-21T10:01:00.000Z"),
-        backtrace: [{ file: "app.ts", line: 11 }],
-        context: { severity: "error" },
-        environment: { app_version: "1.0.0" },
+        updated_at: new Date("2026-02-21T10:10:00.000Z"),
+      } as unknown as Awaited<ReturnType<typeof db.notice.findUnique>>);
+      vi.mocked(db.occurrence.findMany)
+        .mockResolvedValueOnce([])
+        .mockResolvedValueOnce([]);
+
+      const res = await POST(
+        callTool("airbroke_get_notice", {
+          notice_id: "n1",
+          include_resolved: false,
+        }),
+      );
+      await parseMcpResponse(res);
+
+      expect(res.status).toBe(200);
+      // Both latest and top occurrence queries should filter by resolved_at: null
+      for (const call of vi.mocked(db.occurrence.findMany).mock.calls) {
+        expect(call[0]).toMatchObject({
+          where: {
+            notice_id: "n1",
+            resolved_at: null,
+          },
+        });
+      }
+    });
+  });
+
+  // ── airbroke_get_occurrence ───────────────────────────────────────────
+
+  describe("airbroke_get_occurrence", () => {
+    it("returns occurrence with notice excluded", async () => {
+      vi.mocked(db.occurrence.findUnique).mockResolvedValue({
+        id: "o1",
+        notice_id: "n1",
+        message: "boom",
+        seen_count: 4,
+        backtrace: [],
+        context: {},
+        environment: {},
+        session: {},
         params: {},
+        created_at: new Date("2026-02-21T10:00:00.000Z"),
+        updated_at: new Date("2026-02-21T10:01:00.000Z"),
+        resolved_at: null,
         notice: {
           id: "n1",
           project_id: "p1",
-          env: "android-production",
+          env: "production",
           kind: "TypeError",
-          seen_count: 12,
-          updated_at: new Date("2026-02-21T10:02:00.000Z"),
+          seen_count: 7,
+          resolved_at: null,
+          created_at: new Date("2026-02-21T09:00:00.000Z"),
+          updated_at: new Date("2026-02-21T09:01:00.000Z"),
           project: {
             id: "p1",
-            name: "AR-arplus",
-            organization: "AR",
+            name: "api",
+            organization: "icoretech",
           },
         },
-      },
-    ] as unknown as Awaited<ReturnType<typeof db.occurrence.findMany>>);
+      } as unknown as Awaited<ReturnType<typeof db.occurrence.findUnique>>);
 
-    const req = buildRpcRequest({
-      jsonrpc: "2.0",
-      id: 26,
-      method: "tools/call",
-      params: {
-        name: "airbroke_search",
-        arguments: {
+      const res = await POST(
+        callTool("airbroke_get_occurrence", {
+          occurrence_id: "o1",
+          include_notice: false,
+        }),
+      );
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        occurrence: { notice?: unknown };
+      };
+
+      expect(res.status).toBe(200);
+      expect(structured.occurrence.notice).toBeUndefined();
+    });
+
+    it("returns occurrence with notice and project included", async () => {
+      vi.mocked(db.occurrence.findUnique).mockResolvedValue({
+        id: "o1",
+        notice_id: "n1",
+        message: "boom",
+        seen_count: 4,
+        backtrace: [],
+        context: {},
+        environment: {},
+        session: {},
+        params: {},
+        created_at: new Date("2026-02-21T10:00:00.000Z"),
+        updated_at: new Date("2026-02-21T10:01:00.000Z"),
+        resolved_at: new Date("2026-03-01T12:00:00.000Z"),
+        notice: {
+          id: "n1",
+          project_id: "p1",
+          env: "production",
+          kind: "TypeError",
+          seen_count: 7,
+          resolved_at: new Date("2026-03-01T12:00:00.000Z"),
+          created_at: new Date("2026-02-21T09:00:00.000Z"),
+          updated_at: new Date("2026-02-21T09:01:00.000Z"),
+          project: {
+            id: "p1",
+            name: "api",
+            organization: "icoretech",
+          },
+        },
+      } as unknown as Awaited<ReturnType<typeof db.occurrence.findUnique>>);
+
+      const res = await POST(
+        callTool("airbroke_get_occurrence", {
+          occurrence_id: "o1",
+          include_notice: true,
+          include_project: true,
+        }),
+      );
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        occurrence: {
+          resolved_at: string;
+          notice: { project: { name: string } };
+        };
+      };
+
+      expect(res.status).toBe(200);
+      expect(structured.occurrence.resolved_at).toBeTruthy();
+      expect(structured.occurrence.notice.project.name).toBe("api");
+    });
+
+    it("returns not found for missing occurrence", async () => {
+      vi.mocked(db.occurrence.findUnique).mockResolvedValue(null);
+
+      const res = await POST(
+        callTool("airbroke_get_occurrence", { occurrence_id: "missing" }),
+      );
+      const json = await parseMcpResponse(res);
+      const result = requireResult(json) as {
+        isError?: boolean;
+        structuredContent?: { error?: string };
+      };
+
+      expect(res.status).toBe(200);
+      expect(result.isError).toBe(true);
+      expect(result.structuredContent?.error).toBe("Occurrence not found");
+    });
+  });
+
+  // ── airbroke_search ───────────────────────────────────────────────────
+
+  describe("airbroke_search", () => {
+    it("searches with filters, details, and pagination", async () => {
+      vi.mocked(db.occurrence.findMany).mockResolvedValue([
+        {
+          id: "o1",
+          notice_id: "n1",
+          message: "Network request failed",
+          seen_count: 9,
+          resolved_at: null,
+          created_at: new Date("2026-02-21T10:00:00.000Z"),
+          updated_at: new Date("2026-02-21T10:01:00.000Z"),
+          backtrace: [{ file: "app.ts", line: 11 }],
+          context: { severity: "error" },
+          environment: { app_version: "1.0.0" },
+          params: {},
+          notice: {
+            id: "n1",
+            project_id: "p1",
+            env: "android-production",
+            kind: "TypeError",
+            seen_count: 12,
+            resolved_at: null,
+            updated_at: new Date("2026-02-21T10:02:00.000Z"),
+            project: {
+              id: "p1",
+              name: "AR-arplus",
+              organization: "AR",
+            },
+          },
+        },
+      ] as unknown as Awaited<ReturnType<typeof db.occurrence.findMany>>);
+
+      const res = await POST(
+        callTool("airbroke_search", {
           query: "network",
           organization: "AR",
           env: "android-production",
@@ -578,95 +898,241 @@ describe("POST /api/mcp", () => {
           backtrace_frames: 1,
           limit: 20,
           offset: 2,
-        },
-      },
-    });
+        }),
+      );
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        matches: Array<{
+          notice: {
+            resolved_at: unknown;
+            project: { name: string };
+          };
+          backtrace_preview: unknown[];
+        }>;
+      };
 
-    const res = await POST(req);
-    const json = await parseMcpResponse(res);
-    const structured = requireStructuredContent(json) as {
-      matches: Array<{
-        notice: { project: { name: string } };
-        backtrace_preview: unknown[];
-      }>;
-    };
-
-    expect(res.status).toBe(200);
-    expect(vi.mocked(db.occurrence.findMany).mock.calls[0]?.[0]).toMatchObject({
-      take: 20,
-      skip: 2,
-      where: {
-        resolved_at: null,
-        notice: {
-          env: "android-production",
-          project: {
-            organization: "AR",
+      expect(res.status).toBe(200);
+      expect(
+        vi.mocked(db.occurrence.findMany).mock.calls[0]?.[0],
+      ).toMatchObject({
+        take: 20,
+        skip: 2,
+        where: {
+          resolved_at: null,
+          notice: {
+            env: "android-production",
+            project: { organization: "AR" },
           },
         },
-      },
-    });
-    expect(structured.matches[0]?.notice.project.name).toBe("AR-arplus");
-    expect(structured.matches[0]?.backtrace_preview).toHaveLength(1);
-  });
-
-  it("returns validation error for airbroke_search without query", async () => {
-    const req = buildRpcRequest({
-      jsonrpc: "2.0",
-      id: 27,
-      method: "tools/call",
-      params: {
-        name: "airbroke_search",
-        arguments: {
-          organization: "AR",
-        },
-      },
+      });
+      expect(structured.matches[0]?.notice.project.name).toBe("AR-arplus");
+      expect(structured.matches[0]?.backtrace_preview).toHaveLength(1);
+      expect(structured.matches[0]?.notice.resolved_at).toBeNull();
     });
 
-    const res = await POST(req);
-    const json = await parseMcpResponse(res);
-    const result = (json.result ?? null) as {
-      structuredContent?: { error?: string };
-      isError?: boolean;
-    } | null;
-    const error = (json.error ?? null) as { message?: string } | null;
+    it("searches by project_id", async () => {
+      vi.mocked(db.occurrence.findMany).mockResolvedValue([]);
 
-    expect(res.status).toBe(200);
-    if (result?.structuredContent?.error) {
-      expect(result.isError).toBe(true);
-      expect(result.structuredContent.error).toBe(
-        "Invalid arguments for airbroke_search",
+      const res = await POST(
+        callTool("airbroke_search", {
+          query: "error",
+          project_id: "p1",
+        }),
       );
-      return;
-    }
+      await parseMcpResponse(res);
 
-    if (error?.message) {
-      expect(String(error.message)).toContain("airbroke_search");
-      return;
-    }
-
-    if (result?.isError) {
-      expect(result.isError).toBe(true);
-      return;
-    }
-
-    throw new Error(`Unexpected validation response: ${JSON.stringify(json)}`);
-  });
-
-  it("returns tool error for unknown tool", async () => {
-    const req = buildRpcRequest({
-      jsonrpc: "2.0",
-      id: 3,
-      method: "tools/call",
-      params: {
-        name: "airbroke_unknown_tool",
-      },
+      expect(
+        vi.mocked(db.occurrence.findMany).mock.calls[0]?.[0],
+      ).toMatchObject({
+        where: {
+          notice: {
+            project_id: "p1",
+          },
+        },
+      });
     });
 
-    const res = await POST(req);
-    const json = await parseMcpResponse(res);
-    const result = requireResult(json) as { isError?: boolean };
+    it("returns validation error without query", async () => {
+      const res = await POST(
+        callTool("airbroke_search", { organization: "AR" }),
+      );
+      const json = await parseMcpResponse(res);
+      const result = (json.result ?? null) as {
+        structuredContent?: { error?: string };
+        isError?: boolean;
+      } | null;
+      const error = (json.error ?? null) as { message?: string } | null;
 
-    expect(res.status).toBe(200);
-    expect(result.isError).toBe(true);
+      expect(res.status).toBe(200);
+      if (result?.structuredContent?.error) {
+        expect(result.isError).toBe(true);
+        expect(result.structuredContent.error).toBe(
+          "Invalid arguments for airbroke_search",
+        );
+        return;
+      }
+
+      if (error?.message) {
+        expect(String(error.message)).toContain("airbroke_search");
+        return;
+      }
+
+      if (result?.isError) {
+        expect(result.isError).toBe(true);
+        return;
+      }
+
+      throw new Error(
+        `Unexpected validation response: ${JSON.stringify(json)}`,
+      );
+    });
+  });
+
+  // ── airbroke_get_setup_guide ──────────────────────────────────────────
+
+  describe("airbroke_get_setup_guide", () => {
+    it("returns all snippets with placeholders when no project_id", async () => {
+      const res = await POST(callTool("airbroke_get_setup_guide", {}));
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        project_id: string | null;
+        has_real_credentials: boolean;
+        snippets: Array<{
+          sdk: string;
+          name: string;
+          filename: string;
+          language: string;
+          code: string;
+        }>;
+        guidance: string;
+      };
+
+      expect(res.status).toBe(200);
+      expect(structured.project_id).toBeNull();
+      expect(structured.has_real_credentials).toBe(false);
+      expect(structured.snippets.length).toBeGreaterThanOrEqual(13);
+      expect(structured.guidance).toContain("errors only");
+
+      // Verify placeholders are present (not substituted)
+      const rubySnippet = structured.snippets.find((s) =>
+        s.name.includes("Ruby"),
+      );
+      expect(rubySnippet).toBeDefined();
+      expect(rubySnippet?.code).toContain("{YOUR_PROJECT_API_KEY}");
+      expect(rubySnippet?.sdk).toBe("airbrake");
+
+      // Verify both SDK families are present
+      const sdks = new Set(structured.snippets.map((s) => s.sdk));
+      expect(sdks.has("airbrake")).toBe(true);
+      expect(sdks.has("sentry")).toBe(true);
+    });
+
+    it("substitutes real credentials when project_id is provided", async () => {
+      vi.mocked(db.project.findUnique).mockResolvedValue({
+        id: "p1",
+        api_key: "real-api-key-123",
+      } as unknown as Awaited<ReturnType<typeof db.project.findUnique>>);
+
+      process.env.BETTER_AUTH_URL = "https://airbroke.example.com";
+
+      const res = await POST(
+        callTool("airbroke_get_setup_guide", { project_id: "p1" }),
+      );
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        project_id: string;
+        has_real_credentials: boolean;
+        snippets: Array<{ code: string }>;
+      };
+
+      expect(structured.project_id).toBe("p1");
+      expect(structured.has_real_credentials).toBe(true);
+
+      const rubySnippet = structured.snippets.find((s) =>
+        (s as { name?: string }).name?.includes("Ruby"),
+      ) as { code: string } | undefined;
+      expect(rubySnippet?.code).toContain("real-api-key-123");
+      expect(rubySnippet?.code).toContain("https://airbroke.example.com");
+      expect(rubySnippet?.code).not.toContain("{REPLACE_");
+
+      delete process.env.BETTER_AUTH_URL;
+    });
+
+    it("returns not found for missing project", async () => {
+      vi.mocked(db.project.findUnique).mockResolvedValue(null);
+
+      const res = await POST(
+        callTool("airbroke_get_setup_guide", { project_id: "missing" }),
+      );
+      const json = await parseMcpResponse(res);
+      const result = requireResult(json) as {
+        isError?: boolean;
+        structuredContent?: { error?: string };
+      };
+
+      expect(result.isError).toBe(true);
+      expect(result.structuredContent?.error).toBe("Project not found");
+    });
+
+    it("filters by sdk family", async () => {
+      const res = await POST(
+        callTool("airbroke_get_setup_guide", { sdk: "sentry" }),
+      );
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        snippets: Array<{ sdk: string }>;
+      };
+
+      expect(structured.snippets.length).toBe(2);
+      expect(structured.snippets.every((s) => s.sdk === "sentry")).toBe(true);
+    });
+
+    it("filters by framework name", async () => {
+      const res = await POST(
+        callTool("airbroke_get_setup_guide", { framework: "ruby" }),
+      );
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        snippets: Array<{ name: string }>;
+      };
+
+      expect(structured.snippets.length).toBeGreaterThanOrEqual(1);
+      expect(
+        structured.snippets.every(
+          (s) =>
+            s.name.toLowerCase().includes("ruby") ||
+            (s as { language?: string }).language === "ruby",
+        ),
+      ).toBe(true);
+    });
+
+    it("filters by both sdk and framework", async () => {
+      const res = await POST(
+        callTool("airbroke_get_setup_guide", {
+          sdk: "airbrake",
+          framework: "go",
+        }),
+      );
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        snippets: Array<{ sdk: string; name: string }>;
+      };
+
+      expect(structured.snippets.length).toBe(1);
+      expect(structured.snippets[0]?.sdk).toBe("airbrake");
+      expect(structured.snippets[0]?.name).toContain("Go");
+    });
+
+    it("returns empty snippets for non-matching framework", async () => {
+      const res = await POST(
+        callTool("airbroke_get_setup_guide", { framework: "cobol" }),
+      );
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        snippets: unknown[];
+      };
+
+      expect(structured.snippets).toHaveLength(0);
+    });
   });
 });
