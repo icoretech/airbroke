@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.2.7](https://github.com/icoretech/airbroke/compare/v1.2.6...v1.2.7) (2026-04-05)
+
+
+### Features
+
+* add airbroke_get_setup_guide MCP tool ([7f7611a](https://github.com/icoretech/airbroke/commit/7f7611aede916a290b0ff2b743fb3b8d3cb84e0e))
+* add autolink utility for URLs and issue tracker references ([e2bd8b0](https://github.com/icoretech/airbroke/commit/e2bd8b0ea90722a4b0905038857e2853de300f60))
+* add remark CRUD server actions with ownership checks ([02513fc](https://github.com/icoretech/airbroke/commit/02513fc09fcbec5fa78d69f217d165998468f8c6))
+* add Remark model for notice and occurrence notes ([102345a](https://github.com/icoretech/airbroke/commit/102345abbdfcba780f25c1ef3129ff4f86c20897))
+* add remark query layer for notices and occurrences ([836cda2](https://github.com/icoretech/airbroke/commit/836cda2d74587a1aaa07b50dd8939edd143d3e95))
+* add RemarkForm, RemarkItem, and RemarkThread components ([c3bb08f](https://github.com/icoretech/airbroke/commit/c3bb08fe44a18f08bb7f220db158cd79581d69b8))
+* embed remarks in MCP get_notice and get_occurrence responses ([d826b80](https://github.com/icoretech/airbroke/commit/d826b803262b47b8c4b84b827265cd5e95b5820d))
+* wire Remarks tab into occurrence page and Remarks section into notice page ([d4f03ae](https://github.com/icoretech/airbroke/commit/d4f03aecb8f8b19791468cbdd43352dd4475871b))
+
+
+### Bug Fixes
+
+* omit occurrence_id from remark create when not provided ([8f30e69](https://github.com/icoretech/airbroke/commit/8f30e69da3849abefb9424401078610f20f52481))
+* use BigInt() instead of literal 7n to avoid ES2020 target error ([0dfeb2a](https://github.com/icoretech/airbroke/commit/0dfeb2aa8b943819f125c3a83489bad0f32e955f))
+
 ## [1.2.6](https://github.com/icoretech/airbroke/compare/v1.2.5...v1.2.6) (2026-04-04)
 
 
