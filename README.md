@@ -244,6 +244,7 @@ Available tools:
 - `airbroke_get_notice`
 - `airbroke_search`
 - `airbroke_get_occurrence`
+- `airbroke_get_setup_guide`
 
 Notes on richer MCP outputs:
 
@@ -269,6 +270,12 @@ Notes on richer MCP outputs:
   with optional filters: `organization`, `project_id`, `env`, `include_resolved`,
   and rich snippets via `include_details` + `backtrace_frames`.
   Notice data in search results includes `resolved_at`.
+- `airbroke_get_setup_guide` returns integration code snippets for connecting applications
+  to Airbroke. Supports Airbrake-compatible SDKs and Sentry SDKs. Optional `project_id`
+  returns ready-to-use code with real credentials; without it, templates contain placeholders.
+  Filter by `sdk` (`airbrake` or `sentry`) and/or `framework` (e.g. `ruby`, `node`, `python`).
+  Each snippet explicitly disables non-error SDK features (APM, tracing, remote config, etc.)
+  since Airbroke is an error-only collector.
 
 Example Codex MCP server config:
 

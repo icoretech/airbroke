@@ -1,5 +1,9 @@
 import { z } from "zod";
 import { db } from "@/lib/db";
+import {
+  airbrakeIntegrations,
+  sentryIntegrations,
+} from "@/lib/integrationsData";
 import type { Prisma } from "@/prisma/generated/client";
 
 export type McpToolResult = {
@@ -115,6 +119,24 @@ const SearchArgsSchema = z
       .default(5),
     limit: z.coerce.number().int().min(1).max(200).optional().default(50),
     offset: z.coerce.number().int().min(0).max(10_000).optional().default(0),
+  })
+  .strict();
+
+const GetSetupGuideArgsSchema = z
+  .object({
+    project_id: z.string().min(1).optional(),
+    sdk: z
+      .enum(["airbrake", "sentry"])
+      .optional()
+      .describe("Filter by SDK family: 'airbrake' or 'sentry'. Omit for all."),
+    framework: z
+      .string()
+      .trim()
+      .min(1)
+      .optional()
+      .describe(
+        "Filter by framework/language name (case-insensitive partial match, e.g. 'ruby', 'node', 'python', 'go', 'sentry browser').",
+      ),
   })
   .strict();
 
@@ -664,6 +686,136 @@ export const MCP_TOOLS: Record<string, ToolSpec> = {
         limit: args.limit,
         offset: args.offset,
         matches,
+      };
+    },
+  },
+  airbroke_get_setup_guide: {
+    description:
+      "Get integration setup code for connecting an application to Airbroke. " +
+      "Airbroke is an error-only collector — it does NOT support performance monitoring, " +
+      "session replay, logs, or metrics. The provided code snippets explicitly disable " +
+      "non-error features in each SDK (APM, remote config, tracing, etc.) to prevent " +
+      "the SDK from sending data that Airbroke will not process. " +
+      "IMPORTANT: these snippets were built by inspecting each SDK's configuration surface " +
+      "at a point in time. SDKs evolve and may add new telemetry features. When helping a " +
+      "user integrate Airbroke, verify the snippet against the SDK version in use and disable " +
+      "any newer non-error features not yet covered by the template. " +
+      "Supports Airbrake-compatible SDKs (Ruby, Node.js, Python, Go, Java, PHP, .NET, " +
+      "iOS Swift/ObjC, Android, JS Browser) and Sentry SDKs (Browser, Node.js). " +
+      "Optionally pass a project_id to get ready-to-use code with real credentials; " +
+      "without it, templates contain placeholders.",
+    inputSchema: GetSetupGuideArgsSchema,
+    run: async (args: z.infer<typeof GetSetupGuideArgsSchema>) => {
+      let host = "your-airbroke-host.example.com";
+      let origin = "https://your-airbroke-host.example.com";
+      let projectKey = "{YOUR_PROJECT_API_KEY}";
+      let projectId = "{YOUR_PROJECT_ID}";
+
+      if (args.project_id) {
+        const project = await db.project.findUnique({
+          where: { id: args.project_id },
+          select: { id: true, api_key: true },
+        });
+
+        if (!project) {
+          return buildToolError("Project not found", {
+            project_id: args.project_id,
+          });
+        }
+
+        projectKey = project.api_key;
+        projectId = project.id;
+
+        // Derive host/origin from BETTER_AUTH_URL or fall back to placeholder
+        const baseUrl = process.env.BETTER_AUTH_URL;
+        if (baseUrl) {
+          try {
+            const url = new URL(baseUrl);
+            host = url.host;
+            origin = url.origin;
+          } catch {
+            // keep placeholders
+          }
+        }
+      }
+
+      const replacements: Record<string, string> = {
+        REPLACE_PROJECT_KEY: projectKey,
+        REPLACE_AIRBROKE_HOST: host,
+        REPLACE_AIRBROKE_URL: origin,
+        REPLACE_PROJECT_ID: projectId,
+      };
+
+      function applyReplacements(template: string): string {
+        let result = template;
+        for (const key in replacements) {
+          const find = `{${key}}`;
+          result = result.split(find).join(replacements[key]);
+        }
+        return result.trim();
+      }
+
+      type SnippetOutput = {
+        sdk: "airbrake" | "sentry";
+        name: string;
+        filename: string;
+        language: string;
+        code: string;
+      };
+
+      const snippets: SnippetOutput[] = [];
+
+      const includeAirbrake = !args.sdk || args.sdk === "airbrake";
+      const includeSentry = !args.sdk || args.sdk === "sentry";
+      const frameworkFilter = args.framework?.toLowerCase();
+
+      if (includeAirbrake) {
+        for (const item of airbrakeIntegrations) {
+          if (
+            frameworkFilter &&
+            !item.name.toLowerCase().includes(frameworkFilter) &&
+            !item.language.toLowerCase().includes(frameworkFilter)
+          ) {
+            continue;
+          }
+          snippets.push({
+            sdk: "airbrake",
+            name: item.name,
+            filename: item.filename,
+            language: item.language,
+            code: applyReplacements(item.code),
+          });
+        }
+      }
+
+      if (includeSentry) {
+        for (const item of sentryIntegrations) {
+          if (
+            frameworkFilter &&
+            !item.name.toLowerCase().includes(frameworkFilter) &&
+            !item.language.toLowerCase().includes(frameworkFilter)
+          ) {
+            continue;
+          }
+          snippets.push({
+            sdk: "sentry",
+            name: item.name,
+            filename: item.filename,
+            language: item.language,
+            code: applyReplacements(item.code),
+          });
+        }
+      }
+
+      return {
+        project_id: args.project_id ?? null,
+        has_real_credentials: Boolean(args.project_id),
+        snippets,
+        guidance:
+          "Airbroke collects errors only. Each snippet disables non-error SDK " +
+          "features (APM, tracing, remote config, session replay, etc.). " +
+          "SDKs add new telemetry over time — verify the snippet against the " +
+          "SDK version in use and disable any newer non-error features.",
       };
     },
   },
