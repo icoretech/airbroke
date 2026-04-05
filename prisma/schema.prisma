@@ -40,6 +40,7 @@ model Notice {
   resolved_at DateTime?    @db.Timestamp(6)
   project     Project      @relation(fields: [project_id], references: [id], onDelete: Cascade)
   occurrences Occurrence[]
+  remarks     Remark[]
 
   @@unique([project_id, env, kind])
   @@index([seen_count])
@@ -65,6 +66,7 @@ model Occurrence {
   notice             Notice               @relation(fields: [notice_id], references: [id], onDelete: Cascade)
   hourly_occurrences HourlyOccurrence[]
   bookmarks          OccurrenceBookmark[]
+  remarks            Remark[]
 
   @@unique([notice_id, message_hash])
   @@index([seen_count])
@@ -129,6 +131,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   bookmarks     OccurrenceBookmark[]
+  remarks       Remark[]
 
   @@map("users")
 }
@@ -154,4 +157,22 @@ model OccurrenceBookmark {
 
   @@unique([user_id, occurrence_id])
   @@map("occurrence_bookmarks")
+}
+
+model Remark {
+  id            String      @id @default(cuid())
+  notice_id     String
+  occurrence_id String?
+  user_id       String
+  body          String      @db.Text
+  created_at    DateTime    @default(now()) @db.Timestamp(6)
+  updated_at    DateTime    @updatedAt @db.Timestamp(6)
+  notice        Notice      @relation(fields: [notice_id], references: [id], onDelete: Cascade)
+  occurrence    Occurrence? @relation(fields: [occurrence_id], references: [id], onDelete: Cascade)
+  user          User        @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([notice_id])
+  @@index([occurrence_id])
+  @@index([created_at])
+  @@map("remarks")
 }
