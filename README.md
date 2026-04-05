@@ -264,8 +264,11 @@ Notes on richer MCP outputs:
   - `top_occurrences` (by `seen_count desc`, then `updated_at desc`)
   - optional occurrence detail snippets for faster LLM triage.
   - `include_resolved=false` filters occurrences to unresolved only (default: `true`).
+  - Includes `remarks_count` for notice-level remarks.
 - `airbroke_get_occurrence` returns full occurrence details with parent notice
-  (including `resolved_at`) and project.
+  (including `resolved_at`) and project. Includes `remarks` array with
+  notice-level and occurrence-level remarks (id, body, user_name, created_at,
+  is_notice_level).
 - `airbroke_search` supports cross-project query by occurrence message + notice/project metadata
   with optional filters: `organization`, `project_id`, `env`, `include_resolved`,
   and rich snippets via `include_details` + `backtrace_frames`.
