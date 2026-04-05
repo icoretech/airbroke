@@ -18,7 +18,7 @@ export async function createRemark(
   await db.remark.create({
     data: {
       notice_id: noticeId,
-      occurrence_id: occurrenceId,
+      ...(occurrenceId ? { occurrence_id: occurrenceId } : {}),
       user_id: session.user.id,
       body,
     },

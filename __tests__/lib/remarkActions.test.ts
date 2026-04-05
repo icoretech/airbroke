@@ -44,12 +44,11 @@ describe("remarkActions", () => {
       await createRemark("n1", "test body");
       expect(mockCreate).toHaveBeenCalledWith(
         expect.objectContaining({
-          data: expect.objectContaining({
+          data: {
             notice_id: "n1",
-            occurrence_id: undefined,
             user_id: "user1",
             body: "test body",
-          }),
+          },
         }),
       );
     });
