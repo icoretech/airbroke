@@ -5,9 +5,11 @@ import { notFound } from "next/navigation";
 import CustomTimeAgo from "@/components/CustomTimeAgo";
 import EnvironmentLabel from "@/components/EnvironmentLabel";
 import OccurrencesTable from "@/components/OccurrencesTable";
+import RemarkThread from "@/components/remark/RemarkThread";
 import StatusFilter from "@/components/StatusFilter";
 import { Badge } from "@/components/ui/badge";
 import { getNoticeById } from "@/lib/queries/notices";
+import { getRemarkCountByNoticeId } from "@/lib/queries/remarks";
 import { toOccurrenceSearchParams } from "@/lib/routeSearchParams";
 import Sort from "./Sort";
 import type { Metadata } from "next";
@@ -31,6 +33,8 @@ export default async function Notice(props: PageProps<"/notices/[notice_id]">) {
   if (!notice) {
     notFound();
   }
+
+  const remarkCount = await getRemarkCountByNoticeId(notice.id);
 
   return (
     <div className="space-y-6">
@@ -63,6 +67,16 @@ export default async function Notice(props: PageProps<"/notices/[notice_id]">) {
             </Badge>
           </div>
         </div>
+      </section>
+
+      {/* Remarks */}
+      <section className="rounded-xl sm:overflow-hidden sm:border sm:border-card/40 sm:bg-card/40 sm:shadow-md sm:ring-1 sm:ring-card/40 sm:backdrop-blur">
+        <div className="flex w-full flex-wrap items-center justify-between gap-3 rounded-lg border border-card/40 bg-card/40 px-4 py-3 shadow-xs sm:rounded-none sm:border-0 sm:bg-transparent sm:shadow-none sm:border-b sm:border-card/40">
+          <h2 className="text-sm font-semibold text-foreground">
+            Remarks{remarkCount > 0 ? ` (${remarkCount})` : ""}
+          </h2>
+        </div>
+        <RemarkThread noticeId={notice.id} projectId={notice.project_id} />
       </section>
 
       {/* Occurrences */}

@@ -3,7 +3,11 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { BiSolidCarCrash, BiSolidNetworkChart } from "react-icons/bi";
+import {
+  BiComment,
+  BiSolidCarCrash,
+  BiSolidNetworkChart,
+} from "react-icons/bi";
 import { CgToolbox } from "react-icons/cg";
 import { FaEnvira, FaLink } from "react-icons/fa6";
 import { LuListEnd } from "react-icons/lu";
@@ -21,9 +25,11 @@ import Params from "@/components/occurrence/Params";
 import ResolveButton from "@/components/occurrence/ResolveButton";
 import Session from "@/components/occurrence/Session";
 import Toolbox from "@/components/occurrence/Toolbox";
+import RemarkThread from "@/components/remark/RemarkThread";
 import { Badge } from "@/components/ui/badge";
 import { checkOccurrenceBookmarkExistence } from "@/lib/queries/occurrenceBookmarks";
 import { getOccurrenceById } from "@/lib/queries/occurrences";
+import { getRemarkCountForOccurrencePage } from "@/lib/queries/remarks";
 import { requireSession } from "@/lib/requireSession";
 import { getSingleSearchParam } from "@/lib/routeSearchParams";
 import type { Metadata, Route } from "next";
@@ -53,10 +59,10 @@ export default async function Occurrence(
   }
 
   const userId = session?.user?.id;
-  const isBookmarked = await checkOccurrenceBookmarkExistence(
-    userId,
-    occurrence.id,
-  );
+  const [isBookmarked, remarkCount] = await Promise.all([
+    checkOccurrenceBookmarkExistence(userId, occurrence.id),
+    getRemarkCountForOccurrencePage(occurrence.id, occurrence.notice_id),
+  ]);
   const hasSession =
     occurrence.session && Object.keys(occurrence.session).length > 0;
   const hasParams =
@@ -72,6 +78,7 @@ export default async function Occurrence(
     "params",
     "chart",
     "toolbox",
+    "remarks",
   ];
 
   const currentTabValue = getSingleSearchParam(resolvedSearchParams, "tab");
@@ -136,6 +143,13 @@ export default async function Occurrence(
       current: currentTab === "toolbox",
       icon: CgToolbox,
       href: `/occurrences/${occurrence.id}?tab=toolbox` as Route,
+    },
+    remarks: {
+      id: "remarks",
+      name: remarkCount > 0 ? `Remarks ${remarkCount}` : "Remarks",
+      current: currentTab === "remarks",
+      icon: BiComment,
+      href: `/occurrences/${occurrence.id}?tab=remarks` as Route,
     },
   };
 
@@ -262,6 +276,13 @@ export default async function Occurrence(
             <OccurrenceChartWrapper occurrenceId={occurrence.id} />
           )}
           {currentTab === "toolbox" && <Toolbox occurrenceId={occurrence.id} />}
+          {currentTab === "remarks" && (
+            <RemarkThread
+              noticeId={occurrence.notice_id}
+              occurrenceId={occurrence.id}
+              projectId={occurrence.notice.project_id}
+            />
+          )}
         </div>
       </section>
     </div>

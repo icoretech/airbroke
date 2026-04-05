@@ -30,7 +30,8 @@ export type OccurrenceTabKeys =
   | "session"
   | "params"
   | "chart"
-  | "toolbox";
+  | "toolbox"
+  | "remarks";
 export type OccurrenceTabs = {
   [K in OccurrenceTabKeys]: Tab | undefined;
 };
