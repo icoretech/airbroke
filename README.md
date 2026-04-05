@@ -249,18 +249,26 @@ Notes on richer MCP outputs:
 
 - `airbroke_list_projects`, `airbroke_list_notices`, and `airbroke_list_occurrences`
   support `offset` + `limit` for page-like iteration.
-- `airbroke_list_notices` supports `include_project=true` to embed minimal project data.
+- `airbroke_list_notices` supports `include_project=true` to embed minimal project data
+  and `include_resolved=false` to hide resolved notices (default: `true`, show all).
+  Notice payloads include `resolved_at` (null when unresolved).
 - `airbroke_list_occurrences` is summary-first by default, and supports:
   - `include_details=true` (+ optional `backtrace_frames`) for backtrace preview and key context fields.
   - `include_notice=true` / `include_project=true` to embed parent notice/project context inline.
+  - `include_resolved=false` to hide resolved occurrences (default: `true`).
+  - When notice data is included, `resolved_at` is present in the notice payload.
 - `airbroke_get_notice` returns:
-  - the notice payload
+  - the notice payload (includes `resolved_at`)
   - `latest_occurrences` (by `updated_at desc`)
   - `top_occurrences` (by `seen_count desc`, then `updated_at desc`)
   - optional occurrence detail snippets for faster LLM triage.
+  - `include_resolved=false` filters occurrences to unresolved only (default: `true`).
+- `airbroke_get_occurrence` returns full occurrence details with parent notice
+  (including `resolved_at`) and project.
 - `airbroke_search` supports cross-project query by occurrence message + notice/project metadata
   with optional filters: `organization`, `project_id`, `env`, `include_resolved`,
   and rich snippets via `include_details` + `backtrace_frames`.
+  Notice data in search results includes `resolved_at`.
 
 Example Codex MCP server config:
 
