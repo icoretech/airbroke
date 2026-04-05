@@ -510,6 +510,10 @@ export const MCP_TOOLS: Record<string, ToolSpec> = {
         });
       }
 
+      const remarkCount = await db.remark.count({
+        where: { notice_id: args.notice_id, occurrence_id: null },
+      });
+
       const occurrenceWhere: Prisma.OccurrenceWhereInput = {
         notice_id: args.notice_id,
         ...(args.include_resolved ? {} : { resolved_at: null }),
@@ -553,7 +557,7 @@ export const MCP_TOOLS: Record<string, ToolSpec> = {
       );
 
       return {
-        notice,
+        notice: { ...notice, remarks_count: remarkCount },
         latest_occurrences: latestOccurrences,
         top_occurrences: topOccurrences,
       };
@@ -587,8 +591,32 @@ export const MCP_TOOLS: Record<string, ToolSpec> = {
         });
       }
 
+      const remarks = await db.remark.findMany({
+        where: {
+          notice_id: occurrence.notice_id,
+          OR: [{ occurrence_id: null }, { occurrence_id: args.occurrence_id }],
+        },
+        orderBy: { created_at: "asc" },
+        select: {
+          id: true,
+          body: true,
+          occurrence_id: true,
+          created_at: true,
+          user: { select: { name: true } },
+        },
+      });
+
+      const formattedRemarks = remarks.map((r) => ({
+        id: r.id,
+        body: r.body,
+        user_name: r.user.name,
+        created_at: r.created_at,
+        is_notice_level: r.occurrence_id === null,
+      }));
+
       const occurrenceOutput = {
         ...occurrence,
+        remarks: formattedRemarks,
       } as Record<string, unknown>;
 
       if (!args.include_notice) {

@@ -17,6 +17,10 @@ vi.mock("@/lib/db", () => ({
       findMany: vi.fn(),
       findUnique: vi.fn(),
     },
+    remark: {
+      count: vi.fn().mockResolvedValue(0),
+      findMany: vi.fn().mockResolvedValue([]),
+    },
   },
 }));
 
@@ -734,6 +738,33 @@ describe("POST /api/mcp", () => {
         });
       }
     });
+
+    it("includes remarks_count in notice payload", async () => {
+      vi.mocked(db.notice.findUnique).mockResolvedValue({
+        id: "n1",
+        project_id: "p1",
+        env: "production",
+        kind: "TypeError",
+        seen_count: 5,
+        resolved_at: null,
+        created_at: new Date("2026-02-21T10:00:00.000Z"),
+        updated_at: new Date("2026-02-21T10:10:00.000Z"),
+      } as unknown as Awaited<ReturnType<typeof db.notice.findUnique>>);
+      vi.mocked(db.occurrence.findMany)
+        .mockResolvedValueOnce([])
+        .mockResolvedValueOnce([]);
+      vi.mocked(db.remark.count).mockResolvedValue(3);
+
+      const res = await POST(
+        callTool("airbroke_get_notice", { notice_id: "n1" }),
+      );
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        notice: { remarks_count: number };
+      };
+
+      expect(structured.notice.remarks_count).toBe(3);
+    });
   });
 
   // ── airbroke_get_occurrence ───────────────────────────────────────────
@@ -851,6 +882,57 @@ describe("POST /api/mcp", () => {
       expect(res.status).toBe(200);
       expect(result.isError).toBe(true);
       expect(result.structuredContent?.error).toBe("Occurrence not found");
+    });
+
+    it("includes remarks in occurrence response", async () => {
+      vi.mocked(db.occurrence.findUnique).mockResolvedValue({
+        id: "o1",
+        notice_id: "n1",
+        message: "boom",
+        seen_count: 4,
+        backtrace: [],
+        context: {},
+        environment: {},
+        session: {},
+        params: {},
+        created_at: new Date(),
+        updated_at: new Date(),
+        resolved_at: null,
+        notice: {
+          id: "n1",
+          project_id: "p1",
+          env: "production",
+          kind: "TypeError",
+          seen_count: 7,
+          resolved_at: null,
+          created_at: new Date(),
+          updated_at: new Date(),
+          project: { id: "p1", name: "api", organization: "icoretech" },
+        },
+      } as unknown as Awaited<ReturnType<typeof db.occurrence.findUnique>>);
+      vi.mocked(db.remark.findMany).mockResolvedValue([
+        {
+          id: "r1",
+          body: "test note",
+          occurrence_id: null,
+          created_at: new Date(),
+          user: { name: "Kain" },
+        },
+      ] as unknown as Awaited<ReturnType<typeof db.remark.findMany>>);
+
+      const res = await POST(
+        callTool("airbroke_get_occurrence", { occurrence_id: "o1" }),
+      );
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        occurrence: {
+          remarks: Array<{ body: string; is_notice_level: boolean }>;
+        };
+      };
+
+      expect(structured.occurrence.remarks).toHaveLength(1);
+      expect(structured.occurrence.remarks[0].body).toBe("test note");
+      expect(structured.occurrence.remarks[0].is_notice_level).toBe(true);
     });
   });
 
