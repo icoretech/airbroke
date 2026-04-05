@@ -323,7 +323,7 @@ describe("POST /api/mcp", () => {
         name: "api",
         organization: "icoretech",
         paused: false,
-        notices_count: 7n,
+        notices_count: BigInt(7),
         repo_provider: "github",
         repo_branch: "main",
         repo_issue_tracker: null,
