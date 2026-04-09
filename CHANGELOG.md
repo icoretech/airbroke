@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.8](https://github.com/icoretech/airbroke/compare/v1.2.7...v1.2.8) (2026-04-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency better-auth to v1.6.0 ([#1598](https://github.com/icoretech/airbroke/issues/1598)) ([b4af5da](https://github.com/icoretech/airbroke/commit/b4af5daa0e60ff21264081a24aa0ada555d95b1c))
+* **deps:** update dependency better-auth to v1.6.1 ([#1606](https://github.com/icoretech/airbroke/issues/1606)) ([a471b07](https://github.com/icoretech/airbroke/commit/a471b078a159045d60972b1840c9335fad964845))
+* **deps:** update dependency next to v16.2.3 ([#1607](https://github.com/icoretech/airbroke/issues/1607)) ([e156193](https://github.com/icoretech/airbroke/commit/e156193f61a6c7a6b32174bbf521307e0b9ab7bc))
+* **deps:** update prisma monorepo to v7.7.0 ([#1602](https://github.com/icoretech/airbroke/issues/1602)) ([ac7164c](https://github.com/icoretech/airbroke/commit/ac7164cfbf762143f321cf625500b5d1c389b463))
+* **deps:** update react monorepo to v19.2.5 ([#1608](https://github.com/icoretech/airbroke/issues/1608)) ([31f6c7c](https://github.com/icoretech/airbroke/commit/31f6c7c62be05677fe0ab47908bf43f1bf1b147d))
+* **deps:** update vercel ai sdk ([#1597](https://github.com/icoretech/airbroke/issues/1597)) ([a6aa2fb](https://github.com/icoretech/airbroke/commit/a6aa2fb7db6d6f3d36b18cc92435bb02fb7e6113))
+* **deps:** update vercel ai sdk ([#1603](https://github.com/icoretech/airbroke/issues/1603)) ([658c325](https://github.com/icoretech/airbroke/commit/658c325c13452212a52f87956d43fd1345184c34))
+* **deps:** update vercel ai sdk ([#1605](https://github.com/icoretech/airbroke/issues/1605)) ([ed6bb22](https://github.com/icoretech/airbroke/commit/ed6bb221cee0c34da88ddfc8ef2c652681ab7429))
+
 ## [1.2.7](https://github.com/icoretech/airbroke/compare/v1.2.6...v1.2.7) (2026-04-05)
 
 
