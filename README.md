@@ -6,6 +6,7 @@
 <p align="center">
   <a aria-label="Build Status" href="https://github.com/icoretech/airbroke/actions/workflows/build.yml">
     <img alt="" src="https://img.shields.io/github/actions/workflow/status/icoretech/airbroke/build.yml?style=for-the-badge">
+[![SafeSkill 75/100](https://img.shields.io/badge/SafeSkill-75%2F100_Passes%20with%20Notes-yellow)](https://safeskill.dev/scan/icoretech-airbroke)
   </a>
   <a href="https://github.com/icoretech/airbroke/blob/main/LICENSE">
     <img alt="License" src="https://img.shields.io/github/license/icoretech/airbroke?style=for-the-badge" />
