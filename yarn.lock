@@ -4164,7 +4164,7 @@ __metadata:
     lucide-react: "npm:1.8.0"
     mcp-handler: "npm:1.1.0"
     motion: "npm:12.38.0"
-    nanoid: "npm:5.1.7"
+    nanoid: "npm:5.1.9"
     next: "npm:16.2.3"
     numbro: "npm:2.5.0"
     postcss: "npm:8.5.10"
@@ -6454,12 +6454,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:5.1.7":
-  version: 5.1.7
-  resolution: "nanoid@npm:5.1.7"
+"nanoid@npm:5.1.9":
+  version: 5.1.9
+  resolution: "nanoid@npm:5.1.9"
   bin:
     nanoid: bin/nanoid.js
-  checksum: 10/9ca13b1e87c61b21afaa578f40afbb6488fbc24609c34bba744941f9f56feb5b416ea7dfcc1ec4927a8c0f52e5ea755633662dbd58b9e87fd7899c1d7b242ed6
+  checksum: 10/a8cc355ed2176165a0fb5e0dbbac0b72f05d9ac08af50bf652ace22252d7a1455ef307b54681e39baf609a4da84600cad843bf01d9bd1cc1440f6fd166e19589
   languageName: node
   linkType: hard
 
