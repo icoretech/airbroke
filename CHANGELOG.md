@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.2.9](https://github.com/icoretech/airbroke/compare/v1.2.8...v1.2.9) (2026-04-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @microlink/react-json-view to v1.31.18 ([#1610](https://github.com/icoretech/airbroke/issues/1610)) ([50f659b](https://github.com/icoretech/airbroke/commit/50f659b73d42a9c813b1dfb90ac7fcc13e3e00af))
+* **deps:** update dependency better-auth to v1.6.2 ([7329232](https://github.com/icoretech/airbroke/commit/7329232e19841b3047c160b57745d11f7f150578))
+* **deps:** update dependency better-auth to v1.6.5 ([#1622](https://github.com/icoretech/airbroke/issues/1622)) ([69197bf](https://github.com/icoretech/airbroke/commit/69197bf61457e84fa51988d26a246e22adb39981))
+* **deps:** update dependency nanoid to v5.1.9 ([#1625](https://github.com/icoretech/airbroke/issues/1625)) ([d3116e8](https://github.com/icoretech/airbroke/commit/d3116e8140d7bb9e528d2e521801a8035cc1eaf5))
+* **deps:** update dependency next to v16.2.4 ([#1626](https://github.com/icoretech/airbroke/issues/1626)) ([0382952](https://github.com/icoretech/airbroke/commit/038295212fe1ef7722d39013373a968f81e22089))
+* **deps:** update sentry-javascript monorepo to v10.49.0 ([#1614](https://github.com/icoretech/airbroke/issues/1614)) ([51bf26f](https://github.com/icoretech/airbroke/commit/51bf26f561d353a37079c3153323e958b22d660e))
+* **deps:** update vercel ai sdk ([#1616](https://github.com/icoretech/airbroke/issues/1616)) ([5e4f676](https://github.com/icoretech/airbroke/commit/5e4f676b8ce6a75a8478f171a5ac5b4aa1be2532))
+* **deps:** update vercel ai sdk ([#1618](https://github.com/icoretech/airbroke/issues/1618)) ([8d0a82b](https://github.com/icoretech/airbroke/commit/8d0a82b11460466bd18c6f8deae9b8343551ff48))
+* **deps:** update vercel ai sdk ([#1620](https://github.com/icoretech/airbroke/issues/1620)) ([8cfc5e9](https://github.com/icoretech/airbroke/commit/8cfc5e96cd4d7192710112f1357b8aefd49943b2))
+* **deps:** update vercel ai sdk ([#1623](https://github.com/icoretech/airbroke/issues/1623)) ([48b3659](https://github.com/icoretech/airbroke/commit/48b3659bad90aa34f7f0847941522d568daf5b67))
+
 ## [1.2.8](https://github.com/icoretech/airbroke/compare/v1.2.7...v1.2.8) (2026-04-09)
 
 
