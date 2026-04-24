@@ -20,6 +20,27 @@ export function envList(key: string): string[] | undefined {
     .filter(Boolean);
 }
 
+/**
+ * Normalize a Better Auth client-id env value.
+ *
+ * Returns undefined for unset/all-empty input, a trimmed string for a single
+ * non-empty segment, and an ordered array for multiple non-empty segments.
+ */
+export function normalizeClientIdEnvValue(
+  value: string | undefined,
+): string | string[] | undefined {
+  if (!value) return undefined;
+
+  const segments = value
+    .split(",")
+    .map((segment) => segment.trim())
+    .filter(Boolean);
+
+  if (segments.length === 0) return undefined;
+  if (segments.length === 1) return segments[0];
+  return segments;
+}
+
 /** Check if a string looks like a real URL (not a placeholder like "xxx"). */
 function isValidUrl(value: string | undefined): value is string {
   if (!value) return false;
@@ -44,7 +65,7 @@ function resolveIssuer(envKey: string): string | null {
 // ---------------------------------------------------------------------------
 
 export type SocialProviderConfig = {
-  clientId: string;
+  clientId: string | string[];
   clientSecret: string;
   [key: string]: unknown;
 };
@@ -93,16 +114,22 @@ export function buildSocialProviders(): Record<string, SocialProviderConfig> {
     };
   }
 
-  if (process.env.AIRBROKE_GOOGLE_ID && process.env.AIRBROKE_GOOGLE_SECRET) {
+  const googleClientId = normalizeClientIdEnvValue(
+    process.env.AIRBROKE_GOOGLE_ID,
+  );
+  if (googleClientId && process.env.AIRBROKE_GOOGLE_SECRET) {
     social.google = {
-      clientId: process.env.AIRBROKE_GOOGLE_ID,
+      clientId: googleClientId,
       clientSecret: process.env.AIRBROKE_GOOGLE_SECRET,
     };
   }
 
-  if (process.env.AIRBROKE_APPLE_ID && process.env.AIRBROKE_APPLE_SECRET) {
+  const appleClientId = normalizeClientIdEnvValue(
+    process.env.AIRBROKE_APPLE_ID,
+  );
+  if (appleClientId && process.env.AIRBROKE_APPLE_SECRET) {
     social.apple = {
-      clientId: process.env.AIRBROKE_APPLE_ID,
+      clientId: appleClientId,
       clientSecret: process.env.AIRBROKE_APPLE_SECRET,
     };
   }
@@ -135,13 +162,16 @@ export function buildSocialProviders(): Record<string, SocialProviderConfig> {
   // Microsoft Entra ID: use built-in provider unless a custom issuer is set.
   // Custom issuers (B2C, CIAM, non-default authorities) are handled as
   // generic OAuth in buildGenericOAuthConfig() instead.
+  const microsoftClientId = normalizeClientIdEnvValue(
+    process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_ID,
+  );
   if (
-    process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_ID &&
+    microsoftClientId &&
     process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_SECRET &&
     !process.env.AIRBROKE_MICROSOFT_ENTRA_ID_ISSUER
   ) {
     social.microsoft = {
-      clientId: process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_ID,
+      clientId: microsoftClientId,
       clientSecret: process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_SECRET,
       ...(process.env.AIRBROKE_MICROSOFT_ENTRA_ID_TENANT_ID && {
         tenantId: process.env.AIRBROKE_MICROSOFT_ENTRA_ID_TENANT_ID,
@@ -342,7 +372,7 @@ export function buildGenericOAuthConfig(): GenericOAuthConfig[] {
         return {
           id: user.uuid,
           name: user.display_name,
-          email: primary?.email ?? "",
+          email: primary?.email,
           image: user.links?.avatar?.href,
           emailVerified: primary?.is_confirmed ?? false,
         };
