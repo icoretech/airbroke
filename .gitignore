@@ -54,3 +54,4 @@ prisma/generated/
 docs/
 !docs/agents/
 .superpowers/
+.continue/
