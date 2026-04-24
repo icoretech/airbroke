@@ -4,7 +4,7 @@ import {
   airbrakeIntegrations,
   sentryIntegrations,
 } from "@/lib/integrationsData";
-import type { Prisma } from "@/prisma/generated/client";
+import { Prisma } from "@/prisma/generated/client";
 
 export type McpToolResult = {
   content: Array<{ type: "text"; text: string }>;
@@ -319,17 +319,238 @@ function formatOccurrenceSummary(
   return result;
 }
 
+const PROJECT_SUMMARY_SELECT = {
+  id: true,
+  name: true,
+  organization: true,
+  paused: true,
+  notices_count: true,
+  created_at: true,
+  updated_at: true,
+} satisfies Prisma.ProjectSelect;
+
+type ProjectSummary = Prisma.ProjectGetPayload<{
+  select: typeof PROJECT_SUMMARY_SELECT;
+}>;
+
+function normalizeProjectReference(value: string): string {
+  return value.trim().toLowerCase();
+}
+
+function splitProjectReference(
+  value: string,
+): { organization: string; name: string } | null {
+  const trimmed = value.trim();
+  const slashMatch = trimmed.match(/^(.+?)\s*\/\s*(.+)$/);
+  if (slashMatch) {
+    return {
+      organization: slashMatch[1].trim(),
+      name: slashMatch[2].trim(),
+    };
+  }
+
+  const colonMatch = trimmed.match(/^(.+?)\s*:\s*(.+)$/);
+  if (colonMatch) {
+    return {
+      organization: colonMatch[1].trim(),
+      name: colonMatch[2].trim(),
+    };
+  }
+
+  return null;
+}
+
+function buildProjectLookupDetails(
+  projectRef: string,
+  candidates: ProjectSummary[],
+): Record<string, unknown> {
+  return {
+    project_id: projectRef,
+    candidates: candidates.map((candidate) => ({
+      id: candidate.id,
+      name: candidate.name,
+      organization: candidate.organization,
+    })),
+  };
+}
+
+type ProjectResolution =
+  | {
+      status: "resolved";
+      project: ProjectSummary;
+      matched_by:
+        | "id"
+        | "name_exact"
+        | "org_name_exact"
+        | "name_prefix"
+        | "name_contains"
+        | "org_contains";
+    }
+  | {
+      status: "ambiguous";
+      candidates: ProjectSummary[];
+    }
+  | {
+      status: "missing";
+    };
+
+async function resolveProjectReference(
+  projectRef: string,
+): Promise<ProjectResolution> {
+  const exactProject = await db.project.findUnique({
+    where: { id: projectRef },
+    select: PROJECT_SUMMARY_SELECT,
+  });
+
+  if (exactProject) {
+    return {
+      status: "resolved",
+      project: exactProject,
+      matched_by: "id",
+    };
+  }
+
+  const trimmed = projectRef.trim();
+  const normalized = normalizeProjectReference(trimmed);
+  const composite = splitProjectReference(trimmed);
+
+  const candidates = await db.project.findMany({
+    where: {
+      OR: [
+        {
+          name: {
+            contains: trimmed,
+            mode: Prisma.QueryMode.insensitive,
+          },
+        },
+        {
+          organization: {
+            contains: trimmed,
+            mode: Prisma.QueryMode.insensitive,
+          },
+        },
+        ...(composite
+          ? [
+              {
+                AND: [
+                  {
+                    organization: {
+                      contains: composite.organization,
+                      mode: Prisma.QueryMode.insensitive,
+                    },
+                  },
+                  {
+                    name: {
+                      contains: composite.name,
+                      mode: Prisma.QueryMode.insensitive,
+                    },
+                  },
+                ],
+              },
+            ]
+          : []),
+      ],
+    },
+    orderBy: [{ organization: "asc" }, { name: "asc" }],
+    take: 10,
+    select: PROJECT_SUMMARY_SELECT,
+  });
+
+  if (candidates.length === 0) {
+    return { status: "missing" };
+  }
+
+  const scored = candidates
+    .map((candidate) => {
+      const candidateName = normalizeProjectReference(candidate.name);
+      const candidateOrganization = normalizeProjectReference(
+        candidate.organization,
+      );
+      const candidateComposite = `${candidateOrganization}/${candidateName}`;
+
+      let score = 0;
+      let matchedBy: ProjectResolution extends infer _T
+        ? Extract<ProjectResolution, { status: "resolved" }>["matched_by"]
+        : never = "name_contains";
+
+      if (candidateName === normalized) {
+        score = 100;
+        matchedBy = "name_exact";
+      } else if (
+        composite &&
+        candidateComposite ===
+          `${normalizeProjectReference(composite.organization)}/${normalizeProjectReference(composite.name)}`
+      ) {
+        score = 95;
+        matchedBy = "org_name_exact";
+      } else if (candidateName.startsWith(normalized)) {
+        score = 80;
+        matchedBy = "name_prefix";
+      } else if (candidateName.includes(normalized)) {
+        score = 70;
+        matchedBy = "name_contains";
+      } else if (candidateOrganization.includes(normalized)) {
+        score = 60;
+        matchedBy = "org_contains";
+      }
+
+      if (
+        composite &&
+        candidateOrganization.includes(
+          normalizeProjectReference(composite.organization),
+        ) &&
+        candidateName.includes(normalizeProjectReference(composite.name))
+      ) {
+        score = Math.max(score, 95);
+        matchedBy = "org_name_exact";
+      }
+
+      return {
+        candidate,
+        score,
+        matchedBy,
+      };
+    })
+    .sort(
+      (a, b) =>
+        b.score - a.score || a.candidate.name.localeCompare(b.candidate.name),
+    );
+
+  const top = scored[0];
+  const equallyStrong = scored.filter((item) => item.score === top.score);
+
+  if (top && top.score >= 70 && equallyStrong.length === 1) {
+    return {
+      status: "resolved",
+      project: top.candidate,
+      matched_by: top.matchedBy,
+    };
+  }
+
+  return {
+    status: "ambiguous",
+    candidates: scored.slice(0, 5).map((item) => item.candidate),
+  };
+}
+
 export const MCP_TOOLS: Record<string, ToolSpec> = {
   airbroke_list_projects: {
-    description: "List projects in Airbroke with optional filtering.",
+    description:
+      "List projects in Airbroke with optional filtering. Use this as the discovery-first tool when you only know a partial project or organization name.",
     inputSchema: ListProjectsArgsSchema,
     run: async (args: z.infer<typeof ListProjectsArgsSchema>) => {
       const where: Prisma.ProjectWhereInput = {};
       if (args.search) {
-        where.name = { contains: args.search, mode: "insensitive" };
+        where.OR = [
+          { name: { contains: args.search, mode: "insensitive" } },
+          { organization: { contains: args.search, mode: "insensitive" } },
+        ];
       }
       if (args.organization) {
-        where.organization = args.organization;
+        where.organization = {
+          contains: args.organization,
+          mode: "insensitive",
+        };
       }
       if (!args.includePaused) {
         where.paused = false;
@@ -340,15 +561,7 @@ export const MCP_TOOLS: Record<string, ToolSpec> = {
         orderBy: [{ organization: "asc" }, { name: "asc" }],
         take: args.limit,
         skip: args.offset,
-        select: {
-          id: true,
-          name: true,
-          organization: true,
-          paused: true,
-          notices_count: true,
-          created_at: true,
-          updated_at: true,
-        },
+        select: PROJECT_SUMMARY_SELECT,
       });
 
       return { projects };
@@ -358,8 +571,23 @@ export const MCP_TOOLS: Record<string, ToolSpec> = {
     description: "Get details for a single project by id.",
     inputSchema: GetProjectArgsSchema,
     run: async (args: z.infer<typeof GetProjectArgsSchema>) => {
+      const resolution = await resolveProjectReference(args.project_id);
+
+      if (resolution.status === "missing") {
+        return buildToolError("Project not found", {
+          project_id: args.project_id,
+        });
+      }
+
+      if (resolution.status === "ambiguous") {
+        return buildToolError(
+          "Project lookup is ambiguous",
+          buildProjectLookupDetails(args.project_id, resolution.candidates),
+        );
+      }
+
       const project = await db.project.findUnique({
-        where: { id: args.project_id },
+        where: { id: resolution.project.id },
         select: {
           id: true,
           name: true,
@@ -377,11 +605,15 @@ export const MCP_TOOLS: Record<string, ToolSpec> = {
 
       if (!project) {
         return buildToolError("Project not found", {
-          project_id: args.project_id,
+          project_id: resolution.project.id,
         });
       }
 
-      return { project };
+      return {
+        project,
+        requested_project_id: args.project_id,
+        matched_by: resolution.matched_by,
+      };
     },
   },
   airbroke_list_notices: {
@@ -389,8 +621,23 @@ export const MCP_TOOLS: Record<string, ToolSpec> = {
       "List notices for a project with optional search, env filter, sorting, and limit.",
     inputSchema: ListNoticesArgsSchema,
     run: async (args: z.infer<typeof ListNoticesArgsSchema>) => {
+      const resolution = await resolveProjectReference(args.project_id);
+
+      if (resolution.status === "missing") {
+        return buildToolError("Project not found", {
+          project_id: args.project_id,
+        });
+      }
+
+      if (resolution.status === "ambiguous") {
+        return buildToolError(
+          "Project lookup is ambiguous",
+          buildProjectLookupDetails(args.project_id, resolution.candidates),
+        );
+      }
+
       const where: Prisma.NoticeWhereInput = {
-        project_id: args.project_id,
+        project_id: resolution.project.id,
         ...(args.filter_by_env ? { env: args.filter_by_env } : {}),
         ...(args.search
           ? { kind: { contains: args.search, mode: "insensitive" } }
@@ -433,7 +680,11 @@ export const MCP_TOOLS: Record<string, ToolSpec> = {
             },
       });
 
-      return { notices };
+      return {
+        notices,
+        requested_project_id: args.project_id,
+        resolved_project_id: resolution.project.id,
+      };
     },
   },
   airbroke_list_occurrences: {
@@ -637,17 +888,41 @@ export const MCP_TOOLS: Record<string, ToolSpec> = {
       "Search across occurrences/notices/projects with optional filters for organization, project, env, and resolved status.",
     inputSchema: SearchArgsSchema,
     run: async (args: z.infer<typeof SearchArgsSchema>) => {
+      let resolvedProject: ProjectSummary | null = null;
+
+      if (args.project_id) {
+        const resolution = await resolveProjectReference(args.project_id);
+
+        if (resolution.status === "missing") {
+          return buildToolError("Project not found", {
+            project_id: args.project_id,
+          });
+        }
+
+        if (resolution.status === "ambiguous") {
+          return buildToolError(
+            "Project lookup is ambiguous",
+            buildProjectLookupDetails(args.project_id, resolution.candidates),
+          );
+        }
+
+        resolvedProject = resolution.project;
+      }
+
       const where: Prisma.OccurrenceWhereInput = {
         ...(args.include_resolved ? {} : { resolved_at: null }),
-        ...(args.project_id || args.env || args.organization
+        ...(resolvedProject || args.env || args.organization
           ? {
               notice: {
-                ...(args.project_id ? { project_id: args.project_id } : {}),
+                ...(resolvedProject ? { project_id: resolvedProject.id } : {}),
                 ...(args.env ? { env: args.env } : {}),
                 ...(args.organization
                   ? {
                       project: {
-                        organization: args.organization,
+                        organization: {
+                          equals: args.organization,
+                          mode: "insensitive",
+                        },
                       },
                     }
                   : {}),
@@ -707,13 +982,23 @@ export const MCP_TOOLS: Record<string, ToolSpec> = {
         query: args.query,
         filters: {
           organization: args.organization ?? null,
-          project_id: args.project_id ?? null,
+          project_id: resolvedProject?.id ?? args.project_id ?? null,
+          requested_project_id: args.project_id ?? null,
           env: args.env ?? null,
           include_resolved: args.include_resolved,
         },
         limit: args.limit,
         offset: args.offset,
         matches,
+        ...(resolvedProject
+          ? {
+              resolved_project: {
+                id: resolvedProject.id,
+                name: resolvedProject.name,
+                organization: resolvedProject.organization,
+              },
+            }
+          : {}),
       };
     },
   },
@@ -738,16 +1023,34 @@ export const MCP_TOOLS: Record<string, ToolSpec> = {
       let origin = "https://your-airbroke-host.example.com";
       let projectKey = "{YOUR_PROJECT_API_KEY}";
       let projectId = "{YOUR_PROJECT_ID}";
+      let matchedBy: string | null = null;
 
       if (args.project_id) {
+        const resolution = await resolveProjectReference(args.project_id);
+
+        if (resolution.status === "missing") {
+          return buildToolError("Project not found", {
+            project_id: args.project_id,
+          });
+        }
+
+        if (resolution.status === "ambiguous") {
+          return buildToolError(
+            "Project lookup is ambiguous",
+            buildProjectLookupDetails(args.project_id, resolution.candidates),
+          );
+        }
+
+        matchedBy = resolution.matched_by;
+
         const project = await db.project.findUnique({
-          where: { id: args.project_id },
+          where: { id: resolution.project.id },
           select: { id: true, api_key: true },
         });
 
         if (!project) {
           return buildToolError("Project not found", {
-            project_id: args.project_id,
+            project_id: resolution.project.id,
           });
         }
 
@@ -836,7 +1139,9 @@ export const MCP_TOOLS: Record<string, ToolSpec> = {
       }
 
       return {
-        project_id: args.project_id ?? null,
+        project_id: projectId === "{YOUR_PROJECT_ID}" ? null : projectId,
+        requested_project_id: args.project_id ?? null,
+        matched_by: matchedBy,
         has_real_credentials: Boolean(args.project_id),
         snippets,
         guidance:

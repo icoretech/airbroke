@@ -250,6 +250,14 @@ Notes on richer MCP outputs:
 
 - `airbroke_list_projects`, `airbroke_list_notices`, and `airbroke_list_occurrences`
   support `offset` + `limit` for page-like iteration.
+- `airbroke_list_projects` is the recommended discovery-first tool for fresh conversations.
+  It matches both project names and organization names case-insensitively, so queries like
+  `my-app`, `school-portal`, or `example-org` can surface the right project candidates without
+  already knowing the internal project id.
+- `airbroke_get_project`, `airbroke_list_notices`, `airbroke_search`, and
+  `airbroke_get_setup_guide` accept exact project ids, but also resolve common LLM-style
+  project references such as partial project names when the match is unambiguous. If a
+  reference is ambiguous, they return candidate projects instead of a silent false negative.
 - `airbroke_list_notices` supports `include_project=true` to embed minimal project data
   and `include_resolved=false` to hide resolved notices (default: `true`, show all).
   Notice payloads include `resolved_at` (null when unresolved).
@@ -289,6 +297,14 @@ url = "https://myairbroke.xyz/api/mcp"
 [mcp_servers.airbroke.http_headers]
 X-Airbroke-Mcp-Key = "replace-me"
 ```
+
+Example discovery flow:
+
+1. Call `airbroke_list_projects` with the best human-friendly hint you have, such as
+   `search: "my-app"` or `organization: "example-org"`
+2. If needed, call `airbroke_get_project` with the returned id or the same unambiguous
+   project reference
+3. Use the resolved project id for `airbroke_list_notices` / `airbroke_search`
 
 ## Authentication Layer
 

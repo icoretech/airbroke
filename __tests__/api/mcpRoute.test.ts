@@ -310,11 +310,47 @@ describe("POST /api/mcp", () => {
       expect(res.status).toBe(200);
       expect(vi.mocked(db.project.findMany)).toHaveBeenCalledTimes(1);
       expect(vi.mocked(db.project.findMany).mock.calls[0]?.[0]).toMatchObject({
-        where: { name: { contains: "api", mode: "insensitive" } },
+        where: {
+          OR: [
+            { name: { contains: "api", mode: "insensitive" } },
+            { organization: { contains: "api", mode: "insensitive" } },
+          ],
+        },
         take: 5,
         skip: 2,
       });
       expect(structured.projects[0]?.notices_count).toBe(7);
+    });
+
+    it("matches organization text case-insensitively for discovery", async () => {
+      vi.mocked(db.project.findMany).mockResolvedValue([]);
+
+      const res = await POST(
+        callTool("airbroke_list_projects", {
+          search: "sample-app",
+          organization: "example-org",
+        }),
+      );
+      await parseMcpResponse(res);
+
+      expect(res.status).toBe(200);
+      expect(vi.mocked(db.project.findMany).mock.calls[0]?.[0]).toMatchObject({
+        where: {
+          OR: [
+            { name: { contains: "sample-app", mode: "insensitive" } },
+            {
+              organization: {
+                contains: "sample-app",
+                mode: "insensitive",
+              },
+            },
+          ],
+          organization: {
+            contains: "example-org",
+            mode: "insensitive",
+          },
+        },
+      });
     });
   });
 
@@ -368,12 +404,108 @@ describe("POST /api/mcp", () => {
       expect(result.isError).toBe(true);
       expect(result.structuredContent?.error).toBe("Project not found");
     });
+
+    it("resolves an unambiguous project name reference", async () => {
+      vi.mocked(db.project.findUnique)
+        .mockResolvedValueOnce(null)
+        .mockResolvedValueOnce({
+          id: "p1",
+          name: "sample-app",
+          organization: "Example Org",
+          paused: false,
+          notices_count: BigInt(7),
+          repo_provider: "github",
+          repo_branch: "main",
+          repo_issue_tracker: null,
+          repo_url: "https://github.com/example-org/sample-app",
+          created_at: new Date("2026-01-01T00:00:00.000Z"),
+          updated_at: new Date("2026-02-21T10:00:00.000Z"),
+        } as unknown as Awaited<ReturnType<typeof db.project.findUnique>>);
+      vi.mocked(db.project.findMany).mockResolvedValueOnce([
+        {
+          id: "p1",
+          name: "sample-app",
+          organization: "Example Org",
+          paused: false,
+          notices_count: BigInt(7),
+          created_at: new Date("2026-01-01T00:00:00.000Z"),
+          updated_at: new Date("2026-02-21T10:00:00.000Z"),
+        },
+      ] as unknown as Awaited<ReturnType<typeof db.project.findMany>>);
+
+      const res = await POST(
+        callTool("airbroke_get_project", { project_id: "sample-app" }),
+      );
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        project: { id: string; name: string };
+        matched_by: string;
+        requested_project_id: string;
+      };
+
+      expect(res.status).toBe(200);
+      expect(structured.project.id).toBe("p1");
+      expect(structured.project.name).toBe("sample-app");
+      expect(structured.matched_by).toBe("name_exact");
+      expect(structured.requested_project_id).toBe("sample-app");
+    });
+
+    it("returns candidate suggestions for ambiguous project references", async () => {
+      vi.mocked(db.project.findUnique).mockResolvedValueOnce(null);
+      vi.mocked(db.project.findMany).mockResolvedValueOnce([
+        {
+          id: "p1",
+          name: "ai-studio",
+          organization: "Example Org",
+          paused: false,
+          notices_count: BigInt(2),
+          created_at: new Date("2026-01-01T00:00:00.000Z"),
+          updated_at: new Date("2026-02-21T10:00:00.000Z"),
+        },
+        {
+          id: "p2",
+          name: "ai-editor",
+          organization: "Example Org",
+          paused: false,
+          notices_count: BigInt(1),
+          created_at: new Date("2026-01-01T00:00:00.000Z"),
+          updated_at: new Date("2026-02-21T10:00:00.000Z"),
+        },
+      ] as unknown as Awaited<ReturnType<typeof db.project.findMany>>);
+
+      const res = await POST(
+        callTool("airbroke_get_project", { project_id: "ai" }),
+      );
+      const json = await parseMcpResponse(res);
+      const result = requireResult(json) as {
+        isError?: boolean;
+        structuredContent?: {
+          error?: string;
+          details?: { candidates?: Array<{ id: string }> };
+        };
+      };
+
+      expect(result.isError).toBe(true);
+      expect(result.structuredContent?.error).toBe(
+        "Project lookup is ambiguous",
+      );
+      expect(result.structuredContent?.details?.candidates).toHaveLength(2);
+    });
   });
 
   // ── airbroke_list_notices ─────────────────────────────────────────────
 
   describe("airbroke_list_notices", () => {
     it("returns notices with include_project and offset", async () => {
+      vi.mocked(db.project.findUnique).mockResolvedValueOnce({
+        id: "p1",
+        name: "api",
+        organization: "icoretech",
+        paused: false,
+        notices_count: BigInt(7),
+        created_at: new Date("2026-01-01T00:00:00.000Z"),
+        updated_at: new Date("2026-02-21T10:00:00.000Z"),
+      } as unknown as Awaited<ReturnType<typeof db.project.findUnique>>);
       vi.mocked(db.notice.findMany).mockResolvedValue([
         {
           id: "n1",
@@ -415,6 +547,15 @@ describe("POST /api/mcp", () => {
     });
 
     it("filters out resolved notices when include_resolved is false", async () => {
+      vi.mocked(db.project.findUnique).mockResolvedValueOnce({
+        id: "p1",
+        name: "api",
+        organization: "icoretech",
+        paused: false,
+        notices_count: BigInt(7),
+        created_at: new Date("2026-01-01T00:00:00.000Z"),
+        updated_at: new Date("2026-02-21T10:00:00.000Z"),
+      } as unknown as Awaited<ReturnType<typeof db.project.findUnique>>);
       vi.mocked(db.notice.findMany).mockResolvedValue([]);
 
       const res = await POST(
@@ -435,6 +576,15 @@ describe("POST /api/mcp", () => {
     });
 
     it("includes all notices by default (include_resolved defaults to true)", async () => {
+      vi.mocked(db.project.findUnique).mockResolvedValueOnce({
+        id: "p1",
+        name: "api",
+        organization: "icoretech",
+        paused: false,
+        notices_count: BigInt(7),
+        created_at: new Date("2026-01-01T00:00:00.000Z"),
+        updated_at: new Date("2026-02-21T10:00:00.000Z"),
+      } as unknown as Awaited<ReturnType<typeof db.project.findUnique>>);
       vi.mocked(db.notice.findMany).mockResolvedValue([]);
 
       const res = await POST(
@@ -449,6 +599,15 @@ describe("POST /api/mcp", () => {
     });
 
     it("applies filter_by_env and search", async () => {
+      vi.mocked(db.project.findUnique).mockResolvedValueOnce({
+        id: "p1",
+        name: "api",
+        organization: "icoretech",
+        paused: false,
+        notices_count: BigInt(7),
+        created_at: new Date("2026-01-01T00:00:00.000Z"),
+        updated_at: new Date("2026-02-21T10:00:00.000Z"),
+      } as unknown as Awaited<ReturnType<typeof db.project.findUnique>>);
       vi.mocked(db.notice.findMany).mockResolvedValue([]);
 
       const res = await POST(
@@ -472,6 +631,15 @@ describe("POST /api/mcp", () => {
 
     it("includes resolved_at in notice payloads", async () => {
       const resolvedDate = new Date("2026-03-01T12:00:00.000Z");
+      vi.mocked(db.project.findUnique).mockResolvedValueOnce({
+        id: "p1",
+        name: "api",
+        organization: "icoretech",
+        paused: false,
+        notices_count: BigInt(7),
+        created_at: new Date("2026-01-01T00:00:00.000Z"),
+        updated_at: new Date("2026-02-21T10:00:00.000Z"),
+      } as unknown as Awaited<ReturnType<typeof db.project.findUnique>>);
       vi.mocked(db.notice.findMany).mockResolvedValue([
         {
           id: "n1",
@@ -1003,7 +1171,12 @@ describe("POST /api/mcp", () => {
           resolved_at: null,
           notice: {
             env: "android-production",
-            project: { organization: "AR" },
+            project: {
+              organization: {
+                equals: "AR",
+                mode: "insensitive",
+              },
+            },
           },
         },
       });
@@ -1013,6 +1186,15 @@ describe("POST /api/mcp", () => {
     });
 
     it("searches by project_id", async () => {
+      vi.mocked(db.project.findUnique).mockResolvedValueOnce({
+        id: "p1",
+        name: "api",
+        organization: "icoretech",
+        paused: false,
+        notices_count: BigInt(7),
+        created_at: new Date("2026-01-01T00:00:00.000Z"),
+        updated_at: new Date("2026-02-21T10:00:00.000Z"),
+      } as unknown as Awaited<ReturnType<typeof db.project.findUnique>>);
       vi.mocked(db.occurrence.findMany).mockResolvedValue([]);
 
       const res = await POST(
@@ -1032,6 +1214,48 @@ describe("POST /api/mcp", () => {
           },
         },
       });
+    });
+
+    it("resolves a human project reference before running search", async () => {
+      vi.mocked(db.project.findUnique).mockResolvedValueOnce(null);
+      vi.mocked(db.project.findMany).mockResolvedValueOnce([
+        {
+          id: "p1",
+          name: "sample-app",
+          organization: "Example Org",
+          paused: false,
+          notices_count: BigInt(4),
+          created_at: new Date("2026-01-01T00:00:00.000Z"),
+          updated_at: new Date("2026-02-21T10:00:00.000Z"),
+        },
+      ] as unknown as Awaited<ReturnType<typeof db.project.findMany>>);
+      vi.mocked(db.occurrence.findMany).mockResolvedValueOnce([]);
+
+      const res = await POST(
+        callTool("airbroke_search", {
+          project_id: "sample-app",
+          query: "Unauthorized",
+        }),
+      );
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        filters: { project_id: string; requested_project_id: string };
+        resolved_project: { name: string };
+      };
+
+      expect(res.status).toBe(200);
+      expect(
+        vi.mocked(db.occurrence.findMany).mock.calls[0]?.[0],
+      ).toMatchObject({
+        where: {
+          notice: {
+            project_id: "p1",
+          },
+        },
+      });
+      expect(structured.filters.project_id).toBe("p1");
+      expect(structured.filters.requested_project_id).toBe("sample-app");
+      expect(structured.resolved_project.name).toBe("sample-app");
     });
 
     it("returns validation error without query", async () => {
@@ -1138,6 +1362,40 @@ describe("POST /api/mcp", () => {
       expect(rubySnippet?.code).not.toContain("{REPLACE_");
 
       delete process.env.BETTER_AUTH_URL;
+    });
+
+    it("resolves real credentials from an unambiguous project name", async () => {
+      vi.mocked(db.project.findUnique)
+        .mockResolvedValueOnce(null)
+        .mockResolvedValueOnce({
+          id: "p1",
+          api_key: "real-api-key-123",
+        } as unknown as Awaited<ReturnType<typeof db.project.findUnique>>);
+      vi.mocked(db.project.findMany).mockResolvedValueOnce([
+        {
+          id: "p1",
+          name: "sample-app",
+          organization: "Example Org",
+          paused: false,
+          notices_count: BigInt(4),
+          created_at: new Date("2026-01-01T00:00:00.000Z"),
+          updated_at: new Date("2026-02-21T10:00:00.000Z"),
+        },
+      ] as unknown as Awaited<ReturnType<typeof db.project.findMany>>);
+
+      const res = await POST(
+        callTool("airbroke_get_setup_guide", { project_id: "sample-app" }),
+      );
+      const json = await parseMcpResponse(res);
+      const structured = requireStructuredContent(json) as {
+        project_id: string;
+        requested_project_id: string;
+        matched_by: string;
+      };
+
+      expect(structured.project_id).toBe("p1");
+      expect(structured.requested_project_id).toBe("sample-app");
+      expect(structured.matched_by).toBe("name_exact");
     });
 
     it("returns not found for missing project", async () => {
