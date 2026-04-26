@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.10](https://github.com/icoretech/airbroke/compare/v1.2.9...v1.2.10) (2026-04-26)
+
+
+### Bug Fixes
+
+* **auth:** harden provider client id handling ([c370cc1](https://github.com/icoretech/airbroke/commit/c370cc1a51e4ada66e656d551736da51e8f745f3))
+* **deps:** update dependency better-auth to v1.6.6 ([#1632](https://github.com/icoretech/airbroke/issues/1632)) ([41a807a](https://github.com/icoretech/airbroke/commit/41a807a6b4ee56f13996a9fcde292994b7b1ee3d))
+* **deps:** update dependency better-auth to v1.6.7 ([#1634](https://github.com/icoretech/airbroke/issues/1634)) ([0e90f13](https://github.com/icoretech/airbroke/commit/0e90f13a5d664be2401ab2e47d36489d19d8ad3e))
+* **deps:** update dependency better-auth to v1.6.9 ([#1640](https://github.com/icoretech/airbroke/issues/1640)) ([7b759d8](https://github.com/icoretech/airbroke/commit/7b759d83565c3511bdd9e980b6ca8e76a217c8e0))
+* **deps:** update dependency lucide-react to v1.11.0 ([#1638](https://github.com/icoretech/airbroke/issues/1638)) ([358afa5](https://github.com/icoretech/airbroke/commit/358afa59cca8c552220aa439a3e3509eb9066124))
+* **deps:** update prisma monorepo to v7.8.0 ([#1635](https://github.com/icoretech/airbroke/issues/1635)) ([429ac53](https://github.com/icoretech/airbroke/commit/429ac535adc0e5af1f98d8331549465333e1f35b))
+* improve MCP project discovery for agent lookups ([4488a67](https://github.com/icoretech/airbroke/commit/4488a6765dd432323dac8f9e3042783af255e8d8))
+
 ## [1.2.9](https://github.com/icoretech/airbroke/compare/v1.2.8...v1.2.9) (2026-04-21)
 
 
