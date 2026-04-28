@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.11](https://github.com/icoretech/airbroke/compare/v1.2.10...v1.2.11) (2026-04-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @microlink/react-json-view to v1.31.19 ([#1644](https://github.com/icoretech/airbroke/issues/1644)) ([d8effe3](https://github.com/icoretech/airbroke/commit/d8effe346876157216d1c8348facc2dc73324d59))
+* **deps:** update dependency lucide-react to v1.12.0 ([#1646](https://github.com/icoretech/airbroke/issues/1646)) ([d6554cd](https://github.com/icoretech/airbroke/commit/d6554cdf30328e53aaeb80bfc98ad82e98f129dd))
+
 ## [1.2.10](https://github.com/icoretech/airbroke/compare/v1.2.9...v1.2.10) (2026-04-26)
 
 
