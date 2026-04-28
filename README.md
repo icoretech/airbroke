@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/icoretech-airbroke-badge.png)](https://mseep.ai/app/icoretech-airbroke)
+
 <p align="center">
   <img src="public/logo-full.png" height="400">
   <h1 align="center">Open Source Error Catcher</h1>
