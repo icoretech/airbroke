@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.12](https://github.com/icoretech/airbroke/compare/v1.2.11...v1.2.12) (2026-04-29)
+
+
+### Bug Fixes
+
+* **deps:** update vercel ai sdk ([92069c9](https://github.com/icoretech/airbroke/commit/92069c9abbadcf3b90d5fcd5c8295f6ae5e9f92b))
+
 ## [1.2.11](https://github.com/icoretech/airbroke/compare/v1.2.10...v1.2.11) (2026-04-28)
 
 
