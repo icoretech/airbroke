@@ -4160,7 +4160,7 @@ __metadata:
     tw-animate-css: "npm:1.4.0"
     typescript: "npm:6.0.3"
     vitest: "npm:4.1.5"
-    zod: "npm:4.3.6"
+    zod: "npm:4.4.1"
   languageName: unknown
   linkType: soft
 
@@ -8445,7 +8445,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:4.3.6, zod@npm:^3.25 || ^4.0, zod@npm:^4.3.6":
+"zod@npm:4.4.1":
+  version: 4.4.1
+  resolution: "zod@npm:4.4.1"
+  checksum: 10/e9c62dc846ed4c6ab5b062ffdc9ac7d38eadc41a921b71015f3a9d9ef6d3448c72ac93beb0015bd33d774e68e804e65840834101296950f5cbd7e3d64973f64c
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.25 || ^4.0, zod@npm:^4.3.6":
   version: 4.3.6
   resolution: "zod@npm:4.3.6"
   checksum: 10/25fc0f62e01b557b4644bf0b393bbaf47542ab30877c37837ea8caf314a8713d220c7d7fe51f68ffa72f0e1018ddfa34d96f1973d23033f5a2a5a9b6b9d9da01
