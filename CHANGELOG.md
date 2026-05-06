@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.2.12](https://github.com/icoretech/airbroke/compare/v1.2.11...v1.2.12) (2026-05-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/openai to v3.0.61 ([#1662](https://github.com/icoretech/airbroke/issues/1662)) ([98521a5](https://github.com/icoretech/airbroke/commit/98521a5c277bd4ce4c1ec5c2644b1733950d5ced))
+* **deps:** update dependency @ai-sdk/openai to v3.0.62 ([#1664](https://github.com/icoretech/airbroke/issues/1664)) ([02b47a9](https://github.com/icoretech/airbroke/commit/02b47a91ef8026e3078e293ae6b246386cfc6b68))
+* **deps:** update dependency @microlink/react-json-view to v1.31.20 ([#1658](https://github.com/icoretech/airbroke/issues/1658)) ([57a07a9](https://github.com/icoretech/airbroke/commit/57a07a94f69d389c4a1367c2e1dc81b7b44e7c47))
+* **deps:** update dependency lucide-react to v1.14.0 ([#1649](https://github.com/icoretech/airbroke/issues/1649)) ([3452a05](https://github.com/icoretech/airbroke/commit/3452a05b05d47639f00b3737c442bacd2b8418e6))
+* **deps:** update dependency nanoid to v5.1.11 ([#1655](https://github.com/icoretech/airbroke/issues/1655)) ([2bd1c23](https://github.com/icoretech/airbroke/commit/2bd1c236359b75fa7b7d600cafe71dba615eaa9d))
+* **deps:** update dependency next to v16.2.5 ([1343e7e](https://github.com/icoretech/airbroke/commit/1343e7e6f0b336a03a4682f525fb891935605501))
+* **deps:** update dependency zod to v4.4.1 ([#1651](https://github.com/icoretech/airbroke/issues/1651)) ([647cd74](https://github.com/icoretech/airbroke/commit/647cd741da2f1d02c9ec339a79195e01ec274999))
+* **deps:** update dependency zod to v4.4.2 ([#1657](https://github.com/icoretech/airbroke/issues/1657)) ([47ff0d5](https://github.com/icoretech/airbroke/commit/47ff0d50b069eaf5b7697ff2ea99fc16fc762ec4))
+* **deps:** update dependency zod to v4.4.3 ([#1659](https://github.com/icoretech/airbroke/issues/1659)) ([31913f5](https://github.com/icoretech/airbroke/commit/31913f5184c5f2cf696f2eb69b1e57e9288a18a6))
+* **deps:** update react monorepo to v19.2.6 ([5174553](https://github.com/icoretech/airbroke/commit/5174553f373dc6c8a050732124c0f683f4c1633f))
+* **deps:** update sentry-javascript monorepo to v10.51.0 ([#1639](https://github.com/icoretech/airbroke/issues/1639)) ([df5964d](https://github.com/icoretech/airbroke/commit/df5964dda5f02511cb751cdda42e5611456df61e))
+* **deps:** update vercel ai sdk ([92069c9](https://github.com/icoretech/airbroke/commit/92069c9abbadcf3b90d5fcd5c8295f6ae5e9f92b))
+* **deps:** update vercel ai sdk ([#1650](https://github.com/icoretech/airbroke/issues/1650)) ([252352a](https://github.com/icoretech/airbroke/commit/252352a732fc8e54000c0d703740d92347a66bfa))
+* **deps:** update vercel ai sdk ([#1653](https://github.com/icoretech/airbroke/issues/1653)) ([578df44](https://github.com/icoretech/airbroke/commit/578df44dc79d9e0a81ce372555ec189781727482))
+* **deps:** update vercel ai sdk ([#1661](https://github.com/icoretech/airbroke/issues/1661)) ([1223113](https://github.com/icoretech/airbroke/commit/1223113c7c128a2788657fb3dfd606ce12baabf3))
+
 ## [1.2.11](https://github.com/icoretech/airbroke/compare/v1.2.10...v1.2.11) (2026-04-28)
 
 
