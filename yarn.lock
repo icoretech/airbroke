@@ -52,17 +52,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ai-sdk/react@npm:3.0.185":
-  version: 3.0.185
-  resolution: "@ai-sdk/react@npm:3.0.185"
+"@ai-sdk/react@npm:3.0.186":
+  version: 3.0.186
+  resolution: "@ai-sdk/react@npm:3.0.186"
   dependencies:
     "@ai-sdk/provider-utils": "npm:4.0.27"
-    ai: "npm:6.0.183"
+    ai: "npm:6.0.184"
     swr: "npm:^2.2.5"
     throttleit: "npm:2.1.0"
   peerDependencies:
     react: ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1
-  checksum: 10/b192b0742469de48f29afc7d87dc79a8759a43ad498cb4fcf3558610d0847101326601419c2016146666e7f1f09d1f2f6ad72e3233145cc0865cd428da904df1
+  checksum: 10/9ca2f9360be4f7c712cb7c16dccdcafda3b0f0f9969c7a5e1f998a84ccd3b378ddd91d3f19a7e33f90a6c5c22e941c1c8046bb2cba90742322dbd50ec969945d
   languageName: node
   linkType: hard
 
@@ -4067,9 +4067,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:6.0.183":
-  version: 6.0.183
-  resolution: "ai@npm:6.0.183"
+"ai@npm:6.0.184":
+  version: 6.0.184
+  resolution: "ai@npm:6.0.184"
   dependencies:
     "@ai-sdk/gateway": "npm:3.0.115"
     "@ai-sdk/provider": "npm:3.0.10"
@@ -4077,7 +4077,7 @@ __metadata:
     "@opentelemetry/api": "npm:^1.9.0"
   peerDependencies:
     zod: ^3.25.76 || ^4.1.8
-  checksum: 10/e8419f5889b6a056e05ed4660f6a652aabac66bac518d2c5800c2d53a389084b10b2af627be557a8b578ed3e67802fdbfa3ddd7cfc4a5c9e58f3c6dad45e7459
+  checksum: 10/9182edfa0359bd4d1c90301c98f57460a80d187ba79f7b4aceb2b4b84d1059e955968bf9632afdb1c97b2dc4d44cf523d37ec22d97ee25b76d396e585e862c85
   languageName: node
   linkType: hard
 
@@ -4086,7 +4086,7 @@ __metadata:
   resolution: "airbroke@workspace:."
   dependencies:
     "@ai-sdk/openai": "npm:3.0.64"
-    "@ai-sdk/react": "npm:3.0.185"
+    "@ai-sdk/react": "npm:3.0.186"
     "@airbrake/browser": "npm:2.1.9"
     "@airbrake/node": "npm:2.1.9"
     "@biomejs/biome": "npm:2.4.15"
@@ -4121,7 +4121,7 @@ __metadata:
     "@types/react-dom": "npm:19.2.3"
     "@types/react-syntax-highlighter": "npm:15.5.13"
     "@vitest/coverage-v8": "npm:4.1.6"
-    ai: "npm:6.0.183"
+    ai: "npm:6.0.184"
     babel-plugin-react-compiler: "npm:1.0.0"
     better-auth: "npm:1.6.11"
     chart.js: "npm:4.5.1"
