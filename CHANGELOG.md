@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.2.13](https://github.com/icoretech/airbroke/compare/v1.2.12...v1.2.13) (2026-05-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency better-auth to v1.6.10 ([#1674](https://github.com/icoretech/airbroke/issues/1674)) ([e2880eb](https://github.com/icoretech/airbroke/commit/e2880ebb9207c99ac22b15f6ceacf30ce060b0da))
+* **deps:** update dependency better-auth to v1.6.11 ([#1678](https://github.com/icoretech/airbroke/issues/1678)) ([3b57a34](https://github.com/icoretech/airbroke/commit/3b57a3457a125e714a9b25b29edd6d8772f0921e))
+* **deps:** update dependency date-fns to v4.2.1 ([#1686](https://github.com/icoretech/airbroke/issues/1686)) ([613403b](https://github.com/icoretech/airbroke/commit/613403b5b26753c363ef3ff621e1576b015b7459))
+* **deps:** update dependency lucide-react to v1.16.0 ([#1682](https://github.com/icoretech/airbroke/issues/1682)) ([a5aff69](https://github.com/icoretech/airbroke/commit/a5aff69d1f84d148304439c9db5677f43ccbf4f0))
+* **deps:** update dependency motion to v12.39.0 ([#1688](https://github.com/icoretech/airbroke/issues/1688)) ([5987678](https://github.com/icoretech/airbroke/commit/5987678a083fe98f406ad5324a18c899d9128417))
+* **deps:** update dependency tailwind-merge to v3.6.0 ([#1675](https://github.com/icoretech/airbroke/issues/1675)) ([9ba8562](https://github.com/icoretech/airbroke/commit/9ba856206e470af5b2866b7df265d3d6e6c7efac))
+* **deps:** update sentry-javascript monorepo to v10.53.1 ([#1680](https://github.com/icoretech/airbroke/issues/1680)) ([e706b70](https://github.com/icoretech/airbroke/commit/e706b7076296d8f05ff05f83d02810bbb3bccde5))
+* **deps:** update vercel ai sdk ([#1669](https://github.com/icoretech/airbroke/issues/1669)) ([1625af5](https://github.com/icoretech/airbroke/commit/1625af508593d6a26a11d98820924407bbb298c4))
+* **deps:** update vercel ai sdk ([#1671](https://github.com/icoretech/airbroke/issues/1671)) ([f898beb](https://github.com/icoretech/airbroke/commit/f898bebfa43807603b337216cee2e1736dec73c2))
+* **deps:** update vercel ai sdk ([#1679](https://github.com/icoretech/airbroke/issues/1679)) ([1640dde](https://github.com/icoretech/airbroke/commit/1640ddea59f8d946b39026d3e48a0393c573788a))
+* **deps:** update vercel ai sdk ([#1681](https://github.com/icoretech/airbroke/issues/1681)) ([11f6419](https://github.com/icoretech/airbroke/commit/11f6419ec1f811aa4eb114496175936554e03e24))
+* **deps:** update vercel ai sdk ([#1684](https://github.com/icoretech/airbroke/issues/1684)) ([5b53131](https://github.com/icoretech/airbroke/commit/5b5313198b8995266b6a199dd9be99b67256797a))
+* **deps:** update vercel ai sdk ([#1685](https://github.com/icoretech/airbroke/issues/1685)) ([5d0b0b1](https://github.com/icoretech/airbroke/commit/5d0b0b147f14bd37bacc545766bd58499a067432))
+* **deps:** update vercel ai sdk ([#1689](https://github.com/icoretech/airbroke/issues/1689)) ([0710ff9](https://github.com/icoretech/airbroke/commit/0710ff9e9c5e47de1890dea10aad7430098f28bb))
+
 ## [1.2.12](https://github.com/icoretech/airbroke/compare/v1.2.11...v1.2.12) (2026-05-08)
 
 
