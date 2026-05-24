@@ -16,6 +16,10 @@
   ],
   "packageRules": [
     {
+      "matchDatasources": ["npm"],
+      "minimumReleaseAge": "1 day"
+    },
+    {
       "matchPackageNames": ["ai", "@ai-sdk/react", "@ai-sdk/openai"],
       "groupName": "Vercel AI SDK",
       "groupSlug": "vercel-ai-sdk"
