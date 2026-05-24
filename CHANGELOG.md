@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.2.14](https://github.com/icoretech/airbroke/compare/v1.2.13...v1.2.14) (2026-05-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency date-fns to v4.3.0 ([38cd6ef](https://github.com/icoretech/airbroke/commit/38cd6ef487941a35f4c6122084b320956716ab04))
+* **deps:** update dependency motion to v12.40.0 ([#1697](https://github.com/icoretech/airbroke/issues/1697)) ([ea9005d](https://github.com/icoretech/airbroke/commit/ea9005def05c311a38a9f1ed8f74859958d45b17))
+* **deps:** update vercel ai sdk ([#1695](https://github.com/icoretech/airbroke/issues/1695)) ([c321033](https://github.com/icoretech/airbroke/commit/c321033e4f12073c3117b2d492e4024cf3f7a32a))
+* **renovate:** delay npm updates for yarn age gate ([21cfc27](https://github.com/icoretech/airbroke/commit/21cfc27e389fb30e69a5ac709ce7337aad9e9df2))
+
 ## [1.2.13](https://github.com/icoretech/airbroke/compare/v1.2.12...v1.2.13) (2026-05-20)
 
 
