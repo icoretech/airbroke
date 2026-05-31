@@ -3762,7 +3762,7 @@ __metadata:
     chart.js: "npm:4.5.1"
     class-variance-authority: "npm:0.7.1"
     clsx: "npm:2.1.1"
-    date-fns: "npm:4.3.0"
+    date-fns: "npm:4.4.0"
     jsdom: "npm:29.1.1"
     lucide-react: "npm:1.17.0"
     mcp-handler: "npm:1.1.0"
@@ -4499,10 +4499,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns@npm:4.3.0":
-  version: 4.3.0
-  resolution: "date-fns@npm:4.3.0"
-  checksum: 10/be129ab084a43cb06d2f598008fc3816b9c3767f0e9b7f08c19981b99f361cdee623c63d89e8eb305ebb488778027358127284a2f2aca6da258b3cd33d7366fe
+"date-fns@npm:4.4.0":
+  version: 4.4.0
+  resolution: "date-fns@npm:4.4.0"
+  checksum: 10/ae702acea42fb8452abe74f6d133c2360de9a14f00985645684b0df9c12280276649e95b52298a4fd7dabcc3b38799eb111107da99320d1cd94ba1d8a3d1c174
   languageName: node
   linkType: hard
 
