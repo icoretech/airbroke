@@ -2953,70 +2953,79 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry-internal/browser-utils@npm:10.55.0":
-  version: 10.55.0
-  resolution: "@sentry-internal/browser-utils@npm:10.55.0"
+"@sentry-internal/browser-utils@npm:10.56.0":
+  version: 10.56.0
+  resolution: "@sentry-internal/browser-utils@npm:10.56.0"
   dependencies:
-    "@sentry/core": "npm:10.55.0"
-  checksum: 10/39abfb368785e3223a52f3e013c122283c28ae10c358e7bf44c7918eb8f536fc2ba1c546028d02505941114ac2e1db5380275a5869c7623f5f347a3750664be8
+    "@sentry/core": "npm:10.56.0"
+  checksum: 10/7cfadd1a4862089cc076aaaefa251669a3deb34ce497efd8d91efd6b937223a97bc26be110e4667a1b02d6f2f5a681d7fe40cfe814f3d9416b294e3b5383e48c
   languageName: node
   linkType: hard
 
-"@sentry-internal/feedback@npm:10.55.0":
-  version: 10.55.0
-  resolution: "@sentry-internal/feedback@npm:10.55.0"
+"@sentry-internal/feedback@npm:10.56.0":
+  version: 10.56.0
+  resolution: "@sentry-internal/feedback@npm:10.56.0"
   dependencies:
-    "@sentry/core": "npm:10.55.0"
-  checksum: 10/06937e2ad753ac083d37b699a7b81e315c3847c95ae56f01fde295705bea325486eac0abfaab4713ee9bdc0b09426332e25b465f2b9d4ed820415fd22f01287c
+    "@sentry/core": "npm:10.56.0"
+  checksum: 10/d2baa354fe79d0949f539d934b29d2d90fd95089fcfc47d0e8538ea305b0380fefe1d56dc1a2903af5d555671f92fd5b930a95a98dd4423d51df0d0c5970a387
   languageName: node
   linkType: hard
 
-"@sentry-internal/replay-canvas@npm:10.55.0":
-  version: 10.55.0
-  resolution: "@sentry-internal/replay-canvas@npm:10.55.0"
+"@sentry-internal/replay-canvas@npm:10.56.0":
+  version: 10.56.0
+  resolution: "@sentry-internal/replay-canvas@npm:10.56.0"
   dependencies:
-    "@sentry-internal/replay": "npm:10.55.0"
-    "@sentry/core": "npm:10.55.0"
-  checksum: 10/e2ab7e6b1ba4893da274437ba5c4895878b52086ab8bf45e3bdf2be6cbaba1b4af113b2d6fef82715c875ddfef17be9a4e4e96ff2abff1af87a9a335e84e03ba
+    "@sentry-internal/replay": "npm:10.56.0"
+    "@sentry/core": "npm:10.56.0"
+  checksum: 10/095473987400689136e7d7765c167158d0a0af878b274b88d67822a8a71feca496aa726cb18d1513f2780677b38619dcbb26f89e2188ed421b0e417873ebcb64
   languageName: node
   linkType: hard
 
-"@sentry-internal/replay@npm:10.55.0":
-  version: 10.55.0
-  resolution: "@sentry-internal/replay@npm:10.55.0"
+"@sentry-internal/replay@npm:10.56.0":
+  version: 10.56.0
+  resolution: "@sentry-internal/replay@npm:10.56.0"
   dependencies:
-    "@sentry-internal/browser-utils": "npm:10.55.0"
-    "@sentry/core": "npm:10.55.0"
-  checksum: 10/8c38e07e38429fd8cd3a372c3d4f009e376e0d499ec19d9100f4774e3343214c35fecaa0e7b18f98b626ba75241bd2678d6c9aa9def892f0dd2631668120768e
+    "@sentry-internal/browser-utils": "npm:10.56.0"
+    "@sentry/core": "npm:10.56.0"
+  checksum: 10/d42053eb62cbdd2cace99d462f6a304a7f84726212ce6fb0908c8e93145ce0698f530c420c42076f49f8607834e507d71a68e407c29c31a4bdb2a23c14dc569a
   languageName: node
   linkType: hard
 
-"@sentry/browser@npm:10.55.0":
-  version: 10.55.0
-  resolution: "@sentry/browser@npm:10.55.0"
+"@sentry-internal/server-utils@npm:10.56.0":
+  version: 10.56.0
+  resolution: "@sentry-internal/server-utils@npm:10.56.0"
   dependencies:
-    "@sentry-internal/browser-utils": "npm:10.55.0"
-    "@sentry-internal/feedback": "npm:10.55.0"
-    "@sentry-internal/replay": "npm:10.55.0"
-    "@sentry-internal/replay-canvas": "npm:10.55.0"
-    "@sentry/core": "npm:10.55.0"
-  checksum: 10/f997d20bf930e0d5fc03a87d43e1e84ec5f0eeeb7e6072bb75b56f566181342e999f0d3423ee4f05b74f7f944eae301059e8e5535231587f8db2272bf48cdd73
+    "@sentry/core": "npm:10.56.0"
+  checksum: 10/b54919fa5c6da1b5446cdcd0eea58bffb67a9cb3730eb2d5c322f447a77c8e74c3a4be1c890b15fce51aabec1dbe4519640ffde30b19b94828716908387222ab
   languageName: node
   linkType: hard
 
-"@sentry/core@npm:10.55.0":
-  version: 10.55.0
-  resolution: "@sentry/core@npm:10.55.0"
-  checksum: 10/5b2c2d6fea82e33635a8fc39bddcd283105de2c895999ef93669926381de623bb68bcf4fa361e240fbb205798e5e763d64127fc221068cd38a10e963f929da5f
+"@sentry/browser@npm:10.56.0":
+  version: 10.56.0
+  resolution: "@sentry/browser@npm:10.56.0"
+  dependencies:
+    "@sentry-internal/browser-utils": "npm:10.56.0"
+    "@sentry-internal/feedback": "npm:10.56.0"
+    "@sentry-internal/replay": "npm:10.56.0"
+    "@sentry-internal/replay-canvas": "npm:10.56.0"
+    "@sentry/core": "npm:10.56.0"
+  checksum: 10/c032ae937e9510720ef3f552e626c31e27de8f3ee2cfa3eef4000d67c03f95035cc42d7f2503de65a019e4d5fd77092764efff601210e70372ae9811535f8702
   languageName: node
   linkType: hard
 
-"@sentry/node-core@npm:10.55.0":
-  version: 10.55.0
-  resolution: "@sentry/node-core@npm:10.55.0"
+"@sentry/core@npm:10.56.0":
+  version: 10.56.0
+  resolution: "@sentry/core@npm:10.56.0"
+  checksum: 10/ccdfc87928805c6c3468112c302001e8a316a1015a73582d05bb129d7520d9d36447bb982d416e917631a5b90fce998a6325c15efe39a12eb5ff008635cd2f7b
+  languageName: node
+  linkType: hard
+
+"@sentry/node-core@npm:10.56.0":
+  version: 10.56.0
+  resolution: "@sentry/node-core@npm:10.56.0"
   dependencies:
-    "@sentry/core": "npm:10.55.0"
-    "@sentry/opentelemetry": "npm:10.55.0"
+    "@sentry/core": "npm:10.56.0"
+    "@sentry/opentelemetry": "npm:10.56.0"
     import-in-the-middle: "npm:^3.0.0"
   peerDependencies:
     "@opentelemetry/api": ^1.9.0
@@ -3038,38 +3047,39 @@ __metadata:
       optional: true
     "@opentelemetry/semantic-conventions":
       optional: true
-  checksum: 10/0686e46498218c97725e72fab1112f1fc2a290de85d23795ed42c80eafa1795e9fce090b4dad9fb8c4a4e141378b8454536fdf856d82ff09b2d53e4ca0049851
+  checksum: 10/8032b1c1c3f2fe2620fa989258c29bafd3b1997a4bf9f65d739c3aa2a9e3638271184c76fa9e61432c47e091ab2ad1cb961ee4fb8bf3d7d2582fb25a79c4f2ee
   languageName: node
   linkType: hard
 
-"@sentry/node@npm:10.55.0":
-  version: 10.55.0
-  resolution: "@sentry/node@npm:10.55.0"
+"@sentry/node@npm:10.56.0":
+  version: 10.56.0
+  resolution: "@sentry/node@npm:10.56.0"
   dependencies:
     "@opentelemetry/api": "npm:^1.9.1"
     "@opentelemetry/core": "npm:^2.6.1"
     "@opentelemetry/instrumentation": "npm:^0.214.0"
     "@opentelemetry/sdk-trace-base": "npm:^2.6.1"
     "@opentelemetry/semantic-conventions": "npm:^1.40.0"
-    "@sentry/core": "npm:10.55.0"
-    "@sentry/node-core": "npm:10.55.0"
-    "@sentry/opentelemetry": "npm:10.55.0"
+    "@sentry-internal/server-utils": "npm:10.56.0"
+    "@sentry/core": "npm:10.56.0"
+    "@sentry/node-core": "npm:10.56.0"
+    "@sentry/opentelemetry": "npm:10.56.0"
     import-in-the-middle: "npm:^3.0.0"
-  checksum: 10/8830f8b5f4728203a82f2077b965e733b7b7781b0b41dfb6096202f8cddf67b1c912c712a6bda9fae20825d30568aa8cfa5c7cb1281fea0f3f946861376774e1
+  checksum: 10/b065ed3539326cef0ecd368fa79e421656a3c0117d07be6fcbec88a41481bc74e86d2b5986b1ced525cb33dfc06378d835e4c32a892f030c38f2613677468a32
   languageName: node
   linkType: hard
 
-"@sentry/opentelemetry@npm:10.55.0":
-  version: 10.55.0
-  resolution: "@sentry/opentelemetry@npm:10.55.0"
+"@sentry/opentelemetry@npm:10.56.0":
+  version: 10.56.0
+  resolution: "@sentry/opentelemetry@npm:10.56.0"
   dependencies:
-    "@sentry/core": "npm:10.55.0"
+    "@sentry/core": "npm:10.56.0"
   peerDependencies:
     "@opentelemetry/api": ^1.9.0
     "@opentelemetry/core": ^1.30.1 || ^2.1.0
     "@opentelemetry/sdk-trace-base": ^1.30.1 || ^2.1.0
     "@opentelemetry/semantic-conventions": ^1.39.0
-  checksum: 10/1f96c3ec4a17fb0673cf7289634e47031d6159c5370c663d6713d24e9d21b2c877541090a78437d465ca29ea543d7376d761dcee6a72cc057fad1f41a4c099ce
+  checksum: 10/1b8a9b93a945ba0471181512253dc4231b2c2f5d818af81c1f00f42b506882fdee2ef4e28b4d325863f3e1df4df366c3ecaf2b37d0d666185bf2f13c9b01615f
   languageName: node
   linkType: hard
 
@@ -3744,9 +3754,9 @@ __metadata:
     "@radix-ui/react-switch": "npm:1.2.6"
     "@radix-ui/react-tabs": "npm:1.1.13"
     "@radix-ui/react-tooltip": "npm:1.2.8"
-    "@sentry/browser": "npm:10.55.0"
-    "@sentry/core": "npm:10.55.0"
-    "@sentry/node": "npm:10.55.0"
+    "@sentry/browser": "npm:10.56.0"
+    "@sentry/core": "npm:10.56.0"
+    "@sentry/node": "npm:10.56.0"
     "@tailwindcss/postcss": "npm:4.3.0"
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.2"
