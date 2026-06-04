@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.2.15](https://github.com/icoretech/airbroke/compare/v1.2.14...v1.2.15) (2026-06-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/openai to v3.0.66 ([#1702](https://github.com/icoretech/airbroke/issues/1702)) ([b2085b3](https://github.com/icoretech/airbroke/commit/b2085b3ffe817b09786ec50019136c9ef38310f3))
+* **deps:** update dependency @ai-sdk/openai to v3.0.67 ([#1707](https://github.com/icoretech/airbroke/issues/1707)) ([19d8088](https://github.com/icoretech/airbroke/commit/19d8088d40e323a4fceb39d6c9e45e1170efb0f3))
+* **deps:** update dependency date-fns to v4.4.0 ([#1709](https://github.com/icoretech/airbroke/issues/1709)) ([5113b7a](https://github.com/icoretech/airbroke/commit/5113b7a7ac112bc17281db1cfd80ee9f7c75c597))
+* **deps:** update dependency lucide-react to v1.17.0 ([#1703](https://github.com/icoretech/airbroke/issues/1703)) ([97c3ec7](https://github.com/icoretech/airbroke/commit/97c3ec7e1168ed408891630894df4bcefe1ff84a))
+* **deps:** update nextjs monorepo to v16.2.7 ([#1711](https://github.com/icoretech/airbroke/issues/1711)) ([caac6cb](https://github.com/icoretech/airbroke/commit/caac6cba3cca58a77c726c67de059b367a6141cf))
+* **deps:** update react monorepo ([#1712](https://github.com/icoretech/airbroke/issues/1712)) ([a96840c](https://github.com/icoretech/airbroke/commit/a96840cc543395fa41bc6d716404a4e4e0b9de5f))
+* **deps:** update sentry-javascript monorepo to v10.54.0 ([#1699](https://github.com/icoretech/airbroke/issues/1699)) ([4b6f4d3](https://github.com/icoretech/airbroke/commit/4b6f4d3cd1cb3acf94af08c1f9ef8eb4753b37ae))
+* **deps:** update sentry-javascript monorepo to v10.55.0 ([#1704](https://github.com/icoretech/airbroke/issues/1704)) ([da0183b](https://github.com/icoretech/airbroke/commit/da0183bf3dd734d9c99876e2b2ab83a4b8a9d77b))
+* **deps:** update sentry-javascript monorepo to v10.56.0 ([#1715](https://github.com/icoretech/airbroke/issues/1715)) ([2ca63d0](https://github.com/icoretech/airbroke/commit/2ca63d0ec2e92b6114fa050e102e4a19ba139d7d))
+* **deps:** update vercel ai sdk ([#1705](https://github.com/icoretech/airbroke/issues/1705)) ([38dfe48](https://github.com/icoretech/airbroke/commit/38dfe485c9fd363fb51db473498f25fa42b71be3))
+* **deps:** update vercel ai sdk ([#1706](https://github.com/icoretech/airbroke/issues/1706)) ([2093be6](https://github.com/icoretech/airbroke/commit/2093be6756dc3b64c0c6958627c9d40151e2c4c2))
+* **deps:** update vercel ai sdk ([#1713](https://github.com/icoretech/airbroke/issues/1713)) ([408a53b](https://github.com/icoretech/airbroke/commit/408a53b812451b037ed9ca61904e39b8c7aa92d4))
+* **deps:** update vercel ai sdk ([#1716](https://github.com/icoretech/airbroke/issues/1716)) ([137d632](https://github.com/icoretech/airbroke/commit/137d6321191397ff0b1676d24773e275118a9055))
+
 ## [1.2.14](https://github.com/icoretech/airbroke/compare/v1.2.13...v1.2.14) (2026-05-24)
 
 
