@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "3.0.67",
-    "@ai-sdk/react": "3.0.197",
+    "@ai-sdk/react": "3.0.198",
     "@airbrake/browser": "2.1.9",
     "@airbrake/node": "2.1.9",
     "@microlink/react-json-view": "1.31.20",
@@ -46,7 +46,7 @@
     "@sentry/browser": "10.56.0",
     "@sentry/core": "10.56.0",
     "@sentry/node": "10.56.0",
-    "ai": "6.0.195",
+    "ai": "6.0.196",
     "better-auth": "1.6.11",
     "chart.js": "4.5.1",
     "class-variance-authority": "0.7.1",
