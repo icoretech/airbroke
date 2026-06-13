@@ -6,9 +6,10 @@ import { NextResponse } from "next/server";
 import { getProjectActivityTag } from "@/lib/cache/projectActivity";
 import { corsHeaders } from "@/lib/cors";
 import { db } from "@/lib/db";
-import parseNotice, { type NoticeData } from "@/lib/parseNotice";
+import parseNotice from "@/lib/parseNotice";
 import { processError } from "@/lib/processError";
 import type { NextRequest } from "next/server";
+import type { NoticeData } from "@/lib/parseNotice";
 
 interface ProjectKeyInfo {
   projectKey: string;
