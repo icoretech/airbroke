@@ -15,7 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { generateUpdatedURLWithRemovals } from "@/lib/generateUpdatedUrlWithRemovals";
+import { generateUpdatedURLWithRemovals } from "@/lib/routing/generateUpdatedUrlWithRemovals";
 
 const STATUS_OPTIONS = [
   { value: "unresolved", label: "Unresolved" },

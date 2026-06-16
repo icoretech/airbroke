@@ -4,8 +4,8 @@ import { brotliDecompressSync, gunzipSync, inflateSync } from "node:zlib";
 import { NextResponse } from "next/server";
 import { corsHeaders } from "@/lib/cors";
 import { db } from "@/lib/db";
-import { parseSentryEnvelope } from "@/lib/parseSentryEnvelope";
-import { processError } from "@/lib/processError";
+import { parseSentryEnvelope } from "@/lib/intake/parseSentryEnvelope";
+import { upsertNoticeOccurrence } from "@/lib/intake/upsertNoticeOccurrence";
 import type { NextRequest } from "next/server";
 
 const MAX_COMPRESSED_BODY_BYTES = 1024 * 1024;
@@ -144,14 +144,14 @@ async function POST(
     parsed.notices.flatMap((item) => {
       const notice = item.notice;
       return notice.errors.map((error) =>
-        processError(
+        upsertNoticeOccurrence({
           project,
           error,
-          notice.context,
-          notice.environment,
-          notice.session,
-          notice.params,
-        ),
+          context: notice.context,
+          environment: notice.environment,
+          session: notice.session,
+          requestParams: notice.params,
+        }),
       );
     }),
   );

@@ -4,7 +4,7 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import { TbBookmarks, TbClockPause, TbFileDelta } from "react-icons/tb";
-import { SourceRepoProviderIcon } from "@/components/SourceRepoProviderIcon";
+import { SourceRepoProviderIcon } from "@/components/common/SourceRepoProviderIcon";
 import {
   Collapsible,
   CollapsibleContent,

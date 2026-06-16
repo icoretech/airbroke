@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 import {
   SIGN_IN_RETURN_PATH_COOKIE_MAX_AGE_SECONDS,
   SIGN_IN_RETURN_PATH_COOKIE_NAME,
-} from "@/lib/signInReturnPath";
+} from "@/lib/auth/signInReturnPath";
 import type { NextRequest } from "next/server";
 
 const PUBLIC_PATHS = new Set(["/"]);

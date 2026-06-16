@@ -25,11 +25,11 @@ import {
   phpTemplate,
   pythonTemplate,
   rubyTemplate,
-} from "@/lib/airbrakeConfigTemplates";
+} from "@/lib/integrations/airbrakeConfigTemplates";
 import {
   sentryBrowserTemplate,
   sentryNodeTemplate,
-} from "@/lib/sentryConfigTemplates";
+} from "@/lib/integrations/sentryConfigTemplates";
 import type { IconType } from "react-icons";
 
 export interface IntegrationItem {

@@ -1,7 +1,7 @@
 // app/bookmarks/page.tsx
 
-import BookmarksTable from "@/components/BookmarksTable";
-import { getSingleSearchParam } from "@/lib/routeSearchParams";
+import BookmarksTable from "@/components/bookmarks/BookmarksTable";
+import { getSingleSearchParam } from "@/lib/routing/routeSearchParams";
 
 export default async function Bookmarks(props: PageProps<"/bookmarks">) {
   const searchParams = await props.searchParams;

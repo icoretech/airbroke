@@ -1,12 +1,11 @@
-// components/remark/RemarkItem.tsx
-
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
-import { deleteRemark } from "@/app/_actions";
-import CustomTimeAgo from "@/components/CustomTimeAgo";
+import { useState } from "react";
+import ClientMutationError from "@/components/common/ClientMutationError";
+import CustomTimeAgo from "@/components/common/CustomTimeAgo";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useClientMutation } from "@/hooks/useClientMutation";
+import { deleteRemark } from "@/lib/actions/remarkActions";
 import { autolink } from "@/lib/autolink";
 import RemarkForm from "./RemarkForm";
 import type { AutolinkContext } from "@/lib/autolink";
@@ -42,16 +41,16 @@ export default function RemarkItem({
   currentUserId,
   autolinkCtx,
 }: RemarkItemProps) {
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const { errorMessage, isBusy, runMutation } = useClientMutation();
   const [isEditing, setIsEditing] = useState(false);
 
   const isOwn = remark.user.id === currentUserId;
 
   function handleDelete() {
-    void deleteRemark(remark.id)
-      .then(() => startTransition(() => router.refresh()))
-      .catch((error) => console.error("Delete failed:", error));
+    runMutation({
+      action: () => deleteRemark(remark.id),
+      errorMessage: "Could not delete remark",
+    });
   }
 
   if (isEditing) {
@@ -104,7 +103,7 @@ export default function RemarkItem({
                 type="button"
                 className="hover:text-foreground"
                 onClick={() => setIsEditing(true)}
-                disabled={isPending}
+                disabled={isBusy}
               >
                 edit
               </button>
@@ -112,7 +111,7 @@ export default function RemarkItem({
                 type="button"
                 className="hover:text-destructive"
                 onClick={handleDelete}
-                disabled={isPending}
+                disabled={isBusy}
               >
                 delete
               </button>
@@ -127,6 +126,7 @@ export default function RemarkItem({
             </span>
           ))}
         </div>
+        <ClientMutationError className="mt-2" message={errorMessage} />
       </div>
     </div>
   );

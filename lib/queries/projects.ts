@@ -17,14 +17,15 @@ type GroupedProjects = Record<string, Project[]>;
  * @param currentSearchTerm - Optional substring to filter projects by name
  * @returns Promise resolving to a list of matching projects
  */
-export async function getProjects(
-  currentSearchTerm?: string,
-): Promise<Project[]> {
+export function getProjects(currentSearchTerm?: string): Promise<Project[]> {
   const whereObject: Prisma.ProjectWhereInput = currentSearchTerm
     ? { name: { contains: currentSearchTerm, mode: "insensitive" } }
     : {};
 
-  return _fetchProjects(whereObject);
+  return db.project.findMany({
+    where: whereObject,
+    orderBy: [{ organization: "asc" }, { name: "asc" }],
+  });
 }
 
 /**
@@ -53,38 +54,7 @@ export async function getProjectsGroupedByOrganization(): Promise<GroupedProject
  * @param projectId - The unique project ID (string)
  * @returns Promise resolving to the Project, or null if not found
  */
-export async function getProjectById(
-  projectId: string,
-): Promise<Project | null> {
-  return _fetchProjectById(projectId);
-}
-
-/**
- * Internal helper to fetch multiple projects from Prisma.
- *
- * @param whereObject - Prisma filter criteria
- * @returns Array of matching Project records
- *
- * @private
- */
-async function _fetchProjects(
-  whereObject: Prisma.ProjectWhereInput,
-): Promise<Project[]> {
-  return db.project.findMany({
-    where: whereObject,
-    orderBy: [{ organization: "asc" }, { name: "asc" }],
-  });
-}
-
-/**
- * Internal helper to fetch a single project by ID from Prisma.
- *
- * @param projectId - The project ID
- * @returns A matching Project or null
- *
- * @private
- */
-async function _fetchProjectById(projectId: string): Promise<Project | null> {
+export function getProjectById(projectId: string): Promise<Project | null> {
   return db.project.findUnique({
     where: { id: projectId },
   });

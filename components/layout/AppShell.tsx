@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { NavUser } from "@/components/NavUser";
+import { NavUser } from "@/components/layout/NavUser";
+import { SidebarProjectsNav } from "@/components/layout/SidebarProjectsNav";
+import TopbarSearch from "@/components/layout/TopbarSearch";
 import CreateProjectDialog from "@/components/project/CreateProjectDialog";
-import { SidebarProjectsNav } from "@/components/SidebarProjectsNav";
-import TopbarSearch from "@/components/TopbarSearch";
 import { Separator } from "@/components/ui/separator";
 import {
   Sidebar,
@@ -18,10 +18,10 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { requireSession } from "@/lib/auth/requireSession";
 import { getProjectsGroupedByOrganization } from "@/lib/queries/projects";
-import { requireSession } from "@/lib/requireSession";
 import logoAsset from "@/public/logo.svg";
-import type { SidebarProjectsGroup } from "@/components/SidebarProjectsNav";
+import type { SidebarProjectsGroup } from "@/components/layout/SidebarProjectsNav";
 
 export async function AppShell({
   children,

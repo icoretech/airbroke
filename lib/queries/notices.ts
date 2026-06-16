@@ -39,7 +39,7 @@ function resolvedWhere(filter?: ResolvedFilter): Prisma.NoticeWhereInput {
  * @param limit - Optional limit on number of records
  * @returns Promise resolving to a list of Notice objects
  */
-export async function getNotices(
+export function getNotices(
   projectId: string,
   params: NoticeSearchParams,
   limit?: number,
@@ -67,7 +67,11 @@ export async function getNotices(
     [sortAttr]: sortDir,
   };
 
-  return _fetchNotices(whereObject, orderByObject, limit);
+  return db.notice.findMany({
+    where: whereObject,
+    orderBy: orderByObject,
+    ...(limit !== undefined && { take: limit }),
+  });
 }
 
 /**
@@ -76,9 +80,7 @@ export async function getNotices(
  * @param projectId - The ID of the project
  * @returns Promise resolving to the count of matching notices
  */
-export async function getNoticesCountByProjectId(
-  projectId: string,
-): Promise<number> {
+export function getNoticesCountByProjectId(projectId: string): Promise<number> {
   return db.notice.count({
     where: {
       project_id: projectId,
@@ -92,57 +94,7 @@ export async function getNoticesCountByProjectId(
  * @param noticeId - The unique ID of the notice
  * @returns Promise resolving to the Notice record (with project) or null if not found
  */
-export async function getNoticeById(
-  noticeId: string,
-): Promise<NoticeWithProject | null> {
-  return _fetchNoticeById(noticeId);
-}
-
-/**
- * Retrieves all distinct environment names for Notices in a given project.
- *
- * @param projectId - The ID of the project
- * @returns Promise resolving to an array of distinct environment strings
- */
-export async function getNoticeEnvs(projectId: string): Promise<string[]> {
-  return _fetchNoticeEnvs(projectId);
-}
-
-/**
- * Returns the most recent notice updated_at for a project or null if none.
- */
-export async function getLastNoticeDateByProjectId(
-  projectId: string,
-): Promise<Date | null> {
-  const n = await db.notice.findFirst({
-    where: { project_id: projectId },
-    orderBy: { updated_at: "desc" },
-    select: { updated_at: true },
-  });
-  return n?.updated_at ?? null;
-}
-
-// -- Private helper functions --
-
-/**
- * Internal helper to fetch multiple Notice records.
- */
-async function _fetchNotices(
-  whereObject: Prisma.NoticeWhereInput,
-  orderByObject: Prisma.NoticeOrderByWithRelationInput,
-  limit?: number,
-): Promise<Notice[]> {
-  return db.notice.findMany({
-    where: whereObject,
-    orderBy: orderByObject,
-    ...(limit !== undefined && { take: limit }),
-  });
-}
-
-/**
- * Internal helper to fetch one Notice by ID, including its Project.
- */
-async function _fetchNoticeById(
+export function getNoticeById(
   noticeId: string,
 ): Promise<NoticeWithProject | null> {
   return db.notice.findUnique({
@@ -152,9 +104,12 @@ async function _fetchNoticeById(
 }
 
 /**
- * Internal helper to fetch distinct environment values for a project.
+ * Retrieves all distinct environment names for Notices in a given project.
+ *
+ * @param projectId - The ID of the project
+ * @returns Promise resolving to an array of distinct environment strings
  */
-async function _fetchNoticeEnvs(projectId: string): Promise<string[]> {
+export async function getNoticeEnvs(projectId: string): Promise<string[]> {
   const result = await db.notice.findMany({
     where: {
       project_id: projectId,
@@ -169,4 +124,18 @@ async function _fetchNoticeEnvs(projectId: string): Promise<string[]> {
   });
 
   return result.map((n) => n.env);
+}
+
+/**
+ * Returns the most recent notice updated_at for a project or null if none.
+ */
+export async function getLastNoticeDateByProjectId(
+  projectId: string,
+): Promise<Date | null> {
+  const n = await db.notice.findFirst({
+    where: { project_id: projectId },
+    orderBy: { updated_at: "desc" },
+    select: { updated_at: true },
+  });
+  return n?.updated_at ?? null;
 }

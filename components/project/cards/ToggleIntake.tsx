@@ -1,12 +1,11 @@
-// components/project/cards/ToggleIntake.tsx
-
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
-import { toggleProjectPausedStatus } from "@/app/_actions";
+import { useState } from "react";
+import ClientMutationError from "@/components/common/ClientMutationError";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { useClientMutation } from "@/hooks/useClientMutation";
+import { toggleProjectPausedStatus } from "@/lib/actions/projectActions";
 
 export default function ToggleIntake({
   projectId,
@@ -15,13 +14,11 @@ export default function ToggleIntake({
   projectId: string;
   isPaused: boolean;
 }) {
-  const [isPending, startTransition] = useTransition();
+  const { errorMessage, isBusy, runMutation } = useClientMutation();
   const [optimistic, setOptimistic] = useState<{
     projectId: string;
     enabled: boolean;
   } | null>(null);
-  const { refresh } = useRouter();
-
   const toggleId = `toggle-intake-${projectId}`;
   const canonicalEnabled = !isPaused;
   const enabled =
@@ -30,39 +27,33 @@ export default function ToggleIntake({
       ? optimistic.enabled
       : canonicalEnabled;
 
-  async function handleToggle(nextEnabled: boolean) {
+  function handleToggle(nextEnabled: boolean) {
     setOptimistic({ projectId, enabled: nextEnabled });
-
-    try {
-      await toggleProjectPausedStatus(projectId);
-    } catch (error) {
-      setOptimistic(null);
-      startTransition(() => {
-        refresh();
-      });
-      throw error;
-    }
-
-    startTransition(() => {
-      refresh();
+    runMutation({
+      action: () => toggleProjectPausedStatus(projectId),
+      errorMessage: "Could not update intake status",
+      onFailure: () => setOptimistic(null),
     });
   }
 
   return (
-    <div className="flex items-center">
-      <Switch
-        id={toggleId}
-        checked={enabled}
-        onCheckedChange={(nextEnabled) => {
-          void handleToggle(nextEnabled);
-        }}
-        disabled={isPending}
-        className="data-[state=checked]:bg-rose-600 data-[state=unchecked]:bg-gray-200"
-      />
-      <Label htmlFor={toggleId} className="ml-3 text-sm">
-        <span className="font-medium text-gray-200">Accept Data</span>{" "}
-        <span className="text-gray-400">({enabled ? "Active" : "Paused"})</span>
-      </Label>
+    <div className="flex flex-col gap-1">
+      <div className="flex items-center">
+        <Switch
+          id={toggleId}
+          checked={enabled}
+          onCheckedChange={handleToggle}
+          disabled={isBusy}
+          className="data-[state=checked]:bg-rose-600 data-[state=unchecked]:bg-gray-200"
+        />
+        <Label htmlFor={toggleId} className="ml-3 text-sm">
+          <span className="font-medium text-gray-200">Accept Data</span>{" "}
+          <span className="text-gray-400">
+            ({enabled ? "Active" : "Paused"})
+          </span>
+        </Label>
+      </div>
+      <ClientMutationError message={errorMessage} />
     </div>
   );
 }

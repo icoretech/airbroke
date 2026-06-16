@@ -3,6 +3,7 @@
 "use client";
 
 import { useState } from "react";
+import { CodeBlock } from "@/components/common/CodeBlock";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,9 +15,8 @@ import {
 import {
   airbrakeIntegrations,
   sentryIntegrations,
-} from "@/lib/integrationsData";
-import { CodeBlock } from "./CodeBlock";
-import type { IntegrationItem } from "@/lib/integrationsData";
+} from "@/lib/integrations/integrationsData";
+import type { IntegrationItem } from "@/lib/integrations/integrationsData";
 
 interface IntegrationsGridProps {
   replacements: Record<string, string>;

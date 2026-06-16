@@ -1,23 +1,50 @@
-// lib/actions/occurrenceActions.ts
-
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { headers } from "next/headers";
-import { getAuth } from "@/lib/auth";
+import { requireAuth, requireUserId } from "@/lib/actions/requireAuth";
+import {
+  revalidateProjectShellPaths,
+  revalidateProjectsSidebarPaths,
+} from "@/lib/actions/revalidateProjectShellPaths";
 import { db } from "@/lib/db";
 import type { Context } from "@/types/airbroke";
 
-/**
- * Replays an HTTP request based on captured context data.
- */
-export async function performReplay(context: Context): Promise<string> {
-  const session = await getAuth().api.getSession({ headers: await headers() });
-  if (!session) throw new Error("Unauthorized");
+export type ReplayResult =
+  | {
+      readonly ok: true;
+      readonly status: number;
+    }
+  | {
+      readonly ok: false;
+      readonly error: string;
+      readonly status?: number;
+      readonly body?: string;
+    };
+
+function revalidateOccurrenceMutationPaths(
+  occurrenceId: string,
+  noticeId: string,
+  projectId: string,
+) {
+  revalidatePath(`/occurrences/${occurrenceId}`);
+  revalidatePath(`/notices/${noticeId}`);
+  revalidateProjectShellPaths(projectId);
+}
+
+function revalidateOccurrenceBookmarkPaths(occurrenceId: string) {
+  revalidatePath(`/occurrences/${occurrenceId}`);
+  revalidateProjectsSidebarPaths();
+}
+
+export async function performReplay(context: Context): Promise<ReplayResult> {
+  await requireAuth();
 
   const { headers: contextHeaders, httpMethod, url } = context;
   if (!url) {
-    return "Invalid HTTP request for replay. The URL property is missing.";
+    return {
+      ok: false,
+      error: "Invalid HTTP request for replay. The URL property is missing.",
+    };
   }
 
   const requestOptions: RequestInit = {
@@ -31,12 +58,20 @@ export async function performReplay(context: Context): Promise<string> {
     const responseBody = await response.text();
 
     if (response.ok) {
-      return `HTTP Status Code: ${response.status}\nBody hidden`;
-    } else {
-      return `HTTP Status Code: ${response.status}\n${responseBody}`;
+      return { ok: true, status: response.status };
     }
+
+    return {
+      ok: false,
+      status: response.status,
+      error: `HTTP request failed with status ${response.status}.`,
+      body: responseBody,
+    };
   } catch (error) {
-    return `Error occurred during fetch: ${String(error)}`;
+    return {
+      ok: false,
+      error: error instanceof Error ? error.message : String(error),
+    };
   }
 }
 
@@ -44,42 +79,34 @@ export async function performReplay(context: Context): Promise<string> {
  * Creates an occurrence bookmark for the currently logged-in user.
  */
 export async function createOccurrenceBookmark(occurrenceId: string) {
-  const session = await getAuth().api.getSession({ headers: await headers() });
-  if (!session?.user?.id) {
-    throw new Error("No user session or user ID found");
-  }
+  const userId = await requireUserId();
 
   await db.occurrenceBookmark.create({
     data: {
-      user_id: session.user.id,
+      user_id: userId,
       occurrence_id: occurrenceId,
     },
   });
 
-  revalidatePath(`/occurrences/${occurrenceId}`);
-  revalidatePath("/bookmarks");
+  revalidateOccurrenceBookmarkPaths(occurrenceId);
 }
 
 /**
  * Removes an occurrence bookmark for the currently logged-in user.
  */
 export async function removeOccurrenceBookmark(occurrenceId: string) {
-  const session = await getAuth().api.getSession({ headers: await headers() });
-  if (!session?.user?.id) {
-    throw new Error("No user session or user ID found");
-  }
+  const userId = await requireUserId();
 
   await db.occurrenceBookmark.delete({
     where: {
       user_id_occurrence_id: {
-        user_id: session.user.id,
+        user_id: userId,
         occurrence_id: occurrenceId,
       },
     },
   });
 
-  revalidatePath(`/occurrences/${occurrenceId}`);
-  revalidatePath("/bookmarks");
+  revalidateOccurrenceBookmarkPaths(occurrenceId);
 }
 
 /**
@@ -87,8 +114,7 @@ export async function removeOccurrenceBookmark(occurrenceId: string) {
  * The PostgreSQL trigger syncs the parent notice resolved_at.
  */
 export async function resolveOccurrence(occurrenceId: string) {
-  const session = await getAuth().api.getSession({ headers: await headers() });
-  if (!session) throw new Error("Unauthorized");
+  await requireAuth();
 
   const occurrence = await db.occurrence.update({
     where: { id: occurrenceId },
@@ -100,9 +126,11 @@ export async function resolveOccurrence(occurrenceId: string) {
     },
   });
 
-  revalidatePath(`/occurrences/${occurrenceId}`);
-  revalidatePath(`/notices/${occurrence.notice.id}`);
-  revalidatePath(`/projects/${occurrence.notice.project_id}`);
+  revalidateOccurrenceMutationPaths(
+    occurrenceId,
+    occurrence.notice.id,
+    occurrence.notice.project_id,
+  );
 }
 
 /**
@@ -110,8 +138,7 @@ export async function resolveOccurrence(occurrenceId: string) {
  * The PostgreSQL trigger syncs the parent notice resolved_at.
  */
 export async function reinstateOccurrence(occurrenceId: string) {
-  const session = await getAuth().api.getSession({ headers: await headers() });
-  if (!session) throw new Error("Unauthorized");
+  await requireAuth();
 
   const occurrence = await db.occurrence.update({
     where: { id: occurrenceId },
@@ -123,7 +150,9 @@ export async function reinstateOccurrence(occurrenceId: string) {
     },
   });
 
-  revalidatePath(`/occurrences/${occurrenceId}`);
-  revalidatePath(`/notices/${occurrence.notice.id}`);
-  revalidatePath(`/projects/${occurrence.notice.project_id}`);
+  revalidateOccurrenceMutationPaths(
+    occurrenceId,
+    occurrence.notice.id,
+    occurrence.notice.project_id,
+  );
 }

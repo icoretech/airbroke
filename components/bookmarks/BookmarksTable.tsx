@@ -3,6 +3,9 @@
 import { headers } from "next/headers";
 import Link from "next/link";
 import { TbBookmarks } from "react-icons/tb";
+import CounterLabel from "@/components/common/CounterLabel";
+import CustomTimeAgo from "@/components/common/CustomTimeAgo";
+import EnvironmentLabel from "@/components/common/EnvironmentLabel";
 import { Button } from "@/components/ui/button";
 import {
   Empty,
@@ -13,9 +16,6 @@ import {
 } from "@/components/ui/empty";
 import { getAuth } from "@/lib/auth";
 import { getOccurrenceBookmarks } from "@/lib/queries/occurrenceBookmarks";
-import CounterLabel from "./CounterLabel";
-import CustomTimeAgo from "./CustomTimeAgo";
-import EnvironmentLabel from "./EnvironmentLabel";
 
 type BookmarksTableProps = {
   searchQuery?: string | undefined;

@@ -1,17 +1,18 @@
-// components/notice/ResolveNoticeButton.tsx
-
 "use client";
 
 import { CheckCircle2, RotateCcw } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
-import { reinstateAllOccurrences, resolveAllOccurrences } from "@/app/_actions";
+import ClientMutationError from "@/components/common/ClientMutationError";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useClientMutation } from "@/hooks/useClientMutation";
+import {
+  reinstateAllOccurrences,
+  resolveAllOccurrences,
+} from "@/lib/actions/noticeActions";
 
 interface ResolveNoticeButtonProps {
   noticeId: string;
@@ -24,9 +25,7 @@ export default function ResolveNoticeButton({
   projectId,
   resolvedAt,
 }: ResolveNoticeButtonProps) {
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
-  const [isWorking, setIsWorking] = useState(false);
+  const { errorMessage, isBusy, runMutation } = useClientMutation();
 
   const isResolved = Boolean(resolvedAt);
   const label = isResolved ? "Reinstate" : "Resolve";
@@ -36,39 +35,42 @@ export default function ResolveNoticeButton({
     : "border-emerald-500/30 text-emerald-200 hover:bg-emerald-500/10 hover:text-emerald-100";
 
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Button
-          type="button"
-          variant="outline"
-          size="icon-sm"
-          disabled={isPending || isWorking}
-          aria-disabled={isPending || isWorking}
-          className={toneClass}
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            setIsWorking(true);
-            const action = isResolved
-              ? reinstateAllOccurrences
-              : resolveAllOccurrences;
-            void action(noticeId, projectId)
-              .catch((error) => {
-                console.error("Notice resolve action failed:", error);
-              })
-              .finally(() => {
-                setIsWorking(false);
-                startTransition(() => router.refresh());
+    <div className="inline-flex flex-col items-start gap-1">
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            type="button"
+            variant="outline"
+            size="icon-sm"
+            disabled={isBusy}
+            aria-disabled={isBusy}
+            className={toneClass}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              const action = isResolved
+                ? reinstateAllOccurrences
+                : resolveAllOccurrences;
+              runMutation({
+                action: () => action(noticeId, projectId),
+                errorMessage: isResolved
+                  ? "Could not reinstate notice"
+                  : "Could not resolve notice",
               });
-          }}
-        >
-          <Icon className="size-4" aria-hidden="true" />
-          <span className="sr-only">{label}</span>
-        </Button>
-      </TooltipTrigger>
-      <TooltipContent sideOffset={6}>
-        {isResolved ? "Reinstate all occurrences" : "Resolve all occurrences"}
-      </TooltipContent>
-    </Tooltip>
+            }}
+          >
+            <Icon className="size-4" aria-hidden="true" />
+            <span className="sr-only">{label}</span>
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent sideOffset={6}>
+          {isResolved ? "Reinstate all occurrences" : "Resolve all occurrences"}
+        </TooltipContent>
+      </Tooltip>
+      <ClientMutationError
+        className="max-w-48 leading-tight"
+        message={errorMessage}
+      />
+    </div>
   );
 }

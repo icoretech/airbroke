@@ -6,7 +6,7 @@ const userSelect = {
   select: { id: true, name: true, image: true } as const,
 };
 
-export async function getRemarksByNoticeId(noticeId: string) {
+export function getRemarksByNoticeId(noticeId: string) {
   return db.remark.findMany({
     where: {
       notice_id: noticeId,
@@ -17,7 +17,7 @@ export async function getRemarksByNoticeId(noticeId: string) {
   });
 }
 
-export async function getRemarksByOccurrenceId(
+export function getRemarksByOccurrenceId(
   occurrenceId: string,
   noticeId: string,
 ) {
@@ -31,15 +31,13 @@ export async function getRemarksByOccurrenceId(
   });
 }
 
-export async function getRemarkCountByNoticeId(
-  noticeId: string,
-): Promise<number> {
+export function getRemarkCountByNoticeId(noticeId: string): Promise<number> {
   return db.remark.count({
     where: { notice_id: noticeId, occurrence_id: null },
   });
 }
 
-export async function getRemarkCountForOccurrencePage(
+export function getRemarkCountForOccurrencePage(
   occurrenceId: string,
   noticeId: string,
 ): Promise<number> {

@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, use } from "react";
-import { Tooltip } from "@/components/RechartsWrapper";
+import { Tooltip } from "@/components/common/RechartsWrapper";
 import { cn } from "@/lib/utils";
 import type { ComponentProps, ReactNode } from "react";
 import type {

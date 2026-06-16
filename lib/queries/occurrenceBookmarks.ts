@@ -55,7 +55,20 @@ export async function getOccurrenceBookmarks(
     }),
   };
 
-  return _fetchOccurrenceBookmarks(whereObject);
+  return db.occurrenceBookmark.findMany({
+    where: whereObject,
+    include: {
+      occurrence: {
+        include: {
+          notice: {
+            include: {
+              project: true,
+            },
+          },
+        },
+      },
+    },
+  });
 }
 
 /**
@@ -101,29 +114,4 @@ export async function getBookmarkedOccurrenceIds(
   });
 
   return new Set(bookmarks.map((b) => b.occurrence_id));
-}
-
-/**
- * Internal helper to fetch occurrence bookmarks from Prisma,
- * optionally filtered by a Prisma.OccurrenceBookmarkWhereInput object.
- *
- * @private
- */
-async function _fetchOccurrenceBookmarks(
-  whereObject?: Prisma.OccurrenceBookmarkWhereInput,
-): Promise<OccurrenceBookmarkWithAssociations[]> {
-  return db.occurrenceBookmark.findMany({
-    ...(whereObject !== undefined && { where: whereObject }),
-    include: {
-      occurrence: {
-        include: {
-          notice: {
-            include: {
-              project: true,
-            },
-          },
-        },
-      },
-    },
-  });
 }

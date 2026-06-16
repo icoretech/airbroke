@@ -1,17 +1,17 @@
 "use client";
 
 import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/project/Chart";
-import {
   Bar,
   BarChart,
   CartesianGrid,
   ResponsiveContainer,
   XAxis,
-} from "@/components/RechartsWrapper";
+} from "@/components/common/RechartsWrapper";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/project/Chart";
 import type {
   NameType,
   ValueType,

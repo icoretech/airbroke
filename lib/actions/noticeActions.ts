@@ -3,9 +3,16 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { headers } from "next/headers";
-import { getAuth } from "@/lib/auth";
+import { requireAuth } from "@/lib/actions/requireAuth";
+import { revalidateProjectShellPaths } from "@/lib/actions/revalidateProjectShellPaths";
 import { db } from "@/lib/db";
+
+function revalidateNoticeMutationPaths(projectId: string, noticeIds: string[]) {
+  revalidateProjectShellPaths(projectId);
+  for (const noticeId of noticeIds) {
+    revalidatePath(`/notices/${noticeId}`);
+  }
+}
 
 /**
  * Resolves all unresolved occurrences under a notice.
@@ -15,8 +22,7 @@ export async function resolveAllOccurrences(
   noticeId: string,
   projectId: string,
 ) {
-  const session = await getAuth().api.getSession({ headers: await headers() });
-  if (!session) throw new Error("Unauthorized");
+  await requireAuth();
 
   await db.occurrence.updateMany({
     where: {
@@ -28,8 +34,7 @@ export async function resolveAllOccurrences(
     },
   });
 
-  revalidatePath(`/projects/${projectId}`);
-  revalidatePath(`/notices/${noticeId}`);
+  revalidateNoticeMutationPaths(projectId, [noticeId]);
 }
 
 /**
@@ -40,8 +45,7 @@ export async function reinstateAllOccurrences(
   noticeId: string,
   projectId: string,
 ) {
-  const session = await getAuth().api.getSession({ headers: await headers() });
-  if (!session) throw new Error("Unauthorized");
+  await requireAuth();
 
   await db.occurrence.updateMany({
     where: {
@@ -53,8 +57,7 @@ export async function reinstateAllOccurrences(
     },
   });
 
-  revalidatePath(`/projects/${projectId}`);
-  revalidatePath(`/notices/${noticeId}`);
+  revalidateNoticeMutationPaths(projectId, [noticeId]);
 }
 
 /**
@@ -64,8 +67,7 @@ export async function resolveSelectedNotices(
   noticeIds: string[],
   projectId: string,
 ) {
-  const session = await getAuth().api.getSession({ headers: await headers() });
-  if (!session) throw new Error("Unauthorized");
+  await requireAuth();
 
   await db.occurrence.updateMany({
     where: {
@@ -77,7 +79,7 @@ export async function resolveSelectedNotices(
     },
   });
 
-  revalidatePath(`/projects/${projectId}`);
+  revalidateNoticeMutationPaths(projectId, noticeIds);
 }
 
 /**
@@ -85,8 +87,7 @@ export async function resolveSelectedNotices(
  * optionally scoped to an environment.
  */
 export async function resolveAllByProjectEnv(projectId: string, env?: string) {
-  const session = await getAuth().api.getSession({ headers: await headers() });
-  if (!session) throw new Error("Unauthorized");
+  await requireAuth();
 
   const notices = await db.notice.findMany({
     where: {
@@ -110,5 +111,5 @@ export async function resolveAllByProjectEnv(projectId: string, env?: string) {
     },
   });
 
-  revalidatePath(`/projects/${projectId}`);
+  revalidateNoticeMutationPaths(projectId, noticeIds);
 }

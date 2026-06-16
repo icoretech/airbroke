@@ -1,5 +1,3 @@
-// lib/actions/projectActions.ts
-
 "use server";
 
 import { refresh, updateTag } from "next/cache";
@@ -27,7 +25,6 @@ export interface ProjectResponse {
   };
 }
 
-// REGEX for validating the repository name (1-100 chars, no spaces, only [a-zA-Z0-9-_.])
 const repoNameRegex = /^[a-zA-Z0-9._-]{1,100}$/;
 
 export async function createProject(
@@ -36,7 +33,6 @@ export async function createProject(
 ): Promise<ProjectState> {
   await requireAuth();
 
-  // Convert FormData to a plain record of strings
   const dataObj: Record<string, string> = {};
   formData.forEach((val, key) => {
     dataObj[key] = val.toString();
@@ -44,7 +40,6 @@ export async function createProject(
 
   const repository_url = dataObj.repository_url?.trim() || "";
 
-  // If there's no repository_url, create a random project name
   if (!repository_url) {
     const randomNum = Math.floor(Math.random() * 10000);
     let projectId: string;
@@ -62,13 +57,11 @@ export async function createProject(
     redirect(`/projects/${projectId}/edit`);
   }
 
-  // If we do have a repository_url => parse & validate
   const parsed = parseGitURL(repository_url);
   if (!parsed) {
     return { error: "Invalid repository URL format.", lastUrl: repository_url };
   }
 
-  // Zod schema for the parseGitURL results
   const parseSchema = z.object({
     provider: z.string().min(1),
     organization: z.string().min(1),
@@ -80,10 +73,8 @@ export async function createProject(
       ),
   });
 
-  // Run the schema check
   const parseResult = parseSchema.safeParse(parsed);
   if (!parseResult.success) {
-    // E.g. invalid repository format
     const firstIssue = parseResult.error.issues[0];
     return {
       error: firstIssue?.message || "Invalid repository name or format.",
@@ -91,10 +82,8 @@ export async function createProject(
     };
   }
 
-  // If valid, we proceed
   const { provider, organization, repository } = parseResult.data;
 
-  // Attempt to create the project in the DB
   let newProjectId: string;
   try {
     const newProject = await db.project.create({
@@ -125,7 +114,6 @@ export async function updateProject(
 ): Promise<ProjectResponse> {
   await requireAuth();
 
-  // Define the shape of the data for updating a project.
   const updateProjectSchema = z
     .object({
       // Accept any non-empty string (DB uses string IDs; older records may not be UUIDs)
@@ -222,7 +210,6 @@ export async function updateProject(
       data: dataForPrisma,
     });
   } catch (err) {
-    // Could put a "global" error if DB fails
     const message = (err as Error)?.message || "Database error";
     return { error: message };
   }

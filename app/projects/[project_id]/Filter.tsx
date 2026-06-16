@@ -5,7 +5,7 @@
 import { Filter } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import EnvironmentLabel from "@/components/EnvironmentLabel";
+import EnvironmentLabel from "@/components/common/EnvironmentLabel";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -17,7 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { generateUpdatedURLWithRemovals } from "@/lib/generateUpdatedUrlWithRemovals";
+import { generateUpdatedURLWithRemovals } from "@/lib/routing/generateUpdatedUrlWithRemovals";
 
 export default function EnvironmentFilter({
   environments,

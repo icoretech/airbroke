@@ -1,13 +1,12 @@
-// components/remark/RemarkForm.tsx
-
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useRef, useState, useTransition } from "react";
-import { createRemark, updateRemark } from "@/app/_actions";
+import { useRef, useState } from "react";
+import ClientMutationError from "@/components/common/ClientMutationError";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { useClientMutation } from "@/hooks/useClientMutation";
+import { createRemark, updateRemark } from "@/lib/actions/remarkActions";
 
 function getInitials(name: string): string {
   return name
@@ -37,8 +36,7 @@ export default function RemarkForm({
   editInitialBody,
   onCancelEdit,
 }: RemarkFormProps) {
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const { errorMessage, isBusy, runMutation } = useClientMutation();
   const [body, setBody] = useState(editInitialBody ?? "");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -48,20 +46,17 @@ export default function RemarkForm({
     const trimmed = body.trim();
     if (!trimmed) return;
 
-    const action =
-      isEdit && editRemarkId
-        ? updateRemark(editRemarkId, trimmed)
-        : createRemark(noticeId, trimmed, occurrenceId);
-
-    void action
-      .then(() => {
+    runMutation({
+      action: () =>
+        isEdit && editRemarkId
+          ? updateRemark(editRemarkId, trimmed)
+          : createRemark(noticeId, trimmed, occurrenceId),
+      errorMessage: isEdit ? "Could not save remark" : "Could not add remark",
+      onSuccess: () => {
         if (!isEdit) setBody("");
         onCancelEdit?.();
-        startTransition(() => router.refresh());
-      })
-      .catch((error) => {
-        console.error("Remark action failed:", error);
-      });
+      },
+    });
   }
 
   return (
@@ -81,7 +76,7 @@ export default function RemarkForm({
           onChange={(e) => setBody(e.target.value)}
           placeholder="Add a remark..."
           className="min-h-16 resize-y"
-          disabled={isPending}
+          disabled={isBusy}
         />
         <div className="mt-2 flex items-center justify-end gap-2">
           {isEdit && onCancelEdit && (
@@ -90,7 +85,7 @@ export default function RemarkForm({
               variant="ghost"
               size="sm"
               onClick={onCancelEdit}
-              disabled={isPending}
+              disabled={isBusy}
             >
               Cancel
             </Button>
@@ -99,11 +94,15 @@ export default function RemarkForm({
             type="button"
             size="sm"
             onClick={handleSubmit}
-            disabled={isPending || !body.trim()}
+            disabled={isBusy || !body.trim()}
           >
             {isEdit ? "Save" : "Add remark"}
           </Button>
         </div>
+        <ClientMutationError
+          className="mt-2 text-right"
+          message={errorMessage}
+        />
       </div>
     </div>
   );

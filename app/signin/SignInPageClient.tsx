@@ -26,11 +26,11 @@ import {
 import { SlDisc } from "react-icons/sl";
 import { TbAlertTriangle, TbShieldLock } from "react-icons/tb";
 import { VscAzure } from "react-icons/vsc";
-import FooterCredits from "@/components/FooterCredits";
-import PageBackground from "@/components/PageBackground";
+import FooterCredits from "@/components/layout/FooterCredits";
+import PageBackground from "@/components/layout/PageBackground";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth/client";
 import logo from "@/public/logo.svg";
 
 const providerIcons: Record<string, React.ElementType> = {

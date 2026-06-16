@@ -8,3 +8,12 @@ export async function requireAuth() {
   }
   return session;
 }
+
+export async function requireUserId() {
+  const session = await requireAuth();
+  const userId = session.user?.id;
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
+  return userId;
+}

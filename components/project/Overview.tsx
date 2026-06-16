@@ -4,9 +4,10 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import ActivityCard from "@/components/analytics/ActivityCard";
 import HealthCard from "@/components/analytics/HealthCard";
-import CopyToClipboardButton from "@/components/CopyToClipboardButton";
-import IntegrationsGrid from "@/components/IntegrationsGrid";
-import { SourceRepoProviderIcon } from "@/components/SourceRepoProviderIcon";
+import CopyToClipboardButton from "@/components/common/CopyToClipboardButton";
+import { SourceRepoProviderIcon } from "@/components/common/SourceRepoProviderIcon";
+import IntegrationsGrid from "@/components/project/IntegrationsGrid";
+import TestZone from "@/components/project/TestZone";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -40,7 +41,6 @@ import {
   getHourlyOccurrenceRateForLast14Days,
   getOccurrencesCountByProjectId,
 } from "@/lib/queries/occurrences";
-import TestZone from "../TestZone";
 import DangerZone from "./cards/DangerZone";
 import type { Project } from "@/prisma/generated/client";
 

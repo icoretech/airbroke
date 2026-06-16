@@ -1,12 +1,23 @@
-// components/occurrence/toolbox/Replay.tsx
-
 "use client";
 
 import { useState } from "react";
 import { BsArrowRepeat } from "react-icons/bs";
-import { performReplay } from "@/app/_actions";
 import { Button } from "@/components/ui/button";
+import { performReplay } from "@/lib/actions/occurrenceActions";
+import type { ReplayResult } from "@/lib/actions/occurrenceActions";
 import type { Context } from "@/types/airbroke";
+
+function formatReplayResult(result: ReplayResult): string {
+  if (result.ok) {
+    return `HTTP Status Code: ${result.status}\nBody hidden`;
+  }
+
+  if (result.status !== undefined) {
+    return `HTTP Status Code: ${result.status}\n${result.body ?? result.error}`;
+  }
+
+  return result.error;
+}
 
 function ToolboxFetch({ context }: { context: Context }) {
   const [responseText, setResponseText] = useState<string>("");
@@ -36,7 +47,7 @@ function ToolboxFetch({ context }: { context: Context }) {
             disabled={!context.url}
             onClick={async () => {
               const response = await performReplay(context);
-              setResponseText(response);
+              setResponseText(formatReplayResult(response));
             }}
             className="h-auto w-full rounded-none border-transparent bg-indigo-400/10 py-4 text-indigo-200 hover:bg-indigo-500 hover:text-indigo-100 disabled:bg-indigo-400/5 disabled:text-indigo-200/40"
           >

@@ -6,7 +6,7 @@ import {
   parseEnvelope,
 } from "@sentry/core";
 import type { Envelope } from "@sentry/core";
-import type { NoticeData, NoticeError } from "@/lib/parseNotice";
+import type { NoticeData, NoticeError } from "@/lib/intake/normalizeNoticeData";
 
 type EnvelopeHeader = {
   sdk?: { name?: string; version?: string };

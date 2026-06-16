@@ -1,11 +1,11 @@
 // components/NoticesTable.tsx
 
 import Link from "next/link";
+import CounterLabel from "@/components/common/CounterLabel";
+import CustomTimeAgo from "@/components/common/CustomTimeAgo";
+import EnvironmentLabel from "@/components/common/EnvironmentLabel";
+import ResolveNoticeButton from "@/components/notice/ResolveNoticeButton";
 import { getNotices } from "@/lib/queries/notices";
-import CounterLabel from "./CounterLabel";
-import CustomTimeAgo from "./CustomTimeAgo";
-import EnvironmentLabel from "./EnvironmentLabel";
-import ResolveNoticeButton from "./notice/ResolveNoticeButton";
 import type { NoticeSearchParams } from "@/lib/queries/notices";
 
 type NoticesTableProps = {

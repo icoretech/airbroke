@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { TbFileAlert } from "react-icons/tb";
-import AppBreadcrumbs from "@/components/AppBreadcrumbs";
-import { AppShell } from "@/components/AppShell";
-import CounterLabel from "@/components/CounterLabel";
-import OccurrencesChartBackground from "@/components/OccurrencesChartBackground";
-import PingDot from "@/components/PingDot";
+import CounterLabel from "@/components/common/CounterLabel";
+import OccurrencesChartBackground from "@/components/common/OccurrencesChartBackground";
+import PingDot from "@/components/common/PingDot";
+import AppBreadcrumbs from "@/components/layout/AppBreadcrumbs";
+import { AppShell } from "@/components/layout/AppShell";
 import CreateProjectDialog from "@/components/project/CreateProjectDialog";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,10 +16,10 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty";
-import { buildProjectsIndexCrumbs } from "@/lib/breadcrumbs";
 import { cachedProjectChartOccurrencesData } from "@/lib/queries/projectChartOccurrences";
 import { getProjects } from "@/lib/queries/projects";
-import { getSingleSearchParam } from "@/lib/routeSearchParams";
+import { buildProjectsIndexCrumbs } from "@/lib/routing/breadcrumbs";
+import { getSingleSearchParam } from "@/lib/routing/routeSearchParams";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {

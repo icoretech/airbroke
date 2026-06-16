@@ -9,7 +9,7 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 import { Kbd, KbdGroup } from "@/components/ui/kbd";
-import { generateUpdatedURL } from "@/lib/generateUpdatedUrl";
+import { generateUpdatedURL } from "@/lib/routing/generateUpdatedUrl";
 import type { ChangeEvent, FormEvent } from "react";
 
 type TopbarSearchProps = {

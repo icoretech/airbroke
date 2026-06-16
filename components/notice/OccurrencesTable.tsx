@@ -2,14 +2,14 @@
 
 import { headers } from "next/headers";
 import Link from "next/link";
+import CounterLabel from "@/components/common/CounterLabel";
+import CustomTimeAgo from "@/components/common/CustomTimeAgo";
+import EnvironmentLabel from "@/components/common/EnvironmentLabel";
+import BookmarkButton from "@/components/occurrence/BookmarkButton";
+import ResolveButton from "@/components/occurrence/ResolveButton";
 import { getAuth } from "@/lib/auth";
 import { getBookmarkedOccurrenceIds } from "@/lib/queries/occurrenceBookmarks";
 import { getOccurrences } from "@/lib/queries/occurrences";
-import CounterLabel from "./CounterLabel";
-import CustomTimeAgo from "./CustomTimeAgo";
-import EnvironmentLabel from "./EnvironmentLabel";
-import BookmarkButton from "./occurrence/BookmarkButton";
-import ResolveButton from "./occurrence/ResolveButton";
 import type { OccurrenceSearchParams } from "@/lib/queries/occurrences";
 
 type OccurrencesTableProps = {

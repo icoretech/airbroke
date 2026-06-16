@@ -1,6 +1,6 @@
-import AppBreadcrumbs from "@/components/AppBreadcrumbs";
-import { AppShell } from "@/components/AppShell";
-import { buildBookmarksCrumbs } from "@/lib/breadcrumbs";
+import AppBreadcrumbs from "@/components/layout/AppBreadcrumbs";
+import { AppShell } from "@/components/layout/AppShell";
+import { buildBookmarksCrumbs } from "@/lib/routing/breadcrumbs";
 
 export default function BookmarksLayout({
   children,

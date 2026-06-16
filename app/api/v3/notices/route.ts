@@ -6,14 +6,20 @@ import { NextResponse } from "next/server";
 import { getProjectActivityTag } from "@/lib/cache/projectActivity";
 import { corsHeaders } from "@/lib/cors";
 import { db } from "@/lib/db";
-import parseNotice from "@/lib/parseNotice";
-import { processError } from "@/lib/processError";
+import normalizeNoticeData from "@/lib/intake/normalizeNoticeData";
+import { upsertNoticeOccurrence } from "@/lib/intake/upsertNoticeOccurrence";
 import type { NextRequest } from "next/server";
-import type { NoticeData } from "@/lib/parseNotice";
 
 interface ProjectKeyInfo {
   projectKey: string;
   requestType: "params" | "headers" | "unauthenticated";
+}
+
+class InvalidNoticePayloadError extends Error {
+  constructor() {
+    super("Invalid notice payload");
+    this.name = "InvalidNoticePayloadError";
+  }
 }
 
 function extractProjectKeyFromRequest(request: NextRequest): ProjectKeyInfo {
@@ -33,18 +39,29 @@ function extractProjectKeyFromRequest(request: NextRequest): ProjectKeyInfo {
   return { projectKey: "", requestType: "unauthenticated" };
 }
 
-async function parseRequestBody(request: NextRequest) {
+async function parseRequestBody(request: NextRequest): Promise<unknown> {
   const contentType = (request.headers.get("content-type") || "").toLowerCase();
 
-  if (contentType === "" || contentType.startsWith("text/plain")) {
-    // older clients, airbrake-js, etc.
-    const rawBody = await request.text();
-    const parsedBody = JSON.parse(rawBody) as NoticeData;
-    return parseNotice(parsedBody);
-  } else {
-    const jsonBody = (await request.json()) as NoticeData;
-    return parseNotice(jsonBody);
+  try {
+    if (contentType === "" || contentType.startsWith("text/plain")) {
+      const rawBody = await request.text();
+      return JSON.parse(rawBody) as unknown;
+    }
+
+    return await request.json();
+  } catch {
+    throw new InvalidNoticePayloadError();
   }
+}
+
+function invalidNoticePayloadResponse(request: NextRequest) {
+  return NextResponse.json(
+    { error: "Invalid notice payload" },
+    {
+      status: 400,
+      headers: corsHeaders(request.headers),
+    },
+  );
 }
 
 function getServerHostname(request: NextRequest) {
@@ -84,24 +101,33 @@ async function POST(request: NextRequest) {
     }
   }
 
-  const whitelisted = await parseRequestBody(request);
+  let rawNoticeData: unknown;
+  try {
+    rawNoticeData = await parseRequestBody(request);
+  } catch (error) {
+    if (error instanceof InvalidNoticePayloadError) {
+      return invalidNoticePayloadResponse(request);
+    }
+    throw error;
+  }
 
-  const errors = whitelisted.errors;
-  const context = whitelisted.context;
-  const environment = whitelisted.environment;
-  const session = whitelisted.session;
-  const requestParams = whitelisted.params;
+  const noticeData = normalizeNoticeData(rawNoticeData);
+  const errors = noticeData.errors;
+  const context = noticeData.context;
+  const environment = noticeData.environment;
+  const session = noticeData.session;
+  const requestParams = noticeData.params;
 
   await Promise.all(
     errors.map((error) =>
-      processError(
+      upsertNoticeOccurrence({
         project,
         error,
         context,
         environment,
         session,
         requestParams,
-      ),
+      }),
     ),
   );
 

@@ -14,11 +14,11 @@ import {
   buildGenericOAuthConfig,
   buildSocialProviders,
   envList,
-} from "@/lib/auth-providers";
+} from "@/lib/auth/providers";
 import { db } from "@/lib/db";
 
 // Re-export for call sites that need these utilities
-export { envList, getSerializedProviders } from "@/lib/auth-providers";
+export { envList, getSerializedProviders } from "@/lib/auth/providers";
 
 // ---------------------------------------------------------------------------
 // Access-control helpers
@@ -97,6 +97,185 @@ export async function fetchWithTimeout(
   }
 }
 
+async function fetchJsonOrForbidden<T>(
+  url: string,
+  init: RequestInit,
+  failureMessage: string,
+): Promise<T> {
+  const response = await fetchWithTimeout(url, init);
+  if (!response.ok) {
+    throw new APIError("FORBIDDEN", { message: failureMessage });
+  }
+
+  return (await response.json()) as T;
+}
+
+type ProviderRestrictionContext = {
+  accessToken: string;
+  idToken?: string | null;
+};
+
+type ProviderRestriction = (
+  context: ProviderRestrictionContext,
+) => Promise<void>;
+
+async function enforceGithubOrganizationRestriction({
+  accessToken,
+}: ProviderRestrictionContext) {
+  if (!process.env.AIRBROKE_GITHUB_ORGS) return;
+
+  const allowedOrgs = envList("AIRBROKE_GITHUB_ORGS") ?? [];
+  const orgs = await fetchJsonOrForbidden<Array<{ login: string }>>(
+    "https://api.github.com/user/orgs",
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: "application/vnd.github.v3+json",
+        "User-Agent": "airbroke",
+      },
+    },
+    "GitHub: failed to fetch organizations",
+  );
+  if (!orgs.some((org) => allowedOrgs.includes(org.login))) {
+    throw new APIError("FORBIDDEN", {
+      message: "GitHub: organization not allowed",
+    });
+  }
+}
+
+async function enforceGitlabGroupRestriction({
+  accessToken,
+}: ProviderRestrictionContext) {
+  if (!process.env.AIRBROKE_GITLAB_GROUPS) return;
+
+  const allowedGroups = envList("AIRBROKE_GITLAB_GROUPS") ?? [];
+  const gitlabUrl = (
+    process.env.AIRBROKE_GITLAB_URL ?? "https://gitlab.com"
+  ).replace(/\/+$/, "");
+  const groups = await fetchJsonOrForbidden<Array<{ full_path: string }>>(
+    `${gitlabUrl}/api/v4/groups?min_access_level=10`,
+    { headers: { Authorization: `Bearer ${accessToken}` } },
+    "GitLab: failed to fetch groups",
+  );
+  if (!groups.some((group) => allowedGroups.includes(group.full_path))) {
+    throw new APIError("FORBIDDEN", {
+      message: "GitLab: group not allowed",
+    });
+  }
+}
+
+async function enforceBitbucketWorkspaceRestriction({
+  accessToken,
+}: ProviderRestrictionContext) {
+  if (!process.env.AIRBROKE_BITBUCKET_WORKSPACES) return;
+
+  const allowedWorkspaces = envList("AIRBROKE_BITBUCKET_WORKSPACES") ?? [];
+  const data = await fetchJsonOrForbidden<{
+    values: Array<{ slug: string }>;
+  }>(
+    "https://api.bitbucket.org/2.0/workspaces?role=member",
+    { headers: { Authorization: `Bearer ${accessToken}` } },
+    "Bitbucket: failed to fetch workspaces",
+  );
+  if (
+    !data.values.some((workspace) => allowedWorkspaces.includes(workspace.slug))
+  ) {
+    throw new APIError("FORBIDDEN", {
+      message: "Bitbucket: workspace not allowed",
+    });
+  }
+}
+
+async function enforceAtlassianSiteRestriction({
+  accessToken,
+}: ProviderRestrictionContext) {
+  if (!process.env.AIRBROKE_ATLASSIAN_SITES) return;
+
+  const allowedSites = envList("AIRBROKE_ATLASSIAN_SITES") ?? [];
+  const resources = await fetchJsonOrForbidden<Array<{ name: string }>>(
+    "https://api.atlassian.com/oauth/token/accessible-resources",
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: "application/json",
+      },
+    },
+    "Atlassian: failed to fetch accessible resources",
+  );
+  if (!resources.some((resource) => allowedSites.includes(resource.name))) {
+    throw new APIError("FORBIDDEN", {
+      message: "Atlassian: site not allowed",
+    });
+  }
+}
+
+async function enforceSlackWorkspaceRestriction({
+  accessToken,
+}: ProviderRestrictionContext) {
+  if (!process.env.AIRBROKE_SLACK_WORKSPACES) return;
+
+  const allowedTeams = envList("AIRBROKE_SLACK_WORKSPACES") ?? [];
+  const data = await fetchJsonOrForbidden<{
+    ok: boolean;
+    team_id?: string;
+  }>(
+    "https://slack.com/api/auth.test",
+    {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    },
+    "Slack: failed to call auth.test",
+  );
+  if (!data.ok || !data.team_id || !allowedTeams.includes(data.team_id)) {
+    throw new APIError("FORBIDDEN", {
+      message: "Slack: workspace not allowed",
+    });
+  }
+}
+
+async function enforceMicrosoftTenantRestriction({
+  accessToken,
+  idToken,
+}: ProviderRestrictionContext) {
+  if (!process.env.AIRBROKE_MICROSOFT_ENTRA_ID_TENANTS) return;
+
+  const allowedTenants = envList("AIRBROKE_MICROSOFT_ENTRA_ID_TENANTS") ?? [];
+  const claims = decodeJwtPayload(idToken ?? accessToken);
+  const tid = claims.tid as string | undefined;
+  if (!tid || !allowedTenants.includes(tid)) {
+    throw new APIError("FORBIDDEN", {
+      message: "Microsoft Entra ID: tenant not allowed",
+    });
+  }
+}
+
+async function enforceSalesforceOrganizationRestriction({
+  accessToken,
+}: ProviderRestrictionContext) {
+  if (!process.env.AIRBROKE_SALESFORCE_ORGS) return;
+
+  const allowedOrgs = envList("AIRBROKE_SALESFORCE_ORGS") ?? [];
+  const data = await fetchJsonOrForbidden<{ organizationId?: string }>(
+    "https://login.salesforce.com/services/oauth2/userinfo",
+    { headers: { Authorization: `Bearer ${accessToken}` } },
+    "Salesforce: failed to fetch userinfo",
+  );
+  if (!data.organizationId || !allowedOrgs.includes(data.organizationId)) {
+    throw new APIError("FORBIDDEN", {
+      message: "Salesforce: organization not allowed",
+    });
+  }
+}
+
+const PROVIDER_RESTRICTIONS: Record<string, ProviderRestriction> = {
+  atlassian: enforceAtlassianSiteRestriction,
+  bitbucket: enforceBitbucketWorkspaceRestriction,
+  github: enforceGithubOrganizationRestriction,
+  gitlab: enforceGitlabGroupRestriction,
+  microsoft: enforceMicrosoftTenantRestriction,
+  salesforce: enforceSalesforceOrganizationRestriction,
+  slack: enforceSlackWorkspaceRestriction,
+};
+
 /** Enforce provider-specific API-based restrictions (org, group, workspace, tenant). */
 async function enforceProviderRestrictions(
   providerId: string,
@@ -105,159 +284,10 @@ async function enforceProviderRestrictions(
 ) {
   if (!accessToken) return;
 
-  // GitHub organization restriction
-  if (providerId === "github" && process.env.AIRBROKE_GITHUB_ORGS) {
-    const allowedOrgs = envList("AIRBROKE_GITHUB_ORGS") ?? [];
-    const response = await fetchWithTimeout(
-      "https://api.github.com/user/orgs",
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          Accept: "application/vnd.github.v3+json",
-          "User-Agent": "airbroke",
-        },
-      },
-    );
-    if (!response.ok) {
-      throw new APIError("FORBIDDEN", {
-        message: "GitHub: failed to fetch organizations",
-      });
-    }
-    const orgs = (await response.json()) as Array<{ login: string }>;
-    if (!orgs.some((o) => allowedOrgs.includes(o.login))) {
-      throw new APIError("FORBIDDEN", {
-        message: "GitHub: organization not allowed",
-      });
-    }
-  }
+  const restriction = PROVIDER_RESTRICTIONS[providerId];
+  if (!restriction) return;
 
-  // GitLab group restriction
-  if (providerId === "gitlab" && process.env.AIRBROKE_GITLAB_GROUPS) {
-    const allowedGroups = envList("AIRBROKE_GITLAB_GROUPS") ?? [];
-    const gitlabUrl = (
-      process.env.AIRBROKE_GITLAB_URL ?? "https://gitlab.com"
-    ).replace(/\/+$/, "");
-    const response = await fetchWithTimeout(
-      `${gitlabUrl}/api/v4/groups?min_access_level=10`,
-      { headers: { Authorization: `Bearer ${accessToken}` } },
-    );
-    if (!response.ok) {
-      throw new APIError("FORBIDDEN", {
-        message: "GitLab: failed to fetch groups",
-      });
-    }
-    const groups = (await response.json()) as Array<{ full_path: string }>;
-    if (!groups.some((g) => allowedGroups.includes(g.full_path))) {
-      throw new APIError("FORBIDDEN", {
-        message: "GitLab: group not allowed",
-      });
-    }
-  }
-
-  // Bitbucket workspace restriction
-  if (providerId === "bitbucket" && process.env.AIRBROKE_BITBUCKET_WORKSPACES) {
-    const allowedWorkspaces = envList("AIRBROKE_BITBUCKET_WORKSPACES") ?? [];
-    const response = await fetchWithTimeout(
-      "https://api.bitbucket.org/2.0/workspaces?role=member",
-      { headers: { Authorization: `Bearer ${accessToken}` } },
-    );
-    if (!response.ok) {
-      throw new APIError("FORBIDDEN", {
-        message: "Bitbucket: failed to fetch workspaces",
-      });
-    }
-    const data = (await response.json()) as {
-      values: Array<{ slug: string }>;
-    };
-    if (!data.values.some((ws) => allowedWorkspaces.includes(ws.slug))) {
-      throw new APIError("FORBIDDEN", {
-        message: "Bitbucket: workspace not allowed",
-      });
-    }
-  }
-
-  // Atlassian site restriction
-  if (providerId === "atlassian" && process.env.AIRBROKE_ATLASSIAN_SITES) {
-    const allowedSites = envList("AIRBROKE_ATLASSIAN_SITES") ?? [];
-    const response = await fetchWithTimeout(
-      "https://api.atlassian.com/oauth/token/accessible-resources",
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          Accept: "application/json",
-        },
-      },
-    );
-    if (!response.ok) {
-      throw new APIError("FORBIDDEN", {
-        message: "Atlassian: failed to fetch accessible resources",
-      });
-    }
-    const resources = (await response.json()) as Array<{ name: string }>;
-    if (!resources.some((r) => allowedSites.includes(r.name))) {
-      throw new APIError("FORBIDDEN", {
-        message: "Atlassian: site not allowed",
-      });
-    }
-  }
-
-  // Slack workspace restriction
-  if (providerId === "slack" && process.env.AIRBROKE_SLACK_WORKSPACES) {
-    const allowedTeams = envList("AIRBROKE_SLACK_WORKSPACES") ?? [];
-    const response = await fetchWithTimeout("https://slack.com/api/auth.test", {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
-    if (!response.ok) {
-      throw new APIError("FORBIDDEN", {
-        message: "Slack: failed to call auth.test",
-      });
-    }
-    const data = (await response.json()) as {
-      ok: boolean;
-      team_id?: string;
-    };
-    if (!data.ok || !data.team_id || !allowedTeams.includes(data.team_id)) {
-      throw new APIError("FORBIDDEN", {
-        message: "Slack: workspace not allowed",
-      });
-    }
-  }
-
-  // Microsoft Entra ID tenant restriction.
-  // Reads `tid` from the ID token (preferred) or access token (fallback).
-  if (
-    providerId === "microsoft" &&
-    process.env.AIRBROKE_MICROSOFT_ENTRA_ID_TENANTS
-  ) {
-    const allowedTenants = envList("AIRBROKE_MICROSOFT_ENTRA_ID_TENANTS") ?? [];
-    const claims = decodeJwtPayload(idToken ?? accessToken);
-    const tid = claims.tid as string | undefined;
-    if (!tid || !allowedTenants.includes(tid)) {
-      throw new APIError("FORBIDDEN", {
-        message: "Microsoft Entra ID: tenant not allowed",
-      });
-    }
-  }
-
-  // Salesforce organization restriction
-  if (providerId === "salesforce" && process.env.AIRBROKE_SALESFORCE_ORGS) {
-    const allowedOrgs = envList("AIRBROKE_SALESFORCE_ORGS") ?? [];
-    const response = await fetchWithTimeout(
-      "https://login.salesforce.com/services/oauth2/userinfo",
-      { headers: { Authorization: `Bearer ${accessToken}` } },
-    );
-    if (!response.ok) {
-      throw new APIError("FORBIDDEN", {
-        message: "Salesforce: failed to fetch userinfo",
-      });
-    }
-    const data = (await response.json()) as { organizationId?: string };
-    if (!data.organizationId || !allowedOrgs.includes(data.organizationId)) {
-      throw new APIError("FORBIDDEN", {
-        message: "Salesforce: organization not allowed",
-      });
-    }
-  }
+  await restriction({ accessToken, idToken });
 }
 
 // ---------------------------------------------------------------------------

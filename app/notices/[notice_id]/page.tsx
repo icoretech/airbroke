@@ -3,15 +3,15 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import CustomTimeAgo from "@/components/CustomTimeAgo";
-import EnvironmentLabel from "@/components/EnvironmentLabel";
-import OccurrencesTable from "@/components/OccurrencesTable";
+import CustomTimeAgo from "@/components/common/CustomTimeAgo";
+import EnvironmentLabel from "@/components/common/EnvironmentLabel";
+import OccurrencesTable from "@/components/notice/OccurrencesTable";
+import StatusFilter from "@/components/notice/StatusFilter";
 import RemarkThread from "@/components/remark/RemarkThread";
-import StatusFilter from "@/components/StatusFilter";
 import { Badge } from "@/components/ui/badge";
 import { getNoticeById } from "@/lib/queries/notices";
 import { getRemarkCountByNoticeId } from "@/lib/queries/remarks";
-import { toOccurrenceSearchParams } from "@/lib/routeSearchParams";
+import { toOccurrenceSearchParams } from "@/lib/routing/routeSearchParams";
 import Sort from "./Sort";
 import type { Metadata } from "next";
 

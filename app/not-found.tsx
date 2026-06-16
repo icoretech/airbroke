@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { TbFileXFilled } from "react-icons/tb";
-import PageBackground from "@/components/PageBackground";
+import PageBackground from "@/components/layout/PageBackground";
 import { Button } from "@/components/ui/button";
 import logo from "@/public/logo.svg";
 

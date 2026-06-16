@@ -1,20 +1,19 @@
-// components/occurrence/BookmarkButton.tsx
-
 "use client";
 
 import { Bookmark, BookmarkCheck } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
-import {
-  createOccurrenceBookmark,
-  removeOccurrenceBookmark,
-} from "@/app/_actions";
+import { useState } from "react";
+import ClientMutationError from "@/components/common/ClientMutationError";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useClientMutation } from "@/hooks/useClientMutation";
+import {
+  createOccurrenceBookmark,
+  removeOccurrenceBookmark,
+} from "@/lib/actions/occurrenceActions";
 
 interface BookmarkButtonProps {
   occurrenceId: string;
@@ -25,8 +24,7 @@ export default function BookmarkButton({
   occurrenceId,
   isBookmarked,
 }: BookmarkButtonProps) {
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const { errorMessage, isBusy, runMutation } = useClientMutation();
   const [optimistic, setOptimistic] = useState<{
     occurrenceId: string;
     bookmarked: boolean;
@@ -42,39 +40,43 @@ export default function BookmarkButton({
   const label = bookmarked ? "Bookmarked" : "Bookmark";
 
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Button
-          type="button"
-          variant={bookmarked ? "secondary" : "outline"}
-          size="icon-sm"
-          disabled={isPending}
-          aria-disabled={isPending}
-          aria-pressed={bookmarked}
-          onClick={() =>
-            startTransition(() => {
+    <div className="inline-flex flex-col items-start gap-1">
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            type="button"
+            variant={bookmarked ? "secondary" : "outline"}
+            size="icon-sm"
+            disabled={isBusy}
+            aria-disabled={isBusy}
+            aria-pressed={bookmarked}
+            onClick={() => {
               const next = !bookmarked;
               setOptimistic({ occurrenceId, bookmarked: next });
-              const action = next
-                ? createOccurrenceBookmark(occurrenceId)
-                : removeOccurrenceBookmark(occurrenceId);
-
-              void action
-                .catch((error) => {
-                  console.error("Bookmark action failed:", error);
-                  setOptimistic(null);
-                })
-                .finally(() => router.refresh());
-            })
-          }
-        >
-          <Icon className="size-4" aria-hidden="true" />
-          <span className="sr-only">{label}</span>
-        </Button>
-      </TooltipTrigger>
-      <TooltipContent sideOffset={6}>
-        {bookmarked ? "Remove bookmark" : "Bookmark this occurrence"}
-      </TooltipContent>
-    </Tooltip>
+              runMutation({
+                action: () =>
+                  next
+                    ? createOccurrenceBookmark(occurrenceId)
+                    : removeOccurrenceBookmark(occurrenceId),
+                errorMessage: next
+                  ? "Could not bookmark occurrence"
+                  : "Could not remove bookmark",
+                onFailure: () => setOptimistic(null),
+              });
+            }}
+          >
+            <Icon className="size-4" aria-hidden="true" />
+            <span className="sr-only">{label}</span>
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent sideOffset={6}>
+          {bookmarked ? "Remove bookmark" : "Bookmark this occurrence"}
+        </TooltipContent>
+      </Tooltip>
+      <ClientMutationError
+        className="max-w-48 leading-tight"
+        message={errorMessage}
+      />
+    </div>
   );
 }

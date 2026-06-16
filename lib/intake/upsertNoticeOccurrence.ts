@@ -1,16 +1,14 @@
-// lib/processError.ts
-
 import crypto from "node:crypto";
 import { db } from "@/lib/db";
 import { Prisma } from "@/prisma/generated/client";
-import type { NoticeError } from "@/lib/parseNotice";
+import type { NoticeError } from "@/lib/intake/normalizeNoticeData";
 import type { Project } from "@/prisma/generated/client";
 
 async function retryKnownUniqueConflict<T>(
   operation: () => Promise<T>,
   label: string,
   attemptsLeft = 3,
-): Promise<T | null> {
+): Promise<T> {
   try {
     return await operation();
   } catch (error) {
@@ -27,36 +25,32 @@ async function retryKnownUniqueConflict<T>(
       return retryKnownUniqueConflict(operation, label, attemptsLeft - 1);
     }
 
-    if (
-      error instanceof Prisma.PrismaClientKnownRequestError &&
-      error.code === "P2002"
-    ) {
-      return null;
-    }
-
     throw error;
   }
 }
 
-/**
- * Processes and records a NoticeError instance into the database (notices/occurrences).
- *
- * - Retries the Notice upsert on P2002 errors (unique constraint).
- * - Retries the Occurrence upsert on P2002 errors, too.
- */
-export async function processError(
-  project: Project,
-  error: NoticeError,
-  context: Record<string, unknown>,
-  environment: Record<string, unknown>,
-  session: Record<string, unknown>,
-  requestParams: Record<string, unknown>,
-): Promise<void> {
+export interface UpsertNoticeOccurrenceInput {
+  readonly project: Project;
+  readonly error: NoticeError;
+  readonly context: Record<string, unknown>;
+  readonly environment: Record<string, unknown>;
+  readonly session: Record<string, unknown>;
+  readonly requestParams: Record<string, unknown>;
+}
+
+export async function upsertNoticeOccurrence({
+  project,
+  error,
+  context,
+  environment,
+  session,
+  requestParams,
+}: UpsertNoticeOccurrenceInput): Promise<void> {
   const type = error.type;
   const message = error.message;
   const backtrace = error.backtrace;
-  // If the context has .environment, use that, else default to "unknown".
-  const env = (context.environment as string) || "unknown";
+  const env =
+    typeof context.environment === "string" ? context.environment : "unknown";
 
   const currentNotice = await retryKnownUniqueConflict(
     () =>
@@ -82,11 +76,6 @@ export async function processError(
       }),
     "Notice upsert",
   );
-
-  // If we couldn't create or find a Notice, bail out
-  if (!currentNotice) {
-    return;
-  }
 
   const messageHash = crypto
     .createHash("sha256")

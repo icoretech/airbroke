@@ -1,9 +1,9 @@
 import { cache } from "react";
-import AppBreadcrumbs from "@/components/AppBreadcrumbs";
-import { AppShell } from "@/components/AppShell";
+import AppBreadcrumbs from "@/components/layout/AppBreadcrumbs";
+import { AppShell } from "@/components/layout/AppShell";
 import { EditProjectButton } from "@/components/project/EditProjectButton";
-import { buildNoticeCrumbsById } from "@/lib/breadcrumbs";
 import { db } from "@/lib/db";
+import { buildNoticeCrumbsById } from "@/lib/routing/breadcrumbs";
 
 export default async function NoticeLayout({
   children,

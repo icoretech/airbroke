@@ -1,7 +1,7 @@
-import AppBreadcrumbs from "@/components/AppBreadcrumbs";
-import { AppShell } from "@/components/AppShell";
+import AppBreadcrumbs from "@/components/layout/AppBreadcrumbs";
+import { AppShell } from "@/components/layout/AppShell";
 import { ProjectTopbarEndSlot } from "@/components/project/ProjectTopbarEndSlot";
-import { buildProjectCrumbsById } from "@/lib/breadcrumbs";
+import { buildProjectCrumbsById } from "@/lib/routing/breadcrumbs";
 
 export default async function ProjectLayout({
   children,

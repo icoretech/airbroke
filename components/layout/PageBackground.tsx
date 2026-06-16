@@ -1,5 +1,5 @@
 // components/PageBackground.tsx
-import Background from "@/components/Background";
+import Background from "@/components/layout/Background";
 
 export default function PageBackground({
   children,

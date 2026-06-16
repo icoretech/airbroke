@@ -5,11 +5,11 @@
 
 import { cookies } from "next/headers";
 import { connection } from "next/server";
-import { getSerializedProviders } from "@/lib/auth-providers";
+import { getSerializedProviders } from "@/lib/auth/providers";
 import {
   SIGN_IN_RETURN_PATH_COOKIE_NAME,
   safeRelativeReturnPath,
-} from "@/lib/signInReturnPath";
+} from "@/lib/auth/signInReturnPath";
 import SignInPageClient from "./SignInPageClient";
 
 export default async function SignInPage(props: PageProps<"/signin">) {

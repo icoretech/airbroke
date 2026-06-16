@@ -3,9 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
-import { CodeBlock } from "@/components/CodeBlock";
-import FooterCredits from "@/components/FooterCredits";
-import PageBackground from "@/components/PageBackground";
+import { CodeBlock } from "@/components/common/CodeBlock";
+import FooterCredits from "@/components/layout/FooterCredits";
+import PageBackground from "@/components/layout/PageBackground";
 import { Button } from "@/components/ui/button";
 import logo from "@/public/logo.svg";
 

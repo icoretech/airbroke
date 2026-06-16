@@ -1,8 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
-import { deleteProject, deleteProjectNotices } from "@/app/_actions";
+import ClientMutationError from "@/components/common/ClientMutationError";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,6 +14,11 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { useClientMutation } from "@/hooks/useClientMutation";
+import {
+  deleteProject,
+  deleteProjectNotices,
+} from "@/lib/actions/projectActions";
 
 export default function DangerActions({
   projectId,
@@ -24,32 +28,22 @@ export default function DangerActions({
   projectName: string;
 }) {
   const router = useRouter();
-  const [pending, startTransition] = useTransition();
-  const [isWorking, setIsWorking] = useState(false);
-  const isBusy = pending || isWorking;
+  const { errorMessage, isBusy, runMutation } = useClientMutation();
 
   function handleDeleteAllErrors() {
-    setIsWorking(true);
-    void deleteProjectNotices(projectId)
-      .catch((error) => {
-        console.error("Delete all errors failed:", error);
-      })
-      .finally(() => {
-        setIsWorking(false);
-        startTransition(() => router.refresh());
-      });
+    runMutation({
+      action: () => deleteProjectNotices(projectId),
+      errorMessage: "Could not delete project errors",
+    });
   }
 
   function handleDeleteProject() {
-    setIsWorking(true);
-    void deleteProject(projectId)
-      .catch((error) => {
-        console.error("Delete project failed:", error);
-      })
-      .finally(() => {
-        setIsWorking(false);
-        startTransition(() => router.push("/projects"));
-      });
+    runMutation({
+      action: () => deleteProject(projectId),
+      errorMessage: "Could not delete project",
+      onSuccess: () => router.push("/projects"),
+      refreshOnSuccess: false,
+    });
   }
 
   return (
@@ -58,7 +52,6 @@ export default function DangerActions({
         Irreversible operations. Proceed with caution.
       </div>
       <div className="flex flex-wrap items-center gap-2">
-        {/* Delete All Errors */}
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <Button variant="destructive" size="sm" disabled={isBusy}>
@@ -88,7 +81,6 @@ export default function DangerActions({
           </AlertDialogContent>
         </AlertDialog>
 
-        {/* Delete Project */}
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <Button variant="destructive" size="sm" disabled={isBusy}>
@@ -118,6 +110,7 @@ export default function DangerActions({
           </AlertDialogContent>
         </AlertDialog>
       </div>
+      <ClientMutationError message={errorMessage} />
     </div>
   );
 }

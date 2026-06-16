@@ -76,6 +76,15 @@ export type SerializedProvider = {
   type: "social" | "oauth2";
 };
 
+type DiscoveryOAuthProviderDescriptor = {
+  providerId: string;
+  clientIdEnv: string;
+  clientSecretEnv: string;
+  issuerEnv: string;
+  requiresIssuerForIntendedProvider?: boolean;
+  authorizationUrlParams?: () => Record<string, string> | undefined;
+};
+
 // ---------------------------------------------------------------------------
 // Provider display names for the sign-in page
 // ---------------------------------------------------------------------------
@@ -98,6 +107,56 @@ export const PROVIDER_NAMES: Record<string, string> = {
   bitbucket: "Bitbucket",
   fusionauth: "FusionAuth",
 };
+
+const DISCOVERY_OAUTH_PROVIDERS: DiscoveryOAuthProviderDescriptor[] = [
+  {
+    providerId: "auth0",
+    clientIdEnv: "AIRBROKE_AUTH0_ID",
+    clientSecretEnv: "AIRBROKE_AUTH0_SECRET",
+    issuerEnv: "AIRBROKE_AUTH0_ISSUER",
+  },
+  {
+    providerId: "authentik",
+    clientIdEnv: "AIRBROKE_AUTHENTIK_ID",
+    clientSecretEnv: "AIRBROKE_AUTHENTIK_SECRET",
+    issuerEnv: "AIRBROKE_AUTHENTIK_ISSUER",
+  },
+  {
+    providerId: "cognito",
+    clientIdEnv: "AIRBROKE_COGNITO_ID",
+    clientSecretEnv: "AIRBROKE_COGNITO_SECRET",
+    issuerEnv: "AIRBROKE_COGNITO_ISSUER",
+  },
+  {
+    providerId: "keycloak",
+    clientIdEnv: "AIRBROKE_KEYCLOAK_ID",
+    clientSecretEnv: "AIRBROKE_KEYCLOAK_SECRET",
+    issuerEnv: "AIRBROKE_KEYCLOAK_ISSUER",
+  },
+  {
+    providerId: "okta",
+    clientIdEnv: "AIRBROKE_OKTA_ID",
+    clientSecretEnv: "AIRBROKE_OKTA_SECRET",
+    issuerEnv: "AIRBROKE_OKTA_ISSUER",
+  },
+  {
+    providerId: "fusionauth",
+    clientIdEnv: "AIRBROKE_FUSIONAUTH_ID",
+    clientSecretEnv: "AIRBROKE_FUSIONAUTH_SECRET",
+    issuerEnv: "AIRBROKE_FUSIONAUTH_ISSUER",
+    authorizationUrlParams: () =>
+      process.env.AIRBROKE_FUSIONAUTH_TENANT_ID
+        ? { tenantId: process.env.AIRBROKE_FUSIONAUTH_TENANT_ID }
+        : undefined,
+  },
+  {
+    providerId: "microsoft",
+    clientIdEnv: "AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_ID",
+    clientSecretEnv: "AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_SECRET",
+    issuerEnv: "AIRBROKE_MICROSOFT_ENTRA_ID_ISSUER",
+    requiresIssuerForIntendedProvider: true,
+  },
+];
 
 // ---------------------------------------------------------------------------
 // Built-in social providers (only added when env vars are set)
@@ -186,6 +245,27 @@ export function buildSocialProviders(): Record<string, SocialProviderConfig> {
 // Generic OAuth providers (via plugin)
 // ---------------------------------------------------------------------------
 
+function buildDiscoveryOAuthConfig(
+  descriptor: DiscoveryOAuthProviderDescriptor,
+): GenericOAuthConfig | null {
+  const issuer = resolveIssuer(descriptor.issuerEnv);
+  const clientId = process.env[descriptor.clientIdEnv];
+  const clientSecret = process.env[descriptor.clientSecretEnv];
+  if (!clientId || !clientSecret || !issuer) {
+    return null;
+  }
+
+  const authorizationUrlParams = descriptor.authorizationUrlParams?.();
+
+  return {
+    providerId: descriptor.providerId,
+    clientId,
+    clientSecret,
+    discoveryUrl: `${issuer}/.well-known/openid-configuration`,
+    ...(authorizationUrlParams ? { authorizationUrlParams } : {}),
+  };
+}
+
 export function buildGenericOAuthConfig(): GenericOAuthConfig[] {
   const configs: GenericOAuthConfig[] = [];
 
@@ -223,88 +303,10 @@ export function buildGenericOAuthConfig(): GenericOAuthConfig[] {
     });
   }
 
-  // Auth0
-  {
-    const issuer = resolveIssuer("AIRBROKE_AUTH0_ISSUER");
-    if (
-      process.env.AIRBROKE_AUTH0_ID &&
-      process.env.AIRBROKE_AUTH0_SECRET &&
-      issuer
-    ) {
-      configs.push({
-        providerId: "auth0",
-        clientId: process.env.AIRBROKE_AUTH0_ID,
-        clientSecret: process.env.AIRBROKE_AUTH0_SECRET,
-        discoveryUrl: `${issuer}/.well-known/openid-configuration`,
-      });
-    }
-  }
-
-  // Authentik
-  {
-    const issuer = resolveIssuer("AIRBROKE_AUTHENTIK_ISSUER");
-    if (
-      process.env.AIRBROKE_AUTHENTIK_ID &&
-      process.env.AIRBROKE_AUTHENTIK_SECRET &&
-      issuer
-    ) {
-      configs.push({
-        providerId: "authentik",
-        clientId: process.env.AIRBROKE_AUTHENTIK_ID,
-        clientSecret: process.env.AIRBROKE_AUTHENTIK_SECRET,
-        discoveryUrl: `${issuer}/.well-known/openid-configuration`,
-      });
-    }
-  }
-
-  // Cognito
-  {
-    const issuer = resolveIssuer("AIRBROKE_COGNITO_ISSUER");
-    if (
-      process.env.AIRBROKE_COGNITO_ID &&
-      process.env.AIRBROKE_COGNITO_SECRET &&
-      issuer
-    ) {
-      configs.push({
-        providerId: "cognito",
-        clientId: process.env.AIRBROKE_COGNITO_ID,
-        clientSecret: process.env.AIRBROKE_COGNITO_SECRET,
-        discoveryUrl: `${issuer}/.well-known/openid-configuration`,
-      });
-    }
-  }
-
-  // Keycloak
-  {
-    const issuer = resolveIssuer("AIRBROKE_KEYCLOAK_ISSUER");
-    if (
-      process.env.AIRBROKE_KEYCLOAK_ID &&
-      process.env.AIRBROKE_KEYCLOAK_SECRET &&
-      issuer
-    ) {
-      configs.push({
-        providerId: "keycloak",
-        clientId: process.env.AIRBROKE_KEYCLOAK_ID,
-        clientSecret: process.env.AIRBROKE_KEYCLOAK_SECRET,
-        discoveryUrl: `${issuer}/.well-known/openid-configuration`,
-      });
-    }
-  }
-
-  // Okta
-  {
-    const issuer = resolveIssuer("AIRBROKE_OKTA_ISSUER");
-    if (
-      process.env.AIRBROKE_OKTA_ID &&
-      process.env.AIRBROKE_OKTA_SECRET &&
-      issuer
-    ) {
-      configs.push({
-        providerId: "okta",
-        clientId: process.env.AIRBROKE_OKTA_ID,
-        clientSecret: process.env.AIRBROKE_OKTA_SECRET,
-        discoveryUrl: `${issuer}/.well-known/openid-configuration`,
-      });
+  for (const descriptor of DISCOVERY_OAUTH_PROVIDERS) {
+    const config = buildDiscoveryOAuthConfig(descriptor);
+    if (config) {
+      configs.push(config);
     }
   }
 
@@ -380,45 +382,6 @@ export function buildGenericOAuthConfig(): GenericOAuthConfig[] {
     });
   }
 
-  // FusionAuth
-  {
-    const issuer = resolveIssuer("AIRBROKE_FUSIONAUTH_ISSUER");
-    if (
-      process.env.AIRBROKE_FUSIONAUTH_ID &&
-      process.env.AIRBROKE_FUSIONAUTH_SECRET &&
-      issuer
-    ) {
-      configs.push({
-        providerId: "fusionauth",
-        clientId: process.env.AIRBROKE_FUSIONAUTH_ID,
-        clientSecret: process.env.AIRBROKE_FUSIONAUTH_SECRET,
-        discoveryUrl: `${issuer}/.well-known/openid-configuration`,
-        ...(process.env.AIRBROKE_FUSIONAUTH_TENANT_ID && {
-          authorizationUrlParams: {
-            tenantId: process.env.AIRBROKE_FUSIONAUTH_TENANT_ID,
-          },
-        }),
-      });
-    }
-  }
-
-  // Microsoft Entra ID with custom issuer (B2C, CIAM, non-default authority).
-  {
-    const issuer = resolveIssuer("AIRBROKE_MICROSOFT_ENTRA_ID_ISSUER");
-    if (
-      process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_ID &&
-      process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_SECRET &&
-      issuer
-    ) {
-      configs.push({
-        providerId: "microsoft",
-        clientId: process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_ID,
-        clientSecret: process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_SECRET,
-        discoveryUrl: `${issuer}/.well-known/openid-configuration`,
-      });
-    }
-  }
-
   return configs;
 }
 
@@ -437,27 +400,23 @@ function getIntendedGenericProviderIds(): string[] {
   const ids: string[] = [];
   const checks: [string, string, string][] = [
     ["atlassian", "AIRBROKE_ATLASSIAN_ID", "AIRBROKE_ATLASSIAN_SECRET"],
-    ["auth0", "AIRBROKE_AUTH0_ID", "AIRBROKE_AUTH0_SECRET"],
-    ["authentik", "AIRBROKE_AUTHENTIK_ID", "AIRBROKE_AUTHENTIK_SECRET"],
-    ["cognito", "AIRBROKE_COGNITO_ID", "AIRBROKE_COGNITO_SECRET"],
-    ["keycloak", "AIRBROKE_KEYCLOAK_ID", "AIRBROKE_KEYCLOAK_SECRET"],
-    ["okta", "AIRBROKE_OKTA_ID", "AIRBROKE_OKTA_SECRET"],
     ["boxyhq-saml", "AIRBROKE_BOXYHQ_SAML_ID", "AIRBROKE_BOXYHQ_SAML_SECRET"],
     ["bitbucket", "AIRBROKE_BITBUCKET_ID", "AIRBROKE_BITBUCKET_SECRET"],
-    ["fusionauth", "AIRBROKE_FUSIONAUTH_ID", "AIRBROKE_FUSIONAUTH_SECRET"],
   ];
   for (const [id, idKey, secretKey] of checks) {
     if (process.env[idKey] && process.env[secretKey]) {
       ids.push(id);
     }
   }
-  // Microsoft with custom issuer is generic; avoid duplicate if already social
-  if (
-    process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_ID &&
-    process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_SECRET &&
-    process.env.AIRBROKE_MICROSOFT_ENTRA_ID_ISSUER
-  ) {
-    ids.push("microsoft");
+  for (const descriptor of DISCOVERY_OAUTH_PROVIDERS) {
+    if (
+      process.env[descriptor.clientIdEnv] &&
+      process.env[descriptor.clientSecretEnv] &&
+      (!descriptor.requiresIssuerForIntendedProvider ||
+        process.env[descriptor.issuerEnv])
+    ) {
+      ids.push(descriptor.providerId);
+    }
   }
   return ids;
 }

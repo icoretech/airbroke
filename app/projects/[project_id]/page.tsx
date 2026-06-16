@@ -2,9 +2,9 @@
 
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import CopyToClipboardButton from "@/components/CopyToClipboardButton";
-import NoticesTable from "@/components/NoticesTable";
-import StatusFilter from "@/components/StatusFilter";
+import CopyToClipboardButton from "@/components/common/CopyToClipboardButton";
+import NoticesTable from "@/components/notice/NoticesTable";
+import StatusFilter from "@/components/notice/StatusFilter";
 import { Badge } from "@/components/ui/badge";
 import {
   InputGroup,
@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/input-group";
 import { getNoticeEnvs } from "@/lib/queries/notices";
 import { getProjectById } from "@/lib/queries/projects";
-import { toNoticeSearchParams } from "@/lib/routeSearchParams";
+import { toNoticeSearchParams } from "@/lib/routing/routeSearchParams";
 import EnvironmentFilter from "./Filter";
 import NoticesWithBulkActions from "./NoticesWithBulkActions";
 import Sort from "./Sort";

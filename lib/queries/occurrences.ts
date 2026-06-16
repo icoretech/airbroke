@@ -54,7 +54,7 @@ function resolvedWhere(filter?: ResolvedFilter): Prisma.OccurrenceWhereInput {
   }
 }
 
-export async function getOccurrences(
+export function getOccurrences(
   noticeId: string,
   params: OccurrenceSearchParams,
 ): Promise<OccurrenceWithNotice[]> {
@@ -83,7 +83,14 @@ export async function getOccurrences(
     [sortAttr]: sortDir,
   };
 
-  return _fetchOccurrences(whereObject, orderByObject, limit);
+  return db.occurrence.findMany({
+    where: whereObject,
+    orderBy: orderByObject,
+    take: limit ?? 100,
+    include: {
+      notice: true,
+    },
+  });
 }
 
 /**
@@ -92,7 +99,7 @@ export async function getOccurrences(
  * @param projectId - The ID of the project
  * @returns Promise resolving to the count of matching occurrences
  */
-export async function getOccurrencesCountByProjectId(
+export function getOccurrencesCountByProjectId(
   projectId: string,
 ): Promise<number> {
   return db.occurrence.count({
@@ -110,10 +117,19 @@ export async function getOccurrencesCountByProjectId(
  * @param occurrenceId - The ID of the occurrence
  * @returns Promise resolving to the Occurrence (with Notice & Project) or null if not found
  */
-export async function getOccurrenceById(
+export function getOccurrenceById(
   occurrenceId: string,
 ): Promise<OccurrenceWithNoticeAndProject | null> {
-  return _fetchOccurrenceById(occurrenceId);
+  return db.occurrence.findUnique({
+    where: { id: occurrenceId },
+    include: {
+      notice: {
+        include: {
+          project: true,
+        },
+      },
+    },
+  });
 }
 
 /**
@@ -154,44 +170,4 @@ export async function getHourlyOccurrenceRateForLast14Days(
   const rate = Number(totalOccurrences) / totalHours;
 
   return Math.round(rate);
-}
-
-/**
- * Internal helper to fetch multiple Occurrences with Notice included.
- *
- * @private
- */
-async function _fetchOccurrences(
-  whereObject: Prisma.OccurrenceWhereInput,
-  orderByObject: Prisma.OccurrenceOrderByWithRelationInput,
-  limit?: number,
-): Promise<OccurrenceWithNotice[]> {
-  return db.occurrence.findMany({
-    where: whereObject,
-    orderBy: orderByObject,
-    take: limit ?? 100,
-    include: {
-      notice: true,
-    },
-  });
-}
-
-/**
- * Internal helper to fetch a single Occurrence by ID, including Notice and Project.
- *
- * @private
- */
-async function _fetchOccurrenceById(
-  occurrenceId: string,
-): Promise<OccurrenceWithNoticeAndProject | null> {
-  return db.occurrence.findUnique({
-    where: { id: occurrenceId },
-    include: {
-      notice: {
-        include: {
-          project: true,
-        },
-      },
-    },
-  });
 }
