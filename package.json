@@ -28,7 +28,7 @@
     "@airbrake/browser": "2.1.9",
     "@airbrake/node": "2.1.9",
     "@microlink/react-json-view": "1.31.20",
-    "@modelcontextprotocol/sdk": "1.29.0",
+    "@modelcontextprotocol/sdk": "1.26.0",
     "@prisma/adapter-pg": "7.8.0",
     "@prisma/client": "7.8.0",
     "@radix-ui/react-alert-dialog": "1.1.16",
