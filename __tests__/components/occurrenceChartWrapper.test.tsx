@@ -3,17 +3,13 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 
-const findManyMock = vi.fn();
+const getOccurrenceChartOccurrencesDataMock = vi.fn();
 
-vi.mock("@/lib/db", () => ({
-  db: {
-    hourlyOccurrence: {
-      findMany: findManyMock,
-    },
-  },
+vi.mock("@/lib/queries/occurrenceChartOccurrences", () => ({
+  getOccurrenceChartOccurrencesData: getOccurrenceChartOccurrencesDataMock,
 }));
 
-vi.mock("@/components/OccurrenceChart", () => ({
+vi.mock("@/components/common/OccurrenceChart", () => ({
   default: ({
     chartData,
     gradientId,
@@ -24,19 +20,24 @@ vi.mock("@/components/OccurrenceChart", () => ({
 }));
 
 const { default: OccurrenceChartWrapper } = await import(
-  "@/components/OccurrenceChartWrapper"
+  "@/components/occurrence/OccurrenceChartWrapper"
 );
 
 describe("OccurrenceChartWrapper", () => {
   it("passes a stable gradient id to the chart", async () => {
-    findManyMock.mockResolvedValue([]);
+    getOccurrenceChartOccurrencesDataMock.mockResolvedValue([
+      { date: 1742493600000, count: 3 },
+    ]);
 
     const element = await OccurrenceChartWrapper({
       occurrenceId: "occ-123",
     });
     const html = renderToStaticMarkup(element);
 
-    expect(findManyMock).toHaveBeenCalledTimes(1);
+    expect(getOccurrenceChartOccurrencesDataMock).toHaveBeenCalledWith(
+      "occ-123",
+    );
     expect(html).toContain('data-gradient-id="occurrence-chart-occ-123"');
+    expect(html).toContain("&quot;count&quot;:3");
   });
 });

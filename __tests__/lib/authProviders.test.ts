@@ -45,7 +45,7 @@ describe("getSerializedProviders", () => {
   it("includes Google when env vars are set", async () => {
     process.env.AIRBROKE_GOOGLE_ID = "test-id";
     process.env.AIRBROKE_GOOGLE_SECRET = "test-secret";
-    const { buildSocialProviders } = await import("@/lib/auth-providers");
+    const { buildSocialProviders } = await import("@/lib/auth/providers");
     const social = buildSocialProviders();
     expect(social.google?.clientId).toBe("test-id");
     const { getSerializedProviders } = await import("@/lib/auth");
@@ -57,7 +57,7 @@ describe("getSerializedProviders", () => {
     process.env.AIRBROKE_GOOGLE_ID = "  google-client-id  ";
     process.env.AIRBROKE_GOOGLE_SECRET = "test-secret";
 
-    const { buildSocialProviders } = await import("@/lib/auth-providers");
+    const { buildSocialProviders } = await import("@/lib/auth/providers");
     expect(buildSocialProviders().google?.clientId).toBe("google-client-id");
   });
 
@@ -65,7 +65,7 @@ describe("getSerializedProviders", () => {
     process.env.AIRBROKE_GOOGLE_ID = " google-1 , , google-2 , google-3 ";
     process.env.AIRBROKE_GOOGLE_SECRET = "test-secret";
 
-    const { buildSocialProviders } = await import("@/lib/auth-providers");
+    const { buildSocialProviders } = await import("@/lib/auth/providers");
     expect(buildSocialProviders().google?.clientId).toEqual([
       "google-1",
       "google-2",
@@ -80,7 +80,7 @@ describe("getSerializedProviders", () => {
       " ms-1 , , ms-2 , ms-3 ";
     process.env.AIRBROKE_MICROSOFT_ENTRA_ID_CLIENT_SECRET = "ms-secret";
 
-    const { buildSocialProviders } = await import("@/lib/auth-providers");
+    const { buildSocialProviders } = await import("@/lib/auth/providers");
     const social = buildSocialProviders();
 
     expect(social.apple?.clientId).toEqual(["apple-1", "apple-2"]);
@@ -110,7 +110,7 @@ describe("getSerializedProviders", () => {
     process.env.AIRBROKE_AUTH0_ID = "test-id";
     process.env.AIRBROKE_AUTH0_SECRET = "test-secret";
     delete process.env.AIRBROKE_AUTH0_ISSUER;
-    const { buildGenericOAuthConfig } = await import("@/lib/auth-providers");
+    const { buildGenericOAuthConfig } = await import("@/lib/auth/providers");
     const configs = buildGenericOAuthConfig();
     expect(configs.find((c) => c.providerId === "auth0")).toBeUndefined();
   });
@@ -162,8 +162,8 @@ describe("getSerializedProviders", () => {
     process.env.AIRBROKE_MICROSOFT_ENTRA_ID_ISSUER =
       "https://example.com/issuer";
 
-    const { buildSocialProviders } = await import("@/lib/auth-providers");
-    const { buildGenericOAuthConfig } = await import("@/lib/auth-providers");
+    const { buildSocialProviders } = await import("@/lib/auth/providers");
+    const { buildGenericOAuthConfig } = await import("@/lib/auth/providers");
     const social = buildSocialProviders();
     const genericOAuth = buildGenericOAuthConfig();
 
@@ -220,7 +220,7 @@ describe("getSerializedProviders", () => {
       }),
     );
 
-    const { buildGenericOAuthConfig } = await import("@/lib/auth-providers");
+    const { buildGenericOAuthConfig } = await import("@/lib/auth/providers");
     const bitbucket = buildGenericOAuthConfig().find(
       (config) => config.providerId === "bitbucket",
     );
@@ -246,7 +246,7 @@ describe("getSerializedProviders", () => {
 
 describe("normalizeClientIdEnvValue", () => {
   it("returns undefined for unset and all-empty input", async () => {
-    const { normalizeClientIdEnvValue } = await import("@/lib/auth-providers");
+    const { normalizeClientIdEnvValue } = await import("@/lib/auth/providers");
 
     expect(normalizeClientIdEnvValue(undefined)).toBeUndefined();
     expect(normalizeClientIdEnvValue("")).toBeUndefined();
@@ -254,13 +254,13 @@ describe("normalizeClientIdEnvValue", () => {
   });
 
   it("normalizes one non-empty client id as a string", async () => {
-    const { normalizeClientIdEnvValue } = await import("@/lib/auth-providers");
+    const { normalizeClientIdEnvValue } = await import("@/lib/auth/providers");
 
     expect(normalizeClientIdEnvValue("  client-1  ")).toBe("client-1");
   });
 
   it("normalizes comma-separated client ids into an ordered array", async () => {
-    const { normalizeClientIdEnvValue } = await import("@/lib/auth-providers");
+    const { normalizeClientIdEnvValue } = await import("@/lib/auth/providers");
 
     expect(
       normalizeClientIdEnvValue(" client-1 , , client-2 , client-3 "),

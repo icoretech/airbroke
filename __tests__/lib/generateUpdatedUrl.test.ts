@@ -1,7 +1,7 @@
 // __tests__/lib/generateUpdatedUrl.test.ts
 
 import { describe, expect, it } from "vitest";
-import { generateUpdatedURL } from "@/lib/generateUpdatedUrl";
+import { generateUpdatedURL } from "@/lib/routing/generateUpdatedUrl";
 
 /**
  * Helper to simulate ReadonlyURLSearchParams

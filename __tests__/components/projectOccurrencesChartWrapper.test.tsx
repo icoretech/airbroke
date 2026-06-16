@@ -9,7 +9,7 @@ vi.mock("@/lib/queries/projectChartOccurrences", () => ({
   cachedProjectChartOccurrencesData: cachedProjectChartOccurrencesDataMock,
 }));
 
-vi.mock("@/components/OccurrenceChart", () => ({
+vi.mock("@/components/common/OccurrenceChart", () => ({
   default: ({
     chartData,
     compact,

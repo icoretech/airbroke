@@ -7,7 +7,7 @@ import type { ReactNode } from "react";
 const signInSocialMock = vi.hoisted(() => vi.fn());
 const signInOAuth2Mock = vi.hoisted(() => vi.fn());
 
-vi.mock("@/lib/auth-client", () => ({
+vi.mock("@/lib/auth/client", () => ({
   authClient: {
     signIn: {
       social: signInSocialMock,
@@ -26,7 +26,7 @@ vi.mock("next/link", () => ({
   ),
 }));
 
-vi.mock("@/components/FooterCredits", () => ({
+vi.mock("@/components/layout/FooterCredits", () => ({
   default: () => <span data-testid="footer-credits" />,
 }));
 

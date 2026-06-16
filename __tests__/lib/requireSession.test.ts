@@ -22,7 +22,7 @@ vi.mock("next/navigation", () => ({
   redirect: redirectMock,
 }));
 
-import { requireSession } from "../../lib/requireSession";
+import { requireSession } from "@/lib/auth/requireSession";
 
 function mockHeaders(entries: Record<string, string> = {}) {
   const map = new Map(Object.entries(entries));

@@ -17,12 +17,14 @@ vi.mock("@/lib/db", () => ({
   },
 }));
 
-vi.mock("@/lib/processError", () => ({
-  processError: vi.fn(),
+vi.mock("@/lib/intake/upsertNoticeOccurrence", () => ({
+  upsertNoticeOccurrence: vi.fn(),
 }));
 
 const { db } = await import("@/lib/db");
-const { processError } = await import("@/lib/processError");
+const { upsertNoticeOccurrence } = await import(
+  "@/lib/intake/upsertNoticeOccurrence"
+);
 const { OPTIONS, POST } = await import("@/app/api/v3/notices/route");
 
 const noticePayload = {
@@ -76,7 +78,7 @@ describe("POST /api/v3/notices", () => {
     expect(res.status).toBe(201);
     expect(typeof json.id).toBe("string");
     expect(typeof json.url).toBe("string");
-    expect(processError).toHaveBeenCalledTimes(1);
+    expect(upsertNoticeOccurrence).toHaveBeenCalledTimes(1);
     expect(revalidateTagMock).toHaveBeenCalledWith(
       "project-activity:p1",
       "max",
@@ -106,7 +108,63 @@ describe("POST /api/v3/notices", () => {
 
     const res = await POST(req);
     expect(res.status).toBe(201);
-    expect(processError).toHaveBeenCalledTimes(1);
+    expect(upsertNoticeOccurrence).toHaveBeenCalledTimes(1);
+  });
+
+  it("returns a shaped 400 response for malformed text/plain JSON", async () => {
+    vi.mocked(db.project.findFirst).mockResolvedValue({
+      id: "p1",
+      api_key: "k1",
+      paused: false,
+    } as unknown as Awaited<ReturnType<typeof db.project.findFirst>>);
+
+    const req = new NextRequest(
+      new URL("http://localhost/api/v3/notices?key=k1"),
+      {
+        method: "POST",
+        body: "{not-json",
+        headers: {
+          "content-type": "text/plain;charset=UTF-8",
+          origin: "http://localhost:3000",
+        },
+      },
+    );
+
+    const res = await POST(req);
+    const json = await res.json();
+
+    expect(res.status).toBe(400);
+    expect(json).toEqual({ error: "Invalid notice payload" });
+    expect(res.headers.get("Access-Control-Allow-Origin")).toBe("*");
+    expect(upsertNoticeOccurrence).not.toHaveBeenCalled();
+    expect(revalidateTagMock).not.toHaveBeenCalled();
+  });
+
+  it("returns a shaped 400 response for malformed application/json", async () => {
+    vi.mocked(db.project.findFirst).mockResolvedValue({
+      id: "p1",
+      api_key: "k1",
+      paused: false,
+    } as unknown as Awaited<ReturnType<typeof db.project.findFirst>>);
+
+    const req = new NextRequest(
+      new URL("http://localhost/api/v3/notices?key=k1"),
+      {
+        method: "POST",
+        body: "{not-json",
+        headers: {
+          "content-type": "application/json",
+        },
+      },
+    );
+
+    const res = await POST(req);
+    const json = await res.json();
+
+    expect(res.status).toBe(400);
+    expect(json).toEqual({ error: "Invalid notice payload" });
+    expect(upsertNoticeOccurrence).not.toHaveBeenCalled();
+    expect(revalidateTagMock).not.toHaveBeenCalled();
   });
 
   it("returns 404 + WWW-Authenticate when key provided via Authorization header and project missing", async () => {

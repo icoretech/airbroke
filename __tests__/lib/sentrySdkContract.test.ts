@@ -10,12 +10,14 @@ vi.mock("@/lib/db", () => ({
   },
 }));
 
-vi.mock("@/lib/processError", () => ({
-  processError: vi.fn(),
+vi.mock("@/lib/intake/upsertNoticeOccurrence", () => ({
+  upsertNoticeOccurrence: vi.fn(),
 }));
 
 const { db } = await import("@/lib/db");
-const { processError } = await import("@/lib/processError");
+const { upsertNoticeOccurrence } = await import(
+  "@/lib/intake/upsertNoticeOccurrence"
+);
 const { POST } = await import("@/app/api/sentry/[project_id]/envelope/route");
 
 describe("Sentry SDK → Airbroke intake contract", () => {
@@ -106,7 +108,7 @@ describe("Sentry SDK → Airbroke intake contract", () => {
 
     expect(res.status).toBe(201);
     expect(json.id).toBe(eventId);
-    expect(processError).toHaveBeenCalledTimes(1);
+    expect(upsertNoticeOccurrence).toHaveBeenCalledTimes(1);
   });
 
   it("accepts envelope produced by @sentry/browser (tunnel)", async () => {
@@ -185,7 +187,7 @@ describe("Sentry SDK → Airbroke intake contract", () => {
 
     expect(res.status).toBe(201);
     expect(typeof json.id).toBe("string");
-    expect(processError).toHaveBeenCalledTimes(1);
+    expect(upsertNoticeOccurrence).toHaveBeenCalledTimes(1);
   });
 });
 

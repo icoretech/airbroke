@@ -18,7 +18,7 @@ vi.mock("next/headers", () => ({
   cookies: cookiesMock,
 }));
 
-vi.mock("@/lib/auth-providers", () => ({
+vi.mock("@/lib/auth/providers", () => ({
   getSerializedProviders: getSerializedProvidersMock,
 }));
 

@@ -1,6 +1,6 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, test } from "vitest";
-import FooterCredits from "@/components/FooterCredits";
+import FooterCredits from "@/components/layout/FooterCredits";
 
 describe("FooterCredits", () => {
   test("renders the current year in server markup without waiting for effects", () => {

@@ -1,7 +1,7 @@
 // @vitest-environment node
 
 import { describe, expect, it, vi } from "vitest";
-import { SIGN_IN_RETURN_PATH_COOKIE_NAME } from "@/lib/signInReturnPath";
+import { SIGN_IN_RETURN_PATH_COOKIE_NAME } from "@/lib/auth/signInReturnPath";
 
 const getSessionCookieMock = vi.hoisted(() => vi.fn());
 

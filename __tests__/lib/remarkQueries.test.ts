@@ -1,87 +1,122 @@
 // @vitest-environment node
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
+import { db } from "@/lib/db";
+import {
+  getRemarkCountByNoticeId,
+  getRemarkCountForOccurrencePage,
+  getRemarksByNoticeId,
+  getRemarksByOccurrenceId,
+} from "@/lib/queries/remarks";
+import {
+  createNotice,
+  createOccurrence,
+  createProject,
+  createRemark,
+  createUser,
+} from "../factories/prismaFactories";
 
-const mockFindMany = vi.fn().mockResolvedValue([]);
-const mockCount = vi.fn().mockResolvedValue(0);
+const projectIds: string[] = [];
+const userIds: string[] = [];
 
-vi.mock("@/lib/db", () => ({
-  db: {
-    remark: {
-      findMany: (...args: unknown[]) => mockFindMany(...args),
-      count: (...args: unknown[]) => mockCount(...args),
-    },
-  },
-}));
+async function createTrackedProject() {
+  const project = await createProject();
+  projectIds.push(project.id);
+  return project;
+}
+
+async function createTrackedUser() {
+  const user = await createUser({ name: "Query Example User" });
+  userIds.push(user.id);
+  return user;
+}
+
+afterEach(async () => {
+  if (projectIds.length > 0) {
+    await db.project.deleteMany({
+      where: { id: { in: projectIds.splice(0) } },
+    });
+  }
+
+  if (userIds.length > 0) {
+    await db.user.deleteMany({
+      where: { id: { in: userIds.splice(0) } },
+    });
+  }
+});
 
 describe("remark queries", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
+  it("returns notice-level remarks with the public user shape", async () => {
+    const project = await createTrackedProject();
+    const user = await createTrackedUser();
+    const notice = await createNotice(project.id);
+    const occurrence = await createOccurrence(notice.id);
+    const noticeRemark = await createRemark(notice.id, user.id, {
+      body: "Notice-level remark",
+      created_at: new Date("2026-01-01T00:00:00.000Z"),
+    });
+    await createRemark(notice.id, user.id, {
+      occurrence_id: occurrence.id,
+      body: "Occurrence-level remark",
+      created_at: new Date("2026-01-02T00:00:00.000Z"),
+    });
+
+    const remarks = await getRemarksByNoticeId(notice.id);
+
+    expect(remarks.map((remark) => remark.id)).toEqual([noticeRemark.id]);
+    expect(remarks[0]?.user).toEqual({
+      id: user.id,
+      image: user.image,
+      name: user.name,
+    });
+    expect(remarks[0]?.user).not.toHaveProperty("email");
+    await expect(getRemarkCountByNoticeId(notice.id)).resolves.toBe(1);
   });
 
-  describe("getRemarksByNoticeId", () => {
-    it("fetches notice-level remarks only", async () => {
-      const { getRemarksByNoticeId } = await import("@/lib/queries/remarks");
-      await getRemarksByNoticeId("n1");
-      expect(mockFindMany).toHaveBeenCalledWith(
-        expect.objectContaining({
-          where: {
-            notice_id: "n1",
-            occurrence_id: null,
-          },
-          orderBy: { created_at: "asc" },
-          include: {
-            user: { select: { id: true, name: true, image: true } },
-          },
-        }),
-      );
+  it("returns notice-level and selected occurrence-level remarks in chronological order", async () => {
+    const project = await createTrackedProject();
+    const otherProject = await createTrackedProject();
+    const user = await createTrackedUser();
+    const notice = await createNotice(project.id);
+    const selectedOccurrence = await createOccurrence(notice.id, {
+      message_hash: "selected",
     });
-  });
+    const siblingOccurrence = await createOccurrence(notice.id, {
+      message_hash: "sibling",
+    });
+    const otherNotice = await createNotice(otherProject.id);
+    const otherOccurrence = await createOccurrence(otherNotice.id);
 
-  describe("getRemarksByOccurrenceId", () => {
-    it("fetches both notice-level and occurrence-level remarks", async () => {
-      const { getRemarksByOccurrenceId } = await import(
-        "@/lib/queries/remarks"
-      );
-      await getRemarksByOccurrenceId("o1", "n1");
-      expect(mockFindMany).toHaveBeenCalledWith(
-        expect.objectContaining({
-          where: {
-            notice_id: "n1",
-            OR: [{ occurrence_id: null }, { occurrence_id: "o1" }],
-          },
-          orderBy: { created_at: "asc" },
-          include: {
-            user: { select: { id: true, name: true, image: true } },
-          },
-        }),
-      );
+    const noticeRemark = await createRemark(notice.id, user.id, {
+      body: "Notice-level remark",
+      created_at: new Date("2026-01-01T00:00:00.000Z"),
     });
-  });
+    const selectedOccurrenceRemark = await createRemark(notice.id, user.id, {
+      occurrence_id: selectedOccurrence.id,
+      body: "Selected occurrence remark",
+      created_at: new Date("2026-01-02T00:00:00.000Z"),
+    });
+    await createRemark(notice.id, user.id, {
+      occurrence_id: siblingOccurrence.id,
+      body: "Sibling occurrence remark",
+      created_at: new Date("2026-01-03T00:00:00.000Z"),
+    });
+    await createRemark(otherNotice.id, user.id, {
+      occurrence_id: otherOccurrence.id,
+      body: "Other project remark",
+      created_at: new Date("2026-01-04T00:00:00.000Z"),
+    });
 
-  describe("getRemarkCountByNoticeId", () => {
-    it("counts notice-level remarks only", async () => {
-      const { getRemarkCountByNoticeId } = await import(
-        "@/lib/queries/remarks"
-      );
-      await getRemarkCountByNoticeId("n1");
-      expect(mockCount).toHaveBeenCalledWith({
-        where: { notice_id: "n1", occurrence_id: null },
-      });
-    });
-  });
+    const remarks = await getRemarksByOccurrenceId(
+      selectedOccurrence.id,
+      notice.id,
+    );
 
-  describe("getRemarkCountForOccurrencePage", () => {
-    it("counts both notice-level and occurrence-level remarks", async () => {
-      const { getRemarkCountForOccurrencePage } = await import(
-        "@/lib/queries/remarks"
-      );
-      await getRemarkCountForOccurrencePage("o1", "n1");
-      expect(mockCount).toHaveBeenCalledWith({
-        where: {
-          notice_id: "n1",
-          OR: [{ occurrence_id: null }, { occurrence_id: "o1" }],
-        },
-      });
-    });
+    expect(remarks.map((remark) => remark.id)).toEqual([
+      noticeRemark.id,
+      selectedOccurrenceRemark.id,
+    ]);
+    await expect(
+      getRemarkCountForOccurrencePage(selectedOccurrence.id, notice.id),
+    ).resolves.toBe(2);
   });
 });

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseSentryEnvelope } from "@/lib/parseSentryEnvelope";
+import { parseSentryEnvelope } from "@/lib/intake/parseSentryEnvelope";
 
 const sampleEnvelope = [
   '{"sdk":{"name":"sentry.javascript.node","version":"10.30.0"},"sent_at":"2025-01-01T00:00:00.000Z"}',

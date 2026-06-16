@@ -10,9 +10,9 @@ import {
   SIDEBAR_GROUPS_STORAGE_KEY,
   SIDEBAR_SCROLL_STORAGE_KEY,
   SidebarProjectsNav,
-} from "@/components/SidebarProjectsNav";
+} from "@/components/layout/SidebarProjectsNav";
 import { Sidebar, SidebarProvider } from "@/components/ui/sidebar";
-import type { SidebarProjectsGroup } from "@/components/SidebarProjectsNav";
+import type { SidebarProjectsGroup } from "@/components/layout/SidebarProjectsNav";
 
 const groupedProjects: SidebarProjectsGroup[] = [
   {

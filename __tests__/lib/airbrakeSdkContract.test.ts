@@ -18,12 +18,14 @@ vi.mock("@/lib/db", () => ({
   },
 }));
 
-vi.mock("@/lib/processError", () => ({
-  processError: vi.fn(),
+vi.mock("@/lib/intake/upsertNoticeOccurrence", () => ({
+  upsertNoticeOccurrence: vi.fn(),
 }));
 
 const { db } = await import("@/lib/db");
-const { processError } = await import("@/lib/processError");
+const { upsertNoticeOccurrence } = await import(
+  "@/lib/intake/upsertNoticeOccurrence"
+);
 const { POST } = await import("@/app/api/v3/notices/route");
 
 describe("Airbrake SDK → Airbroke intake contract", () => {
@@ -110,7 +112,7 @@ describe("Airbrake SDK → Airbroke intake contract", () => {
 
     const res = await POST(req);
     expect(res.status).toBe(201);
-    expect(processError).toHaveBeenCalledTimes(1);
+    expect(upsertNoticeOccurrence).toHaveBeenCalledTimes(1);
     expect(revalidateTagMock).toHaveBeenCalledWith(
       "project-activity:p1",
       "max",
@@ -171,7 +173,7 @@ describe("Airbrake SDK → Airbroke intake contract", () => {
 
     const res = await POST(req);
     expect(res.status).toBe(201);
-    expect(processError).toHaveBeenCalledTimes(1);
+    expect(upsertNoticeOccurrence).toHaveBeenCalledTimes(1);
     expect(revalidateTagMock).toHaveBeenCalledWith(
       "project-activity:p1",
       "max",

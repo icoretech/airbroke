@@ -13,12 +13,14 @@ vi.mock("@/lib/db", () => ({
   },
 }));
 
-vi.mock("@/lib/processError", () => ({
-  processError: vi.fn(),
+vi.mock("@/lib/intake/upsertNoticeOccurrence", () => ({
+  upsertNoticeOccurrence: vi.fn(),
 }));
 
 const { db } = await import("@/lib/db");
-const { processError } = await import("@/lib/processError");
+const { upsertNoticeOccurrence } = await import(
+  "@/lib/intake/upsertNoticeOccurrence"
+);
 const { OPTIONS, POST } = await import(
   "@/app/api/sentry/[project_id]/envelope/route"
 );
@@ -78,7 +80,7 @@ describe("POST /api/sentry/[project_id]/envelope", () => {
 
     expect(res.status).toBe(201);
     expect(json.id).toBe("abc123");
-    expect(processError).toHaveBeenCalledTimes(1);
+    expect(upsertNoticeOccurrence).toHaveBeenCalledTimes(1);
     expect(vi.mocked(db.project.findFirst)).toHaveBeenCalledWith({
       where: { id: "p1", api_key: "k1", paused: false },
     });
@@ -172,7 +174,7 @@ describe("POST /api/sentry/[project_id]/envelope", () => {
     });
 
     expect(res.status).toBe(201);
-    expect(processError).toHaveBeenCalledTimes(1);
+    expect(upsertNoticeOccurrence).toHaveBeenCalledTimes(1);
   });
 });
 

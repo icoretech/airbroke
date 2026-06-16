@@ -13,7 +13,7 @@ describe("auth configuration", () => {
   });
 
   it("getSerializedProviders returns provider list with type field", async () => {
-    const { getSerializedProviders } = await import("@/lib/auth-providers");
+    const { getSerializedProviders } = await import("@/lib/auth/providers");
     const providers = getSerializedProviders();
 
     expect(Array.isArray(providers)).toBe(true);

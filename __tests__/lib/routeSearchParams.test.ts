@@ -5,7 +5,7 @@ import {
   getSingleSearchParam,
   toNoticeSearchParams,
   toOccurrenceSearchParams,
-} from "@/lib/routeSearchParams";
+} from "@/lib/routing/routeSearchParams";
 
 describe("getSingleSearchParam", () => {
   it("returns a scalar value unchanged", () => {

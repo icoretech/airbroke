@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mockUpdateMany = vi.fn().mockResolvedValue({ count: 0 });
 const mockFindMany = vi.fn().mockResolvedValue([]);
+const revalidatePathMock = vi.fn();
 
 vi.mock("@/lib/db", () => ({
   db: {
@@ -28,7 +29,7 @@ vi.mock("next/headers", () => ({
 }));
 
 vi.mock("next/cache", () => ({
-  revalidatePath: vi.fn(),
+  revalidatePath: revalidatePathMock,
 }));
 
 describe("noticeActions", () => {
@@ -53,6 +54,15 @@ describe("noticeActions", () => {
           },
         }),
       );
+      expect(revalidatePathMock).toHaveBeenCalledWith("/projects");
+      expect(revalidatePathMock).toHaveBeenCalledWith("/bookmarks");
+      expect(revalidatePathMock).toHaveBeenCalledWith(
+        "/projects/proj1",
+        "layout",
+      );
+      expect(revalidatePathMock).toHaveBeenCalledWith("/projects/proj1");
+      expect(revalidatePathMock).toHaveBeenCalledWith("/projects/proj1/edit");
+      expect(revalidatePathMock).toHaveBeenCalledWith("/notices/notice1");
     });
   });
 
@@ -73,6 +83,7 @@ describe("noticeActions", () => {
           },
         }),
       );
+      expect(revalidatePathMock).toHaveBeenCalledWith("/notices/notice1");
     });
   });
 
@@ -93,6 +104,8 @@ describe("noticeActions", () => {
           },
         }),
       );
+      expect(revalidatePathMock).toHaveBeenCalledWith("/notices/n1");
+      expect(revalidatePathMock).toHaveBeenCalledWith("/notices/n2");
     });
   });
 
@@ -117,6 +130,8 @@ describe("noticeActions", () => {
           },
         }),
       );
+      expect(revalidatePathMock).toHaveBeenCalledWith("/notices/n1");
+      expect(revalidatePathMock).toHaveBeenCalledWith("/notices/n2");
     });
 
     it("resolves all occurrences for a project+env", async () => {
