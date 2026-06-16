@@ -1,0 +1,14 @@
+{
+  "$schema": "https://react.doctor/schema/config.json",
+  "lint": true,
+  "deadCode": true,
+  "noScore": true,
+  "blocking": "error",
+  "ignore": {
+    "overrides": [
+      {
+        "files": ["components/ui/**", "components/ai-elements/**"]
+      }
+    ]
+  }
+}

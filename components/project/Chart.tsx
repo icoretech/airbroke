@@ -1,7 +1,7 @@
 "use client";
 
-import { createContext, useContext } from "react";
-import { Tooltip } from "recharts";
+import { createContext, use } from "react";
+import { Tooltip } from "@/components/RechartsWrapper";
 import { cn } from "@/lib/utils";
 import type { ComponentProps, ReactNode } from "react";
 import type {
@@ -16,7 +16,7 @@ type ChartContextValue = { config: ChartConfig };
 const ChartContext = createContext<ChartContextValue | null>(null);
 
 export function useChartConfig(): ChartContextValue {
-  const ctx = useContext(ChartContext);
+  const ctx = use(ChartContext);
   if (!ctx)
     throw new Error("useChartConfig must be used within ChartContainer");
   return ctx;

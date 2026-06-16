@@ -2,7 +2,7 @@
 
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import { TbBookmarks, TbClockPause, TbFileDelta } from "react-icons/tb";
 import { SourceRepoProviderIcon } from "@/components/SourceRepoProviderIcon";
 import {
@@ -36,22 +36,33 @@ export type SidebarProjectsGroup = {
 export const SIDEBAR_SCROLL_STORAGE_KEY = "airbroke:sidebar:scroll-top";
 export const SIDEBAR_GROUPS_STORAGE_KEY = "airbroke:sidebar:groups-open";
 const SIDEBAR_CONTENT_ID = "airbroke-sidebar-content";
+const SIDEBAR_GROUPS_CHANGED_EVENT = "airbroke:sidebar:groups-changed";
 const SCROLL_PERSISTENCE_NAVIGATION_LOCK_MS = 1200;
+const EMPTY_OPEN_GROUPS: Record<string, boolean> = {};
+let cachedOpenGroupsRaw: string | null = null;
+let cachedOpenGroupsSnapshot: Record<string, boolean> = EMPTY_OPEN_GROUPS;
 
 function readStoredOpenGroups(): Record<string, boolean> {
   if (typeof window === "undefined") {
-    return {};
+    return EMPTY_OPEN_GROUPS;
   }
 
   try {
     const raw = window.sessionStorage.getItem(SIDEBAR_GROUPS_STORAGE_KEY);
+    if (raw === cachedOpenGroupsRaw) {
+      return cachedOpenGroupsSnapshot;
+    }
+
+    cachedOpenGroupsRaw = raw;
     if (!raw) {
-      return {};
+      cachedOpenGroupsSnapshot = EMPTY_OPEN_GROUPS;
+      return cachedOpenGroupsSnapshot;
     }
 
     const parsed = JSON.parse(raw);
     if (!parsed || typeof parsed !== "object") {
-      return {};
+      cachedOpenGroupsSnapshot = EMPTY_OPEN_GROUPS;
+      return cachedOpenGroupsSnapshot;
     }
 
     const result: Record<string, boolean> = {};
@@ -60,10 +71,48 @@ function readStoredOpenGroups(): Record<string, boolean> {
         result[org] = isOpen;
       }
     }
-    return result;
+    cachedOpenGroupsSnapshot = result;
+    return cachedOpenGroupsSnapshot;
   } catch {
-    return {};
+    cachedOpenGroupsSnapshot = EMPTY_OPEN_GROUPS;
+    return cachedOpenGroupsSnapshot;
   }
+}
+
+function writeStoredOpenGroups(openGroups: Record<string, boolean>): void {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  try {
+    window.sessionStorage.setItem(
+      SIDEBAR_GROUPS_STORAGE_KEY,
+      JSON.stringify(openGroups),
+    );
+    window.dispatchEvent(new Event(SIDEBAR_GROUPS_CHANGED_EVENT));
+  } catch {
+    // Ignore storage write failures.
+  }
+}
+
+function subscribeToStoredOpenGroups(onStoreChange: () => void): () => void {
+  if (typeof window === "undefined") {
+    return () => undefined;
+  }
+
+  const onStorage = (event: StorageEvent) => {
+    if (event.key === SIDEBAR_GROUPS_STORAGE_KEY) {
+      onStoreChange();
+    }
+  };
+
+  window.addEventListener("storage", onStorage);
+  window.addEventListener(SIDEBAR_GROUPS_CHANGED_EVENT, onStoreChange);
+
+  return () => {
+    window.removeEventListener("storage", onStorage);
+    window.removeEventListener(SIDEBAR_GROUPS_CHANGED_EVENT, onStoreChange);
+  };
 }
 
 function normalizeOpenGroups(
@@ -77,27 +126,39 @@ function normalizeOpenGroups(
   return normalized;
 }
 
-function haveSameGroupState(
-  left: Record<string, boolean>,
-  right: Record<string, boolean>,
-): boolean {
-  const leftEntries = Object.entries(left);
-  const rightEntries = Object.entries(right);
-  if (leftEntries.length !== rightEntries.length) {
-    return false;
-  }
-  for (const [organization, isOpen] of leftEntries) {
-    if (right[organization] !== isOpen) {
-      return false;
-    }
-  }
-  return true;
-}
-
 function hasAnchorTarget(eventTarget: EventTarget | null): boolean {
   return (
     eventTarget instanceof Element && eventTarget.closest("a[href]") !== null
   );
+}
+
+function getSidebarContentElement(): HTMLDivElement | null {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  const contentElement = document.getElementById(SIDEBAR_CONTENT_ID);
+  return contentElement instanceof HTMLDivElement ? contentElement : null;
+}
+
+function persistScrollPosition(): void {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const contentElement = getSidebarContentElement();
+  if (!contentElement) {
+    return;
+  }
+
+  try {
+    window.sessionStorage.setItem(
+      SIDEBAR_SCROLL_STORAGE_KEY,
+      String(contentElement.scrollTop),
+    );
+  } catch {
+    // Ignore storage write failures.
+  }
 }
 
 export function SidebarProjectsNav({
@@ -109,89 +170,20 @@ export function SidebarProjectsNav({
   selectedProjectId?: string;
   activeSection?: "projects" | "bookmarks";
 }) {
-  const organizations = useMemo(
-    () => groupedProjects.map((group) => group.organization),
-    [groupedProjects],
+  const organizations = groupedProjects.map((group) => group.organization);
+  const storedOpenGroups = useSyncExternalStore(
+    subscribeToStoredOpenGroups,
+    readStoredOpenGroups,
+    () => EMPTY_OPEN_GROUPS,
   );
-
-  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() => {
-    return normalizeOpenGroups(organizations, {});
-  });
-  const [hasRestoredOpenGroups, setHasRestoredOpenGroups] = useState(false);
+  const openGroups = normalizeOpenGroups(organizations, storedOpenGroups);
   const navigationLockUntilRef = useRef(0);
 
-  useEffect(() => {
-    setOpenGroups((current) => {
-      const normalized = normalizeOpenGroups(organizations, current);
-      return haveSameGroupState(current, normalized) ? current : normalized;
-    });
-  }, [organizations]);
-
-  useEffect(() => {
-    setOpenGroups((current) => {
-      const storedOpenGroups = readStoredOpenGroups();
-      const restored = normalizeOpenGroups(
-        Object.keys(current),
-        storedOpenGroups,
-      );
-      return haveSameGroupState(current, restored) ? current : restored;
-    });
-    setHasRestoredOpenGroups(true);
-  }, []);
-
-  useEffect(() => {
-    if (!hasRestoredOpenGroups) {
-      return;
-    }
-
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    try {
-      window.sessionStorage.setItem(
-        SIDEBAR_GROUPS_STORAGE_KEY,
-        JSON.stringify(openGroups),
-      );
-    } catch {
-      // Ignore storage write failures.
-    }
-  }, [openGroups, hasRestoredOpenGroups]);
-
-  const getSidebarContentElement = useCallback(() => {
-    if (typeof window === "undefined") {
-      return null;
-    }
-
-    const contentElement = document.getElementById(SIDEBAR_CONTENT_ID);
-    return contentElement instanceof HTMLDivElement ? contentElement : null;
-  }, []);
-
-  const persistScrollPosition = useCallback(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    const contentElement = getSidebarContentElement();
-    if (!contentElement) {
-      return;
-    }
-
-    try {
-      window.sessionStorage.setItem(
-        SIDEBAR_SCROLL_STORAGE_KEY,
-        String(contentElement.scrollTop),
-      );
-    } catch {
-      // Ignore storage write failures.
-    }
-  }, [getSidebarContentElement]);
-
-  const lockScrollPersistenceForNavigation = useCallback(() => {
+  const lockScrollPersistenceForNavigation = () => {
     navigationLockUntilRef.current =
       Date.now() + SCROLL_PERSISTENCE_NAVIGATION_LOCK_MS;
     persistScrollPosition();
-  }, [persistScrollPosition]);
+  };
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -226,7 +218,7 @@ export function SidebarProjectsNav({
     return () => {
       contentElement.removeEventListener("scroll", onScroll);
     };
-  }, [persistScrollPosition, getSidebarContentElement]);
+  }, []);
 
   return (
     <SidebarContent
@@ -277,7 +269,7 @@ export function SidebarProjectsNav({
           key={organization}
           open={openGroups[organization] ?? true}
           onOpenChange={(isOpen) =>
-            setOpenGroups((current) => ({ ...current, [organization]: isOpen }))
+            writeStoredOpenGroups({ ...openGroups, [organization]: isOpen })
           }
           className="group/collapsible"
         >

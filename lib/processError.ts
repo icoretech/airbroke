@@ -6,6 +6,38 @@ import { Prisma } from "@/prisma/generated/client";
 import type { NoticeError } from "@/lib/parseNotice";
 import type { Project } from "@/prisma/generated/client";
 
+async function retryKnownUniqueConflict<T>(
+  operation: () => Promise<T>,
+  label: string,
+  attemptsLeft = 3,
+): Promise<T | null> {
+  try {
+    return await operation();
+  } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2002" &&
+      attemptsLeft > 1
+    ) {
+      console.debug(
+        `${label} failed due to P2002. Retrying... attempts left: ${
+          attemptsLeft - 1
+        }`,
+      );
+      return retryKnownUniqueConflict(operation, label, attemptsLeft - 1);
+    }
+
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2002"
+    ) {
+      return null;
+    }
+
+    throw error;
+  }
+}
+
 /**
  * Processes and records a NoticeError instance into the database (notices/occurrences).
  *
@@ -26,14 +58,9 @@ export async function processError(
   // If the context has .environment, use that, else default to "unknown".
   const env = (context.environment as string) || "unknown";
 
-  let attemptsNotice = 3;
-  let successNotice = false;
-  let current_notice_id: string | null = null;
-
-  // 1) Upsert the Notice with retry on unique constraint issues
-  while (attemptsNotice > 0 && !successNotice) {
-    try {
-      const current_notice = await db.notice.upsert({
+  const currentNotice = await retryKnownUniqueConflict(
+    () =>
+      db.notice.upsert({
         where: {
           project_id_env_kind: {
             project_id: project.id,
@@ -52,79 +79,44 @@ export async function processError(
           seen_count: { increment: 1 },
         },
         select: { id: true },
-      });
-
-      current_notice_id = current_notice.id;
-      successNotice = true;
-    } catch (upsertError) {
-      if (
-        upsertError instanceof Prisma.PrismaClientKnownRequestError &&
-        upsertError.code === "P2002"
-      ) {
-        attemptsNotice--;
-        console.debug(
-          `Notice upsert failed due to P2002. Retrying... attempts left: ${attemptsNotice}`,
-        );
-      } else {
-        throw upsertError;
-      }
-    }
-  }
+      }),
+    "Notice upsert",
+  );
 
   // If we couldn't create or find a Notice, bail out
-  if (!current_notice_id) {
+  if (!currentNotice) {
     return;
   }
-
-  // 2) Upsert the Occurrence with retry on unique constraint issues
-  let attemptsOccurrence = 3;
-  let successOccurrence = false;
 
   const messageHash = crypto
     .createHash("sha256")
     .update(message, "utf8")
     .digest("hex");
 
-  while (attemptsOccurrence > 0 && !successOccurrence) {
-    try {
-      await db.occurrence.upsert({
-        where: {
-          notice_id_message_hash: {
-            notice_id: current_notice_id,
-            message_hash: messageHash,
-          },
-        },
-        create: {
-          message: message,
+  await retryKnownUniqueConflict(async () => {
+    await db.occurrence.upsert({
+      where: {
+        notice_id_message_hash: {
+          notice_id: currentNotice.id,
           message_hash: messageHash,
-          backtrace: JSON.parse(JSON.stringify(backtrace)),
-          context: JSON.parse(JSON.stringify(context)),
-          environment: JSON.parse(JSON.stringify(environment)),
-          session: JSON.parse(JSON.stringify(session)),
-          params: JSON.parse(JSON.stringify(requestParams)),
-          notice: {
-            connect: { id: current_notice_id },
-          },
         },
-        update: {
-          resolved_at: null,
-          seen_count: { increment: 1 },
+      },
+      create: {
+        message: message,
+        message_hash: messageHash,
+        backtrace: JSON.parse(JSON.stringify(backtrace)),
+        context: JSON.parse(JSON.stringify(context)),
+        environment: JSON.parse(JSON.stringify(environment)),
+        session: JSON.parse(JSON.stringify(session)),
+        params: JSON.parse(JSON.stringify(requestParams)),
+        notice: {
+          connect: { id: currentNotice.id },
         },
-      });
-
-      successOccurrence = true;
-    } catch (err) {
-      if (
-        err instanceof Prisma.PrismaClientKnownRequestError &&
-        err.code === "P2002"
-      ) {
-        attemptsOccurrence--;
-        console.debug(
-          `Occurrence upsert failed due to P2002. Retrying... attempts left: ${attemptsOccurrence}`,
-        );
-      } else {
-        throw err;
-      }
-    }
-  }
+      },
+      update: {
+        resolved_at: null,
+        seen_count: { increment: 1 },
+      },
+    });
+  }, "Occurrence upsert");
 }

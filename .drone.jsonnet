@@ -36,6 +36,7 @@
           'corepack enable',
           'yarn install --immutable',
           'yarn biome:ci',
+          'yarn react-doctor:ci',
           'yarn typecheck',
           'yarn prisma db push',
           'yarn test --run',

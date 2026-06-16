@@ -51,6 +51,10 @@ function buildPrompt({
 }
 
 export async function POST(request: NextRequest) {
+  if (!process.env.AIRBROKE_OPENAI_API_KEY) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
   const session = await getAuth().api.getSession({ headers: request.headers });
   if (!session) {
     return new Response("You are not logged in", { status: 401 });
@@ -69,10 +73,6 @@ export async function POST(request: NextRequest) {
       : typeof bodyRecord.prompt === "string"
         ? bodyRecord.prompt
         : undefined;
-
-  if (!process.env.AIRBROKE_OPENAI_API_KEY) {
-    return new Response("Unauthorized", { status: 401 });
-  }
 
   if (!occurrenceId) {
     return new Response("Missing occurrence", { status: 400 });

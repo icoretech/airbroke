@@ -2,9 +2,10 @@
 
 "use server";
 
-import { cacheLife, cacheTag, refresh, updateTag } from "next/cache";
+import { refresh, updateTag } from "next/cache";
 import { redirect, unstable_rethrow } from "next/navigation";
 import { z } from "zod";
+import { requireAuth } from "@/lib/actions/requireAuth";
 import {
   revalidateProjectShellPaths,
   revalidateProjectsSidebarPaths,
@@ -33,6 +34,8 @@ export async function createProject(
   _prevState: ProjectState,
   formData: FormData,
 ): Promise<ProjectState> {
+  await requireAuth();
+
   // Convert FormData to a plain record of strings
   const dataObj: Record<string, string> = {};
   formData.forEach((val, key) => {
@@ -44,16 +47,19 @@ export async function createProject(
   // If there's no repository_url, create a random project name
   if (!repository_url) {
     const randomNum = Math.floor(Math.random() * 10000);
+    let projectId: string;
 
     try {
       const project = await db.project.create({
         data: { name: `project${randomNum}` },
       });
-      redirect(`/projects/${project.id}/edit`);
+      projectId = project.id;
     } catch (err) {
       unstable_rethrow(err);
       return { error: (err as Error).message ?? "Unknown error", lastUrl: "" };
     }
+
+    redirect(`/projects/${projectId}/edit`);
   }
 
   // If we do have a repository_url => parse & validate
@@ -89,6 +95,7 @@ export async function createProject(
   const { provider, organization, repository } = parseResult.data;
 
   // Attempt to create the project in the DB
+  let newProjectId: string;
   try {
     const newProject = await db.project.create({
       data: {
@@ -100,7 +107,7 @@ export async function createProject(
         repo_issue_tracker: repository_url,
       },
     });
-    redirect(`/projects/${newProject.id}/edit`);
+    newProjectId = newProject.id;
   } catch (err) {
     unstable_rethrow(err);
     return {
@@ -108,12 +115,16 @@ export async function createProject(
       lastUrl: repository_url,
     };
   }
+
+  redirect(`/projects/${newProjectId}/edit`);
 }
 
 export async function updateProject(
   _prevState: ProjectResponse,
   formData: FormData,
 ): Promise<ProjectResponse> {
+  await requireAuth();
+
   // Define the shape of the data for updating a project.
   const updateProjectSchema = z
     .object({
@@ -222,6 +233,8 @@ export async function updateProject(
 }
 
 export async function toggleProjectPausedStatus(projectId: string) {
+  await requireAuth();
+
   const project = await db.project.findUnique({ where: { id: projectId } });
   if (!project) {
     throw new Error("Project not found.");
@@ -237,6 +250,8 @@ export async function toggleProjectPausedStatus(projectId: string) {
 }
 
 export async function deleteProjectNotices(projectId: string) {
+  await requireAuth();
+
   await db.notice.deleteMany({ where: { project_id: projectId } });
 
   updateTag(getProjectActivityTag(projectId));
@@ -245,58 +260,10 @@ export async function deleteProjectNotices(projectId: string) {
 }
 
 export async function deleteProject(projectId: string) {
+  await requireAuth();
+
   await db.project.delete({ where: { id: projectId } });
 
   revalidateProjectsSidebarPaths();
   redirect("/projects");
-}
-
-export async function cachedProjectChartOccurrencesData(projectId: string) {
-  "use cache";
-  cacheLife("hours");
-  cacheTag(getProjectActivityTag(projectId));
-
-  const endDate = new Date();
-  const startDate = new Date(endDate.getTime() - 14 * 24 * 60 * 60 * 1000);
-
-  const occurrenceSummaries = await db.hourlyOccurrence.groupBy({
-    by: ["interval_start"],
-    where: {
-      occurrence: {
-        notice: { project_id: projectId },
-      },
-      interval_start: { gte: startDate },
-      interval_end: { lte: endDate },
-    },
-    _sum: { count: true },
-    orderBy: { interval_start: "asc" },
-  });
-
-  const occurrenceCountByDate: Record<number, number> = {};
-  occurrenceSummaries.forEach((summary) => {
-    const d = summary.interval_start;
-    const hourStamp = Date.UTC(
-      d.getUTCFullYear(),
-      d.getUTCMonth(),
-      d.getUTCDate(),
-      d.getUTCHours(),
-    );
-    occurrenceCountByDate[hourStamp] = Number(summary._sum.count);
-  });
-
-  const data: Array<{ date: number; count: number }> = [];
-  const cursorDate = new Date(startDate);
-  while (cursorDate <= endDate) {
-    const stamp = Date.UTC(
-      cursorDate.getUTCFullYear(),
-      cursorDate.getUTCMonth(),
-      cursorDate.getUTCDate(),
-      cursorDate.getUTCHours(),
-    );
-    const count = occurrenceCountByDate[stamp] || 0;
-    data.push({ date: stamp, count });
-    cursorDate.setHours(cursorDate.getHours() + 1);
-  }
-
-  return data;
 }

@@ -2,6 +2,7 @@
 
 "use server";
 
+import { requireAuth } from "@/lib/actions/requireAuth";
 import { revalidateProjectShellPaths } from "@/lib/actions/revalidateProjectShellPaths";
 
 export async function sendSentryNodeException(
@@ -9,6 +10,8 @@ export async function sendSentryNodeException(
   apiKey: string,
   host: string,
 ): Promise<string> {
+  await requireAuth();
+
   const { captureException, flush, init } = await import("@sentry/node");
   const hostUrl = new URL(host);
   // Sentry's DSN validation requires a numeric projectId in debug builds.

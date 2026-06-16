@@ -1,6 +1,7 @@
 // @vitest-environment node
 
 import { describe, expect, it, vi } from "vitest";
+import { SIGN_IN_RETURN_PATH_COOKIE_NAME } from "@/lib/signInReturnPath";
 
 const getSessionCookieMock = vi.hoisted(() => vi.fn());
 
@@ -33,32 +34,38 @@ describe("proxy route protection", () => {
     expect(res.headers.get("location")).toBeNull();
   });
 
-  it("redirects /projects to /signin with callbackUrl when no session", () => {
+  it("redirects /projects to /signin with a return path cookie when no session", () => {
     getSessionCookieMock.mockReturnValue(undefined);
     const res = proxy(makeRequest("/projects"));
     expect(res.status).toBe(307);
     const location = new URL(res.headers.get("location") ?? "");
     expect(location.pathname).toBe("/signin");
-    expect(location.searchParams.get("callbackUrl")).toBe("/projects");
+    expect(location.searchParams.get("callbackUrl")).toBeNull();
+    expect(res.headers.get("set-cookie")).toContain(
+      `${SIGN_IN_RETURN_PATH_COOKIE_NAME}=%2Fprojects`,
+    );
   });
 
-  it("redirects /bookmarks to /signin with callbackUrl when no session", () => {
+  it("redirects /bookmarks to /signin with a return path cookie when no session", () => {
     getSessionCookieMock.mockReturnValue(undefined);
     const res = proxy(makeRequest("/bookmarks"));
     expect(res.status).toBe(307);
     const location = new URL(res.headers.get("location") ?? "");
     expect(location.pathname).toBe("/signin");
-    expect(location.searchParams.get("callbackUrl")).toBe("/bookmarks");
+    expect(location.searchParams.get("callbackUrl")).toBeNull();
+    expect(res.headers.get("set-cookie")).toContain(
+      `${SIGN_IN_RETURN_PATH_COOKIE_NAME}=%2Fbookmarks`,
+    );
   });
 
-  it("preserves deep link path in callbackUrl when no session", () => {
+  it("preserves deep link path in the return path cookie when no session", () => {
     getSessionCookieMock.mockReturnValue(undefined);
     const res = proxy(makeRequest("/occurrences/abc123/page"));
     expect(res.status).toBe(307);
     const location = new URL(res.headers.get("location") ?? "");
     expect(location.pathname).toBe("/signin");
-    expect(location.searchParams.get("callbackUrl")).toBe(
-      "/occurrences/abc123/page",
+    expect(res.headers.get("set-cookie")).toContain(
+      `${SIGN_IN_RETURN_PATH_COOKIE_NAME}=%2Foccurrences%2Fabc123%2Fpage`,
     );
   });
 
@@ -74,13 +81,12 @@ describe("proxy route protection", () => {
     expect(res.headers.get("location")).toBeNull();
   });
 
-  it("preserves query string in callbackUrl", () => {
+  it("preserves query string in the return path cookie", () => {
     getSessionCookieMock.mockReturnValue(undefined);
     const res = proxy(makeRequest("/occurrences/abc", "?tab=session&q=foo"));
     expect(res.status).toBe(307);
-    const location = new URL(res.headers.get("location") ?? "");
-    expect(location.searchParams.get("callbackUrl")).toBe(
-      "/occurrences/abc?tab=session&q=foo",
+    expect(res.headers.get("set-cookie")).toContain(
+      `${SIGN_IN_RETURN_PATH_COOKIE_NAME}=%2Foccurrences%2Fabc%3Ftab%3Dsession%26q%3Dfoo`,
     );
   });
 

@@ -65,6 +65,3 @@ export const ResponsiveContainer = dynamic(
   () => import("recharts").then((mod) => mod.ResponsiveContainer),
   { ssr: false },
 );
-
-// Export the original recharts library for any components that need other exports
-export * from "recharts";

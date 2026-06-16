@@ -21,9 +21,10 @@ export default async function OccurrencesTable({
   noticeId,
   searchParams,
 }: OccurrencesTableProps) {
-  const occurrences = await getOccurrences(noticeId, searchParams);
-
-  const session = await getAuth().api.getSession({ headers: await headers() });
+  const [occurrences, session] = await Promise.all([
+    getOccurrences(noticeId, searchParams),
+    getAuth().api.getSession({ headers: await headers() }),
+  ]);
   const userId = session?.user?.id;
   const occurrenceIds = occurrences.map((o) => o.id);
   const bookmarkedIds = await getBookmarkedOccurrenceIds(userId, occurrenceIds);

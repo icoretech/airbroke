@@ -89,10 +89,10 @@ function getConfiguredAllowedOrigins(): string[] {
   if (!raw) {
     return [];
   }
-  return raw
-    .split(",")
-    .map((value) => value.trim())
-    .filter(Boolean);
+  return raw.split(",").flatMap((value) => {
+    const origin = value.trim();
+    return origin ? [origin] : [];
+  });
 }
 
 function getRequestOrigin(req: NextRequest): string | null {

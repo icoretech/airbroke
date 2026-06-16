@@ -16,8 +16,8 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty";
-import { cachedProjectChartOccurrencesData } from "@/lib/actions/projectActions";
 import { buildProjectsIndexCrumbs } from "@/lib/breadcrumbs";
+import { cachedProjectChartOccurrencesData } from "@/lib/queries/projectChartOccurrences";
 import { getProjects } from "@/lib/queries/projects";
 import { getSingleSearchParam } from "@/lib/routeSearchParams";
 import type { Metadata } from "next";

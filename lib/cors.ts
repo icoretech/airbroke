@@ -7,10 +7,10 @@ const VARY_HEADERS =
   "Origin, Access-Control-Request-Headers, Access-Control-Request-Method";
 
 function parseAllowedOriginsEnv(): string[] {
-  return (process.env.AIRBROKE_CORS_ORIGINS ?? "")
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean);
+  return (process.env.AIRBROKE_CORS_ORIGINS ?? "").split(",").flatMap((s) => {
+    const value = s.trim();
+    return value ? [value] : [];
+  });
 }
 
 function resolveAllowOrigin(

@@ -14,10 +14,10 @@ import type { GenericOAuthConfig } from "better-auth/plugins/generic-oauth";
 export function envList(key: string): string[] | undefined {
   const value = process.env[key];
   if (!value) return undefined;
-  return value
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean);
+  return value.split(",").flatMap((s) => {
+    const segment = s.trim();
+    return segment ? [segment] : [];
+  });
 }
 
 /**
@@ -31,10 +31,10 @@ export function normalizeClientIdEnvValue(
 ): string | string[] | undefined {
   if (!value) return undefined;
 
-  const segments = value
-    .split(",")
-    .map((segment) => segment.trim())
-    .filter(Boolean);
+  const segments = value.split(",").flatMap((segment) => {
+    const trimmed = segment.trim();
+    return trimmed ? [trimmed] : [];
+  });
 
   if (segments.length === 0) return undefined;
   if (segments.length === 1) return segments[0];

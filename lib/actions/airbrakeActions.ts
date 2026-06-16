@@ -3,6 +3,7 @@
 "use server";
 
 import { Notifier as AirbrakeNodeNotifier } from "@airbrake/node";
+import { requireAuth } from "@/lib/actions/requireAuth";
 import { revalidateProjectShellPaths } from "@/lib/actions/revalidateProjectShellPaths";
 
 export async function sendAirbrakeNodeException(
@@ -10,6 +11,8 @@ export async function sendAirbrakeNodeException(
   apiKey: string,
   host: string,
 ) {
+  await requireAuth();
+
   const airbrake = new AirbrakeNodeNotifier({
     projectId: 1,
     projectKey: apiKey,

@@ -52,6 +52,7 @@ export default function ToolboxAI({ occurrenceId }: { occurrenceId: string }) {
         <h3 className="my-6 text-sm font-medium text-white">Ask the AI</h3>
         <textarea
           readOnly
+          aria-label="AI explanation output"
           ref={textareaRef}
           value={outputText}
           className="h-60 w-full resize-none rounded-lg bg-gray-700 px-4 py-2 text-xs text-white scrollbar-none"

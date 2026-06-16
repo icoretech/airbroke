@@ -2,7 +2,7 @@
 
 import { Loader2, Search as SearchIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useEffect, useRef, useSyncExternalStore, useTransition } from "react";
 import {
   InputGroup,
   InputGroupAddon,
@@ -17,6 +17,28 @@ type TopbarSearchProps = {
   placeholder?: string;
 };
 
+type NavigatorWithUserAgentData = Navigator & {
+  userAgentData?: { platform?: string };
+};
+
+function subscribeToPlatform(): () => void {
+  return () => undefined;
+}
+
+function getPlatformSnapshot(): string {
+  if (typeof navigator === "undefined") {
+    return "";
+  }
+
+  const nav = navigator as NavigatorWithUserAgentData;
+  return nav.userAgentData?.platform ?? navigator.platform ?? "";
+}
+
+function clearDebounceTimer(ref: { current: NodeJS.Timeout | null }): void {
+  if (ref.current) clearTimeout(ref.current);
+  ref.current = null;
+}
+
 function TopbarSearchImpl({
   isDisabled = false,
   placeholder = "Search...",
@@ -26,21 +48,46 @@ function TopbarSearchImpl({
   const searchParams = useSearchParams();
 
   const [isPending, startTransition] = useTransition();
-  const [value, setValue] = useState("");
-  const [isMac, setIsMac] = useState<boolean | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const debounceRef = useRef<NodeJS.Timeout | null>(null);
-
   const current = searchParams.get("searchQuery") ?? "";
 
-  useEffect(() => {
-    if (!isPending) queueMicrotask(() => inputRef.current?.focus());
-  }, [isPending]);
+  return (
+    <TopbarSearchForm
+      key={current}
+      current={current}
+      isDisabled={isDisabled}
+      isPending={isPending}
+      placeholder={placeholder}
+      pushQuery={(value) => {
+        const updated = generateUpdatedURL(pathname, searchParams, {
+          searchQuery: value,
+        });
+        startTransition(() => router.push(updated));
+      }}
+    />
+  );
+}
 
-  // Keep local input state in sync with URL when it changes (e.g., Clear search)
-  useEffect(() => {
-    setValue(current);
-  }, [current]);
+function TopbarSearchForm({
+  current,
+  isDisabled,
+  isPending,
+  placeholder,
+  pushQuery,
+}: {
+  current: string;
+  isDisabled: boolean;
+  isPending: boolean;
+  placeholder: string;
+  pushQuery(value: string): void;
+}) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
+  const platform = useSyncExternalStore(
+    subscribeToPlatform,
+    getPlatformSnapshot,
+    () => "",
+  );
+  const isMac = /Mac|iPhone|iPod|iPad/i.test(platform);
 
   useEffect(() => {
     function isTypingInField(target: EventTarget | null) {
@@ -69,25 +116,11 @@ function TopbarSearchImpl({
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  // Detect OS on client only to avoid SSR/CSR text mismatches
-  useEffect(() => {
-    type NavigatorUA = Navigator & { userAgentData?: { platform?: string } };
-    const nav = navigator as NavigatorUA;
-    const platform = nav.userAgentData?.platform ?? navigator.platform ?? "";
-    setIsMac(/Mac|iPhone|iPod|iPad/i.test(platform));
-  }, []);
-
-  function pushQuery(value: string) {
-    const updated = generateUpdatedURL(pathname, searchParams, {
-      searchQuery: value,
-    });
-    startTransition(() => router.push(updated));
-  }
+  useEffect(() => () => clearDebounceTimer(debounceRef), []);
 
   function onChange(e: ChangeEvent<HTMLInputElement>) {
-    if (debounceRef.current) clearTimeout(debounceRef.current);
+    clearDebounceTimer(debounceRef);
     const next = e.target.value;
-    setValue(next);
     if (next === "") {
       pushQuery("");
     } else {
@@ -97,6 +130,7 @@ function TopbarSearchImpl({
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    clearDebounceTimer(debounceRef);
     const fd = new FormData(e.currentTarget);
     pushQuery((fd.get("searchQuery") as string) ?? "");
   }
@@ -118,7 +152,7 @@ function TopbarSearchImpl({
           name="searchQuery"
           type="search"
           placeholder={placeholder}
-          value={value}
+          defaultValue={current}
           disabled={disabled}
           onChange={onChange}
           className=""

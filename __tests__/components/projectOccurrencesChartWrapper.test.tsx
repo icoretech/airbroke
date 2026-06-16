@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from "vitest";
 
 const cachedProjectChartOccurrencesDataMock = vi.fn();
 
-vi.mock("@/lib/actions/projectActions", () => ({
+vi.mock("@/lib/queries/projectChartOccurrences", () => ({
   cachedProjectChartOccurrencesData: cachedProjectChartOccurrencesDataMock,
 }));
 

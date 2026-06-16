@@ -1,6 +1,7 @@
 // app/projects/[project_id]/page.tsx
 
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import CopyToClipboardButton from "@/components/CopyToClipboardButton";
 import NoticesTable from "@/components/NoticesTable";
 import StatusFilter from "@/components/StatusFilter";
@@ -111,9 +112,11 @@ export default async function ProjectNotices(
         <div className="flex w-full flex-wrap items-center justify-between gap-3 rounded-lg border border-card/40 bg-card/40 px-4 py-3 shadow-xs sm:rounded-none sm:border-0 sm:bg-transparent sm:shadow-none sm:border-b sm:border-card/40">
           <h2 className="text-sm font-semibold text-foreground">Notices</h2>
           <div className="flex items-center gap-2">
-            <StatusFilter />
-            <EnvironmentFilter environments={uniqueEnvArray} />
-            <Sort />
+            <Suspense>
+              <StatusFilter />
+              <EnvironmentFilter environments={uniqueEnvArray} />
+              <Sort />
+            </Suspense>
           </div>
         </div>
 

@@ -17,8 +17,10 @@ export default async function OccurrenceLayout({
     });
     return o?.notice?.project_id ?? undefined;
   });
-  const selectedProjectId = await getProjectIdForOccurrence(occurrence_id);
-  const crumbs = await buildOccurrenceCrumbsById(occurrence_id);
+  const [selectedProjectId, crumbs] = await Promise.all([
+    getProjectIdForOccurrence(occurrence_id),
+    buildOccurrenceCrumbsById(occurrence_id),
+  ]);
   return (
     <AppShell
       selectedProjectId={selectedProjectId}

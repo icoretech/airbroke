@@ -18,127 +18,111 @@ type ToolSpec = {
   run(args: unknown): Promise<unknown>;
 };
 
-const ListProjectsArgsSchema = z
-  .object({
-    search: z.string().trim().min(1).optional(),
-    organization: z.string().trim().min(1).optional(),
-    includePaused: z.boolean().optional().default(true),
-    limit: z.coerce.number().int().min(1).max(200).optional().default(50),
-    offset: z.coerce.number().int().min(0).max(10_000).optional().default(0),
-  })
-  .strict();
+const ListProjectsArgsSchema = z.strictObject({
+  search: z.string().trim().min(1).optional(),
+  organization: z.string().trim().min(1).optional(),
+  includePaused: z.boolean().optional().default(true),
+  limit: z.coerce.number().int().min(1).max(200).optional().default(50),
+  offset: z.coerce.number().int().min(0).max(10_000).optional().default(0),
+});
 
-const GetProjectArgsSchema = z
-  .object({
-    project_id: z.string().min(1),
-  })
-  .strict();
+const GetProjectArgsSchema = z.strictObject({
+  project_id: z.string().min(1),
+});
 
-const ListNoticesArgsSchema = z
-  .object({
-    project_id: z.string().min(1),
-    search: z.string().trim().min(1).optional(),
-    filter_by_env: z.string().trim().min(1).optional(),
-    include_project: z.boolean().optional().default(false),
-    include_resolved: z.boolean().optional().default(true),
-    sort_attr: z
-      .enum(["env", "kind", "updated_at", "seen_count"])
-      .optional()
-      .default("updated_at"),
-    sort_dir: z.enum(["asc", "desc"]).optional().default("desc"),
-    limit: z.coerce.number().int().min(1).max(200).optional().default(50),
-    offset: z.coerce.number().int().min(0).max(10_000).optional().default(0),
-  })
-  .strict();
+const ListNoticesArgsSchema = z.strictObject({
+  project_id: z.string().min(1),
+  search: z.string().trim().min(1).optional(),
+  filter_by_env: z.string().trim().min(1).optional(),
+  include_project: z.boolean().optional().default(false),
+  include_resolved: z.boolean().optional().default(true),
+  sort_attr: z
+    .enum(["env", "kind", "updated_at", "seen_count"])
+    .optional()
+    .default("updated_at"),
+  sort_dir: z.enum(["asc", "desc"]).optional().default("desc"),
+  limit: z.coerce.number().int().min(1).max(200).optional().default(50),
+  offset: z.coerce.number().int().min(0).max(10_000).optional().default(0),
+});
 
-const ListOccurrencesArgsSchema = z
-  .object({
-    notice_id: z.string().min(1),
-    search: z.string().trim().min(1).optional(),
-    include_resolved: z.boolean().optional().default(true),
-    include_details: z.boolean().optional().default(false),
-    include_notice: z.boolean().optional().default(false),
-    include_project: z.boolean().optional().default(false),
-    backtrace_frames: z.coerce
-      .number()
-      .int()
-      .min(1)
-      .max(100)
-      .optional()
-      .default(5),
-    sort_attr: z
-      .enum(["updated_at", "seen_count"])
-      .optional()
-      .default("updated_at"),
-    sort_dir: z.enum(["asc", "desc"]).optional().default("desc"),
-    limit: z.coerce.number().int().min(1).max(200).optional().default(50),
-    offset: z.coerce.number().int().min(0).max(10_000).optional().default(0),
-  })
-  .strict();
+const ListOccurrencesArgsSchema = z.strictObject({
+  notice_id: z.string().min(1),
+  search: z.string().trim().min(1).optional(),
+  include_resolved: z.boolean().optional().default(true),
+  include_details: z.boolean().optional().default(false),
+  include_notice: z.boolean().optional().default(false),
+  include_project: z.boolean().optional().default(false),
+  backtrace_frames: z.coerce
+    .number()
+    .int()
+    .min(1)
+    .max(100)
+    .optional()
+    .default(5),
+  sort_attr: z
+    .enum(["updated_at", "seen_count"])
+    .optional()
+    .default("updated_at"),
+  sort_dir: z.enum(["asc", "desc"]).optional().default("desc"),
+  limit: z.coerce.number().int().min(1).max(200).optional().default(50),
+  offset: z.coerce.number().int().min(0).max(10_000).optional().default(0),
+});
 
-const GetOccurrenceArgsSchema = z
-  .object({
-    occurrence_id: z.string().min(1),
-    include_notice: z.boolean().optional().default(true),
-    include_project: z.boolean().optional().default(true),
-  })
-  .strict();
+const GetOccurrenceArgsSchema = z.strictObject({
+  occurrence_id: z.string().min(1),
+  include_notice: z.boolean().optional().default(true),
+  include_project: z.boolean().optional().default(true),
+});
 
-const GetNoticeArgsSchema = z
-  .object({
-    notice_id: z.string().min(1),
-    include_project: z.boolean().optional().default(true),
-    include_occurrence_details: z.boolean().optional().default(true),
-    include_resolved: z.boolean().optional().default(true),
-    backtrace_frames: z.coerce
-      .number()
-      .int()
-      .min(1)
-      .max(100)
-      .optional()
-      .default(5),
-    latest_limit: z.coerce.number().int().min(1).max(50).optional().default(5),
-    top_limit: z.coerce.number().int().min(1).max(50).optional().default(5),
-  })
-  .strict();
+const GetNoticeArgsSchema = z.strictObject({
+  notice_id: z.string().min(1),
+  include_project: z.boolean().optional().default(true),
+  include_occurrence_details: z.boolean().optional().default(true),
+  include_resolved: z.boolean().optional().default(true),
+  backtrace_frames: z.coerce
+    .number()
+    .int()
+    .min(1)
+    .max(100)
+    .optional()
+    .default(5),
+  latest_limit: z.coerce.number().int().min(1).max(50).optional().default(5),
+  top_limit: z.coerce.number().int().min(1).max(50).optional().default(5),
+});
 
-const SearchArgsSchema = z
-  .object({
-    query: z.string().trim().min(1),
-    organization: z.string().trim().min(1).optional(),
-    project_id: z.string().min(1).optional(),
-    env: z.string().trim().min(1).optional(),
-    include_resolved: z.boolean().optional().default(true),
-    include_details: z.boolean().optional().default(false),
-    backtrace_frames: z.coerce
-      .number()
-      .int()
-      .min(1)
-      .max(100)
-      .optional()
-      .default(5),
-    limit: z.coerce.number().int().min(1).max(200).optional().default(50),
-    offset: z.coerce.number().int().min(0).max(10_000).optional().default(0),
-  })
-  .strict();
+const SearchArgsSchema = z.strictObject({
+  query: z.string().trim().min(1),
+  organization: z.string().trim().min(1).optional(),
+  project_id: z.string().min(1).optional(),
+  env: z.string().trim().min(1).optional(),
+  include_resolved: z.boolean().optional().default(true),
+  include_details: z.boolean().optional().default(false),
+  backtrace_frames: z.coerce
+    .number()
+    .int()
+    .min(1)
+    .max(100)
+    .optional()
+    .default(5),
+  limit: z.coerce.number().int().min(1).max(200).optional().default(50),
+  offset: z.coerce.number().int().min(0).max(10_000).optional().default(0),
+});
 
-const GetSetupGuideArgsSchema = z
-  .object({
-    project_id: z.string().min(1).optional(),
-    sdk: z
-      .enum(["airbrake", "sentry"])
-      .optional()
-      .describe("Filter by SDK family: 'airbrake' or 'sentry'. Omit for all."),
-    framework: z
-      .string()
-      .trim()
-      .min(1)
-      .optional()
-      .describe(
-        "Filter by framework/language name (case-insensitive partial match, e.g. 'ruby', 'node', 'python', 'go', 'sentry browser').",
-      ),
-  })
-  .strict();
+const GetSetupGuideArgsSchema = z.strictObject({
+  project_id: z.string().min(1).optional(),
+  sdk: z
+    .enum(["airbrake", "sentry"])
+    .optional()
+    .describe("Filter by SDK family: 'airbrake' or 'sentry'. Omit for all."),
+  framework: z
+    .string()
+    .trim()
+    .min(1)
+    .optional()
+    .describe(
+      "Filter by framework/language name (case-insensitive partial match, e.g. 'ruby', 'node', 'python', 'go', 'sentry browser').",
+    ),
+});
 
 function asRecord(value: unknown): Record<string, unknown> | null {
   if (!value || typeof value !== "object" || Array.isArray(value)) {

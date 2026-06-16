@@ -70,7 +70,15 @@ export default function RemarkItem({
     );
   }
 
-  const bodyLines = remark.body.split("\n");
+  const lineCounts = new Map<string, number>();
+  const bodyLines = remark.body.split("\n").map((line) => {
+    const seenCount = lineCounts.get(line) ?? 0;
+    lineCounts.set(line, seenCount + 1);
+    return {
+      key: seenCount === 0 ? line : `${line}-${seenCount + 1}`,
+      text: line,
+    };
+  });
 
   return (
     <div className="flex gap-3 py-3">
@@ -112,11 +120,10 @@ export default function RemarkItem({
           )}
         </div>
         <div className="mt-1 text-sm leading-relaxed text-muted-foreground">
-          {bodyLines.map((line, i) => (
-            // biome-ignore lint/suspicious/noArrayIndexKey: stable text lines that are never reordered
-            <span key={i}>
-              {autolink(line, autolinkCtx)}
-              {i < bodyLines.length - 1 && <br />}
+          {bodyLines.map((line, index) => (
+            <span key={line.key}>
+              {autolink(line.text, autolinkCtx)}
+              {index < bodyLines.length - 1 && <br />}
             </span>
           ))}
         </div>

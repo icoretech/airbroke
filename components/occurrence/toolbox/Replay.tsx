@@ -22,6 +22,7 @@ function ToolboxFetch({ context }: { context: Context }) {
         <h3 className="my-6 text-sm font-medium text-white">Replay Request</h3>
         <textarea
           readOnly
+          aria-label="Replay response output"
           value={responseText}
           className="h-60 w-full resize-none rounded-lg bg-gray-700 px-4 py-2 text-xs text-white"
         ></textarea>

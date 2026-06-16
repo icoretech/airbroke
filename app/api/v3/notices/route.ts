@@ -92,16 +92,18 @@ async function POST(request: NextRequest) {
   const session = whitelisted.session;
   const requestParams = whitelisted.params;
 
-  for (const error of errors) {
-    await processError(
-      project,
-      error,
-      context,
-      environment,
-      session,
-      requestParams,
-    );
-  }
+  await Promise.all(
+    errors.map((error) =>
+      processError(
+        project,
+        error,
+        context,
+        environment,
+        session,
+        requestParams,
+      ),
+    ),
+  );
 
   revalidateTag(getProjectActivityTag(project.id), "max");
 

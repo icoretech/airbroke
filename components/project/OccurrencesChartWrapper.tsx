@@ -1,7 +1,7 @@
 // components/project/OccurrencesChartWrapper.tsx
 
 import OccurrenceChart from "@/components/OccurrenceChart";
-import { cachedProjectChartOccurrencesData } from "@/lib/actions/projectActions";
+import { cachedProjectChartOccurrencesData } from "@/lib/queries/projectChartOccurrences";
 
 export default async function OccurrencesChartWrapper({
   projectId,

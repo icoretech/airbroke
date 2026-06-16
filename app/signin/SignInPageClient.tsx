@@ -4,8 +4,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaApple,
   FaAws,
@@ -61,34 +60,26 @@ type ProviderInfo = {
 
 interface SignInPageClientProps {
   providers: ProviderInfo[];
+  callbackUrl: string;
+  showError: boolean;
 }
 
-export default function SignInPageClient({ providers }: SignInPageClientProps) {
+export default function SignInPageClient({
+  providers,
+  callbackUrl,
+  showError,
+}: SignInPageClientProps) {
   const [signingInProvider, setSigningInProvider] = useState<string | null>(
     null,
   );
 
-  // Reset disabled state when the page is restored from bfcache (browser back).
-  const resetState = useCallback(() => {
-    setSigningInProvider(null);
-  }, []);
-
   useEffect(() => {
     const onPageShow = (e: PageTransitionEvent) => {
-      if (e.persisted) resetState();
+      if (e.persisted) setSigningInProvider(null);
     };
     window.addEventListener("pageshow", onPageShow);
     return () => window.removeEventListener("pageshow", onPageShow);
-  }, [resetState]);
-
-  const searchParams = useSearchParams();
-  const rawCallback = searchParams.get("callbackUrl") ?? "/projects";
-  const callbackUrl =
-    rawCallback.startsWith("/") && !rawCallback.startsWith("//")
-      ? rawCallback
-      : "/projects";
-  const error = searchParams.get("error");
-  const showError = Boolean(error);
+  }, []);
 
   const [signInError, setSignInError] = useState<string | null>(null);
 
@@ -160,8 +151,7 @@ export default function SignInPageClient({ providers }: SignInPageClientProps) {
                   <TbAlertTriangle />
                   <AlertTitle>Sign-in failed</AlertTitle>
                   <AlertDescription className="text-white/80">
-                    {signInError ??
-                      `An error occurred during sign-in (${error}).`}
+                    {signInError ?? "An error occurred during sign-in."}
                   </AlertDescription>
                 </Alert>
               )}

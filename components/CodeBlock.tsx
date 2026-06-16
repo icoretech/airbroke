@@ -16,11 +16,13 @@ type CodeBlockProps = {
   highlightLines?: number[];
 };
 
+const EMPTY_HIGHLIGHT_LINES: number[] = [];
+
 export const CodeBlock = ({
   language,
   code,
   filename,
-  highlightLines = [],
+  highlightLines = EMPTY_HIGHLIGHT_LINES,
 }: CodeBlockProps) => {
   const [copied, setCopied] = React.useState(false);
 

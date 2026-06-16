@@ -78,13 +78,14 @@ export default async function Overview({
     occurrencesCount,
     hourlyOccurrenceRateForLast14Days,
     lastNoticeDate,
+    { origin: appOrigin, host: appHost },
   ] = await Promise.all([
     getNoticesCountByProjectId(project.id),
     getOccurrencesCountByProjectId(project.id),
     getHourlyOccurrenceRateForLast14Days(project.id),
     getLastNoticeDateByProjectId(project.id),
+    inferAppOrigin(),
   ]);
-  const { origin: appOrigin, host: appHost } = await inferAppOrigin();
 
   const stats = [
     { name: "Notices", value: noticesCount },

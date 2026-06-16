@@ -42,34 +42,15 @@ async function readCompressedBody(req: NextRequest): Promise<Buffer> {
     throw new PayloadTooLargeError("Compressed envelope payload is too large");
   }
 
-  const reader = req.body?.getReader();
-  if (!reader) {
+  if (!req.body) {
     return Buffer.alloc(0);
   }
 
-  const chunks: Uint8Array[] = [];
-  let total = 0;
-
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) {
-      break;
-    }
-    if (!value) {
-      continue;
-    }
-
-    total += value.byteLength;
-    if (total > MAX_COMPRESSED_BODY_BYTES) {
-      throw new PayloadTooLargeError(
-        "Compressed envelope payload is too large",
-      );
-    }
-
-    chunks.push(value);
+  const buffer = Buffer.from(await req.arrayBuffer());
+  if (buffer.byteLength > MAX_COMPRESSED_BODY_BYTES) {
+    throw new PayloadTooLargeError("Compressed envelope payload is too large");
   }
-
-  return Buffer.concat(chunks);
+  return buffer;
 }
 
 async function readEnvelopeBody(req: NextRequest): Promise<Uint8Array> {
@@ -159,19 +140,21 @@ async function POST(
     );
   }
 
-  for (const item of parsed.notices) {
-    const notice = item.notice;
-    for (const error of notice.errors) {
-      await processError(
-        project,
-        error,
-        notice.context,
-        notice.environment,
-        notice.session,
-        notice.params,
+  await Promise.all(
+    parsed.notices.flatMap((item) => {
+      const notice = item.notice;
+      return notice.errors.map((error) =>
+        processError(
+          project,
+          error,
+          notice.context,
+          notice.environment,
+          notice.session,
+          notice.params,
+        ),
       );
-    }
-  }
+    }),
+  );
 
   const firstEventId = parsed.notices.find((n) => n.eventId)?.eventId;
 

@@ -7,10 +7,6 @@ import type { ReactNode } from "react";
 const signInSocialMock = vi.hoisted(() => vi.fn());
 const signInOAuth2Mock = vi.hoisted(() => vi.fn());
 
-vi.mock("next/navigation", () => ({
-  useSearchParams: () => new URLSearchParams(),
-}));
-
 vi.mock("@/lib/auth-client", () => ({
   authClient: {
     signIn: {
@@ -44,6 +40,8 @@ describe("SignInPageClient", () => {
           { id: "github", name: "GitHub", type: "social" as const },
           { id: "cognito", name: "Cognito", type: "oauth2" as const },
         ]}
+        callbackUrl="/projects"
+        showError={false}
       />,
     );
 

@@ -22,6 +22,7 @@ Use host commands only for Docker diagnostics such as `docker compose ps`,
 ```sh
 docker compose exec web yarn typecheck
 docker compose exec web yarn biome:lint
+docker compose exec web yarn react-doctor
 docker compose exec web env NODE_ENV=production yarn build
 docker compose exec web yarn db:generate
 docker compose exec web yarn db:migrate

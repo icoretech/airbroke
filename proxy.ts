@@ -3,6 +3,10 @@
 
 import { getSessionCookie } from "better-auth/cookies";
 import { NextResponse } from "next/server";
+import {
+  SIGN_IN_RETURN_PATH_COOKIE_MAX_AGE_SECONDS,
+  SIGN_IN_RETURN_PATH_COOKIE_NAME,
+} from "@/lib/signInReturnPath";
 import type { NextRequest } from "next/server";
 
 const PUBLIC_PATHS = new Set(["/"]);
@@ -31,8 +35,15 @@ export function proxy(request: NextRequest) {
     const signInUrl = new URL("/signin", request.url);
     const { search } = request.nextUrl;
     const fullPath = search ? `${pathname}${search}` : pathname;
-    signInUrl.searchParams.set("callbackUrl", fullPath);
-    return NextResponse.redirect(signInUrl);
+    const response = NextResponse.redirect(signInUrl);
+    response.cookies.set(SIGN_IN_RETURN_PATH_COOKIE_NAME, fullPath, {
+      httpOnly: true,
+      maxAge: SIGN_IN_RETURN_PATH_COOKIE_MAX_AGE_SECONDS,
+      path: "/signin",
+      sameSite: "lax",
+      secure: request.nextUrl.protocol === "https:",
+    });
+    return response;
   }
 
   return NextResponse.next();

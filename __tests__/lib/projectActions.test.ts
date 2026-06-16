@@ -10,6 +10,7 @@ const cacheLifeMock = vi.fn();
 const noticeDeleteManyMock = vi.fn();
 const projectDeleteMock = vi.fn();
 const redirectMock = vi.fn();
+const requireAuthMock = vi.fn();
 
 vi.mock("next/cache", () => ({
   cacheLife: cacheLifeMock,
@@ -41,16 +42,22 @@ vi.mock("@/lib/db", () => ({
   },
 }));
 
+vi.mock("@/lib/actions/requireAuth", () => ({
+  requireAuth: requireAuthMock,
+}));
+
 const { db } = await import("@/lib/db");
-const {
-  cachedProjectChartOccurrencesData,
-  deleteProject,
-  deleteProjectNotices,
-} = await import("@/lib/actions/projectActions");
+const { deleteProject, deleteProjectNotices } = await import(
+  "@/lib/actions/projectActions"
+);
+const { cachedProjectChartOccurrencesData } = await import(
+  "@/lib/queries/projectChartOccurrences"
+);
 
 describe("deleteProjectNotices", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    requireAuthMock.mockResolvedValue({ user: { id: "user-1" } });
   });
 
   it("revalidates project shell paths after deleting project notices", async () => {
@@ -58,6 +65,7 @@ describe("deleteProjectNotices", () => {
 
     await deleteProjectNotices(projectId);
 
+    expect(requireAuthMock).toHaveBeenCalled();
     expect(noticeDeleteManyMock).toHaveBeenCalledWith({
       where: { project_id: projectId },
     });
@@ -95,6 +103,7 @@ describe("cachedProjectChartOccurrencesData", () => {
 describe("deleteProject", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    requireAuthMock.mockResolvedValue({ user: { id: "user-1" } });
   });
 
   it("revalidates the projects shell and redirects to the projects list", async () => {
@@ -102,6 +111,7 @@ describe("deleteProject", () => {
 
     await deleteProject(projectId);
 
+    expect(requireAuthMock).toHaveBeenCalled();
     expect(projectDeleteMock).toHaveBeenCalledWith({
       where: { id: projectId },
     });

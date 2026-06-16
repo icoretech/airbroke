@@ -285,20 +285,21 @@ function createAuth() {
       session: {
         create: {
           before: async (session) => {
-            const user = await db.user.findUnique({
-              where: { id: session.userId },
-              select: { email: true, emailVerified: true },
-            });
-
-            const currentAccount = await db.account.findFirst({
-              where: { userId: session.userId },
-              orderBy: { updatedAt: "desc" },
-              select: {
-                providerId: true,
-                accessToken: true,
-                idToken: true,
-              },
-            });
+            const [user, currentAccount] = await Promise.all([
+              db.user.findUnique({
+                where: { id: session.userId },
+                select: { email: true, emailVerified: true },
+              }),
+              db.account.findFirst({
+                where: { userId: session.userId },
+                orderBy: { updatedAt: "desc" },
+                select: {
+                  providerId: true,
+                  accessToken: true,
+                  idToken: true,
+                },
+              }),
+            ]);
 
             if (currentAccount) {
               enforceEmailDomainForProvider(

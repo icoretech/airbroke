@@ -4,7 +4,7 @@
 
 import { Bookmark, BookmarkCheck } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import {
   createOccurrenceBookmark,
   removeOccurrenceBookmark,
@@ -27,13 +27,16 @@ export default function BookmarkButton({
 }: BookmarkButtonProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [optimistic, setOptimistic] = useState<{
+    occurrenceId: string;
+    bookmarked: boolean;
+  } | null>(null);
 
-  // Store the current bookmark state locally (sync with server on refresh)
-  const [bookmarked, setBookmarked] = useState(isBookmarked);
-
-  useEffect(() => {
-    setBookmarked(isBookmarked);
-  }, [isBookmarked]);
+  const bookmarked =
+    optimistic?.occurrenceId === occurrenceId &&
+    optimistic.bookmarked !== isBookmarked
+      ? optimistic.bookmarked
+      : isBookmarked;
 
   const Icon = bookmarked ? BookmarkCheck : Bookmark;
   const label = bookmarked ? "Bookmarked" : "Bookmark";
@@ -51,7 +54,7 @@ export default function BookmarkButton({
           onClick={() =>
             startTransition(() => {
               const next = !bookmarked;
-              setBookmarked(next);
+              setOptimistic({ occurrenceId, bookmarked: next });
               const action = next
                 ? createOccurrenceBookmark(occurrenceId)
                 : removeOccurrenceBookmark(occurrenceId);
@@ -59,7 +62,7 @@ export default function BookmarkButton({
               void action
                 .catch((error) => {
                   console.error("Bookmark action failed:", error);
-                  setBookmarked(!next);
+                  setOptimistic(null);
                 })
                 .finally(() => router.refresh());
             })

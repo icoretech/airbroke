@@ -17,8 +17,10 @@ export default async function NoticeLayout({
     });
     return n?.project_id ?? undefined;
   });
-  const projectId = await getProjectIdForNotice(notice_id);
-  const crumbs = await buildNoticeCrumbsById(notice_id);
+  const [projectId, crumbs] = await Promise.all([
+    getProjectIdForNotice(notice_id),
+    buildNoticeCrumbsById(notice_id),
+  ]);
   return (
     <AppShell
       selectedProjectId={projectId}
