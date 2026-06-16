@@ -35,8 +35,37 @@ type TestAction = {
   title: string;
   description: string;
   errorLabel: string;
-  run: () => Promise<void>;
 };
+
+const testActions: TestAction[] = [
+  {
+    key: "airbrake-browser",
+    title: "Airbrake: JavaScript",
+    description: "Simulate a client-side error in the “test” environment.",
+    errorLabel: "Airbrake browser test",
+  },
+  {
+    key: "airbrake-node",
+    title: "Airbrake: Node.js",
+    description:
+      "Send a Node.js error to confirm server-side exception tracking.",
+    errorLabel: "Airbrake Node.js test",
+  },
+  {
+    key: "sentry-browser",
+    title: "Sentry: Browser",
+    description:
+      "Send a client-side error through the Sentry-compatible intake.",
+    errorLabel: "Sentry browser test",
+  },
+  {
+    key: "sentry-node",
+    title: "Sentry: Node.js",
+    description:
+      "Send a server-side error through the Sentry-compatible intake.",
+    errorLabel: "Sentry Node.js test",
+  },
+];
 
 function formatTestActionError(testAction: TestAction, error: unknown): string {
   if (error instanceof Error && error.message.trim()) {
@@ -58,8 +87,7 @@ export default function TestZone({ project }: { project: Project }) {
   const runWithPending = (testAction: TestAction) => {
     setPendingAction(testAction.key);
     setErrorMessage(null);
-    testAction
-      .run()
+    runTestAction(testAction.key)
       .then(() => {
         startTransition(() => refresh());
       })
@@ -69,6 +97,23 @@ export default function TestZone({ project }: { project: Project }) {
       .finally(() => {
         setPendingAction(null);
       });
+  };
+
+  const runTestAction = async (key: TestActionKey) => {
+    switch (key) {
+      case "airbrake-browser":
+        await sendAirbrakeBrowserException();
+        return;
+      case "airbrake-node":
+        await sendAirbrakeNodeException();
+        return;
+      case "sentry-browser":
+        await sendSentryBrowserException();
+        return;
+      case "sentry-node":
+        await sendSentryNodeException();
+        return;
+    }
   };
 
   const sendAirbrakeBrowserException = async () => {
@@ -144,40 +189,6 @@ export default function TestZone({ project }: { project: Project }) {
       window.location.origin,
     );
   };
-
-  const testActions: TestAction[] = [
-    {
-      key: "airbrake-browser",
-      title: "Airbrake: JavaScript",
-      description: "Simulate a client-side error in the “test” environment.",
-      errorLabel: "Airbrake browser test",
-      run: sendAirbrakeBrowserException,
-    },
-    {
-      key: "airbrake-node",
-      title: "Airbrake: Node.js",
-      description:
-        "Send a Node.js error to confirm server-side exception tracking.",
-      errorLabel: "Airbrake Node.js test",
-      run: sendAirbrakeNodeException,
-    },
-    {
-      key: "sentry-browser",
-      title: "Sentry: Browser",
-      description:
-        "Send a client-side error through the Sentry-compatible intake.",
-      errorLabel: "Sentry browser test",
-      run: sendSentryBrowserException,
-    },
-    {
-      key: "sentry-node",
-      title: "Sentry: Node.js",
-      description:
-        "Send a server-side error through the Sentry-compatible intake.",
-      errorLabel: "Sentry Node.js test",
-      run: sendSentryNodeException,
-    },
-  ];
 
   return (
     <div className="space-y-5">

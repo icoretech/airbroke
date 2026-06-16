@@ -4,6 +4,7 @@
   "deadCode": true,
   "noScore": true,
   "blocking": "error",
+  "serverAuthFunctionNames": ["requireAuth", "requireUserId"],
   "ignore": {
     "overrides": [
       {
