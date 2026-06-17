@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.2.16](https://github.com/icoretech/airbroke/compare/v1.2.15...v1.2.16) (2026-06-17)
+
+
+### Bug Fixes
+
+* **deps:** update better-auth monorepo to v1.6.15 ([#1708](https://github.com/icoretech/airbroke/issues/1708)) ([06cb1bc](https://github.com/icoretech/airbroke/commit/06cb1bc02820fd9b648182a803a532a4adcbd95c))
+* **deps:** update better-auth monorepo to v1.6.16 ([#1726](https://github.com/icoretech/airbroke/issues/1726)) ([fb3e1b5](https://github.com/icoretech/airbroke/commit/fb3e1b5eba50ee6868adc881875d13b9cf176ea2))
+* **deps:** update better-auth monorepo to v1.6.17 ([#1730](https://github.com/icoretech/airbroke/issues/1730)) ([b9fd363](https://github.com/icoretech/airbroke/commit/b9fd3632f9600449e7d0b177f85ab629ce94e2e3))
+* **deps:** update better-auth monorepo to v1.6.18 ([#1735](https://github.com/icoretech/airbroke/issues/1735)) ([6f6eeb1](https://github.com/icoretech/airbroke/commit/6f6eeb137be4cf4ca3e28184b760f666ce68c4bc))
+* **deps:** update better-auth monorepo to v1.6.19 ([#1743](https://github.com/icoretech/airbroke/issues/1743)) ([73a0c3b](https://github.com/icoretech/airbroke/commit/73a0c3b6ee517fb0c1bfad268d4266e7e4792674))
+* **deps:** update lucide monorepo to v1.18.0 ([#1732](https://github.com/icoretech/airbroke/issues/1732)) ([315aa60](https://github.com/icoretech/airbroke/commit/315aa605101026f1e50f1e189163a83c88b9fcf3))
+* **deps:** update nextjs monorepo to v16.2.9 ([#1725](https://github.com/icoretech/airbroke/issues/1725)) ([8fd9bf9](https://github.com/icoretech/airbroke/commit/8fd9bf9ba9bfc1031e290ddb343fecedc131e194))
+* **deps:** update radix-ui-primitives monorepo ([#1722](https://github.com/icoretech/airbroke/issues/1722)) ([020e29a](https://github.com/icoretech/airbroke/commit/020e29ad2c451372b86cca495e646bfabe5a084a))
+* **deps:** update radix-ui-primitives monorepo ([#1740](https://github.com/icoretech/airbroke/issues/1740)) ([76318fe](https://github.com/icoretech/airbroke/commit/76318fe3747d5fe72e4c63073f2a3a896cb9133d))
+* **deps:** update sentry-javascript monorepo to v10.57.0 ([#1724](https://github.com/icoretech/airbroke/issues/1724)) ([b536b0a](https://github.com/icoretech/airbroke/commit/b536b0a81f9082421257babad5713145bdfad290))
+* **deps:** update vercel ai sdk ([#1717](https://github.com/icoretech/airbroke/issues/1717)) ([f0475af](https://github.com/icoretech/airbroke/commit/f0475af28c2c2760391c36f86e2a395d2f92eb81))
+* **deps:** update vercel ai sdk ([#1719](https://github.com/icoretech/airbroke/issues/1719)) ([3f7ffd5](https://github.com/icoretech/airbroke/commit/3f7ffd5e7606a601863c7e7379a02f888a93972c))
+* **deps:** update vercel ai sdk ([#1723](https://github.com/icoretech/airbroke/issues/1723)) ([7edee98](https://github.com/icoretech/airbroke/commit/7edee98437a5f1613fb04e39e9b15264ce8c14e4))
+* **deps:** update vercel ai sdk ([#1728](https://github.com/icoretech/airbroke/issues/1728)) ([59df674](https://github.com/icoretech/airbroke/commit/59df674078a724326ba174d40a7ac8768ab542ea))
+* **deps:** update vercel ai sdk ([#1729](https://github.com/icoretech/airbroke/issues/1729)) ([5f213b0](https://github.com/icoretech/airbroke/commit/5f213b082aebc608310d3699d2cf94e7f5aadf1f))
+* **deps:** update vercel ai sdk ([#1733](https://github.com/icoretech/airbroke/issues/1733)) ([ce317ea](https://github.com/icoretech/airbroke/commit/ce317ea7fee4c0adf48b22120f260003542c0d63))
+* **deps:** update vercel ai sdk ([#1736](https://github.com/icoretech/airbroke/issues/1736)) ([8b0aa28](https://github.com/icoretech/airbroke/commit/8b0aa28b16439da0da1c65cb29bd22c600b2b885))
+* **deps:** update vercel ai sdk ([#1741](https://github.com/icoretech/airbroke/issues/1741)) ([62df06f](https://github.com/icoretech/airbroke/commit/62df06f3fe83d36ed23aaac17ae1a553be20637d))
+* restore react quality gate ([e5803c5](https://github.com/icoretech/airbroke/commit/e5803c58b4d41a2b648a2b963ffb038706902861))
+
 ## [1.2.15](https://github.com/icoretech/airbroke/compare/v1.2.14...v1.2.15) (2026-06-04)
 
 
