@@ -86,5 +86,5 @@
     "typescript": "6.0.3",
     "vitest": "4.1.9"
   },
-  "packageManager": "yarn@4.16.0"
+  "packageManager": "yarn@4.17.0"
 }
