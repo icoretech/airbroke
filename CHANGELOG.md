@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.2.17](https://github.com/icoretech/airbroke/compare/v1.2.16...v1.2.17) (2026-06-21)
+
+
+### Bug Fixes
+
+* **deps:** update better-auth monorepo to v1.6.20 ([#1755](https://github.com/icoretech/airbroke/issues/1755)) ([0174696](https://github.com/icoretech/airbroke/commit/017469619d5519334b483949094bc0735d98e1b4))
+* **deps:** update dependency @modelcontextprotocol/sdk to v1.29.0 ([#1742](https://github.com/icoretech/airbroke/issues/1742)) ([abdb5f1](https://github.com/icoretech/airbroke/commit/abdb5f1f9abe800c5d87b7a1e607c57addafa9bb))
+* **deps:** update dependency nanoid to v5.1.14 ([#1750](https://github.com/icoretech/airbroke/issues/1750)) ([6092785](https://github.com/icoretech/airbroke/commit/609278501b59d3016198e2fa2ab1d573037d5d42))
+* **deps:** update dependency nanoid to v5.1.15 ([#1756](https://github.com/icoretech/airbroke/issues/1756)) ([1d473e6](https://github.com/icoretech/airbroke/commit/1d473e6e56f414a9cdf9e3f0fa0948df45f9c48f))
+* **deps:** update lucide monorepo to v1.21.0 ([#1744](https://github.com/icoretech/airbroke/issues/1744)) ([59c8fdc](https://github.com/icoretech/airbroke/commit/59c8fdc17769a03624aa3c37d57acd2de4fedde2))
+* **deps:** update sentry-javascript monorepo to v10.58.0 ([#1739](https://github.com/icoretech/airbroke/issues/1739)) ([22d06f6](https://github.com/icoretech/airbroke/commit/22d06f6a7e8422b0dae26cdc1917e95244a7dfa1))
+* **deps:** update sentry-javascript monorepo to v10.59.0 ([#1753](https://github.com/icoretech/airbroke/issues/1753)) ([429de10](https://github.com/icoretech/airbroke/commit/429de10db03700dfc478a457a6268204a899b72f))
+* **deps:** update vercel ai sdk ([#1745](https://github.com/icoretech/airbroke/issues/1745)) ([ebde30b](https://github.com/icoretech/airbroke/commit/ebde30bb030b266aa335f7966eb1f2bef1cd8495))
+* **deps:** update vercel ai sdk ([#1749](https://github.com/icoretech/airbroke/issues/1749)) ([1de4397](https://github.com/icoretech/airbroke/commit/1de439792c3932316e329b41ada1f2a48a4ee1f3))
+
 ## [1.2.16](https://github.com/icoretech/airbroke/compare/v1.2.15...v1.2.16) (2026-06-17)
 
 
