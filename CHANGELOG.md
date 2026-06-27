@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.18](https://github.com/icoretech/airbroke/compare/v1.2.17...v1.2.18) (2026-06-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency nanoid to v5.1.16 ([#1763](https://github.com/icoretech/airbroke/issues/1763)) ([b235e3f](https://github.com/icoretech/airbroke/commit/b235e3f9af4b17e4c79ffc0500519f8420bb934c))
+* **deps:** update dependency recharts to v3.9.0 ([#1762](https://github.com/icoretech/airbroke/issues/1762)) ([d241758](https://github.com/icoretech/airbroke/commit/d2417587f5d3a3f040233d00eda15a722dc365ff))
+* **deps:** update sentry-javascript monorepo to v10.60.0 ([#1760](https://github.com/icoretech/airbroke/issues/1760)) ([cdce513](https://github.com/icoretech/airbroke/commit/cdce51313734f97576230d7dba2c9873f1225d47))
+* **deps:** update sentry-javascript monorepo to v10.61.0 ([#1764](https://github.com/icoretech/airbroke/issues/1764)) ([720f872](https://github.com/icoretech/airbroke/commit/720f872a35b500bf48b63493a22cbdf6f9000dfd))
+* **deps:** update vercel ai sdk ([#1757](https://github.com/icoretech/airbroke/issues/1757)) ([c78d8ce](https://github.com/icoretech/airbroke/commit/c78d8cefcabbbdab8ca192f5f4b59ee06a50a1b1))
+* **deps:** update vercel ai sdk ([#1761](https://github.com/icoretech/airbroke/issues/1761)) ([eb47c02](https://github.com/icoretech/airbroke/commit/eb47c023ee4ca85607628ca03bf91b3327049f54))
+* **deps:** update vercel ai sdk ([#1765](https://github.com/icoretech/airbroke/issues/1765)) ([ed79bfa](https://github.com/icoretech/airbroke/commit/ed79bfa6a2af875c1df3ac6592e25ef64b364bf1))
+
 ## [1.2.17](https://github.com/icoretech/airbroke/compare/v1.2.16...v1.2.17) (2026-06-21)
 
 
