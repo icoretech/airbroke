@@ -4195,7 +4195,7 @@ __metadata:
     react-dom: "npm:19.2.7"
     react-icons: "npm:5.6.0"
     react-syntax-highlighter: "npm:16.1.1"
-    recharts: "npm:3.9.0"
+    recharts: "npm:3.9.1"
     server-only: "npm:0.0.1"
     tailwind-merge: "npm:3.6.0"
     tailwindcss: "npm:4.3.2"
@@ -5952,17 +5952,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"immer@npm:^10.1.1":
-  version: 10.2.0
-  resolution: "immer@npm:10.2.0"
-  checksum: 10/d73e218c8f8ffbb39f9290dfafa478b94af73403dcf26b5672eef35233bb30f09ffe231f8a78a6c9cb442968510edd89e851776ec90a5ddfa82cee6db6b35137
-  languageName: node
-  linkType: hard
-
 "immer@npm:^11.0.0":
   version: 11.1.4
   resolution: "immer@npm:11.1.4"
   checksum: 10/7b60a56f8375bbe1b3fdbeec322614ab7925dde6480cc5da66a5204f44ccbce522b2b2ccda3bef3a9e71e5746b28dcf4ae174443a49df1155e983e88b0aa0ed5
+  languageName: node
+  linkType: hard
+
+"immer@npm:^11.1.8":
+  version: 11.1.8
+  resolution: "immer@npm:11.1.8"
+  checksum: 10/59a72aaac68115a8d584cb555a76566fb9c52be4c09055d446e5828c23e08470379b342f615a826cc07715e6a1c88dcdcfd41cc86114c397389cb8a6665768b0
   languageName: node
   linkType: hard
 
@@ -7864,16 +7864,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recharts@npm:3.9.0":
-  version: 3.9.0
-  resolution: "recharts@npm:3.9.0"
+"recharts@npm:3.9.1":
+  version: 3.9.1
+  resolution: "recharts@npm:3.9.1"
   dependencies:
     "@reduxjs/toolkit": "npm:^1.9.0 || 2.x.x"
     clsx: "npm:^2.1.1"
     decimal.js-light: "npm:^2.5.1"
     es-toolkit: "npm:^1.39.3"
     eventemitter3: "npm:^5.0.1"
-    immer: "npm:^10.1.1"
+    immer: "npm:^11.1.8"
     react-redux: "npm:8.x.x || 9.x.x"
     reselect: "npm:5.2.0"
     tiny-invariant: "npm:^1.3.3"
@@ -7883,7 +7883,7 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-is: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/fa190724c7911c84fc85e90311221bceffab6e3de6f60d3a7a1a8e23a7b80f5925eb83496060bef197d03d8f4fd36034defa225c05808297d4ebc5f15662df77
+  checksum: 10/d32612d0870f4f953c4c5b745f87dbbe36d548cac81fd97dbb8ecbfa3adfc84ea8bcbb06499ed44f2876eeeb805dd20f7b43fe4778d558fb158b771b4bd1b462
   languageName: node
   linkType: hard
 
