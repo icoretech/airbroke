@@ -4177,7 +4177,7 @@ __metadata:
     postcss: "npm:8.5.16"
     prisma: "npm:7.8.0"
     react: "npm:19.2.7"
-    react-doctor: "npm:^0.5.6"
+    react-doctor: "npm:^0.6.0"
     react-dom: "npm:19.2.7"
     react-icons: "npm:5.6.0"
     react-syntax-highlighter: "npm:16.1.1"
@@ -5079,17 +5079,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deslop-js@npm:0.5.8":
-  version: 0.5.8
-  resolution: "deslop-js@npm:0.5.8"
+"deslop-js@npm:0.6.0":
+  version: 0.6.0
+  resolution: "deslop-js@npm:0.6.0"
   dependencies:
     "@oxc-project/types": "npm:^0.132.0"
     fast-glob: "npm:^3.3.3"
     minimatch: "npm:^10.2.5"
     oxc-parser: "npm:^0.132.0"
     oxc-resolver: "npm:^11.19.1"
-    typescript: "npm:^6.0.3"
-  checksum: 10/31a1aa9ace05a4e6ebca0169ac9af04218afba067b07b1f97632cadeb9f8b446a3803b559de926b75ffb554c373ae66f75bfb6ccef1e61df291aab6acc956074
+    typescript: "npm:>=5.0.4 <6"
+  checksum: 10/08d92dcb316cb6ec1b1dc620a08feca914031ab4a31a5a08cea733dc85550e527948d52ece8ef144fd35f88195ec88de74e2d7f88be6cf3aea41e8ed9a8aaf52
   languageName: node
   linkType: hard
 
@@ -7154,15 +7154,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"oxlint-plugin-react-doctor@npm:0.5.8":
-  version: 0.5.8
-  resolution: "oxlint-plugin-react-doctor@npm:0.5.8"
+"oxlint-plugin-react-doctor@npm:0.6.0":
+  version: 0.6.0
+  resolution: "oxlint-plugin-react-doctor@npm:0.6.0"
   dependencies:
     "@typescript-eslint/types": "npm:^8.59.3"
     eslint-scope: "npm:^9.1.2"
     eslint-visitor-keys: "npm:^5.0.1"
     oxc-parser: "npm:^0.135.0"
-  checksum: 10/d74a0952467d42b433f681e21b91abeb85dda725362066b1940acc7911d46a52c469dd8b4aadc3700d52b39ace078df81328bf83f102d37784c338f163f8d840
+  checksum: 10/1a68bb246226f18f5c412175f9206f8cf59908d4440816b279298d35028c5bc44249e4056c229d1680eafa621ebed678a086eb2211d7f947229b200fcd8484d5
   languageName: node
   linkType: hard
 
@@ -7677,29 +7677,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-doctor@npm:^0.5.6":
-  version: 0.5.8
-  resolution: "react-doctor@npm:0.5.8"
+"react-doctor@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "react-doctor@npm:0.6.0"
   dependencies:
     "@babel/code-frame": "npm:^7.29.0"
     "@sentry/node": "npm:^10.54.0"
     agent-install: "npm:0.0.5"
     conf: "npm:^15.1.0"
     confbox: "npm:^0.2.4"
-    deslop-js: "npm:0.5.8"
+    deslop-js: "npm:0.6.0"
     eslint-plugin-react-hooks: "npm:^7.1.1"
     jiti: "npm:^2.7.0"
     magicast: "npm:^0.5.3"
     oxlint: "npm:>=1.66.0 <1.67.0"
-    oxlint-plugin-react-doctor: "npm:0.5.8"
+    oxlint-plugin-react-doctor: "npm:0.6.0"
     prompts: "npm:^2.4.2"
-    typescript: "npm:>=5.0.4 <7"
+    typescript: "npm:>=5.0.4 <6"
     vscode-languageserver: "npm:^9.0.1"
     vscode-languageserver-textdocument: "npm:^1.0.12"
     vscode-uri: "npm:^3.1.0"
+    yaml: "npm:^2.9.0"
   bin:
     react-doctor: bin/react-doctor.js
-  checksum: 10/0ea7eab169ccfce565a02d4365f7306c11864eb9631714655c61243d5fd1dc70da5219196cfb97fb2b6a874c1674ecf59b610ef56be476e311fe1b452b08011a
+  checksum: 10/e5b5cea30cc63424a0fb8a6400865702c70309a6676e0b30f027afab658561fe77d132b7e6128525179acb3f653655091d1ba484a510cadcef5800163f35bc88
   languageName: node
   linkType: hard
 
@@ -8717,7 +8718,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:6.0.3, typescript@npm:>=5.0.4 <7, typescript@npm:^6.0.3":
+"typescript@npm:6.0.3":
   version: 6.0.3
   resolution: "typescript@npm:6.0.3"
   bin:
@@ -8727,13 +8728,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A6.0.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A>=5.0.4 <7#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^6.0.3#optional!builtin<compat/typescript>":
+"typescript@npm:>=5.0.4 <6":
+  version: 5.9.3
+  resolution: "typescript@npm:5.9.3"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 10/c089d9d3da2729fd4ac517f9b0e0485914c4b3c26f80dc0cffcb5de1719a17951e92425d55db59515c1a7ddab65808466debb864d0d56dcf43f27007d0709594
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@npm%3A6.0.3#optional!builtin<compat/typescript>":
   version: 6.0.3
   resolution: "typescript@patch:typescript@npm%3A6.0.3#optional!builtin<compat/typescript>::version=6.0.3&hash=5786d5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 10/22b67a18dafedf9b1468b64ca20d9aa02ea61d449b65413d8aa6552aeb63f52ef369e86beb25b6b4c91a803d9726ee5c196f391a9b64201263263410a4223ee6
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@npm%3A>=5.0.4 <6#optional!builtin<compat/typescript>":
+  version: 5.9.3
+  resolution: "typescript@patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 10/696e1b017bc2635f4e0c94eb4435357701008e2f272f553d06e35b494b8ddc60aa221145e286c28ace0c89ee32827a28c2040e3a69bdc108b1a5dc8fb40b72e3
   languageName: node
   linkType: hard
 
@@ -9220,7 +9241,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:^2.8.3":
+"yaml@npm:^2.8.3, yaml@npm:^2.9.0":
   version: 2.9.0
   resolution: "yaml@npm:2.9.0"
   bin:
