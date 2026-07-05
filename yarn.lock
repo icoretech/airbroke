@@ -4181,7 +4181,7 @@ __metadata:
     react-dom: "npm:19.2.7"
     react-icons: "npm:5.6.0"
     react-syntax-highlighter: "npm:16.1.1"
-    recharts: "npm:3.9.1"
+    recharts: "npm:3.9.2"
     server-only: "npm:0.0.1"
     tailwind-merge: "npm:3.6.0"
     tailwindcss: "npm:4.3.2"
@@ -7851,9 +7851,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recharts@npm:3.9.1":
-  version: 3.9.1
-  resolution: "recharts@npm:3.9.1"
+"recharts@npm:3.9.2":
+  version: 3.9.2
+  resolution: "recharts@npm:3.9.2"
   dependencies:
     "@reduxjs/toolkit": "npm:^1.9.0 || 2.x.x"
     clsx: "npm:^2.1.1"
@@ -7870,7 +7870,7 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-is: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/d32612d0870f4f953c4c5b745f87dbbe36d548cac81fd97dbb8ecbfa3adfc84ea8bcbb06499ed44f2876eeeb805dd20f7b43fe4778d558fb158b771b4bd1b462
+  checksum: 10/c34cd9358e6ba71505389b1a06a274a5eb58cab293d0c3f636ef3c07190164e65e48196ea54adafd0b2ec22515cec5a2a146b51237429dc221290771997cf987
   languageName: node
   linkType: hard
 
