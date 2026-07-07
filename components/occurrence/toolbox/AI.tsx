@@ -5,7 +5,6 @@
 import { useCompletion } from "@ai-sdk/react";
 import { useEffect, useRef, useState } from "react";
 import { BsRobot } from "react-icons/bs";
-import { SiOpenai } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 
 export default function ToolboxAI({ occurrenceId }: { occurrenceId: string }) {
@@ -46,7 +45,7 @@ export default function ToolboxAI({ occurrenceId }: { occurrenceId: string }) {
       <div className="flex flex-1 flex-col rounded-t-md bg-airbroke-800 p-8 ring-1 ring-white/5">
         <div className="mx-auto h-32 w-32 shrink-0">
           <span className="h-32 w-32 text-[8rem] leading-none text-white">
-            <SiOpenai />
+            <BsRobot />
           </span>
         </div>
         <h3 className="my-6 text-sm font-medium text-white">Ask the AI</h3>
