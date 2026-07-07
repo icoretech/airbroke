@@ -4201,7 +4201,7 @@ __metadata:
     react: "npm:19.2.7"
     react-doctor: "npm:^0.7.0"
     react-dom: "npm:19.2.7"
-    react-icons: "npm:5.6.0"
+    react-icons: "npm:5.7.0"
     react-syntax-highlighter: "npm:16.1.1"
     recharts: "npm:3.9.2"
     server-only: "npm:0.0.1"
@@ -7737,12 +7737,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-icons@npm:5.6.0":
-  version: 5.6.0
-  resolution: "react-icons@npm:5.6.0"
+"react-icons@npm:5.7.0":
+  version: 5.7.0
+  resolution: "react-icons@npm:5.7.0"
   peerDependencies:
     react: "*"
-  checksum: 10/571ac91977003695934c7e02bcfebec692f3f97191f7a9e77004bf4d44b859dc4265fed0200ddb45365c00e4c7b414d69eccb5707508b9beb5ef2df2093318eb
+  checksum: 10/db064cfe8e6456ba315d960debc50d3535ec794376c059bcdd79e20985d3c77d58a24c8cc567608695b10accd62b6c3c422821569b9c3c94d0811fe952c31e8c
   languageName: node
   linkType: hard
 
