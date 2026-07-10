@@ -5176,9 +5176,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deslop-js@npm:0.7.2":
-  version: 0.7.2
-  resolution: "deslop-js@npm:0.7.2"
+"deslop-js@npm:0.7.3":
+  version: 0.7.3
+  resolution: "deslop-js@npm:0.7.3"
   dependencies:
     "@oxc-project/types": "npm:^0.132.0"
     fast-glob: "npm:^3.3.3"
@@ -5186,7 +5186,7 @@ __metadata:
     oxc-parser: "npm:^0.132.0"
     oxc-resolver: "npm:^11.19.1"
     typescript: "npm:>=5.0.4 <6"
-  checksum: 10/1d7e332e8afd7fdefe7791e3ede9f1618a0466c5f031d8523b02a02f78e8e9a14d224f8f29ca8ca4f58112ab7e2834d13a4eb2baabab844fd25edf40cc6fe978
+  checksum: 10/145fcb99a45b7393e6c83c4ca1b003649da65da4f3afda25a803095302b290a0cd94a12fb4405803e0535328630d498dd2b519575acb926841f6074d6259e709
   languageName: node
   linkType: hard
 
@@ -7251,15 +7251,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"oxlint-plugin-react-doctor@npm:0.7.2":
-  version: 0.7.2
-  resolution: "oxlint-plugin-react-doctor@npm:0.7.2"
+"oxlint-plugin-react-doctor@npm:0.7.3":
+  version: 0.7.3
+  resolution: "oxlint-plugin-react-doctor@npm:0.7.3"
   dependencies:
     "@typescript-eslint/types": "npm:^8.59.3"
     eslint-scope: "npm:^9.1.2"
     eslint-visitor-keys: "npm:^5.0.1"
     oxc-parser: "npm:^0.135.0"
-  checksum: 10/fe4223a5270b10fcbc62eb0af13f663cab79a55147c14fe3e6f359fc32de65fab14dd1cbd7bd2aa66a304643b40b745b323cb4d22820b9c8aba6ccbb9bc4ff7e
+  checksum: 10/775ae59f4f2991afab18fe7f39277b5e9fb7c9ab51a4cb8df3d4faed00234a9d93aabd71cc05bfecab89e7cfb49284b434f9f44ba1471a05f6bee90267bf3ba9
   languageName: node
   linkType: hard
 
@@ -7775,20 +7775,20 @@ __metadata:
   linkType: hard
 
 "react-doctor@npm:^0.7.0":
-  version: 0.7.2
-  resolution: "react-doctor@npm:0.7.2"
+  version: 0.7.3
+  resolution: "react-doctor@npm:0.7.3"
   dependencies:
     "@babel/code-frame": "npm:^7.29.0"
     "@sentry/node": "npm:^10.54.0"
     agent-install: "npm:0.0.5"
     conf: "npm:^15.1.0"
     confbox: "npm:^0.2.4"
-    deslop-js: "npm:0.7.2"
+    deslop-js: "npm:0.7.3"
     eslint-plugin-react-hooks: "npm:^7.1.1"
     jiti: "npm:^2.7.0"
     magicast: "npm:^0.5.3"
     oxlint: "npm:>=1.66.0 <1.67.0"
-    oxlint-plugin-react-doctor: "npm:0.7.2"
+    oxlint-plugin-react-doctor: "npm:0.7.3"
     prompts: "npm:^2.4.2"
     typescript: "npm:>=5.0.4 <6"
     vscode-languageserver: "npm:^9.0.1"
@@ -7797,7 +7797,7 @@ __metadata:
     yaml: "npm:^2.9.0"
   bin:
     react-doctor: bin/react-doctor.js
-  checksum: 10/19f6f1de5a96f92366bb08e73c24c1945c50eba8031f01c7f3838dc5adbed373beb82b4da2be9ffbd0de517a616e3cf2d27cd364e700a228ff2c9f8cb7969784
+  checksum: 10/bd16a141124f4a635835a92c24c3890f766e52270c76b3a628779064a00e38d2c7b38e93b90e1460c4f1ab7b6aee3b1d691b991c1206d799d7bb9620618d4ce9
   languageName: node
   linkType: hard
 
