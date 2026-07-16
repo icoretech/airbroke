@@ -70,35 +70,31 @@ describe("composeFileUrl", () => {
   ];
 
   // Test each known provider for both “with line” and “no line” scenario.
-  test.each(cases)("should return correct URL for $name (with line)", async ({
-    repo_provider,
-    repo_url,
-    repo_branch,
-    expectedUrlWithLine,
-  }) => {
-    const project = await createProject({
-      repo_provider,
-      repo_url,
-      repo_branch,
-    });
-    const url = composeFileUrl(project, BASE_FILE_PATH, LINE_NUMBER);
-    expect(url).toBe(expectedUrlWithLine);
-  });
+  test.each(cases)(
+    "should return correct URL for $name (with line)",
+    async ({ repo_provider, repo_url, repo_branch, expectedUrlWithLine }) => {
+      const project = await createProject({
+        repo_provider,
+        repo_url,
+        repo_branch,
+      });
+      const url = composeFileUrl(project, BASE_FILE_PATH, LINE_NUMBER);
+      expect(url).toBe(expectedUrlWithLine);
+    },
+  );
 
-  test.each(cases)("should return correct URL for $name (no line)", async ({
-    repo_provider,
-    repo_url,
-    repo_branch,
-    expectedUrlNoLine,
-  }) => {
-    const project = await createProject({
-      repo_provider,
-      repo_url,
-      repo_branch,
-    });
-    const url = composeFileUrl(project, BASE_FILE_PATH);
-    expect(url).toBe(expectedUrlNoLine);
-  });
+  test.each(cases)(
+    "should return correct URL for $name (no line)",
+    async ({ repo_provider, repo_url, repo_branch, expectedUrlNoLine }) => {
+      const project = await createProject({
+        repo_provider,
+        repo_url,
+        repo_branch,
+      });
+      const url = composeFileUrl(project, BASE_FILE_PATH);
+      expect(url).toBe(expectedUrlNoLine);
+    },
+  );
 
   test("should return an empty string for unknown repository provider", async () => {
     const project = await createProject({
