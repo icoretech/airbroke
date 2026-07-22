@@ -1176,9 +1176,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microlink/react-json-view@npm:1.31.22":
-  version: 1.31.22
-  resolution: "@microlink/react-json-view@npm:1.31.22"
+"@microlink/react-json-view@npm:1.31.23":
+  version: 1.31.23
+  resolution: "@microlink/react-json-view@npm:1.31.23"
   dependencies:
     react-base16-styling: "npm:~0.10.0"
     react-lifecycles-compat: "npm:~3.0.4"
@@ -1186,7 +1186,7 @@ __metadata:
   peerDependencies:
     react: ">= 15"
     react-dom: ">= 15"
-  checksum: 10/3c4a0128c0cb2a6af76fa11bc31641594fb0f0d4cdce09f0a683dd5c3312d18284d3f06a0bbb6c1a668fed180c95042eb9f46ac68b4fa19e473cf0b7f8955ac9
+  checksum: 10/03db43ba16404be73dd7f570d6d3e554f9b848e9799e244b83e76ecc2e1b3fafc79ecca3e0df00aa83fa4beba07cbaecfde1e86abeadc0ca6fe1e5a8e6e5e564
   languageName: node
   linkType: hard
 
@@ -4282,7 +4282,7 @@ __metadata:
     "@airbrake/node": "npm:2.1.9"
     "@biomejs/biome": "npm:2.5.5"
     "@faker-js/faker": "npm:10.5.0"
-    "@microlink/react-json-view": "npm:1.31.22"
+    "@microlink/react-json-view": "npm:1.31.23"
     "@modelcontextprotocol/sdk": "npm:1.29.0"
     "@prisma/adapter-pg": "npm:7.9.0"
     "@prisma/client": "npm:7.9.0"
