@@ -1,39 +1,93 @@
-# Airbroke Agent Guide
+# PROJECT KNOWLEDGE BASE
 
-Airbroke is a Next.js 16 + Prisma app that is developed and verified via
-Docker Compose.
+**Generated:** 2026-07-24
+**Commit:** 8a95b54b
+**Branch:** main
 
-## Quick Reference
+## OVERVIEW
 
-- Package manager: `yarn@4.13.0`
-- Start services: `docker compose up -d web test db testdb`
-- App commands: `docker compose exec web yarn <script>`
-- Test commands: `docker compose exec test yarn <script>`
+Airbroke is a self-hosted error collector and triage UI built with Next.js 16,
+React 19, Prisma 7, and PostgreSQL 18. Development and verification are
+Docker Compose-first; the repository pins Yarn 4.17.1.
 
-## Universal Rules
+## STRUCTURE
 
-- Run repository commands and verification through Docker Compose containers by
-  default; use host commands only for Docker and host diagnostics
-- Run Node, Next, Yarn, Prisma, and Vitest commands only inside running
-  containers
-- Use `docker compose exec` for repository commands, not host execution and
-  not `docker exec`
-- Prefer `docker compose exec` against running services for normal work; use
-  `docker compose run --rm` only when you intentionally need an isolated
-  one-off container
-- Do not run `yarn`, `node`, `npx`, `next`, `prisma`, or `vitest` directly
-  on the host
-- Run production builds with `NODE_ENV=production` explicitly set
-- Do not revert or downgrade dependency upgrades made by the user in
-  `package.json` or lockfiles unless explicitly requested
+```text
+app/          # App Router pages and external HTTP protocol handlers
+components/   # Maintained feature UI plus registry-managed primitives
+lib/          # Auth, actions, queries, intake, MCP, and shared server logic
+prisma/       # Schema, forward migrations, seed, and generated client output
+__tests__/    # Central Vitest suite mirroring runtime boundaries
+docs/agents/  # Detailed cross-cutting guidance linked below
+```
 
-## Common Scripts
+## WHERE TO LOOK
 
-- `web`: `dev`, `build`, `start`, `typecheck`, `biome:lint`, `biome:check`,
-  `biome:ci`, `format`, `db:migrate`, `db:seed`, `db:pull`, `db:generate`
-- `test`: `test`
+| Task | Location | Notes |
+| --- | --- | --- |
+| Routes and layouts | `app/` | Read `app/AGENTS.md` |
+| Intake | `app/api/`, `lib/intake/` | Synchronous writes |
+| Auth | `proxy.ts`, `lib/auth/` | Server checks are authoritative |
+| UI | `components/` | Read `components/AGENTS.md` |
+| Mutations | `lib/actions/` | Auth plus explicit invalidation |
+| UI reads | `lib/queries/` | MCP has separate read models |
+| MCP API | `app/api/mcp/`, `lib/mcp/` | Read-only tools and static-key auth |
+| Data model | `prisma/` | Read `prisma/AGENTS.md` |
+| Tests | `__tests__/` | Read `__tests__/AGENTS.md` |
 
-## Detailed Guidelines
+## CODE MAP
+
+Reference counts are unmeasured; relationships below come from direct source
+imports and route delegation.
+
+| Symbol | Type | Location | Refs | Role |
+| --- | --- | --- | --- | --- |
+| `db` | Prisma proxy | `lib/db.ts` | unmeasured | Lazy shared database client |
+| `getAuth` | Factory | `lib/auth/index.ts` | unmeasured | Lazy auth setup |
+| `requireAuth` | Guard | `lib/actions/requireAuth.ts` | n/a | Action auth |
+| `upsertNoticeOccurrence` | Service | `lib/intake/` | n/a | Intake writes |
+| `MCP_TOOLS` | Registry | `lib/mcp/tools.ts` | unmeasured | MCP contract |
+| `handleMcpPost` | Handler | `lib/mcp/server.ts` | unmeasured | MCP transport |
+| `revalidateProjectShellPaths` | Helper | `lib/actions/` | n/a | Invalidation |
+
+## CONVENTIONS
+
+- Use the `@/` alias for project imports. Biome owns formatting and import
+  ordering; `biome:lint` writes changes while `biome:ci` is read-only.
+- Keep route composition in `app`, reusable UI in `components`, UI read models
+  in `lib/queries`, and mutations in `lib/actions`.
+- Preserve `typedRoutes`, React Compiler, Cache Components, and standalone
+  output contracts in `next.config.ts`.
+- Keep local `.env` values current with `.env.dist` before runtime debugging.
+
+## ANTI-PATTERNS (THIS PROJECT)
+
+- Never run Yarn, Node, Next, Prisma, or Vitest directly on the host or through
+  `docker exec`; use `docker compose exec` against a running service.
+- Never point tests at the development `DATABASE_URL`; `test` owns `testdb`.
+- Never hand-edit `prisma/generated/`, migration lock metadata, or registry
+  primitives as if they were ordinary maintained source.
+- Never restore deprecated `package.json#prisma` configuration or legacy
+  NextAuth environment names.
+- Do not replace `proxy.ts` with `middleware.ts` or swallow Next redirect
+  control-flow errors in broad catch blocks.
+- Do not revert or downgrade user dependency changes unless explicitly asked.
+
+## COMMANDS
+
+```sh
+docker compose -f docker-compose.yml up -d web test db testdb
+docker compose -f docker-compose.yml exec web yarn biome:ci
+docker compose -f docker-compose.yml exec web yarn react-doctor:ci
+docker compose -f docker-compose.yml exec web yarn typecheck
+docker compose -f docker-compose.yml exec test yarn test --run
+docker compose -f docker-compose.yml exec web env NODE_ENV=production yarn build
+```
+
+Use the explicit base file for tooling when the ignored local override adds
+Caddy or conflicts on ports 80/443.
+
+## DETAILED GUIDES
 
 - [Project Structure](docs/agents/project-structure.md)
 - [Development Workflow](docs/agents/development-workflow.md)
