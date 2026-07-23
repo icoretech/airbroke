@@ -16,6 +16,13 @@
   ],
   "packageRules": [
     {
+      "description": "Group React runtime updates",
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["react", "react-dom"],
+      "groupName": "React runtime",
+      "groupSlug": "react-runtime"
+    },
+    {
       "matchDatasources": ["npm"],
       "minimumReleaseAge": "1 day"
     },
