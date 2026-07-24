@@ -8,7 +8,7 @@ import CopyToClipboardButton from "@/components/common/CopyToClipboardButton";
 import { SourceRepoProviderIcon } from "@/components/common/SourceRepoProviderIcon";
 import IntegrationsGrid from "@/components/project/IntegrationsGrid";
 import TestZone from "@/components/project/TestZone";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -45,9 +45,12 @@ import DangerZone from "./cards/DangerZone";
 import type { Project } from "@/prisma/generated/client";
 
 async function inferAppOrigin(): Promise<{ origin: string; host: string }> {
-  if (process.env.BETTER_AUTH_URL) {
-    const url = new URL(process.env.BETTER_AUTH_URL);
-    return { origin: url.origin, host: url.host };
+  const configuredAuthUrl = URL.parse(process.env.BETTER_AUTH_URL ?? "");
+  if (configuredAuthUrl) {
+    return {
+      origin: configuredAuthUrl.origin,
+      host: configuredAuthUrl.host,
+    };
   }
 
   const headerList = await headers();
@@ -200,11 +203,12 @@ export default async function Overview({
                     backtraces.
                   </EmptyDescription>
                   <EmptyContent>
-                    <Button asChild>
-                      <Link href={`/projects/${project.id}/edit`}>
-                        Edit project
-                      </Link>
-                    </Button>
+                    <Link
+                      href={`/projects/${project.id}/edit`}
+                      className={buttonVariants()}
+                    >
+                      Edit project
+                    </Link>
                   </EmptyContent>
                 </Empty>
               )}
