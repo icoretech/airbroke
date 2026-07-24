@@ -37,31 +37,33 @@ export default function ResolveNoticeButton({
   return (
     <div className="inline-flex flex-col items-start gap-1">
       <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            type="button"
-            variant="outline"
-            size="icon-sm"
-            disabled={isBusy}
-            aria-disabled={isBusy}
-            className={toneClass}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              const action = isResolved
-                ? reinstateAllOccurrences
-                : resolveAllOccurrences;
-              runMutation({
-                action: () => action(noticeId, projectId),
-                errorMessage: isResolved
-                  ? "Could not reinstate notice"
-                  : "Could not resolve notice",
-              });
-            }}
-          >
-            <Icon className="size-4" aria-hidden="true" />
-            <span className="sr-only">{label}</span>
-          </Button>
+        <TooltipTrigger
+          render={
+            <Button
+              type="button"
+              variant="outline"
+              size="icon-sm"
+              disabled={isBusy}
+              aria-disabled={isBusy}
+              className={toneClass}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const action = isResolved
+                  ? reinstateAllOccurrences
+                  : resolveAllOccurrences;
+                runMutation({
+                  action: () => action(noticeId, projectId),
+                  errorMessage: isResolved
+                    ? "Could not reinstate notice"
+                    : "Could not resolve notice",
+                });
+              }}
+            />
+          }
+        >
+          <Icon className="size-4" aria-hidden="true" />
+          <span className="sr-only">{label}</span>
         </TooltipTrigger>
         <TooltipContent sideOffset={6}>
           {isResolved ? "Reinstate all occurrences" : "Resolve all occurrences"}

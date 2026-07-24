@@ -38,29 +38,31 @@ export default function ResolveButton({
   return (
     <div className="inline-flex flex-col items-start gap-1">
       <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            type="button"
-            variant="outline"
-            size={iconOnly ? "icon-sm" : "sm"}
-            disabled={isBusy}
-            aria-disabled={isBusy}
-            className={toneClass}
-            onClick={() => {
-              runMutation({
-                action: () => action(occurrenceId),
-                errorMessage: isResolved
-                  ? "Could not reinstate occurrence"
-                  : "Could not resolve occurrence",
-              });
-            }}
-          >
-            <Icon
-              className={iconOnly ? "size-4" : "mr-2 size-4"}
-              aria-hidden="true"
+        <TooltipTrigger
+          render={
+            <Button
+              type="button"
+              variant="outline"
+              size={iconOnly ? "icon-sm" : "sm"}
+              disabled={isBusy}
+              aria-disabled={isBusy}
+              className={toneClass}
+              onClick={() => {
+                runMutation({
+                  action: () => action(occurrenceId),
+                  errorMessage: isResolved
+                    ? "Could not reinstate occurrence"
+                    : "Could not resolve occurrence",
+                });
+              }}
             />
-            {iconOnly ? <span className="sr-only">{label}</span> : label}
-          </Button>
+          }
+        >
+          <Icon
+            className={iconOnly ? "size-4" : "mr-2 size-4"}
+            aria-hidden="true"
+          />
+          {iconOnly ? <span className="sr-only">{label}</span> : label}
         </TooltipTrigger>
         <TooltipContent sideOffset={6}>
           {isResolved ? "Clear resolved state" : "Mark as resolved"}
