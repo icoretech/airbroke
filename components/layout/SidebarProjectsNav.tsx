@@ -223,7 +223,7 @@ export function SidebarProjectsNav({
   return (
     <SidebarContent
       id={SIDEBAR_CONTENT_ID}
-      className="scrollbar-none"
+      className="scrollbar-none pb-2"
       onPointerDownCapture={(event) => {
         if (hasAnchorTarget(event.target)) {
           lockScrollPersistenceForNavigation();
@@ -240,24 +240,20 @@ export function SidebarProjectsNav({
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton
-                asChild
                 isActive={!selectedProjectId && activeSection !== "bookmarks"}
+                render={<Link href="/projects" prefetch={false} />}
               >
-                <Link href="/projects" prefetch={false}>
-                  <TbFileDelta />
-                  <span>Projects</span>
-                </Link>
+                <TbFileDelta />
+                <span>Projects</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton
-                asChild
                 isActive={activeSection === "bookmarks"}
+                render={<Link href="/bookmarks" prefetch={false} />}
               >
-                <Link href="/bookmarks" prefetch={false}>
-                  <TbBookmarks />
-                  <span>Bookmarks</span>
-                </Link>
+                <TbBookmarks />
+                <span>Bookmarks</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
@@ -275,13 +271,13 @@ export function SidebarProjectsNav({
         >
           <SidebarGroup>
             <SidebarGroupLabel
-              asChild
               className="group/label text-xs font-semibold text-sidebar-foreground/70"
+              render={
+                <CollapsibleTrigger className="flex w-full items-center" />
+              }
             >
-              <CollapsibleTrigger className="flex w-full items-center">
-                {organization}
-                <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
-              </CollapsibleTrigger>
+              {organization}
+              <ChevronRight className="ml-auto transition-transform group-data-panel-open/label:rotate-90" />
             </SidebarGroupLabel>
             <CollapsibleContent>
               <SidebarGroupContent>
@@ -289,24 +285,27 @@ export function SidebarProjectsNav({
                   {projects.map((project) => (
                     <SidebarMenuItem key={project.id}>
                       <SidebarMenuButton
-                        asChild
                         isActive={project.id === selectedProjectId}
+                        render={
+                          <Link
+                            href={`/projects/${project.id}`}
+                            prefetch={false}
+                          />
+                        }
                       >
-                        <Link href={`/projects/${project.id}`} prefetch={false}>
-                          {project.paused ? (
-                            <TbClockPause />
-                          ) : (
-                            <SourceRepoProviderIcon
-                              sourceRepoProvider={project.repoProvider}
-                            />
-                          )}
-                          <span className="truncate">{project.name}</span>
-                          {project.noticesCount !== "0" && (
-                            <span className="ml-auto w-9 min-w-max whitespace-nowrap rounded-full bg-background px-2.5 py-0.5 text-center text-xs font-medium leading-5 text-foreground/90 ring-1 ring-inset ring-white/15">
-                              {project.noticesCount}
-                            </span>
-                          )}
-                        </Link>
+                        {project.paused ? (
+                          <TbClockPause />
+                        ) : (
+                          <SourceRepoProviderIcon
+                            sourceRepoProvider={project.repoProvider}
+                          />
+                        )}
+                        <span className="truncate">{project.name}</span>
+                        {project.noticesCount !== "0" && (
+                          <span className="ml-auto w-9 min-w-max whitespace-nowrap rounded-full bg-background px-2.5 py-0.5 text-center text-xs font-medium leading-5 text-foreground/90 ring-1 ring-inset ring-white/15">
+                            {project.noticesCount}
+                          </span>
+                        )}
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   ))}

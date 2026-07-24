@@ -82,15 +82,14 @@ describe("SidebarProjectsNav", () => {
     renderSidebarProjectsNav();
 
     const alphaTrigger = screen.getByRole("button", { name: "Alpha" });
-    const alphaRoot = alphaTrigger.closest("[data-state]");
     await waitFor(() => {
-      expect(alphaRoot?.getAttribute("data-state")).toBe("closed");
+      expect(alphaTrigger.getAttribute("aria-expanded")).toBe("false");
     });
 
     fireEvent.click(alphaTrigger);
 
     await waitFor(() => {
-      expect(alphaRoot?.getAttribute("data-state")).toBe("open");
+      expect(alphaTrigger.getAttribute("aria-expanded")).toBe("true");
     });
 
     await waitFor(() => {
@@ -170,5 +169,15 @@ describe("SidebarProjectsNav", () => {
     expect(window.sessionStorage.getItem(SIDEBAR_SCROLL_STORAGE_KEY)).toBe(
       "220",
     );
+  });
+
+  test("reserves breathing room below the last scrollable project", () => {
+    renderSidebarProjectsNav();
+
+    const sidebarContent = document.querySelector<HTMLDivElement>(
+      '[data-sidebar="content"]',
+    );
+
+    expect(sidebarContent?.classList.contains("pb-2")).toBe(true);
   });
 });

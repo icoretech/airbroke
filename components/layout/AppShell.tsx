@@ -62,26 +62,29 @@ export async function AppShell({
         <SidebarHeader>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton size="lg" asChild>
-                <Link
-                  href="/"
-                  prefetch={false}
-                  aria-label="Airbroke home"
-                  className="flex items-center gap-2"
-                >
-                  <Image
-                    src={logoAsset}
-                    alt="Airbroke"
-                    width={32}
-                    height={32}
-                    className="size-8 rounded"
-                    style={{ width: "32px", height: "32px" }}
+              <SidebarMenuButton
+                size="lg"
+                render={
+                  <Link
+                    href="/"
+                    prefetch={false}
+                    aria-label="Airbroke home"
+                    className="flex items-center gap-2"
                   />
-                  <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-medium">Airbroke</span>
-                    <span className="truncate text-xs">Error Tracker</span>
-                  </div>
-                </Link>
+                }
+              >
+                <Image
+                  src={logoAsset}
+                  alt="Airbroke"
+                  width={32}
+                  height={32}
+                  className="size-8 rounded"
+                  style={{ width: "32px", height: "32px" }}
+                />
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <span className="truncate font-medium">Airbroke</span>
+                  <span className="truncate text-xs">Error Tracker</span>
+                </div>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
@@ -110,7 +113,7 @@ export async function AppShell({
         </SidebarFooter>
       </Sidebar>
 
-      <SidebarInset>
+      <SidebarInset className="min-w-0">
         <header className="flex h-16 shrink-0 items-center gap-2">
           <div className="flex w-full items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
@@ -121,9 +124,9 @@ export async function AppShell({
             <div className="flex-1 min-w-0 overflow-hidden pr-2">
               {topbarBreadcrumbs}
             </div>
-            <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-4 lg:gap-6">
+            <div className="ml-auto flex min-w-0 items-center gap-2 sm:gap-4 lg:gap-6">
               {!topbarHideSearch && (
-                <div className="hidden md:block max-w-[40vw]">
+                <div className="hidden min-w-0 max-w-[40vw] flex-1 lg:block">
                   <TopbarSearch placeholder={topbarSearchPlaceholder} />
                 </div>
               )}
