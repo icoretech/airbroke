@@ -1,3 +1,5 @@
+// @vitest-environment node
+
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, test } from "vitest";
 import FooterCredits from "@/components/layout/FooterCredits";
