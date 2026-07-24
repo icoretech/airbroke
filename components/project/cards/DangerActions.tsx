@@ -48,15 +48,22 @@ export default function DangerActions({
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="text-xs text-white/70">
+      <div className="text-xs text-muted-foreground">
         Irreversible operations. Proceed with caution.
       </div>
       <div className="flex flex-wrap items-center gap-2">
         <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button variant="destructive" size="sm" disabled={isBusy}>
-              Delete All Errors
-            </Button>
+          <AlertDialogTrigger
+            render={
+              <Button
+                variant="destructive"
+                size="sm"
+                className="bg-destructive-surface text-destructive-foreground hover:bg-destructive-surface/90"
+                disabled={isBusy}
+              />
+            }
+          >
+            Delete All Errors
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
@@ -69,7 +76,7 @@ export default function DangerActions({
             <AlertDialogFooter>
               <AlertDialogCancel disabled={isBusy}>Cancel</AlertDialogCancel>
               <AlertDialogAction
-                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                className="bg-destructive-surface text-destructive-foreground hover:bg-destructive-surface/90"
                 onClick={() => {
                   handleDeleteAllErrors();
                 }}
@@ -82,10 +89,17 @@ export default function DangerActions({
         </AlertDialog>
 
         <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button variant="destructive" size="sm" disabled={isBusy}>
-              Delete Project
-            </Button>
+          <AlertDialogTrigger
+            render={
+              <Button
+                variant="destructive"
+                size="sm"
+                className="bg-destructive-surface text-destructive-foreground hover:bg-destructive-surface/90"
+                disabled={isBusy}
+              />
+            }
+          >
+            Delete Project
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
@@ -98,7 +112,7 @@ export default function DangerActions({
             <AlertDialogFooter>
               <AlertDialogCancel disabled={isBusy}>Cancel</AlertDialogCancel>
               <AlertDialogAction
-                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                className="bg-destructive-surface text-destructive-foreground hover:bg-destructive-surface/90"
                 onClick={() => {
                   handleDeleteProject();
                 }}
