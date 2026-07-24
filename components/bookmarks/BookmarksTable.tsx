@@ -6,7 +6,8 @@ import { TbBookmarks } from "react-icons/tb";
 import CounterLabel from "@/components/common/CounterLabel";
 import CustomTimeAgo from "@/components/common/CustomTimeAgo";
 import EnvironmentLabel from "@/components/common/EnvironmentLabel";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Empty,
   EmptyContent,
@@ -44,9 +45,15 @@ export default async function BookmarksTable({
           Bookmark an occurrence to keep it handy for later.
         </EmptyDescription>
         <EmptyContent>
-          <Button asChild variant="outline" className="w-40">
-            <Link href="/projects">Browse projects</Link>
-          </Button>
+          <Link
+            href="/projects"
+            className={buttonVariants({
+              variant: "outline",
+              className: "w-40",
+            })}
+          >
+            Browse projects
+          </Link>
         </EmptyContent>
       </Empty>
     );
@@ -84,30 +91,30 @@ export default async function BookmarksTable({
       {groupedBookmarksArray.map(({ projectId, label, bookmarks }) => (
         <section
           key={projectId}
-          className="space-y-3 sm:space-y-0 sm:overflow-hidden sm:rounded-xl sm:border sm:border-card/40 sm:bg-card/40 sm:shadow-md sm:ring-1 sm:ring-card/40 sm:backdrop-blur"
+          className="overflow-hidden rounded-xl border border-border bg-card shadow-sm"
         >
-          <div className="flex w-full flex-wrap items-center justify-between gap-3 rounded-lg border border-card/40 bg-card/40 px-4 py-3 shadow-xs sm:rounded-none sm:border-0 sm:bg-transparent sm:shadow-none sm:border-b sm:border-card/40">
+          <div className="flex w-full flex-wrap items-center justify-between gap-3 border-b border-border px-4 py-3">
             <h2 className="text-sm font-semibold text-foreground">{label}</h2>
             <p className="text-xs text-muted-foreground">
               {bookmarks.length} bookmarked
             </p>
           </div>
 
-          <ul className="space-y-3 sm:space-y-0 sm:divide-y sm:divide-card/40">
+          <ul className="divide-y divide-border">
             {bookmarks.map((bookmark) => (
               <li
                 key={bookmark.occurrence.id}
-                className="relative flex flex-col gap-3 rounded-lg border border-card/40 bg-card/40 px-4 py-4 shadow-xs transition-colors duration-200 hover:bg-linear-to-r hover:from-airbroke-800 hover:to-airbroke-900 sm:flex-row sm:items-center sm:gap-4 sm:rounded-none sm:border-0 sm:bg-transparent sm:shadow-none"
+                className="relative flex flex-col gap-3 px-4 py-4 transition-colors duration-200 hover:bg-muted/50 sm:gap-4 lg:flex-row lg:items-center"
               >
                 <div className="min-w-0 flex-auto">
                   <div className="flex items-center gap-x-3">
                     <EnvironmentLabel env={bookmark.occurrence.notice.env} />
-                    <h3 className="min-w-0 text-sm font-semibold leading-6 text-white">
+                    <h3 className="min-w-0 text-sm font-semibold leading-6 text-foreground">
                       <Link
                         href={`/occurrences/${bookmark.occurrence_id}`}
                         className="flex min-w-0 gap-x-2"
                       >
-                        <span className="min-w-0 truncate">
+                        <span className="min-w-0 line-clamp-2 wrap-anywhere">
                           {bookmark.occurrence.message}
                         </span>
                         <span className="absolute inset-0" />
@@ -116,10 +123,10 @@ export default async function BookmarksTable({
                   </div>
 
                   <div className="mt-3 flex flex-wrap items-center gap-2 text-xs leading-5 text-muted-foreground">
-                    <div className="flex-none rounded-md bg-gray-900 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-gray-700">
+                    <Badge variant="secondary" className="flex-none">
                       {bookmark.occurrence.notice.kind}
-                    </div>
-                    <p className="min-w-0 truncate">
+                    </Badge>
+                    <p className="min-w-0">
                       First seen:{" "}
                       <CustomTimeAgo
                         date={new Date(bookmark.occurrence.created_at)}
@@ -128,8 +135,8 @@ export default async function BookmarksTable({
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between gap-3 sm:ml-auto sm:justify-end">
-                  <p className="text-xs text-white sm:min-w-50 sm:text-right">
+                <div className="flex items-center justify-between gap-3 lg:ml-auto lg:justify-end">
+                  <p className="text-xs text-foreground lg:min-w-50 lg:text-right">
                     <CustomTimeAgo
                       date={new Date(bookmark.occurrence.updated_at)}
                     />
