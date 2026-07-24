@@ -6,7 +6,7 @@ import { FaGithub } from "react-icons/fa";
 import { CodeBlock } from "@/components/common/CodeBlock";
 import FooterCredits from "@/components/layout/FooterCredits";
 import PageBackground from "@/components/layout/PageBackground";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import logo from "@/public/logo.svg";
 
 export default function HomePage() {
@@ -54,18 +54,17 @@ airbroke.notify(new Error('Hello from Airbroke'))`;
                 replay, and occurrence charts.
               </p>
               <div className="mt-8 flex items-center gap-3">
-                <Button asChild>
-                  <Link href="/projects">Get Started</Link>
-                </Button>
-                <Button asChild variant="outline">
-                  <a
-                    href="https://github.com/icoretech/airbroke"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FaGithub className="mr-2" /> GitHub
-                  </a>
-                </Button>
+                <Link href="/projects" className={buttonVariants()}>
+                  Get Started
+                </Link>
+                <a
+                  href="https://github.com/icoretech/airbroke"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={buttonVariants({ variant: "outline" })}
+                >
+                  <FaGithub className="mr-2" /> GitHub
+                </a>
                 <a
                   href="https://github.com/icoretech/airbroke/releases"
                   className="text-sm font-semibold leading-6 text-foreground"

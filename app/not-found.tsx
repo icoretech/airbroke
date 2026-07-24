@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { TbFileXFilled } from "react-icons/tb";
 import PageBackground from "@/components/layout/PageBackground";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import logo from "@/public/logo.svg";
 
 export default function NotFound() {
@@ -40,12 +40,15 @@ export default function NotFound() {
                 </p>
 
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-                  <Button asChild>
-                    <Link href="/projects">Back to Projects</Link>
-                  </Button>
-                  <Button asChild variant="outline">
-                    <Link href="/">Go Home</Link>
-                  </Button>
+                  <Link href="/projects" className={buttonVariants()}>
+                    Back to Projects
+                  </Link>
+                  <Link
+                    href="/"
+                    className={buttonVariants({ variant: "outline" })}
+                  >
+                    Go Home
+                  </Link>
                 </div>
               </div>
             </div>
