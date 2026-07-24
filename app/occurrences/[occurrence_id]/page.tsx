@@ -156,13 +156,13 @@ export default async function Occurrence(
   return (
     <div className="space-y-6">
       {/* Occurrence header */}
-      <section className="rounded-xl border border-card/40 bg-card/40 p-4 shadow-md ring-1 ring-card/40 backdrop-blur sm:p-5">
+      <section className="rounded-xl border border-border bg-card p-4 shadow-sm sm:p-5">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div className="min-w-0 flex-1">
             <div className="flex items-start gap-3">
-              <div className="mt-0.5 flex size-10 items-center justify-center rounded-lg bg-purple-500/10 ring-1 ring-inset ring-purple-500/30">
+              <div className="mt-0.5 flex size-10 items-center justify-center rounded-lg bg-primary/10 ring-1 ring-inset ring-primary/30">
                 <BiSolidCarCrash
-                  className="size-5 text-purple-300"
+                  className="size-5 text-primary"
                   aria-hidden="true"
                 />
               </div>
@@ -173,7 +173,7 @@ export default async function Occurrence(
                 </div>
                 <Link
                   href={`/projects/${occurrence.notice.project.id}`}
-                  className="mt-1 block truncate text-sm font-semibold text-foreground underline decoration-current underline-offset-4 hover:text-foreground/80"
+                  className="mt-1 block text-sm font-semibold text-foreground underline decoration-current underline-offset-4 wrap-anywhere hover:text-foreground/80"
                 >
                   {occurrence.notice.project.organization} /{" "}
                   {occurrence.notice.project.name}
@@ -184,7 +184,7 @@ export default async function Occurrence(
                 </div>
                 <Link
                   href={`/notices/${occurrence.notice_id}`}
-                  className="mt-1 block truncate text-sm text-foreground underline decoration-current underline-offset-4 hover:text-foreground/80"
+                  className="mt-1 block text-sm text-foreground underline decoration-current underline-offset-4 wrap-anywhere hover:text-foreground/80"
                 >
                   {occurrence.notice.kind}
                 </Link>
@@ -238,9 +238,12 @@ export default async function Occurrence(
       </section>
 
       {/* Tabs + content */}
-      <section className="rounded-xl sm:overflow-hidden sm:border sm:border-card/40 sm:bg-card/40 sm:shadow-md sm:ring-1 sm:ring-card/40 sm:backdrop-blur">
-        <div className="flex w-full flex-wrap items-center justify-between gap-3 rounded-lg border border-card/40 bg-card/40 px-4 py-3 shadow-xs sm:rounded-none sm:border-0 sm:bg-transparent sm:shadow-none sm:border-b sm:border-card/40">
-          <nav className="flex flex-wrap gap-2" aria-label="Tabs">
+      <section className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+        <div className="flex w-full min-w-0 items-center border-b border-border px-4 py-3">
+          <nav
+            className="flex min-w-0 flex-1 flex-wrap gap-2"
+            aria-label="Tabs"
+          >
             {Object.values(tabs).map((tab) =>
               tab ? (
                 <Link
@@ -250,12 +253,12 @@ export default async function Occurrence(
                     tab.current
                       ? "bg-accent/40 text-foreground"
                       : "text-muted-foreground hover:bg-accent/30 hover:text-foreground",
-                    "inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                    "inline-flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors",
                   )}
                   aria-current={tab.current ? "page" : undefined}
                 >
                   <tab.icon className="size-4" aria-hidden="true" />
-                  <span className="hidden md:inline">{tab.name}</span>
+                  <span>{tab.name}</span>
                 </Link>
               ) : null,
             )}
