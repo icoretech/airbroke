@@ -1,4 +1,5 @@
 // __tests__/lib/gitProvider.test.ts
+// @vitest-environment node
 
 import { describe, expect, test } from "vitest";
 import { composeFileUrl, parseGitURL } from "@/lib/gitProvider";

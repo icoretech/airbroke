@@ -1,4 +1,5 @@
 // __tests__/lib/generateUpdatedUrl.test.ts
+// @vitest-environment node
 
 import { describe, expect, it } from "vitest";
 import { generateUpdatedURL } from "@/lib/routing/generateUpdatedUrl";
