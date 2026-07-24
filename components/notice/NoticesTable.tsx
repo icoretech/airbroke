@@ -24,7 +24,7 @@ export default async function NoticesTable({
       {notices.map((notice) => (
         <li
           key={notice.id}
-          className="relative flex flex-col gap-3 rounded-lg border border-card/40 bg-card/40 px-4 py-4 shadow-xs transition-colors duration-200 hover:bg-linear-to-r hover:from-airbroke-800 hover:to-airbroke-900 sm:flex-row sm:items-center sm:gap-4 sm:rounded-none sm:border-0 sm:bg-transparent sm:shadow-none"
+          className="relative flex flex-col gap-3 rounded-lg border border-card/40 bg-card/40 px-4 py-4 shadow-xs transition-colors duration-200 hover:bg-linear-to-r hover:from-airbroke-800 hover:to-airbroke-900 sm:gap-4 sm:rounded-none sm:border-0 sm:bg-transparent sm:shadow-none lg:flex-row lg:items-center"
         >
           <div className="min-w-0 flex-auto">
             <div className="flex items-center gap-x-3">
@@ -46,8 +46,8 @@ export default async function NoticesTable({
             </div>
           </div>
 
-          <div className="flex items-center justify-between gap-3 sm:ml-auto sm:justify-end">
-            <p className="text-xs text-white sm:min-w-50 sm:text-right">
+          <div className="flex items-center justify-between gap-3 lg:ml-auto lg:justify-end">
+            <p className="text-xs text-white lg:min-w-50 lg:text-right">
               <CustomTimeAgo date={new Date(notice.updated_at)} />
             </p>
             <CounterLabel counter={notice.seen_count} />
