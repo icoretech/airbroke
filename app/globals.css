@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -20,7 +21,11 @@
   --color-accent: hsl(var(--accent));
   --color-accent-foreground: hsl(var(--accent-foreground));
   --color-destructive: hsl(var(--destructive));
+  --color-destructive-surface: hsl(var(--destructive-surface));
   --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-status-error: hsl(var(--status-error));
+  --color-status-healthy: hsl(var(--status-healthy));
+  --color-status-paused: hsl(var(--status-paused));
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
@@ -57,6 +62,21 @@
   --color-gravity-700: #040507;
   --color-gravity-800: #020304;
   --color-gravity-900: #000000;
+  --font-heading: var(--font-geist-sans);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-chart-5: hsl(var(--chart-5));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-1: hsl(var(--chart-1));
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
 @layer base {
@@ -77,7 +97,11 @@
     --accent: 0 0% 96.1%;
     --accent-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
+    --destructive-surface: 0 72% 42%;
     --destructive-foreground: 0 0% 98%;
+    --status-error: 350 89% 60%;
+    --status-healthy: 142 71% 45%;
+    --status-paused: 215 16% 47%;
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
     --ring: 215 15% 52%;
@@ -113,8 +137,12 @@
     --muted-foreground: 213 15% 65%;
     --accent: 239 84% 67%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 91% 71%;
+    --destructive-surface: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
+    --status-error: 351 95% 71%;
+    --status-healthy: 142 69% 58%;
+    --status-paused: 218 11% 65%;
     --border: 221 23% 20%;
     --input: 221 23% 20%;
     --ring: 239 84% 67%;
@@ -137,14 +165,14 @@
     --sidebar-border: 218 23% 18%; /* soft separator ~ white/5 feel */
     --sidebar-ring: 239 84% 67%;
   }
-}
-
-@layer base {
   * {
-    @apply border-border;
+    @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
   }
 }
 
@@ -198,15 +226,13 @@
     );
     color: hsl(var(--sidebar-accent-foreground));
   }
-  /* Radix dropdown items: match gradient on hover/focus without color flicker */
-  [role="menuitem"],
-  [data-radix-collection-item] {
+  /* Dropdown items: match gradient on hover/focus without color flicker */
+  [role="menuitem"] {
     /* Prevent background-color transition flicker */
     transition-property: color, background-image, filter;
   }
   [role="menuitem"]:hover,
-  [role="menuitem"][data-highlighted],
-  [data-radix-collection-item][data-highlighted] {
+  [role="menuitem"][data-highlighted] {
     background: linear-gradient(
       to right,
       hsl(var(--sidebar-accent-grad-start)),
@@ -218,8 +244,7 @@
   /* Ensure pointer cursor on sidebar buttons and dropdown items */
   [data-sidebar="menu-button"],
   [data-sidebar="menu-sub-button"],
-  [role="menuitem"],
-  [data-radix-collection-item] {
+  [role="menuitem"] {
     cursor: pointer;
   }
   /* Ensure pointer cursor on sidebar buttons */
@@ -227,9 +252,8 @@
   [data-sidebar="menu-sub-button"] {
     cursor: pointer;
   }
-  /* Pointer on Radix dropdown items */
-  [role="menuitem"],
-  [data-radix-collection-item] {
+  /* Pointer on dropdown items */
+  [role="menuitem"] {
     cursor: pointer;
   }
 }
