@@ -110,26 +110,29 @@ export default function IntegrationsGrid({
             const Icon = item.icon;
 
             return (
-              <DialogTrigger asChild key={item.name}>
-                <button
-                  type="button"
-                  onClick={() => handleSelect(item)}
-                  className="cursor-pointer rounded-lg border border-white/10 bg-gray-900 p-4 text-left shadow-md transition-colors hover:border-indigo-500 hover:bg-airbroke-600"
-                >
-                  <div className="mb-1 flex items-center gap-2">
-                    {Icon ? (
-                      <span className="text-indigo-300 text-lg leading-none">
-                        <Icon />
-                      </span>
-                    ) : null}
-                    <h3 className="text-sm font-semibold text-white">
-                      {item.name}
-                    </h3>
-                  </div>
-                  <p className="text-xs text-gray-300">
-                    Click to view code snippet
-                  </p>
-                </button>
+              <DialogTrigger
+                key={item.name}
+                render={
+                  <button
+                    type="button"
+                    onClick={() => handleSelect(item)}
+                    className="cursor-pointer rounded-lg border border-white/10 bg-gray-900 p-4 text-left shadow-md transition-colors hover:border-indigo-500 hover:bg-airbroke-600"
+                  />
+                }
+              >
+                <div className="mb-1 flex items-center gap-2">
+                  {Icon ? (
+                    <span className="text-indigo-300 text-lg leading-none">
+                      <Icon />
+                    </span>
+                  ) : null}
+                  <h3 className="text-sm font-semibold text-white">
+                    {item.name}
+                  </h3>
+                </div>
+                <p className="text-xs text-gray-300">
+                  Click to view code snippet
+                </p>
               </DialogTrigger>
             );
           })}
