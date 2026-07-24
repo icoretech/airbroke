@@ -13,9 +13,9 @@ type PingDotColor = "red" | "green" | "gray";
  * By using `as const`, we ensure `fillClasses[color]` is properly typed.
  */
 const fillClasses = {
-  red: "fill-rose-400",
-  green: "fill-green-400",
-  gray: "fill-gray-400",
+  red: "fill-status-error",
+  green: "fill-status-healthy",
+  gray: "fill-status-paused",
 } as const;
 
 interface PingDotProps {
@@ -35,7 +35,7 @@ export default function PingDot({ color }: PingDotProps) {
         className={clsx(
           "absolute h-full w-full",
           fillClasses[color],
-          "animate-ping",
+          color === "red" && "animate-ping motion-reduce:animate-none",
         )}
       >
         <circle r={3} cx={3} cy={3} />
