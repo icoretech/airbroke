@@ -1,3 +1,5 @@
+// @vitest-environment node
+
 import crypto from "node:crypto";
 import { describe, expect, test, vi } from "vitest";
 import { db } from "@/lib/db";
@@ -72,6 +74,48 @@ describe("upsertNoticeOccurrence", () => {
         .update(errorData.message, "utf8")
         .digest("hex"),
     );
+  });
+
+  test("stores only JSON-compatible payload values", async () => {
+    const project = await createProject();
+    const capturedAt = new Date("2026-01-02T03:04:05.000Z");
+    const errorData: NoticeError = {
+      type: "Error",
+      message: "Error: JSON payload normalization",
+      backtrace: [],
+    };
+
+    await upsertNoticeOccurrence({
+      project,
+      error: errorData,
+      context: {
+        environment: "test",
+        capturedAt,
+        missing: undefined,
+        unsupported: () => "ignored",
+        values: [1, undefined, Number.NaN],
+      },
+      environment: {},
+      session: {},
+      requestParams: {},
+    });
+
+    const occurrence = await db.occurrence.findFirstOrThrow({
+      where: {
+        notice: {
+          project_id: project.id,
+          env: "test",
+          kind: "Error",
+        },
+      },
+      select: { context: true },
+    });
+
+    expect(occurrence.context).toEqual({
+      environment: "test",
+      capturedAt: capturedAt.toISOString(),
+      values: [1, null, null],
+    });
   });
 
   test("handles deadlocks", async () => {

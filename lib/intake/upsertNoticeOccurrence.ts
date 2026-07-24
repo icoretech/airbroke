@@ -38,6 +38,37 @@ export interface UpsertNoticeOccurrenceInput {
   readonly requestParams: Record<string, unknown>;
 }
 
+function toPrismaJson(
+  value: unknown,
+): Prisma.InputJsonValue | null | undefined {
+  if (value === null) {
+    return null;
+  }
+  if (typeof value === "string" || typeof value === "boolean") {
+    return value;
+  }
+  if (typeof value === "number") {
+    return Number.isFinite(value) ? value : null;
+  }
+  if (Array.isArray(value)) {
+    return value.map((item) => toPrismaJson(item) ?? null);
+  }
+  if (value instanceof Date) {
+    return value.toJSON();
+  }
+  if (typeof value === "object") {
+    const result: Record<string, Prisma.InputJsonValue | null> = {};
+    for (const [key, item] of Object.entries(value)) {
+      const jsonValue = toPrismaJson(item);
+      if (jsonValue !== undefined) {
+        result[key] = jsonValue;
+      }
+    }
+    return result;
+  }
+  return undefined;
+}
+
 export async function upsertNoticeOccurrence({
   project,
   error,
@@ -93,11 +124,11 @@ export async function upsertNoticeOccurrence({
       create: {
         message: message,
         message_hash: messageHash,
-        backtrace: JSON.parse(JSON.stringify(backtrace)),
-        context: JSON.parse(JSON.stringify(context)),
-        environment: JSON.parse(JSON.stringify(environment)),
-        session: JSON.parse(JSON.stringify(session)),
-        params: JSON.parse(JSON.stringify(requestParams)),
+        backtrace: toPrismaJson(backtrace) ?? [],
+        context: toPrismaJson(context) ?? {},
+        environment: toPrismaJson(environment) ?? {},
+        session: toPrismaJson(session) ?? {},
+        params: toPrismaJson(requestParams) ?? {},
         notice: {
           connect: { id: currentNotice.id },
         },
