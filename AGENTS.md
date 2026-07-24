@@ -63,7 +63,8 @@ imports and route delegation.
 ## ANTI-PATTERNS (THIS PROJECT)
 
 - Never run Yarn, Node, Next, Prisma, or Vitest directly on the host or through
-  `docker exec`; use `docker compose exec` against a running service.
+  `docker exec`; use `docker compose exec` against a running service or
+  `docker compose run --rm` for the profiled one-shot test service.
 - Never point tests at the development `DATABASE_URL`; `test` owns `testdb`.
 - Never hand-edit `prisma/generated/`, migration lock metadata, or registry
   primitives as if they were ordinary maintained source.
@@ -76,11 +77,11 @@ imports and route delegation.
 ## COMMANDS
 
 ```sh
-docker compose -f docker-compose.yml up -d web test db testdb
+docker compose -f docker-compose.yml up -d web db
 docker compose -f docker-compose.yml exec web yarn biome:ci
 docker compose -f docker-compose.yml exec web yarn react-doctor:ci
 docker compose -f docker-compose.yml exec web yarn typecheck
-docker compose -f docker-compose.yml exec test yarn test --run
+docker compose -f docker-compose.yml --profile test run --rm test yarn test --run
 docker compose -f docker-compose.yml exec web env NODE_ENV=production yarn build
 ```
 

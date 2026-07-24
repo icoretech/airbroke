@@ -30,8 +30,10 @@ proxy.test.ts
 
 - Use `// @vitest-environment node` for server-only route, auth, or SDK tests;
   the default environment is `jsdom`.
-- Run deterministic checks with `docker compose exec test yarn test --run`;
-  the service command itself stays in watch mode for development.
+- Run deterministic checks with
+  `docker compose -f docker-compose.yml --profile test run --rm test yarn test --run`;
+  the test service is one-shot and starts its dedicated database through the
+  profile.
 - Keep tests under this tree rather than beside Next application source.
 - Match the touched runtime boundary: route handlers under `api/`, domain logic
   under `lib/`, components under `components/`, and pages under `pages/`.

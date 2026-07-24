@@ -26,6 +26,8 @@ services:
 
   testdb:
     image: postgres:18
+    profiles:
+      - test
     # command: postgres -c 'shared_buffers=128MB'
     environment:
       POSTGRES_PASSWORD: airbroke
@@ -71,8 +73,9 @@ services:
 
   test:
     image: icoretech/airbroke:develop
-    command: yarn test --watch
-    restart: always
+    profiles:
+      - test
+    command: yarn test --run
     environment:
       DATABASE_URL: 'postgresql://postgres:airbroke@testdb/airbroke_test?connection_limit=15'
       DIRECT_URL: 'postgresql://postgres:airbroke@testdb/airbroke_test'
