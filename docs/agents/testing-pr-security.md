@@ -7,8 +7,9 @@
 - Typical commands:
 
 ```sh
-docker compose exec test yarn test --run
-docker compose exec test yarn test --run __tests__/lib/projectActions.test.ts
+docker compose -f docker-compose.yml --profile test run --rm test yarn test --run
+docker compose -f docker-compose.yml --profile test run --rm test \
+  yarn test --run __tests__/lib/projectActions.test.ts
 docker compose exec web yarn typecheck
 docker compose exec web yarn biome:lint
 ```

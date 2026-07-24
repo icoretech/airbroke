@@ -6,13 +6,14 @@ This repo is developed through Docker Compose. Start the main services before
 running repository commands:
 
 ```sh
-docker compose up -d web test db testdb
+docker compose -f docker-compose.yml up -d web db
 ```
 
 Use `docker compose exec` against running services for normal work:
 
 - `web`: app runtime, Prisma commands, linting, typechecking, production build
-- `test`: Vitest execution against the dedicated `testdb` service
+- `test`: one-shot Vitest execution against the dedicated `testdb` service,
+  both available through the `test` profile
 
 Use host commands only for Docker diagnostics such as `docker compose ps`,
 `docker compose logs`, or image and volume troubleshooting.
@@ -27,7 +28,7 @@ docker compose exec web env NODE_ENV=production yarn build
 docker compose exec web yarn db:generate
 docker compose exec web yarn db:migrate
 docker compose exec web yarn db:seed
-docker compose exec test yarn test --run
+docker compose -f docker-compose.yml --profile test run --rm test yarn test --run
 ```
 
 ## Database Workflow
@@ -35,9 +36,9 @@ docker compose exec test yarn test --run
 - `DATABASE_URL` is required at runtime.
 - `DIRECT_URL` is required for migrations when the main URL points through a
   pooler or proxy.
-- The compose stack already wires `web` to `db` and `test` to `testdb`.
-  Keep app commands on `web` and test commands on `test` so development data
-  and test data stay separate.
+- The compose stack wires `web` to `db` and the `test` profile to `testdb`.
+  Keep app commands on `web` and run test commands through the profile so
+  development data and test data stay separate without a persistent watcher.
 - Postgres 18+ is mounted at `/var/lib/postgresql`, not
   `/var/lib/postgresql/data`.
 
