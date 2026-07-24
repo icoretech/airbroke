@@ -124,7 +124,7 @@ async function enforceGithubOrganizationRestriction({
 }: ProviderRestrictionContext) {
   if (!process.env.AIRBROKE_GITHUB_ORGS) return;
 
-  const allowedOrgs = envList("AIRBROKE_GITHUB_ORGS") ?? [];
+  const allowedOrgs = new Set(envList("AIRBROKE_GITHUB_ORGS") ?? []);
   const orgs = await fetchJsonOrForbidden<Array<{ login: string }>>(
     "https://api.github.com/user/orgs",
     {
@@ -136,7 +136,7 @@ async function enforceGithubOrganizationRestriction({
     },
     "GitHub: failed to fetch organizations",
   );
-  if (!orgs.some((org) => allowedOrgs.includes(org.login))) {
+  if (!orgs.some((org) => allowedOrgs.has(org.login))) {
     throw new APIError("FORBIDDEN", {
       message: "GitHub: organization not allowed",
     });
@@ -148,7 +148,7 @@ async function enforceGitlabGroupRestriction({
 }: ProviderRestrictionContext) {
   if (!process.env.AIRBROKE_GITLAB_GROUPS) return;
 
-  const allowedGroups = envList("AIRBROKE_GITLAB_GROUPS") ?? [];
+  const allowedGroups = new Set(envList("AIRBROKE_GITLAB_GROUPS") ?? []);
   const gitlabUrl = (
     process.env.AIRBROKE_GITLAB_URL ?? "https://gitlab.com"
   ).replace(/\/+$/, "");
@@ -157,7 +157,7 @@ async function enforceGitlabGroupRestriction({
     { headers: { Authorization: `Bearer ${accessToken}` } },
     "GitLab: failed to fetch groups",
   );
-  if (!groups.some((group) => allowedGroups.includes(group.full_path))) {
+  if (!groups.some((group) => allowedGroups.has(group.full_path))) {
     throw new APIError("FORBIDDEN", {
       message: "GitLab: group not allowed",
     });
@@ -169,7 +169,9 @@ async function enforceBitbucketWorkspaceRestriction({
 }: ProviderRestrictionContext) {
   if (!process.env.AIRBROKE_BITBUCKET_WORKSPACES) return;
 
-  const allowedWorkspaces = envList("AIRBROKE_BITBUCKET_WORKSPACES") ?? [];
+  const allowedWorkspaces = new Set(
+    envList("AIRBROKE_BITBUCKET_WORKSPACES") ?? [],
+  );
   const data = await fetchJsonOrForbidden<{
     values: Array<{ slug: string }>;
   }>(
@@ -177,9 +179,7 @@ async function enforceBitbucketWorkspaceRestriction({
     { headers: { Authorization: `Bearer ${accessToken}` } },
     "Bitbucket: failed to fetch workspaces",
   );
-  if (
-    !data.values.some((workspace) => allowedWorkspaces.includes(workspace.slug))
-  ) {
+  if (!data.values.some((workspace) => allowedWorkspaces.has(workspace.slug))) {
     throw new APIError("FORBIDDEN", {
       message: "Bitbucket: workspace not allowed",
     });
@@ -191,7 +191,7 @@ async function enforceAtlassianSiteRestriction({
 }: ProviderRestrictionContext) {
   if (!process.env.AIRBROKE_ATLASSIAN_SITES) return;
 
-  const allowedSites = envList("AIRBROKE_ATLASSIAN_SITES") ?? [];
+  const allowedSites = new Set(envList("AIRBROKE_ATLASSIAN_SITES") ?? []);
   const resources = await fetchJsonOrForbidden<Array<{ name: string }>>(
     "https://api.atlassian.com/oauth/token/accessible-resources",
     {
@@ -202,7 +202,7 @@ async function enforceAtlassianSiteRestriction({
     },
     "Atlassian: failed to fetch accessible resources",
   );
-  if (!resources.some((resource) => allowedSites.includes(resource.name))) {
+  if (!resources.some((resource) => allowedSites.has(resource.name))) {
     throw new APIError("FORBIDDEN", {
       message: "Atlassian: site not allowed",
     });
