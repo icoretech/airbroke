@@ -2,7 +2,13 @@
 
 import { Loader2, Search as SearchIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef, useSyncExternalStore, useTransition } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  useTransition,
+} from "react";
 import {
   InputGroup,
   InputGroupAddon,
@@ -52,7 +58,7 @@ function TopbarSearchImpl({
 
   return (
     <TopbarSearchForm
-      key={current}
+      key={pathname}
       current={current}
       isDisabled={isDisabled}
       isPending={isPending}
@@ -82,6 +88,7 @@ function TopbarSearchForm({
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
+  const [draft, setDraft] = useState(current);
   const platform = useSyncExternalStore(
     subscribeToPlatform,
     getPlatformSnapshot,
@@ -118,9 +125,20 @@ function TopbarSearchForm({
 
   useEffect(() => () => clearDebounceTimer(debounceRef), []);
 
+  useEffect(() => {
+    function syncDraftFromHistory() {
+      const params = new URL(window.location.href).searchParams;
+      setDraft(params.get("searchQuery") ?? "");
+    }
+
+    window.addEventListener("popstate", syncDraftFromHistory);
+    return () => window.removeEventListener("popstate", syncDraftFromHistory);
+  }, []);
+
   function onChange(e: ChangeEvent<HTMLInputElement>) {
     clearDebounceTimer(debounceRef);
     const next = e.target.value;
+    setDraft(next);
     if (next === "") {
       pushQuery("");
     } else {
@@ -131,11 +149,8 @@ function TopbarSearchForm({
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     clearDebounceTimer(debounceRef);
-    const fd = new FormData(e.currentTarget);
-    pushQuery((fd.get("searchQuery") as string) ?? "");
+    pushQuery(draft);
   }
-
-  const disabled = isDisabled || isPending;
 
   return (
     <form onSubmit={onSubmit} className="w-full max-w-md">
@@ -152,8 +167,9 @@ function TopbarSearchForm({
           name="searchQuery"
           type="search"
           placeholder={placeholder}
-          defaultValue={current}
-          disabled={disabled}
+          value={draft}
+          disabled={isDisabled}
+          aria-busy={isPending}
           onChange={onChange}
           className=""
         />
