@@ -30,49 +30,51 @@ export default async function OccurrencesTable({
   const bookmarkedIds = await getBookmarkedOccurrenceIds(userId, occurrenceIds);
 
   return (
-    <ul className="space-y-3 sm:space-y-0 sm:divide-y sm:divide-card/40">
+    <ul className="space-y-3 sm:space-y-0 sm:divide-y sm:divide-border">
       {occurrences.map((occurrence) => (
         <li
           key={occurrence.id}
-          className="relative flex flex-col gap-3 rounded-lg border border-card/40 bg-card/40 px-4 py-4 shadow-xs transition-colors duration-200 hover:bg-linear-to-r hover:from-airbroke-800 hover:to-airbroke-900 sm:flex-row sm:items-center sm:gap-4 sm:rounded-none sm:border-0 sm:bg-transparent sm:shadow-none"
+          className="relative flex flex-col gap-3 rounded-lg border border-border bg-card px-4 py-4 shadow-xs transition-colors duration-200 hover:bg-muted/50 sm:gap-4 sm:rounded-none sm:border-0 sm:bg-transparent sm:shadow-none lg:flex-row lg:items-center"
         >
           <div className="min-w-0 flex-auto">
             <div className="flex items-center gap-x-3">
-              <h2 className="min-w-0 text-sm font-semibold leading-6 text-white">
+              <h2 className="min-w-0 text-sm font-semibold leading-6 text-foreground">
                 <Link
                   href={`/occurrences/${occurrence.id}`}
                   className="flex min-w-0 gap-x-2"
                 >
-                  <span className="min-w-0 truncate">{occurrence.message}</span>
+                  <span className="min-w-0 line-clamp-2 wrap-anywhere">
+                    {occurrence.message}
+                  </span>
                   <span className="absolute inset-0" />
                 </Link>
               </h2>
             </div>
-            <div className="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-400">
-              <div className="flex-none rounded-md bg-gray-900 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-gray-700">
+            <div className="mt-3 flex flex-wrap items-center gap-2.5 text-xs leading-5 text-muted-foreground">
+              <div className="flex-none rounded-md bg-muted px-2 py-1 text-xs font-medium text-foreground ring-1 ring-inset ring-border">
                 {occurrence.notice.kind}
               </div>
               <EnvironmentLabel env={occurrence.notice.env} />
 
               {occurrence.resolved_at && (
-                <div className="flex-none rounded-md bg-green-900 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-green-700">
+                <div className="flex-none rounded-md bg-primary/10 px-2 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/30">
                   resolved
                 </div>
               )}
 
-              <p className="truncate">
+              <p>
                 First seen:{" "}
                 <CustomTimeAgo date={new Date(occurrence.created_at)} />
               </p>
             </div>
           </div>
 
-          <div className="flex items-center justify-between gap-3 sm:ml-auto sm:justify-end">
-            <div className="text-left text-xs sm:min-w-50 sm:text-right">
-              <p className="text-white">
+          <div className="flex items-center justify-between gap-3 lg:ml-auto lg:justify-end">
+            <div className="text-left text-xs lg:min-w-50 lg:text-right">
+              <p className="text-foreground">
                 <CustomTimeAgo date={new Date(occurrence.updated_at)} />
               </p>
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-muted-foreground">
                 {occurrence.updated_at.toUTCString()}
               </p>
             </div>
