@@ -207,7 +207,9 @@ export default function TestZone({ project }: { project: Project }) {
             </ItemMedia>
             <ItemContent>
               <ItemTitle>{testAction.title}</ItemTitle>
-              <ItemDescription>{testAction.description}</ItemDescription>
+              <ItemDescription className="line-clamp-none">
+                {testAction.description}
+              </ItemDescription>
             </ItemContent>
             <ItemActions>
               <Button
