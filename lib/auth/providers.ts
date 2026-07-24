@@ -286,6 +286,9 @@ export function buildGenericOAuthConfig(): GenericOAuthConfig[] {
         const res = await fetch("https://api.atlassian.com/me", {
           headers: { Authorization: `Bearer ${tokens.accessToken}` },
         });
+        if (!res.ok) {
+          return null;
+        }
         const profile = (await res.json()) as {
           account_id: string;
           name: string;
