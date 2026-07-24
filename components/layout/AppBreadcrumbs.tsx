@@ -28,10 +28,19 @@ export default function AppBreadcrumbs({ items }: { items: Crumb[] }) {
           seenKeys.set(baseKey, seenCount + 1);
           const itemKey =
             seenCount === 0 ? baseKey : `${baseKey}-${seenCount + 1}`;
+          const isTabletOptional = idx === 1 || (idx === 3 && idx < lastIndex);
+          const isMobileOptional = idx === 2 && idx < lastIndex;
+          const itemClass = isTabletOptional
+            ? "hidden lg:inline-flex"
+            : isMobileOptional
+              ? "hidden sm:inline-flex"
+              : idx === lastIndex
+                ? "min-w-0 flex-1"
+                : undefined;
 
           return (
             <Fragment key={itemKey}>
-              <BreadcrumbItem>
+              <BreadcrumbItem className={itemClass}>
                 {idx === lastIndex || !item.href ? (
                   <BreadcrumbPage
                     className={labelClass(idx)}
@@ -40,30 +49,42 @@ export default function AppBreadcrumbs({ items }: { items: Crumb[] }) {
                     <span className="block truncate">{item.label}</span>
                   </BreadcrumbPage>
                 ) : (
-                  <BreadcrumbLink asChild>
-                    {/* Next Link is type-restricted to internal routes; fall back to <a> for external */}
-                    {item.href?.startsWith("/") ? (
-                      <Link
-                        href={item.href as Route}
-                        className={labelClass(idx)}
-                        title={String(item.label)}
-                      >
-                        <span className="block truncate">{item.label}</span>
-                      </Link>
-                    ) : (
-                      <a
-                        href={item.href}
-                        rel="noreferrer"
-                        className={labelClass(idx)}
-                        title={String(item.label)}
-                      >
-                        <span className="block truncate">{item.label}</span>
-                      </a>
-                    )}
+                  <BreadcrumbLink
+                    render={
+                      item.href?.startsWith("/") ? (
+                        <Link
+                          href={item.href as Route}
+                          className={labelClass(idx)}
+                          title={String(item.label)}
+                        />
+                      ) : (
+                        (props) => (
+                          <a
+                            {...props}
+                            href={item.href ?? undefined}
+                            rel="noreferrer"
+                          >
+                            {props.children}
+                          </a>
+                        )
+                      )
+                    }
+                  >
+                    <span className="block truncate">{item.label}</span>
                   </BreadcrumbLink>
                 )}
               </BreadcrumbItem>
-              {idx < lastIndex && <BreadcrumbSeparator />}
+              {idx < lastIndex && (
+                <BreadcrumbSeparator
+                  className={
+                    isTabletOptional
+                      ? "hidden lg:list-item"
+                      : isMobileOptional
+                        ? "hidden sm:list-item"
+                        : undefined
+                  }
+                />
+              )}
             </Fragment>
           );
         })}
@@ -73,9 +94,10 @@ export default function AppBreadcrumbs({ items }: { items: Crumb[] }) {
 }
 
 function labelClass(index: number) {
-  // Conservative truncation per position; hide org on small screens to save space.
+  // Conservative truncation per position; the organization item is hidden by
+  // the caller on small screens to save space.
   // 0: "Projects" (short)
-  if (index === 1) return "hidden md:inline-block max-w-40 lg:max-w-56";
+  if (index === 1) return "inline-block max-w-40 lg:max-w-56";
   if (index === 2)
     return "inline-block max-w-48 sm:max-w-[16rem] lg:max-w-[24rem]";
   if (index >= 3) return "inline-block max-w-48 sm:max-w-[20rem] lg:max-w-xl";
