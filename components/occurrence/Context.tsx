@@ -113,7 +113,7 @@ export default function Context({ occurrence }: { occurrence: Occurrence }) {
           id="context-view-toggle"
           checked={useJsonView}
           onCheckedChange={setUseJsonView}
-          className="data-[state=checked]:bg-indigo-600 data-[state=unchecked]:bg-gray-200"
+          className="data-checked:bg-indigo-600 data-unchecked:bg-gray-200"
         />
         <Label
           htmlFor="context-view-toggle"
