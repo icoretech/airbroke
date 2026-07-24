@@ -22,8 +22,8 @@
 ## UI Stack
 
 - Shared primitives live under `components/ui/`
-- The project is configured for shadcn-style components with the `new-york`
-  preset, CSS variables, Lucide icons, and `app/globals.css`
+- The project is configured for shadcn components with the `base-nova` preset,
+  Base UI primitives, CSS variables, Lucide icons, and `app/globals.css`
 - `components/ai-elements/**` is also skipped by Biome, so treat it like a
   vendor-style surface: edit sparingly and verify the consumer manually
 

@@ -2,14 +2,14 @@
 
 ## OVERVIEW
 
-This directory is registry-managed shadcn/Radix source, not ordinary feature
+This directory is registry-managed shadcn/Base UI source, not ordinary feature
 UI. The updater can overwrite every component in one pass.
 
 ## WHERE TO LOOK
 
 | Task | Location | Notes |
 | --- | --- | --- |
-| Registry contract | `../../components.json` | New York style, RSC, Lucide |
+| Registry contract | `../../components.json` | Base Nova style, RSC, Lucide |
 | Updater | `../../bin/update-shadcn-components.mjs` | Uses `--overwrite` |
 | Dry run | `package.json` | `shadcn:update:dry` |
 | Consumers | `../*/` and `../../app/` | Verify changed primitives in context |
@@ -17,7 +17,7 @@ UI. The updater can overwrite every component in one pass.
 ## CONVENTIONS
 
 - Preserve the upstream component API, `data-slot` attributes, variants, and
-  Radix composition unless a deliberate local customization requires change.
+  Base UI composition unless a deliberate local customization requires change.
 - Use `yarn shadcn:update:dry` to inspect registry updates before applying
   `yarn shadcn:update`; run both inside the `web` container.
 - Keep primitives domain-neutral. Feature behavior belongs in sibling domain

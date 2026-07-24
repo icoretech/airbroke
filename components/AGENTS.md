@@ -14,7 +14,7 @@ notice/      # Notice tables, filters, and resolution controls
 occurrence/  # Detail panels, charts, actions, replay, and diagnostics
 remark/      # Remark forms and threads
 common/      # Cross-domain rendering and chart boundaries
-ui/          # shadcn/Radix primitives; read ui/AGENTS.md
+ui/          # shadcn Base UI primitives; read ui/AGENTS.md
 ```
 
 ## WHERE TO LOOK
