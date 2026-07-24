@@ -8,7 +8,7 @@ import PingDot from "@/components/common/PingDot";
 import AppBreadcrumbs from "@/components/layout/AppBreadcrumbs";
 import { AppShell } from "@/components/layout/AppShell";
 import CreateProjectDialog from "@/components/project/CreateProjectDialog";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Empty,
   EmptyContent,
@@ -55,9 +55,15 @@ export default async function Projects(props: PageProps<"/projects">) {
             </EmptyDescription>
             <EmptyContent>
               <div className="flex items-center gap-3">
-                <Button variant="outline" asChild className="w-36">
-                  <Link href="/projects">Clear search</Link>
-                </Button>
+                <Link
+                  href="/projects"
+                  className={buttonVariants({
+                    variant: "outline",
+                    className: "w-36",
+                  })}
+                >
+                  Clear search
+                </Link>
                 <CreateProjectDialog className="w-36" />
               </div>
             </EmptyContent>
@@ -81,9 +87,15 @@ export default async function Projects(props: PageProps<"/projects">) {
           </EmptyDescription>
           <EmptyContent>
             <div className="flex items-center gap-3">
-              <Button asChild variant="outline" className="w-36">
-                <Link href="/bookmarks">Bookmarks</Link>
-              </Button>
+              <Link
+                href="/bookmarks"
+                className={buttonVariants({
+                  variant: "outline",
+                  className: "w-36",
+                })}
+              >
+                Bookmarks
+              </Link>
               <CreateProjectDialog className="w-36" />
             </div>
           </EmptyContent>
