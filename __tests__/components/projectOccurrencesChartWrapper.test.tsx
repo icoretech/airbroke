@@ -53,4 +53,19 @@ describe("OccurrencesChartWrapper", () => {
     );
     expect(html).toContain("&quot;count&quot;:3");
   });
+
+  it("explains when the project has no recent activity", async () => {
+    cachedProjectChartOccurrencesDataMock.mockResolvedValue([
+      { date: 1742493600000, count: 0 },
+    ]);
+
+    const element = await OccurrencesChartWrapper({
+      projectId: "project-123",
+      compact: true,
+    });
+    const html = renderToStaticMarkup(element);
+
+    expect(html).toContain("No activity in the last 14 days");
+    expect(html).not.toContain("data-gradient-id");
+  });
 });

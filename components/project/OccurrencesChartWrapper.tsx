@@ -12,6 +12,7 @@ export default async function OccurrencesChartWrapper({
 }) {
   const chartData = await cachedProjectChartOccurrencesData(projectId);
   const gradientId = `project-chart-${projectId}${compact ? "-compact" : ""}`;
+  const hasActivity = chartData.some(({ count }) => count > 0);
 
   return (
     <div className={compact ? "" : "px-4 sm:px-6 lg:px-8"}>
@@ -20,11 +21,17 @@ export default async function OccurrencesChartWrapper({
           Hourly Occurrences in the past 14 days
         </h2>
       )}
-      <OccurrenceChart
-        chartData={chartData}
-        compact={compact}
-        gradientId={gradientId}
-      />
+      {hasActivity ? (
+        <OccurrenceChart
+          chartData={chartData}
+          compact={compact}
+          gradientId={gradientId}
+        />
+      ) : (
+        <div className="flex min-h-32 items-center justify-center rounded-md border border-dashed border-white/10 px-4 text-center text-sm text-white/60">
+          No activity in the last 14 days
+        </div>
+      )}
     </div>
   );
 }
