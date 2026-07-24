@@ -40,15 +40,15 @@ export default async function Notice(props: PageProps<"/notices/[notice_id]">) {
   return (
     <div className="space-y-6">
       {/* Notice header */}
-      <section className="rounded-xl border border-card/40 bg-card/40 p-4 shadow-md ring-1 ring-card/40 backdrop-blur sm:p-5">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+      <section className="rounded-xl border border-border bg-card p-4 shadow-sm sm:p-5">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
           <div className="min-w-0 flex-1">
             <div className="text-xs font-medium text-muted-foreground">
               Project
             </div>
             <Link
               href={`/projects/${notice.project.id}`}
-              className="mt-1 block truncate text-sm font-semibold text-foreground underline decoration-current underline-offset-4 hover:text-foreground/80"
+              className="mt-1 block text-sm font-semibold text-foreground underline decoration-current underline-offset-4 wrap-anywhere hover:text-foreground/80"
             >
               {notice.project.organization} / {notice.project.name}
             </Link>
@@ -58,7 +58,7 @@ export default async function Notice(props: PageProps<"/notices/[notice_id]">) {
             </h1>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 sm:justify-end">
+          <div className="flex flex-wrap items-center gap-2 lg:justify-end">
             <EnvironmentLabel env={notice.env} />
             <Badge variant="outline">
               Seen: {notice.seen_count.toString()}
@@ -71,8 +71,8 @@ export default async function Notice(props: PageProps<"/notices/[notice_id]">) {
       </section>
 
       {/* Remarks */}
-      <section className="rounded-xl sm:overflow-hidden sm:border sm:border-card/40 sm:bg-card/40 sm:shadow-md sm:ring-1 sm:ring-card/40 sm:backdrop-blur">
-        <div className="flex w-full flex-wrap items-center justify-between gap-3 rounded-lg border border-card/40 bg-card/40 px-4 py-3 shadow-xs sm:rounded-none sm:border-0 sm:bg-transparent sm:shadow-none sm:border-b sm:border-card/40">
+      <section className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+        <div className="flex w-full flex-wrap items-center justify-between gap-3 border-b border-border px-4 py-3">
           <h2 className="text-sm font-semibold text-foreground">
             Remarks{remarkCount > 0 ? ` (${remarkCount})` : ""}
           </h2>
@@ -81,10 +81,10 @@ export default async function Notice(props: PageProps<"/notices/[notice_id]">) {
       </section>
 
       {/* Occurrences */}
-      <section className="rounded-xl sm:overflow-hidden sm:border sm:border-card/40 sm:bg-card/40 sm:shadow-md sm:ring-1 sm:ring-card/40 sm:backdrop-blur">
-        <div className="flex w-full flex-wrap items-center justify-between gap-3 rounded-lg border border-card/40 bg-card/40 px-4 py-3 shadow-xs sm:rounded-none sm:border-0 sm:bg-transparent sm:shadow-none sm:border-b sm:border-card/40">
+      <section className="rounded-xl sm:overflow-hidden sm:border sm:border-border sm:bg-card sm:shadow-sm">
+        <div className="flex w-full flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-card px-4 py-3 shadow-xs sm:rounded-none sm:border-0 sm:border-b sm:border-border sm:bg-transparent sm:shadow-none">
           <h2 className="text-sm font-semibold text-foreground">Occurrences</h2>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <Suspense>
               <StatusFilter />
               <Sort />
