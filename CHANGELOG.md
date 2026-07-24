@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.2.20](https://github.com/icoretech/airbroke/compare/v1.2.19...v1.2.20) (2026-07-24)
+
+
+### Features
+
+* **ui:** establish the base nova design system ([c5451c9](https://github.com/icoretech/airbroke/commit/c5451c9214db1cee0303bb2d9f8def448571468b))
+* **ui:** show empty project occurrence activity ([483d962](https://github.com/icoretech/airbroke/commit/483d962f2e0afbeb238b1b6a8857e3ce5b356f60))
+
+
+### Bug Fixes
+
+* **auth:** reject failed Atlassian profile requests ([8c9fa2c](https://github.com/icoretech/airbroke/commit/8c9fa2cdbc2160075a5188a27f032278441959a3))
+* **deps:** update dependency better-auth to v1.6.25 ([a85f4b2](https://github.com/icoretech/airbroke/commit/a85f4b2cde466460a6760052bcfdff3d59fcd7f8))
+* **deps:** update dependency lucide-react to v1.26.0 ([#1851](https://github.com/icoretech/airbroke/issues/1851)) ([8237c15](https://github.com/icoretech/airbroke/commit/8237c1562aeb6b4339e3e94cdd9c1314b64432c9))
+* **deps:** update vercel ai sdk ([#1846](https://github.com/icoretech/airbroke/issues/1846)) ([c1fe323](https://github.com/icoretech/airbroke/commit/c1fe323df89c6f2203e55b9f34e0edf581672266))
+* **intake:** normalize occurrence payloads for Prisma JSON ([00583b5](https://github.com/icoretech/airbroke/commit/00583b5654136be9b812f4768c8c11d09b8086df))
+* **replay:** avoid consuming successful response bodies ([13431dc](https://github.com/icoretech/airbroke/commit/13431dc81a32f15c4a8dfd697dc2b9a71bcd6485))
+* **ui:** harden the project overview URL fallback ([970d770](https://github.com/icoretech/airbroke/commit/970d770019f67f9caa73f79a9bdca52bbda14199))
+* **ui:** keep topbar search stable during navigation ([962857b](https://github.com/icoretech/airbroke/commit/962857bd8b64163272b8c8a720fb4de8ee43422b))
+* **ui:** make project notice surfaces responsive ([984261c](https://github.com/icoretech/airbroke/commit/984261c8fe2a552b34155ec8aa83d5c2d007d798))
+* **ui:** preserve invalid create-project input ([a37a433](https://github.com/icoretech/airbroke/commit/a37a433eae29525ce8a1dfcbbf589cc19f8412ee))
+* **ui:** preserve project test action descriptions ([e45b962](https://github.com/icoretech/airbroke/commit/e45b962f8b7a550ca849b05c9bd947161f437c61))
+* **ui:** preserve responsive breadcrumb context ([e85edf9](https://github.com/icoretech/airbroke/commit/e85edf93f6e0afe6cf5afa189c044114d8c9ac35))
+* **ui:** update occurrence context switch selectors ([d81ec46](https://github.com/icoretech/airbroke/commit/d81ec4611bcc8301d67683bfbbd4ed224f5cf24a))
+* **ui:** use semantic status indicators ([5bb4b6d](https://github.com/icoretech/airbroke/commit/5bb4b6d4457b9ff84fe36d4043ad627d22d8d748))
+
 ## [1.2.19](https://github.com/icoretech/airbroke/compare/v1.2.18...v1.2.19) (2026-07-23)
 
 
