@@ -1,7 +1,7 @@
 "use client";
 
 import { GitBranch } from "lucide-react";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { SlDisc } from "react-icons/sl";
 import { TbFilePlus } from "react-icons/tb";
 import { Button } from "@/components/ui/button";
@@ -16,8 +16,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
+  Field,
   FieldDescription,
   FieldError,
+  FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
 import {
@@ -55,16 +57,19 @@ export default function CreateProjectDialog({
     createProject,
     initialState,
   );
+  const [repositoryUrl, setRepositoryUrl] = useState(lastUrl);
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button
-          className={`${heightClass} inline-flex items-center gap-2 btn-gradient shadow-xs focus-visible:ring-1 focus-visible:ring-offset-0 ${className ?? ""}`}
-        >
-          <TbFilePlus className="size-4" />
-          {label}
-        </Button>
+      <DialogTrigger
+        render={
+          <Button
+            className={`${heightClass} inline-flex items-center gap-2 btn-gradient shadow-xs focus-visible:ring-1 focus-visible:ring-offset-0 ${className ?? ""}`}
+          />
+        }
+      >
+        <TbFilePlus className="size-4" />
+        {label}
       </DialogTrigger>
       <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
@@ -75,44 +80,49 @@ export default function CreateProjectDialog({
           </DialogDescription>
         </DialogHeader>
         <form action={formAction}>
-          <div className="space-y-4">
-            <FieldLabel htmlFor="repository_url">Repository URL</FieldLabel>
-            <InputGroup>
-              <InputGroupAddon align="inline-start">
-                <GitBranch className="size-4 text-muted-foreground" />
-              </InputGroupAddon>
-              <InputGroupInput
-                id="repository_url"
-                name="repository_url"
-                type="text"
-                defaultValue={lastUrl}
-                disabled={pending}
-                placeholder={`https://github.com/owner/repo`}
-                aria-invalid={!!error}
-              />
-              <InputGroupAddon align="inline-end" className="gap-1">
-                <Kbd className="hidden sm:inline">paste</Kbd>
-              </InputGroupAddon>
-            </InputGroup>
-            {error ? (
-              <FieldError>{error}</FieldError>
-            ) : (
-              <FieldDescription>
-                Paste a full repository URL from GitHub, GitLab, Bitbucket, or
-                Gitea. You can also leave it blank.
-              </FieldDescription>
-            )}
-          </div>
+          <FieldGroup>
+            <Field data-invalid={!!error}>
+              <FieldLabel htmlFor="repository_url">Repository URL</FieldLabel>
+              <InputGroup>
+                <InputGroupAddon align="inline-start">
+                  <GitBranch className="text-muted-foreground" />
+                </InputGroupAddon>
+                <InputGroupInput
+                  id="repository_url"
+                  name="repository_url"
+                  type="text"
+                  value={repositoryUrl}
+                  onChange={(event) => setRepositoryUrl(event.target.value)}
+                  disabled={pending}
+                  placeholder="https://github.com/owner/repo"
+                  aria-invalid={!!error}
+                />
+                <InputGroupAddon align="inline-end" className="gap-1">
+                  <Kbd className="hidden sm:inline">paste</Kbd>
+                </InputGroupAddon>
+              </InputGroup>
+              {error ? (
+                <FieldError>{error}</FieldError>
+              ) : (
+                <FieldDescription>
+                  Paste a full repository URL from GitHub, GitLab, Bitbucket, or
+                  Gitea. You can also leave it blank.
+                </FieldDescription>
+              )}
+            </Field>
+          </FieldGroup>
           <DialogFooter className="mt-6">
-            <DialogClose asChild>
-              <Button
-                type="button"
-                variant="outline"
-                disabled={pending}
-                aria-disabled={pending}
-              >
-                Cancel
-              </Button>
+            <DialogClose
+              render={
+                <Button
+                  type="button"
+                  variant="outline"
+                  disabled={pending}
+                  aria-disabled={pending}
+                />
+              }
+            >
+              Cancel
             </DialogClose>
             <Button
               type="submit"
