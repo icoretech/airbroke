@@ -55,18 +55,18 @@ export async function performReplay(context: Context): Promise<ReplayResult> {
 
   try {
     const response = await fetch(url, requestOptions);
-    const responseBody = await response.text();
 
-    if (response.ok) {
-      return { ok: true, status: response.status };
+    if (!response.ok) {
+      const responseBody = await response.text();
+      return {
+        ok: false,
+        status: response.status,
+        error: `HTTP request failed with status ${response.status}.`,
+        body: responseBody,
+      };
     }
 
-    return {
-      ok: false,
-      status: response.status,
-      error: `HTTP request failed with status ${response.status}.`,
-      body: responseBody,
-    };
+    return { ok: true, status: response.status };
   } catch (error) {
     return {
       ok: false,
