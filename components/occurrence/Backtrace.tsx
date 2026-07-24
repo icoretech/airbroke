@@ -101,7 +101,7 @@ export default async function Backtrace({
                   >
                     <p
                       className={clsx(
-                        "text-xs text-gray-400",
+                        "text-xs text-muted-foreground",
                         trace.file.includes("PROJECT_ROOT") && "font-semibold",
                       )}
                     >
@@ -111,12 +111,12 @@ export default async function Backtrace({
                         project={occurrence.notice.project}
                       />
                     </p>
-                    <p className="mx-1 text-gray-400">:</p>
-                    <p className="text-xs font-semibold text-indigo-200">
+                    <p className="mx-1 text-muted-foreground">:</p>
+                    <p className="text-xs font-semibold text-primary">
                       {trace.line}
                     </p>
-                    <p className="mx-1 text-gray-400">→</p>
-                    <p className="text-xs font-semibold text-rose-500">
+                    <p className="mx-1 text-muted-foreground">→</p>
+                    <p className="whitespace-nowrap text-xs font-semibold text-foreground">
                       {trace.function}
                     </p>
                   </div>

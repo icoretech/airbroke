@@ -21,12 +21,12 @@ export default function LinkedBacktraceLine({
         href={fileUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-indigo-400 hover:text-indigo-200"
+        className="text-primary hover:text-primary/80"
       >
         {file}
       </a>
     ) : (
-      <span className="text-indigo-400">{file}</span>
+      <span className="text-primary">{file}</span>
     );
   } else {
     return <>{file}</>;
