@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
@@ -75,58 +76,67 @@ export default function SortDropdown<T extends string>({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" aria-label={ariaLabel}>
-          <ArrowUpDown className="mr-2 size-4" />
-          <span className="flex items-center gap-1">
-            Sort:
-            <span className="capitalize">{sortLabel(effectiveAttr)}</span>
-            {effectiveDir === "asc" ? (
-              <ArrowUp className="size-3.5" />
-            ) : (
-              <ArrowDown className="size-3.5" />
-            )}
-          </span>
-        </Button>
+      <DropdownMenuTrigger
+        render={<Button variant="outline" size="sm" aria-label={ariaLabel} />}
+      >
+        <ArrowUpDown className="mr-2 size-4" />
+        <span className="flex items-center gap-1">
+          Sort:
+          <span className="capitalize">{sortLabel(effectiveAttr)}</span>
+          {effectiveDir === "asc" ? (
+            <ArrowUp className="size-3.5" />
+          ) : (
+            <ArrowDown className="size-3.5" />
+          )}
+        </span>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
-        <DropdownMenuLabel>Sort by</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup value={effectiveAttr}>
-          {attributes.map((attr) => {
-            const nextDir = toggleSort(attr);
-            const isActive = effectiveAttr === attr;
-            return (
-              <DropdownMenuRadioItem key={attr} value={attr}>
-                <Link
-                  href={generateUpdatedURLWithRemovals(pathname, searchParams, {
-                    sortAttr: attr,
-                    sortDir: nextDir,
-                  })}
-                  className="flex w-full items-center"
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>Sort by</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuRadioGroup value={effectiveAttr}>
+            {attributes.map((attr) => {
+              const nextDir = toggleSort(attr);
+              const isActive = effectiveAttr === attr;
+              const href = generateUpdatedURLWithRemovals(
+                pathname,
+                searchParams,
+                {
+                  sortAttr: attr,
+                  sortDir: nextDir,
+                },
+              );
+
+              return (
+                <DropdownMenuRadioItem
+                  key={attr}
+                  value={attr}
+                  render={<Link href={href} />}
                 >
                   <span className="capitalize">{sortLabel(attr)}</span>
-                </Link>
-                {isActive && (
-                  <DropdownMenuShortcut>
-                    {effectiveDir.toUpperCase()}
-                  </DropdownMenuShortcut>
-                )}
-              </DropdownMenuRadioItem>
-            );
-          })}
-        </DropdownMenuRadioGroup>
+                  {isActive && (
+                    <DropdownMenuShortcut>
+                      {effectiveDir.toUpperCase()}
+                    </DropdownMenuShortcut>
+                  )}
+                </DropdownMenuRadioItem>
+              );
+            })}
+          </DropdownMenuRadioGroup>
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Link
-            href={generateUpdatedURLWithRemovals(pathname, searchParams, {}, [
-              "sortAttr",
-              "sortDir",
-            ])}
-            className="flex w-full"
-          >
-            Clear sorting
-          </Link>
+        <DropdownMenuItem
+          render={
+            <Link
+              href={generateUpdatedURLWithRemovals(pathname, searchParams, {}, [
+                "sortAttr",
+                "sortDir",
+              ])}
+              className="flex w-full"
+            />
+          }
+        >
+          Clear sorting
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
