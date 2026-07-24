@@ -38,17 +38,16 @@ export default function ToggleIntake({
 
   return (
     <div className="flex flex-col gap-1">
-      <div className="flex items-center">
+      <div className="flex items-center gap-3">
         <Switch
           id={toggleId}
           checked={enabled}
           onCheckedChange={handleToggle}
           disabled={isBusy}
-          className="data-[state=checked]:bg-rose-600 data-[state=unchecked]:bg-gray-200"
         />
-        <Label htmlFor={toggleId} className="ml-3 text-sm">
-          <span className="font-medium text-gray-200">Accept Data</span>{" "}
-          <span className="text-gray-400">
+        <Label htmlFor={toggleId} className="text-sm">
+          <span className="font-medium text-foreground">Accept Data</span>{" "}
+          <span className="text-muted-foreground">
             ({enabled ? "Active" : "Paused"})
           </span>
         </Label>

@@ -48,6 +48,8 @@ describe("ToggleIntake", () => {
     const toggle = screen.getByRole("switch", { name: /accept data/i });
 
     expect(toggle.getAttribute("aria-checked")).toBe("false");
+    expect(toggle.classList.contains("data-checked:bg-rose-600")).toBe(false);
+    expect(toggle.classList.contains("data-unchecked:bg-gray-200")).toBe(false);
 
     fireEvent.click(toggle);
 
