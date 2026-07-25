@@ -125,7 +125,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@apm-js-collab/code-transformer-bundler-plugins@npm:^0.7.1":
+"@apm-js-collab/code-transformer-bundler-plugins@npm:0.7.1, @apm-js-collab/code-transformer-bundler-plugins@npm:^0.7.1":
   version: 0.7.1
   resolution: "@apm-js-collab/code-transformer-bundler-plugins@npm:0.7.1"
   dependencies:
@@ -2565,27 +2565,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/browser-utils@npm:10.67.0":
-  version: 10.67.0
-  resolution: "@sentry/browser-utils@npm:10.67.0"
+"@sentry/browser-utils@npm:10.68.0":
+  version: 10.68.0
+  resolution: "@sentry/browser-utils@npm:10.68.0"
   dependencies:
     "@sentry/conventions": "npm:^0.16.0"
-    "@sentry/core": "npm:10.67.0"
-  checksum: 10/143bf35ac4ceb93954e0bc5c65f5a00ca58cd68b8d60a5620374069a27d03307dd847b8dc6dbf2536235285f38aafd4b87ac0352a2ee41b872a45d99b8e40f49
+    "@sentry/core": "npm:10.68.0"
+  checksum: 10/9e606c9f963a92419fc025c49ead16a2b828f3030c42c1a70699bf443150507e4669b1a17d78b95e273274709d222fc16e3927f11799cd2361996b383a67c459
   languageName: node
   linkType: hard
 
-"@sentry/browser@npm:10.67.0":
-  version: 10.67.0
-  resolution: "@sentry/browser@npm:10.67.0"
+"@sentry/browser@npm:10.68.0":
+  version: 10.68.0
+  resolution: "@sentry/browser@npm:10.68.0"
   dependencies:
-    "@sentry/browser-utils": "npm:10.67.0"
+    "@sentry/browser-utils": "npm:10.68.0"
     "@sentry/conventions": "npm:^0.16.0"
-    "@sentry/core": "npm:10.67.0"
-    "@sentry/feedback": "npm:10.67.0"
-    "@sentry/replay": "npm:10.67.0"
-    "@sentry/replay-canvas": "npm:10.67.0"
-  checksum: 10/fa63bb1ffa4fa162c6c3dcb805f029fa6a8f2e3314e935a525483cae94ba0d322e45cfcc80e6255fd0a729f95a5942364d0639a396f6ac82f12df9dc4c2ef69f
+    "@sentry/core": "npm:10.68.0"
+    "@sentry/feedback": "npm:10.68.0"
+    "@sentry/replay": "npm:10.68.0"
+    "@sentry/replay-canvas": "npm:10.68.0"
+  checksum: 10/253530a72e73edd8dda6df4353326f6e4357897bb0724eb946e2a2cb73f49479558b7a9cac9d5eec944434ec3085bc409ea534746fb4f00b6cdd1753cf5837b9
   languageName: node
   linkType: hard
 
@@ -2605,12 +2605,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/feedback@npm:10.67.0":
-  version: 10.67.0
-  resolution: "@sentry/feedback@npm:10.67.0"
+"@sentry/core@npm:10.68.0":
+  version: 10.68.0
+  resolution: "@sentry/core@npm:10.68.0"
   dependencies:
-    "@sentry/core": "npm:10.67.0"
-  checksum: 10/114c3b4a8ebe634e8a7d2afa8d3761f08719420cc899fe1d592c21fb8d36de27c5d90a8ec9e22f4be5d97bcfc534e71f3dfb35a29491865cd20fcd4c00dad399
+    "@sentry/conventions": "npm:^0.16.0"
+  checksum: 10/a06bf20611476c5fdbed67faf6e042f51f40cb200c82c4ac2ced3d4d433b55c8bb5c5a14a0c780a84978da7935aecac762914112d227da47385640feb68b1844
+  languageName: node
+  linkType: hard
+
+"@sentry/feedback@npm:10.68.0":
+  version: 10.68.0
+  resolution: "@sentry/feedback@npm:10.68.0"
+  dependencies:
+    "@sentry/core": "npm:10.68.0"
+  checksum: 10/dcbf936adb77385df97ffba4cfc454742753424aaa647778f5112ef3d31af259f081cb853281b6ed7f881b7b893bd0f2c7931d419b531a21a3202c40906e3856
   languageName: node
   linkType: hard
 
@@ -2643,7 +2652,53 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/node@npm:10.67.0, @sentry/node@npm:^10.54.0":
+"@sentry/node-core@npm:10.68.0":
+  version: 10.68.0
+  resolution: "@sentry/node-core@npm:10.68.0"
+  dependencies:
+    "@sentry/conventions": "npm:^0.16.0"
+    "@sentry/core": "npm:10.68.0"
+    "@sentry/opentelemetry": "npm:10.68.0"
+    import-in-the-middle: "npm:^3.0.0"
+  peerDependencies:
+    "@opentelemetry/api": ^1.9.0
+    "@opentelemetry/core": ^1.30.1 || ^2.1.0
+    "@opentelemetry/exporter-trace-otlp-http": ">=0.57.0 <1"
+    "@opentelemetry/instrumentation": ">=0.57.1 <1"
+    "@opentelemetry/sdk-trace-base": ^1.30.1 || ^2.1.0
+  peerDependenciesMeta:
+    "@opentelemetry/api":
+      optional: true
+    "@opentelemetry/core":
+      optional: true
+    "@opentelemetry/exporter-trace-otlp-http":
+      optional: true
+    "@opentelemetry/instrumentation":
+      optional: true
+    "@opentelemetry/sdk-trace-base":
+      optional: true
+  checksum: 10/f05328ba1ee1d70017deb08b5e6b2402b08ca31f1ba6b02391bdc4ecabe3750916216bed3e20a33eb3f80a86f4486b1146fb293aa346411813262b49d23a9e7d
+  languageName: node
+  linkType: hard
+
+"@sentry/node@npm:10.68.0":
+  version: 10.68.0
+  resolution: "@sentry/node@npm:10.68.0"
+  dependencies:
+    "@opentelemetry/api": "npm:^1.9.1"
+    "@opentelemetry/instrumentation": "npm:^0.220.0"
+    "@opentelemetry/sdk-trace-base": "npm:^2.9.0"
+    "@sentry/conventions": "npm:^0.16.0"
+    "@sentry/core": "npm:10.68.0"
+    "@sentry/node-core": "npm:10.68.0"
+    "@sentry/opentelemetry": "npm:10.68.0"
+    "@sentry/server-utils": "npm:10.68.0"
+    import-in-the-middle: "npm:^3.0.0"
+  checksum: 10/2e3c7b723ba2f7ff4e7a79bd4c59b9ae09a3e61b9e4c6170bf82b357b4dd509c70aece9d5cbff3b1b908b6351a56835c556e346cf69140b89d1c986c8ee21339
+  languageName: node
+  linkType: hard
+
+"@sentry/node@npm:^10.54.0":
   version: 10.67.0
   resolution: "@sentry/node@npm:10.67.0"
   dependencies:
@@ -2674,23 +2729,37 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/replay-canvas@npm:10.67.0":
-  version: 10.67.0
-  resolution: "@sentry/replay-canvas@npm:10.67.0"
+"@sentry/opentelemetry@npm:10.68.0":
+  version: 10.68.0
+  resolution: "@sentry/opentelemetry@npm:10.68.0"
   dependencies:
-    "@sentry/core": "npm:10.67.0"
-    "@sentry/replay": "npm:10.67.0"
-  checksum: 10/525036033f60f77cf579de98cc8e8fe355b4dde880a897c6395bb8dc0327138d78d3817a1fcb2fc042e46f328db7169fcb03327c053310efcfdff355d64c1e19
+    "@sentry/conventions": "npm:^0.16.0"
+    "@sentry/core": "npm:10.68.0"
+  peerDependencies:
+    "@opentelemetry/api": ^1.9.0
+    "@opentelemetry/core": ^1.30.1 || ^2.1.0
+    "@opentelemetry/sdk-trace-base": ^1.30.1 || ^2.1.0
+  checksum: 10/4decea42c897b638b4914815665be7353831d18770a6a3502708f1aef21ac63093f818f962a6b05c675474e0bb135f01035486a7275a44552ee051a3fd9f3a4b
   languageName: node
   linkType: hard
 
-"@sentry/replay@npm:10.67.0":
-  version: 10.67.0
-  resolution: "@sentry/replay@npm:10.67.0"
+"@sentry/replay-canvas@npm:10.68.0":
+  version: 10.68.0
+  resolution: "@sentry/replay-canvas@npm:10.68.0"
   dependencies:
-    "@sentry/browser-utils": "npm:10.67.0"
-    "@sentry/core": "npm:10.67.0"
-  checksum: 10/3f3483d58ffa04b7ec1f2142914bd136f0495e54fba8f6c190f9b4e2ceeeae31f7453e07304e42e338f7b3c15d198dd6780225d1d32ffdaff75b021218ba0629
+    "@sentry/core": "npm:10.68.0"
+    "@sentry/replay": "npm:10.68.0"
+  checksum: 10/da352b9053a667f5a26ee7b9ac77173c808a67b8b013b2c60c01164cd12ddc987039c36043950d143b7e4bf4f1a13bb45bf6c90d2aac58767389448f2920f23a
+  languageName: node
+  linkType: hard
+
+"@sentry/replay@npm:10.68.0":
+  version: 10.68.0
+  resolution: "@sentry/replay@npm:10.68.0"
+  dependencies:
+    "@sentry/browser-utils": "npm:10.68.0"
+    "@sentry/core": "npm:10.68.0"
+  checksum: 10/87f54e1fbb68df704611764070da596670ec2b8e40afa1bc23ee16c379daa3042064864682bc3f4286d028716b7c77d0f081d06455340495637e4b376e693379
   languageName: node
   linkType: hard
 
@@ -2703,6 +2772,19 @@ __metadata:
     "@sentry/conventions": "npm:^0.16.0"
     "@sentry/core": "npm:10.67.0"
   checksum: 10/dbdcdb2fb0596d56d6249100cfaa7c6ad0d0560db530aa915fcc355f05732788efc68291ee3046369b9d953fc3fceac85df73d670a7dcb28896d25dd5b07ea5d
+  languageName: node
+  linkType: hard
+
+"@sentry/server-utils@npm:10.68.0":
+  version: 10.68.0
+  resolution: "@sentry/server-utils@npm:10.68.0"
+  dependencies:
+    "@apm-js-collab/code-transformer-bundler-plugins": "npm:0.7.1"
+    "@apm-js-collab/tracing-hooks": "npm:^0.13.0"
+    "@sentry/conventions": "npm:^0.16.0"
+    "@sentry/core": "npm:10.68.0"
+    meriyah: "npm:^6.1.4"
+  checksum: 10/7e7e4bd021d5a13c62050e18de549d8d7ece9b35de797f175c9d87d1b84a855c5eab54e6185f976f230b89afd3f4f1892f0a6c80f1bbf0159b782001d30e52af
   languageName: node
   linkType: hard
 
@@ -3618,9 +3700,9 @@ __metadata:
     "@modelcontextprotocol/sdk": "npm:1.29.0"
     "@prisma/adapter-pg": "npm:7.9.0"
     "@prisma/client": "npm:7.9.0"
-    "@sentry/browser": "npm:10.67.0"
-    "@sentry/core": "npm:10.67.0"
-    "@sentry/node": "npm:10.67.0"
+    "@sentry/browser": "npm:10.68.0"
+    "@sentry/core": "npm:10.68.0"
+    "@sentry/node": "npm:10.68.0"
     "@tailwindcss/postcss": "npm:4.3.3"
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.2"
