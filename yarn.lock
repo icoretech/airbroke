@@ -2788,6 +2788,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@shaderfrog/glsl-parser@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "@shaderfrog/glsl-parser@npm:7.0.1"
+  checksum: 10/9ae0478cbf149d90ad6ca72db8110babf7e4e2376252f217f6762fab3d887f8ad35ec1c3e337685d4049fbf07b121ec6358fddc093d0a5bf747932173c31263c
+  languageName: node
+  linkType: hard
+
 "@sindresorhus/merge-streams@npm:^4.0.0":
   version: 4.0.0
   resolution: "@sindresorhus/merge-streams@npm:4.0.0"
@@ -4957,9 +4964,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deslop-js@npm:0.9.1":
-  version: 0.9.1
-  resolution: "deslop-js@npm:0.9.1"
+"deslop-js@npm:0.9.2":
+  version: 0.9.2
+  resolution: "deslop-js@npm:0.9.2"
   dependencies:
     "@oxc-project/types": "npm:^0.141.0"
     fast-glob: "npm:^3.3.3"
@@ -4967,7 +4974,7 @@ __metadata:
     oxc-parser: "npm:^0.141.0"
     oxc-resolver: "npm:^11.24.2"
     typescript: "npm:>=5.0.4 <6"
-  checksum: 10/857e7e4e0265b5a9eb76b119b10b54c9b11f31db6d101fadeffb3e19e71a46ce726f40f1f83423e5267bfdf2ee1af60cd106d546424dc869364de52bc739e230
+  checksum: 10/7cfc3b467eeb51d52e5083a6eed0fc604b59efb19c4ff0a7b0d022be737dc26af6033c98be5740fcdc5858ebf7b7a5bf5f41727470239db30ddd01585fac55ee
   languageName: node
   linkType: hard
 
@@ -7538,15 +7545,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"oxlint-plugin-react-doctor@npm:0.9.1":
-  version: 0.9.1
-  resolution: "oxlint-plugin-react-doctor@npm:0.9.1"
+"oxlint-plugin-react-doctor@npm:0.9.2":
+  version: 0.9.2
+  resolution: "oxlint-plugin-react-doctor@npm:0.9.2"
   dependencies:
+    "@shaderfrog/glsl-parser": "npm:^7.0.1"
     "@typescript-eslint/types": "npm:^8.59.3"
     eslint-scope: "npm:^9.1.2"
     eslint-visitor-keys: "npm:^5.0.1"
     oxc-parser: "npm:^0.141.0"
-  checksum: 10/ef93b89f2df25159a6b822ccbc808589e7827451b70569f0805f846036bb9f6e87b422e1bef6f6cacd2691b299758d49d9fec6ed0969d9bf6e318a25afb3f6fe
+  checksum: 10/e4d1767e7379af82a2beee0b8bc21dc68b9b3dee0a08bd235711e596ef7f82b96658fe4a278352fbd821b2ee7bb632ed7f3ecf0e8061259964df089cd411ad6d
   languageName: node
   linkType: hard
 
@@ -8181,23 +8189,24 @@ __metadata:
   linkType: hard
 
 "react-doctor@npm:^0.9.0":
-  version: 0.9.1
-  resolution: "react-doctor@npm:0.9.1"
+  version: 0.9.2
+  resolution: "react-doctor@npm:0.9.2"
   dependencies:
     "@babel/code-frame": "npm:^7.29.0"
     "@sentry/node": "npm:^10.54.0"
     agent-install: "npm:0.0.5"
     conf: "npm:^15.1.0"
     confbox: "npm:^0.2.4"
-    deslop-js: "npm:0.9.1"
+    deslop-js: "npm:0.9.2"
     eslint-plugin-react-hooks: "npm:^7.1.1"
     figures: "npm:^6.1.0"
     ink: "npm:^7.1.0"
     ink-spinner: "npm:^5.0.0"
     jiti: "npm:^2.7.0"
     magicast: "npm:^0.5.3"
+    oxc-resolver: "npm:^11.24.2"
     oxlint: "npm:>=1.74.0 <1.75.0"
-    oxlint-plugin-react-doctor: "npm:0.9.1"
+    oxlint-plugin-react-doctor: "npm:0.9.2"
     prompts: "npm:^2.4.2"
     react: "npm:19.2.5"
     typescript: "npm:>=5.0.4 <6"
@@ -8207,7 +8216,7 @@ __metadata:
     yaml: "npm:^2.9.0"
   bin:
     react-doctor: bin/react-doctor.js
-  checksum: 10/d0197a4cb1322a70b21ccadcb98ea366c6f42feec904908d81d64a4eecd7980ca98f03ad9fd936f2b3a4b5018e07a6bdde4ffcd5f7d0b700dc364a3544711460
+  checksum: 10/b63b32c168370f18eb144525cea5e85f17c4eb13089bda0a72d5b4492946a4764c750bdebcd6c0123e848b387f4e9f3d5592548da5ecbc13eec17467e5032911
   languageName: node
   linkType: hard
 
