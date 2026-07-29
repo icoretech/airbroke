@@ -29,7 +29,7 @@
     "@airbrake/node": "2.1.9",
     "@base-ui/react": "^1.6.0",
     "@microlink/react-json-view": "1.31.25",
-    "@modelcontextprotocol/sdk": "1.29.0",
+    "@modelcontextprotocol/sdk": "1.30.0",
     "@prisma/adapter-pg": "7.9.1",
     "@prisma/client": "7.9.1",
     "@sentry/browser": "10.68.0",
