@@ -23,8 +23,8 @@
     "shadcn:update:dry": "node bin/update-shadcn-components.mjs --dry"
   },
   "dependencies": {
-    "@ai-sdk/openai": "4.0.30",
-    "@ai-sdk/react": "4.0.55",
+    "@ai-sdk/openai": "4.0.33",
+    "@ai-sdk/react": "4.0.58",
     "@airbrake/browser": "2.1.9",
     "@airbrake/node": "2.1.9",
     "@base-ui/react": "^1.6.0",
@@ -35,7 +35,7 @@
     "@sentry/browser": "10.69.0",
     "@sentry/core": "10.69.0",
     "@sentry/node": "10.69.0",
-    "ai": "7.0.52",
+    "ai": "7.0.55",
     "better-auth": "1.6.26",
     "chart.js": "4.5.1",
     "class-variance-authority": "0.7.1",
