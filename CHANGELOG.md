@@ -1,5 +1,58 @@
 # Changelog
 
+## [1.2.20](https://github.com/icoretech/airbroke/compare/v1.2.19...v1.2.20) (2026-08-08)
+
+
+### Features
+
+* **ui:** establish the base nova design system ([c5451c9](https://github.com/icoretech/airbroke/commit/c5451c9214db1cee0303bb2d9f8def448571468b))
+* **ui:** show empty project occurrence activity ([483d962](https://github.com/icoretech/airbroke/commit/483d962f2e0afbeb238b1b6a8857e3ce5b356f60))
+
+
+### Bug Fixes
+
+* **auth:** reject failed Atlassian profile requests ([8c9fa2c](https://github.com/icoretech/airbroke/commit/8c9fa2cdbc2160075a5188a27f032278441959a3))
+* **deps:** update dependency @microlink/react-json-view to v1.31.24 ([#1855](https://github.com/icoretech/airbroke/issues/1855)) ([fca3e1f](https://github.com/icoretech/airbroke/commit/fca3e1f20cbf3c99f85d321a60da3d2b39486d02))
+* **deps:** update dependency @microlink/react-json-view to v1.31.25 ([#1864](https://github.com/icoretech/airbroke/issues/1864)) ([1faf404](https://github.com/icoretech/airbroke/commit/1faf4049f6f0674aa0bccf6ba94c893b5ce1dc52))
+* **deps:** update dependency @microlink/react-json-view to v1.31.26 ([#1885](https://github.com/icoretech/airbroke/issues/1885)) ([64bafd3](https://github.com/icoretech/airbroke/commit/64bafd382e6000d4c928a4e553496d776d43284a))
+* **deps:** update dependency @microlink/react-json-view to v1.31.28 ([#1895](https://github.com/icoretech/airbroke/issues/1895)) ([64a6d63](https://github.com/icoretech/airbroke/commit/64a6d638c8159ffae83fc2cad1db1e114336397a))
+* **deps:** update dependency @modelcontextprotocol/sdk to v1.30.0 ([#1866](https://github.com/icoretech/airbroke/issues/1866)) ([0fe4e89](https://github.com/icoretech/airbroke/commit/0fe4e896cc39ab26911d70e1f1323318d70c031a))
+* **deps:** update dependency better-auth to v1.6.25 ([a85f4b2](https://github.com/icoretech/airbroke/commit/a85f4b2cde466460a6760052bcfdff3d59fcd7f8))
+* **deps:** update dependency better-auth to v1.6.26 ([#1892](https://github.com/icoretech/airbroke/issues/1892)) ([06a2c81](https://github.com/icoretech/airbroke/commit/06a2c816cc6ee587fa32484b6402fc226783b2e9))
+* **deps:** update dependency lucide-react to v1.26.0 ([#1851](https://github.com/icoretech/airbroke/issues/1851)) ([8237c15](https://github.com/icoretech/airbroke/commit/8237c1562aeb6b4339e3e94cdd9c1314b64432c9))
+* **deps:** update dependency lucide-react to v1.27.0 ([#1860](https://github.com/icoretech/airbroke/issues/1860)) ([c4b6c41](https://github.com/icoretech/airbroke/commit/c4b6c4158ccfcc150b064f5cff00ef62650d0460))
+* **deps:** update dependency lucide-react to v1.28.0 ([#1876](https://github.com/icoretech/airbroke/issues/1876)) ([0cb3060](https://github.com/icoretech/airbroke/commit/0cb3060461d58226336c39f22a061b0da701f92a))
+* **deps:** update dependency lucide-react to v1.29.0 ([#1899](https://github.com/icoretech/airbroke/issues/1899)) ([f27bd4e](https://github.com/icoretech/airbroke/commit/f27bd4e0f579f958284de012e39ff04281b78952))
+* **deps:** update dependency nanoid to v6.0.1 ([#1884](https://github.com/icoretech/airbroke/issues/1884)) ([5502134](https://github.com/icoretech/airbroke/commit/5502134b6709300fc6bd7f9a17c2da9e1c8a9a8c))
+* **deps:** update dependency next to v16.2.12 ([#1841](https://github.com/icoretech/airbroke/issues/1841)) ([8a690d8](https://github.com/icoretech/airbroke/commit/8a690d88cc61633d0e855b2ac84875adb1af71e3))
+* **deps:** update dependency next to v16.3.0 ([#1887](https://github.com/icoretech/airbroke/issues/1887)) ([1b27c74](https://github.com/icoretech/airbroke/commit/1b27c74d96a0d76525e1c3ddfccfb9fdc5509f0d))
+* **deps:** update dependency recharts to v3.10.1 ([#1858](https://github.com/icoretech/airbroke/issues/1858)) ([84084a8](https://github.com/icoretech/airbroke/commit/84084a8ad95581737ae191dfaccc9f03073275d4))
+* **deps:** update prisma monorepo to v7.9.1 ([#1863](https://github.com/icoretech/airbroke/issues/1863)) ([a5660e2](https://github.com/icoretech/airbroke/commit/a5660e21614157e25331b6a3bddd3d4cde7e5603))
+* **deps:** update sentry-javascript monorepo to v10.68.0 ([#1856](https://github.com/icoretech/airbroke/issues/1856)) ([f2b5207](https://github.com/icoretech/airbroke/commit/f2b52076a1eecdf3fbb09be7528426bb0f87ea40))
+* **deps:** update sentry-javascript monorepo to v10.69.0 ([#1872](https://github.com/icoretech/airbroke/issues/1872)) ([9e4bd3d](https://github.com/icoretech/airbroke/commit/9e4bd3dc22f11d6653e40cbd0ca8888a5c4598d4))
+* **deps:** update vercel ai sdk ([#1846](https://github.com/icoretech/airbroke/issues/1846)) ([c1fe323](https://github.com/icoretech/airbroke/commit/c1fe323df89c6f2203e55b9f34e0edf581672266))
+* **deps:** update vercel ai sdk ([#1853](https://github.com/icoretech/airbroke/issues/1853)) ([6836cfd](https://github.com/icoretech/airbroke/commit/6836cfde9a0fc642a0eec33796db458c74f25362))
+* **deps:** update vercel ai sdk ([#1867](https://github.com/icoretech/airbroke/issues/1867)) ([a358943](https://github.com/icoretech/airbroke/commit/a358943ece371f9b8ef0e8241b164c2a2071381f))
+* **deps:** update vercel ai sdk ([#1870](https://github.com/icoretech/airbroke/issues/1870)) ([754132f](https://github.com/icoretech/airbroke/commit/754132f5e95f417804a5502791f67bc0dfebd89c))
+* **deps:** update vercel ai sdk ([#1874](https://github.com/icoretech/airbroke/issues/1874)) ([149c9b3](https://github.com/icoretech/airbroke/commit/149c9b340f5de8f2bb0fcf7284dd0f410db32b59))
+* **deps:** update vercel ai sdk ([#1878](https://github.com/icoretech/airbroke/issues/1878)) ([ec72b8a](https://github.com/icoretech/airbroke/commit/ec72b8ac9cd843e0631c14cdc72f15fa4a367f3c))
+* **deps:** update vercel ai sdk ([#1881](https://github.com/icoretech/airbroke/issues/1881)) ([7186e70](https://github.com/icoretech/airbroke/commit/7186e70490565b4d6c50b44ed6d2fafc0e49d29c))
+* **deps:** update vercel ai sdk ([#1883](https://github.com/icoretech/airbroke/issues/1883)) ([af04cf0](https://github.com/icoretech/airbroke/commit/af04cf0557b1de072894d90aba9355a0f7379a4b))
+* **deps:** update vercel ai sdk ([#1886](https://github.com/icoretech/airbroke/issues/1886)) ([4fc52fc](https://github.com/icoretech/airbroke/commit/4fc52fcda2d6308559584d36893d5b880fa6bd9e))
+* **deps:** update vercel ai sdk ([#1893](https://github.com/icoretech/airbroke/issues/1893)) ([f7550f1](https://github.com/icoretech/airbroke/commit/f7550f14dc600c8318a8aa75c7cf1a709a2f9df6))
+* **deps:** update vercel ai sdk ([#1896](https://github.com/icoretech/airbroke/issues/1896)) ([3540ccd](https://github.com/icoretech/airbroke/commit/3540ccd280a5e4662738185c1db252e8f7db5289))
+* **deps:** update vercel ai sdk ([#1900](https://github.com/icoretech/airbroke/issues/1900)) ([6c062a6](https://github.com/icoretech/airbroke/commit/6c062a6a5b8f1eb5a2c688cd91a29e29152a08a3))
+* **intake:** normalize occurrence payloads for Prisma JSON ([00583b5](https://github.com/icoretech/airbroke/commit/00583b5654136be9b812f4768c8c11d09b8086df))
+* **replay:** avoid consuming successful response bodies ([13431dc](https://github.com/icoretech/airbroke/commit/13431dc81a32f15c4a8dfd697dc2b9a71bcd6485))
+* **ui:** harden the project overview URL fallback ([970d770](https://github.com/icoretech/airbroke/commit/970d770019f67f9caa73f79a9bdca52bbda14199))
+* **ui:** keep topbar search stable during navigation ([962857b](https://github.com/icoretech/airbroke/commit/962857bd8b64163272b8c8a720fb4de8ee43422b))
+* **ui:** make project notice surfaces responsive ([984261c](https://github.com/icoretech/airbroke/commit/984261c8fe2a552b34155ec8aa83d5c2d007d798))
+* **ui:** preserve invalid create-project input ([a37a433](https://github.com/icoretech/airbroke/commit/a37a433eae29525ce8a1dfcbbf589cc19f8412ee))
+* **ui:** preserve project test action descriptions ([e45b962](https://github.com/icoretech/airbroke/commit/e45b962f8b7a550ca849b05c9bd947161f437c61))
+* **ui:** preserve responsive breadcrumb context ([e85edf9](https://github.com/icoretech/airbroke/commit/e85edf93f6e0afe6cf5afa189c044114d8c9ac35))
+* **ui:** update occurrence context switch selectors ([d81ec46](https://github.com/icoretech/airbroke/commit/d81ec4611bcc8301d67683bfbbd4ed224f5cf24a))
+* **ui:** use semantic status indicators ([5bb4b6d](https://github.com/icoretech/airbroke/commit/5bb4b6d4457b9ff84fe36d4043ad627d22d8d748))
+
 ## [1.2.19](https://github.com/icoretech/airbroke/compare/v1.2.18...v1.2.19) (2026-07-23)
 
 
