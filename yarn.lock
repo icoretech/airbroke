@@ -3330,14 +3330,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/pg@npm:8.21.0":
-  version: 8.21.0
-  resolution: "@types/pg@npm:8.21.0"
+"@types/pg@npm:8.23.1":
+  version: 8.23.1
+  resolution: "@types/pg@npm:8.23.1"
   dependencies:
     "@types/node": "npm:*"
     pg-protocol: "npm:*"
     pg-types: "npm:^2.2.0"
-  checksum: 10/496ed159233d7aad007b3a15db04ffe4b9efac1f200b720387bb59c7d7c8e42e9f475f93aedee0c83a5f7ae559c20ee29ad494aa16be248f555197cbc8657cb3
+  checksum: 10/c68a88f73e05dc17c20f819682b43fd17b5c80baf5651f391303fef462ce7ba58e9fde2ce0964016a9db0a60a8abb15817b765c2db9f4b4c2907255ab43c5a03
   languageName: node
   linkType: hard
 
@@ -3795,7 +3795,7 @@ __metadata:
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.2"
     "@types/node": "npm:25.9.5"
-    "@types/pg": "npm:8.21.0"
+    "@types/pg": "npm:8.23.1"
     "@types/react": "npm:19.2.18"
     "@types/react-dom": "npm:19.2.4"
     "@types/react-syntax-highlighter": "npm:15.5.13"
