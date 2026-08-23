@@ -8746,8 +8746,8 @@ __metadata:
   linkType: hard
 
 "shadcn@npm:^4.14.0":
-  version: 4.18.0
-  resolution: "shadcn@npm:4.18.0"
+  version: 4.19.0
+  resolution: "shadcn@npm:4.19.0"
   dependencies:
     "@babel/core": "npm:^7.28.0"
     "@babel/parser": "npm:^7.28.0"
@@ -8784,7 +8784,7 @@ __metadata:
     zod-to-json-schema: "npm:^3.24.6"
   bin:
     shadcn: dist/index.js
-  checksum: 10/1b7afa6957d2588ee8d9276548a12d64d27e502be4138c016a6ebd509e6afb817b769fe4cd84eb9aeb220b7996d953265d86d6ef5ce12bbf49d4bab6e1f5cdd7
+  checksum: 10/e7e10db6473ef913e1d2cbbcac52deb982be4757e458f3439ee5a88e3797bb61a9138e56de73a71eb7a5c52ce2265980eb7a502a25d8392a6b550d77f9cecc30
   languageName: node
   linkType: hard
 
