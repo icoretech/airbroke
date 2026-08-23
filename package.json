@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "4.0.45",
-    "@ai-sdk/react": "4.0.76",
+    "@ai-sdk/react": "4.0.79",
     "@airbrake/browser": "2.1.9",
     "@airbrake/node": "2.1.9",
     "@base-ui/react": "^1.6.0",
@@ -35,7 +35,7 @@
     "@sentry/browser": "10.70.0",
     "@sentry/core": "10.70.0",
     "@sentry/node": "10.70.0",
-    "ai": "7.0.73",
+    "ai": "7.0.76",
     "better-auth": "1.6.30",
     "chart.js": "4.5.1",
     "class-variance-authority": "0.7.1",
