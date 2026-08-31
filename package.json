@@ -54,7 +54,7 @@
     "server-only": "0.0.1",
     "shadcn": "^4.14.0",
     "tailwind-merge": "3.6.0",
-    "zod": "4.5.2"
+    "zod": "4.5.4"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.11",
