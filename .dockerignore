@@ -2,6 +2,7 @@ Dockerfile
 Dockerfile.dev
 .dockerignore
 node_modules
+migrations-runtime/node_modules
 npm-debug.log
 README.md
 .next

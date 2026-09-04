@@ -1,0 +1,9 @@
+{
+  "name": "airbroke-migrations-runtime",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "prisma": "7.10.0"
+  },
+  "packageManager": "yarn@4.18.0"
+}
