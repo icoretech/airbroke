@@ -371,6 +371,7 @@ function createAuth() {
       },
     },
     account: {
+      identityStrategy: "provider-id",
       accountLinking: {
         enabled: true,
       },

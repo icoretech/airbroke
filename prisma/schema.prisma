@@ -89,6 +89,7 @@ model Account {
   id                    String    @id @default(cuid())
   userId                String    @map("user_id")
   accountId             String    @map("account_id")
+  issuer                String    @map("issuer")
   providerId            String    @map("provider_id")
   accessToken           String?   @map("access_token") @db.Text
   refreshToken          String?   @map("refresh_token") @db.Text
@@ -101,6 +102,7 @@ model Account {
   updatedAt             DateTime  @updatedAt @map("updated_at")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([issuer, accountId], map: "accounts_issuer_account_id_key")
 
   @@map("accounts")
 }

@@ -5,6 +5,72 @@ Keep the newest entry first and focus on operator-facing changes: required env
 renames, database migrations, auth changes, removed behavior, and any manual
 validation needed after deploy.
 
+## Better Auth 1.7.2
+
+This dependency refresh upgrades Better Auth from 1.6.x to 1.7.2. It changes
+generic OAuth from plugin-specific client endpoints to Better Auth's standard
+social sign-in flow and changes the database identity used for accounts.
+
+### Breaking changes
+
+- Generic OAuth clients must initiate sign-in through the standard
+  `signIn.social` flow using the configured provider ID. Do not continue to
+  call a generic-OAuth-plugin-specific sign-in endpoint.
+- Register the standard callback route with every generic OAuth provider:
+  `https://<your-airbroke-url>/api/auth/callback/<provider-id>`. Replace any
+  previously registered plugin-specific callback URL before enabling the new
+  deployment.
+
+### Database changes
+
+This upgrade ships the Prisma migration
+`prisma/migrations/20260904140000_better_auth_v17_account_identity/migration.sql`.
+
+The migration adds the `accounts.issuer` identity namespace and creates the
+unique `accounts_issuer_account_id_key` index required by Better Auth 1.7. It
+backfills credential accounts to use their local `user_id` as `account_id`,
+uses `local:credential` for credential issuers, and namespaces other provider
+IDs as stable `local:oauth:` issuer values.
+
+The migration deliberately fails rather than guess or merge data when it finds:
+
+- an empty or missing `provider_id`
+- a credential account without a non-empty `user_id`
+- an empty or missing `account_id` after credential identities are derived
+- multiple accounts that resolve to the same issuer and account ID
+
+Resolve the reported account data before retrying a failed migration; do not
+delete or merge accounts solely to make the migration succeed.
+
+### Upgrade steps
+
+1. Before the production cutover, take a restorable database backup and
+   rehearse this migration and recovery procedure against a copy of production
+   data. Plan a maintenance window: all Better Auth 1.6 application instances,
+   workers, and other auth writers must be stopped before the migration starts
+   and remain stopped until the 1.7.2 deployment is ready to serve traffic.
+2. Update every generic OAuth provider registration to use
+   `https://<your-airbroke-url>/api/auth/callback/<provider-id>`, and update
+   any client that initiates generic OAuth to use standard `signIn.social`.
+3. Deploy the code and dependencies for this refresh without resuming auth
+   traffic, then run the database migration with the project command:
+   `corepack yarn db:migrate`.
+4. If the command reports malformed account identity data or an
+   issuer/account-ID collision, keep the cutover paused, restore or correct the
+   affected data using the rehearsed procedure, and rerun the migration. Do
+   not restart any 1.6 auth writers after this migration has begun.
+5. Start only the Better Auth 1.7.2 deployment after the migration succeeds.
+
+### Post-upgrade checks
+
+- complete a returning credential sign-in and confirm the expected account can
+  access an authenticated route
+- complete a returning OAuth sign-in for each enabled social or generic
+  provider; confirm the provider redirects through
+  `/api/auth/callback/<provider-id>` and returns to the application
+- confirm the MCP endpoint at `/api/mcp` accepts a request using its configured
+  access credential
+
 ## 1.2.0
 
 Upgrade from: 1.1.103

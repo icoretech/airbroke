@@ -88,23 +88,10 @@ export default function SignInPageClient({
     setSignInError(null);
 
     try {
-      const result =
-        provider.type === "social"
-          ? await authClient.signIn.social({
-              provider: provider.id as
-                | "github"
-                | "google"
-                | "apple"
-                | "gitlab"
-                | "slack"
-                | "salesforce"
-                | "microsoft",
-              callbackURL: callbackUrl,
-            })
-          : await authClient.signIn.oauth2({
-              providerId: provider.id,
-              callbackURL: callbackUrl,
-            });
+      const result = await authClient.signIn.social({
+        provider: provider.id,
+        callbackURL: callbackUrl,
+      });
 
       if (result?.error) {
         const msg = result.error.message ?? result.error.code ?? "";

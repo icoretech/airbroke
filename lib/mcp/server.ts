@@ -172,7 +172,6 @@ function createMcpTransportHandler() {
       }
     },
     { serverInfo: MCP_SERVER_INFO },
-    { basePath: "/api", disableSse: true },
   );
 }
 

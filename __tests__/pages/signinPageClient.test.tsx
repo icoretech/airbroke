@@ -1,17 +1,15 @@
 // __tests__/pages/signinPageClient.test.tsx
 
-import { fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
 import type { ReactNode } from "react";
 
 const signInSocialMock = vi.hoisted(() => vi.fn());
-const signInOAuth2Mock = vi.hoisted(() => vi.fn());
 
 vi.mock("@/lib/auth/client", () => ({
   authClient: {
     signIn: {
       social: signInSocialMock,
-      oauth2: signInOAuth2Mock,
     },
   },
 }));
@@ -33,7 +31,7 @@ vi.mock("@/components/layout/FooterCredits", () => ({
 import SignInPageClient from "../../app/signin/SignInPageClient";
 
 describe("SignInPageClient", () => {
-  test("renders provider buttons and calls correct sign-in method", () => {
+  test("renders provider buttons and signs in with built-in and generic providers", () => {
     render(
       <SignInPageClient
         providers={[
@@ -58,11 +56,27 @@ describe("SignInPageClient", () => {
       callbackURL: "/projects",
     });
 
-    // Verify oauth2 provider renders with icon
+    // A successful sign-in disables the remaining controls while navigation
+    // begins, so render again to exercise the generic-provider path.
+    cleanup();
+    render(
+      <SignInPageClient
+        providers={[
+          { id: "github", name: "GitHub", type: "social" as const },
+          { id: "cognito", name: "Cognito", type: "oauth2" as const },
+        ]}
+        callbackUrl="/projects"
+        showError={false}
+      />,
+    );
+    // Generic OAuth providers also use Better Auth's standard social API.
     const cognitoButton = screen.getByRole("button", {
       name: /sign in with cognito/i,
     });
-    const cognitoIcon = cognitoButton.querySelector("svg");
-    expect(cognitoIcon).not.toBeNull();
+    fireEvent.click(cognitoButton);
+    expect(signInSocialMock).toHaveBeenCalledWith({
+      provider: "cognito",
+      callbackURL: "/projects",
+    });
   });
 });

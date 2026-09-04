@@ -268,15 +268,21 @@ describe("POST /api/mcp", () => {
       expect(toolNames).toContain("airbroke_get_setup_guide");
     });
 
-    it("returns tool error for unknown tool", async () => {
+    it("returns a JSON-RPC invalid-params error for an unknown tool", async () => {
       const req = callTool("airbroke_unknown_tool", {}, 99);
 
       const res = await POST(req);
       const json = await parseMcpResponse(res);
-      const result = requireResult(json) as { isError?: boolean };
 
       expect(res.status).toBe(200);
-      expect(result.isError).toBe(true);
+      expect(json).toMatchObject({
+        jsonrpc: "2.0",
+        id: 99,
+        error: {
+          code: -32602,
+          message: "Tool airbroke_unknown_tool not found",
+        },
+      });
     });
   });
 
