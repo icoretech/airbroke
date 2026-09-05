@@ -3802,7 +3802,7 @@ __metadata:
     clsx: "npm:2.1.1"
     date-fns: "npm:4.4.0"
     jsdom: "npm:30.0.1"
-    lucide-react: "npm:1.40.0"
+    lucide-react: "npm:1.41.0"
     mcp-handler: "npm:2.1.1"
     nanoid: "npm:6.0.1"
     next: "npm:16.3.4"
@@ -6797,12 +6797,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:1.40.0":
-  version: 1.40.0
-  resolution: "lucide-react@npm:1.40.0"
+"lucide-react@npm:1.41.0":
+  version: 1.41.0
+  resolution: "lucide-react@npm:1.41.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/0700a5e1a907c3123f88a62fe2f83e1d711011514fbe7dd8125cbc0d3318fdaa7c00099b3806f7016221cac5009c2cfc108b24e533528ecd3a743a52dbfe8fe2
+  checksum: 10/4dcc98122b034e6ae8df38099a49585d697723ca6e554961ec192d7ac84ca1e80fbd4898ccf71fa28fb0a75bf605350f06e6c2313b351a00e223ed8a1172eed1
   languageName: node
   linkType: hard
 
