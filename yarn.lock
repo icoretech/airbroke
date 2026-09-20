@@ -3826,7 +3826,7 @@ __metadata:
     date-fns: "npm:4.4.0"
     jsdom: "npm:30.1.0"
     lucide-react: "npm:1.47.0"
-    mcp-handler: "npm:2.1.1"
+    mcp-handler: "npm:2.2.0"
     nanoid: "npm:6.0.1"
     next: "npm:16.3.5"
     numbro: "npm:2.5.0"
@@ -6901,9 +6901,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mcp-handler@npm:2.1.1":
-  version: 2.1.1
-  resolution: "mcp-handler@npm:2.1.1"
+"mcp-handler@npm:2.2.0":
+  version: 2.2.0
+  resolution: "mcp-handler@npm:2.2.0"
   dependencies:
     chalk: "npm:^5.3.0"
     commander: "npm:^11.1.0"
@@ -6919,7 +6919,7 @@ __metadata:
     create-mcp-route: dist/cli/index.js
     mcp-adapter: dist/cli/index.js
     mcp-handler: dist/cli/index.js
-  checksum: 10/f90bc7c03b463eaf2ee340e279961bd6b790b1844f49be8011e67a5b4446990a303c6298a3c716f669e153fef4dd4dc65dd74c4c6894944069d4606c54e94d0c
+  checksum: 10/d04767efa2abc6e993b02c1d6431cceeb0ceb790cbde380e3ecb95c0c21dfed7a76e2d12e1edd939fdcbcc01720e526ca4e0fc8f8eb91154e914ce2934f2e3e6
   languageName: node
   linkType: hard
 
