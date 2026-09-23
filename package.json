@@ -69,7 +69,7 @@
     "@types/react-syntax-highlighter": "15.5.13",
     "@vitest/coverage-v8": "5.0.1",
     "babel-plugin-react-compiler": "1.0.0",
-    "jsdom": "30.1.0",
+    "jsdom": "30.1.1",
     "postcss": "8.5.28",
     "prisma": "7.10.0",
     "react-doctor": "^0.9.0",
