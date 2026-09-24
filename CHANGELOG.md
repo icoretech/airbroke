@@ -1,5 +1,48 @@
 # Changelog
 
+## [1.3.1](https://github.com/icoretech/airbroke/compare/v1.3.0...v1.3.1) (2026-09-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @ai-sdk/openai to v4.0.60 ([#1984](https://github.com/icoretech/airbroke/issues/1984)) ([80ec23c](https://github.com/icoretech/airbroke/commit/80ec23c566e2d7c365647ba37befc58547de9168))
+* **deps:** update dependency @microlink/react-json-view to v1.31.32 ([#1980](https://github.com/icoretech/airbroke/issues/1980)) ([2621350](https://github.com/icoretech/airbroke/commit/2621350836a761f2adc4651f4788c2400020842a))
+* **deps:** update dependency @microlink/react-json-view to v1.31.33 ([#1986](https://github.com/icoretech/airbroke/issues/1986)) ([33f7204](https://github.com/icoretech/airbroke/commit/33f720415e0a435255f743a9b60d4c0e040e0f15))
+* **deps:** update dependency @microlink/react-json-view to v1.31.34 ([#2007](https://github.com/icoretech/airbroke/issues/2007)) ([6a209a8](https://github.com/icoretech/airbroke/commit/6a209a807d2345a72e1a7ccb75a80968a7363d41))
+* **deps:** update dependency @microlink/react-json-view to v1.31.35 ([#2018](https://github.com/icoretech/airbroke/issues/2018)) ([f3cfc49](https://github.com/icoretech/airbroke/commit/f3cfc49961f88b0ab709cb5a4f721b31040eea76))
+* **deps:** update dependency @microlink/react-json-view to v1.31.37 ([#2023](https://github.com/icoretech/airbroke/issues/2023)) ([19568ed](https://github.com/icoretech/airbroke/commit/19568ed7ac00ac4c9f3e75cfe52595e9e85c2670))
+* **deps:** update dependency better-auth to v1.7.3 ([#1927](https://github.com/icoretech/airbroke/issues/1927)) ([5f84da1](https://github.com/icoretech/airbroke/commit/5f84da1300422658a12e4180ebae8278c986e431))
+* **deps:** update dependency better-auth to v1.7.4 ([#1995](https://github.com/icoretech/airbroke/issues/1995)) ([8f10385](https://github.com/icoretech/airbroke/commit/8f103851fcb2da56ea8a4660b21e44851215c78b))
+* **deps:** update dependency better-auth to v1.7.5 ([#2009](https://github.com/icoretech/airbroke/issues/2009)) ([c842f2c](https://github.com/icoretech/airbroke/commit/c842f2c295690bc430113b7e7b6f1271a661ea9a))
+* **deps:** update dependency lucide-react to v1.41.0 ([#1982](https://github.com/icoretech/airbroke/issues/1982)) ([818b6e2](https://github.com/icoretech/airbroke/commit/818b6e21f34fbd61e9098ff055575ff1d8c234ea))
+* **deps:** update dependency lucide-react to v1.42.0 ([#1985](https://github.com/icoretech/airbroke/issues/1985)) ([97fc0d5](https://github.com/icoretech/airbroke/commit/97fc0d5a8278facfc9b01fcde5e91f2c9bb4a901))
+* **deps:** update dependency lucide-react to v1.43.0 ([#1987](https://github.com/icoretech/airbroke/issues/1987)) ([d5036e5](https://github.com/icoretech/airbroke/commit/d5036e5f6d876f7542ef732905e96db2ec2c02c4))
+* **deps:** update dependency lucide-react to v1.44.0 ([#1997](https://github.com/icoretech/airbroke/issues/1997)) ([d111038](https://github.com/icoretech/airbroke/commit/d1110388b8b336d4db194989d69c79d7e89735c9))
+* **deps:** update dependency lucide-react to v1.45.0 ([#1998](https://github.com/icoretech/airbroke/issues/1998)) ([6d930d9](https://github.com/icoretech/airbroke/commit/6d930d91bf75191b3097fed59d4f6d7a82b73519))
+* **deps:** update dependency lucide-react to v1.46.0 ([#2006](https://github.com/icoretech/airbroke/issues/2006)) ([8b535e8](https://github.com/icoretech/airbroke/commit/8b535e8831541dc75d7655d683130aa26ab624f0))
+* **deps:** update dependency lucide-react to v1.47.0 ([#2017](https://github.com/icoretech/airbroke/issues/2017)) ([200620e](https://github.com/icoretech/airbroke/commit/200620eeaa6dcf921f40634b3e41b559dac3db25))
+* **deps:** update dependency mcp-handler to v2.2.0 ([#2020](https://github.com/icoretech/airbroke/issues/2020)) ([55fedf5](https://github.com/icoretech/airbroke/commit/55fedf5a9318353f438eb4a1741b6e69c285447a))
+* **deps:** update dependency next to v16.3.5 ([#1999](https://github.com/icoretech/airbroke/issues/1999)) ([1fa3f31](https://github.com/icoretech/airbroke/commit/1fa3f3168ca0faee68bd0d7c942e08e6583455ce))
+* **deps:** update dependency next to v16.3.6 ([b08ab3f](https://github.com/icoretech/airbroke/commit/b08ab3fa6b75ae05b3445113074f4e399555dd3c))
+* **deps:** update dependency tailwind-merge to v3.7.0 ([#2002](https://github.com/icoretech/airbroke/issues/2002)) ([566561c](https://github.com/icoretech/airbroke/commit/566561cda1b7d044c4d79f5f034dcdf0cac1c756))
+* **deps:** update dependency zod to v4.6.2 ([#1991](https://github.com/icoretech/airbroke/issues/1991)) ([25e2021](https://github.com/icoretech/airbroke/commit/25e2021c890857c8f003a23fad9988750445c993))
+* **deps:** update dependency zod to v4.6.4 ([#2003](https://github.com/icoretech/airbroke/issues/2003)) ([89c5d34](https://github.com/icoretech/airbroke/commit/89c5d34dbb250313157875b0044f804e8c95da4b))
+* **deps:** update dependency zod to v4.6.5 ([#2005](https://github.com/icoretech/airbroke/issues/2005)) ([f2dca15](https://github.com/icoretech/airbroke/commit/f2dca15bb37e020f1c9d4ee38100936bbce93e72))
+* **deps:** update react runtime to v19.3.0 ([#1992](https://github.com/icoretech/airbroke/issues/1992)) ([a810945](https://github.com/icoretech/airbroke/commit/a810945cb295950076f67bbd5394ff96c5c83758))
+* **deps:** update sentry-javascript monorepo to v10.74.0 ([#1993](https://github.com/icoretech/airbroke/issues/1993)) ([2ecdcf9](https://github.com/icoretech/airbroke/commit/2ecdcf901887b8e54f520b703d2ac878a34cc7ad))
+* **deps:** update sentry-javascript monorepo to v10.75.0 ([#2015](https://github.com/icoretech/airbroke/issues/2015)) ([797e6da](https://github.com/icoretech/airbroke/commit/797e6dafaa76bbee930c3755a4386ebcc94ed1cb))
+* **deps:** update sentry-javascript monorepo to v10.75.1 ([#2024](https://github.com/icoretech/airbroke/issues/2024)) ([041a86b](https://github.com/icoretech/airbroke/commit/041a86bdb7cb64db19e6645157431ebbd50f360b))
+* **deps:** update vercel ai sdk ([#1977](https://github.com/icoretech/airbroke/issues/1977)) ([4cd4eae](https://github.com/icoretech/airbroke/commit/4cd4eae22c748e3a67097aff239f00c0ade33bfd))
+* **deps:** update vercel ai sdk ([#1983](https://github.com/icoretech/airbroke/issues/1983)) ([92e7076](https://github.com/icoretech/airbroke/commit/92e70768f1e4dfcf02f0896bdc0917b7bdc19adb))
+* **deps:** update vercel ai sdk ([#1988](https://github.com/icoretech/airbroke/issues/1988)) ([5005caa](https://github.com/icoretech/airbroke/commit/5005caa9fac4db1db0fcdbc4f48879b0c55f1170))
+* **deps:** update vercel ai sdk ([#1990](https://github.com/icoretech/airbroke/issues/1990)) ([bfa461a](https://github.com/icoretech/airbroke/commit/bfa461a1ea6eaa0615f695f0e4d091a725388e23))
+* **deps:** update vercel ai sdk ([#2000](https://github.com/icoretech/airbroke/issues/2000)) ([f3ba0ee](https://github.com/icoretech/airbroke/commit/f3ba0eebdd8e1ab038f4121ed11adf3ec29efdea))
+* **deps:** update vercel ai sdk ([#2008](https://github.com/icoretech/airbroke/issues/2008)) ([7d24992](https://github.com/icoretech/airbroke/commit/7d249925614501350021c4a2e5c5127a703f8a52))
+* **deps:** update vercel ai sdk ([#2011](https://github.com/icoretech/airbroke/issues/2011)) ([0b77dae](https://github.com/icoretech/airbroke/commit/0b77daed5950fa34c1c67616b2957e2c826b7fcc))
+* **deps:** update vercel ai sdk ([#2014](https://github.com/icoretech/airbroke/issues/2014)) ([95c4f01](https://github.com/icoretech/airbroke/commit/95c4f0117a27383842183f9e1a2beeab88f182f3))
+* **deps:** update vercel ai sdk ([#2019](https://github.com/icoretech/airbroke/issues/2019)) ([be7dab4](https://github.com/icoretech/airbroke/commit/be7dab42eaffe4942367ba4dc38c0a1a8c25147d))
+* **deps:** update vercel ai sdk ([#2021](https://github.com/icoretech/airbroke/issues/2021)) ([11c33ac](https://github.com/icoretech/airbroke/commit/11c33ac7d016516dc4374e567f43d228e9c71612))
+
 ## [1.3.0](https://github.com/icoretech/airbroke/compare/v1.2.19...v1.3.0) (2026-09-04)
 
 
