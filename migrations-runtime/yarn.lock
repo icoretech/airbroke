@@ -3,7 +3,7 @@
 
 __metadata:
   version: 10
-  cacheKey: 10c0
+  cacheKey: 10
 
 "@electric-sql/pglite-socket@npm:0.1.3":
   version: 0.1.3
