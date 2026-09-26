@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.3.2](https://github.com/icoretech/airbroke/compare/v1.3.1...v1.3.2) (2026-09-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @modelcontextprotocol/server to v2.1.0 ([#2029](https://github.com/icoretech/airbroke/issues/2029)) ([edbc2ff](https://github.com/icoretech/airbroke/commit/edbc2ff7f78df0ad946191fb984725c0b2561e61))
+* **deps:** update dependency better-auth to v1.7.6 ([#2034](https://github.com/icoretech/airbroke/issues/2034)) ([074a412](https://github.com/icoretech/airbroke/commit/074a412f881df500c5dcfe13944c086a92e06a14))
+* **deps:** update sentry-javascript monorepo to v10.75.3 ([#2027](https://github.com/icoretech/airbroke/issues/2027)) ([e3b13c9](https://github.com/icoretech/airbroke/commit/e3b13c91770c6e8fd9468a72464ffd94ff532d73))
+* **deps:** update vercel ai sdk ([#2028](https://github.com/icoretech/airbroke/issues/2028)) ([1b4a7ec](https://github.com/icoretech/airbroke/commit/1b4a7ecb4127057ce30fad55329a2ea09f86cc7c))
+
 ## [1.3.1](https://github.com/icoretech/airbroke/compare/v1.3.0...v1.3.1) (2026-09-24)
 
 
