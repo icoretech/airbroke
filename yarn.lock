@@ -568,9 +568,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@better-auth/core@npm:1.7.5":
-  version: 1.7.5
-  resolution: "@better-auth/core@npm:1.7.5"
+"@better-auth/core@npm:1.7.6":
+  version: 1.7.6
+  resolution: "@better-auth/core@npm:1.7.6"
   dependencies:
     "@opentelemetry/semantic-conventions": "npm:^1.41.1"
     "@standard-schema/spec": "npm:^1.1.0"
@@ -586,67 +586,67 @@ __metadata:
   peerDependenciesMeta:
     "@opentelemetry/api":
       optional: true
-  checksum: 10/5b03ed237e12d99dd6b49cc881ebbd993f9d55a6db922495d8b47915ef5297ea28cc464fa887c27a0b781137107d4e900fce917f197ebe55ffdd7ff1003fd536
+  checksum: 10/a2ba6b84109e34b357e1daa19184ae1dace9980cd705a7da51c59e48f3e4627199cfa8ff6c889bdcf8e3095f8f4bb5a570af74e55ae147fb467331e2382cc19d
   languageName: node
   linkType: hard
 
-"@better-auth/drizzle-adapter@npm:1.7.5":
-  version: 1.7.5
-  resolution: "@better-auth/drizzle-adapter@npm:1.7.5"
+"@better-auth/drizzle-adapter@npm:1.7.6":
+  version: 1.7.6
+  resolution: "@better-auth/drizzle-adapter@npm:1.7.6"
   peerDependencies:
-    "@better-auth/core": ^1.7.5
+    "@better-auth/core": ^1.7.6
     "@better-auth/utils": 0.4.2
     drizzle-orm: ^0.45.2 || >=1.0.0-rc.1 <2.0.0
   peerDependenciesMeta:
     drizzle-orm:
       optional: true
-  checksum: 10/3f26b42908b102235b3f60b5b12d78cf03649bdf9583b52bc21e1d5e7b8326e3201d20dd94a7c493dd4fe393486cb1767c2d54f6418c88e1af2948e2df97815d
+  checksum: 10/da3d6ab00b371b93c6bd03780f5124e4d417a757db49e28efb9e4d9ddebb061e37c421508ba8826ea3e67fc00ed99256f4bf6e102a4b231d9d7964aa9b3cb855
   languageName: node
   linkType: hard
 
-"@better-auth/kysely-adapter@npm:1.7.5":
-  version: 1.7.5
-  resolution: "@better-auth/kysely-adapter@npm:1.7.5"
+"@better-auth/kysely-adapter@npm:1.7.6":
+  version: 1.7.6
+  resolution: "@better-auth/kysely-adapter@npm:1.7.6"
   peerDependencies:
-    "@better-auth/core": ^1.7.5
+    "@better-auth/core": ^1.7.6
     "@better-auth/utils": 0.4.2
     kysely: ^0.28.17 || ^0.29.0
   peerDependenciesMeta:
     kysely:
       optional: true
-  checksum: 10/1e5c4c06c7bbee97cf36312e158eea8c7277b9687e79761cc1259afa4f172c3c4c77240e88cc7b53af52c6359f5e40a70ed3167aea7edf71393239478a27356a
+  checksum: 10/2165a6db770e714b7ccd649b650c45d07cb24968f59ca5b327697d6b453ca05f4792f91d9763fcb315ccd71681082f37fccb7dd2da46c604e9320b7597d2e2aa
   languageName: node
   linkType: hard
 
-"@better-auth/memory-adapter@npm:1.7.5":
-  version: 1.7.5
-  resolution: "@better-auth/memory-adapter@npm:1.7.5"
+"@better-auth/memory-adapter@npm:1.7.6":
+  version: 1.7.6
+  resolution: "@better-auth/memory-adapter@npm:1.7.6"
   peerDependencies:
-    "@better-auth/core": ^1.7.5
+    "@better-auth/core": ^1.7.6
     "@better-auth/utils": 0.4.2
-  checksum: 10/564a3cf701a431490cdb6faff6fe7d31031b3c888b416d34390843022eb6cdbe271e6b6b23853c3ba346ef78fa39671775f3282af06be600cc2664873cde5a98
+  checksum: 10/80e0c2c77659bd9f72a7c2f77fc39a9aaf90a8cf7b84e0118b789571c33ed7e824b1216882695108cd0ec128f5183ed5332c1adb5aaea84350414bb80cd52cf6
   languageName: node
   linkType: hard
 
-"@better-auth/mongo-adapter@npm:1.7.5":
-  version: 1.7.5
-  resolution: "@better-auth/mongo-adapter@npm:1.7.5"
+"@better-auth/mongo-adapter@npm:1.7.6":
+  version: 1.7.6
+  resolution: "@better-auth/mongo-adapter@npm:1.7.6"
   peerDependencies:
-    "@better-auth/core": ^1.7.5
+    "@better-auth/core": ^1.7.6
     "@better-auth/utils": 0.4.2
     mongodb: ^6.0.0 || ^7.0.0
   peerDependenciesMeta:
     mongodb:
       optional: true
-  checksum: 10/5721ba4906e8e75f81e6934c46a9bdbbabdaf28d4efc972b175325679d732cc1a8d332e08da5693e7134d49e8e417616229f46cc578909140e89f759c0b365fc
+  checksum: 10/d74e45ece7bbb1fedfd6907c600b1316301f214cc54b201b297cf99ddfd7ee57b931fb2e118bbba1dee0d94095ed9e309f821db07be863a557cfcc707b2eb1ca
   languageName: node
   linkType: hard
 
-"@better-auth/prisma-adapter@npm:1.7.5":
-  version: 1.7.5
-  resolution: "@better-auth/prisma-adapter@npm:1.7.5"
+"@better-auth/prisma-adapter@npm:1.7.6":
+  version: 1.7.6
+  resolution: "@better-auth/prisma-adapter@npm:1.7.6"
   peerDependencies:
-    "@better-auth/core": ^1.7.5
+    "@better-auth/core": ^1.7.6
     "@better-auth/utils": 0.4.2
     "@prisma/client": ^5.0.0 || ^6.0.0 || ^7.0.0
     prisma: ^5.0.0 || ^6.0.0 || ^7.0.0
@@ -655,18 +655,18 @@ __metadata:
       optional: true
     prisma:
       optional: true
-  checksum: 10/2e60456eb564575461bf6d70ec61107691b52f90d2a1198fd16af88c6bb38b8df9d7f0ad68c02c4d6ff8afde4e483af0db5eff9c6ff0778077572978e2e1eb6c
+  checksum: 10/cc4ba80e68afbf0f5e644cfa605843f003679694eb989f6e048a9c464c044925cbc53a605613bc09f8bbd8fe05157161942ae6d81797c12878c191483d234a55
   languageName: node
   linkType: hard
 
-"@better-auth/telemetry@npm:1.7.5":
-  version: 1.7.5
-  resolution: "@better-auth/telemetry@npm:1.7.5"
+"@better-auth/telemetry@npm:1.7.6":
+  version: 1.7.6
+  resolution: "@better-auth/telemetry@npm:1.7.6"
   peerDependencies:
-    "@better-auth/core": ^1.7.5
+    "@better-auth/core": ^1.7.6
     "@better-auth/utils": 0.4.2
     "@better-fetch/fetch": 1.3.2
-  checksum: 10/211c4e0c01d9bbfcda42f79913f6f46c1f568a39715045c7e98ddedbc2c7045a1c5f43011f35142b0ea00214194362d690047340922373a12a43e3d2c67d739d
+  checksum: 10/55bb2976b57d46c498bc33f00107437f3eaa1eb651c17f9842ff51b83c79d78dfef757e640b9d037fda248103b73eb4f8ed66d0955a27b735bcc0ef44f15ff73
   languageName: node
   linkType: hard
 
@@ -3819,7 +3819,7 @@ __metadata:
     "@vitest/coverage-v8": "npm:5.0.1"
     ai: "npm:7.0.109"
     babel-plugin-react-compiler: "npm:1.0.0"
-    better-auth: "npm:1.7.5"
+    better-auth: "npm:1.7.6"
     chart.js: "npm:4.5.1"
     class-variance-authority: "npm:0.7.1"
     clsx: "npm:2.1.1"
@@ -4061,17 +4061,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"better-auth@npm:1.7.5":
-  version: 1.7.5
-  resolution: "better-auth@npm:1.7.5"
+"better-auth@npm:1.7.6":
+  version: 1.7.6
+  resolution: "better-auth@npm:1.7.6"
   dependencies:
-    "@better-auth/core": "npm:1.7.5"
-    "@better-auth/drizzle-adapter": "npm:1.7.5"
-    "@better-auth/kysely-adapter": "npm:1.7.5"
-    "@better-auth/memory-adapter": "npm:1.7.5"
-    "@better-auth/mongo-adapter": "npm:1.7.5"
-    "@better-auth/prisma-adapter": "npm:1.7.5"
-    "@better-auth/telemetry": "npm:1.7.5"
+    "@better-auth/core": "npm:1.7.6"
+    "@better-auth/drizzle-adapter": "npm:1.7.6"
+    "@better-auth/kysely-adapter": "npm:1.7.6"
+    "@better-auth/memory-adapter": "npm:1.7.6"
+    "@better-auth/mongo-adapter": "npm:1.7.6"
+    "@better-auth/prisma-adapter": "npm:1.7.6"
+    "@better-auth/telemetry": "npm:1.7.6"
     "@better-auth/utils": "npm:0.4.2"
     "@better-fetch/fetch": "npm:1.3.2"
     "@noble/ciphers": "npm:^2.2.0"
@@ -4138,7 +4138,7 @@ __metadata:
       optional: true
     vue:
       optional: true
-  checksum: 10/10813b6430ed180e6842b18d0f51cafb0a430c616a3568353b64b95e87e24395b8efb97ffafa3b8f7385474585ebb02f4f0f286ce346f2202bf38f0fd7b8f180
+  checksum: 10/bbbe6826fe0efc6aa1a5429d9638de2e397c71dac4d5a0cd5f571fea6b32eb9e8b0aab03fc700dc34524082c5dc32e15e0a3095a442c965b58fdbfb445c7e177
   languageName: node
   linkType: hard
 
