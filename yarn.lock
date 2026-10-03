@@ -3271,12 +3271,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:25.9.8":
-  version: 25.9.8
-  resolution: "@types/node@npm:25.9.8"
+"@types/node@npm:25.9.9":
+  version: 25.9.9
+  resolution: "@types/node@npm:25.9.9"
   dependencies:
     undici-types: "npm:>=7.24.0 <7.24.7"
-  checksum: 10/10e3afa171497a3b459e79a2980cd0a3630b8c83e0c58a8975b8dc416b799df216a9e067893cc3f2981cc727250b898e8de12e038025426ced90942c8cad87a0
+  checksum: 10/8accbdd15bc035db3b20bf9353dabce847a5d3dd1f3976c25e67907f4fd287b00b8163f661fe48cd6d644e30a11e1dffd67e2742233209c7b7cbc500d14d394c
   languageName: node
   linkType: hard
 
@@ -3843,7 +3843,7 @@ __metadata:
     "@tailwindcss/postcss": "npm:4.3.3"
     "@testing-library/dom": "npm:10.4.2"
     "@testing-library/react": "npm:16.3.3"
-    "@types/node": "npm:25.9.8"
+    "@types/node": "npm:25.9.9"
     "@types/pg": "npm:8.23.1"
     "@types/react": "npm:19.3.0"
     "@types/react-dom": "npm:19.3.0"
