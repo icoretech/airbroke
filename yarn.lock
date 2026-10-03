@@ -1380,12 +1380,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@modelcontextprotocol/core@npm:2.2.0":
-  version: 2.2.0
-  resolution: "@modelcontextprotocol/core@npm:2.2.0"
+"@modelcontextprotocol/core@npm:2.3.0":
+  version: 2.3.0
+  resolution: "@modelcontextprotocol/core@npm:2.3.0"
   dependencies:
     zod: "npm:^4.2.0"
-  checksum: 10/3788ecff0b86506aaeaf072acd5ef1000eb9508da5760154cef87dd762718eb7a5e8977222f34406e0f5801176bc6a4b311b537dd4d263998e93884f34adb477
+  checksum: 10/f6fa98eb4240036ba7954a3da3cdfff6137865c92eb27aef58539d29d28ae2061242704e39186e332ec53354120fd04a5accf69e99013505547f93db5bee9997
   languageName: node
   linkType: hard
 
@@ -1422,13 +1422,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@modelcontextprotocol/server@npm:2.2.0":
-  version: 2.2.0
-  resolution: "@modelcontextprotocol/server@npm:2.2.0"
+"@modelcontextprotocol/server@npm:2.3.0":
+  version: 2.3.0
+  resolution: "@modelcontextprotocol/server@npm:2.3.0"
   dependencies:
-    "@modelcontextprotocol/core": "npm:2.2.0"
+    "@modelcontextprotocol/core": "npm:2.3.0"
     zod: "npm:^4.2.0"
-  checksum: 10/698bb13ff43171b191ac1fddf2c8eed00fc42d2bb79d43a1dfa96efbd459f438a195bdc214c5cbd9bf0fba283c82a459f540d5b77e9f153d5d4ceadad8aae68a
+  checksum: 10/d2ae1ca17fcd117fed3ea06992bfcdb15bba0920a9a6d2f4d95da05bc0f625bbdf4efc286073e1e3b3a7e6d68bcf895597cd30229979d9059318def307a0dfcd
   languageName: node
   linkType: hard
 
@@ -3834,7 +3834,7 @@ __metadata:
     "@biomejs/biome": "npm:2.5.15"
     "@faker-js/faker": "npm:10.6.0"
     "@microlink/react-json-view": "npm:1.31.38"
-    "@modelcontextprotocol/server": "npm:2.2.0"
+    "@modelcontextprotocol/server": "npm:2.3.0"
     "@prisma/adapter-pg": "npm:7.10.0"
     "@prisma/client": "npm:7.10.0"
     "@sentry/browser": "npm:10.76.0"
