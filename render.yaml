@@ -20,7 +20,7 @@ services:
     healthCheckPath: /api/hc
     envVars:
       - key: NODE_VERSION
-        value: 24.12.0
+        value: 24.21.0
       - key: DATABASE_URL
         fromDatabase:
           name: airbroke-starter-db

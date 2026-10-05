@@ -27,6 +27,16 @@ export async function sendSentryNodeException(
     tracesSampleRate: 0,
     sampleRate: 1,
     sendClientReports: false,
+    dataCollection: {
+      userInfo: false,
+      cookies: false,
+      httpHeaders: false,
+      httpBodies: [],
+      urlQueryParams: false,
+      genAI: { inputs: false, outputs: false },
+      databaseQueryData: false,
+      graphQL: { document: false, variables: false },
+    },
     defaultIntegrations: false,
     integrations: [],
   });

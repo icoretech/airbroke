@@ -29,7 +29,7 @@
     steps: [
       {
         name: 'quality',
-        image: 'node:24.12-alpine',
+        image: 'node:24.21-alpine',
         commands: [
           'apk upgrade --no-cache',
           'apk add --no-cache git',

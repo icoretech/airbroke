@@ -5,6 +5,31 @@ Keep the newest entry first and focus on operator-facing changes: required env
 renames, database migrations, auth changes, removed behavior, and any manual
 validation needed after deploy.
 
+## Dependency refresh (2026-10-05)
+
+- Development, production, CI, and Render use Node.js 24.21.0 LTS. The project
+  and embedded migration runtime use Yarn 4.18.1. Rebuild existing containers
+  before running application or migration commands.
+- Sentry browser, server, and envelope parsing dependencies move to 11.4.0.
+  The Test Zone and generated setup snippets use `dataCollection` instead of
+  the removed `sendDefaultPii` option, explicitly disabling automatic user,
+  cookie, header, body, query-parameter, AI, database, and GraphQL payload
+  collection. Tracing and default integrations remain disabled.
+- When updating an application's Sentry SDK to 11.x, copy the refreshed setup
+  snippet rather than keeping `sendDefaultPii: false`: omitted v11 collection
+  options collect additional data by default. Sentry 11 browser support starts
+  at Safari 15; Safari 14 is no longer supported. See the
+  [Sentry migration guide](https://docs.sentry.io/platforms/javascript/migration/v10-to-v11/interactive/).
+- Base UI, Lucide, shadcn CLI, React Doctor, Node type definitions, and compatible
+  transitive dependencies are refreshed. Recharts' `react-is` peer is provided
+  explicitly at the same version as React.
+- Prisma remains on the matched stable 7.10.0 CLI/client/adapter versions;
+  Prisma 8 release candidates are not adopted. There are no new database
+  migrations or environment-variable changes in this refresh.
+- The 24-hour package release quarantine remains enabled. MCP server 2.3.1,
+  PostCSS 8.5.29, shadcn 4.21.2, and React Doctor 0.9.16/0.9.17 were too new at
+  update time and are left for a later eligible refresh.
+
 ## Better Auth 1.7.2
 
 This dependency refresh upgrades Better Auth from 1.6.x to 1.7.2. It changes
