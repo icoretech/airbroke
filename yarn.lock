@@ -7570,9 +7570,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"oxlint-plugin-react-doctor@npm:0.9.14":
-  version: 0.9.14
-  resolution: "oxlint-plugin-react-doctor@npm:0.9.14"
+"oxlint-plugin-react-doctor@npm:0.9.17":
+  version: 0.9.17
+  resolution: "oxlint-plugin-react-doctor@npm:0.9.17"
   dependencies:
     "@shaderfrog/glsl-parser": "npm:^7.0.1"
     "@typescript-eslint/types": "npm:^8.59.3"
@@ -7580,7 +7580,7 @@ __metadata:
     eslint-visitor-keys: "npm:^5.0.1"
     lightningcss: "npm:^1.33.0"
     oxc-parser: "npm:^0.148.0"
-  checksum: 10/98b193db6d121da7084a125297eec136a8305c680f79d45aaeb40432153c7810f0c913ad2ab7c4c697f0dc1c705fcdc314a202777f5b843726141e74b5367417
+  checksum: 10/cd7e9385dacb8a8603162ba23f13973cc1d98d32d4cb45041ae514d2c11907bd6a1b4063748b7958472f420f1f9257347988f0cc73dd37ee0b96636182af3b57
   languageName: node
   linkType: hard
 
@@ -8200,8 +8200,8 @@ __metadata:
   linkType: hard
 
 "react-doctor@npm:^0.9.14":
-  version: 0.9.14
-  resolution: "react-doctor@npm:0.9.14"
+  version: 0.9.17
+  resolution: "react-doctor@npm:0.9.17"
   dependencies:
     "@astrojs/compiler": "npm:^4.0.0"
     "@sentry/node": "npm:^10.54.0"
@@ -8216,7 +8216,7 @@ __metadata:
     oxc-parser: "npm:^0.148.0"
     oxc-resolver: "npm:^11.24.2"
     oxlint: "npm:>=1.81.0 <1.82.0"
-    oxlint-plugin-react-doctor: "npm:0.9.14"
+    oxlint-plugin-react-doctor: "npm:0.9.17"
     playwright-core: "npm:^1.62.1"
     prompts: "npm:^2.4.2"
     typescript: "npm:>=5.0.4 <6"
@@ -8224,7 +8224,7 @@ __metadata:
     yoga-layout: "npm:~3.2.1"
   bin:
     react-doctor: bin/react-doctor.js
-  checksum: 10/f1ee1b83e8276d01ec3db3d9a056b11ac2383b18078afabb068be7b9a230fcd6ce72a07239523584c5c2183143452d98256020bc21c7cd7a922fd528c8928877
+  checksum: 10/ffabfd749a3bbc0d981dba6c95a8eb1ed5b717e1c980a48f141528d8ccec20ba8b01371e7ef594872b92b779e8f402ce8a936723e0be3b479c408058d176b243
   languageName: node
   linkType: hard
 
