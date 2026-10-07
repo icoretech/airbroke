@@ -2864,9 +2864,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shadcn/registry@npm:0.1.1":
-  version: 0.1.1
-  resolution: "@shadcn/registry@npm:0.1.1"
+"@shadcn/registry@npm:0.1.2":
+  version: 0.1.2
+  resolution: "@shadcn/registry@npm:0.1.2"
   dependencies:
     "@babel/core": "npm:^7.28.0"
     "@babel/parser": "npm:^7.28.0"
@@ -2891,7 +2891,7 @@ __metadata:
     type-fest: "npm:^4.41.0"
     undici: "npm:^7.29.0"
     zod: "npm:^3.24.1"
-  checksum: 10/4c921d2444c898151722f0e09c18e47b76b285f1cb0d7693488bdc906b467bdedb141eb2a884016f08db481ae04f7002b682ff2901675a8b499f9fa0bd08e02a
+  checksum: 10/c86e865c945d8b376149cd75c8a4f619555ea2aec89d706b74e75869c973847c7fbdfdb11c0d7860dda2758da116bf551c986d067943ef2715d24be645d06ee6
   languageName: node
   linkType: hard
 
@@ -8616,8 +8616,8 @@ __metadata:
   linkType: hard
 
 "shadcn@npm:^4.21.1":
-  version: 4.21.2
-  resolution: "shadcn@npm:4.21.2"
+  version: 4.21.3
+  resolution: "shadcn@npm:4.21.3"
   dependencies:
     "@babel/core": "npm:^7.28.0"
     "@babel/parser": "npm:^7.28.0"
@@ -8625,7 +8625,7 @@ __metadata:
     "@babel/preset-typescript": "npm:^7.27.1"
     "@dotenvx/dotenvx": "npm:^1.48.4"
     "@modelcontextprotocol/sdk": "npm:^1.26.0"
-    "@shadcn/registry": "npm:0.1.1"
+    "@shadcn/registry": "npm:0.1.2"
     "@types/validate-npm-package-name": "npm:^4.0.2"
     browserslist: "npm:^4.26.2"
     cn: "npm:^0.2.4"
@@ -8654,7 +8654,7 @@ __metadata:
     zod-to-json-schema: "npm:^3.24.6"
   bin:
     shadcn: dist/index.js
-  checksum: 10/28cbde2a79e4f000b253a73667fd492de562343ff821778fa62f740cdb611e27392e1c965cde0288046e2fce908f3071eaa2dbc7236c126de9f78ef717305ecb
+  checksum: 10/667acca9fac81b5cd81427dd12bc84fd5afc707f369c30fe65ee402de5795b483cebe936353575a28a0aa2e99e0dc7a3d4a5503b57e9eeb4a6c566c5c1f1dd2d
   languageName: node
   linkType: hard
 
