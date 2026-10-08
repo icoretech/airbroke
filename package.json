@@ -42,7 +42,7 @@
     "clsx": "2.1.1",
     "date-fns": "4.4.0",
     "lucide-react": "1.52.0",
-    "mcp-handler": "2.2.0",
+    "mcp-handler": "2.3.0",
     "nanoid": "6.0.2",
     "next": "16.4.0",
     "numbro": "2.5.0",
