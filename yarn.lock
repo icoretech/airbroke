@@ -3956,7 +3956,7 @@ __metadata:
     react-dom: "npm:19.3.0"
     react-icons: "npm:5.7.0"
     react-is: "npm:19.3.0"
-    react-syntax-highlighter: "npm:16.1.1"
+    react-syntax-highlighter: "npm:16.1.2"
     recharts: "npm:3.10.1"
     server-only: "npm:0.0.1"
     shadcn: "npm:^4.21.1"
@@ -8211,9 +8211,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-syntax-highlighter@npm:16.1.1":
-  version: 16.1.1
-  resolution: "react-syntax-highlighter@npm:16.1.1"
+"react-syntax-highlighter@npm:16.1.2":
+  version: 16.1.2
+  resolution: "react-syntax-highlighter@npm:16.1.2"
   dependencies:
     "@babel/runtime": "npm:^7.28.4"
     highlight.js: "npm:^10.4.1"
@@ -8223,7 +8223,7 @@ __metadata:
     refractor: "npm:^5.0.0"
   peerDependencies:
     react: ">= 0.14.0"
-  checksum: 10/701e62d78811fd6bf5f2dafa680f371db15556e12787eb9466244aea95ee0faf85e532398ffab9d3880a56b4612bfd1828d8af1ce898f959d1d097a9429bc7e0
+  checksum: 10/30ea5a813b4eee4dcc8e23eb7c5353eecf8d37491d3516bdd3865e884c647fcf93003075d065de789f85e6e775e3ad4be888db2d8b5e684b997f09085aac354b
   languageName: node
   linkType: hard
 
