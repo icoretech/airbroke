@@ -36,7 +36,7 @@
     "@sentry/core": "11.7.0",
     "@sentry/node": "11.7.0",
     "ai": "7.0.140",
-    "better-auth": "1.7.8",
+    "better-auth": "1.7.9",
     "chart.js": "4.5.1",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
