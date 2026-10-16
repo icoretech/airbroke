@@ -3946,7 +3946,7 @@ __metadata:
     react-doctor: "npm:^0.9.14"
     react-dom: "npm:19.3.0"
     react-icons: "npm:5.7.0"
-    react-is: "npm:19.3.0"
+    react-is: "npm:19.3.1"
     react-syntax-highlighter: "npm:16.1.2"
     recharts: "npm:3.10.1"
     server-only: "npm:0.0.1"
@@ -8182,10 +8182,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:19.3.0":
-  version: 19.3.0
-  resolution: "react-is@npm:19.3.0"
-  checksum: 10/69cfafcab48caac03da35fb17e640a2a2de8299a3cd699da720e671a22231fc7179c77c82e379826728857f9cc45cb56ff1e7f5d607acdd48fe151417a2a388f
+"react-is@npm:19.3.1":
+  version: 19.3.1
+  resolution: "react-is@npm:19.3.1"
+  checksum: 10/d763db896daf611bc15456abc356b1d4c5c2fa0a68a60c2c53c0199d39c951e0b6891437c649ee41b1b3614f59932e93075834a42a3a52dfcb0cac22289ab191
   languageName: node
   linkType: hard
 
