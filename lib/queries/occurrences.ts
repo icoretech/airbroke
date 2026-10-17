@@ -1,6 +1,10 @@
 // lib/queries/occurrences.ts
 
 import { db } from "@/lib/db";
+import {
+  getHourlyOccurrenceWindow,
+  HOURLY_OCCURRENCE_BUCKETS,
+} from "@/lib/queries/hourlyOccurrenceWindow";
 import type {
   Notice,
   Occurrence,
@@ -142,9 +146,7 @@ export function getOccurrenceById(
 export async function getHourlyOccurrenceRateForLast14Days(
   projectId: string,
 ): Promise<number> {
-  const endDate = new Date();
-  const startDate = new Date();
-  startDate.setDate(startDate.getDate() - 14);
+  const { startDate, endDate } = getHourlyOccurrenceWindow();
 
   const occurrences = await db.hourlyOccurrence.aggregate({
     _sum: {
@@ -158,16 +160,13 @@ export async function getHourlyOccurrenceRateForLast14Days(
       },
       interval_start: {
         gte: startDate,
-      },
-      interval_end: {
-        lte: endDate,
+        lt: endDate,
       },
     },
   });
 
   const totalOccurrences = occurrences._sum.count ?? 0;
-  const totalHours = 14 * 24; // 14 days
-  const rate = Number(totalOccurrences) / totalHours;
+  const rate = Number(totalOccurrences) / HOURLY_OCCURRENCE_BUCKETS;
 
   return Math.round(rate);
 }

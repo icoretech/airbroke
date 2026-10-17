@@ -1,5 +1,13 @@
-import { act, cleanup, render, waitFor } from "@testing-library/react";
-import { afterEach, describe, expect, test, vi } from "vitest";
+import { act, cleanup, render } from "@testing-library/react";
+import {
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  test,
+  vi,
+} from "vitest";
 import OccurrenceChart from "@/components/common/OccurrenceChart";
 
 class MeasuredResizeObserver implements ResizeObserver {
@@ -57,8 +65,33 @@ const chartData = [1, 4, 2, 8].map((count, index) => ({
 }));
 
 describe("OccurrenceChart real Recharts rendering", () => {
+  beforeAll(async () => {
+    // Load the real dependency before mounting Next's dynamic chart exports.
+    await import("recharts");
+  });
+
+  beforeEach(() => {
+    // Vitest retains Node's performance clock, while jsdom's RAF timestamp is
+    // relative to its window. Recharts needs both to share the same origin.
+    vi.useFakeTimers({
+      toFake: ["performance", "requestAnimationFrame", "cancelAnimationFrame"],
+    });
+  });
+
+  test("uses the same clock origin for RAF and animation timing", async () => {
+    const requestedAt = performance.now();
+    const frame = new Promise<number>((resolve) =>
+      requestAnimationFrame(resolve),
+    );
+    vi.advanceTimersToNextFrame();
+    const frameTime = await frame;
+    expect(frameTime).toBeGreaterThanOrEqual(requestedAt);
+    expect(frameTime).toBe(performance.now());
+  });
+
   afterEach(() => {
     cleanup();
+    vi.useRealTimers();
     vi.restoreAllMocks();
     vi.unstubAllGlobals();
   });
@@ -74,8 +107,8 @@ describe("OccurrenceChart real Recharts rendering", () => {
     "resizes real bars to width $width, compact $compact",
     async ({ width, compact }) => {
       const height = compact ? 180 : 220;
-      // jsdom has no layout engine. Only measurement is supplied; all chart
-      // primitives, dynamic imports, paths, and paint attributes remain real.
+      // Only DOM measurement and the browser clock are supplied. Chart
+      // primitives, Next dynamic imports, paths, and animations remain real.
       vi.stubGlobal("ResizeObserver", MeasuredResizeObserver);
       let measuredWidth = width - 100;
       vi.spyOn(
@@ -88,37 +121,32 @@ describe("OccurrenceChart real Recharts rendering", () => {
         render(<OccurrenceChart chartData={chartData} compact={compact} />, {
           container,
         });
+        await vi.dynamicImportSettled();
       });
 
-      await waitFor(() =>
-        expect(container.querySelector("svg")?.getAttribute("width")).toBe(
-          String(measuredWidth),
-        ),
+      await act(async () => {
+        await vi.runAllTimersAsync();
+      });
+      expect(container.querySelector("svg")?.getAttribute("width")).toBe(
+        String(measuredWidth),
       );
       act(() => {
         measuredWidth = width;
         MeasuredResizeObserver.resize();
       });
 
-      await waitFor(
-        () => {
-          expect(container.querySelector("svg")?.getAttribute("width")).toBe(
-            String(width),
-          );
-          const bars = container.querySelectorAll(
-            ".recharts-bar-rectangle path",
-          );
-          expect(bars).toHaveLength(chartData.length);
-          for (const bar of bars) {
-            expect(Number(bar.getAttribute("width"))).toBeGreaterThan(0);
-            expect(Number(bar.getAttribute("height"))).toBeGreaterThan(0);
-            expect(bar.getAttribute("d")).toBeTruthy();
-            expect(bar.getAttribute("d")).not.toContain("NaN");
-            expect(bar.getAttribute("fill")).toBe("hsl(var(--chart-1))");
-          }
-        },
-        { timeout: 5000 },
-      );
+      await act(async () => {
+        await vi.runAllTimersAsync();
+      });
+      const bars = container.querySelectorAll(".recharts-bar-rectangle path");
+      expect(bars).toHaveLength(chartData.length);
+      for (const bar of bars) {
+        expect(Number(bar.getAttribute("width"))).toBeGreaterThan(0);
+        expect(Number(bar.getAttribute("height"))).toBeGreaterThan(0);
+        expect(bar.getAttribute("d")).toBeTruthy();
+        expect(bar.getAttribute("d")).not.toContain("NaN");
+        expect(bar.getAttribute("fill")).toBe("hsl(var(--chart-1))");
+      }
       expect(container.querySelector("svg")?.getAttribute("width")).toBe(
         String(width),
       );

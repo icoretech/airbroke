@@ -36,7 +36,7 @@ describe("occurrence chart occurrence queries", () => {
         count: BigInt(5),
       },
       {
-        interval_start: new Date("2025-03-20T11:00:00.000Z"),
+        interval_start: new Date("2025-03-20T12:00:00.000Z"),
         count: BigInt(2),
       },
     ]);
@@ -47,10 +47,8 @@ describe("occurrence chart occurrence queries", () => {
       where: {
         occurrence_id: "occ-123",
         interval_start: {
-          gte: new Date("2025-03-06T12:34:56.789Z"),
-        },
-        interval_end: {
-          lte: new Date("2025-03-20T12:34:56.789Z"),
+          gte: new Date("2025-03-06T13:00:00.000Z"),
+          lt: new Date("2025-03-20T13:00:00.000Z"),
         },
       },
       orderBy: {
@@ -63,15 +61,12 @@ describe("occurrence chart occurrence queries", () => {
     });
     expect(chartData).toHaveLength(336);
     expect(chartData[0]).toEqual({
-      date: Date.UTC(2025, 2, 6, 12),
-      count: 0,
-    });
-    expect(chartData[1]).toEqual({
       date: Date.UTC(2025, 2, 6, 13),
       count: 5,
     });
+    expect(chartData[1]).toEqual({ date: Date.UTC(2025, 2, 6, 14), count: 0 });
     expect(chartData.at(-1)).toEqual({
-      date: Date.UTC(2025, 2, 20, 11),
+      date: Date.UTC(2025, 2, 20, 12),
       count: 2,
     });
   });

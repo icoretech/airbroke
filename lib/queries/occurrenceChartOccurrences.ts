@@ -1,4 +1,9 @@
 import { db } from "@/lib/db";
+import {
+  getHourlyOccurrenceWindow,
+  HOUR_IN_MS,
+  HOURLY_OCCURRENCE_BUCKETS,
+} from "@/lib/queries/hourlyOccurrenceWindow";
 
 type HourlyOccurrenceSummary = {
   interval_start: Date | string;
@@ -9,17 +14,6 @@ export type OccurrenceChartDataPoint = {
   date: number;
   count: number;
 };
-
-const OCCURRENCE_CHART_HOURS = 14 * 24;
-const HOUR_IN_MS = 60 * 60 * 1000;
-
-function getOccurrenceChartWindow(now = new Date()) {
-  const endDate = now;
-  const startDate = new Date(endDate);
-  startDate.setDate(endDate.getDate() - 14);
-
-  return { startDate, endDate };
-}
 
 function toUtcHourStamp(date: Date): number {
   return Date.UTC(
@@ -40,7 +34,7 @@ export function buildOccurrenceChartOccurrencesData(
       Number(summary.count);
   });
 
-  return Array.from({ length: OCCURRENCE_CHART_HOURS }).map((_, index) => {
+  return Array.from({ length: HOURLY_OCCURRENCE_BUCKETS }).map((_, index) => {
     const date = new Date(startDate.getTime() + index * HOUR_IN_MS);
     const hourUtc = toUtcHourStamp(date);
 
@@ -52,16 +46,14 @@ export function buildOccurrenceChartOccurrencesData(
 }
 
 export async function getOccurrenceChartOccurrencesData(occurrenceId: string) {
-  const { startDate, endDate } = getOccurrenceChartWindow();
+  const { startDate, endDate } = getHourlyOccurrenceWindow();
 
   const occurrenceSummaries = await db.hourlyOccurrence.findMany({
     where: {
       occurrence_id: occurrenceId,
       interval_start: {
         gte: startDate,
-      },
-      interval_end: {
-        lte: endDate,
+        lt: endDate,
       },
     },
     orderBy: {
