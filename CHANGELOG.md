@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/icoretech/airbroke/compare/v1.4.0...v1.4.1) (2026-10-17)
+
+
+### Bug Fixes
+
+* **images:** build native release targets and gate stable tags ([37f50ee](https://github.com/icoretech/airbroke/commit/37f50ee9e9a02966b8ac1cfbee1855f07d7c1747))
+
 ## [1.4.0](https://github.com/icoretech/airbroke/compare/v1.3.1...v1.4.0) (2026-10-17)
 
 
