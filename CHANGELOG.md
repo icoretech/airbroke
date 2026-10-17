@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.2](https://github.com/icoretech/airbroke/compare/v1.4.1...v1.4.2) (2026-10-17)
+
+
+### Bug Fixes
+
+* **auth:** persist OAuth accounts using provider identities ([cd151d6](https://github.com/icoretech/airbroke/commit/cd151d63e134eb2a8654649b5acf99d65990f390))
+
 ## [1.4.1](https://github.com/icoretech/airbroke/compare/v1.4.0...v1.4.1) (2026-10-17)
 
 
