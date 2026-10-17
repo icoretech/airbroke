@@ -9,7 +9,9 @@ README.md
 .git
 .vscode
 .drone.jsonnet
-.env.dist
+.env*
+.omo
+.sisyphus
 Makefile
 prisma/pg-init-scripts
 prisma/seed.ts
