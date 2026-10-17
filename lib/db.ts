@@ -1,6 +1,7 @@
 // lib/db.ts
 
 import { PrismaPg } from "@prisma/adapter-pg";
+import { logPrismaEvent } from "@/lib/auth/logging";
 import { PrismaClient } from "@/prisma/generated/client";
 
 let prisma: PrismaClient | undefined;
@@ -15,15 +16,26 @@ function createPrisma(): PrismaClient {
 
   const adapter = new PrismaPg({ connectionString: databaseUrl });
 
-  return new PrismaClient({
+  const client = new PrismaClient({
     adapter,
     log: process.env.TESTING
       ? []
       : process.env.NODE_ENV === "development"
-        ? ["query", "info", "warn", "error"]
-        : ["warn", "error"],
+        ? [
+            "query",
+            "info",
+            { level: "warn", emit: "event" },
+            { level: "error", emit: "event" },
+          ]
+        : [
+            { level: "warn", emit: "event" },
+            { level: "error", emit: "event" },
+          ],
     errorFormat: "pretty",
   });
+  client.$on("warn", (event) => logPrismaEvent("warn", event));
+  client.$on("error", (event) => logPrismaEvent("error", event));
+  return client;
 }
 
 function getClient(): PrismaClient {

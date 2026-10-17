@@ -10,6 +10,7 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { APIError } from "better-auth/api";
 import { nextCookies } from "better-auth/next-js";
 import { genericOAuth } from "better-auth/plugins";
+import { authLogger } from "@/lib/auth/logging";
 import {
   buildGenericOAuthConfig,
   buildSocialProviders,
@@ -306,6 +307,12 @@ function createAuth() {
     database: prismaAdapter(db, { provider: "postgresql" }),
     baseURL: process.env.BETTER_AUTH_URL,
     secret: process.env.BETTER_AUTH_SECRET,
+    logger: authLogger,
+    advanced: {
+      ipAddress: {
+        ipAddressHeaders: envList("AIRBROKE_AUTH_IP_HEADERS"),
+      },
+    },
     socialProviders: buildSocialProviders(),
     plugins: [
       nextCookies(),
@@ -371,7 +378,6 @@ function createAuth() {
       },
     },
     account: {
-      identityStrategy: "provider-id",
       accountLinking: {
         enabled: true,
       },
