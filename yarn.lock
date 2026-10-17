@@ -2198,18 +2198,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client-runtime-utils@npm:7.10.0":
-  version: 7.10.0
-  resolution: "@prisma/client-runtime-utils@npm:7.10.0"
-  checksum: 10/f802d31e0b4bcc563a78a5fe5e5577018e0ce97a18f1846654a0505a536e80e2641a5e3cfa260ee00a2bcfe12430e0a26cbcbe2f4082434e7e0bb794251fb05f
+"@prisma/client-runtime-utils@npm:7.10.1":
+  version: 7.10.1
+  resolution: "@prisma/client-runtime-utils@npm:7.10.1"
+  checksum: 10/7828fa51acbaa6836d89bac1e7f6ad0a2be6c9d50f6277592dd97722df7db8eb08e51230ab230975ff5ef44d82a414741bc51a6bdb3ad8c6861302c917ba80e1
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:7.10.0":
-  version: 7.10.0
-  resolution: "@prisma/client@npm:7.10.0"
+"@prisma/client@npm:7.10.1":
+  version: 7.10.1
+  resolution: "@prisma/client@npm:7.10.1"
   dependencies:
-    "@prisma/client-runtime-utils": "npm:7.10.0"
+    "@prisma/client-runtime-utils": "npm:7.10.1"
   peerDependencies:
     prisma: "*"
     typescript: ">=5.4.0"
@@ -2218,7 +2218,7 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: 10/9dae91743d5948340ad990ed49531cabfad694870e1668f9ca16415ab9d68462dbb6e1640fbbdeb1877b066dff63d4f86aa1089df0787976014d42ff31d06c4e
+  checksum: 10/25054df950f2a8694d94741370e16fabc26e5efedee8c67c68975566e5d29ac2edf04b0e0568f5c7d518e0ef504ab160e9e565dece0eb6833b13deac41d91301
   languageName: node
   linkType: hard
 
@@ -3921,7 +3921,7 @@ __metadata:
     "@microlink/react-json-view": "npm:1.31.40"
     "@modelcontextprotocol/server": "npm:2.3.1"
     "@prisma/adapter-pg": "npm:7.10.1"
-    "@prisma/client": "npm:7.10.0"
+    "@prisma/client": "npm:7.10.1"
     "@sentry/browser": "npm:11.7.0"
     "@sentry/core": "npm:11.7.0"
     "@sentry/node": "npm:11.7.0"
