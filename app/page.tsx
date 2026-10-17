@@ -39,7 +39,7 @@ airbroke.notify(new Error('Hello from Airbroke'))`;
                   alt="Airbroke"
                   width={463}
                   height={338}
-                  priority
+                  preload
                   className="h-10 md:h-12"
                   style={{ width: "auto" }}
                 />
@@ -73,6 +73,23 @@ airbroke.notify(new Error('Hello from Airbroke'))`;
                   rel="noopener noreferrer"
                 >
                   Releases →
+                </a>
+              </div>
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <p className="text-sm text-muted-foreground">No server?</p>
+                <a
+                  href="https://railway.com/deploy/airbroke?referralCode=ftyt7p&utm_medium=integration&utm_source=template&utm_campaign=generic"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex rounded-md outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+                >
+                  <Image
+                    src="https://railway.com/button.svg"
+                    alt="Deploy on Railway"
+                    width={183}
+                    height={40}
+                    unoptimized
+                  />
                 </a>
               </div>
             </div>
@@ -112,7 +129,9 @@ airbroke.notify(new Error('Hello from Airbroke'))`;
                 What are the requirements?
               </summary>
               <p className="mt-2 text-sm text-muted-foreground">
-                Node.js 20/22/24+, PostgreSQL 15+, ~300MB RAM, and ~1 CPU core.
+                The provided container image, PostgreSQL 18, and a configured
+                OAuth provider. Use Docker Compose or the Railway template to
+                set up the application and database together.
               </p>
             </details>
             <details className="group rounded-lg border border-border bg-card p-4 open:bg-muted/20">

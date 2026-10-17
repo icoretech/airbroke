@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/logo-full.png" height="400">
+  <img src="public/logo-full.png" height="400" alt="Airbroke">
   <h1 align="center">Open Source Error Catcher</h1>
 </p>
 
@@ -107,16 +107,11 @@ The Render Deploy Button uses `render.yaml` (Render Blueprint). On the free tier
 
 ### Railway
 
-Railway supports one-click deployments via **Templates**. Because templates are created and published from within Railway, you’ll need to create a template once and then wire up the button URL.
+Deploy the stable Airbroke image with a private PostgreSQL 18 database, persistent storage, generated application secrets, and migrations before startup.
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/REPLACE_ME?utm_medium=integration&utm_source=button&utm_campaign=airbroke)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/airbroke?referralCode=ftyt7p&utm_medium=integration&utm_source=template&utm_campaign=generic)
 
-Steps:
-
-- Create a Railway project from this repo (GitHub deploy).
-- Add a PostgreSQL database in Railway.
-- Set required environment variables (Railway can suggest vars from `.env.dist`).
-- Publish the project as a Template and replace `REPLACE_ME` above with the template ID.
+Choose the GitHub organizations allowed to sign in. After deployment, configure a GitHub OAuth application using the generated domain. The [Railway deployment guide](deploy/railway/README.md) covers setup, screenshots, verification, backups, and upgrades.
 
 ### Netlify
 
