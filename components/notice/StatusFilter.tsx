@@ -49,7 +49,7 @@ export default function StatusFilter({
           <Button variant="outline" size="sm" aria-label="Filter by status" />
         }
       >
-        <CircleDot className="mr-2 size-4" />
+        <CircleDot data-icon="inline-start" />
         <span>Status: {currentLabel}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
@@ -58,24 +58,32 @@ export default function StatusFilter({
           <DropdownMenuSeparator />
           <DropdownMenuRadioGroup value={currentStatus}>
             {STATUS_OPTIONS.map((option) => (
-              <DropdownMenuRadioItem key={option.value} value={option.value}>
-                <Link
-                  href={
-                    option.value === defaultStatus
-                      ? generateUpdatedURLWithRemovals(
-                          pathname,
-                          searchParams,
-                          {},
-                          ["status"],
-                        )
-                      : generateUpdatedURLWithRemovals(pathname, searchParams, {
-                          status: option.value,
-                        })
-                  }
-                  className="flex w-full"
-                >
-                  {option.label}
-                </Link>
+              <DropdownMenuRadioItem
+                closeOnClick
+                key={option.value}
+                value={option.value}
+                render={
+                  <Link
+                    href={
+                      option.value === defaultStatus
+                        ? generateUpdatedURLWithRemovals(
+                            pathname,
+                            searchParams,
+                            {},
+                            ["status"],
+                          )
+                        : generateUpdatedURLWithRemovals(
+                            pathname,
+                            searchParams,
+                            {
+                              status: option.value,
+                            },
+                          )
+                    }
+                  />
+                }
+              >
+                {option.label}
               </DropdownMenuRadioItem>
             ))}
           </DropdownMenuRadioGroup>

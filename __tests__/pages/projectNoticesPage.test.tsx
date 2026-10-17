@@ -1,18 +1,29 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, test, vi } from "vitest";
 
+const { getProjectByIdMock, projectFixture } = vi.hoisted(() => {
+  const projectFixture = (
+    repoUrl: string | null = null,
+    repoBranch: string | null = "main",
+  ) => ({
+    id: "project-1",
+    name: "Sample Project",
+    organization: "Example organization",
+    api_key: "sample-key",
+    paused: false,
+    notices_count: BigInt(3),
+    repo_url: repoUrl,
+    repo_branch: repoBranch,
+  });
+
+  return {
+    projectFixture,
+    getProjectByIdMock: vi.fn(async () => projectFixture()),
+  };
+});
+
 vi.mock("@/lib/queries/projects", () => ({
-  getProjectById: vi.fn(() =>
-    Promise.resolve({
-      id: "project-1",
-      name: "Sample Project",
-      api_key: "sample-key",
-      paused: false,
-      notices_count: BigInt(3),
-      repo_url: null,
-      repo_branch: "main",
-    }),
-  ),
+  getProjectById: getProjectByIdMock,
 }));
 
 vi.mock("@/lib/queries/notices", () => ({
@@ -54,7 +65,9 @@ describe("ProjectNotices", () => {
       }),
     );
     const document = new DOMParser().parseFromString(html, "text/html");
-    const projectHeader = document.querySelector("section");
+    const projectHeader = document.querySelector(
+      '[aria-labelledby="project-name"]',
+    );
 
     expect(projectHeader?.classList.contains("bg-card")).toBe(true);
     expect(projectHeader?.classList.contains("backdrop-blur")).toBe(false);
@@ -91,4 +104,57 @@ describe("ProjectNotices", () => {
       "sample-key",
     );
   });
+
+  test("omits branch metadata when a project has no repository", async () => {
+    // Given a project with the default branch but no repository.
+    getProjectByIdMock.mockResolvedValueOnce(projectFixture());
+
+    // When its notice page is rendered.
+    const html = renderToStaticMarkup(
+      await ProjectNotices({
+        params: Promise.resolve({ project_id: "project-1" }),
+        searchParams: Promise.resolve({}),
+      }),
+    );
+    const document = new DOMParser().parseFromString(html, "text/html");
+
+    // Then the header does not suggest a repository branch is configured.
+    const header = document.querySelector('[aria-labelledby="project-name"]');
+    expect(header?.textContent).not.toContain("Branch:");
+    expect(header?.textContent).not.toContain("main");
+  });
+
+  test.each([
+    { configuredBranch: "release", visibleBranch: "release" },
+    { configuredBranch: null, visibleBranch: "main" },
+  ])(
+    "shows repository context with branch $visibleBranch",
+    async ({ configuredBranch, visibleBranch }) => {
+      // Given a project with a repository and an explicit or default branch.
+      getProjectByIdMock.mockResolvedValueOnce(
+        projectFixture(
+          "https://example.com/example-org/sample-app",
+          configuredBranch,
+        ),
+      );
+
+      // When its notice page is rendered.
+      const html = renderToStaticMarkup(
+        await ProjectNotices({
+          params: Promise.resolve({ project_id: "project-1" }),
+          searchParams: Promise.resolve({}),
+        }),
+      );
+      const document = new DOMParser().parseFromString(html, "text/html");
+
+      // Then the repository link and its matching branch are shown together.
+      const repository = document.querySelector(
+        'a[href="https://example.com/example-org/sample-app"]',
+      );
+      expect(repository).not.toBeNull();
+      expect(
+        repository?.closest('[data-slot="card-content"]')?.textContent,
+      ).toContain(`Branch: ${visibleBranch}`);
+    },
+  );
 });

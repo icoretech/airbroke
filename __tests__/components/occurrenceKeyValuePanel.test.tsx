@@ -25,12 +25,13 @@ describe("OccurrenceKeyValuePanel", () => {
     expect(html).toContain("123");
   });
 
-  it("keeps non-object values empty like the old wrappers", () => {
+  it("explains when a payload has no displayable object values", () => {
     const html = renderToStaticMarkup(
       <OccurrenceKeyValuePanel value={["not", "rendered"]} />,
     );
 
-    expect(html).not.toContain("not");
+    expect(html).toContain("No data recorded");
+    expect(html).toContain('data-slot="empty"');
     expect(html).not.toContain("rendered");
   });
 });

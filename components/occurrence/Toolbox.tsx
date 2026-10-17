@@ -17,18 +17,16 @@ export default async function Toolbox({
   }
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8">
-      <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-        <li className="col-span-1 flex flex-col divide-y divide-indigo-400/30 rounded-lg text-center shadow">
-          <ToolboxAI occurrenceId={occurrence.id} />
-        </li>
-        <li className="col-span-1 flex flex-col divide-y divide-indigo-400/30 rounded-lg text-center shadow">
-          <ToolboxCurl context={occurrence.context as Context} />
-        </li>
-        <li className="col-span-1 flex flex-col divide-y divide-indigo-400/30 rounded-lg text-center shadow">
-          <ToolboxFetch context={occurrence.context as Context} />
-        </li>
-      </ul>
-    </div>
+    <ul className="grid min-w-0 grid-cols-1 gap-4 xl:grid-cols-3">
+      <li className="flex min-w-0 flex-col">
+        <ToolboxAI occurrenceId={occurrence.id} />
+      </li>
+      <li className="flex min-w-0 flex-col">
+        <ToolboxCurl context={occurrence.context as Context} />
+      </li>
+      <li className="flex min-w-0 flex-col">
+        <ToolboxFetch context={occurrence.context as Context} />
+      </li>
+    </ul>
   );
 }

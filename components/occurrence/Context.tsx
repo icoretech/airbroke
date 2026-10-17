@@ -4,38 +4,14 @@
 
 import dynamic from "next/dynamic";
 import { useState } from "react";
+import OccurrenceKeyValuePanel from "@/components/occurrence/OccurrenceKeyValuePanel";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { flattenObject } from "@/lib/occurrenceUtils";
-import type { KeyValuePair } from "@/lib/occurrenceUtils";
+import { isObjectWithKeys } from "@/lib/occurrenceUtils";
 import type { Occurrence } from "@/prisma/generated/client";
 
 function FlatContextView({ occurrence }: { occurrence: Occurrence }) {
-  const flatContext = flattenObject(occurrence.context);
-
-  if (!flatContext.length) {
-    return <p className="text-sm text-gray-400">No context data</p>;
-  }
-
-  return (
-    <div className="space-y-4 text-xs">
-      {flatContext.map((item: KeyValuePair) => (
-        <div
-          key={item.key}
-          className="flex items-start space-x-2 rounded border border-airbroke-800 bg-linear-to-r from-gray-900 to-airbroke-900 p-2 shadow-md"
-        >
-          <div className="shrink-0 font-semibold text-indigo-200">
-            {item.key}:
-          </div>
-          <div className="grow break-all rounded px-2 font-mono text-gray-300">
-            {typeof item.value === "object"
-              ? JSON.stringify(item.value)
-              : String(item.value)}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
+  return <OccurrenceKeyValuePanel value={occurrence.context} />;
 }
 
 // -- The JSON viewer approach (using @microlink/react-json-view)
@@ -68,7 +44,7 @@ function JsonContextView({ occurrence }: { occurrence: Occurrence }) {
   }
 
   return (
-    <div className="text-xs leading-5">
+    <div className="min-w-0 overflow-x-auto text-xs leading-5">
       <ReactJsonView
         src={occurrence.context as object}
         theme={customDarkTheme}
@@ -84,7 +60,6 @@ function JsonContextView({ occurrence }: { occurrence: Occurrence }) {
         collapseStringsAfterLength={100}
         style={{
           backgroundColor: "transparent",
-          padding: "0.75rem",
           fontFamily:
             'var(--font-roboto-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
         }}
@@ -100,27 +75,19 @@ function JsonContextView({ occurrence }: { occurrence: Occurrence }) {
 export default function Context({ occurrence }: { occurrence: Occurrence }) {
   const [useJsonView, setUseJsonView] = useState(false);
 
-  if (!occurrence?.context) {
-    return (
-      <div className="px-4 py-2 text-sm text-gray-400">No context data</div>
-    );
+  if (!isObjectWithKeys(occurrence.context)) {
+    return <OccurrenceKeyValuePanel value={occurrence.context} />;
   }
 
   return (
-    <div className="px-4 py-4 sm:px-6 lg:px-8">
-      <div className="mb-4 flex items-center space-x-2">
+    <div className="flex min-w-0 flex-col gap-4">
+      <div className="flex flex-wrap items-center gap-2">
         <Switch
           id="context-view-toggle"
           checked={useJsonView}
           onCheckedChange={setUseJsonView}
-          className="data-checked:bg-indigo-600 data-unchecked:bg-gray-200"
         />
-        <Label
-          htmlFor="context-view-toggle"
-          className="text-xs font-normal text-gray-300"
-        >
-          Flat / JSON
-        </Label>
+        <Label htmlFor="context-view-toggle">Flat / JSON</Label>
       </div>
 
       {useJsonView ? (

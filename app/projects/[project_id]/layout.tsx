@@ -3,7 +3,17 @@ import { AppShell } from "@/components/layout/AppShell";
 import { ProjectTopbarEndSlot } from "@/components/project/ProjectTopbarEndSlot";
 import { buildProjectCrumbsById } from "@/lib/routing/breadcrumbs";
 
-export default async function ProjectLayout({
+export default function ProjectLayout(
+  props: LayoutProps<"/projects/[project_id]">,
+) {
+  return (
+    <Suspense fallback={<Loading />}>
+      <ProjectLayoutContent {...props} />
+    </Suspense>
+  );
+}
+
+async function ProjectLayoutContent({
   children,
   params,
 }: LayoutProps<"/projects/[project_id]">) {
@@ -20,3 +30,6 @@ export default async function ProjectLayout({
     </AppShell>
   );
 }
+
+import { Suspense } from "react";
+import Loading from "@/app/loading";

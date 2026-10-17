@@ -87,14 +87,16 @@ export default async function BookmarksTable({
     .sort((a, b) => a.label.localeCompare(b.label));
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       {groupedBookmarksArray.map(({ projectId, label, bookmarks }) => (
         <section
           key={projectId}
           className="overflow-hidden rounded-xl border border-border bg-card shadow-sm"
         >
           <div className="flex w-full flex-wrap items-center justify-between gap-3 border-b border-border px-4 py-3">
-            <h2 className="text-sm font-semibold text-foreground">{label}</h2>
+            <h2 className="min-w-0 text-sm font-semibold text-foreground wrap-anywhere">
+              {label}
+            </h2>
             <p className="text-xs text-muted-foreground">
               {bookmarks.length} bookmarked
             </p>
@@ -123,7 +125,10 @@ export default async function BookmarksTable({
                   </div>
 
                   <div className="mt-3 flex flex-wrap items-center gap-2 text-xs leading-5 text-muted-foreground">
-                    <Badge variant="secondary" className="flex-none">
+                    <Badge
+                      variant="secondary"
+                      className="max-w-full whitespace-normal wrap-anywhere"
+                    >
                       {bookmark.occurrence.notice.kind}
                     </Badge>
                     <p className="min-w-0">

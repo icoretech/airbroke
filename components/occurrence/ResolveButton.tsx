@@ -31,9 +31,6 @@ export default function ResolveButton({
   const label = isResolved ? "Reinstate" : "Resolve";
   const Icon = isResolved ? RotateCcw : CheckCircle2;
   const action = isResolved ? reinstateOccurrence : resolveOccurrence;
-  const toneClass = isResolved
-    ? "border-rose-500/30 text-rose-200 hover:bg-rose-500/10 hover:text-rose-100"
-    : "border-emerald-500/30 text-emerald-200 hover:bg-emerald-500/10 hover:text-emerald-100";
 
   return (
     <div className="inline-flex flex-col items-start gap-1">
@@ -42,11 +39,10 @@ export default function ResolveButton({
           render={
             <Button
               type="button"
-              variant="outline"
-              size={iconOnly ? "icon-sm" : "sm"}
+              variant={iconOnly || isResolved ? "outline" : "default"}
+              size={iconOnly ? "icon-sm" : "lg"}
               disabled={isBusy}
               aria-disabled={isBusy}
-              className={toneClass}
               onClick={() => {
                 runMutation({
                   action: () => action(occurrenceId),
@@ -59,7 +55,7 @@ export default function ResolveButton({
           }
         >
           <Icon
-            className={iconOnly ? "size-4" : "mr-2 size-4"}
+            data-icon={iconOnly ? undefined : "inline-start"}
             aria-hidden="true"
           />
           {iconOnly ? <span className="sr-only">{label}</span> : label}

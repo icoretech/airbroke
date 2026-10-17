@@ -7,12 +7,17 @@ export default function BookmarksLayout({
 }: LayoutProps<"/bookmarks">) {
   const crumbs = buildBookmarksCrumbs();
   return (
-    <AppShell
-      activeSection="bookmarks"
-      topbarBreadcrumbs={<AppBreadcrumbs items={crumbs} />}
-      topbarSearchPlaceholder="Search bookmarks…"
-    >
-      {children}
-    </AppShell>
+    <Suspense fallback={<Loading />}>
+      <AppShell
+        activeSection="bookmarks"
+        topbarBreadcrumbs={<AppBreadcrumbs items={crumbs} />}
+        topbarSearchPlaceholder="Search bookmarks…"
+      >
+        {children}
+      </AppShell>
+    </Suspense>
   );
 }
+
+import { Suspense } from "react";
+import Loading from "@/app/loading";

@@ -6,25 +6,33 @@ import { useCompletion } from "@ai-sdk/react";
 import { useEffect, useRef, useState } from "react";
 import { BsRobot } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function ToolboxAI({ occurrenceId }: { occurrenceId: string }) {
   const [isDetailMode, setIsDetailMode] = useState(false);
   const { complete, completion, stop, isLoading, error } = useCompletion({
     api: "/api/completion",
-    streamProtocol: "text",
+    streamProtocol: "data",
     body: {
       occurrenceId,
       isDetailMode,
     },
   });
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const outputText = error ? error.message : completion;
 
   useEffect(() => {
     if (!textareaRef.current) return;
-    if (outputText === "") return;
+    if (completion === "") return;
     textareaRef.current.scrollTop = textareaRef.current.scrollHeight;
-  }, [outputText]);
+  }, [completion]);
 
   const handleRequest = (detailMode: boolean) => {
     if (isLoading) {
@@ -41,63 +49,59 @@ export default function ToolboxAI({ occurrenceId }: { occurrenceId: string }) {
   };
 
   return (
-    <>
-      <div className="flex flex-1 flex-col rounded-t-md bg-airbroke-800 p-8 ring-1 ring-white/5">
-        <div className="mx-auto h-32 w-32 shrink-0">
-          <span className="h-32 w-32 text-[8rem] leading-none text-white">
-            <BsRobot />
-          </span>
-        </div>
-        <h3 className="my-6 text-sm font-medium text-white">Ask the AI</h3>
-        <textarea
+    <Card className="h-full min-w-0">
+      <CardHeader>
+        <CardTitle>Ask the AI</CardTitle>
+        <CardDescription>
+          Generate an explanation of this occurrence.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="flex-1">
+        <Textarea
           readOnly
           aria-label="AI explanation output"
           ref={textareaRef}
-          value={outputText}
-          className="h-60 w-full resize-none rounded-lg bg-gray-700 px-4 py-2 text-xs text-white scrollbar-none"
-        ></textarea>
-      </div>
-      <div>
+          value={completion}
+          placeholder="Your explanation will appear here."
+          className="h-48 w-full resize-y"
+        />
+        {error && (
+          <p role="alert" className="mt-2 text-sm text-destructive">
+            {error.message}
+          </p>
+        )}
+      </CardContent>
+      <CardFooter className="flex-wrap gap-2">
         {isLoading ? (
-          <div className="-mt-px overflow-hidden rounded-b-lg ring-1 ring-red-400/30">
+          <Button
+            type="button"
+            variant="destructive"
+            onClick={() => handleRequest(isDetailMode)}
+          >
+            <BsRobot data-icon="inline-start" />
+            Stop
+          </Button>
+        ) : (
+          <>
             <Button
               type="button"
               variant="outline"
-              size="lg"
-              onClick={() => handleRequest(isDetailMode)}
-              className="h-auto w-full rounded-none border-transparent bg-red-400/10 py-4 text-red-200 hover:bg-red-500 hover:text-red-100"
+              onClick={() => handleRequest(false)}
             >
-              <BsRobot />
-              Stop
+              <BsRobot data-icon="inline-start" />
+              Ask
             </Button>
-          </div>
-        ) : (
-          <div className="-mt-px overflow-hidden rounded-b-lg ring-1 ring-indigo-400/30">
-            <div className="flex divide-x divide-indigo-400/30">
-              <Button
-                type="button"
-                variant="ghost"
-                size="lg"
-                onClick={() => handleRequest(false)}
-                className="h-auto flex-1 rounded-none bg-indigo-400/10 py-4 text-indigo-200 hover:bg-indigo-500 hover:text-indigo-100"
-              >
-                <BsRobot />
-                Ask
-              </Button>
-              <Button
-                type="button"
-                variant="ghost"
-                size="lg"
-                onClick={() => handleRequest(true)}
-                className="h-auto flex-1 rounded-none bg-indigo-400/10 py-4 text-indigo-200 hover:bg-indigo-500 hover:text-indigo-100"
-              >
-                <BsRobot />
-                Ask with details
-              </Button>
-            </div>
-          </div>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => handleRequest(true)}
+            >
+              <BsRobot data-icon="inline-start" />
+              Ask with details
+            </Button>
+          </>
         )}
-      </div>
-    </>
+      </CardFooter>
+    </Card>
   );
 }

@@ -69,16 +69,17 @@ export default function RemarkForm({
           </AvatarFallback>
         </Avatar>
       )}
-      <div className="flex-1">
+      <div className="min-w-0 flex-1">
         <Textarea
           ref={textareaRef}
           value={body}
           onChange={(e) => setBody(e.target.value)}
           placeholder="Add a remark..."
+          aria-label="Remark"
           className="min-h-16 resize-y"
           disabled={isBusy}
         />
-        <div className="mt-2 flex items-center justify-end gap-2">
+        <div className="mt-2 flex flex-wrap items-center justify-end gap-2">
           {isEdit && onCancelEdit && (
             <Button
               type="button"

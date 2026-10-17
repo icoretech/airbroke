@@ -51,6 +51,7 @@ vi.mock("@/components/occurrence/ResolveButton", () => ({
 }));
 
 import OccurrencesTable from "@/components/notice/OccurrencesTable";
+import { getOccurrences } from "@/lib/queries/occurrences";
 
 describe("OccurrencesTable", () => {
   test("wraps occurrence titles and first-seen metadata on narrow screens", async () => {
@@ -62,7 +63,7 @@ describe("OccurrencesTable", () => {
     const firstSeen = [...document.querySelectorAll("p")].find((paragraph) =>
       paragraph.textContent?.includes("First seen"),
     );
-    const resolved = [...document.querySelectorAll("div")].find(
+    const resolved = [...document.querySelectorAll('[data-slot="badge"]')].find(
       (element) => element.textContent === "resolved",
     );
     const occurrence = document.querySelector("li");
@@ -74,7 +75,44 @@ describe("OccurrencesTable", () => {
       true,
     );
     expect(occurrence?.classList.contains("hover:bg-muted/50")).toBe(true);
-    expect(resolved?.classList.contains("bg-primary/10")).toBe(true);
-    expect(resolved?.classList.contains("text-primary")).toBe(true);
+    expect(resolved?.textContent).toBe("resolved");
   });
+});
+
+describe("OccurrencesTable empty states", () => {
+  test.each([
+    { searchParams: {}, title: "No unresolved occurrences", action: true },
+    {
+      searchParams: { resolvedFilter: "resolved" as const },
+      title: "No resolved occurrences",
+      action: true,
+    },
+    {
+      searchParams: { resolvedFilter: "all" as const },
+      title: "No occurrences yet",
+      action: false,
+    },
+    {
+      searchParams: { searchQuery: "missing" },
+      title: "No matching occurrences",
+      action: true,
+    },
+  ])(
+    "shows $title with the appropriate recovery action",
+    async ({ searchParams, title, action }) => {
+      vi.mocked(getOccurrences).mockResolvedValueOnce([]);
+      const html = renderToStaticMarkup(
+        await OccurrencesTable({ noticeId: "notice-1", searchParams }),
+      );
+      const document = new DOMParser().parseFromString(html, "text/html");
+      expect(
+        document.querySelector('[data-slot="empty-title"]')?.textContent,
+      ).toBe(title);
+      const allStatuses = document.querySelector(
+        'a[href="/notices/notice-1?status=all"]',
+      );
+      expect(Boolean(allStatuses)).toBe(action);
+      expect(document.querySelector("ul")).toBeNull();
+    },
+  );
 });

@@ -23,15 +23,41 @@ vi.mock("@/lib/queries/occurrences", () => ({
   ),
 }));
 
-vi.mock("@/components/occurrence/ClipboardButton", () => ({
-  default: ({ text }: { readonly text?: boolean }) => (
-    <button type="button">{text ? "Copy Text" : "Copy JSON"}</button>
-  ),
-}));
-
 import Backtrace from "@/components/occurrence/Backtrace";
+import { getOccurrenceById } from "@/lib/queries/occurrences";
 
 describe("Backtrace", () => {
+  test.each([null, [], [{ file: "incomplete" }]])(
+    "explains empty or invalid backtraces without copy controls: %j",
+    async (backtrace) => {
+      const occurrence = await getOccurrenceById("occurrence-1");
+      if (!occurrence) throw new Error("Missing fixture");
+      vi.mocked(getOccurrenceById).mockResolvedValueOnce({
+        ...occurrence,
+        backtrace,
+      });
+      const html = renderToStaticMarkup(
+        await Backtrace({ occurrenceId: "occurrence-1" }),
+      );
+      const document = new DOMParser().parseFromString(html, "text/html");
+      expect(
+        document.querySelector('[data-slot="empty"]')?.textContent,
+      ).toContain("No backtrace recorded");
+      expect(document.querySelector("button")).toBeNull();
+    },
+  );
+
+  test("renders both copy formats through actual Base UI buttons", async () => {
+    const html = renderToStaticMarkup(
+      await Backtrace({ occurrenceId: "occurrence-1" }),
+    );
+    const document = new DOMParser().parseFromString(html, "text/html");
+    expect(
+      [...document.querySelectorAll('button[data-slot="button"]')].map(
+        (button) => button.textContent,
+      ),
+    ).toEqual(["Copy JSON", "Copy Text"]);
+  });
   test("keeps function names intact when a frame wraps on mobile", async () => {
     const html = renderToStaticMarkup(
       await Backtrace({ occurrenceId: "occurrence-1" }),

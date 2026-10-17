@@ -33,7 +33,7 @@ describe("TopbarSearch", () => {
 
   test("preserves continued typing when an earlier search navigation completes", () => {
     const { rerender } = render(<TopbarSearch placeholder="Search notices" />);
-    const input = screen.getByRole("searchbox", { name: "" });
+    const input = screen.getByRole("searchbox", { name: "Search notices" });
 
     fireEvent.change(input, { target: { value: "alpha" } });
     vi.advanceTimersByTime(400);

@@ -28,7 +28,7 @@ export default function AppBreadcrumbs({ items }: { items: Crumb[] }) {
           seenKeys.set(baseKey, seenCount + 1);
           const itemKey =
             seenCount === 0 ? baseKey : `${baseKey}-${seenCount + 1}`;
-          const isTabletOptional = idx === 1 || (idx === 3 && idx < lastIndex);
+          const isTabletOptional = (idx === 1 || idx === 3) && idx < lastIndex;
           const isMobileOptional = idx === 2 && idx < lastIndex;
           const itemClass = isTabletOptional
             ? "hidden lg:inline-flex"
@@ -43,7 +43,7 @@ export default function AppBreadcrumbs({ items }: { items: Crumb[] }) {
               <BreadcrumbItem className={itemClass}>
                 {idx === lastIndex || !item.href ? (
                   <BreadcrumbPage
-                    className={labelClass(idx)}
+                    className="block min-w-0 max-w-full truncate"
                     title={String(item.label)}
                   >
                     <span className="block truncate">{item.label}</span>

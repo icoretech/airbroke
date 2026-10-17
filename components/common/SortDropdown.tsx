@@ -79,7 +79,7 @@ export default function SortDropdown<T extends string>({
       <DropdownMenuTrigger
         render={<Button variant="outline" size="sm" aria-label={ariaLabel} />}
       >
-        <ArrowUpDown className="mr-2 size-4" />
+        <ArrowUpDown data-icon="inline-start" />
         <span className="flex items-center gap-1">
           Sort:
           <span className="capitalize">{sortLabel(effectiveAttr)}</span>
@@ -109,6 +109,7 @@ export default function SortDropdown<T extends string>({
 
               return (
                 <DropdownMenuRadioItem
+                  closeOnClick
                   key={attr}
                   value={attr}
                   render={<Link href={href} />}
@@ -125,19 +126,23 @@ export default function SortDropdown<T extends string>({
           </DropdownMenuRadioGroup>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          render={
-            <Link
-              href={generateUpdatedURLWithRemovals(pathname, searchParams, {}, [
-                "sortAttr",
-                "sortDir",
-              ])}
-              className="flex w-full"
-            />
-          }
-        >
-          Clear sorting
-        </DropdownMenuItem>
+        <DropdownMenuGroup>
+          <DropdownMenuItem
+            render={
+              <Link
+                href={generateUpdatedURLWithRemovals(
+                  pathname,
+                  searchParams,
+                  {},
+                  ["sortAttr", "sortDir"],
+                )}
+                className="flex w-full"
+              />
+            }
+          >
+            Clear sorting
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );

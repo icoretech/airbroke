@@ -1,4 +1,10 @@
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import EnvironmentFilter from "@/app/projects/[project_id]/Filter";
 import SortDropdown from "@/components/common/SortDropdown";
@@ -60,7 +66,7 @@ describe("labelled dropdown menus", () => {
     expect(screen.getByText("Sort by")).not.toBeNull();
   });
 
-  test("renders sort choices as the radio item links", () => {
+  test("renders sort choices as links and closes after selection", async () => {
     render(
       <SortDropdown
         ariaLabel="Sort notices"
@@ -75,6 +81,11 @@ describe("labelled dropdown menus", () => {
     expect(
       screen.getByRole("menuitemradio", { name: /updated at/i }).tagName,
     ).toBe("A");
+    document.addEventListener("click", (event) => event.preventDefault(), {
+      once: true,
+    });
+    fireEvent.click(screen.getByRole("menuitemradio", { name: /updated at/i }));
+    await waitFor(() => expect(screen.queryByRole("menu")).toBeNull());
   });
 
   test("opens the user menu without losing its account label", () => {

@@ -120,8 +120,15 @@ export async function POST(request: NextRequest) {
   const result = streamText({
     model,
     messages,
+    abortSignal: request.signal,
+    onError: () => {
+      console.error("AI explanation generation failed");
+    },
   });
 
   // Return the streamed response
-  return result.toTextStreamResponse();
+  return result.toUIMessageStreamResponse({
+    onError: () =>
+      "Could not generate an explanation. Please try again or ask an administrator to check the AI configuration.",
+  });
 }

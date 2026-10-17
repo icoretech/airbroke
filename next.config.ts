@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
   typedRoutes: true,
   reactCompiler: true,
   cacheComponents: true,
+  partialPrefetching: false,
   devIndicators: false,
   poweredByHeader: false,
   images: {

@@ -9,6 +9,7 @@ import OccurrencesTable from "@/components/notice/OccurrencesTable";
 import StatusFilter from "@/components/notice/StatusFilter";
 import RemarkThread from "@/components/remark/RemarkThread";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getNoticeById } from "@/lib/queries/notices";
 import { getRemarkCountByNoticeId } from "@/lib/queries/remarks";
 import { toOccurrenceSearchParams } from "@/lib/routing/routeSearchParams";
@@ -38,7 +39,7 @@ export default async function Notice(props: PageProps<"/notices/[notice_id]">) {
   const remarkCount = await getRemarkCountByNoticeId(notice.id);
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       {/* Notice header */}
       <section className="rounded-xl border border-border bg-card p-4 shadow-sm sm:p-5">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
@@ -71,14 +72,16 @@ export default async function Notice(props: PageProps<"/notices/[notice_id]">) {
       </section>
 
       {/* Remarks */}
-      <section className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
-        <div className="flex w-full flex-wrap items-center justify-between gap-3 border-b border-border px-4 py-3">
-          <h2 className="text-sm font-semibold text-foreground">
-            Remarks{remarkCount > 0 ? ` (${remarkCount})` : ""}
-          </h2>
-        </div>
-        <RemarkThread noticeId={notice.id} projectId={notice.project_id} />
-      </section>
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            <h2>Remarks{remarkCount > 0 ? ` (${remarkCount})` : ""}</h2>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <RemarkThread noticeId={notice.id} projectId={notice.project_id} />
+        </CardContent>
+      </Card>
 
       {/* Occurrences */}
       <section className="rounded-xl sm:overflow-hidden sm:border sm:border-border sm:bg-card sm:shadow-sm">

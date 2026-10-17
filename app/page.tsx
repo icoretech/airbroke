@@ -53,7 +53,7 @@ airbroke.notify(new Error('Hello from Airbroke'))`;
                 gives you a modern, low-overhead UI with AI assistance, HTTP
                 replay, and occurrence charts.
               </p>
-              <div className="mt-8 flex items-center gap-3">
+              <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Link href="/projects" className={buttonVariants()}>
                   Get Started
                 </Link>
@@ -63,7 +63,8 @@ airbroke.notify(new Error('Hello from Airbroke'))`;
                   rel="noopener noreferrer"
                   className={buttonVariants({ variant: "outline" })}
                 >
-                  <FaGithub className="mr-2" /> GitHub
+                  <FaGithub data-icon="inline-start" aria-hidden="true" />{" "}
+                  GitHub
                 </a>
                 <a
                   href="https://github.com/icoretech/airbroke/releases"
@@ -78,7 +79,7 @@ airbroke.notify(new Error('Hello from Airbroke'))`;
 
             {/* Right: single quickstart code */}
             <div className="mx-auto mt-12 w-full max-w-2xl lg:mt-0 lg:flex-1">
-              <div className="rounded-xl border border-white/10 bg-card/70 p-4 shadow-sm ring-1 ring-white/5 backdrop-blur">
+              <div className="rounded-xl border border-border bg-card p-4 shadow-sm">
                 <CodeBlock
                   language="javascript"
                   filename="quickstart.js"
@@ -91,13 +92,13 @@ airbroke.notify(new Error('Hello from Airbroke'))`;
       </div>
 
       {/* FAQ (minimal) */}
-      <section className="border-t border-white/5 bg-background py-16">
+      <section className="border-t border-border bg-background py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <h2 className="text-2xl font-semibold tracking-tight text-foreground">
             FAQ
           </h2>
-          <div className="mt-6 space-y-4">
-            <details className="group rounded-lg border border-white/10 bg-card p-4 open:bg-airbroke-700/20">
+          <div className="mt-6 flex flex-col gap-4">
+            <details className="group rounded-lg border border-border bg-card p-4 open:bg-muted/20">
               <summary className="cursor-pointer list-none text-base font-medium text-foreground">
                 Is Airbroke production-ready?
               </summary>
@@ -106,7 +107,7 @@ airbroke.notify(new Error('Hello from Airbroke'))`;
                 discretion while we work toward a stable release.
               </p>
             </details>
-            <details className="group rounded-lg border border-white/10 bg-card p-4 open:bg-airbroke-700/20">
+            <details className="group rounded-lg border border-border bg-card p-4 open:bg-muted/20">
               <summary className="cursor-pointer list-none text-base font-medium text-foreground">
                 What are the requirements?
               </summary>
@@ -114,7 +115,7 @@ airbroke.notify(new Error('Hello from Airbroke'))`;
                 Node.js 20/22/24+, PostgreSQL 15+, ~300MB RAM, and ~1 CPU core.
               </p>
             </details>
-            <details className="group rounded-lg border border-white/10 bg-card p-4 open:bg-airbroke-700/20">
+            <details className="group rounded-lg border border-border bg-card p-4 open:bg-muted/20">
               <summary className="cursor-pointer list-none text-base font-medium text-foreground">
                 How do I send errors?
               </summary>
@@ -127,14 +128,16 @@ airbroke.notify(new Error('Hello from Airbroke'))`;
                 .
               </p>
             </details>
-            <details className="group rounded-lg border border-white/10 bg-card p-4 open:bg-airbroke-700/20">
+            <details className="group rounded-lg border border-border bg-card p-4 open:bg-muted/20">
               <summary className="cursor-pointer list-none text-base font-medium text-foreground">
                 Which OAuth providers are supported?
               </summary>
               <p className="mt-2 text-sm text-muted-foreground">
-                GitHub, Google, Apple, GitLab, Keycloak, Authentik, Cognito,
-                Microsoft Entra ID, Slack, Atlassian, Okta and more via Auth.js
-                providers.
+                GitHub, Google, Apple, GitLab, Microsoft Entra ID, Slack,
+                Salesforce, Atlassian, Auth0, Authentik, Cognito, Keycloak,
+                Okta, Bitbucket, FusionAuth, and SAML via BoxyHQ. Sign-in is
+                powered by Better Auth; available providers depend on your
+                administrator’s configuration.
               </p>
             </details>
           </div>
@@ -142,9 +145,9 @@ airbroke.notify(new Error('Hello from Airbroke'))`;
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 bg-background">
+      <footer className="border-t border-border bg-background">
         <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
-          <div className="flex justify-center space-x-6 md:order-2">
+          <div className="flex justify-center gap-6 md:order-2">
             <a
               href="https://github.com/icoretech/airbroke"
               className="text-foreground hover:text-muted-foreground"
@@ -152,7 +155,7 @@ airbroke.notify(new Error('Hello from Airbroke'))`;
               rel="noopener noreferrer"
             >
               <span className="sr-only">github</span>
-              <FaGithub className="h-6 w-6" aria-hidden="true" />
+              <FaGithub className="size-6" aria-hidden="true" />
             </a>
           </div>
           <div className="mt-8 md:order-1 md:mt-0">

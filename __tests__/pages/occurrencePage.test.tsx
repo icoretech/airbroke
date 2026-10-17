@@ -82,8 +82,32 @@ vi.mock("@/components/remark/RemarkThread", () => ({
 }));
 
 import Occurrence from "@/app/occurrences/[occurrence_id]/page";
+import { getOccurrenceById } from "@/lib/queries/occurrences";
 
 describe("Occurrence", () => {
+  test("keeps empty data sections reachable by their native URL links", async () => {
+    const occurrence = await getOccurrenceById("occurrence-1");
+    if (!occurrence) throw new Error("Missing fixture");
+    vi.mocked(getOccurrenceById).mockResolvedValueOnce({
+      ...occurrence,
+      environment: null,
+      session: null,
+      params: null,
+    });
+    const html = renderToStaticMarkup(
+      await Occurrence({
+        params: Promise.resolve({ occurrence_id: "occurrence-1" }),
+        searchParams: Promise.resolve({ tab: "environment" }),
+      }),
+    );
+    const document = new DOMParser().parseFromString(html, "text/html");
+    const navigation = document.querySelector('nav[aria-label="Tabs"]');
+    expect(navigation?.querySelectorAll("a")).toHaveLength(8);
+    expect(
+      navigation?.querySelector('[aria-current="page"]')?.textContent,
+    ).toContain("Environment");
+  });
+
   test("uses an opaque semantic surface for the occurrence header", async () => {
     const html = renderToStaticMarkup(
       await Occurrence({
@@ -92,7 +116,7 @@ describe("Occurrence", () => {
       }),
     );
     const document = new DOMParser().parseFromString(html, "text/html");
-    const occurrenceHeader = document.querySelector("section");
+    const occurrenceHeader = document.querySelector('[data-slot="card"]');
 
     expect(occurrenceHeader?.classList.contains("bg-card")).toBe(true);
     expect(occurrenceHeader?.classList.contains("backdrop-blur")).toBe(false);
@@ -123,13 +147,46 @@ describe("Occurrence", () => {
     );
     const document = new DOMParser().parseFromString(html, "text/html");
     const tabs = document.querySelector('nav[aria-label="Tabs"]');
-    const tabsSection = tabs?.closest("section");
+    const tabsSection = tabs?.closest('[data-slot="card"]');
     const tabsHeader = tabs?.parentElement;
 
     expect(tabsSection?.classList.contains("overflow-hidden")).toBe(true);
-    expect(tabsSection?.classList.contains("border")).toBe(true);
+    expect(
+      tabsSection?.querySelector('[data-slot="card-content"]'),
+    ).not.toBeNull();
     expect(tabsSection?.classList.contains("bg-card")).toBe(true);
     expect(tabsHeader?.classList.contains("border-b")).toBe(true);
     expect(tabsHeader?.classList.contains("rounded-lg")).toBe(false);
+  });
+
+  test.each([
+    "backtrace",
+    "context",
+    "environment",
+    "session",
+    "params",
+    "chart",
+    "toolbox",
+    "remarks",
+  ])("renders %s as the current native navigation link", async (tab) => {
+    const html = renderToStaticMarkup(
+      await Occurrence({
+        params: Promise.resolve({ occurrence_id: "occurrence-1" }),
+        searchParams: Promise.resolve({ tab }),
+      }),
+    );
+    const document = new DOMParser().parseFromString(html, "text/html");
+    const navigation = document.querySelector('nav[aria-label="Tabs"]');
+    expect(navigation?.querySelectorAll("a")).toHaveLength(8);
+    expect(navigation?.querySelectorAll('[aria-current="page"]')).toHaveLength(
+      1,
+    );
+    const current = navigation?.querySelector('[aria-current="page"]');
+    expect(current?.tagName).toBe("A");
+    expect(current?.getAttribute("href")).toBe(
+      `/occurrences/occurrence-1?tab=${tab}`,
+    );
+    expect(current?.getAttribute("role")).not.toBe("button");
+    expect(navigation?.querySelector("button")).toBeNull();
   });
 });

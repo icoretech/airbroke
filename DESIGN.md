@@ -43,6 +43,7 @@ for active or focused controls.
 - Use status roles for compact state indicators; error may pulse to signal an
   active incident, while healthy and paused states remain still.
 - Extend the token set before adding a new semantic color role.
+- `--foreground` and `--secondary` are complete CSS colors so upstream shadcn secondary hover mixing works; the Tailwind aliases use these values directly.
 
 ## 3. Typography
 
@@ -99,6 +100,7 @@ spacing scale.
 - **Accessibility**: labelled navigation controls and keyboard-reachable links
 - **Motion**: 200ms state transitions; no decorative entrance sequence
 - **Layout**: shell; sidebar and main content own their scrolling explicitly
+- **Responsive search**: one search instance fills a second header row below 1024px and shares the compact top row on desktop; unsupported routes collapse the empty search slot.
 
 ### Button
 
@@ -106,13 +108,28 @@ spacing scale.
 - **Sizes**: compact text and icon sizes from the shared primitive
 - **States**: default, hover, active, focus-visible, disabled, pending
 - **Accessibility**: native button semantics unless deliberately rendering a link
+- **Detail actions**: use the large text-button size for primary detail controls, a filled primary Resolve action, and a labelled outline Bookmark action; icon-only controls are reserved for compact table rows.
+
+### Integration Tiles
+
+- **Structure**: DialogTrigger composed with an outline Button, monochrome SDK icon, title, and description
+- **States**: upstream neutral outline hover and visible keyboard focus; icons inherit the foreground and must never share the hover background color
+- **Layout**: intrinsic-height wrapping buttons in the existing responsive grid
 
 ### Card
 
 - **Structure**: header, title, description, content, optional footer/action
-- **Spacing**: 24px outer rhythm with feature-level compact overrides
+- **Spacing**: Base Nova owns the card inset through `--card-spacing`: 16px by default and 12px for small cards. Header and content share that inset; the card owns vertical padding and section gaps.
 - **States**: static by default; interactive treatment only when the card acts
 - **Depth**: subtle border plus restrained small shadow
+
+### Detail Panels
+
+- **Structure**: shared Card with navigation in its header and one active panel in CardContent
+- **Spacing**: the card owns all outer panel insets; child toolbars, charts, payloads, and remarks own only their internal gaps
+- **States**: active section, populated, empty, loading, error
+- **Accessibility**: URL navigation remains native links with the current section announced; menus compose links through Base UI `render`
+- **Layout**: wrapping navigation and action clusters; payloads and code own horizontal overflow, while the page remains within the viewport
 
 ### Form Controls
 

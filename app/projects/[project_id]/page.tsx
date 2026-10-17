@@ -1,5 +1,6 @@
 // app/projects/[project_id]/page.tsx
 
+import { GitBranch, Link2 } from "lucide-react";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import CopyToClipboardButton from "@/components/common/CopyToClipboardButton";
@@ -7,10 +8,13 @@ import NoticesTable from "@/components/notice/NoticesTable";
 import StatusFilter from "@/components/notice/StatusFilter";
 import { Badge } from "@/components/ui/badge";
 import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-} from "@/components/ui/input-group";
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { getNoticeEnvs } from "@/lib/queries/notices";
 import { getProjectById } from "@/lib/queries/projects";
 import { toNoticeSearchParams } from "@/lib/routing/routeSearchParams";
@@ -44,69 +48,75 @@ export default async function ProjectNotices(
   const uniqueEnvArray = await getNoticeEnvs(project.id);
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       {/* Project header */}
-      <section className="rounded-xl border border-border bg-card p-4 shadow-sm sm:p-5">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <div className="flex flex-wrap items-center gap-3">
-            <h1 className="text-xl font-semibold leading-none text-foreground">
+      <Card aria-labelledby="project-name">
+        <CardHeader>
+          <CardDescription className="min-w-0 wrap-anywhere">
+            {project.organization}
+          </CardDescription>
+          <CardTitle className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-2">
+            <h1
+              id="project-name"
+              className="min-w-0 text-2xl font-semibold leading-tight wrap-anywhere"
+            >
               {project.name}
             </h1>
-            {project.paused && <Badge variant="secondary">Paused</Badge>}
-            <Badge variant="outline">
-              Notices: {project.notices_count.toString()}
-            </Badge>
-          </div>
-        </div>
-
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="min-w-0">
-            <div className="mb-1 text-xs font-medium text-muted-foreground">
-              API Key
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge variant="secondary">
+                {project.notices_count.toString()}{" "}
+                {project.notices_count === BigInt(1) ? "notice" : "notices"}
+              </Badge>
+              {project.paused && <Badge variant="outline">Paused</Badge>}
             </div>
-            <InputGroup>
-              <InputGroupText
-                data-api-key
-                className="min-w-0 flex-1 truncate px-2.5 font-mono text-xs text-foreground select-all"
-              >
-                {project.api_key}
-              </InputGroupText>
-              <InputGroupAddon align="inline-end">
-                <CopyToClipboardButton
-                  value={project.api_key}
-                  size="icon-sm"
-                  variant="ghost"
-                />
-              </InputGroupAddon>
-            </InputGroup>
-          </div>
-
-          {project.repo_url && (
-            <div className="min-w-0">
-              <div className="mb-1 text-xs font-medium text-muted-foreground">
-                Repository
-              </div>
+          </CardTitle>
+        </CardHeader>
+        {project.repo_url && (
+          <CardContent className="flex min-w-0 flex-wrap items-center gap-x-4 gap-y-2">
+            <div className="flex min-w-0 items-start gap-2">
+              <Link2
+                aria-hidden="true"
+                className="mt-0.5 size-4 shrink-0 text-muted-foreground"
+              />
               <a
                 href={project.repo_url}
                 target="_blank"
                 rel="noreferrer"
-                className="block truncate text-sm text-foreground underline underline-offset-4 hover:text-foreground/80"
+                className="min-w-0 text-sm underline underline-offset-4 wrap-anywhere hover:text-muted-foreground"
               >
                 {project.repo_url}
               </a>
             </div>
-          )}
-
-          <div>
-            <div className="mb-1 text-xs font-medium text-muted-foreground">
-              Branch
-            </div>
-            <div className="text-sm text-foreground">
-              {project.repo_branch ?? "main"}
-            </div>
-          </div>
-        </div>
-      </section>
+            <Badge
+              variant="outline"
+              className="h-auto min-h-5 min-w-0 max-w-full whitespace-normal"
+            >
+              <GitBranch aria-hidden="true" data-icon="inline-start" />
+              <span className="sr-only">Branch: </span>
+              <span className="min-w-0 wrap-anywhere">
+                {project.repo_branch ?? "main"}
+              </span>
+            </Badge>
+          </CardContent>
+        )}
+        <CardFooter className="min-w-0 gap-3">
+          <span className="shrink-0 text-xs text-muted-foreground">
+            API key
+          </span>
+          <code
+            data-api-key
+            className="min-w-0 truncate font-mono text-xs select-all"
+          >
+            {project.api_key}
+          </code>
+          <CopyToClipboardButton
+            value={project.api_key}
+            label="Copy API key"
+            size="icon-sm"
+            variant="ghost"
+          />
+        </CardFooter>
+      </Card>
 
       {/* Notices */}
       <section className="rounded-xl sm:overflow-hidden sm:border sm:border-border sm:bg-card sm:shadow-sm">

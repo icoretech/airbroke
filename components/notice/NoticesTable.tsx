@@ -5,6 +5,15 @@ import CounterLabel from "@/components/common/CounterLabel";
 import CustomTimeAgo from "@/components/common/CustomTimeAgo";
 import EnvironmentLabel from "@/components/common/EnvironmentLabel";
 import ResolveNoticeButton from "@/components/notice/ResolveNoticeButton";
+import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyTitle,
+} from "@/components/ui/empty";
 import { getNotices } from "@/lib/queries/notices";
 import type { NoticeSearchParams } from "@/lib/queries/notices";
 
@@ -19,8 +28,51 @@ export default async function NoticesTable({
 }: NoticesTableProps) {
   const notices = await getNotices(projectId, searchParams);
 
+  if (notices.length === 0) {
+    const hasFilters = Boolean(
+      searchParams.searchQuery || searchParams.filterByEnv,
+    );
+    const status = searchParams.resolvedFilter ?? "unresolved";
+    return (
+      <Empty>
+        <EmptyHeader>
+          <EmptyTitle>
+            {hasFilters
+              ? "No matching notices"
+              : status === "all"
+                ? "No notices yet"
+                : `No ${status} notices`}
+          </EmptyTitle>
+          <EmptyDescription>
+            {hasFilters
+              ? "Try different search terms or clear the filters to view all notices."
+              : status === "all"
+                ? "Configure an SDK to start sending errors to this project."
+                : "There are no notices with this status. View all statuses to check for other errors."}
+          </EmptyDescription>
+        </EmptyHeader>
+        <EmptyContent className="flex-row flex-wrap justify-center">
+          {(hasFilters || status !== "all") && (
+            <Link
+              href={`/projects/${projectId}?status=all`}
+              className={buttonVariants({ variant: "outline" })}
+            >
+              View all notices
+            </Link>
+          )}
+          <Link
+            href={`/projects/${projectId}/edit`}
+            className={buttonVariants({ variant: "outline" })}
+          >
+            Configure SDKs
+          </Link>
+        </EmptyContent>
+      </Empty>
+    );
+  }
+
   return (
-    <ul className="space-y-3 sm:space-y-0 sm:divide-y sm:divide-card/40">
+    <ul className="flex flex-col gap-3 sm:gap-0 sm:divide-y sm:divide-card/40">
       {notices.map((notice) => (
         <li
           key={notice.id}
@@ -30,9 +82,7 @@ export default async function NoticesTable({
             <div className="flex items-center gap-x-3">
               <EnvironmentLabel env={notice.env} />
               {notice.resolved_at && (
-                <div className="flex-none rounded-md bg-green-900 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-green-700">
-                  resolved
-                </div>
+                <Badge variant="secondary">resolved</Badge>
               )}
               <h2 className="min-w-0 text-sm font-semibold leading-6 text-white">
                 <Link

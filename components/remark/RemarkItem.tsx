@@ -4,6 +4,7 @@ import { useState } from "react";
 import ClientMutationError from "@/components/common/ClientMutationError";
 import CustomTimeAgo from "@/components/common/CustomTimeAgo";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { useClientMutation } from "@/hooks/useClientMutation";
 import { deleteRemark } from "@/lib/actions/remarkActions";
 import { autolink } from "@/lib/autolink";
@@ -90,8 +91,8 @@ export default function RemarkItem({
         </AvatarFallback>
       </Avatar>
       <div className="min-w-0 flex-1">
-        <div className="flex items-baseline gap-2">
-          <span className="text-sm font-semibold text-foreground">
+        <div className="flex flex-wrap items-baseline gap-2">
+          <span className="text-sm font-semibold text-foreground wrap-anywhere">
             {remark.user.name}
           </span>
           <span className="text-xs text-muted-foreground">
@@ -99,26 +100,28 @@ export default function RemarkItem({
           </span>
           {isOwn && (
             <span className="ml-auto flex items-center gap-2 text-xs text-muted-foreground">
-              <button
+              <Button
                 type="button"
-                className="hover:text-foreground"
+                variant="ghost"
+                size="sm"
                 onClick={() => setIsEditing(true)}
                 disabled={isBusy}
               >
                 edit
-              </button>
-              <button
+              </Button>
+              <Button
                 type="button"
-                className="hover:text-destructive"
+                variant="destructive"
+                size="sm"
                 onClick={handleDelete}
                 disabled={isBusy}
               >
                 delete
-              </button>
+              </Button>
             </span>
           )}
         </div>
-        <div className="mt-1 text-sm leading-relaxed text-muted-foreground">
+        <div className="mt-1 text-sm leading-relaxed text-muted-foreground wrap-anywhere">
           {bodyLines.map((line, index) => (
             <span key={line.key}>
               {autolink(line.text, autolinkCtx)}

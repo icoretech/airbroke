@@ -5,6 +5,28 @@ Keep the newest entry first and focus on operator-facing changes: required env
 renames, database migrations, auth changes, removed behavior, and any manual
 validation needed after deploy.
 
+## Dependency refresh (2026-10-17)
+
+- Development, production, CI, and Render use Node.js 24.22.0 LTS. Rebuild
+  existing containers before running application or migration commands.
+- Next.js moves to 16.4.2, Base UI to 1.9.0, Sentry to 11.8.0, and shadcn CLI
+  to 4.22.0. Prisma CLI, client, adapter, and the embedded migration runtime
+  are aligned at 7.10.1. No database migrations or environment changes are
+  required by this dependency refresh.
+- Version-scoped Yarn package extensions provide missing required peers in
+  AI SDK React, Prisma's bundled tools, and React Doctor's dependencies.
+  ESLint is an internal React Doctor dependency; Biome remains the project
+  linter.
+- AI SDK OpenAI moves to 4.0.96, AI SDK React to 4.0.147, AI to 7.0.143,
+  and Lucide to 1.59.0. These explicitly approved updates use a one-command
+  release-age exception; the global 24-hour quarantine remains enabled and
+  no permanent package exemption is added. Normal immutable installs use
+  the committed lockfile.
+- The authenticated `/api/completion` endpoint now returns the AI SDK UI
+  message stream so provider errors reach the toolbox. Deploy its route and
+  frontend together; custom clients consuming the previous plain-text stream
+  must use the UI message stream protocol.
+
 ## Dependency refresh (2026-10-05)
 
 - Development, production, CI, and Render use Node.js 24.21.0 LTS. The project

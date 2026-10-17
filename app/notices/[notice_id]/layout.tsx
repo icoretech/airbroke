@@ -1,11 +1,22 @@
-import { cache } from "react";
+import { cache, Suspense } from "react";
+import Loading from "@/app/loading";
 import AppBreadcrumbs from "@/components/layout/AppBreadcrumbs";
 import { AppShell } from "@/components/layout/AppShell";
 import { EditProjectButton } from "@/components/project/EditProjectButton";
 import { db } from "@/lib/db";
 import { buildNoticeCrumbsById } from "@/lib/routing/breadcrumbs";
 
-export default async function NoticeLayout({
+export default function NoticeLayout(
+  props: LayoutProps<"/notices/[notice_id]">,
+) {
+  return (
+    <Suspense fallback={<Loading />}>
+      <NoticeLayoutContent {...props} />
+    </Suspense>
+  );
+}
+
+async function NoticeLayoutContent({
   children,
   params,
 }: LayoutProps<"/notices/[notice_id]">) {

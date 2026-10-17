@@ -11,7 +11,6 @@ export default async function OccurrencesChartWrapper({
   compact?: boolean;
 }) {
   const chartData = await cachedProjectChartOccurrencesData(projectId);
-  const gradientId = `project-chart-${projectId}${compact ? "-compact" : ""}`;
   const hasActivity = chartData.some(({ count }) => count > 0);
 
   return (
@@ -22,11 +21,7 @@ export default async function OccurrencesChartWrapper({
         </h2>
       )}
       {hasActivity ? (
-        <OccurrenceChart
-          chartData={chartData}
-          compact={compact}
-          gradientId={gradientId}
-        />
+        <OccurrenceChart chartData={chartData} compact={compact} />
       ) : (
         <div className="flex min-h-32 items-center justify-center rounded-md border border-dashed border-white/10 px-4 text-center text-sm text-white/60">
           No activity in the last 14 days

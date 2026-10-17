@@ -12,11 +12,9 @@ vi.mock("@/lib/queries/occurrenceChartOccurrences", () => ({
 vi.mock("@/components/common/OccurrenceChart", () => ({
   default: ({
     chartData,
-    gradientId,
   }: {
     chartData: Array<{ date: number; count: number }>;
-    gradientId?: string;
-  }) => <div data-gradient-id={gradientId}>{JSON.stringify(chartData)}</div>,
+  }) => <div data-chart>{JSON.stringify(chartData)}</div>,
 }));
 
 const { default: OccurrenceChartWrapper } = await import(
@@ -24,7 +22,19 @@ const { default: OccurrenceChartWrapper } = await import(
 );
 
 describe("OccurrenceChartWrapper", () => {
-  it("passes a stable gradient id to the chart", async () => {
+  it("explains an empty chart window instead of rendering empty axes", async () => {
+    getOccurrenceChartOccurrencesDataMock.mockResolvedValue([
+      { date: 1742493600000, count: 0 },
+    ]);
+    const html = renderToStaticMarkup(
+      await OccurrenceChartWrapper({ occurrenceId: "occ-123" }),
+    );
+    expect(html).toContain("No recent occurrences");
+    expect(html).toContain('data-slot="empty"');
+    expect(html).not.toContain("data-chart");
+  });
+
+  it("passes the occurrence activity to the chart", async () => {
     getOccurrenceChartOccurrencesDataMock.mockResolvedValue([
       { date: 1742493600000, count: 3 },
     ]);
@@ -37,7 +47,7 @@ describe("OccurrenceChartWrapper", () => {
     expect(getOccurrenceChartOccurrencesDataMock).toHaveBeenCalledWith(
       "occ-123",
     );
-    expect(html).toContain('data-gradient-id="occurrence-chart-occ-123"');
+    expect(html).toContain("data-chart");
     expect(html).toContain("&quot;count&quot;:3");
   });
 });

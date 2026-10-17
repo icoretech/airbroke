@@ -1,7 +1,7 @@
 // __tests__/pages/signinPageClient.test.tsx
 
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, test, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import type { ReactNode } from "react";
 
 const signInSocialMock = vi.hoisted(() => vi.fn());
@@ -31,6 +31,50 @@ vi.mock("@/components/layout/FooterCredits", () => ({
 import SignInPageClient from "../../app/signin/SignInPageClient";
 
 describe("SignInPageClient", () => {
+  beforeEach(() => {
+    signInSocialMock.mockReset();
+  });
+
+  afterEach(cleanup);
+
+  test("explains unavailable sign-in when no providers are configured", () => {
+    render(
+      <SignInPageClient
+        providers={[]}
+        callbackUrl="/projects"
+        showError={false}
+      />,
+    );
+
+    screen.getByText("Sign-in is unavailable");
+    screen.getByText(/contact your administrator to enable access/i);
+    expect(screen.queryByText(/choose a provider/i)).toBeNull();
+    expect(screen.queryByRole("button", { name: /sign in with/i })).toBeNull();
+    expect(
+      screen
+        .getByRole("link", { name: /go to homepage/i })
+        .getAttribute("href"),
+    ).toBe("/");
+    expect(signInSocialMock).not.toHaveBeenCalled();
+  });
+
+  test("announces an authentication failure while keeping configured providers available", () => {
+    render(
+      <SignInPageClient
+        providers={[{ id: "github", name: "GitHub", type: "social" }]}
+        callbackUrl="/projects"
+        showError
+      />,
+    );
+
+    expect(screen.getByRole("alert").textContent).toContain("Sign-in failed");
+    expect(
+      screen
+        .getByRole("button", { name: /sign in with github/i })
+        .hasAttribute("disabled"),
+    ).toBe(false);
+  });
+
   test("renders provider buttons and signs in with built-in and generic providers", () => {
     render(
       <SignInPageClient

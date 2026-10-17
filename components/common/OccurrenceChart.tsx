@@ -24,13 +24,10 @@ type DataPoint = { date: number; count: number };
 export default function OccurrenceChart({
   chartData,
   compact = false,
-  gradientId,
 }: {
   chartData: DataPoint[];
   compact?: boolean;
-  gradientId?: string;
 }) {
-  const gradId = gradientId ?? "occurrence-chart-gradient";
   const chartConfig: ChartConfig = {
     count: { label: "Occurrences", color: "hsl(var(--chart-1))" },
   };
@@ -46,18 +43,6 @@ export default function OccurrenceChart({
           data={chartData}
           margin={{ left: 12, right: 12 }}
         >
-          <defs>
-            <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
-              <stop
-                offset="0%"
-                stopColor="hsl(var(--sidebar-accent-grad-start))"
-              />
-              <stop
-                offset="100%"
-                stopColor="hsl(var(--sidebar-accent-grad-end))"
-              />
-            </linearGradient>
-          </defs>
           <CartesianGrid vertical={false} stroke="rgba(255,255,255,0.1)" />
           <XAxis
             type="number"
@@ -101,7 +86,7 @@ export default function OccurrenceChart({
               );
             }}
           />
-          <Bar dataKey="count" fill={`url(#${gradId})`} radius={4} />
+          <Bar dataKey="count" fill={chartConfig.count.color} radius={4} />
         </BarChart>
       </ResponsiveContainer>
     </ChartContainer>

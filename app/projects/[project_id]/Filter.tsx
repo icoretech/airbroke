@@ -42,7 +42,7 @@ export default function EnvironmentFilter({
           />
         }
       >
-        <Filter className="mr-2 size-4" />
+        <Filter data-icon="inline-start" />
         {filterByEnv && filterByEnv !== "" ? (
           <span className="flex items-center gap-2">
             <span className="hidden sm:inline">Environment:</span>
@@ -60,7 +60,48 @@ export default function EnvironmentFilter({
           <DropdownMenuLabel>Filter by environment</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuRadioGroup value={filterByEnv ?? ""}>
-            <DropdownMenuRadioItem value="">
+            <DropdownMenuRadioItem
+              closeOnClick
+              value=""
+              render={
+                <Link
+                  href={generateUpdatedURLWithRemovals(
+                    pathname,
+                    searchParams,
+                    {},
+                    ["filterByEnv"],
+                  )}
+                />
+              }
+            >
+              All environments
+            </DropdownMenuRadioItem>
+            {environments.map((env) => (
+              <DropdownMenuRadioItem
+                closeOnClick
+                key={env}
+                value={env}
+                render={
+                  <Link
+                    href={generateUpdatedURLWithRemovals(
+                      pathname,
+                      searchParams,
+                      {
+                        filterByEnv: env,
+                      },
+                    )}
+                  />
+                }
+              >
+                {env}
+              </DropdownMenuRadioItem>
+            ))}
+          </DropdownMenuRadioGroup>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem
+            render={
               <Link
                 href={generateUpdatedURLWithRemovals(
                   pathname,
@@ -69,37 +110,12 @@ export default function EnvironmentFilter({
                   ["filterByEnv"],
                 )}
                 className="flex w-full"
-              >
-                All environments
-              </Link>
-            </DropdownMenuRadioItem>
-            {environments.map((env) => (
-              <DropdownMenuRadioItem key={env} value={env}>
-                <Link
-                  href={generateUpdatedURLWithRemovals(pathname, searchParams, {
-                    filterByEnv: env,
-                  })}
-                  className="flex w-full"
-                >
-                  {env}
-                </Link>
-              </DropdownMenuRadioItem>
-            ))}
-          </DropdownMenuRadioGroup>
+              />
+            }
+          >
+            Clear filter
+          </DropdownMenuItem>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem
-          render={
-            <Link
-              href={generateUpdatedURLWithRemovals(pathname, searchParams, {}, [
-                "filterByEnv",
-              ])}
-              className="flex w-full"
-            />
-          }
-        >
-          Clear filter
-        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

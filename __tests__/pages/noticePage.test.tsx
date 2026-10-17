@@ -50,7 +50,7 @@ vi.mock("@/app/notices/[notice_id]/Sort", () => ({
 import Notice from "@/app/notices/[notice_id]/page";
 
 describe("Notice", () => {
-  test("keeps the remarks heading and thread in one surface on narrow screens", async () => {
+  test("keeps the remarks heading and thread inside one Card", async () => {
     const html = renderToStaticMarkup(
       await Notice({
         params: Promise.resolve({ notice_id: "notice-1" }),
@@ -61,12 +61,17 @@ describe("Notice", () => {
     const remarksHeading = [...document.querySelectorAll("h2")].find(
       (heading) => heading.textContent === "Remarks",
     );
-    const remarksSection = remarksHeading?.closest("section");
+    const remarksCard = remarksHeading?.closest('[data-slot="card"]');
+    const remarksHeader = remarksHeading?.closest('[data-slot="card-header"]');
+    const remarksContent = remarksCard?.querySelector(
+      '[data-slot="card-content"]',
+    );
 
-    expect(remarksSection?.classList.contains("overflow-hidden")).toBe(true);
-    expect(remarksSection?.classList.contains("border")).toBe(true);
-    expect(remarksSection?.classList.contains("bg-card")).toBe(true);
-    expect(remarksSection?.classList.contains("backdrop-blur")).toBe(false);
+    expect(remarksHeading).toBeDefined();
+    expect(remarksCard).toBeInstanceOf(HTMLElement);
+    expect(remarksHeader?.parentElement).toBe(remarksCard);
+    expect(remarksContent?.parentElement).toBe(remarksCard);
+    expect(remarksContent?.textContent).toBe("Remark thread");
   });
 
   test("allows the occurrence filters to wrap on narrow screens", async () => {

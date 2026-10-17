@@ -114,22 +114,22 @@ export async function AppShell({
       </Sidebar>
 
       <SidebarInset className="min-w-0">
-        <header className="flex h-16 shrink-0 items-center gap-2">
-          <div className="flex w-full items-center gap-2 px-4">
+        <header className="flex shrink-0 items-center gap-2">
+          <div className="flex min-h-16 w-full flex-wrap items-center gap-2 px-4 py-3 lg:flex-nowrap lg:py-0">
             <SidebarTrigger className="-ml-1" />
             <Separator
               orientation="vertical"
-              className="mr-2 data-[orientation=vertical]:h-4"
+              className="mr-2 data-vertical:h-4 data-vertical:self-center"
             />
             <div className="flex-1 min-w-0 overflow-hidden pr-2">
               {topbarBreadcrumbs}
             </div>
-            <div className="ml-auto flex min-w-0 items-center gap-2 sm:gap-4 lg:gap-6">
-              {!topbarHideSearch && (
-                <div className="hidden min-w-0 max-w-[40vw] flex-1 lg:block">
-                  <TopbarSearch placeholder={topbarSearchPlaceholder} />
-                </div>
-              )}
+            {!topbarHideSearch && (
+              <div className="order-last w-full min-w-0 empty:hidden [&>form]:max-w-none lg:order-none lg:w-64 lg:max-w-[40vw]">
+                <TopbarSearch placeholder={topbarSearchPlaceholder} />
+              </div>
+            )}
+            <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-4 lg:gap-6">
               {topbarEndSlot ?? <CreateProjectDialog />}
             </div>
           </div>

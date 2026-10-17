@@ -5,6 +5,15 @@
 import { useState } from "react";
 import { SiCurl } from "react-icons/si";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
 import type { Context } from "@/types/airbroke";
 
 function ToolboxCurl({ context }: { context: Context }) {
@@ -42,36 +51,34 @@ function ToolboxCurl({ context }: { context: Context }) {
   };
 
   return (
-    <>
-      <div className="flex flex-1 flex-col rounded-t-md bg-airbroke-800 p-8 ring-1 ring-white/5">
-        <div className="mx-auto h-32 w-32 shrink-0">
-          <span className="h-32 w-32 text-[8rem] leading-none text-white">
-            <SiCurl />
-          </span>
-        </div>
-        <h3 className="my-6 text-sm font-medium text-white">cURL Command</h3>
-        <textarea
+    <Card className="h-full min-w-0">
+      <CardHeader>
+        <CardTitle>cURL Command</CardTitle>
+        <CardDescription>
+          Copy the recorded request for your terminal.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="flex-1">
+        <Textarea
           readOnly
           aria-label="Generated cURL command"
           value={curlCommand}
-          className="h-60 w-full resize-none rounded-lg bg-gray-700 px-4 py-2 text-xs text-white"
-        ></textarea>
-      </div>
-      <div>
-        <div className="-mt-px overflow-hidden rounded-b-lg ring-1 ring-indigo-400/30">
-          <Button
-            type="button"
-            variant="outline"
-            size="lg"
-            onClick={handleCopy}
-            className="h-auto w-full rounded-none border-transparent bg-indigo-400/10 py-4 text-indigo-200 hover:bg-indigo-500 hover:text-indigo-100"
-          >
-            <SiCurl />
-            {isCopied ? "Copied!" : "Copy"}
-          </Button>
-        </div>
-      </div>
-    </>
+          placeholder="No request URL was recorded."
+          className="h-48 w-full resize-y font-mono"
+        />
+      </CardContent>
+      <CardFooter>
+        <Button
+          type="button"
+          variant="outline"
+          disabled={!curlCommand}
+          onClick={handleCopy}
+        >
+          <SiCurl data-icon="inline-start" />
+          {isCopied ? "Copied!" : "Copy"}
+        </Button>
+      </CardFooter>
+    </Card>
   );
 }
 

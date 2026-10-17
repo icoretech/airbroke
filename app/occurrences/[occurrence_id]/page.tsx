@@ -1,13 +1,8 @@
 // app/occurrences/[occurrence_id]/page.tsx
 
-import clsx from "clsx";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  BiComment,
-  BiSolidCarCrash,
-  BiSolidNetworkChart,
-} from "react-icons/bi";
+import { BiComment, BiSolidNetworkChart } from "react-icons/bi";
 import { CgToolbox } from "react-icons/cg";
 import { FaEnvira, FaLink } from "react-icons/fa6";
 import { LuListEnd } from "react-icons/lu";
@@ -27,6 +22,8 @@ import Session from "@/components/occurrence/Session";
 import Toolbox from "@/components/occurrence/Toolbox";
 import RemarkThread from "@/components/remark/RemarkThread";
 import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { requireSession } from "@/lib/auth/requireSession";
 import { checkOccurrenceBookmarkExistence } from "@/lib/queries/occurrenceBookmarks";
 import { getOccurrenceById } from "@/lib/queries/occurrences";
@@ -63,12 +60,6 @@ export default async function Occurrence(
     checkOccurrenceBookmarkExistence(userId, occurrence.id),
     getRemarkCountForOccurrencePage(occurrence.id, occurrence.notice_id),
   ]);
-  const hasSession =
-    occurrence.session && Object.keys(occurrence.session).length > 0;
-  const hasParams =
-    occurrence.params && Object.keys(occurrence.params).length > 0;
-  const hasEnvironment =
-    occurrence.environment && Object.keys(occurrence.environment).length > 0;
 
   const tabKeys: OccurrenceTabKeys[] = [
     "backtrace",
@@ -82,11 +73,8 @@ export default async function Occurrence(
   ];
 
   const currentTabValue = getSingleSearchParam(resolvedSearchParams, "tab");
-  const currentTab: OccurrenceTabKeys = tabKeys.includes(
-    currentTabValue as OccurrenceTabKeys,
-  )
-    ? (currentTabValue as OccurrenceTabKeys)
-    : "backtrace";
+  const currentTab =
+    tabKeys.find((tab) => tab === currentTabValue) ?? "backtrace";
 
   const tabs: OccurrenceTabs = {
     backtrace: {
@@ -103,33 +91,27 @@ export default async function Occurrence(
       icon: BiSolidNetworkChart,
       href: `/occurrences/${occurrence.id}?tab=context` as Route,
     },
-    environment: hasEnvironment
-      ? {
-          id: "environment",
-          name: "Environment",
-          current: currentTab === "environment",
-          icon: FaEnvira,
-          href: `/occurrences/${occurrence.id}?tab=environment` as Route,
-        }
-      : undefined,
-    session: hasSession
-      ? {
-          id: "session",
-          name: "Session",
-          current: currentTab === "session",
-          icon: MdAccountCircle,
-          href: `/occurrences/${occurrence.id}?tab=session` as Route,
-        }
-      : undefined,
-    params: hasParams
-      ? {
-          id: "params",
-          name: "Params",
-          current: currentTab === "params",
-          icon: FaLink,
-          href: `/occurrences/${occurrence.id}?tab=params` as Route,
-        }
-      : undefined,
+    environment: {
+      id: "environment",
+      name: "Environment",
+      current: currentTab === "environment",
+      icon: FaEnvira,
+      href: `/occurrences/${occurrence.id}?tab=environment` as Route,
+    },
+    session: {
+      id: "session",
+      name: "Session",
+      current: currentTab === "session",
+      icon: MdAccountCircle,
+      href: `/occurrences/${occurrence.id}?tab=session` as Route,
+    },
+    params: {
+      id: "params",
+      name: "Params",
+      current: currentTab === "params",
+      icon: FaLink,
+      href: `/occurrences/${occurrence.id}?tab=params` as Route,
+    },
     chart: {
       id: "chart",
       name: "Chart",
@@ -154,19 +136,12 @@ export default async function Occurrence(
   };
 
   return (
-    <div className="space-y-6">
+    <div className="flex min-w-0 flex-col gap-6">
       {/* Occurrence header */}
-      <section className="rounded-xl border border-border bg-card p-4 shadow-sm sm:p-5">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+      <Card>
+        <CardHeader className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div className="min-w-0 flex-1">
             <div className="flex items-start gap-3">
-              <div className="mt-0.5 flex size-10 items-center justify-center rounded-lg bg-primary/10 ring-1 ring-inset ring-primary/30">
-                <BiSolidCarCrash
-                  className="size-5 text-primary"
-                  aria-hidden="true"
-                />
-              </div>
-
               <div className="min-w-0 flex-1">
                 <div className="text-xs font-medium text-muted-foreground">
                   Project
@@ -216,6 +191,7 @@ export default async function Occurrence(
               <BookmarkButton
                 isBookmarked={isBookmarked}
                 occurrenceId={occurrence.id}
+                iconOnly={false}
               />
             </div>
 
@@ -234,12 +210,12 @@ export default async function Occurrence(
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </CardHeader>
+      </Card>
 
       {/* Tabs + content */}
-      <section className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
-        <div className="flex w-full min-w-0 items-center border-b border-border px-4 py-3">
+      <Card>
+        <CardHeader className="border-b">
           <nav
             className="flex min-w-0 flex-1 flex-wrap gap-2"
             aria-label="Tabs"
@@ -249,23 +225,20 @@ export default async function Occurrence(
                 <Link
                   key={tab.id}
                   href={tab.href}
-                  className={clsx(
-                    tab.current
-                      ? "bg-accent/40 text-foreground"
-                      : "text-muted-foreground hover:bg-accent/30 hover:text-foreground",
-                    "inline-flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                  )}
+                  className={buttonVariants({
+                    variant: tab.current ? "secondary" : "ghost",
+                  })}
                   aria-current={tab.current ? "page" : undefined}
                 >
-                  <tab.icon className="size-4" aria-hidden="true" />
+                  <tab.icon data-icon="inline-start" aria-hidden="true" />
                   <span>{tab.name}</span>
                 </Link>
               ) : null,
             )}
           </nav>
-        </div>
+        </CardHeader>
 
-        <div className="pt-0">
+        <CardContent className="min-w-0">
           {currentTab === "backtrace" && (
             <Backtrace occurrenceId={occurrence.id} />
           )}
@@ -286,8 +259,8 @@ export default async function Occurrence(
               projectId={occurrence.notice.project_id}
             />
           )}
-        </div>
-      </section>
+        </CardContent>
+      </Card>
     </div>
   );
 }

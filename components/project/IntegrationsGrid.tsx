@@ -4,14 +4,17 @@
 
 import { useState } from "react";
 import { CodeBlock } from "@/components/common/CodeBlock";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import {
   airbrakeIntegrations,
   sentryIntegrations,
@@ -57,51 +60,48 @@ export default function IntegrationsGrid({
     provider === "airbrake" ? airbrakeIntegrations : sentryIntegrations;
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap items-center gap-2">
-        <Button
-          type="button"
-          size="sm"
-          variant={provider === "airbrake" ? "secondary" : "outline"}
-          onClick={() => handleProviderChange("airbrake")}
-        >
-          Airbrake SDKs
-        </Button>
-        <Button
-          type="button"
-          size="sm"
-          variant={provider === "sentry" ? "secondary" : "outline"}
-          onClick={() => handleProviderChange("sentry")}
-        >
-          Sentry SDKs
-        </Button>
-      </div>
+    <div className="flex min-w-0 flex-col gap-4">
+      <ToggleGroup
+        value={[provider]}
+        onValueChange={(values) => {
+          const next = values[0];
+          if (next === "airbrake" || next === "sentry")
+            handleProviderChange(next);
+        }}
+        variant="outline"
+        size="sm"
+        aria-label="SDK provider"
+      >
+        <ToggleGroupItem value="airbrake">Airbrake SDKs</ToggleGroupItem>
+        <ToggleGroupItem value="sentry">Sentry SDKs</ToggleGroupItem>
+      </ToggleGroup>
 
       {/* Info banner */}
-      <div className="relative rounded-lg bg-gray-900 px-4 py-3 text-sm text-gray-100 shadow-md sm:px-6">
-        {provider === "airbrake" ? (
-          <p className="leading-5">
-            <strong className="font-semibold text-indigo-300">Heads up!</strong>{" "}
-            Airbroke is an Airbrake-compatible error collector. Simply install
-            an official Airbrake SDK in your project and configure it to point
-            to Airbroke. Below are example snippets showing how to configure
-            Airbrake. Remember to disable extra performance stats or remote
-            config options, so only error notifications are sent to Airbroke.
-          </p>
-        ) : (
-          <p className="leading-5">
-            <strong className="font-semibold text-indigo-300">Heads up!</strong>{" "}
-            Airbroke also supports a Sentry-compatible envelope intake. Use your
-            project ID + API key with the{" "}
-            <code className="rounded bg-muted px-1 py-0.5 text-gray-100">
-              /api/sentry/&lt;PROJECT_ID&gt;/envelope
-            </code>{" "}
-            endpoint (shown as a <code>tunnel</code> in these snippets). Keep it
-            errors-only by disabling tracing, sessions/outcomes, and default
-            integrations.
-          </p>
-        )}
-      </div>
+      <Alert>
+        <AlertTitle>SDK setup</AlertTitle>
+        <AlertDescription>
+          {provider === "airbrake" ? (
+            <p className="leading-5">
+              Airbroke is an Airbrake-compatible error collector. Simply install
+              an official Airbrake SDK in your project and configure it to point
+              to Airbroke. Below are example snippets showing how to configure
+              Airbrake. Remember to disable extra performance stats or remote
+              config options, so only error notifications are sent to Airbroke.
+            </p>
+          ) : (
+            <p className="leading-5">
+              Airbroke also supports a Sentry-compatible envelope intake. Use
+              your project ID + API key with the{" "}
+              <code className="break-all rounded bg-muted px-1 py-0.5">
+                /api/sentry/&lt;PROJECT_ID&gt;/envelope
+              </code>{" "}
+              endpoint (shown as a <code>tunnel</code> in these snippets). Keep
+              it errors-only by disabling tracing, sessions/outcomes, and
+              default integrations.
+            </p>
+          )}
+        </AlertDescription>
+      </Alert>
 
       {/* Integration cards */}
       <Dialog onOpenChange={handleOpenChange}>
@@ -113,24 +113,21 @@ export default function IntegrationsGrid({
               <DialogTrigger
                 key={item.name}
                 render={
-                  <button
+                  <Button
                     type="button"
+                    variant="outline"
                     onClick={() => handleSelect(item)}
-                    className="cursor-pointer rounded-lg border border-white/10 bg-gray-900 p-4 text-left shadow-md transition-colors hover:border-indigo-500 hover:bg-airbroke-600"
+                    className="h-auto min-w-0 flex-col items-start gap-1 p-4 text-left whitespace-normal"
                   />
                 }
               >
-                <div className="mb-1 flex items-center gap-2">
+                <div className="flex items-center gap-2">
                   {Icon ? (
-                    <span className="text-indigo-300 text-lg leading-none">
-                      <Icon />
-                    </span>
+                    <Icon data-icon="inline-start" aria-hidden="true" />
                   ) : null}
-                  <h3 className="text-sm font-semibold text-white">
-                    {item.name}
-                  </h3>
+                  <h3 className="font-semibold">{item.name}</h3>
                 </div>
-                <p className="text-xs text-gray-300">
+                <p className="text-xs text-muted-foreground">
                   Click to view code snippet
                 </p>
               </DialogTrigger>
@@ -138,14 +135,15 @@ export default function IntegrationsGrid({
           })}
         </div>
 
-        <DialogContent className="grid max-h-[85vh] w-[calc(100vw-2rem)] max-w-5xl grid-rows-[auto,minmax(0,1fr)] overflow-hidden border-white/10 bg-slate-900 p-0 text-white">
-          <DialogHeader className="border-b border-white/10 px-4 py-2.5">
-            <DialogTitle className="text-base font-semibold text-gray-100">
-              {selected?.name ?? "Snippet"}
-            </DialogTitle>
+        <DialogContent className="max-h-[85dvh] overflow-y-auto sm:max-w-5xl">
+          <DialogHeader>
+            <DialogTitle>{selected?.name ?? "Snippet"}</DialogTitle>
+            <DialogDescription>
+              Configure this SDK to send errors to your project.
+            </DialogDescription>
           </DialogHeader>
 
-          <div className="min-h-0 min-w-0 overflow-y-auto px-4 pb-4 pt-2">
+          <div className="min-w-0">
             {selected ? (
               <CodeBlock
                 language={selected.language}

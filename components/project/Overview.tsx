@@ -101,7 +101,7 @@ export default async function Overview({
   ];
 
   return (
-    <div className="space-y-6 text-white">
+    <div className="flex flex-col gap-6">
       <section className="grid grid-cols-1 gap-4 lg:grid-cols-12">
         {/* Activity */}
         <ActivityCard projectId={project.id} />
@@ -115,17 +115,17 @@ export default async function Overview({
         {/* Repository or Edit Settings card */}
         <div className="lg:col-span-7">
           <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm text-white">
+            <CardHeader>
+              <CardTitle>
                 {repositoryOverride ? "Edit Project Settings" : "Repository"}
               </CardTitle>
               {repositoryOverride ? (
-                <CardDescription className="text-xs text-white/70">
+                <CardDescription>
                   Update your project’s metadata or repository details.
                 </CardDescription>
               ) : null}
             </CardHeader>
-            <CardContent className="pt-0">
+            <CardContent>
               {repositoryOverride ? (
                 repositoryOverride
               ) : project.repo_url ? (
@@ -219,17 +219,15 @@ export default async function Overview({
         {/* Quick Actions */}
         <div className="lg:col-span-5">
           <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm text-white">
-                Quick Actions
-              </CardTitle>
+            <CardHeader>
+              <CardTitle>Quick Actions</CardTitle>
             </CardHeader>
-            <CardContent className="pt-0">
+            <CardContent>
               <ItemGroup>
                 <Item variant="default" size="sm" className="items-center">
                   <ItemContent>
                     <ItemTitle>API Key</ItemTitle>
-                    <ItemDescription className="font-mono truncate text-white/80">
+                    <ItemDescription className="font-mono truncate">
                       {project.api_key}
                     </ItemDescription>
                   </ItemContent>
@@ -249,10 +247,10 @@ export default async function Overview({
         {/* Integrations */}
         <div className="lg:col-span-12">
           <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm text-white">Integrations</CardTitle>
+            <CardHeader>
+              <CardTitle>Integrations</CardTitle>
             </CardHeader>
-            <CardContent className="pt-0">
+            <CardContent>
               <IntegrationsGrid
                 replacements={{
                   REPLACE_AIRBROKE_HOST: appHost,

@@ -18,11 +18,13 @@ import {
 interface BookmarkButtonProps {
   occurrenceId: string;
   isBookmarked: boolean;
+  iconOnly?: boolean;
 }
 
 export default function BookmarkButton({
   occurrenceId,
   isBookmarked,
+  iconOnly = true,
 }: BookmarkButtonProps) {
   const { errorMessage, isBusy, runMutation } = useClientMutation();
   const [optimistic, setOptimistic] = useState<{
@@ -46,8 +48,8 @@ export default function BookmarkButton({
           render={
             <Button
               type="button"
-              variant={bookmarked ? "secondary" : "outline"}
-              size="icon-sm"
+              variant="outline"
+              size={iconOnly ? "icon-sm" : "lg"}
               disabled={isBusy}
               aria-disabled={isBusy}
               aria-pressed={bookmarked}
@@ -68,8 +70,11 @@ export default function BookmarkButton({
             />
           }
         >
-          <Icon className="size-4" aria-hidden="true" />
-          <span className="sr-only">{label}</span>
+          <Icon
+            data-icon={iconOnly ? undefined : "inline-start"}
+            aria-hidden="true"
+          />
+          {iconOnly ? <span className="sr-only">{label}</span> : label}
         </TooltipTrigger>
         <TooltipContent sideOffset={6}>
           {bookmarked ? "Remove bookmark" : "Bookmark this occurrence"}

@@ -167,11 +167,11 @@ function TopbarSearchForm({
           name="searchQuery"
           type="search"
           placeholder={placeholder}
+          aria-label={placeholder}
           value={draft}
           disabled={isDisabled}
           aria-busy={isPending}
           onChange={onChange}
-          className=""
         />
         <InputGroupAddon align="inline-end">
           <KbdGroup suppressHydrationWarning>

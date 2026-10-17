@@ -1,6 +1,12 @@
 // components/occurrence/Backtrace.tsx
 
 import clsx from "clsx";
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyTitle,
+} from "@/components/ui/empty";
 import { getOccurrenceById } from "@/lib/queries/occurrences";
 import LinkedBacktraceLine from "./BacktraceLine";
 import ClipboardButton from "./ClipboardButton";
@@ -29,11 +35,10 @@ function isBacktraceItem(item: Prisma.JsonValue): item is BacktraceJsonObject {
     return false;
   }
 
-  const maybeBacktrace = item as Partial<BacktraceJsonObject>;
   return (
-    typeof maybeBacktrace.file === "string" &&
-    typeof maybeBacktrace.line === "number" &&
-    typeof maybeBacktrace.function === "string"
+    typeof item.file === "string" &&
+    typeof item.line === "number" &&
+    typeof item.function === "string"
   );
 }
 
@@ -63,31 +68,41 @@ export default async function Backtrace({
     throw new Error("Occurrence not found");
   }
 
+  const traces = Array.isArray(occurrence.backtrace)
+    ? occurrence.backtrace.filter(isBacktraceItem)
+    : [];
+  if (traces.length === 0) {
+    return (
+      <Empty>
+        <EmptyHeader>
+          <EmptyTitle>No backtrace recorded</EmptyTitle>
+          <EmptyDescription>
+            The error reporter did not include any stack frames for this
+            occurrence.
+          </EmptyDescription>
+        </EmptyHeader>
+      </Empty>
+    );
+  }
+
   return (
-    <div className="px-4 sm:px-6 lg:px-8">
-      <div className="flex items-center justify-between">
-        <div className="mb-4 flex items-center gap-x-4">
+    <div className="flex min-w-0 flex-col gap-4">
+      <div className="flex flex-wrap items-center justify-between">
+        <div className="flex flex-wrap items-center gap-2">
           {/* Copy JSON */}
           <ClipboardButton json={occurrence.backtrace} />
           {/* Copy plain text */}
-          <ClipboardButton
-            json={generatePlainTextFromJson(
-              occurrence.backtrace as Prisma.JsonArray,
-            )}
-            text
-          />
+          <ClipboardButton json={generatePlainTextFromJson(traces)} text />
         </div>
       </div>
 
       {Array.isArray(occurrence.backtrace) && (
         <div className="flex items-start justify-between overflow-x-auto">
-          <div className="flex-1">
+          <div className="min-w-0 flex-1">
             {(() => {
               const seenKeys = new Map<string, number>();
 
-              return occurrence.backtrace.map((trace) => {
-                if (!isBacktraceItem(trace)) return null;
-
+              return traces.map((trace) => {
                 const baseKey = `${trace.file}:${trace.line}:${trace.function}`;
                 const seenCount = seenKeys.get(baseKey) ?? 0;
                 seenKeys.set(baseKey, seenCount + 1);

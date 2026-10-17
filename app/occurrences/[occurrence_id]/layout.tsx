@@ -1,11 +1,22 @@
-import { cache } from "react";
+import { cache, Suspense } from "react";
+import Loading from "@/app/loading";
 import AppBreadcrumbs from "@/components/layout/AppBreadcrumbs";
 import { AppShell } from "@/components/layout/AppShell";
 import { EditProjectButton } from "@/components/project/EditProjectButton";
 import { db } from "@/lib/db";
 import { buildOccurrenceCrumbsById } from "@/lib/routing/breadcrumbs";
 
-export default async function OccurrenceLayout({
+export default function OccurrenceLayout(
+  props: LayoutProps<"/occurrences/[occurrence_id]">,
+) {
+  return (
+    <Suspense fallback={<Loading />}>
+      <OccurrenceLayoutContent {...props} />
+    </Suspense>
+  );
+}
+
+async function OccurrenceLayoutContent({
   children,
   params,
 }: LayoutProps<"/occurrences/[occurrence_id]">) {

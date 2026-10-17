@@ -7,14 +7,14 @@
 /* Theme color names that map to our CSS tokens so utilities like bg-background still work */
 @theme inline {
   --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
+  --color-foreground: var(--foreground);
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
   --color-popover: hsl(var(--popover));
   --color-popover-foreground: hsl(var(--popover-foreground));
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
-  --color-secondary: hsl(var(--secondary));
+  --color-secondary: var(--secondary);
   --color-secondary-foreground: hsl(var(--secondary-foreground));
   --color-muted: hsl(var(--muted));
   --color-muted-foreground: hsl(var(--muted-foreground));
@@ -83,14 +83,14 @@
   :root {
     /* Light theme defaults */
     --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    --foreground: hsl(0 0% 3.9%);
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
     --primary: 215 28% 17%; /* align with airbroke palette for consistency */
     --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
+    --secondary: hsl(0 0% 96.1%);
     --secondary-foreground: 0 0% 9%;
     --muted: 0 0% 96.1%;
     --muted-foreground: 0 0% 45.1%;
@@ -124,14 +124,14 @@
   .dark {
     /* Dark theme mapped to Airbroke with purple accent */
     --background: 221 39% 11%; /* close to Tailwind gray-900 (#111827) */
-    --foreground: 213 27% 84%; /* #CBD5E1 */
+    --foreground: hsl(213 27% 84%); /* #CBD5E1 */
     --card: 221 39% 13%;
     --card-foreground: 213 27% 84%;
     --popover: 221 39% 13%;
     --popover-foreground: 213 27% 84%;
     --primary: 239 84% 67%; /* tailwind indigo-500-like */
     --primary-foreground: 0 0% 100%;
-    --secondary: 230 21% 11%; /* #171923 */
+    --secondary: hsl(230 21% 11%); /* #171923 */
     --secondary-foreground: 213 27% 84%;
     --muted: 215 15% 22%;
     --muted-foreground: 213 15% 65%;

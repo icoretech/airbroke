@@ -100,19 +100,21 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => {
-                authClient.signOut({
-                  fetchOptions: {
-                    onSuccess: () => {
-                      router.push("/");
+            <DropdownMenuGroup>
+              <DropdownMenuItem
+                onClick={() => {
+                  authClient.signOut({
+                    fetchOptions: {
+                      onSuccess: () => {
+                        router.push("/");
+                      },
                     },
-                  },
-                });
-              }}
-            >
-              <IconLogout /> Log out
-            </DropdownMenuItem>
+                  });
+                }}
+              >
+                <IconLogout /> Log out
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

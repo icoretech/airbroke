@@ -17,6 +17,7 @@ export default defineConfig({
   },
   test: {
     testTimeout: 300000,
+    fileParallelism: false,
     environment: "jsdom",
     env: {
       BETTER_AUTH_URL: "http://localhost:3000",

@@ -54,7 +54,7 @@ export default async function Projects(props: PageProps<"/projects">) {
               clear the search.
             </EmptyDescription>
             <EmptyContent>
-              <div className="flex items-center gap-3">
+              <div className="flex max-w-full flex-wrap items-center justify-center gap-3">
                 <Link
                   href="/projects"
                   className={buttonVariants({
@@ -86,7 +86,7 @@ export default async function Projects(props: PageProps<"/projects">) {
             Create your first project to start tracking errors.
           </EmptyDescription>
           <EmptyContent>
-            <div className="flex items-center gap-3">
+            <div className="flex max-w-full flex-wrap items-center justify-center gap-3">
               <Link
                 href="/bookmarks"
                 className={buttonVariants({
@@ -134,11 +134,11 @@ export default async function Projects(props: PageProps<"/projects">) {
                 href={`/projects/${project.id}`}
                 className="relative z-10 block p-4 sm:px-6 lg:px-8"
               >
-                <div className="flex items-center justify-between">
-                  <span className="relative z-10 inline-flex items-center gap-1.5 rounded-md bg-gray-900/70 px-2 py-1 text-xs font-medium text-white">
+                <div className="flex min-w-0 flex-wrap items-center justify-between gap-3">
+                  <span className="relative z-10 inline-flex min-w-0 max-w-full items-center gap-1.5 rounded-md bg-gray-900/70 px-2 py-1 text-xs font-medium text-white">
                     {/* Dot with ping animation */}
                     <PingDot color={colorKey} />
-                    {badgeLabel}
+                    <span className="min-w-0 wrap-anywhere">{badgeLabel}</span>
                   </span>
 
                   {/* Right side: CounterLabel */}

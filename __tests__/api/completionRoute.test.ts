@@ -81,7 +81,7 @@ describe("POST /api/completion", () => {
       responses: openaiResponsesMock,
     });
     streamTextMock.mockReturnValue({
-      toTextStreamResponse: () => new Response("ok"),
+      toUIMessageStreamResponse: () => new Response("ok"),
     });
   });
 

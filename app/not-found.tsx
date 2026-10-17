@@ -5,6 +5,13 @@ import Link from "next/link";
 import { TbFileXFilled } from "react-icons/tb";
 import PageBackground from "@/components/layout/PageBackground";
 import { buttonVariants } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import logo from "@/public/logo.svg";
 
 export default function NotFound() {
@@ -12,7 +19,7 @@ export default function NotFound() {
     <main className="relative min-h-screen">
       <PageBackground>
         <div className="mx-auto flex min-h-screen w-full items-center justify-center px-6 py-24 sm:py-32">
-          <div className="mx-auto w-full max-w-xl text-center text-white">
+          <div className="mx-auto w-full max-w-xl text-center text-foreground">
             {/* Brand */}
             <div className="mb-6 flex items-center justify-center">
               <Image
@@ -26,35 +33,35 @@ export default function NotFound() {
             </div>
 
             {/* Card */}
-            <div className="rounded-xl border border-white/10 bg-card/70 p-6 shadow-sm ring-1 ring-white/5 backdrop-blur">
-              <div className="flex flex-col items-center">
+            <Card>
+              <CardHeader className="justify-items-center">
                 <TbFileXFilled
-                  className="mb-3 h-10 w-10 text-gray-400"
+                  className="mb-3 size-10 text-muted-foreground"
                   aria-hidden="true"
                 />
-                <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                  Page not found
-                </h1>
-                <p className="mt-2 max-w-prose text-sm text-gray-300">
+                <CardTitle>
+                  <h1>Page not found</h1>
+                </CardTitle>
+                <CardDescription>
                   The page you’re looking for doesn’t exist or may have moved.
-                </p>
+                </CardDescription>
+              </CardHeader>
 
-                <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-                  <Link href="/projects" className={buttonVariants()}>
-                    Back to Projects
-                  </Link>
-                  <Link
-                    href="/"
-                    className={buttonVariants({ variant: "outline" })}
-                  >
-                    Go Home
-                  </Link>
-                </div>
-              </div>
-            </div>
+              <CardContent className="flex flex-wrap items-center justify-center gap-3">
+                <Link href="/projects" className={buttonVariants()}>
+                  Back to Projects
+                </Link>
+                <Link
+                  href="/"
+                  className={buttonVariants({ variant: "outline" })}
+                >
+                  Go Home
+                </Link>
+              </CardContent>
+            </Card>
 
             {/* Tip */}
-            <p className="mt-6 text-xs text-gray-400">
+            <p className="mt-6 text-xs text-muted-foreground">
               Tip: Check the URL or return to Projects to continue.
             </p>
           </div>

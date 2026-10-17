@@ -6,6 +6,7 @@
 - `typedRoutes: true`
 - `reactCompiler: true`
 - `cacheComponents: true`
+- `partialPrefetching: false` explicitly preserves the existing dynamic-data prefetch behavior during the Next.js 16 upgrade; adopting partial prefetching is a separate routing change
 - `output: "standalone"`
 - `serverExternalPackages`: `@airbrake/node`, `@sentry/node`
 

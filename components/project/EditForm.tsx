@@ -19,6 +19,83 @@ import { updateProject } from "@/lib/actions/projectActions";
 import type { ProjectResponse } from "@/lib/actions/projectActions";
 import type { Project } from "@/prisma/generated/client";
 
+type ProjectFieldName = keyof Pick<
+  Project,
+  "organization" | "name" | "repo_url" | "repo_branch" | "repo_issue_tracker"
+>;
+
+type ProjectFieldDefinition = {
+  readonly name: ProjectFieldName;
+  readonly label: string;
+  readonly columns: "sm:col-span-2" | "sm:col-span-3";
+  readonly placeholder?: string;
+  readonly description?: string;
+};
+
+const PROJECT_FIELDS: readonly ProjectFieldDefinition[] = [
+  { name: "organization", label: "Organization", columns: "sm:col-span-3" },
+  { name: "name", label: "Name", columns: "sm:col-span-3" },
+  {
+    name: "repo_url",
+    label: "Repository URL",
+    columns: "sm:col-span-2",
+    placeholder: "https://github.com/example-org/sample-app",
+    description:
+      "Paste a full repository URL from GitHub, GitLab, Bitbucket, or Gitea.",
+  },
+  {
+    name: "repo_branch",
+    label: "Repository Branch",
+    columns: "sm:col-span-2",
+    placeholder: "main",
+  },
+  {
+    name: "repo_issue_tracker",
+    label: "Repository Issue Tracker",
+    columns: "sm:col-span-2",
+    placeholder: "https://github.com/example-org/sample-app/issues",
+  },
+];
+
+function ProjectField({
+  field,
+  value,
+  errors,
+  vertical,
+}: {
+  readonly field: ProjectFieldDefinition;
+  readonly value: string | null;
+  readonly errors: readonly string[] | undefined;
+  readonly vertical: boolean;
+}) {
+  return (
+    <Field
+      data-invalid={!!errors}
+      className={vertical ? undefined : field.columns}
+    >
+      <FieldLabel htmlFor={field.name}>{field.label}</FieldLabel>
+      <Input
+        id={field.name}
+        name={field.name}
+        autoComplete="off"
+        defaultValue={value ?? ""}
+        placeholder={
+          field.name === "organization" ? (value ?? "") : field.placeholder
+        }
+        aria-invalid={!!errors}
+        aria-describedby={errors ? `${field.name}-error` : undefined}
+      />
+      {errors ? (
+        <FieldError id={`${field.name}-error`}>{errors[0]}</FieldError>
+      ) : (
+        field.description && (
+          <FieldDescription>{field.description}</FieldDescription>
+        )
+      )}
+    </Field>
+  );
+}
+
 const initialState: ProjectResponse = {};
 
 export default function EditForm({
@@ -73,8 +150,8 @@ export default function EditForm({
         <div
           className={
             bare
-              ? "space-y-6"
-              : "space-y-6 border-t border-border px-4 py-5 sm:p-6"
+              ? "flex flex-col gap-6"
+              : "flex flex-col gap-6 border-t border-border px-4 py-5 sm:p-6"
           }
         >
           <FieldGroup
@@ -84,81 +161,15 @@ export default function EditForm({
                 : "grid grid-cols-1 gap-6 sm:grid-cols-6"
             }
           >
-            <Field className={vertical ? undefined : "sm:col-span-3"}>
-              <FieldLabel htmlFor="organization">Organization</FieldLabel>
-              <Input
-                id="organization"
-                name="organization"
-                autoComplete="off"
-                placeholder={project.organization}
-                defaultValue={project.organization}
+            {PROJECT_FIELDS.map((field) => (
+              <ProjectField
+                key={field.name}
+                field={field}
+                value={project[field.name]}
+                errors={state.errors?.[field.name]}
+                vertical={vertical}
               />
-              {state.errors?.organization && (
-                <FieldError>{state.errors.organization[0]}</FieldError>
-              )}
-            </Field>
-
-            <Field className={vertical ? undefined : "sm:col-span-3"}>
-              <FieldLabel htmlFor="name">Name</FieldLabel>
-              <Input
-                id="name"
-                name="name"
-                autoComplete="off"
-                defaultValue={project.name}
-              />
-              {state.errors?.name && (
-                <FieldError>{state.errors.name[0]}</FieldError>
-              )}
-            </Field>
-
-            <Field className={vertical ? undefined : "sm:col-span-2"}>
-              <FieldLabel htmlFor="repo_url">Repository URL</FieldLabel>
-              <Input
-                id="repo_url"
-                name="repo_url"
-                autoComplete="off"
-                defaultValue={project.repo_url ?? ""}
-                placeholder="https://github.com/example-org/sample-app"
-              />
-              {state.errors?.repo_url ? (
-                <FieldError>{state.errors.repo_url[0]}</FieldError>
-              ) : (
-                <FieldDescription>
-                  Paste a full repository URL from GitHub, GitLab, Bitbucket, or
-                  Gitea.
-                </FieldDescription>
-              )}
-            </Field>
-
-            <Field className={vertical ? undefined : "sm:col-span-2"}>
-              <FieldLabel htmlFor="repo_branch">Repository Branch</FieldLabel>
-              <Input
-                id="repo_branch"
-                name="repo_branch"
-                autoComplete="off"
-                defaultValue={project.repo_branch ?? ""}
-                placeholder="main"
-              />
-              {state.errors?.repo_branch && (
-                <FieldError>{state.errors.repo_branch[0]}</FieldError>
-              )}
-            </Field>
-
-            <Field className={vertical ? undefined : "sm:col-span-2"}>
-              <FieldLabel htmlFor="repo_issue_tracker">
-                Repository Issue Tracker
-              </FieldLabel>
-              <Input
-                id="repo_issue_tracker"
-                name="repo_issue_tracker"
-                autoComplete="off"
-                defaultValue={project.repo_issue_tracker ?? ""}
-                placeholder="https://github.com/example-org/sample-app/issues"
-              />
-              {state.errors?.repo_issue_tracker && (
-                <FieldError>{state.errors.repo_issue_tracker[0]}</FieldError>
-              )}
-            </Field>
+            ))}
           </FieldGroup>
 
           {/* Additional note or help text */}
