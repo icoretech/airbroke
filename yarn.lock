@@ -2869,9 +2869,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shadcn/registry@npm:0.1.4":
-  version: 0.1.4
-  resolution: "@shadcn/registry@npm:0.1.4"
+"@shadcn/registry@npm:0.2.0":
+  version: 0.2.0
+  resolution: "@shadcn/registry@npm:0.2.0"
   dependencies:
     "@babel/core": "npm:^7.28.0"
     "@babel/parser": "npm:^7.28.0"
@@ -2895,8 +2895,8 @@ __metadata:
     tsconfig-paths: "npm:^4.2.0"
     type-fest: "npm:^4.41.0"
     undici: "npm:^7.29.1"
-    zod: "npm:^3.24.1"
-  checksum: 10/93baca7f52eabf12880420df060255e49f09640162879887b5b3502f1b274c9179248bd63d8bb55bbdbc8cd2219019e58438e387dd56148486a592b358cd6e2a
+    zod: "npm:^4.2.0"
+  checksum: 10/716b90be688bb88e98cb079dd1a9a34761c69811f24d5313189e0d7a18eec81b178c669d30715a7765422375db2c200b23aa203a0ed9bf345312acb14d45d297
   languageName: node
   linkType: hard
 
@@ -8641,8 +8641,8 @@ __metadata:
   linkType: hard
 
 "shadcn@npm:^4.21.1":
-  version: 4.21.5
-  resolution: "shadcn@npm:4.21.5"
+  version: 4.22.0
+  resolution: "shadcn@npm:4.22.0"
   dependencies:
     "@babel/core": "npm:^7.28.0"
     "@babel/parser": "npm:^7.28.0"
@@ -8650,7 +8650,7 @@ __metadata:
     "@babel/preset-typescript": "npm:^7.27.1"
     "@dotenvx/dotenvx": "npm:^1.48.4"
     "@modelcontextprotocol/sdk": "npm:^1.32.0"
-    "@shadcn/registry": "npm:0.1.4"
+    "@shadcn/registry": "npm:0.2.0"
     "@types/validate-npm-package-name": "npm:^4.0.2"
     browserslist: "npm:^4.29.3"
     cn: "npm:^0.2.4"
@@ -8675,11 +8675,10 @@ __metadata:
     tsconfig-paths: "npm:^4.2.0"
     undici: "npm:^7.29.1"
     validate-npm-package-name: "npm:^7.0.1"
-    zod: "npm:^3.24.1"
-    zod-to-json-schema: "npm:^3.24.6"
+    zod: "npm:^4.2.0"
   bin:
     shadcn: dist/index.js
-  checksum: 10/86320c9c428e16246ef9fbd8eb8f1a5b017c8e211be4074672660a712f1495f2951c1baf75e71c3c4618066f6fc37112917d88842bbceee8bdf7017e3fdfc204
+  checksum: 10/d434665a0fa0e7510ec47a5f4e66cccf2ad31ed4c572cecd4f75fcce4c9b52e6ee8b14298cb64588a83cffab978625cee76f1bff97e94b6a73f175193b932d1a
   languageName: node
   linkType: hard
 
@@ -9954,7 +9953,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod-to-json-schema@npm:^3.24.6, zod-to-json-schema@npm:^3.25.1":
+"zod-to-json-schema@npm:^3.25.1":
   version: 3.25.2
   resolution: "zod-to-json-schema@npm:3.25.2"
   peerDependencies:
@@ -9976,13 +9975,6 @@ __metadata:
   version: 4.6.7
   resolution: "zod@npm:4.6.7"
   checksum: 10/3ca8b8d6bb401538e59504c543db629ea7beaa775e504c3f22269b406fdffbf1431c856d59a597bf66d8487e4d2be12b03a55d76fc2c63d9f046eae1ca173bca
-  languageName: node
-  linkType: hard
-
-"zod@npm:^3.24.1":
-  version: 3.25.76
-  resolution: "zod@npm:3.25.76"
-  checksum: 10/f0c963ec40cd96858451d1690404d603d36507c1fc9682f2dae59ab38b578687d542708a7fdbf645f77926f78c9ed558f57c3d3aa226c285f798df0c4da16995
   languageName: node
   linkType: hard
 
