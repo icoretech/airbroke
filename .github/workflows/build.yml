@@ -18,13 +18,19 @@ concurrency:
   group: stable-image-publisher
   cancel-in-progress: false
 
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  RELEASE_TAG: ${{ inputs.release_tag || github.event.release.tag_name }}
+  IMAGE: ghcr.io/icoretech/airbroke
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      RELEASE_TAG: ${{ inputs.release_tag || github.event.release.tag_name }}
-      IMAGE: ghcr.io/icoretech/airbroke
+  prepare:
+    runs-on: ubuntu-24.04
+    outputs:
+      sha: ${{ steps.release.outputs.sha }}
+      version: ${{ steps.release.outputs.version }}
+      minor: ${{ steps.release.outputs.minor }}
+      candidate: ${{ steps.release.outputs.candidate }}
 
     steps:
       - name: Check out publisher tooling
@@ -41,6 +47,7 @@ jobs:
           gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/releases?per_page=100" > "$RUNNER_TEMP/releases.json"
           gh api "repos/$GITHUB_REPOSITORY/commits/$RELEASE_TAG" > "$RUNNER_TEMP/commit.json"
           node tooling/bin/validate-image-release.mjs "$RUNNER_TEMP/releases.json" "$RUNNER_TEMP/commit.json"
+          echo "candidate=candidate-${{ github.run_id }}-${{ github.run_attempt }}" >> "$GITHUB_OUTPUT"
 
       - name: Check out release source
         uses: actions/checkout@v7
@@ -52,8 +59,24 @@ jobs:
       - name: Validate release source
         run: node tooling/bin/validate-image-release.mjs "$RUNNER_TEMP/releases.json" "$RUNNER_TEMP/commit.json" source
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v4
+  build:
+    needs: prepare
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: amd64
+            runner: ubuntu-24.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - name: Check out release source
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.prepare.outputs.sha }}
+          path: source
+          persist-credentials: false
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
@@ -79,10 +102,10 @@ jobs:
             org.opencontainers.image.url=https://airbroke.icorete.ch
             org.opencontainers.image.authors=Claudio Poli <claudio@icorete.ch>
             org.opencontainers.image.licenses=MIT
-            org.opencontainers.image.revision=${{ steps.release.outputs.sha }}
-            org.opencontainers.image.version=${{ steps.release.outputs.version }}
+            org.opencontainers.image.revision=${{ needs.prepare.outputs.sha }}
+            org.opencontainers.image.version=${{ needs.prepare.outputs.version }}
           tags: |
-            type=raw,value=candidate-${{ github.run_id }}-${{ github.run_attempt }}
+            type=raw,value=${{ needs.prepare.outputs.candidate }}-${{ matrix.arch }}
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v4
@@ -96,21 +119,69 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           context: ./source
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/${{ matrix.arch }}
           pull: true
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=release-${{ matrix.arch }}
+          cache-to: type=gha,mode=max,scope=release-${{ matrix.arch }}
           provenance: false
+
+  promote:
+    needs: [prepare, build]
+    runs-on: ubuntu-24.04
+    env:
+      EXPECTED_SHA: ${{ needs.prepare.outputs.sha }}
+      VERSION: ${{ needs.prepare.outputs.version }}
+      MINOR: ${{ needs.prepare.outputs.minor }}
+      CANDIDATE: ${{ needs.prepare.outputs.candidate }}
+    steps:
+      - name: Check out publisher tooling
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          path: tooling
+          persist-credentials: false
+
+      - name: Check out release source
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.prepare.outputs.sha }}
+          path: source
+          persist-credentials: false
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Assemble validated platform candidates
+        id: candidate
+        run: |
+          for arch in amd64 arm64; do
+            docker buildx imagetools inspect "$IMAGE:$CANDIDATE-$arch" --format '{"manifest": {{json .Manifest}}, "image": {{json .Image}}}' > "$RUNNER_TEMP/$arch.json"
+          done
+          node tooling/bin/validate-image-platforms.mjs "$RUNNER_TEMP/amd64.json" "$RUNNER_TEMP/arm64.json" > "$RUNNER_TEMP/digests.txt"
+          mapfile -t digests < "$RUNNER_TEMP/digests.txt"
+          docker buildx imagetools create --tag "$IMAGE:$CANDIDATE" "$IMAGE@${digests[0]}" "$IMAGE@${digests[1]}"
+          docker buildx imagetools inspect "$IMAGE:$CANDIDATE" --raw > "$RUNNER_TEMP/index.json"
+          jq -e --arg amd64 "${digests[0]}" --arg arm64 "${digests[1]}" '
+            (.manifests | length) == 2 and
+            ([.manifests[] | {digest, platform}] | sort_by(.platform.architecture)) ==
+            [{digest: $amd64, platform: {architecture: "amd64", os: "linux"}}, {digest: $arm64, platform: {architecture: "arm64", os: "linux"}}]
+          ' "$RUNNER_TEMP/index.json"
+          digest=$(docker buildx imagetools inspect "$IMAGE:$CANDIDATE" --format '{{.Manifest.Digest}}')
+          echo "digest=$digest" >> "$GITHUB_OUTPUT"
 
       - name: Promote the still-current stable release
         env:
-          EXPECTED_SHA: ${{ steps.release.outputs.sha }}
-          VERSION: ${{ steps.release.outputs.version }}
-          MINOR: ${{ steps.release.outputs.minor }}
-          DIGEST: ${{ steps.build.outputs.digest }}
+          DIGEST: ${{ steps.candidate.outputs.digest }}
         run: |
           # Requalification may repair metadata, but must never change a version's source commit.
           if docker buildx imagetools inspect "$IMAGE:$VERSION" --format '{{json .Image}}' > "$RUNNER_TEMP/existing-image.json" 2> "$RUNNER_TEMP/inspect-error.txt"; then
