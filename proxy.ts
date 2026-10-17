@@ -4,12 +4,11 @@
 import { getSessionCookie } from "better-auth/cookies";
 import { NextResponse } from "next/server";
 import {
+  isProtectedPagePath,
   SIGN_IN_RETURN_PATH_COOKIE_MAX_AGE_SECONDS,
   SIGN_IN_RETURN_PATH_COOKIE_NAME,
 } from "@/lib/auth/signInReturnPath";
 import type { NextRequest } from "next/server";
-
-const PUBLIC_PATHS = new Set(["/"]);
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -23,7 +22,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  if (PUBLIC_PATHS.has(pathname)) {
+  if (!isProtectedPagePath(pathname)) {
     return NextResponse.next();
   }
 
@@ -51,6 +50,10 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/|notifier_api|_vercel|icon|robots.txt|sitemap.xml).+)",
+    "/signin",
+    "/projects/:path*",
+    "/bookmarks/:path*",
+    "/notices/:path*",
+    "/occurrences/:path*",
   ],
 };
