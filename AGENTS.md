@@ -8,7 +8,7 @@
 
 Airbroke is a self-hosted error collector and triage UI built with Next.js 16,
 React 19, Prisma 7, and PostgreSQL 18. Development and verification are
-Docker Compose-first; the repository pins Yarn 4.17.1.
+Docker Compose-first; the repository pins Yarn 4.18.1.
 
 ## STRUCTURE
 

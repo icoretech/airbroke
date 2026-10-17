@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+/migrations-runtime/node_modules/
+/migrations-runtime/.yarn/
 /.pnp
 .pnp.js
 

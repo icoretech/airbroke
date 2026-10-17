@@ -60,26 +60,27 @@ async function main() {
 
   // Install/update all components in a single pass so the CLI computes
   // a unified dependency set and Yarn performs a single install.
-  const args = ["shadcn@latest", "add", ...components, "--yes", "--overwrite"];
-  const printable = `npx ${args.join(" ")}`;
+  const args = [
+    "dlx",
+    "shadcn@latest",
+    "add",
+    ...components,
+    "--yes",
+    DRY ? "--dry-run" : "--overwrite",
+  ];
+  const printable = `yarn ${args.join(" ")}`;
   console.log(`[shadcn:update] ${printable}`);
-  if (!DRY) {
-    try {
-      await run("npx", args, {
-        env: {
-          ...process.env,
-          CI: "1",
-          // Avoid paging diffs (can hang in containers)
-          GIT_PAGER: "cat",
-          PAGER: "cat",
-          LESS: "-FRX",
-        },
-      });
-      console.log("[shadcn:update] CLI finished.");
-    } catch (err) {
-      console.error(`[shadcn:update] Failed:`, err.message);
-    }
-  }
+  await run("yarn", args, {
+    env: {
+      ...process.env,
+      CI: "1",
+      // Avoid paging diffs (can hang in containers)
+      GIT_PAGER: "cat",
+      PAGER: "cat",
+      LESS: "-FRX",
+    },
+  });
+  console.log("[shadcn:update] CLI finished.");
 
   // Best-effort dedupe to collapse any transient range bumps the CLI added.
   if (!DRY) {
