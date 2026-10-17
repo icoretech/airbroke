@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.3](https://github.com/icoretech/airbroke/compare/v1.4.2...v1.4.3) (2026-10-17)
+
+
+### Bug Fixes
+
+* **auth:** preserve page destinations across automatic asset requests ([662f3d6](https://github.com/icoretech/airbroke/commit/662f3d6080920736e6b2894cb8bb782970fea3ee))
+* **charts:** include the current hour in occurrence windows ([b7a4c62](https://github.com/icoretech/airbroke/commit/b7a4c6282ee30c5471e13790f215a0c7a2094e22))
+
 ## [1.4.2](https://github.com/icoretech/airbroke/compare/v1.4.1...v1.4.2) (2026-10-17)
 
 
