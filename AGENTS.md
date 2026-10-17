@@ -52,6 +52,7 @@ imports and route delegation.
 
 ## CONVENTIONS
 
+- Use `deps: <concrete dependency change>` for dependency-only commits so release-please lists them under Dependencies; reserve `fix:` for application bug fixes and do not use `fix(deps):` or `chore(deps):` for routine dependency updates.
 - Use the `@/` alias for project imports. Biome owns formatting and import
   ordering; `biome:lint` writes changes while `biome:ci` is read-only.
 - Keep route composition in `app`, reusable UI in `components`, UI read models
