@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "prisma": "7.10.0"
+    "prisma": "7.10.1"
   },
   "packageManager": "yarn@4.18.1"
 }
