@@ -2186,15 +2186,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/adapter-pg@npm:7.10.0":
-  version: 7.10.0
-  resolution: "@prisma/adapter-pg@npm:7.10.0"
+"@prisma/adapter-pg@npm:7.10.1":
+  version: 7.10.1
+  resolution: "@prisma/adapter-pg@npm:7.10.1"
   dependencies:
-    "@prisma/driver-adapter-utils": "npm:7.10.0"
+    "@prisma/driver-adapter-utils": "npm:7.10.1"
     "@types/pg": "npm:^8.16.0"
     pg: "npm:^8.16.3"
     postgres-array: "npm:3.0.4"
-  checksum: 10/1dacc277ee5302de5b08bf78b00738a3fd99405284c57620cb24070a83365c4ba93ccb6be0da7121c209b0129705f061f86106415b21c9e762b83383feef89e1
+  checksum: 10/97eb35313e137628513ed0a45e705a3797a1978f3e9605e8da0f4bc0a438a16a1ffc98860445e84208885570027656097b3082b302cc84e99cae22096d0502e0
   languageName: node
   linkType: hard
 
@@ -2241,6 +2241,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@prisma/debug@npm:7.10.1":
+  version: 7.10.1
+  resolution: "@prisma/debug@npm:7.10.1"
+  checksum: 10/c3c5bc4cb04b6402cd37e4dfd1b51d08b812ed4de44bf3ffcda0b8091a0021124a1fbd94ab17e91e4122fb51435ab78c54e377216d7d3367c1f41ec135d853f8
+  languageName: node
+  linkType: hard
+
 "@prisma/debug@npm:7.2.0":
   version: 7.2.0
   resolution: "@prisma/debug@npm:7.2.0"
@@ -2271,12 +2278,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/driver-adapter-utils@npm:7.10.0":
-  version: 7.10.0
-  resolution: "@prisma/driver-adapter-utils@npm:7.10.0"
+"@prisma/driver-adapter-utils@npm:7.10.1":
+  version: 7.10.1
+  resolution: "@prisma/driver-adapter-utils@npm:7.10.1"
   dependencies:
-    "@prisma/debug": "npm:7.10.0"
-  checksum: 10/6ce3e55febd69db38aa920a428c555d0caf2f821ab8dc20b38ed406f99fc413fc61fca8d5ec341bf78a58eb3fcbfbd7a4b483f7fae41aadd4265cbc582805eb9
+    "@prisma/debug": "npm:7.10.1"
+  checksum: 10/4a0c55a27d7cabc151df0e1fc3de613877374d6f03dd164494798d0daa869cffbac95e5d921bfa6a6389a82aac30eb9ec450825fa08feb93a14fd8ebd3d0bda5
   languageName: node
   linkType: hard
 
@@ -3913,7 +3920,7 @@ __metadata:
     "@faker-js/faker": "npm:10.6.0"
     "@microlink/react-json-view": "npm:1.31.40"
     "@modelcontextprotocol/server": "npm:2.3.1"
-    "@prisma/adapter-pg": "npm:7.10.0"
+    "@prisma/adapter-pg": "npm:7.10.1"
     "@prisma/client": "npm:7.10.0"
     "@sentry/browser": "npm:11.7.0"
     "@sentry/core": "npm:11.7.0"
