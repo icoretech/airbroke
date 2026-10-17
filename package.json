@@ -30,7 +30,7 @@
     "@base-ui/react": "^1.8.0",
     "@microlink/react-json-view": "1.31.40",
     "@modelcontextprotocol/server": "2.3.1",
-    "@prisma/adapter-pg": "7.10.0",
+    "@prisma/adapter-pg": "7.10.1",
     "@prisma/client": "7.10.0",
     "@sentry/browser": "11.7.0",
     "@sentry/core": "11.7.0",
