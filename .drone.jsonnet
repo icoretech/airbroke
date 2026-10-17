@@ -38,7 +38,7 @@
           'yarn biome:ci',
           'yarn react-doctor:ci',
           'yarn typecheck',
-          'yarn prisma db push',
+          'yarn prisma migrate deploy',
           'yarn test --run',
           'NODE_ENV=production yarn build',
         ],
