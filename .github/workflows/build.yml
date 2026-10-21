@@ -25,7 +25,7 @@ env:
 
 jobs:
   prepare:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     outputs:
       sha: ${{ steps.release.outputs.sha }}
       version: ${{ steps.release.outputs.version }}
@@ -66,9 +66,9 @@ jobs:
       matrix:
         include:
           - arch: amd64
-            runner: ubuntu-24.04
+            runner: ubuntu-26.04
           - arch: arm64
-            runner: ubuntu-24.04-arm
+            runner: ubuntu-26.04-arm
     runs-on: ${{ matrix.runner }}
     steps:
       - name: Check out release source
@@ -130,7 +130,7 @@ jobs:
 
   promote:
     needs: [prepare, build]
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       EXPECTED_SHA: ${{ needs.prepare.outputs.sha }}
       VERSION: ${{ needs.prepare.outputs.version }}
