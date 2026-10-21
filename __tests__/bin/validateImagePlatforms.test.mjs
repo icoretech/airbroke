@@ -45,6 +45,16 @@ it("emits both immutable manifest digests for the exact release platforms", () =
     `sha256:${"b".repeat(64)}\nsha256:${"c".repeat(64)}\n`,
   );
 });
+it.each([[null], [[]], [42], ["sample"], [true]])(
+  "rejects a non-object candidate %j with a clear input error",
+  (value) => {
+    const result = run([candidate("amd64", "b"), value]);
+    expect(result.status).toBe(1);
+    expect(result.stdout).toBe("");
+    expect(result.stderr).toContain("Candidate must be a JSON object");
+    expect(result.stderr).not.toContain("TypeError");
+  },
+);
 it.each([
   "missing",
   "extra",

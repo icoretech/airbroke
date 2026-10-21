@@ -5,7 +5,14 @@ if (files.length !== 2)
   throw new Error("Expected exactly two platform candidates");
 const architectures = ["amd64", "arm64"];
 const digests = files.map((file, index) => {
-  const { manifest, image } = JSON.parse(readFileSync(file, "utf8"));
+  const candidate = JSON.parse(readFileSync(file, "utf8"));
+  if (
+    candidate === null ||
+    typeof candidate !== "object" ||
+    Array.isArray(candidate)
+  )
+    throw new Error("Candidate must be a JSON object");
+  const { manifest, image } = candidate;
   if (image?.os !== "linux" || image.architecture !== architectures[index])
     throw new Error("Candidate platform does not match the native build");
   const labels = image.config?.Labels;
