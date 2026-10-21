@@ -82,7 +82,7 @@
     "vitest": "5.0.5"
   },
   "resolutions": {
-    "@sentry/node@npm:10.76.2/@opentelemetry/api": "1.9.1"
+    "@sentry/node@npm:10.76.2/@opentelemetry/api": "1.10.0"
   },
   "packageManager": "yarn@4.18.1"
 }
