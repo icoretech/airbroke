@@ -29,10 +29,11 @@
     steps: [
       {
         name: 'quality',
-        image: 'node:24.22-alpine',
+        image: 'node:26.12-alpine',
         commands: [
           'apk upgrade --no-cache',
           'apk add --no-cache git',
+          'npm install --global corepack@0.36.0',
           'corepack enable',
           'yarn install --immutable',
           'yarn biome:ci',

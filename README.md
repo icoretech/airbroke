@@ -37,7 +37,7 @@
 
 ## System Requirements
 
-- Node.js 22/24+ compatible environment
+- Node.js 26 compatible environment
 - Minimum of 300MB RAM
 - At least 1000 millicores, equivalent to 1 CPU core
 - PostgreSQL 15+ database
@@ -58,6 +58,8 @@ cp .env.dist .env
 Then edit the `.env` file to set your own values.
 
 ```sh
+npm install --global corepack@0.36.0
+corepack enable
 yarn install
 yarn build
 ```

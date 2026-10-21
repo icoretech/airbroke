@@ -1,8 +1,8 @@
 [build]
-  command = "corepack yarn install --immutable && if [ \"$CONTEXT\" = \"production\" ]; then corepack yarn db:migrate; fi && corepack yarn build"
+  command = "yarn install --immutable && if [ \"$CONTEXT\" = \"production\" ]; then yarn db:migrate; fi && yarn build"
 
 [build.environment]
-  NODE_VERSION = "24"
+  NODE_VERSION = "26"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

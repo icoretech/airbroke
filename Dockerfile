@@ -1,13 +1,13 @@
 # docker build --no-cache -t icoretech/airbroke:prod --progress=plain .
 # docker run -p 3000:3000 icoretech/airbroke:prod
-FROM node:24.22-alpine AS base
+FROM node:26.12-alpine AS base
 ARG DEBUG_TOOLS
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV CHECKPOINT_DISABLE=1
 ENV NODE_ENV=production
 RUN apk upgrade --no-cache
 RUN apk add --no-cache libc6-compat dumb-init openssl
-RUN corepack enable
+RUN npm install --global corepack@0.36.0 && corepack enable
 RUN [ "${DEBUG_TOOLS}" = "true" ] && apk add --no-cache inotify-tools htop net-tools lsof psmisc strace tcpdump || true
 RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
 
