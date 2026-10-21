@@ -28,7 +28,7 @@
     "@airbrake/browser": "2.1.9",
     "@airbrake/node": "2.1.9",
     "@base-ui/react": "^1.9.0",
-    "@microlink/react-json-view": "1.31.40",
+    "@microlink/react-json-view": "1.31.41",
     "@modelcontextprotocol/server": "2.3.1",
     "@prisma/adapter-pg": "7.10.1",
     "@prisma/client": "7.10.1",
