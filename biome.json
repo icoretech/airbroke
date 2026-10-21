@@ -20,6 +20,7 @@
       "!**/public",
       "!**/build",
       "!**/prisma/generated",
+      "!CHANGELOG.md",
       "!components/ui",
       "!components/ai-elements"
     ]
