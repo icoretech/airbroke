@@ -1,7 +1,7 @@
 name: airbroke
 
 x-healthcheck-postgres: &postgres_healthcheck
-  test: ['CMD-SHELL', 'pg_isready -U postgres']
+  test: ["CMD-SHELL", "pg_isready -U postgres"]
   interval: 10s
   timeout: 5s
   retries: 5
@@ -38,7 +38,7 @@ services:
 
   webbase:
     build:
-      context: '.'
+      context: "."
       dockerfile: Dockerfile.dev
     image: icoretech/airbroke:develop
     entrypoint: /bin/sh -lc
@@ -50,14 +50,14 @@ services:
 
   web:
     build:
-      context: '.'
+      context: "."
       dockerfile: Dockerfile.dev
     image: icoretech/airbroke:develop
     restart: always
     environment:
-      DATABASE_URL: 'postgresql://postgres:airbroke@db/airbroke_development?connection_limit=8&connection_timeout=5'
-      DIRECT_URL: 'postgresql://postgres:airbroke@db/airbroke_development'
-      SKIP_YARN_INSTALL: '1'
+      DATABASE_URL: "postgresql://postgres:airbroke@db/airbroke_development?connection_limit=8&connection_timeout=5"
+      DIRECT_URL: "postgresql://postgres:airbroke@db/airbroke_development"
+      SKIP_YARN_INSTALL: "1"
     ports:
       - 3000:3000
       - 9229:9229
@@ -77,10 +77,10 @@ services:
       - test
     command: yarn test --run
     environment:
-      DATABASE_URL: 'postgresql://postgres:airbroke@testdb/airbroke_test?connection_limit=15'
-      DIRECT_URL: 'postgresql://postgres:airbroke@testdb/airbroke_test'
-      TESTING: 'true'
-      SKIP_YARN_INSTALL: '1'
+      DATABASE_URL: "postgresql://postgres:airbroke@testdb/airbroke_test?connection_limit=15"
+      DIRECT_URL: "postgresql://postgres:airbroke@testdb/airbroke_test"
+      TESTING: "true"
+      SKIP_YARN_INSTALL: "1"
     volumes:
       - .:/app
     networks:

@@ -18,14 +18,14 @@ signin/                      # Server provider setup plus client OAuth UI
 
 ## WHERE TO LOOK
 
-| Task | Location | Notes |
-| --- | --- | --- |
-| Root document | `layout.tsx` | Fonts, metadata, dark theme, global CSS |
-| Project shell | `projects/[project_id]/layout.tsx` | Breadcrumbs, `AppShell` |
-| Airbrake | `api/v3/notices/route.ts` | JSON and text/plain |
-| Sentry | `api/sentry/[project_id]/envelope/route.ts` | Body limits |
-| Better Auth | `api/auth/[...all]/route.ts` | Lazy construction |
-| MCP adapter | `api/mcp/route.ts` | Delegates to `lib/mcp/` |
+| Task          | Location                                    | Notes                                   |
+| ------------- | ------------------------------------------- | --------------------------------------- |
+| Root document | `layout.tsx`                                | Fonts, metadata, dark theme, global CSS |
+| Project shell | `projects/[project_id]/layout.tsx`          | Breadcrumbs, `AppShell`                 |
+| Airbrake      | `api/v3/notices/route.ts`                   | JSON and text/plain                     |
+| Sentry        | `api/sentry/[project_id]/envelope/route.ts` | Body limits                             |
+| Better Auth   | `api/auth/[...all]/route.ts`                | Lazy construction                       |
+| MCP adapter   | `api/mcp/route.ts`                          | Delegates to `lib/mcp/`                 |
 
 ## CONVENTIONS
 

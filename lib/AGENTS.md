@@ -21,15 +21,15 @@ db.ts          # Lazy shared Prisma client boundary
 
 ## WHERE TO LOOK
 
-| Task | Location | Notes |
-| --- | --- | --- |
-| Database client | `db.ts` | Callable lazy proxy; one shared entrypoint |
-| Mutation guard | `actions/requireAuth.ts` | Run before protected writes |
-| UI invalidation | `actions/revalidateProjectShellPaths.ts` | Project paths |
-| Auth configuration | `auth/index.ts` | Lazy initialization is build-critical |
-| Intake identity | `intake/upsertNoticeOccurrence.ts` | Grouping and retries |
-| MCP registry | `mcp/tools.ts` | Public tool list and result contract |
-| MCP security | `mcp/server.ts` | Key, origin, CORS, per-request handler |
+| Task               | Location                                 | Notes                                      |
+| ------------------ | ---------------------------------------- | ------------------------------------------ |
+| Database client    | `db.ts`                                  | Callable lazy proxy; one shared entrypoint |
+| Mutation guard     | `actions/requireAuth.ts`                 | Run before protected writes                |
+| UI invalidation    | `actions/revalidateProjectShellPaths.ts` | Project paths                              |
+| Auth configuration | `auth/index.ts`                          | Lazy initialization is build-critical      |
+| Intake identity    | `intake/upsertNoticeOccurrence.ts`       | Grouping and retries                       |
+| MCP registry       | `mcp/tools.ts`                           | Public tool list and result contract       |
+| MCP security       | `mcp/server.ts`                          | Key, origin, CORS, per-request handler     |
 
 ## CONVENTIONS
 

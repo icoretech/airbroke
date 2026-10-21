@@ -12,26 +12,26 @@ for active or focused controls.
 
 ### Palette
 
-| Role | Token | Light | Dark | Usage |
-| --- | --- | --- | --- | --- |
-| Page | `--background` | `0 0% 100%` | `221 39% 11%` | Main application background |
-| Text | `--foreground` | `0 0% 3.9%` | `213 27% 84%` | Default text |
-| Card | `--card` | `0 0% 100%` | `221 39% 13%` | Cards and panels |
-| Popover | `--popover` | `0 0% 100%` | `221 39% 13%` | Menus and overlays |
-| Primary | `--primary` | `215 28% 17%` | `239 84% 67%` | Primary actions and focus |
-| Secondary | `--secondary` | `0 0% 96.1%` | `230 21% 11%` | Secondary controls |
-| Muted | `--muted` | `0 0% 96.1%` | `215 15% 22%` | Subdued surfaces |
-| Muted text | `--muted-foreground` | `0 0% 45.1%` | `213 15% 65%` | Metadata and hints |
-| Destructive text | `--destructive` | `0 84.2% 60.2%` | `0 91% 71%` | Invalid text, borders, and destructive emphasis |
-| Destructive surface | `--destructive-surface` | `0 72% 42%` | `0 62.8% 30.6%` | Filled destructive actions |
-| Destructive surface text | `--destructive-foreground` | `0 0% 98%` | `0 0% 98%` | Text on destructive surfaces |
-| Error status | `--status-error` | `350 89% 60%` | `351 95% 71%` | Active error indicators |
-| Healthy status | `--status-healthy` | `142 71% 45%` | `142 69% 58%` | Healthy project indicators |
-| Paused status | `--status-paused` | `215 16% 47%` | `218 11% 65%` | Disabled or paused project indicators |
-| Border | `--border` | `0 0% 89.8%` | `221 23% 20%` | Structural separation |
-| Focus ring | `--ring` | `215 15% 52%` | `239 84% 67%` | Keyboard focus |
-| Sidebar | `--sidebar-background` | `0 0% 98%` | `218 32% 15%` | Navigation surface |
-| Sidebar accent | `--sidebar-accent` | `240 4.8% 95.9%` | `243 70% 56%` | Active navigation |
+| Role                     | Token                      | Light            | Dark            | Usage                                           |
+| ------------------------ | -------------------------- | ---------------- | --------------- | ----------------------------------------------- |
+| Page                     | `--background`             | `0 0% 100%`      | `221 39% 11%`   | Main application background                     |
+| Text                     | `--foreground`             | `0 0% 3.9%`      | `213 27% 84%`   | Default text                                    |
+| Card                     | `--card`                   | `0 0% 100%`      | `221 39% 13%`   | Cards and panels                                |
+| Popover                  | `--popover`                | `0 0% 100%`      | `221 39% 13%`   | Menus and overlays                              |
+| Primary                  | `--primary`                | `215 28% 17%`    | `239 84% 67%`   | Primary actions and focus                       |
+| Secondary                | `--secondary`              | `0 0% 96.1%`     | `230 21% 11%`   | Secondary controls                              |
+| Muted                    | `--muted`                  | `0 0% 96.1%`     | `215 15% 22%`   | Subdued surfaces                                |
+| Muted text               | `--muted-foreground`       | `0 0% 45.1%`     | `213 15% 65%`   | Metadata and hints                              |
+| Destructive text         | `--destructive`            | `0 84.2% 60.2%`  | `0 91% 71%`     | Invalid text, borders, and destructive emphasis |
+| Destructive surface      | `--destructive-surface`    | `0 72% 42%`      | `0 62.8% 30.6%` | Filled destructive actions                      |
+| Destructive surface text | `--destructive-foreground` | `0 0% 98%`       | `0 0% 98%`      | Text on destructive surfaces                    |
+| Error status             | `--status-error`           | `350 89% 60%`    | `351 95% 71%`   | Active error indicators                         |
+| Healthy status           | `--status-healthy`         | `142 71% 45%`    | `142 69% 58%`   | Healthy project indicators                      |
+| Paused status            | `--status-paused`          | `215 16% 47%`    | `218 11% 65%`   | Disabled or paused project indicators           |
+| Border                   | `--border`                 | `0 0% 89.8%`     | `221 23% 20%`   | Structural separation                           |
+| Focus ring               | `--ring`                   | `215 15% 52%`    | `239 84% 67%`   | Keyboard focus                                  |
+| Sidebar                  | `--sidebar-background`     | `0 0% 98%`       | `218 32% 15%`   | Navigation surface                              |
+| Sidebar accent           | `--sidebar-accent`         | `240 4.8% 95.9%` | `243 70% 56%`   | Active navigation                               |
 
 ### Rules
 
@@ -49,13 +49,13 @@ for active or focused controls.
 
 ### Scale
 
-| Level | Size | Weight | Line height | Usage |
-| --- | --- | --- | --- | --- |
-| Page title | `1.5rem` | 600 | 1.3 | Primary page heading |
-| Section title | `1.125rem` | 600 | 1.4 | Dialog and section headings |
-| UI body | `1rem` | 400 | 1.5 | Forms and prose |
-| Compact UI | `0.875rem` | 400-600 | 1.4 | Buttons, tables, cards |
-| Metadata | `0.75rem` | 400-600 | 1.4 | Counts, captions, hints |
+| Level         | Size       | Weight  | Line height | Usage                       |
+| ------------- | ---------- | ------- | ----------- | --------------------------- |
+| Page title    | `1.5rem`   | 600     | 1.3         | Primary page heading        |
+| Section title | `1.125rem` | 600     | 1.4         | Dialog and section headings |
+| UI body       | `1rem`     | 400     | 1.5         | Forms and prose             |
+| Compact UI    | `0.875rem` | 400-600 | 1.4         | Buttons, tables, cards      |
+| Metadata      | `0.75rem`  | 400-600 | 1.4         | Counts, captions, hints     |
 
 ### Font Stack
 
@@ -75,14 +75,14 @@ for active or focused controls.
 All intentional spacing follows a 4px base unit through Tailwind's standard
 spacing scale.
 
-| Token | Value | Usage |
-| --- | --- | --- |
-| `gap-1` | 4px | Icon and compact metadata |
-| `gap-2` | 8px | Inline controls and compact rows |
-| `gap-3` | 12px | Form groups and menu sections |
-| `gap-4` | 16px | Default page and card rhythm |
-| `gap-6` | 24px | Card internals and section groups |
-| `gap-8` | 32px | Major content separation |
+| Token   | Value | Usage                             |
+| ------- | ----- | --------------------------------- |
+| `gap-1` | 4px   | Icon and compact metadata         |
+| `gap-2` | 8px   | Inline controls and compact rows  |
+| `gap-3` | 12px  | Form groups and menu sections     |
+| `gap-4` | 16px  | Default page and card rhythm      |
+| `gap-6` | 24px  | Card internals and section groups |
+| `gap-8` | 32px  | Major content separation          |
 
 ### Grid
 
@@ -160,11 +160,10 @@ spacing scale.
 
 ## 6. Motion & Interaction
 
-| Type | Duration | Easing | Usage |
-| --- | --- | --- | --- |
-| Micro | 150ms | ease-out | Hover, press, focus feedback |
-| Standard | 200ms | ease-in-out | Menus, dialogs, sidebar state |
-
+| Type     | Duration | Easing      | Usage                         |
+| -------- | -------- | ----------- | ----------------------------- |
+| Micro    | 150ms    | ease-out    | Hover, press, focus feedback  |
+| Standard | 200ms    | ease-in-out | Menus, dialogs, sidebar state |
 - Motion communicates state only.
 - Prefer opacity and transform for animated transitions.
 - Respect `prefers-reduced-motion` through primitive and global styles.

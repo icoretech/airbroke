@@ -48,9 +48,9 @@ GitHub callback together, then redeploy.
 
 ## Services and variables
 
-| Service | Configuration |
-| --- | --- |
-| Airbroke | `ghcr.io/icoretech/airbroke:latest`; public HTTPS domain targeting port `3000`; no persistent volume |
+| Service    | Configuration                                                                                                |
+| ---------- | ------------------------------------------------------------------------------------------------------------ |
+| Airbroke   | `ghcr.io/icoretech/airbroke:latest`; public HTTPS domain targeting port `3000`; no persistent volume         |
 | PostgreSQL | PostgreSQL 18; persistent volume at `/var/lib/postgresql`; private networking only, with no public TCP proxy |
 
 The application retains the image's start command, `dumb-init node server.js`,
@@ -66,19 +66,19 @@ migration failure must stop the deployment. Do not move migrations into a
 background process or replace the command with `yarn db:migrate`: the production
 image carries a separate, self-contained migration runtime.
 
-| Application variable | Value |
-| --- | --- |
-| `HOSTNAME` | `0.0.0.0` |
-| `PORT` | `3000` |
-| `AIRBROKE_AUTH_IP_HEADERS` | `x-real-ip`, supplied by Railway public HTTP ingress |
-| `DATABASE_URL` | Reference to the PostgreSQL service's private connection URL |
-| `DIRECT_URL` | The same private connection URL; alternatively omit this variable entirely |
-| `BETTER_AUTH_URL` | `https://${{RAILWAY_PUBLIC_DOMAIN}}`, or your custom HTTPS origin |
-| `BETTER_AUTH_SECRET` | Independently generated persistent secret |
-| `NEXT_SERVER_ACTIONS_ENCRYPTION_KEY` | Independently generated, base64-encoded 32-byte AES key |
-| `AIRBROKE_GITHUB_ID` | Empty for initial deployment; set the OAuth application's client ID before sign-in |
-| `AIRBROKE_GITHUB_SECRET` | Empty for initial deployment; set the OAuth application's client secret before sign-in |
-| `AIRBROKE_GITHUB_ORGS` | Required nonempty comma-separated organization allowlist |
+| Application variable                 | Value                                                                                  |
+| ------------------------------------ | -------------------------------------------------------------------------------------- |
+| `HOSTNAME`                           | `0.0.0.0`                                                                              |
+| `PORT`                               | `3000`                                                                                 |
+| `AIRBROKE_AUTH_IP_HEADERS`           | `x-real-ip`, supplied by Railway public HTTP ingress                                   |
+| `DATABASE_URL`                       | Reference to the PostgreSQL service's private connection URL                           |
+| `DIRECT_URL`                         | The same private connection URL; alternatively omit this variable entirely             |
+| `BETTER_AUTH_URL`                    | `https://${{RAILWAY_PUBLIC_DOMAIN}}`, or your custom HTTPS origin                      |
+| `BETTER_AUTH_SECRET`                 | Independently generated persistent secret                                              |
+| `NEXT_SERVER_ACTIONS_ENCRYPTION_KEY` | Independently generated, base64-encoded 32-byte AES key                                |
+| `AIRBROKE_GITHUB_ID`                 | Empty for initial deployment; set the OAuth application's client ID before sign-in     |
+| `AIRBROKE_GITHUB_SECRET`             | Empty for initial deployment; set the OAuth application's client secret before sign-in |
+| `AIRBROKE_GITHUB_ORGS`               | Required nonempty comma-separated organization allowlist                               |
 
 Do not set `DIRECT_URL` to an empty string: it prevents migration configuration
 from falling back to `DATABASE_URL`. Keep database references private and point

@@ -8,14 +8,14 @@ ownership rules.
 
 ## WHERE TO LOOK
 
-| Task | Location | Notes |
-| --- | --- | --- |
-| Data model | `schema.prisma` | Hand-authored source of truth |
-| Deployment history | `migrations/*/migration.sql` | Forward-only SQL |
-| Client output | `generated/` | Generated and gitignored |
-| Development seed | `seed.ts` | Idempotent upserts |
-| Local Postgres bootstrap | `pg-init-scripts/` | Not mounted by base Compose |
-| CLI configuration | `../prisma.config.ts` | Prefers `DIRECT_URL` |
+| Task                     | Location                     | Notes                         |
+| ------------------------ | ---------------------------- | ----------------------------- |
+| Data model               | `schema.prisma`              | Hand-authored source of truth |
+| Deployment history       | `migrations/*/migration.sql` | Forward-only SQL              |
+| Client output            | `generated/`                 | Generated and gitignored      |
+| Development seed         | `seed.ts`                    | Idempotent upserts            |
+| Local Postgres bootstrap | `pg-init-scripts/`           | Not mounted by base Compose   |
+| CLI configuration        | `../prisma.config.ts`        | Prefers `DIRECT_URL`          |
 
 ## CONVENTIONS
 

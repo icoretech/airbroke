@@ -19,12 +19,12 @@ proxy.test.ts
 
 ## WHERE TO LOOK
 
-| Task | Location | Notes |
-| --- | --- | --- |
-| Configuration | `../vitest.config.mjs` | jsdom, serial execution |
-| Navigation | `helpers/nextNavigation.ts` | `next/navigation` alias |
-| DB fixtures | `factories/prismaFactories.ts` | Unique attributes |
-| Collectors | `api/` and `lib/` | Accepted/rejected flows |
+| Task          | Location                       | Notes                   |
+| ------------- | ------------------------------ | ----------------------- |
+| Configuration | `../vitest.config.mjs`         | jsdom, serial execution |
+| Navigation    | `helpers/nextNavigation.ts`    | `next/navigation` alias |
+| DB fixtures   | `factories/prismaFactories.ts` | Unique attributes       |
+| Collectors    | `api/` and `lib/`              | Accepted/rejected flows |
 
 ## CONVENTIONS
 

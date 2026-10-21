@@ -22,7 +22,6 @@
 ## Features
 
 > Airbroke is currently in active development! Using it in production environments is at your own discretion. We appreciate your feedback and support as we work towards a stable release.
-
 - :floppy_disk: Based on PostgreSQL
 - :globe_with_meridians: Airbrake(tm)/Sentry(tm)-compatible HTTP collector endpoints
 - :computer: Modern, React-based frontend for error management
@@ -90,7 +89,6 @@ docker run -p 3000:3000 icoretech/airbroke:latest
 While [testing on Vercel](https://nextjs.org/docs/app/getting-started/deploying) has not been conducted, Airbroke should be fully compatible.
 
 It's important to keep the following points in mind:
-
 - For optimal performance, ensure your database is located in the same region.
 - The endpoints under `/api/*` will be converted into serverless functions, which may introduce potential cold boot time.
 - If you connect directly to Postgres, use a pooler (or Prisma Accelerate / Data Proxy) to avoid exhausting DB connections.
@@ -156,7 +154,7 @@ You can override the default values in the `docker-compose.yml` file by creating
 
 Please view all the available configuration variables in the [`.env.dist`](https://github.com/icoretech/airbroke/blob/main/.env.dist) file.
 
-Airbroke requires `DATABASE_URL` at runtime. `DIRECT_URL` is required when you need a *direct* database connection for migrations (for example, when `DATABASE_URL` goes through PgBouncer or a data proxy). Some examples:
+Airbroke requires `DATABASE_URL` at runtime. `DIRECT_URL` is required when you need a _direct_ database connection for migrations (for example, when `DATABASE_URL` goes through PgBouncer or a data proxy). Some examples:
 
 ```sh
 # Example Connection to Prisma Data Proxy
@@ -216,22 +214,18 @@ To ensure simplicity and performance, the Data Collection API sidesteps the use 
 ### MCP API (LLM/Agent Integrations)
 
 Airbroke exposes an MCP-compatible JSON-RPC API for read-only error triage workflows:
-
 - `POST /api/mcp`
 
 Authentication is static-header based (no OAuth in v1). Set `AIRBROKE_MCP_API_KEY` and send either:
-
 - `Authorization: Bearer <AIRBROKE_MCP_API_KEY>`
 - `X-Airbroke-Mcp-Key: <AIRBROKE_MCP_API_KEY>`
 
 Origin policy for browser clients:
-
 - Optional `AIRBROKE_MCP_ALLOWED_ORIGINS` (comma-separated) explicitly allows specific `Origin` values.
 - If `AIRBROKE_MCP_ALLOWED_ORIGINS` is unset, Airbroke allows same-origin browser requests by default.
 - Non-browser clients that do not send an `Origin` header are unaffected by this check.
 
 Available tools:
-
 - `airbroke_list_projects`
 - `airbroke_get_project`
 - `airbroke_list_notices`
@@ -242,7 +236,6 @@ Available tools:
 - `airbroke_get_setup_guide`
 
 Notes on richer MCP outputs:
-
 - `airbroke_list_projects`, `airbroke_list_notices`, and `airbroke_list_occurrences`
   support `offset` + `limit` for page-like iteration.
 - `airbroke_list_projects` is the recommended discovery-first tool for fresh conversations.
@@ -294,7 +287,6 @@ X-Airbroke-Mcp-Key = "replace-me"
 ```
 
 Example discovery flow:
-
 1. Call `airbroke_list_projects` with the best human-friendly hint you have, such as
    `search: "my-app"` or `organization: "example-org"`
 2. If needed, call `airbroke_get_project` with the returned id or the same unambiguous
@@ -304,7 +296,6 @@ Example discovery flow:
 ## Authentication Layer
 
 Airbroke includes an authentication layer that allows you to secure access to the application by enabling user authentication. It supports various authentication providers, including:
-
 - GitHub
 - Atlassian
 - Auth0
@@ -331,7 +322,6 @@ You can find a list of available authentication providers and their documentatio
 To configure the authentication providers, you'll need to set specific environment variables. You can find the list of required environment variables and their descriptions in the [`.env.dist`](https://github.com/icoretech/airbroke/blob/main/.env.dist) file in the Airbroke repository.
 
 To enable authentication in Airbroke and allow users to authenticate using third-party providers, follow these steps:
-
 1. Configure the necessary environment variables for the desired authentication providers. You can refer to the [`.env.dist`](https://github.com/icoretech/airbroke/blob/main/.env.dist) file in the Airbroke repository for a list of required environment variables and their descriptions. Copy this file as `.env` and fill in the necessary values for your authentication providers.
 
 2. Create OAuth applications with the respective authentication providers. Each provider will have its own developer console or settings page where you can create an OAuth application. During the application setup, configure the callback url to match the Airbroke authentication callback path: `https://myairbroke.xyz/api/auth/callback/<provider>`. Save the settings.

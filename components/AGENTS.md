@@ -19,13 +19,13 @@ ui/          # shadcn Base UI primitives; read ui/AGENTS.md
 
 ## WHERE TO LOOK
 
-| Task | Location | Notes |
-| --- | --- | --- |
-| Server shell | `layout/AppShell.tsx` | Server auth and reads |
-| Project mutations | `project/` | Forms call server actions |
-| Occurrence tools | `occurrence/toolbox/` | AI, cURL, and replay boundaries |
-| Chart boundary | `common/RechartsWrapper.tsx` | SSR disabled |
-| Component tests | `../__tests__/components/` | Centralized, never colocated |
+| Task              | Location                     | Notes                           |
+| ----------------- | ---------------------------- | ------------------------------- |
+| Server shell      | `layout/AppShell.tsx`        | Server auth and reads           |
+| Project mutations | `project/`                   | Forms call server actions       |
+| Occurrence tools  | `occurrence/toolbox/`        | AI, cURL, and replay boundaries |
+| Chart boundary    | `common/RechartsWrapper.tsx` | SSR disabled                    |
+| Component tests   | `../__tests__/components/`   | Centralized, never colocated    |
 
 ## CONVENTIONS
 

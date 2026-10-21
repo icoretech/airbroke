@@ -23,32 +23,32 @@ docs/agents/  # Detailed cross-cutting guidance linked below
 
 ## WHERE TO LOOK
 
-| Task | Location | Notes |
-| --- | --- | --- |
-| Routes and layouts | `app/` | Read `app/AGENTS.md` |
-| Intake | `app/api/`, `lib/intake/` | Synchronous writes |
-| Auth | `proxy.ts`, `lib/auth/` | Server checks are authoritative |
-| UI | `components/` | Read `components/AGENTS.md` |
-| Mutations | `lib/actions/` | Auth plus explicit invalidation |
-| UI reads | `lib/queries/` | MCP has separate read models |
-| MCP API | `app/api/mcp/`, `lib/mcp/` | Read-only tools and static-key auth |
-| Data model | `prisma/` | Read `prisma/AGENTS.md` |
-| Tests | `__tests__/` | Read `__tests__/AGENTS.md` |
+| Task               | Location                   | Notes                               |
+| ------------------ | -------------------------- | ----------------------------------- |
+| Routes and layouts | `app/`                     | Read `app/AGENTS.md`                |
+| Intake             | `app/api/`, `lib/intake/`  | Synchronous writes                  |
+| Auth               | `proxy.ts`, `lib/auth/`    | Server checks are authoritative     |
+| UI                 | `components/`              | Read `components/AGENTS.md`         |
+| Mutations          | `lib/actions/`             | Auth plus explicit invalidation     |
+| UI reads           | `lib/queries/`             | MCP has separate read models        |
+| MCP API            | `app/api/mcp/`, `lib/mcp/` | Read-only tools and static-key auth |
+| Data model         | `prisma/`                  | Read `prisma/AGENTS.md`             |
+| Tests              | `__tests__/`               | Read `__tests__/AGENTS.md`          |
 
 ## CODE MAP
 
 Reference counts are unmeasured; relationships below come from direct source
 imports and route delegation.
 
-| Symbol | Type | Location | Refs | Role |
-| --- | --- | --- | --- | --- |
-| `db` | Prisma proxy | `lib/db.ts` | unmeasured | Lazy shared database client |
-| `getAuth` | Factory | `lib/auth/index.ts` | unmeasured | Lazy auth setup |
-| `requireAuth` | Guard | `lib/actions/requireAuth.ts` | n/a | Action auth |
-| `upsertNoticeOccurrence` | Service | `lib/intake/` | n/a | Intake writes |
-| `MCP_TOOLS` | Registry | `lib/mcp/tools.ts` | unmeasured | MCP contract |
-| `handleMcpPost` | Handler | `lib/mcp/server.ts` | unmeasured | MCP transport |
-| `revalidateProjectShellPaths` | Helper | `lib/actions/` | n/a | Invalidation |
+| Symbol                        | Type         | Location                     | Refs       | Role                        |
+| ----------------------------- | ------------ | ---------------------------- | ---------- | --------------------------- |
+| `db`                          | Prisma proxy | `lib/db.ts`                  | unmeasured | Lazy shared database client |
+| `getAuth`                     | Factory      | `lib/auth/index.ts`          | unmeasured | Lazy auth setup             |
+| `requireAuth`                 | Guard        | `lib/actions/requireAuth.ts` | n/a        | Action auth                 |
+| `upsertNoticeOccurrence`      | Service      | `lib/intake/`                | n/a        | Intake writes               |
+| `MCP_TOOLS`                   | Registry     | `lib/mcp/tools.ts`           | unmeasured | MCP contract                |
+| `handleMcpPost`               | Handler      | `lib/mcp/server.ts`          | unmeasured | MCP transport               |
+| `revalidateProjectShellPaths` | Helper       | `lib/actions/`               | n/a        | Invalidation                |
 
 ## CONVENTIONS
 
