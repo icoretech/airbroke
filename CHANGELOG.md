@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.4.4](https://github.com/icoretech/airbroke/compare/v1.4.3...v1.4.4) (2026-10-21)
+
+
+### Bug Fixes
+
+* **build:** validate platform candidate JSON before destructuring ([819b0d5](https://github.com/icoretech/airbroke/commit/819b0d57593cf088a84740f7e9ed0660f43a96cc))
+
+
+### Dependencies
+
+* update AI SDK, Better Auth, Biome, Lucide, shadcn, and Vite ([5621e50](https://github.com/icoretech/airbroke/commit/5621e5011a9d46c33b2ac67b5c80174539e15fe9))
+* update dependency @microlink/react-json-view to v1.31.41 ([#2119](https://github.com/icoretech/airbroke/issues/2119)) ([fd7d43e](https://github.com/icoretech/airbroke/commit/fd7d43e5ea3946195b813eb25b826eb81633fc78))
+* update dependency better-auth to v1.7.11 ([#2117](https://github.com/icoretech/airbroke/issues/2117)) ([f75a088](https://github.com/icoretech/airbroke/commit/f75a0880bc37fa5496bcdc52de2ae5c1f3db0340))
+* update dependency postcss to v8.5.31 ([#2118](https://github.com/icoretech/airbroke/issues/2118)) ([1f02f62](https://github.com/icoretech/airbroke/commit/1f02f629213e9d1cfcfbba7d34eaeb0902072885))
+* update dependency shadcn to v4.22.1 ([#2111](https://github.com/icoretech/airbroke/issues/2111)) ([902d267](https://github.com/icoretech/airbroke/commit/902d267385e49dce99a3b22bab40f7e7bdd2025e))
+* use Node.js 26 with explicit Corepack installation ([9c3bbc8](https://github.com/icoretech/airbroke/commit/9c3bbc8ec5a1b43b708bd7f9c7ff5301d8db166b))
+* use Ubuntu 26.04 runners across GitHub Actions ([6b57c7f](https://github.com/icoretech/airbroke/commit/6b57c7f3f6a3121a53f3b9e8cde414dff61d17d4))
+
+
+### Documentation
+
+* **deploy:** add the verified Railway template and setup guide ([6fbad31](https://github.com/icoretech/airbroke/commit/6fbad3198cab2b68147839e6f2e30231846306d5))
+* remove dependency refresh sections from the upgrade guide ([75651e0](https://github.com/icoretech/airbroke/commit/75651e01b59aab543934ca942b6d745fadb194ca))
+
 ## [1.4.3](https://github.com/icoretech/airbroke/compare/v1.4.2...v1.4.3) (2026-10-17)
 
 ### Bug Fixes
