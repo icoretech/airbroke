@@ -20,6 +20,12 @@
   ],
   "packageRules": [
     {
+      "description": "Keep Sentry 10's OpenTelemetry API resolution within its peer range",
+      "matchPackageNames": ["@opentelemetry/api"],
+      "matchDepTypes": ["resolutions"],
+      "allowedVersions": "<1.10.0"
+    },
+    {
       "description": "Group React runtime updates",
       "matchManagers": ["npm"],
       "matchPackageNames": ["react", "react-dom"],
