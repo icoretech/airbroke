@@ -74,7 +74,13 @@ describe("OccurrenceChart real Recharts rendering", () => {
     // Vitest retains Node's performance clock, while jsdom's RAF timestamp is
     // relative to its window. Recharts needs both to share the same origin.
     vi.useFakeTimers({
-      toFake: ["performance", "requestAnimationFrame", "cancelAnimationFrame"],
+      toFake: [
+        "performance",
+        "requestAnimationFrame",
+        "cancelAnimationFrame",
+        "setTimeout",
+        "clearTimeout",
+      ],
     });
   });
 
@@ -89,11 +95,16 @@ describe("OccurrenceChart real Recharts rendering", () => {
     expect(frameTime).toBe(performance.now());
   });
 
-  afterEach(() => {
+  afterEach(async () => {
     cleanup();
+    // Unmounting queues Redux batches with RAF and fallback timers. Finish
+    // both while the browser globals and their shared clock still exist.
+    await vi.runAllTimersAsync();
+    const pendingTimers = vi.getTimerCount();
     vi.useRealTimers();
     vi.restoreAllMocks();
     vi.unstubAllGlobals();
+    expect(pendingTimers).toBe(0);
   });
 
   test.each([
