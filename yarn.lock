@@ -3476,9 +3476,9 @@ __metadata:
   linkType: hard
 
 "@types/lodash@npm:^4.17.0, @types/lodash@npm:^4.17.13":
-  version: 4.17.26
-  resolution: "@types/lodash@npm:4.17.26"
-  checksum: 10/49620ccc6e8c03e0f7589be3d21ead40409fb6a2c4808170e57f35cd4523d146ebf6ecbd97a266d767a71e98417fce215740690f4f131be060d1a534cac09b84
+  version: 4.17.27
+  resolution: "@types/lodash@npm:4.17.27"
+  checksum: 10/ae02ef86268664e5a024fd1a7d907b676fe7cd9b58b52bdddc7c42c7ffb3d05e869f6bd13e3e6cbb4001cac1d072f5e2a6e5deed2ef7dc62d7853fc735a077be
   languageName: node
   linkType: hard
 
@@ -4065,6 +4065,11 @@ __metadata:
     vite: "npm:8.3.5"
     vitest: "npm:5.0.5"
     zod: "npm:4.6.7"
+  dependenciesMeta:
+    "@prisma/engines":
+      built: true
+    prisma:
+      built: true
   languageName: unknown
   linkType: soft
 
@@ -6304,9 +6309,9 @@ __metadata:
   linkType: hard
 
 "immer@npm:^11.0.0, immer@npm:^11.1.8":
-  version: 11.2.6
-  resolution: "immer@npm:11.2.6"
-  checksum: 10/cadcaad6997104a554ccfcac680a0017b4243c78c9bddbb5d4dbef137138679f5ff89034503eb0a5b274b4665eded0bee6ba9252c434cc39223467598d5c5863
+  version: 11.2.7
+  resolution: "immer@npm:11.2.7"
+  checksum: 10/806900cae030f2b4d8de0b001cb2329212d3c82d8fbb0c1341e43a26acbeb537d6b7e67492b64155e5d06b8969fa6289e46355267c5d8a047fd15b094bf2c21e
   languageName: node
   linkType: hard
 
@@ -8962,9 +8967,9 @@ __metadata:
   linkType: hard
 
 "set-cookie-parser@npm:^3.1.2":
-  version: 3.1.4
-  resolution: "set-cookie-parser@npm:3.1.4"
-  checksum: 10/e173ea5726b78eb32d6373e7d9f500387c5af7dc2f36fcfdcd08cfd1ab8cdec84ae14e0c59636420bef25ea049a7c5a8f67d1ee37c5ec274b35aa7432d710d3b
+  version: 3.2.1
+  resolution: "set-cookie-parser@npm:3.2.1"
+  checksum: 10/f89376e4d20880edd353a89f6bb3f1428cea925b56bd101644980acbeb183884fb28190be1fd8244c6965035f21fb916b4c2443393ae9a2d7da2e6a2ffd73796
   languageName: node
   linkType: hard
 
