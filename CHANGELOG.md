@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.5](https://github.com/icoretech/airbroke/compare/v1.4.4...v1.4.5) (2026-10-22)
+
+
+### Dependencies
+
+* update Node.js to 26.12.1 and refresh transitive packages ([07c9abc](https://github.com/icoretech/airbroke/commit/07c9abc01ff822294659f1ac0c742e78fbbd1638))
+
 ## [1.4.4](https://github.com/icoretech/airbroke/compare/v1.4.3...v1.4.4) (2026-10-21)
 
 
