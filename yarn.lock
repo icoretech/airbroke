@@ -2825,6 +2825,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sentry/core@npm:11.9.0":
+  version: 11.9.0
+  resolution: "@sentry/core@npm:11.9.0"
+  dependencies:
+    "@sentry/conventions": "npm:^0.27.0"
+  checksum: 10/fb391413c29c7e43f0ddf78d5220a7a7ade6d42341e567f34db5826ed633359355def519f19e49065ef0dae0e29ca0e3a49c597a59a311e36ee4114ab4d57973
+  languageName: node
+  linkType: hard
+
 "@sentry/feedback@npm:11.8.0":
   version: 11.8.0
   resolution: "@sentry/feedback@npm:11.8.0"
@@ -4022,7 +4031,7 @@ __metadata:
     "@prisma/adapter-pg": "npm:7.10.1"
     "@prisma/client": "npm:7.10.1"
     "@sentry/browser": "npm:11.8.0"
-    "@sentry/core": "npm:11.8.0"
+    "@sentry/core": "npm:11.9.0"
     "@sentry/node": "npm:11.8.0"
     "@tailwindcss/postcss": "npm:4.3.3"
     "@testing-library/dom": "npm:10.4.2"
