@@ -1,0 +1,70 @@
+name: ${CI_PROJECT:?CI_PROJECT required}
+
+x-owned: &owned
+  io.airbroke.ci.repository: ${GITHUB_REPOSITORY_ID:?repository ID required}
+  io.airbroke.ci.run: ${GITHUB_RUN_ID:?run ID required}
+  io.airbroke.ci.attempt: ${GITHUB_RUN_ATTEMPT:?attempt required}
+
+services:
+  seed:
+    image: ${CI_TOOLS_IMAGE:?tools image required}
+    labels: *owned
+    network_mode: none
+    mem_limit: 1g
+    memswap_limit: 1g
+    pids_limit: 128
+    volumes:
+      - workspace:/workspace
+    entrypoint: ["tar", "-xf", "-", "-C", "/workspace"]
+  pg:
+    image: postgres:18
+    labels: *owned
+    mem_limit: 4g
+    memswap_limit: 4g
+    pids_limit: 256
+    entrypoint: ["/bin/sh", "-ec", "chown postgres:postgres /var/lib/postgresql; exec /usr/local/bin/docker-entrypoint.sh postgres"]
+    tmpfs:
+      - /var/lib/postgresql:size=2147483648,mode=0700
+    environment:
+      POSTGRES_DB: airbroke_test
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_user_password
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test_user -d airbroke_test"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+  quality:
+    image: ${CI_TOOLS_IMAGE:?tools image required}
+    labels: *owned
+    mem_limit: 12g
+    memswap_limit: 12g
+    pids_limit: 1024
+    working_dir: /workspace
+    environment:
+      CI: "true"
+      TESTING: "true"
+      DATABASE_URL: postgresql://test_user:test_user_password@pg/airbroke_test?connection_limit=15
+      DIRECT_URL: postgresql://test_user:test_user_password@pg/airbroke_test
+      NEXT_TELEMETRY_DISABLED: "1"
+      YARN_CACHE_FOLDER: /yarn-cache
+      YARN_ENABLE_GLOBAL_CACHE: "false"
+    volumes:
+      - workspace:/workspace
+      - dependencies:/yarn-cache
+    depends_on:
+      pg:
+        condition: service_healthy
+    entrypoint: ["bash", "bin/ci-quality.sh", "phases"]
+
+volumes:
+  workspace:
+    external: true
+    name: ${CI_WORKSPACE_VOLUME:?workspace volume required}
+  dependencies:
+    external: true
+    name: ${CI_DEPENDENCY_CACHE:?dependency cache required}
+
+networks:
+  default:
+    labels: *owned

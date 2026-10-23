@@ -1,0 +1,55 @@
+name: Development
+
+on:
+  push:
+    branches:
+      - '**'
+      - '!release-please--branches--main--components--airbroke'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dev-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  quality:
+    timeout-minutes: 45
+    if: github.repository == 'icoretech/airbroke'
+    runs-on: [self-hosted, Linux, X64, ci-amd64]
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Run quality gates
+        run: bash bin/ci-quality.sh run
+      - name: Remove owned quality resources
+        if: always()
+        run: bash bin/ci-quality.sh cleanup
+
+  image:
+    timeout-minutes: 30
+    needs: quality
+    if: github.repository == 'icoretech/airbroke'
+    runs-on: [self-hosted, Linux, X64, ci-amd64]
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build development branch
+        if: github.ref != 'refs/heads/main'
+        run: bash bin/ci-image.sh run
+      - name: Build and publish main development image
+        if: github.ref == 'refs/heads/main'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash bin/ci-image.sh run
+      - name: Remove owned image resources
+        if: always()
+        run: bash bin/ci-image.sh cleanup
