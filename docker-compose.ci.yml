@@ -22,7 +22,12 @@ services:
     mem_limit: 4g
     memswap_limit: 4g
     pids_limit: 256
-    entrypoint: ["/bin/sh", "-ec", "chown postgres:postgres /var/lib/postgresql; exec /usr/local/bin/docker-entrypoint.sh postgres"]
+    entrypoint:
+      [
+        "/bin/sh",
+        "-ec",
+        "chown postgres:postgres /var/lib/postgresql; exec /usr/local/bin/docker-entrypoint.sh postgres",
+      ]
     tmpfs:
       - /var/lib/postgresql:size=2147483648,mode=0700
     environment:

@@ -3,8 +3,8 @@ name: Development
 on:
   push:
     branches:
-      - '**'
-      - '!release-please--branches--main--components--airbroke'
+      - "**"
+      - "!release-please--branches--main--components--airbroke"
 
 permissions:
   contents: read
