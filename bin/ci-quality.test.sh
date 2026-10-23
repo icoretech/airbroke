@@ -13,7 +13,8 @@ export GITHUB_ACTIONS=true GITHUB_REPOSITORY=example-org/sample-app GITHUB_REPOS
 export GITHUB_RUN_ID=456 GITHUB_RUN_ATTEMPT=1 GITHUB_SHA=0000000000000000000000000000000000000000
 export GITHUB_EVENT_NAME=push GITHUB_REF=refs/heads/main
 export CI_PROJECT=airbroke-ci-456-1 CI_TOOLS_IMAGE=airbroke-ci-tools:contract
-export CI_WORKSPACE_VOLUME=airbroke-ci-456-1-workspace CI_DEPENDENCY_CACHE=airbroke-ci-123-main-node26.12.1-yarn4.18.1
+export CI_WORKSPACE_VOLUME=airbroke-ci-456-1-workspace RUNNER_TEMP="$tmp"
+export CI_QUALITY_CACHE="$RUNNER_TEMP/airbroke-quality-cache"
 unset DOCKER_HOST DOCKER_CONTEXT DOCKER_TLS_VERIFY DOCKER_CERT_PATH
 
 docker compose --env-file /dev/null -f "$root/docker-compose.ci.yml" config --format json > "$tmp/compose.json"
@@ -28,7 +29,6 @@ for service in services.values():
     assert not service.get('ports')
     assert not service.get('privileged')
     assert not any(key in service for key in ('cpus', 'cpu_quota', 'cpu_period', 'cpuset'))
-    assert all(volume['type'] == 'volume' for volume in service.get('volumes', []))
     assert service['labels']['io.airbroke.ci.run'] == '456'
     assert service['memswap_limit'] == service['mem_limit']
 assert services['quality']['mem_limit'] == '12884901888'
@@ -39,6 +39,12 @@ assert not services['pg'].get('command')
 assert services['pg']['entrypoint'][-1] == 'chown postgres:postgres /var/lib/postgresql; exec /usr/local/bin/docker-entrypoint.sh postgres'
 assert services['seed']['network_mode'] == 'none'
 assert services['quality']['environment']['YARN_CACHE_FOLDER'] == '/yarn-cache'
+mounts = {volume['target']: volume for volume in services['quality']['volumes']}
+assert mounts['/workspace']['type'] == 'volume'
+assert mounts['/yarn-cache']['type'] == 'bind'
+assert mounts['/workspace/.next/cache']['type'] == 'bind'
+assert mounts['/yarn-cache']['source'].endswith('/airbroke-quality-cache/yarn')
+assert mounts['/workspace/.next/cache']['source'].endswith('/airbroke-quality-cache/next')
 assert services['quality']['environment']['DATABASE_URL'].split('@')[1].startswith('pg/')
 assert all(volume['external'] for volume in config['volumes'].values())
 print('PASS real Compose parser: resource bounds, isolation, PG18 mount, external caches')
@@ -89,6 +95,7 @@ refuses 'remote default context' 'local system Docker socket' env CONTEXT_ENDPOI
 refuses 'remote endpoint' 'Docker endpoint overrides' env DOCKER_HOST=tcp://example.com:2376 bash "$root/bin/ci-quality.sh" cleanup
 refuses 'emulated architecture' 'native Linux amd64' env DAEMON_PLATFORM=linux/aarch64 bash "$root/bin/ci-quality.sh" cleanup
 refuses 'source mismatch' 'checkout HEAD differs' bash "$root/bin/ci-quality.sh" run
+refuses 'unexpected cache directory' 'expected runner temporary quality cache path' env CI_QUALITY_CACHE=/tmp/foreign-cache bash "$root/bin/ci-quality.sh" cleanup
 refuses 'foreign container' 'refusing foreign container' env RESOURCE_STATE=present OWNER=999:456:1 bash "$root/bin/ci-quality.sh" cleanup
 : > "$CALLS"
 RESOURCE_STATE=present bash "$root/bin/ci-quality.sh" cleanup

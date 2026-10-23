@@ -56,7 +56,8 @@ services:
       YARN_ENABLE_GLOBAL_CACHE: "false"
     volumes:
       - workspace:/workspace
-      - dependencies:/yarn-cache
+      - ${CI_QUALITY_CACHE:?quality cache path required}/yarn:/yarn-cache
+      - ${CI_QUALITY_CACHE:?quality cache path required}/next:/workspace/.next/cache
     depends_on:
       pg:
         condition: service_healthy
@@ -66,9 +67,6 @@ volumes:
   workspace:
     external: true
     name: ${CI_WORKSPACE_VOLUME:?workspace volume required}
-  dependencies:
-    external: true
-    name: ${CI_DEPENDENCY_CACHE:?dependency cache required}
 
 networks:
   default:

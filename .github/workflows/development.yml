@@ -17,13 +17,22 @@ jobs:
   quality:
     timeout-minutes: 45
     if: github.repository == 'icoretech/airbroke'
-    runs-on: [self-hosted, Linux, X64, ci-amd64]
+    runs-on: ubuntu-26.04
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
+      - name: Select quality cache directory
+        run: echo "CI_QUALITY_CACHE=$RUNNER_TEMP/airbroke-quality-cache" >> "$GITHUB_ENV"
+      - name: Restore dependency and Next.js caches
+        uses: actions/cache@v6
+        with:
+          path: ${{ env.CI_QUALITY_CACHE }}
+          key: quality-${{ runner.os }}-${{ runner.arch }}-${{ github.ref == 'refs/heads/main' && 'main' || 'validation' }}-${{ hashFiles('Dockerfile.ci', 'package.json', 'yarn.lock', '.yarnrc.yml', '.yarn/releases/*') }}-${{ github.sha }}
+          restore-keys: |
+            quality-${{ runner.os }}-${{ runner.arch }}-${{ github.ref == 'refs/heads/main' && 'main' || 'validation' }}-${{ hashFiles('Dockerfile.ci', 'package.json', 'yarn.lock', '.yarnrc.yml', '.yarn/releases/*') }}-
       - name: Run quality gates
         run: bash bin/ci-quality.sh run
       - name: Remove owned quality resources
@@ -34,14 +43,23 @@ jobs:
     timeout-minutes: 30
     needs: quality
     if: github.repository == 'icoretech/airbroke'
-    runs-on: [self-hosted, Linux, X64, ci-amd64]
+    runs-on: ubuntu-26.04
     permissions:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
+      - name: Select image cache directory
+        run: echo "CI_IMAGE_CACHE=$RUNNER_TEMP/airbroke-image-cache" >> "$GITHUB_ENV"
+      - name: Restore Docker build cache
+        uses: actions/cache@v6
+        with:
+          path: ${{ env.CI_IMAGE_CACHE }}
+          key: image-${{ runner.os }}-${{ runner.arch }}-${{ github.ref == 'refs/heads/main' && 'main' || 'validation' }}-${{ hashFiles('Dockerfile', 'yarn.lock', 'migrations-runtime/yarn.lock') }}-${{ github.sha }}
+          restore-keys: |
+            image-${{ runner.os }}-${{ runner.arch }}-${{ github.ref == 'refs/heads/main' && 'main' || 'validation' }}-${{ hashFiles('Dockerfile', 'yarn.lock', 'migrations-runtime/yarn.lock') }}-
       - name: Build development branch
         if: github.ref != 'refs/heads/main'
         run: bash bin/ci-image.sh run

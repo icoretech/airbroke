@@ -3,8 +3,8 @@
 ## development builds
 
 The [development workflow](../../.github/workflows/development.yml) replaces the
-Drone pipeline for branch pushes. It runs on the selected Linux amd64
-self-hosted runner, excluding the release-please branch. Pull-request and tag
+Drone pipeline for branch pushes. It runs on standard GitHub-hosted Linux amd64
+runners, excluding the release-please branch. Pull-request and tag
 events do not schedule this development workflow.
 
 Quality runs Biome, React Doctor, typechecking, Prisma migrations, the complete
@@ -12,13 +12,24 @@ serial Vitest suite and a production Next.js build. Every run owns a fresh
 workspace, Docker network and PostgreSQL test database. The development database
 and workstation environment files are never copied into that workspace.
 
-Yarn package archives persist in a local Docker volume scoped to the repository,
-main or validation trust bucket, and toolchain. Immutable installation still runs
-each time. The Docker daemon retains its local BuildKit cache between jobs;
-development builds neither import nor export cache through a registry. Cleanup
-removes run-owned workspaces, containers, networks and image tags while retaining
-the dependency and builder caches. CPU quotas are absent; memory and process
-limits remain. Vitest stays serial because its tests share database state.
+GitHub Actions restores Yarn package archives and the Next.js incremental cache
+into runner-temporary directories mounted into the isolated Compose workspace.
+Keys include the OS, architecture, main or validation trust bucket, toolchain and
+lockfile inputs, and source commit; a compatible prefix restores the preceding
+cache when source changes. Immutable installation, client generation and every
+quality gate still run on a cache hit. Installed dependencies, generated clients,
+test databases and complete build outputs are not restored from this cache.
+
+The image job uses an owned `docker-container` Buildx builder and exports all
+intermediate layers with `mode=max` to a local OCI cache directory. Actions cache
+transfers that directory between fresh hosted VMs, without a registry cache or
+registry credential for branch validation. Each successful export replaces the
+previous directory rather than accumulating obsolete blobs. Cache saves happen
+only after a successful job. Main and validation keys are distinct, and GitHub's
+branch cache visibility also applies. Cleanup removes run-owned workspaces,
+containers, networks, builders and image tags; cache directories survive until
+the post-job save. CPU quotas are absent; memory and process limits remain.
+Vitest stays serial because its tests share database state.
 
 After quality succeeds, `main` publishes one amd64 development image with debug
 tools and a `main-<short-sha>-<unix-seconds>` tag. Other branches build the image
@@ -28,16 +39,14 @@ tags belong to the separate release workflow.
 ## public repository trust
 
 The development workflow accepts pushes in the canonical repository. It does
-not run pull requests or fork workflows on the self-hosted runner. Publishing
+not run pull requests or fork workflows. Publishing
 uses the job's GitHub token only in the main publication step; the quality job
 has read-only repository permissions and no registry credential.
 
-Docker socket access grants control of the runner host. Repository writers and
-the workflows they approve are therefore trusted operators. Do not add public
-pull-request execution to this runner. Use GitHub-hosted runners for untrusted
-contributions. Runner-group access must remain restricted to selected
-repositories; allowing this public repository does not authorize every public
-repository in the organization.
+Every job receives a fresh GitHub-hosted VM. External fork contributors require
+workflow approval under the repository's approval policy. Internal Renovate
+branch pushes remain automatic; the release-please branch is excluded. The
+dedicated self-hosted CI machine is reserved for private repositories.
 
 ## stable releases
 
@@ -63,9 +72,9 @@ a native amd64 image build, successful main publication and a registry digest
 whose source revision matches the tested commit. Syntax checks alone do not
 establish cache reuse or publication success.
 
-## migration acceptance
+## historical self-hosted migration acceptance
 
-Verified on 2026-10-23 against [the migrated revision](https://github.com/icoretech/airbroke/commit/c5f0e5d1093fd5469e57a563b1937f980b87c274):
+The earlier self-hosted migration was verified on 2026-10-23 against [the migrated revision](https://github.com/icoretech/airbroke/commit/c5f0e5d1093fd5469e57a563b1937f980b87c274). These timings describe that previous runner and do not establish hosted-runner performance:
 
 - [Quality](https://github.com/icoretech/airbroke/actions/runs/39929338657/job/120333433691)
   passed in four minutes: Biome, React Doctor with no findings, typechecking,

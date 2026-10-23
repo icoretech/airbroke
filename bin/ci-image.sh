@@ -11,6 +11,7 @@ mode=${1:-}
 [[ ${GITHUB_RUN_ID:-} =~ ^[0-9]+$ && ${GITHUB_RUN_ATTEMPT:-} =~ ^[0-9]+$ ]] || fail 'invalid run identity'
 [[ ${GITHUB_SHA:-} =~ ^[0-9a-f]{40}$ ]] || fail 'invalid source revision'
 [[ -n ${RUNNER_TEMP:-} && -d $RUNNER_TEMP ]] || fail 'missing runner temporary directory'
+[[ ${CI_IMAGE_CACHE:-} == "$RUNNER_TEMP/airbroke-image-cache" && ! -L $CI_IMAGE_CACHE ]] || fail 'expected runner temporary image cache path'
 [[ ${GITHUB_ACTIONS:-} == true && ${RUNNER_OS:-} == Linux && ${RUNNER_ARCH:-} == X64 ]] || fail 'native Linux x64 GitHub runner required'
 [[ $(uname -s) == Linux && $(uname -m) == x86_64 ]] || fail 'native Linux x86_64 host required'
 for override in DOCKER_HOST DOCKER_CONTEXT DOCKER_TLS DOCKER_TLS_VERIFY DOCKER_CERT_PATH; do
@@ -20,11 +21,16 @@ export DOCKER_CONTEXT=default
 [[ $(docker context inspect default --format '{{.Endpoints.docker.Host}}') == unix:///var/run/docker.sock ]] || fail 'local default Docker socket required'
 [[ $(docker info --format '{{.OSType}}/{{.Architecture}}') == linux/x86_64 ]] || fail 'local Linux amd64 daemon required'
 state="$RUNNER_TEMP/airbroke-image-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+builder="airbroke-image-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
 image=ghcr.io/icoretech/airbroke
 
 cleanup() {
   [[ -d $state && ! -L $state ]] || return 0
   local tag rc=0
+  if [[ -f $state/builder ]]; then
+    DOCKER_CONFIG="$state/docker" docker buildx rm "$builder" || rc=$?
+    [[ $rc != 0 ]] || rm "$state/builder"
+  fi
   if [[ -f $state/tag ]]; then
     tag=$(cat "$state/tag")
     [[ $tag =~ ^[a-z0-9][a-z0-9.-]*-${GITHUB_SHA:0:8}-[0-9]+$ && ${#tag} -le 128 ]] || return 1
@@ -33,13 +39,13 @@ cleanup() {
     fi
   fi
   # Credentials are removed even if image removal fails; retain the tag for retry.
-  rm -rf "$state/docker" "$state/context"
+  rm -rf "$state/docker/config.json" "$state/context" "$CI_IMAGE_CACHE-next"
+  [[ -f $state/builder ]] || rm -rf "$state/docker"
   if [[ $rc == 0 ]]; then rm -rf "$state"; fi
   return "$rc"
 }
 if [[ $mode == cleanup ]]; then cleanup; exit; fi
 [[ $(git rev-parse HEAD) == "$GITHUB_SHA" ]] || fail 'checkout does not match event revision'
-[[ $(docker buildx inspect default | awk '$1 == "Driver:" {print $2}') == docker ]] || fail 'default Docker driver required for local cache'
 mkdir "$state" || fail 'run already has image state; clean it before retrying'
 trap 'rc=$?; trap - EXIT; cleanup || rc=1; exit "$rc"' EXIT
 trap 'exit 130' INT
@@ -50,6 +56,9 @@ mkdir "$state/context" "$state/docker"
 plugin_dir="${DOCKER_CONFIG:-$HOME/.docker}/cli-plugins"
 if [[ -d $plugin_dir ]]; then ln -s "$plugin_dir" "$state/docker/cli-plugins"; fi
 export DOCKER_CONFIG="$state/docker"
+docker buildx create --name "$builder" --driver docker-container --use >/dev/null
+: > "$state/builder"
+docker buildx inspect "$builder" --bootstrap >/dev/null
 # Archive committed files only; ignored runner files never enter the build context.
 git archive --output="$state/source.tar" "$GITHUB_SHA"
 tar -xf "$state/source.tar" -C "$state/context"
@@ -63,12 +72,18 @@ suffix="-${GITHUB_SHA:0:8}-$timestamp"
 branch=${branch:0:$((128 - ${#suffix}))}
 tag="$branch$suffix"
 printf '%s\n' "$tag" > "$state/tag"
-args=(--builder default --platform linux/amd64 --load --provenance=false --pull
+args=(--builder "$builder" --platform linux/amd64 --load --provenance=false --pull
+  --cache-to "type=local,dest=$CI_IMAGE_CACHE-next,mode=max"
   --label "org.opencontainers.image.revision=$GITHUB_SHA"
   --label "org.opencontainers.image.source=https://github.com/$GITHUB_REPOSITORY"
   --tag "$image:$tag")
+if [[ -f $CI_IMAGE_CACHE/index.json ]]; then args+=(--cache-from "type=local,src=$CI_IMAGE_CACHE"); fi
 if [[ $GITHUB_REF == refs/heads/main ]]; then args+=(--build-arg DEBUG_TOOLS=true); fi
 docker buildx build "${args[@]}" "$state/context"
+[[ -f $CI_IMAGE_CACHE-next/index.json ]] || fail 'build cache export missing'
+# Replace the prior export so unused blobs do not accumulate across successful runs.
+rm -rf "$CI_IMAGE_CACHE"
+mv "$CI_IMAGE_CACHE-next" "$CI_IMAGE_CACHE"
 docker image inspect "$image:$tag" > "$state/local.json"
 jq -e --arg sha "$GITHUB_SHA" --arg source "https://github.com/$GITHUB_REPOSITORY" '
   length == 1 and .[0].Architecture == "amd64" and .[0].Os == "linux" and

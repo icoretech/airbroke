@@ -69,8 +69,8 @@ yarn_version=$(sed -n 's/.*"packageManager": "yarn@\([0-9][0-9.]*\)".*/\1/p' pac
 [[ -f .yarn/releases/yarn-$yarn_version.cjs ]] || fail 'pinned Yarn release missing'
 export CI_PROJECT="airbroke-ci-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
 export CI_WORKSPACE_VOLUME="$CI_PROJECT-workspace"
-export CI_DEPENDENCY_CACHE="airbroke-ci-$GITHUB_REPOSITORY_ID-$trust-node$node_version-yarn$yarn_version"
 export CI_TOOLS_IMAGE="airbroke-ci-tools:$GITHUB_REPOSITORY_ID-$trust-node$node_version-yarn$yarn_version"
+[[ ${RUNNER_TEMP:-} == /* && -d $RUNNER_TEMP && ${CI_QUALITY_CACHE:-} == "$RUNNER_TEMP/airbroke-quality-cache" ]] || fail 'expected runner temporary quality cache path'
 compose=(docker compose --env-file /dev/null -f "$repo/docker-compose.ci.yml" --project-name "$CI_PROJECT")
 owned() {
   local kind=$1 id=$2 actual
@@ -105,13 +105,8 @@ if [[ $mode == cleanup ]]; then cleanup; exit; fi
 [[ -z $(docker container ls -aq --filter "label=com.docker.compose.project=$CI_PROJECT") ]] || fail 'attempt containers already exist; clean this attempt first'
 if docker network inspect "${CI_PROJECT}_default" >/dev/null 2>&1; then fail 'attempt network already exists; clean this attempt first'; fi
 if docker volume inspect "$CI_WORKSPACE_VOLUME" >/dev/null 2>&1; then fail 'workspace already exists; clean this attempt first'; fi
-cache_owner=$(docker volume inspect --format '{{ index .Labels "io.airbroke.ci.cache" }}' "$CI_DEPENDENCY_CACHE" 2>/dev/null || true)
-[[ -z $cache_owner || $cache_owner == "$GITHUB_REPOSITORY_ID:$trust:node$node_version:yarn$yarn_version" ]] || fail 'foreign dependency cache'
-if docker volume inspect "$CI_DEPENDENCY_CACHE" >/dev/null 2>&1; then
-  [[ $cache_owner == "$GITHUB_REPOSITORY_ID:$trust:node$node_version:yarn$yarn_version" ]] || fail 'unlabelled dependency cache'
-else
-  docker volume create --label "io.airbroke.ci.cache=$GITHUB_REPOSITORY_ID:$trust:node$node_version:yarn$yarn_version" "$CI_DEPENDENCY_CACHE" >/dev/null
-fi
+[[ ! -L $CI_QUALITY_CACHE && ! -L $CI_QUALITY_CACHE/yarn && ! -L $CI_QUALITY_CACHE/next ]] || fail 'cache paths must not be symlinks'
+mkdir -p "$CI_QUALITY_CACHE/yarn" "$CI_QUALITY_CACHE/next"
 docker volume create --label "io.airbroke.ci.repository=$GITHUB_REPOSITORY_ID" --label "io.airbroke.ci.run=$GITHUB_RUN_ID" --label "io.airbroke.ci.attempt=$GITHUB_RUN_ATTEMPT" "$CI_WORKSPACE_VOLUME" >/dev/null
 trap 'rc=$?; trap - EXIT; cleanup || rc=1; exit "$rc"' EXIT
 trap 'exit 130' INT

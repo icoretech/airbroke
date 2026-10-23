@@ -2,7 +2,8 @@
 set -euo pipefail
 real_docker=$(command -v docker)
 real_uname=$(command -v uname)
-export REAL_DOCKER_BIN="$real_docker" REAL_UNAME_BIN="$real_uname"
+real_endpoint=$(docker context inspect --format '{{.Endpoints.docker.Host}}')
+export REAL_DOCKER_BIN="$real_docker" REAL_UNAME_BIN="$real_uname" REAL_DOCKER_ENDPOINT="$real_endpoint"
 helper=$(cd "$(dirname "$0")" && pwd)/ci-image.sh
 sandbox=$(mktemp -d)
 trap 'rm -rf "$sandbox"' EXIT
@@ -21,6 +22,7 @@ export GITHUB_SHA GITHUB_REPOSITORY=icoretech/airbroke GITHUB_EVENT_NAME=push
 GITHUB_SHA=$(git rev-parse HEAD)
 export GITHUB_RUN_ID=42 GITHUB_RUN_ATTEMPT=1 GITHUB_ACTOR=example-user
 export RUNNER_TEMP="$sandbox/temp" TEST_LOG="$sandbox/docker.log"
+export CI_IMAGE_CACHE="$RUNNER_TEMP/airbroke-image-cache"
 export PATH="$sandbox/bin:$PATH"
 printf 'dirty\n' > source
 printf 'private\n' > .env
@@ -39,7 +41,8 @@ printf '\n' >> "$TEST_LOG"
 case "$1 $2" in
   'context inspect') printf '%s\n' "${TEST_ENDPOINT:-unix:///var/run/docker.sock}" ;;
   'info --format') printf '%s\n' "${TEST_DAEMON:-linux/x86_64}" ;;
-  'buildx inspect') printf 'Driver: %s\n' "${TEST_DRIVER:-docker}" ;;
+  'buildx create'|'buildx inspect') : ;;
+  'buildx rm') [[ ${TEST_FAIL:-} != builder-cleanup ]] ;;
   'buildx build')
     context=${!#}
     [[ $(cat "$context/source") == committed ]]
@@ -51,6 +54,10 @@ case "$1 $2" in
     fi
     if [[ ${TEST_FAIL:-} == signal ]]; then kill -TERM "$PPID"; fi
     [[ ${TEST_FAIL:-} != build ]]
+    if [[ ${TEST_FAIL:-} == export ]]; then exit 1; fi
+    if [[ ${TEST_FAIL:-} == missing-export ]]; then exit 0; fi
+    mkdir -p "$CI_IMAGE_CACHE-next"
+    printf '{"schemaVersion":2}' > "$CI_IMAGE_CACHE-next/index.json"
     ;;
   'image inspect')
     jq -n --arg sha "$GITHUB_SHA" --arg arch "${TEST_ARCH:-amd64}" '[{Architecture:$arch,Os:"linux",Config:{Labels:{"org.opencontainers.image.revision":$sha,"org.opencontainers.image.source":"https://github.com/icoretech/airbroke"}}}]'
@@ -88,15 +95,26 @@ run_case() {
 }
 export GITHUB_REF=refs/heads/Feature/MiXeD_branch
 run_case pass 'branch build archives committed source, excludes host files, removes owned state'
-if grep -Eq 'login|push|DEBUG_TOOLS|cache-from|cache-to|no-cache|prune' "$TEST_LOG"; then exit 1; fi
+if grep -Eq 'login|push|DEBUG_TOOLS|cache-from|no-cache|prune' "$TEST_LOG"; then exit 1; fi
+grep -q 'cache-to type=local' "$TEST_LOG"
+[[ -f $CI_IMAGE_CACHE/index.json ]]
 grep -q 'mixed-branch-' "$TEST_LOG"
-pass 'branch has no auth, push, debug tools or remote cache'
+pass 'cold branch exports local BuildKit cache without registry authentication'
+run_case pass 'warm branch restores the exported cache on a fresh owned builder'
+grep -q 'cache-from type=local' "$TEST_LOG"
+grep -q 'buildx create --name airbroke-image-42-1 --driver docker-container' "$TEST_LOG"
+grep -q 'buildx rm airbroke-image-42-1' "$TEST_LOG"
+printf 'retained cache\n' > "$CI_IMAGE_CACHE/previous-cache"
+export TEST_FAIL=export
+run_case fail 'failed cache export leaves the previously restored cache intact'
+[[ $(cat "$CI_IMAGE_CACHE/previous-cache") == 'retained cache' ]]
+unset TEST_FAIL
 export GITHUB_REF=refs/heads/main GITHUB_TOKEN=fixture-token
 run_case pass 'main validates local and remote metadata and removes credentials'
 grep -q 'DEBUG_TOOLS=true' "$TEST_LOG"
 grep -q 'main-' "$TEST_LOG"
 grep -q 'imagetools inspect ghcr.io/icoretech/airbroke@sha256:' "$TEST_LOG"
-for failure in build login push signal; do
+for failure in build login push signal export missing-export; do
   export TEST_FAIL=$failure
   run_case fail "$failure failure removes owned state and credentials"
 done
@@ -110,6 +128,15 @@ unset TEST_FAIL
 bash "$helper" cleanup
 [[ ! -e $RUNNER_TEMP/airbroke-image-42-1 ]]
 pass 'failed image removal still deletes credentials and retains only retryable state'
+export TEST_FAIL=builder-cleanup
+rc=0
+bash "$helper" run > "$sandbox/output" 2>&1 || rc=$?
+[[ $rc != 0 && -f $RUNNER_TEMP/airbroke-image-42-1/builder ]]
+[[ ! -e $RUNNER_TEMP/airbroke-image-42-1/docker/config.json ]]
+unset TEST_FAIL
+bash "$helper" cleanup
+[[ ! -e $RUNNER_TEMP/airbroke-image-42-1 ]]
+pass 'failed builder removal deletes credentials and preserves metadata for owned cleanup'
 export TEST_ARCH=arm64
 run_case fail 'wrong local architecture prevents publishing'
 if grep -q 'login' "$TEST_LOG"; then exit 1; fi
@@ -120,9 +147,9 @@ unset TEST_REMOTE_SHA
 export TEST_DIGEST_NUMBER=1
 run_case fail 'remote tag digest mismatch fails verification'
 unset TEST_DIGEST_NUMBER
-export TEST_DRIVER=docker-container
-run_case fail 'nonlocal driver refused'
-unset TEST_DRIVER
+export CI_IMAGE_CACHE="$RUNNER_TEMP/foreign-cache"
+run_case fail 'unexpected cache location refused'
+export CI_IMAGE_CACHE="$RUNNER_TEMP/airbroke-image-cache"
 for guard in TEST_OS TEST_MACHINE TEST_ENDPOINT TEST_DAEMON RUNNER_OS RUNNER_ARCH GITHUB_ACTIONS DOCKER_HOST DOCKER_CONTEXT DOCKER_TLS DOCKER_TLS_VERIFY DOCKER_CERT_PATH; do
   previous=${!guard:-}
   export "$guard=invalid"
@@ -150,6 +177,7 @@ pass 'repeated always cleanup is idempotent'
 printf 'All publisher contract tests passed (Docker commands stubbed; git archive is real).\n'
 
 if [[ ${REAL_DOCKER:-0} == 1 ]]; then
+  rm -rf "$CI_IMAGE_CACHE"
   # Only the runner/daemon qualification responses are simulated on non-Linux hosts.
   # All image build/inspect/removal operations below call the real Docker CLI.
   cat > "$sandbox/bin/docker" <<'REAL'
@@ -158,7 +186,7 @@ set -euo pipefail
 case "$1 $2" in
   'context inspect') printf 'unix:///var/run/docker.sock\n' ;;
   'info --format') printf 'linux/x86_64\n' ;;
-  *) exec "$REAL_DOCKER_BIN" "$@" ;;
+  *) unset DOCKER_CONTEXT; export DOCKER_HOST="$REAL_DOCKER_ENDPOINT"; exec "$REAL_DOCKER_BIN" "$@" ;;
 esac
 REAL
   chmod +x "$sandbox/bin/docker"
