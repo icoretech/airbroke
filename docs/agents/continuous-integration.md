@@ -62,3 +62,49 @@ Actual runtime acceptance requires a development workflow run: passing quality,
 a native amd64 image build, successful main publication and a registry digest
 whose source revision matches the tested commit. Syntax checks alone do not
 establish cache reuse or publication success.
+
+## migration acceptance
+
+Verified on 2026-10-23 against [the migrated revision](https://github.com/icoretech/airbroke/commit/c5f0e5d1093fd5469e57a563b1937f980b87c274):
+
+- [Quality](https://github.com/icoretech/airbroke/actions/runs/39929338657/job/120333433691)
+  passed in four minutes: Biome, React Doctor with no findings, typechecking,
+  migrations, 446 tests across 77 files, and the production build. The Yarn
+  archive store was retained; immutable installation took 39 seconds after
+  the initial empty-store run took 78 seconds. Fresh linking and Prisma client
+  generation still execute.
+- The first image job passed in 3m37s. A same-source
+  [image-only warm rerun](https://github.com/icoretech/airbroke/actions/runs/39929338657/job/120337171193)
+  passed in 19 seconds with local BuildKit stages marked `CACHED`. This is
+  measured cache reuse for unchanged source, not a timing guarantee for changed
+  dependencies or application code.
+- Development tags `main-c5f0e5d1-1792746581` and
+  `main-c5f0e5d1-1792746895` resolve to
+  `sha256:79a0017910dc046ec7ae0f7bd311863383e2ab16acb8bbb940133175e462743a`.
+  Registry metadata independently confirmed Linux amd64 and the exact source
+  revision. The existing Flux policy selected the new development tag without
+  changing its filter or deployment configuration.
+- Drone was disabled for this repository and its previous build history
+  remained accessible. Stable release workflows were unchanged.
+
+The publisher's temporary Docker credential directory is removed on success,
+failure and cleanup. Docker may report that credentials are unencrypted within
+that job-owned temporary file; the workflow does not persist a registry login
+in the runner's shared configuration.
+
+## known upstream warnings
+
+Verified on 2026-10-23: [dependency alert 179](https://github.com/icoretech/airbroke/security/dependabot/179)
+affects the locked `braces` 3.0.3 selection through shadcn's tooling dependencies.
+The [advisory](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm) lists no patched
+release. A routine supported upgrade cannot currently resolve it. This does not
+establish application exploitability or absence from the production image.
+
+Prisma 7.10.1's [package metadata](https://registry.npmjs.org/prisma/7.10.1)
+permits Node 26, while its [preinstall check](https://github.com/prisma/orm/blob/7.10.1/packages/cli/scripts/preinstall.ts)
+warns for majors above 24 without rejecting installation. The same warning
+appeared in the successful Drone baseline. Client generation and the migrated
+quality gates require their own runtime checks; the warning is not suppressed.
+No newer stable Prisma release was available during this check. The registry's
+`latest` tag pointed to a Prisma 8 release candidate, which is not a stable
+upgrade target.
