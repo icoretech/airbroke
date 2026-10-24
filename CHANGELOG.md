@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.4.6](https://github.com/icoretech/airbroke/compare/v1.4.5...v1.4.6) (2026-10-24)
+
+
+### Bug Fixes
+
+* **ci:** format Airbroke workflow contract ([8cef476](https://github.com/icoretech/airbroke/commit/8cef476d73c6c4b527cf2d97cc29f868642090a1))
+* **ci:** keep workflow contract outside Vitest discovery ([5f5d943](https://github.com/icoretech/airbroke/commit/5f5d94395e1bbd76c53c700ca19f28397af9fa8f))
+* **ci:** order Airbroke workflow contract imports ([96aa475](https://github.com/icoretech/airbroke/commit/96aa4753a9d8596592737cfc658120914203ccb5))
+
+
+### Dependencies
+
+* update AI SDK, MCP, Sentry, Next.js, and Biome ([cb4231f](https://github.com/icoretech/airbroke/commit/cb4231f1d504594a0bfd36db8e9b67ea322b1b03))
+* update dependency @microlink/react-json-view to v1.31.42 ([#2124](https://github.com/icoretech/airbroke/issues/2124)) ([fe9645b](https://github.com/icoretech/airbroke/commit/fe9645b3031f47ceeb507b091abad62f5aae8349))
+* update dependency @sentry/core to v11.9.0 ([#2103](https://github.com/icoretech/airbroke/issues/2103)) ([20eee3f](https://github.com/icoretech/airbroke/commit/20eee3f9e1bbe315a66b7371bf322b1796de5979))
+* update dependency chart.js to v4.6.1 ([#2123](https://github.com/icoretech/airbroke/issues/2123)) ([4b01744](https://github.com/icoretech/airbroke/commit/4b0174418df0ec7a191b3747362a64d40f453c41))
+* update vercel ai sdk ([#2101](https://github.com/icoretech/airbroke/issues/2101)) ([781da2d](https://github.com/icoretech/airbroke/commit/781da2d09151650cfffbe951789895a322eb6b1f))
+
+
+### Documentation
+
+* **ci:** record development runner acceptance ([9509741](https://github.com/icoretech/airbroke/commit/9509741cc396991d5d9ac366022c93928beb47d3))
+
 ## [1.4.5](https://github.com/icoretech/airbroke/compare/v1.4.4...v1.4.5) (2026-10-22)
 
 
