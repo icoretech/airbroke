@@ -8,7 +8,10 @@ const development = readFileSync(
   resolve(root, ".github/workflows/development.yml"),
   "utf8",
 );
-const build = readFileSync(resolve(root, ".github/workflows/build.yml"), "utf8");
+const build = readFileSync(
+  resolve(root, ".github/workflows/build.yml"),
+  "utf8",
+);
 
 test("development cancels ordinary pushes and isolates release commits by SHA", () => {
   assert.match(
