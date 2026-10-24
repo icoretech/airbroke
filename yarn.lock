@@ -4045,7 +4045,7 @@ __metadata:
     ai: "npm:7.0.150"
     babel-plugin-react-compiler: "npm:1.0.0"
     better-auth: "npm:1.7.12"
-    chart.js: "npm:4.5.1"
+    chart.js: "npm:4.6.1"
     class-variance-authority: "npm:0.7.1"
     clsx: "npm:2.1.1"
     cn: "npm:^0.5.0"
@@ -4571,12 +4571,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chart.js@npm:4.5.1":
-  version: 4.5.1
-  resolution: "chart.js@npm:4.5.1"
+"chart.js@npm:4.6.1":
+  version: 4.6.1
+  resolution: "chart.js@npm:4.6.1"
   dependencies:
     "@kurkle/color": "npm:^0.3.0"
-  checksum: 10/a8dd3385371ad7e4c173d35176b7aed457ae27b45550248ecc854bf60a794541f56f3921850dc1f3c65985ef43beea37172b73899eb620d9cb4908de2ce93136
+  checksum: 10/4c940b0ce2f57865fcc49d4af94e84e020d3f6869bd3856910e2d3c159ab03e0f6e6f7cf29e0e9a205fafc0cf6836b8a046667133c41f2331d58fb611a476e53
   languageName: node
   linkType: hard
 
