@@ -75,7 +75,7 @@ or publication helpers:
 ```sh
 bash bin/ci-quality.test.sh
 bash bin/ci-image.test.sh
-node --test __tests__/bin/ciWorkflow.test.mjs
+node --test bin/ci-workflow-contract.mjs
 actionlint .github/workflows/development.yml
 ```
 

@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import test from "node:test";
 
-const root = resolve(import.meta.dirname, "../..");
+const root = resolve(import.meta.dirname, "..");
 const development = readFileSync(
   resolve(root, ".github/workflows/development.yml"),
   "utf8",
