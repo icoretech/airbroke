@@ -17,9 +17,18 @@ printf 'committed\n' > source
 printf '.env\nnode_modules/\n' > .gitignore
 git add .
 git commit -qm 'test fixture'
+mkdir -p "$sandbox/home"
+git init --bare -q "$sandbox/remote.git"
+git remote add origin "$sandbox/remote.git"
+git push -q origin HEAD:refs/heads/main
+export HOME="$sandbox/home" REMOTE_GIT_DIR="$sandbox/remote.git"
+git config --global url."file://$sandbox/remote.git".insteadOf https://github.com/icoretech/airbroke
 export GITHUB_ACTIONS=true RUNNER_OS=Linux RUNNER_ARCH=X64
 export GITHUB_SHA GITHUB_REPOSITORY=icoretech/airbroke GITHUB_EVENT_NAME=push
 GITHUB_SHA=$(git rev-parse HEAD)
+REMOTE_SHA=$(printf 'advanced main\n' | git commit-tree "$(git rev-parse 'HEAD^{tree}')" -p "$GITHUB_SHA")
+git push -q origin "$REMOTE_SHA:refs/heads/remote-advance"
+export REMOTE_SHA
 export GITHUB_RUN_ID=42 GITHUB_RUN_ATTEMPT=1 GITHUB_ACTOR=example-user
 export RUNNER_TEMP="$sandbox/temp" TEST_LOG="$sandbox/docker.log"
 export CI_IMAGE_CACHE="$RUNNER_TEMP/airbroke-image-cache"
@@ -58,6 +67,12 @@ case "$1 $2" in
     if [[ ${TEST_FAIL:-} == missing-export ]]; then exit 0; fi
     mkdir -p "$CI_IMAGE_CACHE-next"
     printf '{"schemaVersion":2}' > "$CI_IMAGE_CACHE-next/index.json"
+    if [[ ${TEST_ADVANCE_REMOTE:-} == true ]]; then
+      git --git-dir "$REMOTE_GIT_DIR" update-ref refs/heads/main "$REMOTE_SHA"
+    fi
+    if [[ ${TEST_REMOVE_REMOTE:-} == true ]]; then
+      rm -rf "$REMOTE_GIT_DIR"
+    fi
     ;;
   'image inspect')
     jq -n --arg sha "$GITHUB_SHA" --arg arch "${TEST_ARCH:-amd64}" '[{Architecture:$arch,Os:"linux",Config:{Labels:{"org.opencontainers.image.revision":$sha,"org.opencontainers.image.source":"https://github.com/icoretech/airbroke"}}}]'
@@ -88,9 +103,11 @@ pass() { printf 'PASS %s\n' "$1"; }
 run_case() {
   local expected=$1 name=$2 rc=0
   : > "$TEST_LOG"
+  rm -f "$sandbox/repo/tmp/ci-results/42-1/image.json"
   bash "$helper" run > "$sandbox/output" 2>&1 || rc=$?
   if [[ $expected == pass ]]; then [[ $rc == 0 ]] || { cat "$sandbox/output"; exit 1; }; else [[ $rc != 0 ]]; fi
   [[ ! -e $RUNNER_TEMP/airbroke-image-42-1 ]]
+  if [[ $expected == pass ]]; then [[ -f "$sandbox/repo/tmp/ci-results/42-1/image.json" ]]; fi
   pass "$name"
 }
 export GITHUB_REF=refs/heads/Feature/MiXeD_branch
@@ -114,6 +131,28 @@ run_case pass 'main validates local and remote metadata and removes credentials'
 grep -q 'DEBUG_TOOLS=true' "$TEST_LOG"
 grep -q 'main-' "$TEST_LOG"
 grep -q 'imagetools inspect ghcr.io/icoretech/airbroke@sha256:' "$TEST_LOG"
+jq -e '.published == true and .revision == env.GITHUB_SHA and .digest != ""' "$sandbox/repo/tmp/ci-results/42-1/image.json" >/dev/null
+git --git-dir "$REMOTE_GIT_DIR" update-ref refs/heads/main "$REMOTE_SHA"
+unset GITHUB_TOKEN
+run_case pass 'stale main revision builds without publishing'
+if grep -Eq 'login|push' "$TEST_LOG"; then exit 1; fi
+jq -e '.published == false and .revision == env.GITHUB_SHA and .digest == ""' "$sandbox/repo/tmp/ci-results/42-1/image.json" >/dev/null
+git --git-dir "$REMOTE_GIT_DIR" update-ref refs/heads/main "$GITHUB_SHA"
+export GITHUB_TOKEN=fixture-token TEST_ADVANCE_REMOTE=true
+run_case pass 'main revision is rechecked before publishing'
+if grep -Eq 'login|push' "$TEST_LOG"; then exit 1; fi
+jq -e '.published == false and .revision == env.GITHUB_SHA and .digest == ""' "$sandbox/repo/tmp/ci-results/42-1/image.json" >/dev/null
+unset TEST_ADVANCE_REMOTE
+git --git-dir "$REMOTE_GIT_DIR" update-ref refs/heads/main "$GITHUB_SHA"
+mv "$REMOTE_GIT_DIR" "$REMOTE_GIT_DIR-missing"
+unset GITHUB_TOKEN
+run_case fail 'main remote unavailable before build'
+mv "$REMOTE_GIT_DIR-missing" "$REMOTE_GIT_DIR"
+cp -R "$REMOTE_GIT_DIR" "$REMOTE_GIT_DIR-backup"
+export GITHUB_TOKEN=fixture-token TEST_REMOVE_REMOTE=true
+run_case fail 'main remote unavailable before publication'
+mv "$REMOTE_GIT_DIR-backup" "$REMOTE_GIT_DIR"
+unset TEST_REMOVE_REMOTE
 for failure in build login push signal export missing-export; do
   export TEST_FAIL=$failure
   run_case fail "$failure failure removes owned state and credentials"

@@ -23,6 +23,14 @@ export DOCKER_CONTEXT=default
 state="$RUNNER_TEMP/airbroke-image-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
 builder="airbroke-image-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
 image=ghcr.io/icoretech/airbroke
+source_url=https://github.com/icoretech/airbroke
+
+current_main_revision() {
+  local remote pattern=$'^[0-9a-f]{40}\trefs/heads/main$'
+  remote=$(GIT_TERMINAL_PROMPT=0 git ls-remote --exit-code "$source_url" refs/heads/main) || fail 'cannot resolve current main revision'
+  [[ $remote =~ $pattern ]] || fail 'invalid current main revision'
+  printf '%s\n' "${remote%%$'\t'*}"
+}
 
 cleanup() {
   [[ -d $state && ! -L $state ]] || return 0
@@ -59,6 +67,12 @@ export DOCKER_CONFIG="$state/docker"
 docker buildx create --name "$builder" --driver docker-container --use >/dev/null
 : > "$state/builder"
 docker buildx inspect "$builder" --bootstrap >/dev/null
+timestamp=$(date +%s)
+publish_eligible=false
+if [[ $GITHUB_REF == refs/heads/main ]]; then
+  main_revision=$(current_main_revision)
+  [[ $main_revision == "$GITHUB_SHA" ]] && publish_eligible=true
+fi
 # Archive committed files only; ignored runner files never enter the build context.
 git archive --output="$state/source.tar" "$GITHUB_SHA"
 tar -xf "$state/source.tar" -C "$state/context"
@@ -67,7 +81,6 @@ branch=${GITHUB_REF#refs/heads/}
 branch=${branch##*/}
 branch=$(printf '%s' "$branch" | LC_ALL=C tr '[:upper:]_' '[:lower:]-' | LC_ALL=C sed 's/[^a-z0-9.-]/-/g; s/^[.-]*//')
 branch=${branch:-branch}
-timestamp=$(date +%s)
 suffix="-${GITHUB_SHA:0:8}-$timestamp"
 branch=${branch:0:$((128 - ${#suffix}))}
 tag="$branch$suffix"
@@ -90,7 +103,11 @@ jq -e --arg sha "$GITHUB_SHA" --arg source "https://github.com/$GITHUB_REPOSITOR
   .[0].Config.Labels["org.opencontainers.image.revision"] == $sha and
   .[0].Config.Labels["org.opencontainers.image.source"] == $source
 ' "$state/local.json" >/dev/null
-if [[ $GITHUB_REF == refs/heads/main ]]; then
+if [[ $publish_eligible == true ]]; then
+  main_revision=$(current_main_revision)
+  [[ $main_revision == "$GITHUB_SHA" ]] || publish_eligible=false
+fi
+if [[ $publish_eligible == true ]]; then
   [[ -n ${GITHUB_TOKEN:-} && -n ${GITHUB_ACTOR:-} ]] || fail 'main publication requires the workflow token and actor'
   printf '%s' "$GITHUB_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
   unset GITHUB_TOKEN
@@ -108,3 +125,14 @@ if [[ $GITHUB_REF == refs/heads/main ]]; then
 else
   printf 'built %s:%s revision=%s platform=linux/amd64 (not published)\n' "$image" "$tag" "$GITHUB_SHA"
 fi
+
+output_dir="$(git rev-parse --show-toplevel)/tmp/ci-results/$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+mkdir -p "$output_dir"
+jq -n \
+  --arg image "$image" \
+  --arg tag "$tag" \
+  --arg revision "$GITHUB_SHA" \
+  --arg digest "${digest:-}" \
+  --argjson published "$([[ $publish_eligible == true ]] && printf true || printf false)" \
+  '{image:$image,tag:$tag,revision:$revision,digest:$digest,platform:"linux/amd64",published:$published}' \
+  > "$output_dir/image.json"

@@ -10,8 +10,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: dev-${{ github.ref }}
-  cancel-in-progress: false
+  group: "development-${{ github.ref }}-${{ github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, 'chore(main): release ') && github.sha || 'latest' }}"
+  cancel-in-progress: true
 
 jobs:
   quality:
@@ -71,3 +71,11 @@ jobs:
       - name: Remove owned image resources
         if: always()
         run: bash bin/ci-image.sh cleanup
+      - name: Save image receipt
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: development-image-${{ github.run_id }}-${{ github.run_attempt }}
+          path: tmp/ci-results/${{ github.run_id }}-${{ github.run_attempt }}/image.json
+          if-no-files-found: ignore
+          retention-days: 7

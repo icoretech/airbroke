@@ -31,15 +31,24 @@ containers, networks, builders and image tags; cache directories survive until
 the post-job save. CPU quotas are absent; memory and process limits remain.
 Vitest stays serial because its tests share database state.
 
-After quality succeeds, `main` publishes one amd64 development image with debug
-tools and a `main-<short-sha>-<unix-seconds>` tag. Other branches build the image
-without publishing and without debug tools. Stable version, minor and `latest`
-tags belong to the separate release workflow.
+After quality succeeds, `main` builds one amd64 development image with debug
+tools and a `main-<short-sha>-<unix-seconds>` tag. The publisher resolves the
+canonical `main` revision before building and again immediately before login and
+push. A superseded main run still builds and verifies its exact source, records
+`published: false` in its image receipt and skips registry publication. A failed
+or malformed canonical revision lookup fails the job. Other branches build the
+image without a remote revision lookup, registry login or publication. Stable
+version, minor and `latest` tags belong to the separate release workflow.
 
 ## public repository trust
 
-The development workflow accepts pushes in the canonical repository. It does
-not run pull requests or fork workflows. Publishing
+The development workflow accepts pushes in the canonical repository. Ordinary
+branch pushes share a cancellable branch group. A release-please commit on
+`main` uses its exact SHA in a separate group so the development build required
+by that release cannot be cancelled by a later ordinary push. The actual
+release subject starts with `chore(main): release` followed by a space.
+
+It does not run pull requests or fork workflows. Publishing
 uses the job's GitHub token only in the main publication step; the quality job
 has read-only repository permissions and no registry credential.
 
@@ -51,7 +60,9 @@ dedicated self-hosted CI machine is reserved for private repositories.
 ## stable releases
 
 The existing [stable publisher](../../.github/workflows/build.yml) continues to
-run on GitHub-hosted runners. It validates a published stable release, builds
+run on GitHub-hosted runners. A workflow-wide `stable-image-publisher` lock with
+`queue: max` serializes release selection, both native builds and promotion. It
+validates a published stable release, builds
 native amd64 and arm64 candidates, then promotes version, minor and `latest`
 tags. The [release-please workflow](../../.github/workflows/generate-release.yml)
 also remains separate.
@@ -64,13 +75,16 @@ or publication helpers:
 ```sh
 bash bin/ci-quality.test.sh
 bash bin/ci-image.test.sh
+node --test __tests__/bin/ciWorkflow.test.mjs
 actionlint .github/workflows/development.yml
 ```
 
 Actual runtime acceptance requires a development workflow run: passing quality,
-a native amd64 image build, successful main publication and a registry digest
-whose source revision matches the tested commit. Syntax checks alone do not
-establish cache reuse or publication success.
+a native amd64 image build, an image receipt for the exact source revision and,
+for a current `main`, successful publication with a matching registry digest.
+Superseded main runs are accepted only when the receipt explicitly records
+`published: false` and no registry login or push occurred. Syntax checks alone do
+not establish cache reuse or publication success.
 
 ## historical self-hosted migration acceptance
 

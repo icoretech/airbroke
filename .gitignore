@@ -52,6 +52,7 @@ docker-compose.override.yml
 
 prisma/generated/
 .tmp/
+tmp/ci-results/
 .worktrees/
 docs/
 !docs/agents/
