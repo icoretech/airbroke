@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.4.7](https://github.com/icoretech/airbroke/compare/v1.4.6...v1.4.7) (2026-10-31)
+
+
+### Dependencies
+
+* update AI SDK and PostCSS packages ([9fed80f](https://github.com/icoretech/airbroke/commit/9fed80f85b6dad5aa8a0883e03be7b9a30393f09))
+* update dependency @biomejs/biome to v2.6.4 ([#2136](https://github.com/icoretech/airbroke/issues/2136)) ([cdc8f73](https://github.com/icoretech/airbroke/commit/cdc8f73f292433f310e8f9a8c7204cbbcb114556))
+* update dependency @microlink/react-json-view to v1.31.43 ([#2131](https://github.com/icoretech/airbroke/issues/2131)) ([367fd8b](https://github.com/icoretech/airbroke/commit/367fd8b192a6b260a6a8e782a76a26694d0e3c80))
+* update dependency @types/node to v26.6.6 ([#2134](https://github.com/icoretech/airbroke/issues/2134)) ([346bfd8](https://github.com/icoretech/airbroke/commit/346bfd88fa7fbb1be40e94249d9d3a2015b3232a))
+* update dependency better-auth to v1.7.13 ([#2126](https://github.com/icoretech/airbroke/issues/2126)) ([e0b6349](https://github.com/icoretech/airbroke/commit/e0b6349afdff1bfaf7c4fd5f3037eda2f54f828b))
+* update dependency better-auth to v1.7.14 ([#2128](https://github.com/icoretech/airbroke/issues/2128)) ([7bc86b5](https://github.com/icoretech/airbroke/commit/7bc86b5c080efe7e7e15550a7e7a69b251cd6fae))
+* update dependency cn to v0.5.1 ([#2139](https://github.com/icoretech/airbroke/issues/2139)) ([de21d48](https://github.com/icoretech/airbroke/commit/de21d485949dfb1b6f6491ab437200b541958456))
+* update dependency lucide-react to v1.62.0 ([#2110](https://github.com/icoretech/airbroke/issues/2110)) ([e18f35c](https://github.com/icoretech/airbroke/commit/e18f35c7d77f8afe2c6246bcc713e8eedb1ea0d6))
+* update dependency lucide-react to v1.63.0 ([#2133](https://github.com/icoretech/airbroke/issues/2133)) ([3f3c42a](https://github.com/icoretech/airbroke/commit/3f3c42a3c713a211c0846868e36fc30e846fd26a))
+* update dependency lucide-react to v1.64.0 ([#2137](https://github.com/icoretech/airbroke/issues/2137)) ([3969254](https://github.com/icoretech/airbroke/commit/3969254dca68b152dad17a4b2dd6eb79fc4f0802))
+* update dependency shadcn to v4.23.0 ([#2132](https://github.com/icoretech/airbroke/issues/2132)) ([9e3b16c](https://github.com/icoretech/airbroke/commit/9e3b16cd32271f3883aeabdb0b3bf362d58318ca))
+* update sentry-javascript monorepo to v11.10.0 ([#2125](https://github.com/icoretech/airbroke/issues/2125)) ([942e3d4](https://github.com/icoretech/airbroke/commit/942e3d4ef060aa34e867e4705f55e6b6a45ab708))
+* update vercel ai sdk ([#2130](https://github.com/icoretech/airbroke/issues/2130)) ([1d7ae89](https://github.com/icoretech/airbroke/commit/1d7ae8901a9d4991e974e28194b282bcbb7cda1b))
+* update vercel ai sdk ([#2135](https://github.com/icoretech/airbroke/issues/2135)) ([08949fa](https://github.com/icoretech/airbroke/commit/08949fa72f386e56cab820ab2a86b59cc4dc3734))
+* update vercel ai sdk ([#2138](https://github.com/icoretech/airbroke/issues/2138)) ([89ac3e6](https://github.com/icoretech/airbroke/commit/89ac3e618efdee0c3b41e0976509034f42a886e5))
+
 ## [1.4.6](https://github.com/icoretech/airbroke/compare/v1.4.5...v1.4.6) (2026-10-24)
 
 
