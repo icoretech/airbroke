@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.4.8](https://github.com/icoretech/airbroke/compare/v1.4.7...v1.4.8) (2026-11-01)
+
+
+### Dependencies
+
+* update dependency @microlink/react-json-view to v1.31.44 ([#2143](https://github.com/icoretech/airbroke/issues/2143)) ([3d1da1d](https://github.com/icoretech/airbroke/commit/3d1da1d5e0d141ae750699e86aab09be27f47ebd))
+* update dependency lucide-react to v1.66.0 ([#2142](https://github.com/icoretech/airbroke/issues/2142)) ([df885d5](https://github.com/icoretech/airbroke/commit/df885d5a4a9c300c7e585ac51a48818aec35e4d6))
+* update vercel ai sdk ([#2141](https://github.com/icoretech/airbroke/issues/2141)) ([50e3ed4](https://github.com/icoretech/airbroke/commit/50e3ed4563c764bdea75e16de912551e09d542cb))
+
 ## [1.4.7](https://github.com/icoretech/airbroke/compare/v1.4.6...v1.4.7) (2026-10-31)
 
 
