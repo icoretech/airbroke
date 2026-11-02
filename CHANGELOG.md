@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.9](https://github.com/icoretech/airbroke/compare/v1.4.8...v1.4.9) (2026-11-02)
+
+
+### Dependencies
+
+* update Next.js, Vitest and frontend packages ([eed7e5e](https://github.com/icoretech/airbroke/commit/eed7e5e3504f2ccc4f03314ff11353d3f0ab5cf6))
+
 ## [1.4.8](https://github.com/icoretech/airbroke/compare/v1.4.7...v1.4.8) (2026-11-02)
 
 
