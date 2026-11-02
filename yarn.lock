@@ -1094,7 +1094,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@humanfs/node@npm:^0.16.6":
+"@humanfs/node@npm:^0.16.8":
   version: 0.16.8
   resolution: "@humanfs/node@npm:0.16.8"
   dependencies:
@@ -3400,10 +3400,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/estree@npm:^1.0.0, @types/estree@npm:^1.0.6, @types/estree@npm:^1.0.8":
+"@types/estree@npm:^1.0.0, @types/estree@npm:^1.0.8":
   version: 1.0.9
   resolution: "@types/estree@npm:1.0.9"
   checksum: 10/16aabfa703b5bdac83f719b07ce92a11b2d3c9b8628eacc92889d8af46cab2d78fc45c7b5378de383d0500585cea5c2f79125eeddfe5fbc6bd6a27eb0c8ccee5
+  languageName: node
+  linkType: hard
+
+"@types/estree@npm:^1.0.6":
+  version: 1.0.10
+  resolution: "@types/estree@npm:1.0.10"
+  checksum: 10/dfc3b05946d9e99e959843eddd2ed11b9ba750d30abbbd998ad7d6565f459ef647b7ea935124de622d80b6aa1eaa0f86bfc65e665ac91c71f63fbf0262912a7d
   languageName: node
   linkType: hard
 
@@ -3993,7 +4000,7 @@ __metadata:
     chart.js: "npm:4.6.1"
     class-variance-authority: "npm:0.7.1"
     clsx: "npm:2.1.1"
-    cn: "npm:^0.5.0"
+    cn: "npm:^0.5.1"
     date-fns: "npm:4.4.0"
     jsdom: "npm:30.1.3"
     lucide-react: "npm:1.66.0"
@@ -4004,14 +4011,14 @@ __metadata:
     postcss: "npm:8.5.32"
     prisma: "npm:7.10.1"
     react: "npm:19.3.1"
-    react-doctor: "npm:^0.9.18"
+    react-doctor: "npm:^0.9.21"
     react-dom: "npm:19.3.1"
     react-icons: "npm:5.7.0"
     react-is: "npm:19.3.1"
     react-syntax-highlighter: "npm:16.1.2"
     recharts: "npm:3.10.1"
     server-only: "npm:0.0.1"
-    shadcn: "npm:^4.22.1"
+    shadcn: "npm:^4.23.0"
     tailwind-merge: "npm:3.7.0"
     tailwindcss: "npm:4.3.3"
     tw-animate-css: "npm:1.4.0"
@@ -4569,7 +4576,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cn@npm:^0.5.0":
+"cn@npm:^0.5.1":
   version: 0.5.1
   resolution: "cn@npm:0.5.1"
   bin:
@@ -5314,9 +5321,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:10.13.0":
-  version: 10.13.0
-  resolution: "eslint@npm:10.13.0"
+"eslint@npm:10.14.0":
+  version: 10.14.0
+  resolution: "eslint@npm:10.14.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.8.0"
     "@eslint-community/regexpp": "npm:^4.12.2"
@@ -5324,7 +5331,7 @@ __metadata:
     "@eslint/config-helpers": "npm:^0.7.0"
     "@eslint/core": "npm:^1.2.1"
     "@eslint/plugin-kit": "npm:^0.7.3"
-    "@humanfs/node": "npm:^0.16.6"
+    "@humanfs/node": "npm:^0.16.8"
     "@humanwhocodes/module-importer": "npm:^1.0.1"
     "@humanwhocodes/retry": "npm:^0.4.2"
     "@types/estree": "npm:^1.0.6"
@@ -5345,7 +5352,7 @@ __metadata:
     imurmurhash: "npm:^0.1.4"
     is-glob: "npm:^4.0.0"
     json-stable-stringify-without-jsonify: "npm:^1.0.1"
-    minimatch: "npm:^10.2.5"
+    minimatch: "npm:^10.2.6"
     natural-compare: "npm:^1.4.0"
     optionator: "npm:^0.9.3"
   peerDependencies:
@@ -5355,7 +5362,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 10/04b7140a6fb4614d3cd5feb35041cd3b2b92f80d7fd015d8d320c76e015577863dc530c1bcf228eb3b58b06151e45b6452dd349a6863d21eeefa02ceaee1377f
+  checksum: 10/66743528bfef3961deb3141fc6893e1f137f2ed2602ee36482107cdd49b1a14a1c3da9bb9824fd3530003a23f041b6854f28c20306e99d9b7222a825998e8ed9
   languageName: node
   linkType: hard
 
@@ -6949,7 +6956,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:^10.0.1, minimatch@npm:^10.2.2, minimatch@npm:^10.2.4, minimatch@npm:^10.2.5":
+"minimatch@npm:^10.0.1, minimatch@npm:^10.2.2, minimatch@npm:^10.2.4, minimatch@npm:^10.2.6":
   version: 10.2.6
   resolution: "minimatch@npm:10.2.6"
   dependencies:
@@ -7488,9 +7495,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"oxlint-plugin-react-doctor@npm:0.9.18":
-  version: 0.9.18
-  resolution: "oxlint-plugin-react-doctor@npm:0.9.18"
+"oxlint-plugin-react-doctor@npm:0.9.21":
+  version: 0.9.21
+  resolution: "oxlint-plugin-react-doctor@npm:0.9.21"
   dependencies:
     "@shaderfrog/glsl-parser": "npm:^7.0.1"
     "@typescript-eslint/types": "npm:^8.59.3"
@@ -7498,7 +7505,7 @@ __metadata:
     eslint-visitor-keys: "npm:^5.0.1"
     lightningcss: "npm:^1.33.0"
     oxc-parser: "npm:^0.148.0"
-  checksum: 10/7a3656e3af7026bc0d6c86c25265857163a38fd47a274eef0b474c1e9c9b2ab5cd18faec329479ce4bf10098f2a9ff522c84830f9a05c223416b98f75c42f7dd
+  checksum: 10/f1217da83d6197283434313dd3355f0698bd2511f2e71bbd40969c91cc55d66638ce536a66c0f6aa56d2459e3ff61f6591655c930a6e241fb2e11122a5334ebf
   languageName: node
   linkType: hard
 
@@ -8095,9 +8102,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-doctor@npm:^0.9.18":
-  version: 0.9.18
-  resolution: "react-doctor@npm:0.9.18"
+"react-doctor@npm:^0.9.21":
+  version: 0.9.21
+  resolution: "react-doctor@npm:0.9.21"
   dependencies:
     "@astrojs/compiler": "npm:^4.0.0"
     "@sentry/node": "npm:^10.54.0"
@@ -8112,7 +8119,7 @@ __metadata:
     oxc-parser: "npm:^0.148.0"
     oxc-resolver: "npm:^11.24.2"
     oxlint: "npm:>=1.81.0 <1.82.0"
-    oxlint-plugin-react-doctor: "npm:0.9.18"
+    oxlint-plugin-react-doctor: "npm:0.9.21"
     playwright-core: "npm:^1.62.1"
     prompts: "npm:^2.4.2"
     typescript: "npm:>=5.0.4 <6"
@@ -8120,7 +8127,7 @@ __metadata:
     yoga-layout: "npm:~3.2.1"
   bin:
     react-doctor: bin/react-doctor.js
-  checksum: 10/5157c84b99e9937acf1c5885c38f00d3193f3e0bf6586815c17cfd46cee3f8b0fcfafbdaa7e588b58f9a6869c56f9b5f3bf2d034fd3b37629de8e9fa83111236
+  checksum: 10/309291ab5b8446259618c724fac9a1516ae35f6fd10f61667196df7f1536ae29df4de0256dbc363d5d7fc6409db0fe7b3e8ede6e2bcb282f664c1d8a6415a80a
   languageName: node
   linkType: hard
 
@@ -8530,7 +8537,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shadcn@npm:^4.22.1":
+"shadcn@npm:^4.23.0":
   version: 4.23.0
   resolution: "shadcn@npm:4.23.0"
   dependencies:
