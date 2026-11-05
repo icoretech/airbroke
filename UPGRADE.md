@@ -5,6 +5,39 @@ Keep the newest entry first and focus on operator-facing changes: required env
 renames, database migrations, auth changes, removed behavior, and any manual
 validation needed after deploy.
 
+## November 2026 dependency refresh
+
+The development, CI, production Docker images, and Render deployment now use
+Node.js 26.13.0. Better Auth moves to 1.7.17 and Biome to 2.6.5, including its
+matching configuration schema and Markdown formatting updates. Both the app
+and standalone migration runtime lockfiles refresh eligible transitive
+dependencies. No new database migration or environment variable is required.
+
+The dependency refresh preserves the 24-hour package release quarantine and
+keeps Prisma on stable 7.10.1 rather than the Prisma 8 release candidate.
+Registry-managed UI files retain the local hydration-safe sidebar skeleton and
+mobile subscription hook; the upstream diff would undo those fixes.
+
+### Transitive security updates
+
+- Resolve Sentry's `glob` dependency to 14.0.3 and the affected tooling
+  `minimatch` ranges to 11.0.4 to address
+  [GHSA-3g3m-2fjr-6pw4](https://github.com/advisories/GHSA-3g3m-2fjr-6pw4) and
+  [GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249).
+  These targeted resolutions cross upstream major ranges; file matching,
+  cancellation, and the consuming lint tooling are verified with the refresh.
+- React Doctor's Sentry 10 dependency moves to 10.78.0. Its OpenTelemetry API
+  stays on 1.9.1 to satisfy the Sentry 10 peer contract; the deprecated
+  `@opentelemetry/sdk-trace-base` remains required by that upstream dependency.
+- The latest shadcn CLI still depends on `deepmerge` 4.3.1, which has the
+  unpatched low-severity
+  [GHSA-gcqx-w48m-w2h4](https://github.com/advisories/GHSA-gcqx-w48m-w2h4).
+  The advisory is not suppressed or replaced with an incompatible package.
+
+After deployment, confirm `/api/hc` returns 200 and an enabled OAuth provider
+can complete sign-in. Anonymous requests to protected pages must still return
+to `/signin`, and MCP and intake requests must retain their credential checks.
+
 ## Better Auth 1.7.2
 
 This dependency refresh upgrades Better Auth from 1.6.x to 1.7.2. It changes
@@ -33,6 +66,7 @@ uses `local:credential` for credential issuers, and namespaces other provider
 IDs as stable `local:oauth:` issuer values.
 
 The migration deliberately fails rather than guess or merge data when it finds:
+
 - an empty or missing `provider_id`
 - a credential account without a non-empty `user_id`
 - an empty or missing `account_id` after credential identities are derived
@@ -75,6 +109,7 @@ delete or merge accounts solely to make the migration succeed.
 Upgrade from: 1.1.103
 
 Why this needs a minor bump instead of 1.1.104:
+
 - Authentication moved from NextAuth to Better Auth
 - Required auth environment variables changed
 - The auth-related Prisma schema changed and needs a database migration
@@ -95,6 +130,7 @@ Airbroke ships the Prisma migration
 `prisma/migrations/20260322190000_better_auth/migration.sql` for this upgrade.
 
 The migration performs these schema changes:
+
 - `accounts` moves from NextAuth-style `provider` / `provider_account_id` fields
   to Better Auth-style `provider_id` / `account_id`
 - `sessions` moves from `session_token` to `token`
@@ -102,6 +138,7 @@ The migration performs these schema changes:
 - `verification_tokens` is replaced by `verifications`
 
 Operational hurdle to account for before rollout:
+
 - Prisma migrations must run as the owning role of the existing auth tables
 - if legacy tables such as `accounts`, `sessions`, `users`, or
   `verification_tokens` are owned by `postgres` or another superuser while the
@@ -148,6 +185,7 @@ Use this shape for future entries:
 Upgrade from: previous supported version range
 
 Why this needs a version bump:
+
 - short reason
 
 ### Breaking changes
