@@ -8,24 +8,33 @@ validation needed after deploy.
 ## November 2026 dependency refresh
 
 The development, CI, production Docker images, and Render deployment now use
-Node.js 26.13.0. Better Auth moves to 1.7.17 and Biome to 2.6.5, including its
+Node.js 26.13.0. Better Auth moves to 1.7.18, Sentry to 11.11.0, the AI SDK to
+7.0.163, Lucide to 1.70.0, the JSON viewer to 1.31.48, MCP handler to 2.3.1,
+Vite to 8.3.6, and jsdom to 31.0.0. Biome moves to 2.6.5, including its
 matching configuration schema and Markdown formatting updates. Both the app
-and standalone migration runtime lockfiles refresh eligible transitive
-dependencies. No new database migration or environment variable is required.
+and standalone migration runtime lockfiles refresh transitive dependencies.
+No new database migration or environment variable is required.
 
-The dependency refresh preserves the 24-hour package release quarantine and
-keeps Prisma on stable 7.10.1 rather than the Prisma 8 release candidate.
-Registry-managed UI files retain the local hydration-safe sidebar skeleton and
-mobile subscription hook; the upstream diff would undo those fixes.
+Reviewed stable releases younger than 24 hours were explicitly included with
+a command-local `YARN_NPM_MINIMAL_AGE_GATE=0` override. The default package
+release quarantine is unchanged. Prisma stays on stable 7.10.1 rather than
+the Prisma 8 release candidate. Registry-managed UI files retain the local
+hydration-safe sidebar skeleton and mobile subscription hook; the upstream
+diff would undo those fixes.
+
+jsdom 31 changes CSS parsing and computed styles, document parsing readiness,
+and the optional canvas backend. The full test suite passes with the new DOM
+environment; no optional canvas dependency is needed by the current tests.
 
 ### Transitive security updates
 
-- Resolve Sentry's `glob` dependency to 14.0.3 and the affected tooling
-  `minimatch` ranges to 11.0.4 to address
+- Sentry 11.11.0 declares patched `glob` 14.0.3 itself, so the previous glob
+  override is removed. Resolve the affected tooling `minimatch` ranges to
+  11.0.4 to address
   [GHSA-3g3m-2fjr-6pw4](https://github.com/advisories/GHSA-3g3m-2fjr-6pw4) and
   [GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249).
-  These targeted resolutions cross upstream major ranges; file matching,
-  cancellation, and the consuming lint tooling are verified with the refresh.
+  The remaining minimatch resolutions cross upstream major ranges; the
+  consuming lint tooling is verified with the refresh.
 - React Doctor's Sentry 10 dependency moves to 10.78.0. Its OpenTelemetry API
   stays on 1.9.1 to satisfy the Sentry 10 peer contract; the deprecated
   `@opentelemetry/sdk-trace-base` remains required by that upstream dependency.
