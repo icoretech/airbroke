@@ -1293,7 +1293,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@isaacs/nonrecursive-glob-match@npm:^1.0.3, @isaacs/nonrecursive-glob-match@npm:^1.1.0":
+"@isaacs/nonrecursive-glob-match@npm:^1.1.0":
   version: 1.1.0
   resolution: "@isaacs/nonrecursive-glob-match@npm:1.1.0"
   checksum: 10/ef0e63803b1621f67242e0947bbc316998fc67aabe902be2b7139a818f5350ebfd3a878d535615862acbf6fb0d7de30fdc258c64b910d58c97c7a486dad40dfd
@@ -6789,17 +6789,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:11.0.4":
-  version: 11.0.4
-  resolution: "minimatch@npm:11.0.4"
-  dependencies:
-    "@isaacs/nonrecursive-glob-match": "npm:^1.0.3"
-    brace-expansion: "npm:^5.0.12"
-  checksum: 10/a6f56790748cfa06e20ce0fd718fc311cb862415d5ece7b7e09f9e83c9d594e070570eee1d32b3e0dbf9656b7def66d9aba3ab1567f5fe091377132ba813e39a
-  languageName: node
-  linkType: hard
-
-"minimatch@npm:^11.0.5":
+"minimatch@npm:11.0.5, minimatch@npm:^11.0.5":
   version: 11.0.5
   resolution: "minimatch@npm:11.0.5"
   dependencies:
