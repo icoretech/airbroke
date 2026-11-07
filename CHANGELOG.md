@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.4.10](https://github.com/icoretech/airbroke/compare/v1.4.9...v1.4.10) (2026-11-07)
+
+
+### Dependencies
+
+* update dependency @microlink/react-json-view to v1.31.46 ([#2149](https://github.com/icoretech/airbroke/issues/2149)) ([1435aee](https://github.com/icoretech/airbroke/commit/1435aee0d36b5e50259a3bd7849a2e2bb65e6a39))
+* update dependency better-auth to v1.7.16 ([#2153](https://github.com/icoretech/airbroke/issues/2153)) ([314e154](https://github.com/icoretech/airbroke/commit/314e1542f20442e4392e2eea850b9ce67502270b))
+* update dependency lucide-react to v1.67.0 ([#2152](https://github.com/icoretech/airbroke/issues/2152)) ([5841347](https://github.com/icoretech/airbroke/commit/584134782afc4516662309e7cb9d6d935ee61d3b))
+* update dependency lucide-react to v1.68.0 ([#2155](https://github.com/icoretech/airbroke/issues/2155)) ([7d992a3](https://github.com/icoretech/airbroke/commit/7d992a314817f3128764d84069d5e242d87b7e3f))
+* update dependency minimatch to v11.0.5 ([#2161](https://github.com/icoretech/airbroke/issues/2161)) ([708a043](https://github.com/icoretech/airbroke/commit/708a04339a97dd10a2076b01dcd5093bd7e98bc7))
+* update dependency next to v16.4.5 ([#2154](https://github.com/icoretech/airbroke/issues/2154)) ([1be494e](https://github.com/icoretech/airbroke/commit/1be494efbea6972aad17bbdd6e2af46d6bb79131))
+* update Node.js, Better Auth, Biome and transitive packages ([bcec34d](https://github.com/icoretech/airbroke/commit/bcec34d7ecaae382b5e84737fb5d42eee9249f04))
+* update remaining stable runtime and test packages ([9d82daa](https://github.com/icoretech/airbroke/commit/9d82daa6ff66d63fcc37206ef9b03a5bc3c5f1fb))
+* update tailwindcss monorepo to v4.3.4 ([#2150](https://github.com/icoretech/airbroke/issues/2150)) ([a367dd6](https://github.com/icoretech/airbroke/commit/a367dd6d755ada49afaed36cd0d144eb89289828))
+* update vercel ai sdk ([#2148](https://github.com/icoretech/airbroke/issues/2148)) ([cba95f8](https://github.com/icoretech/airbroke/commit/cba95f88d8eb8bf7ff969d821f1945ba6b854940))
+* update vercel ai sdk ([#2158](https://github.com/icoretech/airbroke/issues/2158)) ([7a80c79](https://github.com/icoretech/airbroke/commit/7a80c79d997720872a65d3e8f5abb442c2dbce4d))
+
 ## [1.4.9](https://github.com/icoretech/airbroke/compare/v1.4.8...v1.4.9) (2026-11-02)
 
 
