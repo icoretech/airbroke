@@ -5,6 +5,20 @@ Keep the newest entry first and focus on operator-facing changes: required env
 renames, database migrations, auth changes, removed behavior, and any manual
 validation needed after deploy.
 
+## November 8, 2026 dependency refresh
+
+The AI SDK moves to 7.0.165, `@ai-sdk/react` to 4.0.169, and
+`@ai-sdk/openai` to 4.0.111. Compatible transitive dependencies are refreshed,
+and the React SDK's Zod peer extension now matches the installed version.
+The standalone migration dependencies and runtime/tooling pins were already
+current. No new database migration or environment variable is required.
+
+The 446-test suite and production Docker build pass. Live production smoke
+checks cover streamed explanations, sanitized provider failures, partial-output
+preservation, recovery, sessions, protected routes, and migration status. The
+remaining shadcn `deepmerge` advisory and legacy OpenTelemetry deprecation
+described below are unchanged; no high-severity advisory was reported.
+
 ## November 2026 dependency refresh
 
 The development, CI, production Docker images, and Render deployment now use
