@@ -5,6 +5,19 @@ Keep the newest entry first and focus on operator-facing changes: required env
 renames, database migrations, auth changes, removed behavior, and any manual
 validation needed after deploy.
 
+## November 10, 2026 dependency compatibility review
+
+The final AI SDK patch moves `ai` to 7.0.166 and `@ai-sdk/react` to 4.0.170.
+The React package still omits the Zod peer required by its dependencies, so
+the existing Yarn package extension must also target 4.0.170. Leaving it on
+4.0.169 causes an unmatched-extension warning and leaves those peers unsatisfied.
+
+The core patch only updates AI Gateway's provider-option types; Airbroke uses
+the OpenAI provider directly. No application API, database migration, or
+environment change is required beyond the earlier refresh notes below.
+The corrected graph installs immutably without peer or extension warnings,
+and all six completion route, real-SDK streaming, and AI component tests pass.
+
 ## November 8, 2026 dependency refresh
 
 The AI SDK moves to 7.0.165, `@ai-sdk/react` to 4.0.169, and
