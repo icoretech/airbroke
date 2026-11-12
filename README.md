@@ -1,5 +1,8 @@
 <p align="center">
-  <img src="public/logo-full.png" height="400" alt="Airbroke">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="public/logo-full-dark.svg">
+    <img src="public/logo-full.svg" height="400" alt="Airbroke">
+  </picture>
   <h1 align="center">Open Source Error Catcher</h1>
 </p>
 

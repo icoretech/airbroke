@@ -45,6 +45,15 @@ for active or focused controls.
 - Extend the token set before adding a new semantic color role.
 - `--foreground` and `--secondary` are complete CSS colors so upstream shadcn secondary hover mixing works; the Tailwind aliases use these values directly.
 
+### Brand assets
+
+- The brand mark is the violet robot head with one round eye and one X eye, without an antenna or orbiting elements.
+- `public/logo.svg` is the shared mark for page headers and the sidebar; preserve its 448:320 aspect ratio with automatic width or `object-contain`.
+- `app/icon.svg` provides the same head centered on a square canvas for browser icons; `public/logo.png` is its transparent PNG export.
+- Brand violet is `#7563EB`; it belongs to the artwork and does not replace semantic action or status colors.
+- `public/logo-full.svg` and `public/logo-full-dark.svg` include outlined lettering for light and dark documentation surfaces.
+- The sidebar brand link uses the neutral muted surface on hover, focus, and press so the violet mark stays distinct from its background.
+
 ## 3. Typography
 
 ### Scale

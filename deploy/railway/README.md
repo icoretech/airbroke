@@ -6,7 +6,7 @@ a private PostgreSQL 18 service, and persistent database storage. No source
 build, Redis, worker service, or application volume is required.
 This setup requires Airbroke 1.4.3 or newer.
 
-![Airbroke and PostgreSQL services in the Railway template preview](images/template-services.png)
+![Airbroke and PostgreSQL services in the deployment diagram](images/template-services.png)
 
 ## Before deployment
 
@@ -122,11 +122,11 @@ setup guide, and confirm the occurrence appears. Then redeploy the same image
 and confirm the project and occurrence remain. Railway's deployment healthcheck
 is an activation check; configure independent monitoring for ongoing uptime.
 
-![Synthetic error received during the live Railway acceptance test](images/sample-occurrence.png)
+![Synthetic error in the current Airbroke occurrence view](images/sample-occurrence.png)
 
-The example uses synthetic error data. Screenshots show the template preview,
-configured sign-in page, and occurrence view; account details are outside the
-captured regions.
+The diagram shows the two deployment services. The application screenshots use
+synthetic data in a local reference environment and show the configured sign-in
+page and occurrence view.
 
 ## Updates and backups
 

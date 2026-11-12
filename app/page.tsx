@@ -37,8 +37,8 @@ airbroke.notify(new Error('Hello from Airbroke'))`;
                 <Image
                   src={logo}
                   alt="Airbroke"
-                  width={463}
-                  height={338}
+                  width={448}
+                  height={320}
                   preload
                   className="h-10 md:h-12"
                   style={{ width: "auto" }}

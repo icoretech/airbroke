@@ -64,6 +64,8 @@ export async function AppShell({
             <SidebarMenuItem>
               <SidebarMenuButton
                 size="lg"
+                data-sidebar-brand=""
+                className="hover:bg-muted focus-visible:bg-muted active:bg-muted"
                 render={
                   <Link
                     href="/"
@@ -78,7 +80,7 @@ export async function AppShell({
                   alt="Airbroke"
                   width={32}
                   height={32}
-                  className="size-8 rounded"
+                  className="size-8 rounded object-contain"
                   style={{ width: "32px", height: "32px" }}
                 />
                 <div className="grid flex-1 text-left text-sm leading-tight">

@@ -133,8 +133,8 @@ export default function SignInPageClient({
                   src={logo}
                   alt="Airbroke"
                   className="h-10"
-                  height={338}
-                  width={463}
+                  height={320}
+                  width={448}
                   style={{ width: "auto" }}
                 />
               </Link>

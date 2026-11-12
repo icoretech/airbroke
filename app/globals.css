@@ -213,9 +213,9 @@
   }
 
   /* Apply subtle horizontal gradient across hover, focus-visible and active */
-  [data-sidebar="menu-button"]:hover,
-  [data-sidebar="menu-button"]:focus-visible,
-  [data-sidebar="menu-button"][data-active="true"],
+  [data-sidebar="menu-button"]:not([data-sidebar-brand]):hover,
+  [data-sidebar="menu-button"]:not([data-sidebar-brand]):focus-visible,
+  [data-sidebar="menu-button"]:not([data-sidebar-brand])[data-active="true"],
   [data-sidebar="menu-sub-button"]:hover,
   [data-sidebar="menu-sub-button"]:focus-visible,
   [data-sidebar="menu-sub-button"][data-active="true"] {

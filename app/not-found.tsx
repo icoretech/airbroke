@@ -25,8 +25,8 @@ export default function NotFound() {
               <Image
                 src={logo}
                 alt="Airbroke"
-                width={463}
-                height={338}
+                width={448}
+                height={320}
                 className="h-9 md:h-10"
                 style={{ width: "auto" }}
               />

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="340" viewBox="0 0 1000 340" role="img" aria-labelledby="title desc">
+<title id="title">Airbroke deployment services</title><desc id="desc">Airbroke connects to PostgreSQL. PostgreSQL stores its database under /var/lib/postgresql.</desc>
+<rect width="1000" height="340" rx="16" fill="#151421"/>
+<g fill="#201E30" stroke="#403B55"><rect x="48" y="56" width="392" height="228" rx="12"/><rect x="560" y="56" width="392" height="228" rx="12"/></g>
+<g transform="translate(89 92) scale(.18) translate(-288 -316)" fill="#B4A5FF"><path fill-rule="evenodd" d="M341 464V446C341 405 362 380 400 371L610 335C649 328 678 357 680 398L683 456H690C705 456 714 466 714 481V514C714 530 704 540 689 540H684V545C684 591 658 617 618 617L411 620C367 621 342 595 342 552V548H335C320 548 310 537 310 522V491C310 475 320 464 335 464Z     M489 497A45 45 0 1 1 399 497A45 45 0 1 1 489 497Z     M557 450L584 477L611 450Q614 447 617 450L627 460Q630 463 627 466L600 493L627 520Q630 523 627 526L617 536Q614 539 611 536L584 509L557 536Q554 539 551 536L541 526Q538 523 541 520L568 493L541 466Q538 463 541 460L551 450Q554 447 557 450Z"/></g>
+<g fill="#F4F1FC" font-family="sans-serif"><text x="198" y="133" font-size="27" font-weight="600">Airbroke</text><text x="90" y="203" font-size="18" fill="#C9C2DA">Application service</text><text x="90" y="241" font-size="16" fill="#C9C2DA">Connect using DATABASE_URL</text></g>
+<g stroke="#B4A5FF" fill="none" stroke-width="3"><path d="M460 170h80m-12-12 12 12-12 12"/><ellipse cx="623" cy="108" rx="22" ry="9"/><path d="M601 108v35c0 12 44 12 44 0v-35m-44 17c0 12 44 12 44 0"/></g>
+<g fill="#F4F1FC" font-family="sans-serif"><text x="667" y="133" font-size="27" font-weight="600">PostgreSQL</text><text x="600" y="203" font-size="18" fill="#C9C2DA">Database service</text><text x="600" y="241" font-size="16" fill="#C9C2DA">Volume: /var/lib/postgresql</text></g>
+</svg>
