@@ -36,8 +36,8 @@ airbrake.notify(new Error('Hello from Airbroke'))`;
                 <Image
                   src="/logo.svg"
                   alt="Airbroke"
-                  width={463}
-                  height={338}
+                  width={448}
+                  height={320}
                   priority
                   className="h-10 w-auto md:h-12"
                 />
