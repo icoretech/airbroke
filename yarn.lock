@@ -6776,7 +6776,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:11.0.5, minimatch@npm:^11.0.5":
+"minimatch@npm:11.0.7":
+  version: 11.0.7
+  resolution: "minimatch@npm:11.0.7"
+  dependencies:
+    "@isaacs/nonrecursive-glob-match": "npm:^1.1.0"
+    brace-expansion: "npm:^5.0.12"
+  checksum: 10/6893cd8536e5048708cab1c4aacff7d48ebffbb598aa3ad43fe3736e567d7910308c9e53829873df474ad6a4b779f16298a084a07cc2ae0b95cd58d706ef8e54
+  languageName: node
+  linkType: hard
+
+"minimatch@npm:^11.0.5":
   version: 11.0.5
   resolution: "minimatch@npm:11.0.5"
   dependencies:
