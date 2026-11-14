@@ -1,4 +1,4 @@
-FROM node:26.13.0-alpine
+FROM node:26.13.1-alpine
 
 RUN apk add --no-cache git bash util-linux findutils \
     && npm install --global corepack@0.36.0 \

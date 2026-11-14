@@ -37,7 +37,7 @@
 
 ## System Requirements
 
-- Node.js 26 compatible environment
+- Node.js 26.13.1+ compatible environment
 - Minimum of 300MB RAM
 - At least 1000 millicores, equivalent to 1 CPU core
 - PostgreSQL 15+ database
