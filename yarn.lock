@@ -3732,7 +3732,7 @@ __metadata:
     date-fns: "npm:4.4.0"
     jsdom: "npm:31.0.1"
     lucide-react: "npm:1.72.0"
-    mcp-handler: "npm:2.3.1"
+    mcp-handler: "npm:2.4.0"
     nanoid: "npm:6.0.2"
     next: "npm:16.4.6"
     numbro: "npm:2.5.0"
@@ -6271,25 +6271,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mcp-handler@npm:2.3.1":
-  version: 2.3.1
-  resolution: "mcp-handler@npm:2.3.1"
+"mcp-handler@npm:2.4.0":
+  version: 2.4.0
+  resolution: "mcp-handler@npm:2.4.0"
   dependencies:
     chalk: "npm:^5.3.0"
     commander: "npm:^11.1.0"
   peerDependencies:
     "@modelcontextprotocol/server": ^2.0.0
+    "@opentelemetry/api": ^1.9.0
+    "@vercel/otel": ^2.0.0
     next: ">=13.0.0"
   peerDependenciesMeta:
     "@modelcontextprotocol/server":
       optional: false
+    "@opentelemetry/api":
+      optional: true
+    "@vercel/otel":
+      optional: true
     next:
       optional: true
   bin:
     create-mcp-route: dist/cli/index.js
     mcp-adapter: dist/cli/index.js
     mcp-handler: dist/cli/index.js
-  checksum: 10/e02c95e84be3f1a39df23238b001473b94de1fa322b38287bf2607cad31068fa8fdc4a3c8387ad706394f004ff8466b64f3a191576383bfa3b541e43766c0bf0
+  checksum: 10/cddef95cdd9317c305cbe06480b60fc9b396bf4995de7ed0bda7c4f13cd7afbe6f972b80f4b75f8c6f0ad5fd9b0769af73ea3d42fb53fc2cf5db419286e8c3f1
   languageName: node
   linkType: hard
 
