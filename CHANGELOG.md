@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.12](https://github.com/icoretech/airbroke/compare/v1.4.11...v1.4.12) (2026-11-18)
+
+
+### Dependencies
+
+* update dependency @biomejs/biome to v2.6.8 ([#2185](https://github.com/icoretech/airbroke/issues/2185)) ([210c41c](https://github.com/icoretech/airbroke/commit/210c41c8f001f7cdbdd2a513ea590eab314887cd))
+* update dependency better-auth to v1.7.25 ([#2184](https://github.com/icoretech/airbroke/issues/2184)) ([25bc1fa](https://github.com/icoretech/airbroke/commit/25bc1fa8dbaca4afc80b3e2c56906a9c798f1928))
+* update dependency minimatch to v11.0.9 ([#2187](https://github.com/icoretech/airbroke/issues/2187)) ([b92a769](https://github.com/icoretech/airbroke/commit/b92a769111a3b01a0eb7a263a527a3fc4f4bb50c))
+* update lucide-react to 1.74.0 and react-json-view to 1.31.51 ([16adb76](https://github.com/icoretech/airbroke/commit/16adb76edfe2c7c9a2beb5a7d555b255328aa218))
+* update sentry-javascript monorepo to v11.13.0 ([#2172](https://github.com/icoretech/airbroke/issues/2172)) ([79204ce](https://github.com/icoretech/airbroke/commit/79204ce758f15b41982692ea7d1762e828c4e68d))
+* update Sentry, Recharts and the Vercel AI SDK ([08f5100](https://github.com/icoretech/airbroke/commit/08f510083965dfcfef2f159e6e00a1c881a7bca9))
+* update vercel ai sdk ([#2183](https://github.com/icoretech/airbroke/issues/2183)) ([4b14f2c](https://github.com/icoretech/airbroke/commit/4b14f2c48dd1097cc33bc8d2ec0433075e1f31a5))
+
 ## [1.4.11](https://github.com/icoretech/airbroke/compare/v1.4.10...v1.4.11) (2026-11-15)
 
 
