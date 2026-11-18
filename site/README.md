@@ -14,27 +14,38 @@ repository.
 
 ## development
 
-Use Node.js 26.13.1 and its bundled npm 11.20.0. Install dependencies with
-`npm ci`, then run `npm run dev` for local development. `npm run build` runs
-TypeScript 7's native compiler through Next.js before producing the static
-export; type errors fail the build.
+The site lives in `site/` of the Airbroke repository as its own npm project,
+separate from the app's Yarn workspace. Use Node.js 26.13.1 and its bundled npm
+11.20.0. From `site/`, install dependencies with `npm ci`, then run
+`npm run dev` for local development and `npm run lint` for Biome.
+`npm run build` runs TypeScript 7's native compiler through Next.js before
+producing the static export; type errors fail the build. `next.config.ts` pins
+the Turbopack root to `site/`, because otherwise Next.js finds the app's
+`yarn.lock` above and builds from the repository root.
+
+The app's TypeScript, Biome, Vitest, Tailwind, React Doctor and Docker build
+context ignore `site/`, and release-please leaves commits that only touch
+`site/` out of the app's version and changelog.
 
 For VS Code, install Microsoft's
-[TypeScript 7 extension](https://marketplace.visualstudio.com/items?itemName=TypeScriptTeam.native-preview).
-The workspace settings select the installed `typescript` package's native
-language server rather than the removed JavaScript SDK.
+[TypeScript 7 extension](https://marketplace.visualstudio.com/items?itemName=TypeScriptTeam.native-preview)
+and open `site/` as its own folder: its workspace settings select the installed
+`typescript` package's native language server rather than the removed
+JavaScript SDK.
 
 ## deployment
 
-The [publication workflow](.github/workflows/release.yml) builds the current
-source with Node.js 26.13.1 and `NODE_ENV=production`, then publishes the Next.js
-static export from `out/` to GitHub Pages. Site-related pushes to `main` trigger
-publication; the workflow can also be started manually on `main`.
+The [Pages workflow](../.github/workflows/pages.yml) builds the current source
+with Node.js 26.13.1 and `NODE_ENV=production`, then publishes the Next.js static
+export from `site/out/` to GitHub Pages. Pushes to `main` that touch `site/`
+trigger publication, and the workflow can also be started manually on `main`.
+Pushes to other branches that touch `site/` run the lint and build without
+publishing, so Renovate's website updates are checked before they merge.
 
-In repository **Settings → Pages**, select **GitHub Actions** as the publishing
-source and set the custom domain to `airbroke.icorete.ch`. Configure the domain
-in Pages before pointing its DNS record to GitHub Pages, then enable HTTPS.
-The public site remains at [airbroke.icorete.ch](https://airbroke.icorete.ch).
+In the Airbroke repository's **Settings → Pages**, the publishing source is
+**GitHub Actions** and the custom domain is `airbroke.icorete.ch`. Workflow
+deployments take the domain from that setting and ignore a `CNAME` file. The
+public site remains at [airbroke.icorete.ch](https://airbroke.icorete.ch).
 
 The build job has read-only repository access. The deployment job uses the
 `github-pages` environment with `pages: write` and `id-token: write`. It deploys
