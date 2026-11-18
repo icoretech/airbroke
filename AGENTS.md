@@ -19,6 +19,7 @@ lib/          # Auth, actions, queries, intake, MCP, and shared server logic
 prisma/       # Schema, forward migrations, seed, and generated client output
 __tests__/    # Central Vitest suite mirroring runtime boundaries
 docs/agents/  # Detailed cross-cutting guidance linked below
+site/         # Website for airbroke.icorete.ch, a separate npm project
 ```
 
 ## WHERE TO LOOK
@@ -34,6 +35,7 @@ docs/agents/  # Detailed cross-cutting guidance linked below
 | MCP API            | `app/api/mcp/`, `lib/mcp/` | Read-only tools and static-key auth |
 | Data model         | `prisma/`                  | Read `prisma/AGENTS.md`             |
 | Tests              | `__tests__/`               | Read `__tests__/AGENTS.md`          |
+| Website            | `site/`                    | Read `site/README.md`               |
 
 ## CODE MAP
 
@@ -60,6 +62,12 @@ imports and route delegation.
 - Preserve `typedRoutes`, React Compiler, Cache Components, and standalone
   output contracts in `next.config.ts`.
 - Keep local `.env` values current with `.env.dist` before runtime debugging.
+- `site/` is the static Next.js website, its own npm project published to
+  GitHub Pages by `.github/workflows/pages.yml`. The app's TypeScript, Biome,
+  Vitest, Tailwind, React Doctor, Docker context and release-please exclude it;
+  keep those exclusions when changing their configuration. The Compose-only
+  rules below cover the app; work on the site with npm from `site/` as
+  `site/README.md` describes.
 
 ## ANTI-PATTERNS (THIS PROJECT)
 

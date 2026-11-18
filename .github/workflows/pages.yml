@@ -1,0 +1,108 @@
+name: pages
+
+# Publishes site/, the static Next.js export served at airbroke.icorete.ch, to
+# GitHub Pages. Pushes to main that touch site/ and manual runs on main deploy;
+# pushes to other branches that touch site/ only build it, so website
+# dependency updates are checked before they merge. The custom domain is set in
+# the repository's Pages settings: workflow deployments ignore a CNAME file.
+on:
+  push:
+    branches:
+      - "**"
+    paths:
+      - "site/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: pages-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NEXT_TELEMETRY_DISABLED: 1
+
+jobs:
+  build:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: site
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 26.13.1
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - name: Restore Next.js build cache
+        id: next_cache
+        uses: actions/cache/restore@v6
+        with:
+          path: ${{ github.workspace }}/site/.next/cache
+          key: ${{ runner.os }}-site-nextjs-${{ hashFiles('site/package-lock.json') }}-${{ hashFiles('site/**/*.js', 'site/**/*.jsx', 'site/**/*.ts', 'site/**/*.tsx') }}
+          restore-keys: |
+            ${{ runner.os }}-site-nextjs-${{ hashFiles('site/package-lock.json') }}-
+            ${{ runner.os }}-site-nextjs-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build static export
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Check export entrypoints
+        run: |
+          test -s out/index.html
+          test -s out/404.html
+
+      - name: Save Next.js build cache
+        if: ${{ steps.next_cache.outputs.cache-matched-key != steps.next_cache.outputs.cache-primary-key }}
+        uses: actions/cache/save@v6
+        with:
+          path: ${{ github.workspace }}/site/.next/cache
+          key: ${{ steps.next_cache.outputs.cache-primary-key }}
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5.0.0
+        with:
+          name: github-pages-${{ github.run_attempt }}
+          path: site/out
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-26.04
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v6.0.0
+
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v5.0.1
+        with:
+          artifact_name: github-pages-${{ github.run_attempt }}
