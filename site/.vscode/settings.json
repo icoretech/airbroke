@@ -1,0 +1,34 @@
+{
+  // Biome VS Code integration when opening the next/ folder directly
+  "biome.enabled": true,
+  "biome.requireConfiguration": true,
+  // Prefer the project's Biome binary (multi-arch installed via Yarn)
+  "biome.lsp.bin": "${workspaceFolder}/node_modules/.bin/biome",
+  // Use the project's native TypeScript 7 language server
+  "js/ts.experimental.useTsgo": true,
+  "js/ts.tsdk.path": "node_modules/typescript",
+
+  // Make Biome the default formatter for TS/JS/JSON in this workspace
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.biome": "explicit",
+    "source.organizeImports.biome": "explicit"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  // Prevent ESLint from formatting in this workspace
+  "eslint.format.enable": false
+}

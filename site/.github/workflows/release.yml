@@ -1,0 +1,92 @@
+name: Publish static site
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'app/**'
+      - 'components/**'
+      - 'lib/**'
+      - 'public/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'next.config.*'
+      - 'postcss.config.*'
+      - 'tsconfig.json'
+      - '.github/workflows/release.yml'
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: pages-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NEXT_TELEMETRY_DISABLED: 1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 26.13.1
+          cache: npm
+      - name: Restore Next.js build cache
+        id: next_cache
+        uses: actions/cache/restore@v6
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+            ${{ runner.os }}-nextjs-
+      - name: Install dependencies
+        run: npm ci
+      - name: Build static export
+        run: npm run build
+        env:
+          NODE_ENV: production
+      - name: Check export entrypoints
+        run: |
+          test -s out/index.html
+          test -s out/404.html
+      - name: Save Next.js build cache
+        if: ${{ steps.next_cache.outputs.cache-matched-key != steps.next_cache.outputs.cache-primary-key }}
+        uses: actions/cache/save@v6
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          key: ${{ steps.next_cache.outputs.cache-primary-key }}
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5.0.0
+        with:
+          name: github-pages-${{ github.run_attempt }}
+          path: out
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v6.0.0
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v5.0.1
+        with:
+          artifact_name: github-pages-${{ github.run_attempt }}
