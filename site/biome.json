@@ -7,14 +7,7 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": [
-      "**",
-      "!node_modules",
-      "!.next",
-      "!dist",
-      "!build",
-      "!components/ui"
-    ]
+    "includes": ["**", "!node_modules", "!.next", "!dist", "!build", "!out"]
   },
   "formatter": {
     "enabled": true,
@@ -25,18 +18,13 @@
     "enabled": true,
     "rules": {
       "preset": "recommended",
-      "suspicious": {
-        "noUnknownAtRules": "off"
+      "style": {
+        "noDescendingSpecificity": "off"
       }
     },
     "domains": {
       "next": "recommended",
       "react": "recommended"
-    }
-  },
-  "css": {
-    "parser": {
-      "tailwindDirectives": true
     }
   },
   "assist": {

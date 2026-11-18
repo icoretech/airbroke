@@ -33,6 +33,43 @@ and open `site/` as its own folder: its workspace settings select the installed
 `typescript` package's native language server rather than the removed
 JavaScript SDK.
 
+## landing page
+
+The site is one static page, `app/page.tsx`, built from the sections in
+`components/`. It is a roll of paper tickets: coral, white, ink and lilac card
+stocks printed in two inks, with the violet of the Airbroke mark as stamp ink
+and perforations punched through to the dark counter underneath. `DESIGN.md`
+records the tokens and components, `PRODUCT.md` the product facts the copy may
+use.
+
+- Every claim must be checkable in this repository. Each section names the
+  files its claims come from; update the copy in the same change when the app
+  changes. No invented customers, metrics, benchmarks, testimonials or
+  roadmap promises. The README's "active development" note stays in the FAQ.
+- Shared facts, links, the title, the description and the FAQ live in
+  `lib/site.ts`; `app/layout.tsx` turns them into metadata and the single
+  JSON-LD graph (iCoreTech `Organization` by `@id`, `SoftwareApplication`, and
+  `FAQPage` for the questions on the page). Keep FAQPage in step with the
+  visible FAQ.
+- No CSS framework and no client libraries: styles are in `app/globals.css`,
+  snippets are highlighted at build time by `lib/highlight.tsx`, icons are
+  inline SVG. Client components are limited to the tabs, the copy button, the
+  phone menu and the hero's punch demo.
+- The punch demo is the one moving part. It runs only while on screen and with
+  the tab visible, and not at all with reduced motion; other motion is gated
+  on `prefers-reduced-motion: no-preference`.
+- `app/og.png/route.tsx` renders the 1200x630 social card into `out/og.png`
+  at build time with Archivo from `@fontsource/archivo`. `public/llms.txt`,
+  `robots.txt` and `sitemap.xml` are static; update the sitemap's `lastmod`
+  when the page changes materially.
+- `public/screens/` holds WebP captures of the real app (dark theme, 1280x800
+  at 2x) taken from a local stack seeded with synthetic projects, with errors
+  sent through its own Airbrake and Sentry collectors. Never capture from a
+  real installation, and keep hosts on example domains.
+- Check changes in a browser at 1440, 834 and 390 wide, with and without
+  reduced motion: no horizontal scroll, and text contrast of at least 4.5:1
+  (3:1 for large text) on every stock, decorative text included.
+
 ## deployment
 
 The [Pages workflow](../.github/workflows/pages.yml) builds the current source

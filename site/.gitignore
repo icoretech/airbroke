@@ -39,3 +39,6 @@ next-env.d.ts
 .local/
 __pycache__/
 .pytest_cache/
+
+# design tooling working files
+.impeccable/
