@@ -5,6 +5,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: "export",
+  // Canonical and og:url keep the trailing slash of https://airbroke.icorete.ch/.
+  trailingSlash: true,
   typedRoutes: true,
   images: {
     unoptimized: true,
