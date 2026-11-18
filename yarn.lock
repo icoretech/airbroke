@@ -1369,9 +1369,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microlink/react-json-view@npm:1.31.50":
-  version: 1.31.50
-  resolution: "@microlink/react-json-view@npm:1.31.50"
+"@microlink/react-json-view@npm:1.31.51":
+  version: 1.31.51
+  resolution: "@microlink/react-json-view@npm:1.31.51"
   dependencies:
     react-base16-styling: "npm:~0.10.0"
     react-lifecycles-compat: "npm:~3.0.4"
@@ -1379,7 +1379,7 @@ __metadata:
   peerDependencies:
     react: ">= 15"
     react-dom: ">= 15"
-  checksum: 10/c2ff60d2abd727824bab6d7cdc2b925e22869355354678c17c200d7ba56b857303af72f7eb7dcea415739af4c1e2710c103a4245a9187ac1a1758800e4d039e6
+  checksum: 10/06ccb68b23f63ea7236a34c6af8b55e83c1d573240344764cd978a05e72f244497f331d8bc6711e6034d0a32f4bdafb9a34b76aa87e5d015f16692f76247c7ae
   languageName: node
   linkType: hard
 
@@ -3887,7 +3887,7 @@ __metadata:
     "@base-ui/react": "npm:^1.9.0"
     "@biomejs/biome": "npm:2.6.8"
     "@faker-js/faker": "npm:10.6.0"
-    "@microlink/react-json-view": "npm:1.31.50"
+    "@microlink/react-json-view": "npm:1.31.51"
     "@modelcontextprotocol/server": "npm:2.4.0"
     "@prisma/adapter-pg": "npm:7.10.1"
     "@prisma/client": "npm:7.10.1"
@@ -3912,7 +3912,7 @@ __metadata:
     cn: "npm:^0.5.2"
     date-fns: "npm:4.4.0"
     jsdom: "npm:31.0.1"
-    lucide-react: "npm:1.73.0"
+    lucide-react: "npm:1.74.0"
     mcp-handler: "npm:2.4.0"
     nanoid: "npm:6.0.2"
     next: "npm:16.4.6"
@@ -6646,16 +6646,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:1.73.0":
-  version: 1.73.0
-  resolution: "lucide-react@npm:1.73.0"
+"lucide-react@npm:1.74.0":
+  version: 1.74.0
+  resolution: "lucide-react@npm:1.74.0"
   peerDependencies:
     "@types/react": "*"
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10/16481eeb19b978c8c9f4d1da80f27f554b4c395c4b90fb0380f76d6237cbdd0a405575adeb1ab2672b8abcaa53bf64ba013fc5adc71882e48625549d97ab6d8a
+  checksum: 10/02385db641943a52bee263699fa98632f8a50acafde259133b658e687facb50a95078b7a85e1f5f4c557f1ede8d0d1a58d65c1b4712e92118e5431c00335e526
   languageName: node
   linkType: hard
 
