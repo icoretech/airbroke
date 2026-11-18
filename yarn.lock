@@ -3925,7 +3925,7 @@ __metadata:
     react-icons: "npm:5.7.0"
     react-is: "npm:19.3.1"
     react-syntax-highlighter: "npm:16.1.2"
-    recharts: "npm:3.10.1"
+    recharts: "npm:3.11.0"
     server-only: "npm:0.0.1"
     shadcn: "npm:^4.23.0"
     tailwind-merge: "npm:3.7.0"
@@ -8094,9 +8094,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recharts@npm:3.10.1":
-  version: 3.10.1
-  resolution: "recharts@npm:3.10.1"
+"recharts@npm:3.11.0":
+  version: 3.11.0
+  resolution: "recharts@npm:3.11.0"
   dependencies:
     "@reduxjs/toolkit": "npm:^1.9.0 || 2.x.x"
     clsx: "npm:^2.1.1"
@@ -8110,10 +8110,14 @@ __metadata:
     use-sync-external-store: "npm:^1.2.2"
     victory-vendor: "npm:^37.0.2"
   peerDependencies:
+    "@types/react": "*"
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-is: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/866c02fac2afcecdd59d3bafdf486229138b4d0704d989fd51f3e8ae00995161488a75a3c330115fb39724bd93875883138b900abb5937d970057ea5436e00d9
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10/29e7cfb86550470d52061284f04b45e99290133f29b5e7ebd09259187b0dde502c21edbb6371161f64a6f50191b4bafe9f3bfe8a983428f4b5473eed61ef04d5
   languageName: node
   linkType: hard
 
