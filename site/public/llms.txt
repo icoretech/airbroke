@@ -1,0 +1,35 @@
+# Airbroke
+
+> Airbroke is a self-hosted, open-source (MIT) error catcher backed by PostgreSQL, made by iCoreTech. It accepts errors from Airbrake notifiers and Sentry SDKs on compatible collector endpoints, groups them into notices and occurrences, and gives a web UI to triage them, replay the failing HTTP request and share remarks. A read-only MCP endpoint lets AI agents read the same errors.
+
+Airbroke is in active development; its README leaves production use to the operator's discretion. It is not a hosted service: you deploy it yourself.
+
+## Facts
+
+- Collectors: `POST /api/v3/notices` (Airbrake v3 notice API; project key in the `key` query parameter, an `Authorization` bearer token or `X-Airbrake-Token`) and `POST /api/sentry/<project_id>/envelope` (Sentry envelopes, sent through the SDK's `tunnel`).
+- Grouping: a notice is project + environment + error class; each distinct message in a notice is an occurrence. A repeat increments the occurrence's counter and hourly count instead of storing another copy.
+- UI: projects with 14 days of hourly activity, notices filtered by status and environment, backtraces that link project frames to GitHub, GitLab, Bitbucket or Gitea, request context, hourly charts, resolve, bookmarks and remarks.
+- Toolbox: copy the recorded request as cURL, replay its method, URL and headers from the Airbroke server and see the status; optional Ask the AI with the operator's OpenAI key.
+- MCP: `POST /api/mcp`, read-only tools `airbroke_list_projects`, `airbroke_get_project`, `airbroke_list_notices`, `airbroke_get_notice`, `airbroke_list_occurrences`, `airbroke_get_occurrence`, `airbroke_search`, `airbroke_get_setup_guide`; one static key in `Authorization: Bearer` or `X-Airbroke-Mcp-Key`.
+- Runs on: Docker image `ghcr.io/icoretech/airbroke` (amd64, arm64), Helm chart `oci://ghcr.io/icoretech/charts/airbroke`, Docker Compose, or Vercel, Render, Railway, Netlify and Heroku templates.
+- Needs: PostgreSQL 15+, 8 free connections per instance, about 300 MB of memory, one CPU core; Node.js 26.13.1+ when built from source.
+- Sign-in: OAuth through GitHub, GitLab, Bitbucket, Google, Apple, Microsoft Entra ID, Okta, Auth0, Keycloak, Authentik, Cognito, FusionAuth, BoxyHQ SAML, Atlassian, Salesforce or Slack, with optional organization, group, workspace, tenant or email-domain limits.
+- License: MIT. Price: free.
+
+## Docs
+
+- [Airbroke on GitHub](https://github.com/icoretech/airbroke): source, README with features, requirements and setup.
+- [Deployment options](https://github.com/icoretech/airbroke#deployment-options): Docker, Vercel, Render, Railway, Netlify, Heroku, Helm and Docker Compose.
+- [Setup](https://github.com/icoretech/airbroke#setup): database URLs, connection pooling and PgBouncer.
+- [MCP API](https://github.com/icoretech/airbroke#mcp-api-llmagent-integrations): endpoint, authentication, tools and an example client config.
+- [Authentication](https://github.com/icoretech/airbroke#authentication-layer): OAuth providers and callback URLs.
+- [Error collection best practices](https://github.com/icoretech/airbroke#best-practices-for-efficient-error-collection-and-storage): keeping messages generic so occurrences group.
+- [Railway deployment guide](https://github.com/icoretech/airbroke/blob/main/deploy/railway/README.md): one-click deploy with PostgreSQL 18.
+- [Helm chart](https://github.com/icoretech/helm/tree/main/charts/airbroke): Kubernetes values and install commands.
+
+## Project
+
+- [Releases](https://github.com/icoretech/airbroke/releases): versioned releases.
+- [Changelog](https://github.com/icoretech/airbroke/blob/main/CHANGELOG.md): changes per release.
+- [License](https://github.com/icoretech/airbroke/blob/main/LICENSE): MIT.
+- [iCoreTech](https://icorete.ch/): the studio that makes Airbroke.
