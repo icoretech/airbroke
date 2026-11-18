@@ -83,9 +83,9 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
-// Self-hosted, cookie-free Plausible at analytics.icorete.ch (the icorete.ch site, which also counts its subdomains).
+// Self-hosted, cookie-free Plausible at analytics.icorete.ch (its own site, airbroke.icorete.ch).
 const ANALYTICS_SCRIPT =
-  "https://analytics.icorete.ch/js/pa-SBH2BEnPBPlsd5pj1Qk89.js";
+  "https://analytics.icorete.ch/js/pa-qvSRg-Kx41rs17_uCQ0mL.js";
 const ANALYTICS_INIT =
   "window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()";
 
