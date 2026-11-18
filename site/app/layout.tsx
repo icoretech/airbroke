@@ -83,6 +83,12 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
+// Self-hosted, cookie-free Plausible at analytics.icorete.ch (site: airbroke.icorete.ch).
+const ANALYTICS_SCRIPT =
+  "https://analytics.icorete.ch/js/pa-qvSRg-Kx41rs17_uCQ0mL.js";
+const ANALYTICS_INIT =
+  "window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()";
+
 // One structured-data graph: iCoreTech as publisher, Airbroke as the
 // application, and the FAQ that is visible on the page.
 const organization = "https://icorete.ch/#organization";
@@ -133,6 +139,13 @@ const structuredData = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${archivo.variable} ${geistMono.variable}`}>
+      <head>
+        <script async src={ANALYTICS_SCRIPT} />
+        <script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: Plausible's fixed queue stub, no user input
+          dangerouslySetInnerHTML={{ __html: ANALYTICS_INIT }}
+        />
+      </head>
       <body>
         <script
           type="application/ld+json"
