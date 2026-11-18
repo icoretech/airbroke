@@ -16,3 +16,4 @@ Makefile
 prisma/pg-init-scripts
 prisma/seed.ts
 release-please-config.json
+site
