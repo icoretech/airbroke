@@ -114,9 +114,6 @@ export default function Screens() {
           </figure>
         ))}
       </Tabs>
-      <p className="gallery-note">
-        Captured from a local install with sample projects and errors.
-      </p>
     </Ticket>
   );
 }

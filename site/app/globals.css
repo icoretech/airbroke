@@ -1215,13 +1215,6 @@ a.shot-frame {
   font-stretch: 108%;
 }
 
-.gallery-note {
-  margin-top: 26px;
-  font-size: 14px;
-  color: var(--ink-2);
-  text-align: center;
-}
-
 .gallery figcaption span {
   max-width: 40rem;
   font-size: 16px;

@@ -47,8 +47,8 @@ export default function Hero() {
       </ul>
       <PunchStrip />
       <p className="punch-caption">
-        Sample errors. Same class, same message, same ticket: a repeat moves its
-        counter instead of storing another copy.
+        Same class, same message, same ticket: a repeat moves its counter
+        instead of storing another copy.
       </p>
     </Ticket>
   );
