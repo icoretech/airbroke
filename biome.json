@@ -22,7 +22,8 @@
       "!**/prisma/generated",
       "!CHANGELOG.md",
       "!components/ui",
-      "!components/ai-elements"
+      "!components/ai-elements",
+      "!!site"
     ]
   },
   "assist": {

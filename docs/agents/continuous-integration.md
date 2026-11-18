@@ -67,6 +67,19 @@ native amd64 and arm64 candidates, then promotes version, minor and `latest`
 tags. The [release-please workflow](../../.github/workflows/generate-release.yml)
 also remains separate.
 
+## website
+
+The [Pages workflow](../../.github/workflows/pages.yml) builds `site/` with npm
+on a GitHub-hosted runner and deploys its static export to GitHub Pages from
+`main`, for pushes that touch `site/` and for manual runs. Pushes to other
+branches that touch `site/` lint and build it without deploying. It uses no
+Compose workspace, database or image, and the development, release-please and
+stable image workflows do not depend on it; a site-only push still starts the
+development workflow like any other branch push. Its Node.js pin follows the
+app's, which Renovate leaves to manual updates. Renovate puts website dependency
+updates on `renovate/site-*` branches with a `deps(site):` subject, and
+release-please skips commits that only touch `site/`.
+
 ## verification
 
 Run the shell contracts and workflow syntax checks before changing the runner

@@ -17,6 +17,8 @@
     { "type": "test", "section": "Tests", "hidden": true }
   ],
   "packages": {
-    ".": {}
+    ".": {
+      "exclude-paths": ["site"]
+    }
   }
 }

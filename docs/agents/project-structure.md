@@ -14,6 +14,8 @@ Airbroke uses the Next.js App Router. Most feature code lives under `app`,
   server actions
 - `prisma/`: schema, migrations, seed script, and generated client output
 - `__tests__/`: mirrors app, components, and lib with factories and helpers
+- `site/`: the airbroke.icorete.ch website, a separate npm project outside the
+  app's TypeScript, Biome, Vitest and Docker scope (see `site/README.md`)
 
 ## Rules
 

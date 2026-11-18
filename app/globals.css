@@ -2,6 +2,9 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+/* site/ is the separate website project; keep its classes out of the app CSS. */
+@source not "../site";
+
 @custom-variant dark (&:is(.dark *));
 
 /* Theme color names that map to our CSS tokens so utilities like bg-background still work */

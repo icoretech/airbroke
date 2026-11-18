@@ -1,7 +1,7 @@
 // vitest.config.mjs
 
 import { fileURLToPath } from "node:url";
-import { defineConfig } from "vitest/config";
+import { configDefaults, defineConfig } from "vitest/config";
 
 const projectRoot = fileURLToPath(new URL(".", import.meta.url));
 const nextNavigationMock = fileURLToPath(
@@ -19,6 +19,8 @@ export default defineConfig({
     testTimeout: 300000,
     fileParallelism: false,
     environment: "jsdom",
+    // site/ is the separate website project, not part of the app suite.
+    exclude: [...configDefaults.exclude, "site/**"],
     env: {
       BETTER_AUTH_URL: "http://localhost:3000",
       BETTER_AUTH_SECRET: "test-secret-at-least-32-characters-long",

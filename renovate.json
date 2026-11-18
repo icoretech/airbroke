@@ -49,6 +49,12 @@
     {
       "matchPackageNames": ["node"],
       "enabled": false
+    },
+    {
+      "description": "Keep website dependencies under site/ in their own branches, apart from the app's",
+      "matchFileNames": ["site/**"],
+      "additionalBranchPrefix": "site-",
+      "semanticCommitScope": "site"
     }
   ]
 }

@@ -6,6 +6,7 @@
   "blocking": "error",
   "serverAuthFunctionNames": ["requireAuth", "requireUserId"],
   "ignore": {
+    "files": ["site/**"],
     "overrides": [
       {
         "files": ["components/ui/**", "components/ai-elements/**"]
