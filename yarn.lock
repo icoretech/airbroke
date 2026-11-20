@@ -3928,7 +3928,7 @@ __metadata:
     recharts: "npm:3.11.0"
     server-only: "npm:0.0.1"
     shadcn: "npm:^4.23.0"
-    tailwind-merge: "npm:3.7.0"
+    tailwind-merge: "npm:3.7.1"
     tailwindcss: "npm:4.3.5"
     tw-animate-css: "npm:1.4.0"
     typescript: "npm:7.0.2"
@@ -8768,10 +8768,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwind-merge@npm:3.7.0":
-  version: 3.7.0
-  resolution: "tailwind-merge@npm:3.7.0"
-  checksum: 10/94414ca5c75a26ef42f00fdbe8388eebb16659fe5505ab019ac6ba40a5f97d02b330b1e1c16bb1de5b65ae533d640d7956d5f6247a7f2f56019173315be40163
+"tailwind-merge@npm:3.7.1":
+  version: 3.7.1
+  resolution: "tailwind-merge@npm:3.7.1"
+  checksum: 10/26c998c8619e70b51f4815cfc18957959490ac09f7d50b9b15e3453ec9aaa1355c5e88cfc3958b1290378cbadfc5dd58332cc65f8f05ee65cebe0bdfb7e780a7
   languageName: node
   linkType: hard
 
