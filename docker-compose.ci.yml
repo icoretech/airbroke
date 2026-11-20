@@ -17,7 +17,7 @@ services:
       - workspace:/workspace
     entrypoint: ["tar", "-xf", "-", "-C", "/workspace"]
   pg:
-    image: postgres:18
+    image: postgres:19
     labels: *owned
     mem_limit: 4g
     memswap_limit: 4g
