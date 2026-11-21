@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.4.13](https://github.com/icoretech/airbroke/compare/v1.4.12...v1.4.13) (2026-11-21)
+
+
+### Dependencies
+
+* update dependency better-auth to v1.7.26 ([#2195](https://github.com/icoretech/airbroke/issues/2195)) ([e29d3a7](https://github.com/icoretech/airbroke/commit/e29d3a70ff61665aef74b105f6f8898f97b9f012))
+* update dependency lucide-react to v1.77.0 ([#2189](https://github.com/icoretech/airbroke/issues/2189)) ([1047c20](https://github.com/icoretech/airbroke/commit/1047c20382986571a5009a95a6161c03c89cf5de))
+* update dependency tailwind-merge to v3.7.1 ([#2199](https://github.com/icoretech/airbroke/issues/2199)) ([267ce95](https://github.com/icoretech/airbroke/commit/267ce9561d73e3a4eaef0ddb259af25201c8a93d))
+* update sentry-javascript monorepo to v11.15.0 ([#2191](https://github.com/icoretech/airbroke/issues/2191)) ([39c1a77](https://github.com/icoretech/airbroke/commit/39c1a778dbd6e4205b79bfe493a28981ea719d85))
+* update vercel ai sdk ([#2196](https://github.com/icoretech/airbroke/issues/2196)) ([1775663](https://github.com/icoretech/airbroke/commit/1775663b9adfee0dfb86c56c60eaaa4fded0c83d))
+* update vitest monorepo to v5.1.1 ([#2194](https://github.com/icoretech/airbroke/issues/2194)) ([7948d81](https://github.com/icoretech/airbroke/commit/7948d81e7269bbd023bb9f9d5510f6c93faecd2b))
+
 ## [1.4.12](https://github.com/icoretech/airbroke/compare/v1.4.11...v1.4.12) (2026-11-18)
 
 
