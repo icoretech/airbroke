@@ -95,5 +95,5 @@
     "minimatch@npm:^10.2.4": "11.0.9",
     "minimatch@npm:^10.2.6": "11.0.9"
   },
-  "packageManager": "yarn@4.18.1"
+  "packageManager": "yarn@4.19.0"
 }
