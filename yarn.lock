@@ -3912,7 +3912,7 @@ __metadata:
     cn: "npm:^0.5.2"
     date-fns: "npm:4.4.0"
     jsdom: "npm:31.0.1"
-    lucide-react: "npm:1.77.0"
+    lucide-react: "npm:1.78.0"
     mcp-handler: "npm:2.4.0"
     nanoid: "npm:6.0.2"
     next: "npm:16.4.6"
@@ -6646,16 +6646,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:1.77.0":
-  version: 1.77.0
-  resolution: "lucide-react@npm:1.77.0"
+"lucide-react@npm:1.78.0":
+  version: 1.78.0
+  resolution: "lucide-react@npm:1.78.0"
   peerDependencies:
     "@types/react": "*"
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10/dcaecd7c0add1a6b79938897585595669ec7e6ec5e54b757afed67b58da2a1299c5c93c67fcbeff2920dc150476bf585f60679f5203663db319d345c737a74ed
+  checksum: 10/a59b84560a70c4301fcdd6a8836a919794934adb2061589119b409e2a8a1f241004eac2024b460986f9fcc2a43bd82681a4ca4d3c3c51aaaaaa0e14ade9b3bcd
   languageName: node
   linkType: hard
 
