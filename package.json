@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "4.0.122",
-    "@ai-sdk/react": "4.0.183",
+    "@ai-sdk/react": "4.0.184",
     "@airbrake/browser": "2.1.9",
     "@airbrake/node": "2.1.9",
     "@base-ui/react": "^1.9.0",
