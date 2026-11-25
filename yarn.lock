@@ -1362,10 +1362,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@kurkle/color@npm:^0.3.0":
-  version: 0.3.4
-  resolution: "@kurkle/color@npm:0.3.4"
-  checksum: 10/a15bfb55eec4ff92ee27cdacff54e85c7497ec1f9e8e0e8eaec3d39320cc90b82eb7f716d92792a8235fad1617003c6e0c0d2cd07f6a79b7b138ca17ec5eb6e7
+"@kurkle/color@npm:^0.6.6":
+  version: 0.6.6
+  resolution: "@kurkle/color@npm:0.6.6"
+  checksum: 10/083c93c429dca432265d59bafac2ca7f47b47e7ff071eaafab28e087d37bc03773b3af32bcb82d2b0d16ac05f822daa624dc14775197ff1201cbbceba31d36f1
   languageName: node
   linkType: hard
 
@@ -3906,7 +3906,7 @@ __metadata:
     ai: "npm:7.0.179"
     babel-plugin-react-compiler: "npm:1.0.0"
     better-auth: "npm:1.7.27"
-    chart.js: "npm:4.6.1"
+    chart.js: "npm:4.6.2"
     class-variance-authority: "npm:0.7.1"
     clsx: "npm:2.1.1"
     cn: "npm:^0.5.2"
@@ -4407,12 +4407,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chart.js@npm:4.6.1":
-  version: 4.6.1
-  resolution: "chart.js@npm:4.6.1"
+"chart.js@npm:4.6.2":
+  version: 4.6.2
+  resolution: "chart.js@npm:4.6.2"
   dependencies:
-    "@kurkle/color": "npm:^0.3.0"
-  checksum: 10/4c940b0ce2f57865fcc49d4af94e84e020d3f6869bd3856910e2d3c159ab03e0f6e6f7cf29e0e9a205fafc0cf6836b8a046667133c41f2331d58fb611a476e53
+    "@kurkle/color": "npm:^0.6.6"
+  checksum: 10/366b7a0aa967c4036b26e5d9878efaae52bad9676dcf79431bfdc1d515308fa10eb1f33640c58dbc7cd068a9ffc8594afe5b7b84893a0d5c360d9dbc30d7c94f
   languageName: node
   linkType: hard
 
