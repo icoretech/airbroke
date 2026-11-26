@@ -620,20 +620,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@biomejs/biome@npm:2.6.8":
-  version: 2.6.8
-  resolution: "@biomejs/biome@npm:2.6.8"
+"@biomejs/biome@npm:2.6.9":
+  version: 2.6.9
+  resolution: "@biomejs/biome@npm:2.6.9"
   dependencies:
-    "@biomejs/cli-android-arm64": "npm:2.6.8"
-    "@biomejs/cli-android-x64": "npm:2.6.8"
-    "@biomejs/cli-darwin-arm64": "npm:2.6.8"
-    "@biomejs/cli-darwin-x64": "npm:2.6.8"
-    "@biomejs/cli-linux-arm64": "npm:2.6.8"
-    "@biomejs/cli-linux-arm64-musl": "npm:2.6.8"
-    "@biomejs/cli-linux-x64": "npm:2.6.8"
-    "@biomejs/cli-linux-x64-musl": "npm:2.6.8"
-    "@biomejs/cli-win32-arm64": "npm:2.6.8"
-    "@biomejs/cli-win32-x64": "npm:2.6.8"
+    "@biomejs/cli-android-arm64": "npm:2.6.9"
+    "@biomejs/cli-android-x64": "npm:2.6.9"
+    "@biomejs/cli-darwin-arm64": "npm:2.6.9"
+    "@biomejs/cli-darwin-x64": "npm:2.6.9"
+    "@biomejs/cli-linux-arm64": "npm:2.6.9"
+    "@biomejs/cli-linux-arm64-musl": "npm:2.6.9"
+    "@biomejs/cli-linux-x64": "npm:2.6.9"
+    "@biomejs/cli-linux-x64-musl": "npm:2.6.9"
+    "@biomejs/cli-win32-arm64": "npm:2.6.9"
+    "@biomejs/cli-win32-x64": "npm:2.6.9"
   dependenciesMeta:
     "@biomejs/cli-android-arm64":
       optional: true
@@ -657,76 +657,76 @@ __metadata:
       optional: true
   bin:
     biome: bin/biome
-  checksum: 10/88dcde917261dae3cddbd5942e30806e51736933e46f2daca0e0720e1de89cb04bdd4bcea5c8426fbadd4a3c384efcf7138e22c0bb28c35f241892f55f199ea5
+  checksum: 10/1fe3e071f922859fdf04eaccd81088c77ec4cb9c1b8c0063f3c45daacb113e3fa879a5928970646bd0827c925ae80fdb2d40e006c3dad68ca99430f1b31fc37e
   languageName: node
   linkType: hard
 
-"@biomejs/cli-android-arm64@npm:2.6.8":
-  version: 2.6.8
-  resolution: "@biomejs/cli-android-arm64@npm:2.6.8"
+"@biomejs/cli-android-arm64@npm:2.6.9":
+  version: 2.6.9
+  resolution: "@biomejs/cli-android-arm64@npm:2.6.9"
   conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
 
-"@biomejs/cli-android-x64@npm:2.6.8":
-  version: 2.6.8
-  resolution: "@biomejs/cli-android-x64@npm:2.6.8"
+"@biomejs/cli-android-x64@npm:2.6.9":
+  version: 2.6.9
+  resolution: "@biomejs/cli-android-x64@npm:2.6.9"
   conditions: os=android & cpu=x64
   languageName: node
   linkType: hard
 
-"@biomejs/cli-darwin-arm64@npm:2.6.8":
-  version: 2.6.8
-  resolution: "@biomejs/cli-darwin-arm64@npm:2.6.8"
+"@biomejs/cli-darwin-arm64@npm:2.6.9":
+  version: 2.6.9
+  resolution: "@biomejs/cli-darwin-arm64@npm:2.6.9"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@biomejs/cli-darwin-x64@npm:2.6.8":
-  version: 2.6.8
-  resolution: "@biomejs/cli-darwin-x64@npm:2.6.8"
+"@biomejs/cli-darwin-x64@npm:2.6.9":
+  version: 2.6.9
+  resolution: "@biomejs/cli-darwin-x64@npm:2.6.9"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-arm64-musl@npm:2.6.8":
-  version: 2.6.8
-  resolution: "@biomejs/cli-linux-arm64-musl@npm:2.6.8"
+"@biomejs/cli-linux-arm64-musl@npm:2.6.9":
+  version: 2.6.9
+  resolution: "@biomejs/cli-linux-arm64-musl@npm:2.6.9"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-arm64@npm:2.6.8":
-  version: 2.6.8
-  resolution: "@biomejs/cli-linux-arm64@npm:2.6.8"
+"@biomejs/cli-linux-arm64@npm:2.6.9":
+  version: 2.6.9
+  resolution: "@biomejs/cli-linux-arm64@npm:2.6.9"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-x64-musl@npm:2.6.8":
-  version: 2.6.8
-  resolution: "@biomejs/cli-linux-x64-musl@npm:2.6.8"
+"@biomejs/cli-linux-x64-musl@npm:2.6.9":
+  version: 2.6.9
+  resolution: "@biomejs/cli-linux-x64-musl@npm:2.6.9"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-x64@npm:2.6.8":
-  version: 2.6.8
-  resolution: "@biomejs/cli-linux-x64@npm:2.6.8"
+"@biomejs/cli-linux-x64@npm:2.6.9":
+  version: 2.6.9
+  resolution: "@biomejs/cli-linux-x64@npm:2.6.9"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@biomejs/cli-win32-arm64@npm:2.6.8":
-  version: 2.6.8
-  resolution: "@biomejs/cli-win32-arm64@npm:2.6.8"
+"@biomejs/cli-win32-arm64@npm:2.6.9":
+  version: 2.6.9
+  resolution: "@biomejs/cli-win32-arm64@npm:2.6.9"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@biomejs/cli-win32-x64@npm:2.6.8":
-  version: 2.6.8
-  resolution: "@biomejs/cli-win32-x64@npm:2.6.8"
+"@biomejs/cli-win32-x64@npm:2.6.9":
+  version: 2.6.9
+  resolution: "@biomejs/cli-win32-x64@npm:2.6.9"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -3885,7 +3885,7 @@ __metadata:
     "@airbrake/browser": "npm:2.1.9"
     "@airbrake/node": "npm:2.1.9"
     "@base-ui/react": "npm:^1.9.0"
-    "@biomejs/biome": "npm:2.6.8"
+    "@biomejs/biome": "npm:2.6.9"
     "@faker-js/faker": "npm:10.6.0"
     "@microlink/react-json-view": "npm:1.31.52"
     "@modelcontextprotocol/server": "npm:2.4.0"
