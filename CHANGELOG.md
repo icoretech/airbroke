@@ -1,5 +1,36 @@
 # Changelog
 
+## [1.4.13](https://github.com/icoretech/airbroke/compare/v1.4.12...v1.4.13) (2026-11-27)
+
+
+### Dependencies
+
+* align the Render Node runtime with the 26.13.1 container image ([1238032](https://github.com/icoretech/airbroke/commit/1238032bae26e76b5e7651447df2a4719c0d4197))
+* update dependency @ai-sdk/openai to v4.0.123 ([#2210](https://github.com/icoretech/airbroke/issues/2210)) ([414fdee](https://github.com/icoretech/airbroke/commit/414fdeea32261feadcadca5afc57d7d953a9f8fb))
+* update dependency @ai-sdk/react to v4.0.184 ([#2204](https://github.com/icoretech/airbroke/issues/2204)) ([a9b33c3](https://github.com/icoretech/airbroke/commit/a9b33c30fe55f79104bebee09a40cedf71b3495e))
+* update dependency @biomejs/biome to v2.6.9 ([#2211](https://github.com/icoretech/airbroke/issues/2211)) ([dadbb5e](https://github.com/icoretech/airbroke/commit/dadbb5e33867ad41ae7d0f52a90ce0adde714b2a))
+* update dependency @microlink/react-json-view to v1.31.52 ([#2188](https://github.com/icoretech/airbroke/issues/2188)) ([d84e830](https://github.com/icoretech/airbroke/commit/d84e8305c3db4088df197a55ede339ab37cd2929))
+* update dependency @types/node to v26.6.10 ([#2212](https://github.com/icoretech/airbroke/issues/2212)) ([fdf8e12](https://github.com/icoretech/airbroke/commit/fdf8e1257976b420e3948d18a62e729093e99cd8))
+* update dependency @types/node to v26.6.11 ([#2219](https://github.com/icoretech/airbroke/issues/2219)) ([0877b69](https://github.com/icoretech/airbroke/commit/0877b698fbfaaa51bc3e7759162449ff7c3a20ea))
+* update dependency @types/react to v19.3.3 ([#2213](https://github.com/icoretech/airbroke/issues/2213)) ([d0170c4](https://github.com/icoretech/airbroke/commit/d0170c450e9e54cc8ff4836f3682a3f138692d08))
+* update dependency better-auth to v1.7.26 ([#2195](https://github.com/icoretech/airbroke/issues/2195)) ([e29d3a7](https://github.com/icoretech/airbroke/commit/e29d3a70ff61665aef74b105f6f8898f97b9f012))
+* update dependency better-auth to v1.7.27 ([#2200](https://github.com/icoretech/airbroke/issues/2200)) ([fefe16c](https://github.com/icoretech/airbroke/commit/fefe16c4e21d7891a542f0bb69c40b9d632ac7f4))
+* update dependency better-auth to v1.7.28 ([#2214](https://github.com/icoretech/airbroke/issues/2214)) ([1365120](https://github.com/icoretech/airbroke/commit/1365120ae4649d91917c361e4ee6f8ca10150484))
+* update dependency chart.js to v4.6.2 ([#2206](https://github.com/icoretech/airbroke/issues/2206)) ([c49ab97](https://github.com/icoretech/airbroke/commit/c49ab97f84f384042b7c702a66b6ddf2d943f92b))
+* update dependency lucide-react to v1.77.0 ([#2189](https://github.com/icoretech/airbroke/issues/2189)) ([1047c20](https://github.com/icoretech/airbroke/commit/1047c20382986571a5009a95a6161c03c89cf5de))
+* update dependency lucide-react to v1.78.0 ([#2205](https://github.com/icoretech/airbroke/issues/2205)) ([8a48930](https://github.com/icoretech/airbroke/commit/8a48930c936f75a0e6d19d37996cd5ccd22f6f07))
+* update dependency recharts to v3.11.1 ([#2190](https://github.com/icoretech/airbroke/issues/2190)) ([5a8fadd](https://github.com/icoretech/airbroke/commit/5a8fadd9360f1dbf3f0450f1688a92216b991756))
+* update dependency tailwind-merge to v3.7.1 ([#2199](https://github.com/icoretech/airbroke/issues/2199)) ([267ce95](https://github.com/icoretech/airbroke/commit/267ce9561d73e3a4eaef0ddb259af25201c8a93d))
+* update sentry-javascript monorepo to v11.15.0 ([#2191](https://github.com/icoretech/airbroke/issues/2191)) ([39c1a77](https://github.com/icoretech/airbroke/commit/39c1a778dbd6e4205b79bfe493a28981ea719d85))
+* update sentry-javascript monorepo to v11.16.0 ([#2202](https://github.com/icoretech/airbroke/issues/2202)) ([6f3cf33](https://github.com/icoretech/airbroke/commit/6f3cf33c28b3fc45a0d106844f2d436569ec454b))
+* update the AI SDK, Sentry, Vite and Vitest ([33d5027](https://github.com/icoretech/airbroke/commit/33d5027297b43e98ecec7361153bcb19461884e0))
+* update vercel ai sdk ([#2196](https://github.com/icoretech/airbroke/issues/2196)) ([1775663](https://github.com/icoretech/airbroke/commit/1775663b9adfee0dfb86c56c60eaaa4fded0c83d))
+* update vercel ai sdk ([#2201](https://github.com/icoretech/airbroke/issues/2201)) ([6e122be](https://github.com/icoretech/airbroke/commit/6e122bee57528dca9b1339340e07368eec476e16))
+* update vercel ai sdk ([#2207](https://github.com/icoretech/airbroke/issues/2207)) ([c4a7496](https://github.com/icoretech/airbroke/commit/c4a7496ef4384cbb6272fa77e299fe27d8b36eb5))
+* update vitest monorepo to v5.1.1 ([#2194](https://github.com/icoretech/airbroke/issues/2194)) ([7948d81](https://github.com/icoretech/airbroke/commit/7948d81e7269bbd023bb9f9d5510f6c93faecd2b))
+* update yarn to v4.19.0 ([#2203](https://github.com/icoretech/airbroke/issues/2203)) ([70a3693](https://github.com/icoretech/airbroke/commit/70a36936ccaf62f7fe9fd6d8d0114490dd48707c))
+* upgrade Compose and CI to PostgreSQL 19 ([cbab2a0](https://github.com/icoretech/airbroke/commit/cbab2a0b8907a1d6843ca17d2a047e4d51a57609))
+
 ## [1.4.12](https://github.com/icoretech/airbroke/compare/v1.4.11...v1.4.12) (2026-11-18)
 
 
