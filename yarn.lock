@@ -3768,50 +3768,50 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/coverage-v8@npm:5.1.1":
-  version: 5.1.1
-  resolution: "@vitest/coverage-v8@npm:5.1.1"
+"@vitest/coverage-v8@npm:5.1.2":
+  version: 5.1.2
+  resolution: "@vitest/coverage-v8@npm:5.1.2"
   dependencies:
     "@bcoe/v8-coverage": "npm:^1.0.2"
-    "@vitest/istanbul-lib-coverage": "npm:^2.1.0"
-    "@vitest/istanbul-lib-report": "npm:^2.1.0"
-    ast-v8-to-istanbul: "npm:^1.0.7"
+    "@vitest/istanbul-lib-coverage": "npm:^2.1.1"
+    "@vitest/istanbul-lib-report": "npm:^2.1.1"
+    ast-v8-to-istanbul: "npm:^1.0.8"
     magicast: "npm:^0.5.5"
     obug: "npm:^3.0.0"
     std-env: "npm:^4.3.0"
     tinyrainbow: "npm:^3.2.0"
   peerDependencies:
-    "@vitest/browser": 5.1.1
-    vitest: 5.1.1
+    "@vitest/browser": 5.1.2
+    vitest: 5.1.2
   peerDependenciesMeta:
     "@vitest/browser":
       optional: true
-  checksum: 10/82324ab93c2d3eef85d0c486ebff7612129d624cad1b5aec9a0b94eb89ab568487b1539be6c13b2e11569707aa15f385dfb628c7763d4de8323f921266ea04b1
+  checksum: 10/2c20ac19204d0b2fbdaef715d3d8162bc0034f36038288fabfa35c41c3e0326674a5d16ca3ccd0542099b7d4c1ef144f513dec4994fa8ae10fcc36d22e5e8c39
   languageName: node
   linkType: hard
 
-"@vitest/istanbul-lib-coverage@npm:2.1.0, @vitest/istanbul-lib-coverage@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "@vitest/istanbul-lib-coverage@npm:2.1.0"
-  checksum: 10/2c5dc3a1ecb270d5510a0451d716703107f40d70654711939be4b5154f8c7d2eff3eabfb68c5c4aa8d4425016b67156a4d07a28b294ee9dcb5c42d2c4d7298c1
+"@vitest/istanbul-lib-coverage@npm:2.1.1, @vitest/istanbul-lib-coverage@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "@vitest/istanbul-lib-coverage@npm:2.1.1"
+  checksum: 10/77a4293047370425e8c1b50ddc3ca8a30fcd4a580622e44613659d7b40386272658590f2f614c8110999635e662d50544abcdd6a96b582079b72ff48216a89a1
   languageName: node
   linkType: hard
 
-"@vitest/istanbul-lib-report@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "@vitest/istanbul-lib-report@npm:2.1.0"
+"@vitest/istanbul-lib-report@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "@vitest/istanbul-lib-report@npm:2.1.1"
   dependencies:
-    "@vitest/istanbul-lib-coverage": "npm:2.1.0"
-  checksum: 10/c5c5657181d2809caebdd3065e06c3cc6c3a083188419c27f55ba79db5a856ca4045496f9267db1a6bf5ed7116e546e22af3a13dd53b353a3a5421a6af96c351
+    "@vitest/istanbul-lib-coverage": "npm:2.1.1"
+  checksum: 10/abb2b629805403be666420baf0b401258860ca01a6def5afe102d2c6e9032dbbaa483d23a7b26a1fa5c85dc217385aba74f416cdd70915bfbb5242124aeecb28
   languageName: node
   linkType: hard
 
-"@vitest/mocker@npm:5.1.1":
-  version: 5.1.1
-  resolution: "@vitest/mocker@npm:5.1.1"
+"@vitest/mocker@npm:5.1.2":
+  version: 5.1.2
+  resolution: "@vitest/mocker@npm:5.1.2"
   dependencies:
     "@jridgewell/trace-mapping": "npm:0.3.31"
-    "@vitest/spy": "npm:5.1.1"
+    "@vitest/spy": "npm:5.1.2"
     estree-walker: "npm:^3.0.3"
     magic-string: "npm:^1.4.5"
   peerDependencies:
@@ -3822,14 +3822,14 @@ __metadata:
       optional: true
     vite:
       optional: true
-  checksum: 10/070c0e7eb5581211febd4f5a4e5a2933af565abd0fe05bd1aabe196c061a0b651ea6ee30141b698099602b8c5d9e309cbad3b8b6e615581e9dc44aaf7d40600f
+  checksum: 10/ff9eb3f2839a534cdc634d18f53ac586f8e0409580a354c72cf7f0ac5000797eff6f2caf8f2a1e04c09c29e87f45049d012581f9dcb1e36832da4fa145b62eac
   languageName: node
   linkType: hard
 
-"@vitest/spy@npm:5.1.1":
-  version: 5.1.1
-  resolution: "@vitest/spy@npm:5.1.1"
-  checksum: 10/d8799f6ffa2e1724646b73ef68b81e50464640d1f5d931f8ea323382b66f19d147cd41b114241a9e172f60ebd59f5fc3b7b11f036ee0959818974b6306b00ef2
+"@vitest/spy@npm:5.1.2":
+  version: 5.1.2
+  resolution: "@vitest/spy@npm:5.1.2"
+  checksum: 10/c46565650ae1a0496296a296b27a47ae0eb4d562eedaf28a45a3b5c630dae56ccf691d7b5ad24f0f6ce2621ed0624942a0ec385961929f10f3f3459bcbe2f4c1
   languageName: node
   linkType: hard
 
@@ -3920,7 +3920,7 @@ __metadata:
     "@types/react": "npm:19.3.3"
     "@types/react-dom": "npm:19.3.0"
     "@types/react-syntax-highlighter": "npm:15.5.13"
-    "@vitest/coverage-v8": "npm:5.1.1"
+    "@vitest/coverage-v8": "npm:5.1.2"
     ai: "npm:7.0.181"
     babel-plugin-react-compiler: "npm:1.0.0"
     better-auth: "npm:1.7.28"
@@ -3951,7 +3951,7 @@ __metadata:
     tw-animate-css: "npm:1.4.0"
     typescript: "npm:7.0.2"
     vite: "npm:8.3.8"
-    vitest: "npm:5.1.1"
+    vitest: "npm:5.1.2"
     zod: "npm:4.6.7"
   dependenciesMeta:
     "@prisma/engines":
@@ -4066,7 +4066,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ast-v8-to-istanbul@npm:^1.0.7":
+"ast-v8-to-istanbul@npm:^1.0.8":
   version: 1.0.8
   resolution: "ast-v8-to-istanbul@npm:1.0.8"
   dependencies:
@@ -9365,12 +9365,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vitest@npm:5.1.1":
-  version: 5.1.1
-  resolution: "vitest@npm:5.1.1"
+"vitest@npm:5.1.2":
+  version: 5.1.2
+  resolution: "vitest@npm:5.1.2"
   dependencies:
     "@types/chai": "npm:^5.2.2"
-    "@vitest/mocker": "npm:5.1.1"
+    "@vitest/mocker": "npm:5.1.2"
     chai: "npm:^6.3.0"
     es-module-lexer: "npm:^2.3.2"
     expect-type: "npm:^1.4.0"
@@ -9386,12 +9386,12 @@ __metadata:
     "@edge-runtime/vm": "*"
     "@opentelemetry/api": ^1.9.0
     "@types/node": ^22.0.0 || >=24.0.0
-    "@vitest/browser-playwright": 5.1.1
-    "@vitest/browser-preview": 5.1.1
+    "@vitest/browser-playwright": 5.1.2
+    "@vitest/browser-preview": 5.1.2
     "@vitest/browser-webdriverio": ^5.0.0-beta.5 || >=5.0.0
-    "@vitest/coverage-istanbul": 5.1.1
-    "@vitest/coverage-v8": 5.1.1
-    "@vitest/ui": 5.1.1
+    "@vitest/coverage-istanbul": 5.1.2
+    "@vitest/coverage-v8": 5.1.2
+    "@vitest/ui": 5.1.2
     happy-dom: "*"
     jsdom: "*"
     vite: ^6.4.0 || ^7.0.0 || ^8.0.0
@@ -9422,7 +9422,7 @@ __metadata:
       optional: false
   bin:
     vitest: ./vitest.mjs
-  checksum: 10/c383c5f40a6b3410b01ac5b2c085bbfe0f7c27f77330568dfed14793f9d4f0d3d2c74c0e240621b6767a0569248d7bca080a53c961e2151ae67558623d182bd9
+  checksum: 10/b41469eef7b1b4d26ab1be8970e81c050b0713ab61ce09b2dfa061ee4b0a9cfd775dcb167db07784392ac339c0ab830a9589581e08abaacb58c58346f2d85922
   languageName: node
   linkType: hard
 
