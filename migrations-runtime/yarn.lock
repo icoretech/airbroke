@@ -410,12 +410,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:26.6.6":
-  version: 26.6.6
-  resolution: "@types/node@npm:26.6.6"
+"@types/node@npm:26.6.11":
+  version: 26.6.11
+  resolution: "@types/node@npm:26.6.11"
   dependencies:
     undici-types: "npm:~8.9.0"
-  checksum: 10/07c6c6fc1f5cc89c700ac9ebcebd42b000fef234bf0b80e9461a8f077105f15faf16df95b83745e0c0e37338d1fbc28cb402ef27b5787fd7a57b492c926ff7ae
+  checksum: 10/684887f6f6d1fec32605d9707a11614ededc482b270708d7da0aad6ef2a8641d3aad52c060178450373f88d770743cd43f0d43f9d977da6813b020639e800f58
   languageName: node
   linkType: hard
 
@@ -428,12 +428,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:19.3.0":
-  version: 19.3.0
-  resolution: "@types/react@npm:19.3.0"
+"@types/react@npm:*, @types/react@npm:19.3.3":
+  version: 19.3.3
+  resolution: "@types/react@npm:19.3.3"
   dependencies:
     csstype: "npm:^3.2.2"
-  checksum: 10/2f4589222fd9c512e1ef78e65f334ade8777400add8ec0803fcc3a044761679b7984ba8410a890af24255383c3251a568bb692b60acfa22397ba0a64b2e032bf
+  checksum: 10/d892d32fa78dcc07f937640e32815e8f792d664b661f2cf960d4f84f4799a0b774fbd45ee0ed6490040635038f3cee3a6bea641743be39c6965e8f4575accbcb
   languageName: node
   linkType: hard
 
@@ -664,9 +664,9 @@ __metadata:
   linkType: hard
 
 "csstype@npm:^3.2.2":
-  version: 3.2.3
-  resolution: "csstype@npm:3.2.3"
-  checksum: 10/ad41baf7e2ffac65ab544d79107bf7cd1a4bb9bab9ac3302f59ab4ba655d5e30942a8ae46e10ba160c6f4ecea464cc95b975ca2fefbdeeacd6ac63f12f99fe1f
+  version: 3.2.4
+  resolution: "csstype@npm:3.2.4"
+  checksum: 10/e4d214eacb6607738c2e3f7bb5298358be5c06e2a8370c939c0287103ad8f649f40711c02011d8bcf9ff5512c1af10ccaa32bd87b68f4ff281e2b0429248bda7
   languageName: node
   linkType: hard
 
@@ -870,13 +870,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"effect@npm:3.20.0":
-  version: 3.20.0
-  resolution: "effect@npm:3.20.0"
+"effect@npm:3.22.5":
+  version: 3.22.5
+  resolution: "effect@npm:3.22.5"
   dependencies:
     "@standard-schema/spec": "npm:^1.0.0"
     fast-check: "npm:^3.23.1"
-  checksum: 10/62c1e43f86db04551aaf494a3d2fe296ce3a7d5e25c79c0b41b88e82152af6bb429ce040c7b51fd1b98d3fe93bef768737967f182b4b88ed488689860b55fc26
+  checksum: 10/4c775d3079881f57c15de2ad168306484742540110bbb87d629934de12820a6fadf644caeb90fc0d49e5f7e560efa97683250d91c1459bb8a158cd3995868d96
   languageName: node
   linkType: hard
 
@@ -994,9 +994,9 @@ __metadata:
   linkType: hard
 
 "graceful-fs@npm:^4.2.4":
-  version: 4.2.11
-  resolution: "graceful-fs@npm:4.2.11"
-  checksum: 10/bf152d0ed1dc159239db1ba1f74fdbc40cb02f626770dcd5815c427ce0688c2635a06ed69af364396da4636d0408fcf7d4afdf7881724c3307e46aff30ca49e2
+  version: 4.2.12
+  resolution: "graceful-fs@npm:4.2.12"
+  checksum: 10/80fdd8384a2bbc94cc32dca8b7fdf011c6bc11bb96c296c8329a3c3515010956921c5080c4bd2f1a1becdf7655e5fcc691afc63ebb0c1d3da5d6afe4a17d471f
   languageName: node
   linkType: hard
 
@@ -1321,9 +1321,9 @@ __metadata:
   linkType: hard
 
 "sql-escaper@npm:^1.5.1":
-  version: 1.5.2
-  resolution: "sql-escaper@npm:1.5.2"
-  checksum: 10/83993b0c56e2ef671aebc54f058f43dc0f511f1ebbeb4cb87dfe5392685c5faa283d5b84c216408cfad5dd8e998ca436fe6ed4f86045b0d35f840d5299455c7b
+  version: 1.9.1
+  resolution: "sql-escaper@npm:1.9.1"
+  checksum: 10/683225b58decd9df4f42d98eacd73d3f08d607274f332b083969008cbc992ba570bc24fa5be29e834d511f11cc8518c4e032376458aaa95c9ec9db7fba97e088
   languageName: node
   linkType: hard
 

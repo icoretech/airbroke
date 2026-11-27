@@ -5,5 +5,8 @@
   "dependencies": {
     "prisma": "7.10.1"
   },
+  "resolutions": {
+    "@prisma/config@npm:7.10.1/effect": "3.22.5"
+  },
   "packageManager": "yarn@4.19.0"
 }
