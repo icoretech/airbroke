@@ -191,8 +191,10 @@
 
 /* Sidebar hover/focus/active styles (shadcn sidebar data attributes) */
 @layer utilities {
-  /* Ensure all shadcn buttons show hand cursor without editing components/ui */
-  [data-slot="button"] {
+  [data-slot="button"],
+  [data-sidebar="menu-button"],
+  [data-sidebar="menu-sub-button"],
+  [role="menuitem"] {
     cursor: pointer;
   }
   /* Shared gradient button utility to ensure consistent hover/active */
@@ -243,20 +245,5 @@
     );
     background-color: transparent;
     color: hsl(var(--sidebar-accent-foreground));
-  }
-  /* Ensure pointer cursor on sidebar buttons and dropdown items */
-  [data-sidebar="menu-button"],
-  [data-sidebar="menu-sub-button"],
-  [role="menuitem"] {
-    cursor: pointer;
-  }
-  /* Ensure pointer cursor on sidebar buttons */
-  [data-sidebar="menu-button"],
-  [data-sidebar="menu-sub-button"] {
-    cursor: pointer;
-  }
-  /* Pointer on dropdown items */
-  [role="menuitem"] {
-    cursor: pointer;
   }
 }
