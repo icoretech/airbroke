@@ -34,7 +34,7 @@ const WAYS = [
   {
     name: "Compose",
     where: "make build && make run",
-    text: "The repository's Compose stack runs Airbroke beside PostgreSQL 18.",
+    text: "The repository's Compose stack runs Airbroke beside PostgreSQL 19.",
     href: SETUP_URL,
   },
 ] as const;

@@ -5,6 +5,54 @@ Keep the newest entry first and focus on operator-facing changes: required env
 renames, database migrations, auth changes, removed behavior, and any manual
 validation needed after deploy.
 
+## PostgreSQL 19 in Docker Compose
+
+New Compose installations use PostgreSQL 19. Existing installations keep their
+original volume name. PostgreSQL 19 detects a PostgreSQL 18 cluster on that
+volume and stops before initializing a database.
+
+To upgrade the default single-database development stack, stop Airbroke and
+other writers. Start the old database with a temporary image override and
+create a private backup outside the checkout:
+
+```sh
+docker compose -f docker-compose.yml stop web
+docker compose -f docker-compose.yml -f - up -d --wait db <<'YAML'
+services:
+  db:
+    image: postgres:18
+YAML
+
+backup_dir=$(mktemp -d "${HOME}/airbroke-db-backup.XXXXXX")
+docker compose -f docker-compose.yml exec -T db pg_dump -U postgres -Fc airbroke_development > "$backup_dir/development.dump"
+docker compose -f docker-compose.yml exec -T db pg_restore --list < "$backup_dir/development.dump"
+docker compose -f docker-compose.yml exec -T db psql -U postgres -d airbroke_development -XAtc 'SELECT count(*) FROM occurrences' > "$backup_dir/source-count"
+docker compose -f docker-compose.yml stop db
+```
+
+If the cluster has additional roles, tablespaces, or databases, include them
+in your backup and restore procedure. The commands above cover the database
+and role created by the stock Compose file.
+
+Choose a new, unused volume name for the upgraded database. For the default
+project name, add `AIRBROKE_DB_VOLUME=airbroke_db_data_pg19` to the local
+`.env`. Keep the PostgreSQL 18 volume and backup. Start only the new database
+and restore the archive:
+
+```sh
+docker compose -f docker-compose.yml up -d --wait db
+docker compose -f docker-compose.yml exec -T db pg_restore -U postgres --exit-on-error --single-transaction -d airbroke_development < "$backup_dir/development.dump"
+docker compose -f docker-compose.yml exec -T db psql -U postgres -d airbroke_development -c 'SHOW server_version'
+docker compose -f docker-compose.yml exec -T db psql -U postgres -d airbroke_development -XAtc 'SELECT count(*) FROM occurrences' > "$backup_dir/restored-count"
+diff "$backup_dir/source-count" "$backup_dir/restored-count"
+```
+
+Once the restore succeeds and the counts match, start Airbroke.
+To roll back before resuming writes, stop the stack, remove the volume override
+from `.env`, and run the PostgreSQL 18 version of the Compose file against the
+original volume. Once PostgreSQL 19 accepts writes, rolling back to that volume
+also requires reconciling those writes.
+
 ## November 10, 2026 dependency compatibility review
 
 The final AI SDK patch moves `ai` to 7.0.166 and `@ai-sdk/react` to 4.0.170.

@@ -18,12 +18,26 @@ export CI_QUALITY_CACHE="$RUNNER_TEMP/airbroke-quality-cache"
 unset DOCKER_HOST DOCKER_CONTEXT DOCKER_TLS_VERIFY DOCKER_CERT_PATH
 
 docker compose --env-file /dev/null -f "$root/docker-compose.ci.yml" config --format json > "$tmp/compose.json"
-python3 - "$tmp/compose.json" <<'PY'
+dev_compose=(docker compose --env-file /dev/null -p sample-app -f "$root/docker-compose.yml" --profile test)
+AIRBROKE_DB_VOLUME='' "${dev_compose[@]}" config --format json > "$tmp/default-db.json"
+AIRBROKE_DB_VOLUME=sample-upgraded-volume "${dev_compose[@]}" config --format json > "$tmp/upgraded-db.json"
+python3 - "$tmp/compose.json" "$tmp/default-db.json" "$tmp/upgraded-db.json" <<'PY'
 import json
 import sys
 with open(sys.argv[1]) as handle:
     config = json.load(handle)
 services = config['services']
+for path, expected in zip(sys.argv[2:], ('sample-app_db_data_pg18', 'sample-upgraded-volume')):
+    with open(path) as handle:
+        dev = json.load(handle)
+    database = dev['services']['db']
+    mount = next(volume for volume in database['volumes'] if volume['target'] == '/var/lib/postgresql')
+    assert dev['volumes'][mount['source']]['name'] == expected
+    assert database['image'] == dev['services']['testdb']['image'] == services['pg']['image']
+    for service in (database, dev['services']['testdb'], services['pg']):
+        # The temporary initdb server accepts socket connections before the final server starts.
+        probe = service['healthcheck']['test']
+        assert probe[probe.index('-h') + 1] == '127.0.0.1'
 assert set(services) == {'seed', 'pg', 'quality'}
 for service in services.values():
     assert not service.get('ports')
@@ -47,7 +61,7 @@ assert mounts['/yarn-cache']['source'].endswith('/airbroke-quality-cache/yarn')
 assert mounts['/workspace/.next/cache']['source'].endswith('/airbroke-quality-cache/next')
 assert services['quality']['environment']['DATABASE_URL'].split('@')[1].startswith('pg/')
 assert all(volume['external'] for volume in config['volumes'].values())
-print('PASS real Compose parser: resource bounds, isolation, PG18 mount, external caches')
+print('PASS real Compose parser: resource bounds, isolation, PostgreSQL images and volume selection, external caches')
 PY
 mkdir "$tmp/bin"
 cat > "$tmp/bin/uname" <<'SH'

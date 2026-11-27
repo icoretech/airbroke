@@ -73,6 +73,8 @@ You can also run `yarn start` to test the production build locally on port `3000
 
 ### Docker
 
+The Compose stack uses PostgreSQL 19. If you have an existing PostgreSQL 18 volume, follow the [database upgrade steps](UPGRADE.md#postgresql-19-in-docker-compose) before starting the updated stack.
+
 We publish images for both `amd64` and `arm64` architectures on [ghcr.io](https://github.com/icoretech/airbroke/pkgs/container/airbroke) but in case you want to build your own image you can do so.
 
 You can build the Docker image with:

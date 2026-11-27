@@ -129,9 +129,9 @@ airbroke.notify(new Error('Hello from Airbroke'))`;
                 What are the requirements?
               </summary>
               <p className="mt-2 text-sm text-muted-foreground">
-                The provided container image, PostgreSQL 18, and a configured
-                OAuth provider. Use Docker Compose or the Railway template to
-                set up the application and database together.
+                The provided container image, PostgreSQL 15 or later, and a
+                configured OAuth provider. Use Docker Compose or the Railway
+                template to set up the application and database together.
               </p>
             </details>
             <details className="group rounded-lg border border-border bg-card p-4 open:bg-muted/20">

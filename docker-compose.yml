@@ -1,21 +1,21 @@
 name: airbroke
 
 x-healthcheck-postgres: &postgres_healthcheck
-  test: ["CMD-SHELL", "pg_isready -U postgres"]
+  test: ["CMD", "pg_isready", "-h", "127.0.0.1", "-U", "postgres"]
+  start_period: 1m
   interval: 10s
   timeout: 5s
   retries: 5
 
 services:
   db:
-    image: postgres:18
+    image: postgres:19
     # command: postgres -c 'shared_buffers=128MB'
     environment:
       POSTGRES_PASSWORD: airbroke
       POSTGRES_DB: airbroke_development
     volumes:
-      # Postgres 18+ expects a single mount at /var/lib/postgresql
-      # Do NOT mount /var/lib/postgresql/data for 18+
+      # Keep the historical volume visible so PostgreSQL detects an existing 18 cluster.
       - db_data_pg18:/var/lib/postgresql
       # - ./prisma/pg-init-scripts:/docker-entrypoint-initdb.d
     ports:
@@ -25,7 +25,7 @@ services:
     healthcheck: *postgres_healthcheck
 
   testdb:
-    image: postgres:18
+    image: postgres:19
     profiles:
       - test
     # command: postgres -c 'shared_buffers=128MB'
@@ -93,6 +93,7 @@ services:
 
 volumes:
   db_data_pg18:
+    name: ${AIRBROKE_DB_VOLUME:-${COMPOSE_PROJECT_NAME}_db_data_pg18}
   npm_cache:
   yarn_cache:
 
