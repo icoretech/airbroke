@@ -6,7 +6,7 @@
     "prisma": "7.10.1"
   },
   "resolutions": {
-    "@prisma/config@npm:7.10.1/effect": "3.22.5"
+    "@prisma/config@npm:7.10.1/effect": "4.1.7"
   },
   "packageManager": "yarn@4.19.0"
 }

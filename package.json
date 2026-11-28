@@ -90,7 +90,7 @@
     }
   },
   "resolutions": {
-    "@prisma/config@npm:7.10.1/effect": "3.22.5",
+    "@prisma/config@npm:7.10.1/effect": "4.1.7",
     "@sentry/node@npm:10.78.0/@opentelemetry/api": "1.9.1",
     "minimatch@npm:^10.0.1": "11.0.9",
     "minimatch@npm:^10.2.4": "11.0.9",
