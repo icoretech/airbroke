@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.14](https://github.com/icoretech/airbroke/compare/v1.4.13...v1.4.14) (2026-11-28)
+
+
+### Dependencies
+
+* update dependency lucide-react to v1.82.0 ([#2209](https://github.com/icoretech/airbroke/issues/2209)) ([9361982](https://github.com/icoretech/airbroke/commit/93619824a8ddded82e251f74ae2272ac3dbd43bb))
+* update sentry-javascript monorepo to v11.19.0 ([#2208](https://github.com/icoretech/airbroke/issues/2208)) ([d0e880f](https://github.com/icoretech/airbroke/commit/d0e880fef405733eab578a903c2d286de84039af))
+
 ## [1.4.13](https://github.com/icoretech/airbroke/compare/v1.4.12...v1.4.13) (2026-11-27)
 
 
