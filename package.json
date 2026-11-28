@@ -72,7 +72,7 @@
     "@vitest/coverage-v8": "5.1.2",
     "babel-plugin-react-compiler": "1.0.0",
     "jsdom": "31.0.1",
-    "postcss": "8.5.33",
+    "postcss": "8.5.34",
     "prisma": "7.10.1",
     "react-doctor": "^0.9.23",
     "tailwindcss": "4.3.5",
